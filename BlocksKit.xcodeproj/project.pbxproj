@@ -10,6 +10,10 @@
 		6C3DBF911382F1BA00E6C9AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF901382F1BA00E6C9AA /* Foundation.framework */; };
 		6C3DBFA01382F27300E6C9AA /* NSArray+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */; };
 		6C3DBFA11382F27300E6C9AA /* NSArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */; };
+		6C3DBFAB1382FD3B00E6C9AA /* NSSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFA91382FD3B00E6C9AA /* NSSet+BlocksKit.h */; };
+		6C3DBFAC1382FD3B00E6C9AA /* NSSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */; };
+		6C3DBFB01383010100E6C9AA /* NSDictionary+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */; };
+		6C3DBFB11383010100E6C9AA /* NSDictionary+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFAF1383010000E6C9AA /* NSDictionary+BlocksKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		6C3DBF9A1382F1EA00E6C9AA /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = SOURCE_ROOT; };
 		6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+BlocksKit.m"; sourceTree = "<group>"; };
 		6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+BlocksKit.h"; sourceTree = "<group>"; };
+		6C3DBFA91382FD3B00E6C9AA /* NSSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSet+BlocksKit.h"; sourceTree = "<group>"; };
+		6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSet+BlocksKit.m"; sourceTree = "<group>"; };
+		6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BlocksKit.h"; sourceTree = "<group>"; };
+		6C3DBFAF1383010000E6C9AA /* NSDictionary+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BlocksKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,10 @@
 			children = (
 				6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */,
 				6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */,
+				6C3DBFA91382FD3B00E6C9AA /* NSSet+BlocksKit.h */,
+				6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */,
+				6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */,
+				6C3DBFAF1383010000E6C9AA /* NSDictionary+BlocksKit.m */,
 				6C3DBF931382F1BA00E6C9AA /* Supporting Files */,
 			);
 			path = BlocksKit;
@@ -85,6 +97,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C3DBFA11382F27300E6C9AA /* NSArray+BlocksKit.h in Headers */,
+				6C3DBFAB1382FD3B00E6C9AA /* NSSet+BlocksKit.h in Headers */,
+				6C3DBFB01383010100E6C9AA /* NSDictionary+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +153,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C3DBFA01382F27300E6C9AA /* NSArray+BlocksKit.m in Sources */,
+				6C3DBFAC1382FD3B00E6C9AA /* NSSet+BlocksKit.m in Sources */,
+				6C3DBFB11383010100E6C9AA /* NSDictionary+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

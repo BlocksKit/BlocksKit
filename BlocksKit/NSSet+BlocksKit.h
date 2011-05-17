@@ -6,7 +6,7 @@
 /** Block extensions for NSSet.
  
  Both inspired by and resembling Smalltalk syntax, these utilities
- allow iteration of a set in a logical and concise way that
+ allows for iteration of a set in a logical way that
  saves quite a bit of boilerplate code for filtering or finding
  objects or an object.
  

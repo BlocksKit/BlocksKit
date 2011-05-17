@@ -6,7 +6,7 @@
 /** Block extensions for NSArray.
  
  Both inspired by and resembling Smalltalk syntax, these utilities
- allow iteration of an NSArray in a logical and concise way that
+ allows for iteration of an array in a concise way that
  saves quite a bit of boilerplate code for filtering or finding
  objects or an object.
  
