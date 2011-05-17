@@ -38,4 +38,6 @@
 #import "NSObject+AssociatedObjects.h"
 #import "NSObject+BlockObservation.h"
 
+#import "NSTimer+BlocksKit.h"
+
 #endif

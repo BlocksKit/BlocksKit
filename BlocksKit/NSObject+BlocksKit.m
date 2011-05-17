@@ -69,11 +69,11 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
         if (!cancelled)block();
     };
     
-    wrappingBlock = [[wrappingBlock copy] autorelease];
+    wrappingBlock = [wrappingBlock copy];
     
 	dispatch_after(dTimeDelay(delay), dispatch_get_main_queue(), ^{ wrappingBlock(NO); });
     
-    return wrappingBlock;    
+    return [wrappingBlock autorelease];
 }
 
 + (id)performBlock:(void (^)(id arg))block withObject:(id)anObject afterDelay:(NSTimeInterval)delay {
