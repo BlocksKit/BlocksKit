@@ -4,16 +4,16 @@
 //
 
 /** Block extension for NSDictionary.
- 
+
  Both inspired by and resembling Smalltalk syntax, this utility
  allows iteration of a dictionary in a concise way that
  saves quite a bit of boilerplate code.
- 
+
  Includes code by the following:
- 
+
  - Mirko Kiefer.   <https://github.com/mirkok>.     2011.
  - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
- 
+
  @see NSArray(BlocksKit)
  @see NSSet(BlocksKit)
  */

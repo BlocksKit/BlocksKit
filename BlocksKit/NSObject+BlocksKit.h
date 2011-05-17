@@ -7,17 +7,17 @@
 //
 
 /** Block execution on *any* object.
- 
+
  This category overhauls the `performSelector:` utilities on
  NSObject to instead use blocks.  Not only are the blocks performed
  extremely speedily, thread-safely, and asynchronously using
  Grand Central Dispatch, but each convenience method also returns
  a pointer that can be used to cancel the execution before it happens!
- 
+
  @warning *Important:* Use of the **self** reference in a block will
  reference the current implementation context.  The first argument,
  `obj`, should be used instead.
- 
+
  Includes code by the following:
 
  - Pete Steinberger. <https://github.com/steipete>.   2011. MIT.
