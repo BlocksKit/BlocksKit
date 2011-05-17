@@ -33,4 +33,6 @@
 
 #import "BKMacros.h"
 
+#import "NSObject+BlocksKit.h"
+
 #endif
