@@ -1,0 +1,225 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6C3DBF911382F1BA00E6C9AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF901382F1BA00E6C9AA /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlocksKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C3DBF901382F1BA00E6C9AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6C3DBF941382F1BA00E6C9AA /* BlocksKit-Prefix.pch */ = {isa = PBXFileReference; path = "BlocksKit-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6C3DBF8A1382F1BA00E6C9AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C3DBF911382F1BA00E6C9AA /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6C3DBF821382F1BA00E6C9AA = {
+			isa = PBXGroup;
+			children = (
+				6C3DBF921382F1BA00E6C9AA /* BlocksKit */,
+				6C3DBF8F1382F1BA00E6C9AA /* Frameworks */,
+				6C3DBF8E1382F1BA00E6C9AA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6C3DBF8E1382F1BA00E6C9AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6C3DBF8F1382F1BA00E6C9AA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C3DBF901382F1BA00E6C9AA /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6C3DBF921382F1BA00E6C9AA /* BlocksKit */ = {
+			isa = PBXGroup;
+			children = (
+				6C3DBF931382F1BA00E6C9AA /* Supporting Files */,
+			);
+			path = BlocksKit;
+			sourceTree = "<group>";
+		};
+		6C3DBF931382F1BA00E6C9AA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6C3DBF941382F1BA00E6C9AA /* BlocksKit-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6C3DBF8B1382F1BA00E6C9AA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6C3DBF8C1382F1BA00E6C9AA /* BlocksKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C3DBF971382F1BA00E6C9AA /* Build configuration list for PBXNativeTarget "BlocksKit" */;
+			buildPhases = (
+				6C3DBF891382F1BA00E6C9AA /* Sources */,
+				6C3DBF8A1382F1BA00E6C9AA /* Frameworks */,
+				6C3DBF8B1382F1BA00E6C9AA /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BlocksKit;
+			productName = BlocksKit;
+			productReference = 6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6C3DBF841382F1BA00E6C9AA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Dizzy Technology";
+			};
+			buildConfigurationList = 6C3DBF871382F1BA00E6C9AA /* Build configuration list for PBXProject "BlocksKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6C3DBF821382F1BA00E6C9AA;
+			productRefGroup = 6C3DBF8E1382F1BA00E6C9AA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6C3DBF8C1382F1BA00E6C9AA /* BlocksKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6C3DBF891382F1BA00E6C9AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6C3DBF951382F1BA00E6C9AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6C3DBF961382F1BA00E6C9AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6C3DBF981382F1BA00E6C9AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/BlocksKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BlocksKit/BlocksKit-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6C3DBF991382F1BA00E6C9AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/BlocksKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BlocksKit/BlocksKit-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6C3DBF871382F1BA00E6C9AA /* Build configuration list for PBXProject "BlocksKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C3DBF951382F1BA00E6C9AA /* Debug */,
+				6C3DBF961382F1BA00E6C9AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C3DBF971382F1BA00E6C9AA /* Build configuration list for PBXNativeTarget "BlocksKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C3DBF981382F1BA00E6C9AA /* Debug */,
+				6C3DBF991382F1BA00E6C9AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6C3DBF841382F1BA00E6C9AA /* Project object */;
+}
