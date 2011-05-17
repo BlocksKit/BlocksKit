@@ -77,7 +77,7 @@
 
  @param initial The value of the reduction at its start.
  @param block A block that takes the current sum and the next object to return the new sum.
- @return 
+ @return An accumulated value.
  */
 - (id)reduce:(id)initial withBlock:(id (^)(id sum, id obj))block;
 
