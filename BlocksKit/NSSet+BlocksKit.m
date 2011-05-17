@@ -38,6 +38,23 @@
     return [result autorelease];
 }
 
+- (NSSet *)reject:(BOOL (^)(id obj))block {
+    NSMutableSet *list = [[NSMutableSet alloc] initWithCapacity:self.count];
+    for (id obj in self) {
+        if (!block(obj))
+            [list addObject:obj];
+    }
+    
+    if (!list.count) {
+        [list release];
+        return nil;
+    }
+    
+    NSSet *result = [list copy];
+    [list release];
+    return [result autorelease];
+}
+
 - (NSSet *)map:(id (^)(id obj))block {
     NSMutableSet *list = [[NSMutableSet alloc] initWithCapacity:self.count];
     for (id obj in self) {

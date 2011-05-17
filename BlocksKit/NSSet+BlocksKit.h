@@ -44,6 +44,20 @@
  */
 - (NSSet *)select:(BOOL (^)(id obj))block;
 
+/** Loops through a set and returns a set of all objects but the ones matching the block.
+ 
+ This selector performs *literally* the exact same function as `-select:` but in reverse.
+ 
+ This is useful, as one may expect, for removing objects from a set:
+     NSSet *new = [reusableWebViews reject:^BOOL(id obj) {
+       return ([obj isLoading]);
+     }];
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return Returns an array of all objects not found, `nil` if all are excluded.
+ */
+- (NSSet *)reject:(BOOL (^)(id obj))block;
+
 /** Call the block once for each object and create a set of the return values.
  
  This is sometimes referred to as a transform, mutating one of each object:

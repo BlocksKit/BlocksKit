@@ -44,6 +44,20 @@
  */
 - (NSArray *)select:(BOOL (^)(id obj))block;
 
+/** Loops through an array and returns an array of all objects but the ones matching the block.
+ 
+ This selector performs *literally* the exact same function as `-select:` but in reverse.
+ 
+ This is useful, as one may expect, for removing objects from an array.
+     NSArray *new = [computers reject:^BOOL(id obj) {
+       return ([obj isUgly]);
+     }];
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return Returns an array of all objects not found, `nil` if all are excluded.
+ */
+- (NSArray *)reject:(BOOL (^)(id obj))block;
+
 /** Call the block once for each object and create an array of the return values.
  
  This is sometimes referred to as a transform, mutating one of each object:
