@@ -14,6 +14,8 @@
 		6C3DBFAC1382FD3B00E6C9AA /* NSSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */; };
 		6C3DBFB01383010100E6C9AA /* NSDictionary+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */; };
 		6C3DBFB11383010100E6C9AA /* NSDictionary+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFAF1383010000E6C9AA /* NSDictionary+BlocksKit.m */; };
+		6C3DBFB31383044600E6C9AA /* BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFB21383044600E6C9AA /* BlocksKit.h */; };
+		6C3DBFB51383050F00E6C9AA /* BKMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFB41383050F00E6C9AA /* BKMacros.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSet+BlocksKit.m"; sourceTree = "<group>"; };
 		6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BlocksKit.h"; sourceTree = "<group>"; };
 		6C3DBFAF1383010000E6C9AA /* NSDictionary+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BlocksKit.m"; sourceTree = "<group>"; };
+		6C3DBFB21383044600E6C9AA /* BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlocksKit.h; sourceTree = "<group>"; };
+		6C3DBFB41383050F00E6C9AA /* BKMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */,
 				6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */,
 				6C3DBFAF1383010000E6C9AA /* NSDictionary+BlocksKit.m */,
+				6C3DBFB41383050F00E6C9AA /* BKMacros.h */,
+				6C3DBFB21383044600E6C9AA /* BlocksKit.h */,
 				6C3DBF931382F1BA00E6C9AA /* Supporting Files */,
 			);
 			path = BlocksKit;
@@ -99,6 +105,8 @@
 				6C3DBFA11382F27300E6C9AA /* NSArray+BlocksKit.h in Headers */,
 				6C3DBFAB1382FD3B00E6C9AA /* NSSet+BlocksKit.h in Headers */,
 				6C3DBFB01383010100E6C9AA /* NSDictionary+BlocksKit.h in Headers */,
+				6C3DBFB31383044600E6C9AA /* BlocksKit.h in Headers */,
+				6C3DBFB51383050F00E6C9AA /* BKMacros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
