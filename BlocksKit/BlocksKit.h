@@ -31,4 +31,6 @@
 #import "NSSet+BlocksKit.h"
 #import "NSDictionary+BlocksKit.h"
 
+#import "BKMacros.h"
+
 #endif
