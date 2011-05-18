@@ -11,7 +11,9 @@
  using the methods here, you must add buttons using
  addButtonWithTitle:block: to make sure nothing breaks.
 
- - Loosely based on Landon Fullers ["Using Blocks"](http://landonf.bikemonkey.org/code/iphone/Using_Blocks_1.20090704.html).
+ Includes code by the following:
+
+ - Landon Fuller, ["Using Blocks"](http://landonf.bikemonkey.org/code/iphone/Using_Blocks_1.20090704.html).
  - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
  - Zach Waldowski.    <https://github.com/zwaldowski>. 2011. MIT.
  */
