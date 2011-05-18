@@ -4,13 +4,12 @@
 //
 
 /** Block control event handling for UIControl.
- 
- This set of extensions allows for two pathways of block
- handling for a UIControl instance.  There's the basic
- setup, which adds a block 
- 
+
+ This set of extensions allows for block: simply
+ add it using addEventHandler:forControlEvents: and go!
+
  Includes code by the following:
- 
+
  - Kevin O'Neill.  <https://github.com/kevinoneill>. 2011. BSD.
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
  */
