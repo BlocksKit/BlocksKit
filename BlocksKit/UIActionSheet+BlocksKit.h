@@ -54,7 +54,7 @@
 /** Add a new button with an associated code block.
 
  @param title The text of the button.
- @param handler A block of code.
+ @param block A block of code.
  @see addButtonWithTitle:
  */
 - (void)addButtonWithTitle:(NSString *)title handler:(void (^)())block;
@@ -66,7 +66,7 @@
  will remain.
 
  @param title The text of the button.
- @param handler A block of code.
+ @param block A block of code.
  */
 - (void)setDestructiveButtonWithTitle:(NSString *)title handler:(void (^)())block;
 
@@ -82,7 +82,7 @@
  set to `nil`, it will automatically be localized.
  
  @param title The text of the button.
- @param handler A block of code.
+ @param block A block of code.
  @see addButtonWithTitle:
  */
 - (void)setCancelButtonWithTitle:(NSString *)title handler:(void (^)())block;

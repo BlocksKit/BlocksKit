@@ -65,7 +65,7 @@
 /** Add a new button with an associated code block.
  
  @param title The text of the button.
- @param handler A block of code.
+ @param block A block of code.
  @see addButtonWithTitle:
  */
 - (void)addButtonWithTitle:(NSString *)title handler:(void (^)())block;
@@ -76,7 +76,7 @@
  the cancel button is configured already to do nothing.
 
  @param title The text of the button.
- @param handler A block of code.
+ @param block A block of code.
  @see addButtonWithTitle:
  */
 - (void)setCancelButtonWithTitle:(NSString *)title handler:(void (^)())block;
