@@ -9,15 +9,15 @@
  for an instance of UIAlertView without the implementation
  of a delegate.  Any time you instantiate a UIAlertView
  using the methods here, you must add buttons using
- addButtonWithTitle:block: to make sure nothing breaks.
+ addButtonWithTitle:handler: to make sure nothing breaks.
  
  A typical invocation might go like this:
      UIActionSheet *testSheet = [UIActionSheet sheetWithTitle:@"Please select one."];
-     [testSheet addButtonWithTitle:@"Zip" block:^void() { NSLog(@"Zip!"); }];
-     [testSheet addButtonWithTitle:@"Zap" block:^void() { NSLog(@"Zap!"); }];
-     [testSheet addButtonWithTitle:@"Zop" block:^void() { NSLog(@"Zop!"); }];
-     [testSheet setDestructiveButtonWithTitle:@"No!" block:^void() { NSLog(@"Fine!"); }];
-     [testSheet setCancelButtonWithTitle:nil block:^void() { NSLog(@"Never mind, then!"); }];
+     [testSheet addButtonWithTitle:@"Zip" handler:^void() { NSLog(@"Zip!"); }];
+     [testSheet addButtonWithTitle:@"Zap" handler:^void() { NSLog(@"Zap!"); }];
+     [testSheet addButtonWithTitle:@"Zop" handler:^void() { NSLog(@"Zop!"); }];
+     [testSheet setDestructiveButtonWithTitle:@"No!" handler:^void() { NSLog(@"Fine!"); }];
+     [testSheet setCancelButtonWithTitle:nil handler:^void() { NSLog(@"Never mind, then!"); }];
      [testSheet showInView:self.view];
  
  Includes code by the following:
@@ -54,21 +54,21 @@
 /** Add a new button with an associated code block.
 
  @param title The text of the button.
- @param block A block of code.
+ @param handler A block of code.
  @see addButtonWithTitle:
  */
-- (void)addButtonWithTitle:(NSString *)title block:(void (^)()) block;
+- (void)addButtonWithTitle:(NSString *)title handler:(void (^)())block;
 
 /** Set the destructive (red) button with an associated code block.
 
- If setDestructiveButtonWithTitle:block: is called multiple times, the
+ If setDestructiveButtonWithTitle:handler: is called multiple times, the
  previously added destructive buttons will become normal buttons and
  will remain.
 
  @param title The text of the button.
- @param block A block of code.
+ @param handler A block of code.
  */
-- (void)setDestructiveButtonWithTitle:(NSString *)title block:(void (^)())block;
+- (void)setDestructiveButtonWithTitle:(NSString *)title handler:(void (^)())block;
 
 /** Set the title and trigger of the cancel button.
  
@@ -82,9 +82,9 @@
  set to `nil`, it will automatically be localized.
  
  @param title The text of the button.
- @param block A block of code.
+ @param handler A block of code.
  @see addButtonWithTitle:
  */
-- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block;
+- (void)setCancelButtonWithTitle:(NSString *)title handler:(void (^)())block;
 
 @end

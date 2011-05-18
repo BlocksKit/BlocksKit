@@ -9,17 +9,17 @@
  for an instance of UIAlertView without the implementation
  of a delegate.  Any time you instantiate a UIAlertView
  using the methods here, you must add buttons using
- addButtonWithTitle:block: otherwise nothing will happen.
+ addButtonWithTitle:handler: otherwise nothing will happen.
  
  A typical invocation will go like this:
      UIAlertView *testView = [UIAlertView alertWithTitle:@"Application Alert" message:@"This app will explode in 42 seconds."];
-     [testView setCancelButtonWithTitle:@"Oh No!" block:^void() { NSLog(@"Boom!"); }];
+     [testView setCancelButtonWithTitle:@"Oh No!" handler:^void() { NSLog(@"Boom!"); }];
      [testView show];
  
  A more traditional, and more useful, modal dialog looks like so:
     UIAlertView *testView = [UIAlertView alertWithTitle:@"Very important!" message:@"Do you like chocolate?"];
-    [testView addButtonWithTitle:@"Yes" block:^void() { NSLog(@"Yay!"); }];
-    [testView addButtonWithTitle:@"No" block:^void() { NSLog(@"We hate you."); }];
+    [testView addButtonWithTitle:@"Yes" handler:^void() { NSLog(@"Yay!"); }];
+    [testView addButtonWithTitle:@"No" handler:^void() { NSLog(@"We hate you."); }];
     [testView show];
 
  Includes code by the following:
@@ -65,10 +65,10 @@
 /** Add a new button with an associated code block.
  
  @param title The text of the button.
- @param block A block of code.
+ @param handler A block of code.
  @see addButtonWithTitle:
  */
-- (void)addButtonWithTitle:(NSString *)title block:(void (^)())block;
+- (void)addButtonWithTitle:(NSString *)title handler:(void (^)())block;
 
 /** Set the title and trigger of the cancel button.
 
@@ -76,10 +76,10 @@
  the cancel button is configured already to do nothing.
 
  @param title The text of the button.
- @param block A block of code.
+ @param handler A block of code.
  @see addButtonWithTitle:
  */
-- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block;
+- (void)setCancelButtonWithTitle:(NSString *)title handler:(void (^)())block;
 
 
 @end

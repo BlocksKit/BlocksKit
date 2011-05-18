@@ -24,20 +24,20 @@ static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
     return [self initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 }
 
-- (void)addButtonWithTitle:(NSString *)title block:(void (^)()) block {
+- (void)addButtonWithTitle:(NSString *)title handler:(void (^)()) block {
     NSAssert(title.length, @"A button without a title cannot be added to the action sheet.");
     NSInteger index = [self addButtonWithTitle:title];
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:[NSNumber numberWithInteger:index]];
 }
 
-- (void)setDestructiveButtonWithTitle:(NSString *) title block:(void (^)()) block {
+- (void)setDestructiveButtonWithTitle:(NSString *) title handler:(void (^)()) block {
     NSAssert(title.length, @"A button without a title cannot be added to the action sheet.");
     NSInteger index = [self addButtonWithTitle:title];
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:[NSNumber numberWithInteger:index]];
     self.destructiveButtonIndex = index;
 }
 
-- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block {
+- (void)setCancelButtonWithTitle:(NSString *)title handler:(void (^)())block {
     NSInteger index = -1;
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && !title)
         title = NSLocalizedString(@"Cancel", nil);
