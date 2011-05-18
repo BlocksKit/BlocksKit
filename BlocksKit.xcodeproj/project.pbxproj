@@ -26,6 +26,8 @@
 		6C3DBFE11383265B00E6C9AA /* NSTimer+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */; };
 		6C3DBFE41383299E00E6C9AA /* UIAlertView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFE21383299C00E6C9AA /* UIAlertView+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C3DBFE51383299E00E6C9AA /* UIAlertView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */; };
+		6C6AAD8C13835D1300203261 /* UIActionSheet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C6AAD8D13835D1300203261 /* UIActionSheet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+BlocksKit.m"; sourceTree = "<group>"; };
 		6C3DBFE21383299C00E6C9AA /* UIAlertView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BlocksKit.h"; sourceTree = "<group>"; };
 		6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+BlocksKit.m"; sourceTree = "<group>"; };
+		6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+BlocksKit.h"; sourceTree = "<group>"; };
+		6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+BlocksKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,8 @@
 				6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */,
 				6C3DBFE21383299C00E6C9AA /* UIAlertView+BlocksKit.h */,
 				6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */,
+				6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */,
+				6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */,
 				6C3DBF931382F1BA00E6C9AA /* Supporting Files */,
 			);
 			path = BlocksKit;
@@ -139,6 +145,7 @@
 				6C3DBFB51383050F00E6C9AA /* BKMacros.h in Headers */,
 				6C3DBFB81383085900E6C9AA /* NSObject+BlocksKit.h in Headers */,
 				6C3DBFD4138318CB00E6C9AA /* NSObject+AssociatedObjects.h in Headers */,
+				6C6AAD8C13835D1300203261 /* UIActionSheet+BlocksKit.h in Headers */,
 				6C3DBFDC1383202400E6C9AA /* NSObject+BlockObservation.h in Headers */,
 				6C3DBFE01383265B00E6C9AA /* NSTimer+BlocksKit.h in Headers */,
 				6C3DBFE41383299E00E6C9AA /* UIAlertView+BlocksKit.h in Headers */,
@@ -203,6 +210,7 @@
 				6C3DBFDD1383202400E6C9AA /* NSObject+BlockObservation.m in Sources */,
 				6C3DBFE11383265B00E6C9AA /* NSTimer+BlocksKit.m in Sources */,
 				6C3DBFE51383299E00E6C9AA /* UIAlertView+BlocksKit.m in Sources */,
+				6C6AAD8D13835D1300203261 /* UIActionSheet+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -41,5 +41,6 @@
 #import "NSTimer+BlocksKit.h"
 
 #import "UIAlertView+BlocksKit.h"
+#import "UIActionSheet+BlocksKit.h"
 
 #endif
