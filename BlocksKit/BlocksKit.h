@@ -29,14 +29,16 @@
 
 #import "NSObject+BlocksKit.h"
 
+#import "NSObject+AssociatedObjects.h"
+#import "NSObject+BlockObservation.h"
+
 #import "NSArray+BlocksKit.h"
 #import "NSSet+BlocksKit.h"
 #import "NSDictionary+BlocksKit.h"
 
 #import "BKMacros.h"
 
-#import "NSObject+AssociatedObjects.h"
-#import "NSObject+BlockObservation.h"
+#import "NSInvocation+BlocksKit.h"
 
 #import "NSTimer+BlocksKit.h"
 
