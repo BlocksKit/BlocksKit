@@ -24,16 +24,9 @@ static char kAlertViewCancelBlockKey;
     return self;
 }
 
-- (void)setCancelBlock:(void (^)())block {
-    void (^cancel)() = [self associatedValueForKey:&kAlertViewCancelBlockKey];
-    if (cancel != block) {
-        [self associateCopyOfValue:block withKey:&kAlertViewCancelBlockKey];
-    }
-}
-
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())block {
     NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
-
+    
     NSMutableArray *blocks = [self associatedValueForKey:&kAlertViewBlockArrayKey];
     if (!blocks) {
         blocks = [[NSMutableArray alloc] init];
@@ -47,6 +40,13 @@ static char kAlertViewCancelBlockKey;
         [blocks addObject:[NSNull null]];
     
     [self addButtonWithTitle:title];
+}
+
+- (void)setCancelBlock:(void (^)())block {
+    void (^cancel)() = [self associatedValueForKey:&kAlertViewCancelBlockKey];
+    if (cancel != block) {
+        [self associateCopyOfValue:block withKey:&kAlertViewCancelBlockKey];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {    
