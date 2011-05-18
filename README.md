@@ -33,7 +33,11 @@ Installation
 Documentation
 =============
 
-Documentation is exhaustive and done using [AppleDoc](https://github.com/tomaz/appledoc).  I'll be adding both an online HTML set and Xcode Documentation set shortly.
+Documentation is exhaustive and done using [AppleDoc](https://github.com/tomaz/appledoc).  
+
+An Xcode 4 compatible documentation set is available [using this Atom link](http://www.dizzytechnology.com/data/com.dizzytech.BlocksKit.atom).  Add it to Xcode 4's preferences and it'll download automatically.
+
+You can also view the documentation online [at my website](http://dizzytechnology.com/data/BlocksKit).
 
 Contributors
 ============
