@@ -20,18 +20,18 @@
 
  @return Newly initialized item with the specified properties.
  @param systemItem The system item to use as the item representation. One of the constants defined in UIBarButtonSystemItem.
- @param handler The block that gets fired on the button press.
+ @param action The block that gets fired on the button press.
  */
 - (id)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(void (^)(id sender))action;
 
 /** Creates and returns a configured item using the specified image and style.
  
  @return Newly initialized item with the specified properties.
- @param image.  The item’s image. If nil an image is not displayed.
+ @param image The item’s image. If nil an image is not displayed.
  If this image is too large to fit on the bar, it is scaled to fit
  The size of a toolbar and navigation bar image is 20 x 20 points.
  @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
- @param handler The block that gets fired on the button press.
+ @param action The block that gets fired on the button press.
  */
 - (id)initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action;
 
@@ -40,7 +40,7 @@
  @return Newly initialized item with the specified properties.
  @param title The text displayed on the button item.
  @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
- @param handler The block that gets fired on the button press.
+ @param action The block that gets fired on the button press.
  */
 - (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action;
 

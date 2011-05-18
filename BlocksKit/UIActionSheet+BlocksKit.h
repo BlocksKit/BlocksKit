@@ -43,7 +43,6 @@
 
  @param title The header of the action sheet.
  @return An instantiated actionSheet.
- @see initWithTitle:delegate:cancelButtonTitle:destructiveButtonTitle:otherButtonTitles:
  */
 - (id)initWithTitle:(NSString *)title;
 
@@ -55,7 +54,6 @@
 
  @param title The text of the button.
  @param block A block of code.
- @see addButtonWithTitle:
  */
 - (void)addButtonWithTitle:(NSString *)title handler:(void (^)())block;
 
@@ -83,7 +81,6 @@
  
  @param title The text of the button.
  @param block A block of code.
- @see addButtonWithTitle:
  */
 - (void)setCancelButtonWithTitle:(NSString *)title handler:(void (^)())block;
 

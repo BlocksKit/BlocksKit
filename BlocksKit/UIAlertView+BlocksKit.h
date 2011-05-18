@@ -54,7 +54,6 @@
  @param title The title of the alert view.
  @param message The message content of the alert.
  @return An instantiated alert view.
- @see initWithTitle:message:delegate:cancelButtonTitle:otherButtonTitles:
  */
 - (id)initWithTitle:(NSString *)title message:(NSString *)message;
 
@@ -66,7 +65,6 @@
  
  @param title The text of the button.
  @param block A block of code.
- @see addButtonWithTitle:
  */
 - (void)addButtonWithTitle:(NSString *)title handler:(void (^)())block;
 
@@ -77,7 +75,6 @@
 
  @param title The text of the button.
  @param block A block of code.
- @see addButtonWithTitle:
  */
 - (void)setCancelButtonWithTitle:(NSString *)title handler:(void (^)())block;
 

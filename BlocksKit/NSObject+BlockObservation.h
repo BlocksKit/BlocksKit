@@ -31,7 +31,7 @@
  Adds a block observer that notifies executes the block immediately
  upon a state change.
 
- @see -addObserverForKeyPath:onQueue:task;
+ @see addObserverForKeyPath:onQueue:task
  @param keyPath A unique key identifying the observer to the reciever.
  @param task A block responding to the reciever and the KVO change.
  @return Returns a globally unique process identifier for removing

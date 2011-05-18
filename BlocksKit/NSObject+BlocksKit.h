@@ -42,7 +42,7 @@
 /** Performs a block on the current object using an
 
  @param block A single-argument code block, where `obj` is the reciever.
- @param object Any object for use in the block.
+ @param anObject Any object for use in the block.
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */
@@ -78,7 +78,7 @@
 
  @see performBlock:withObject:afterDelay:
  @param block A single-argument code block, with **NO** reciever.
- @param object Any object for use in the block.
+ @param anObject Any object for use in the block.
  @param delay A measure in seconds.
  @return Returns the object if found, `nil` otherwise.
  */

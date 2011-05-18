@@ -15,9 +15,7 @@
 /** An autoreleased gesture recognizer that will call the given block.
   
  @return An initialized and autoreleased instance of a concrete UIGestureRecognizer subclass, or `nil`.
- @param handler The block which handles an executed gesture.
- @see initWithTarget:action:
- @see addHandler:
+ @param block The block which handles an executed gesture.
  */
 + (id)recognizerWithHandler:(void (^)(id recognizer))block;
 
@@ -26,9 +24,7 @@
  An alternative to the designated initializer.
 
  @return An initialized instance of a concrete UIGestureRecognizer subclass or `nil`.
- @param handler The block which handles an executed gesture.
- @see initWithTarget:action:
- @see addHandler:
+ @param block The block which handles an executed gesture.
  */
 - (id)initWithHandler:(void (^)(id recognizer))block;
 
