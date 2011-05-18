@@ -9,7 +9,18 @@
  for an instance of UIAlertView without the implementation
  of a delegate.  Any time you instantiate a UIAlertView
  using the methods here, you must add buttons using
- addButtonWithTitle:block: to make sure nothing breaks.
+ addButtonWithTitle:block: otherwise nothing will happen.
+ 
+ A typical invocation will go like this:
+     UIAlertView *testView = [UIAlertView alertWithTitle:@"Application Alert" message:@"This app will explode in 42 seconds."];
+     [testView setCancelButtonWithTitle:@"Oh No!" block:^void() { NSLog(@"Boom!"); }];
+     [testView show];
+ 
+ A more traditional, and more useful, modal dialog looks like so:
+    UIAlertView *testView = [UIAlertView alertWithTitle:@"Very important!" message:@"Do you like chocolate?"];
+    [testView addButtonWithTitle:@"Yes" block:^void() { NSLog(@"Yay!"); }];
+    [testView addButtonWithTitle:@"No" block:^void() { NSLog(@"We hate you."); }];
+    [testView show];
 
  Includes code by the following:
 
@@ -53,23 +64,22 @@
 
 /** Add a new button with an associated code block.
  
- @warning *Important:* Even if you intend for a button to do nothing,
- do not use the regular addButtonWithTitle: method.  Pass `nil` in
- place of the block argument instead.
- 
  @param title The text of the button.
  @param block A block of code.
+ @see addButtonWithTitle:
  */
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())block;
 
-/** Set the block triggered by the cancel button.
+/** Set the title and trigger of the cancel button.
 
  `block` can be set to `nil`, but this is generally useless as
  the cancel button is configured already to do nothing.
 
+ @param title The text of the button.
  @param block A block of code.
+ @see addButtonWithTitle:
  */
-- (void)setCancelBlock:(void (^)())block;
+- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block;
 
 
 @end

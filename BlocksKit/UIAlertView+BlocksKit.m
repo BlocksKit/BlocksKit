@@ -24,7 +24,7 @@ static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
 }
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message {
-    return [self initWithTitle:title message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil];
+    return [self initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
 }
 
 - (void)addButtonWithTitle:(NSString *)title block:(void (^)())block {
@@ -33,8 +33,11 @@ static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:[NSNumber numberWithInteger:index]];
 }
 
-- (void)setCancelBlock:(void (^)())block {
+- (void)setCancelButtonWithTitle:(NSString *)title block:(void (^)())block {
+    if (!title) title = NSLocalizedString(@"Cancel", nil);
+    NSInteger index = [self addButtonWithTitle:title];
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kAlertViewCancelBlockKey];
+    self.cancelButtonIndex = index;
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
