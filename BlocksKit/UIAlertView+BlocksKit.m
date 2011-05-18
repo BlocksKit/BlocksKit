@@ -15,11 +15,11 @@
 static char kAlertViewBlockDictionaryKey; 
 static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
 
-+ (UIAlertView *)alertWithTitle:(NSString *)title {
++ (id)alertWithTitle:(NSString *)title {
     return [[[UIAlertView alloc] initWithTitle:title message:nil] autorelease];
 }
 
-+ (UIAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message {
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message {
     return [[[UIAlertView alloc] initWithTitle:title message:message] autorelease];
 }
 

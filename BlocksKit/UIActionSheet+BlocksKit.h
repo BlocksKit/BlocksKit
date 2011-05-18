@@ -37,7 +37,7 @@
  @param title The header of the action sheet.
  @return A newly created action sheet.
  */
-+ (UIActionSheet *)sheetWithTitle:(NSString *)title;
++ (id)sheetWithTitle:(NSString *)title;
 
 /** Returns a configured action sheet with only a title and cancel button.
 

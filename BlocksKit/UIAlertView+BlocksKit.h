@@ -39,7 +39,7 @@
  @param title The title of the alert view.
  @return A newly created alert view.
  */
-+ (UIAlertView *)alertWithTitle:(NSString *)title;
++ (id)alertWithTitle:(NSString *)title;
 
 /** Creates and returns a new alert view with only a title, message, and cancel button.
 
@@ -47,7 +47,7 @@
  @param message The message content of the alert.
  @return A newly created alert view.
  */
-+ (UIAlertView *)alertWithTitle:(NSString *)title message:(NSString *)message;
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message;
 
 /** Returns a configured alert view with only a title, message, and cancel button.
  

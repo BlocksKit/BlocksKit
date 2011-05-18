@@ -16,7 +16,7 @@ static char kActionSheetBlockDictionaryKey;
 static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
 
 
-+ (UIActionSheet *)sheetWithTitle:(NSString *)title {
++ (id)sheetWithTitle:(NSString *)title {
     return [[[UIActionSheet alloc] initWithTitle:title] autorelease];
 }
 
