@@ -30,7 +30,7 @@
 
 /** Loops through an array and returns the object matching the block.
  
- @param block A single-argument, BOOL-returning code block.
+ @param block A single-argument, `BOOL`-returning code block.
  @return Returns the object if found, `nil` otherwise.
  @see select:
  */
@@ -46,7 +46,7 @@
 
 /** Loops through an array and returns an array of all objects but the ones matching the block.
  
- This selector performs *literally* the exact same function as `-select:` but in reverse.
+ This selector performs *literally* the exact same function as select: but in reverse.
  
  This is useful, as one may expect, for removing objects from an array.
      NSArray *new = [computers reject:^BOOL(id obj) {
