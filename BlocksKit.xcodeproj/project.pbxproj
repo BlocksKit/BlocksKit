@@ -30,6 +30,14 @@
 		6C6AAD8D13835D1300203261 /* UIActionSheet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */; };
 		6C6AAD901383706100203261 /* NSInvocation+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD8E1383706000203261 /* NSInvocation+BlocksKit.h */; };
 		6C6AAD911383706100203261 /* NSInvocation+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD8F1383706000203261 /* NSInvocation+BlocksKit.m */; };
+		6C6AAD94138372B400203261 /* UIControl+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD92138372B400203261 /* UIControl+BlocksKit.h */; };
+		6C6AAD95138372B400203261 /* UIControl+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD93138372B400203261 /* UIControl+BlocksKit.m */; };
+		6C6AAD98138372C400203261 /* UIBarButtonItem+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD96138372C300203261 /* UIBarButtonItem+BlocksKit.h */; };
+		6C6AAD99138372C400203261 /* UIBarButtonItem+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD97138372C400203261 /* UIBarButtonItem+BlocksKit.m */; };
+		6C6AAD9C138372D200203261 /* UIGestureRecognizer+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD9A138372D200203261 /* UIGestureRecognizer+BlocksKit.h */; };
+		6C6AAD9D138372D200203261 /* UIGestureRecognizer+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD9B138372D200203261 /* UIGestureRecognizer+BlocksKit.m */; };
+		6C6AADA0138372E400203261 /* UIView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD9E138372E300203261 /* UIView+BlocksKit.h */; };
+		6C6AADA1138372E400203261 /* UIView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD9F138372E300203261 /* UIView+BlocksKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +67,14 @@
 		6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+BlocksKit.m"; sourceTree = "<group>"; };
 		6C6AAD8E1383706000203261 /* NSInvocation+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+BlocksKit.h"; sourceTree = "<group>"; };
 		6C6AAD8F1383706000203261 /* NSInvocation+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+BlocksKit.m"; sourceTree = "<group>"; };
+		6C6AAD92138372B400203261 /* UIControl+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+BlocksKit.h"; sourceTree = "<group>"; };
+		6C6AAD93138372B400203261 /* UIControl+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+BlocksKit.m"; sourceTree = "<group>"; };
+		6C6AAD96138372C300203261 /* UIBarButtonItem+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+BlocksKit.h"; sourceTree = "<group>"; };
+		6C6AAD97138372C400203261 /* UIBarButtonItem+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+BlocksKit.m"; sourceTree = "<group>"; };
+		6C6AAD9A138372D200203261 /* UIGestureRecognizer+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+BlocksKit.h"; sourceTree = "<group>"; };
+		6C6AAD9B138372D200203261 /* UIGestureRecognizer+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+BlocksKit.m"; sourceTree = "<group>"; };
+		6C6AAD9E138372E300203261 /* UIView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BlocksKit.h"; sourceTree = "<group>"; };
+		6C6AAD9F138372E300203261 /* UIView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BlocksKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +139,14 @@
 				6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */,
 				6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */,
 				6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */,
+				6C6AAD92138372B400203261 /* UIControl+BlocksKit.h */,
+				6C6AAD93138372B400203261 /* UIControl+BlocksKit.m */,
+				6C6AAD96138372C300203261 /* UIBarButtonItem+BlocksKit.h */,
+				6C6AAD97138372C400203261 /* UIBarButtonItem+BlocksKit.m */,
+				6C6AAD9A138372D200203261 /* UIGestureRecognizer+BlocksKit.h */,
+				6C6AAD9B138372D200203261 /* UIGestureRecognizer+BlocksKit.m */,
+				6C6AAD9E138372E300203261 /* UIView+BlocksKit.h */,
+				6C6AAD9F138372E300203261 /* UIView+BlocksKit.m */,
 				6C3DBF931382F1BA00E6C9AA /* Supporting Files */,
 			);
 			path = BlocksKit;
@@ -156,6 +180,10 @@
 				6C3DBFE01383265B00E6C9AA /* NSTimer+BlocksKit.h in Headers */,
 				6C3DBFE41383299E00E6C9AA /* UIAlertView+BlocksKit.h in Headers */,
 				6C6AAD901383706100203261 /* NSInvocation+BlocksKit.h in Headers */,
+				6C6AAD94138372B400203261 /* UIControl+BlocksKit.h in Headers */,
+				6C6AAD98138372C400203261 /* UIBarButtonItem+BlocksKit.h in Headers */,
+				6C6AAD9C138372D200203261 /* UIGestureRecognizer+BlocksKit.h in Headers */,
+				6C6AADA0138372E400203261 /* UIView+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +247,10 @@
 				6C3DBFE51383299E00E6C9AA /* UIAlertView+BlocksKit.m in Sources */,
 				6C6AAD8D13835D1300203261 /* UIActionSheet+BlocksKit.m in Sources */,
 				6C6AAD911383706100203261 /* NSInvocation+BlocksKit.m in Sources */,
+				6C6AAD95138372B400203261 /* UIControl+BlocksKit.m in Sources */,
+				6C6AAD99138372C400203261 /* UIBarButtonItem+BlocksKit.m in Sources */,
+				6C6AAD9D138372D200203261 /* UIGestureRecognizer+BlocksKit.m in Sources */,
+				6C6AADA1138372E400203261 /* UIView+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

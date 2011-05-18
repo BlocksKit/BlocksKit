@@ -45,4 +45,11 @@
 #import "UIAlertView+BlocksKit.h"
 #import "UIActionSheet+BlocksKit.h"
 
+#import "UIControl+BlocksKit.h"
+
+#import "UIBarButtonItem+BlocksKit.h"
+
+#import "UIGestureRecognizer+BlocksKit.h"
+#import "UIView+BlocksKit.h"
+
 #endif
