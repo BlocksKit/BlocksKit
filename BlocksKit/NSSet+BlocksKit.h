@@ -12,10 +12,10 @@
 
  Includes code by the following:
 
- - Michael Ash.    <https://github.com/mikeash>.    2010. BSD.
- - Corey Floyd.    <https://github.com/coreyfloyd>. 2010.
- - Aleks Nesterow. <https://github.com/nesterow>.   2010. BSD.
- - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
+- Michael Ash.    <https://github.com/mikeash>.    2010. BSD.
+- Corey Floyd.    <https://github.com/coreyfloyd>. 2010.
+- Aleks Nesterow. <https://github.com/nesterow>.   2010. BSD.
+- Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
 
  @see NSArray(BlocksKit)
  @see NSDictionary(BlocksKit)

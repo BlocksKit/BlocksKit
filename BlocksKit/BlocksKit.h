@@ -40,4 +40,6 @@
 
 #import "NSTimer+BlocksKit.h"
 
+#import "UIAlertView+BlocksKit.h"
+
 #endif

@@ -20,8 +20,8 @@
 
  Includes code by the following:
 
- - Pete Steinberger. <https://github.com/steipete>.   2011. MIT.
- - Zach Waldowski.   <https://github.com/zwaldowski>. 2011. MIT.
+ - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
+ - Zach Waldowski.    <https://github.com/zwaldowski>. 2011. MIT.
  */
 @interface NSObject (BlocksKit)
 
