@@ -5,9 +5,9 @@
 //  Includes code by Michael Ash. <https://github.com/mikeash>. 2010. BSD.
 //
 
-#import "NSArray+Blocks.h"
-#import "NSSet+Blocks.h"
-#import "NSDictionary+Blocks.h"
+#import "NSArray+BlocksKit.h"
+#import "NSSet+BlocksKit.h"
+#import "NSDictionary+BlocksKit.h"
 
 #ifndef __BlocksKitMacros__
 #define __BlocksKitMacros__
