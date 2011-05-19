@@ -38,6 +38,7 @@
 #import "NSArray+BlocksKit.h"
 #import "NSSet+BlocksKit.h"
 #import "NSDictionary+BlocksKit.h"
+#import "NSIndexSet+BlocksKit.h"
 #import "BKMacros.h"
 
 #import "NSInvocation+BlocksKit.h"
