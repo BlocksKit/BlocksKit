@@ -8,6 +8,8 @@
  This set of extensions has near-drop-in replacements
  for the standard set of UIBarButton item initializations,
  using a block handler instead of a target/selector.
+ 
+ @warning UIBarButtonItem is only available on iOS or in a Mac app using Chameleon.
 
  Includes code by the following:
 

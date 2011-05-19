@@ -6,14 +6,18 @@
 #pragma once
 
 #if TARGET_IPHONE_SIMULATOR
-#define BK_IS_IOS 1
-#define BK_IS_MAC 0
+    #define BK_HAS_UIKIT 1
+    #define BK_HAS_APPKIT 0
 #elif TARGET_OS_IPHONE
-#define BK_IS_IOS 1
-#define BK_IS_MAC 0
+    #define BK_HAS_UIKIT 1
+    #define BK_HAS_APPKIT 0
 #else
-#define BK_IS_IOS 0
-#define BK_IS_MAC 1
+    #if CHAMELEON
+        #define BK_HAS_UIKIT 1
+    #else
+        #define BK_HAS_UIKIT 0
+    #endif
+#define BK_HAS_APPKIT 1
 #endif
 
 
