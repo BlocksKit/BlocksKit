@@ -37,7 +37,7 @@
  @return Returns a globally unique process identifier for removing
  observation with removeObserverWithBlockToken:.
  */
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(void (^)(id obj, NSDictionary *change))task;
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving on a queue.
 
@@ -50,7 +50,7 @@
  @return Returns a globally unique process identifier for removing
  observation with removeObserverWithBlockToken:.
  */
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(void (^)(id obj, NSDictionary *change))task;
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(BKObservationBlock)task;
 
 /** Removes a block observer.
  

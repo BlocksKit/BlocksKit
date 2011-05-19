@@ -16,7 +16,7 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
 
 @implementation NSObject (BlocksKit)
 
-- (id)performBlock:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay {
+- (id)performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay {
     if (!block) return nil;
     
     __block BOOL cancelled = NO;
@@ -36,7 +36,7 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     return [wrappingBlock autorelease];
 }
 
-- (id)performBlock:(void (^)(id obj, id arg))block withObject:(id)anObject afterDelay:(NSTimeInterval)delay {
+- (id)performBlock:(BKWithObjectBlock)block withObject:(id)anObject afterDelay:(NSTimeInterval)delay {
     if (!block) return nil;
     
     __block BOOL cancelled = NO;
@@ -56,7 +56,7 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     return [wrappingBlock autorelease];
 }
 
-+ (id)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay {
++ (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay {
     if (!block) return nil;
     
     __block BOOL cancelled = NO;
@@ -76,7 +76,7 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     return [wrappingBlock autorelease];
 }
 
-+ (id)performBlock:(void (^)(id arg))block withObject:(id)anObject afterDelay:(NSTimeInterval)delay {
++ (id)performBlock:(BKSenderBlock)block withObject:(id)anObject afterDelay:(NSTimeInterval)delay {
     if (!block) return nil;
     
     __block BOOL cancelled = NO;

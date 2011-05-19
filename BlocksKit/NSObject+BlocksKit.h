@@ -37,7 +37,7 @@
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */
-- (id)performBlock:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay;
+- (id)performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay;
 
 /** Performs a block on the current object using an
 
@@ -46,7 +46,7 @@
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */
-- (id)performBlock:(void (^)(id obj, id arg))block withObject:(id)anObject afterDelay:(NSTimeInterval)delay;
+- (id)performBlock:(BKWithObjectBlock)block withObject:(id)anObject afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block after a given delay.
 
@@ -69,7 +69,7 @@
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */
-+ (id)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
++ (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block using an object after a given delay.
 
@@ -82,7 +82,7 @@
  @param delay A measure in seconds.
  @return Returns the object if found, `nil` otherwise.
  */
-+ (id)performBlock:(void (^)(id arg))block withObject:(id)anObject afterDelay:(NSTimeInterval)delay;
++ (id)performBlock:(BKSenderBlock)block withObject:(id)anObject afterDelay:(NSTimeInterval)delay;
 
 /** Cancels the potential execution of a block.
 

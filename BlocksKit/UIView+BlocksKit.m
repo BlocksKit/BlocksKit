@@ -16,7 +16,7 @@ static char kViewTouchUpBlockKey;
 
 @implementation UIView (BlocksKit)
 
-- (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(void (^)())block {
+- (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
     self.userInteractionEnabled = YES;
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithHandler:^(id recognizer) {
@@ -41,20 +41,20 @@ static char kViewTouchUpBlockKey;
     [gesture release];    
 }
 
-- (void)whenTapped:(void (^)())block {
+- (void)whenTapped:(BKBlock)block {
     [self whenTouches:1 tapped:1 handler:block];
 }
 
-- (void)whenDoubleTapped:(void (^)())block {
+- (void)whenDoubleTapped:(BKBlock)block {
     [self whenTouches:2 tapped:1 handler:block];
 }
 
-- (void)whenTouchedDown:(void (^)())block {
+- (void)whenTouchedDown:(BKBlock)block {
     self.userInteractionEnabled = YES;
     [self associateCopyOfValue:block withKey:&kViewTouchDownBlockKey];
 }
 
-- (void)whenTouchedUp:(void (^)())block {
+- (void)whenTouchedUp:(BKBlock)block {
     self.userInteractionEnabled = YES;
     [self associateCopyOfValue:block withKey:&kViewTouchUpBlockKey];
 }

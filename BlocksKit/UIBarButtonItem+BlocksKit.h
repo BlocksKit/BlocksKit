@@ -22,7 +22,7 @@
  @param systemItem The system item to use as the item representation. One of the constants defined in UIBarButtonSystemItem.
  @param action The block that gets fired on the button press.
  */
-- (id)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(void (^)(id sender))action;
+- (id)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(BKSenderBlock)action;
 
 /** Creates and returns a configured item using the specified image and style.
  
@@ -33,7 +33,7 @@
  @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
  @param action The block that gets fired on the button press.
  */
-- (id)initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action;
+- (id)initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action;
 
 /** Creates and returns a configured item using the specified text and style.
  
@@ -42,7 +42,7 @@
  @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
  @param action The block that gets fired on the button press.
  */
-- (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action;
+- (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action;
 
 
 @end

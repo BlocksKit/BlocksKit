@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C145417138497D50067A56E /* BlocksKit_Globals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BlocksKit_Globals.h */; };
 		6C3DBF911382F1BA00E6C9AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF901382F1BA00E6C9AA /* Foundation.framework */; };
 		6C3DBFA01382F27300E6C9AA /* NSArray+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */; };
 		6C3DBFA11382F27300E6C9AA /* NSArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C145416138497D40067A56E /* BlocksKit_Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlocksKit_Globals.h; sourceTree = "<group>"; };
 		6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlocksKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C3DBF901382F1BA00E6C9AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6C3DBF941382F1BA00E6C9AA /* BlocksKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlocksKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				6C3DBFB21383044600E6C9AA /* BlocksKit.h */,
+				6C145416138497D40067A56E /* BlocksKit_Globals.h */,
 				6C3DBFB61383085800E6C9AA /* NSObject+BlocksKit.h */,
 				6C3DBFB71383085800E6C9AA /* NSObject+BlocksKit.m */,
 				6C3DBFDA1383202400E6C9AA /* NSObject+BlockObservation.h */,
@@ -184,6 +187,7 @@
 				6C6AAD98138372C400203261 /* UIBarButtonItem+BlocksKit.h in Headers */,
 				6C6AAD9C138372D200203261 /* UIGestureRecognizer+BlocksKit.h in Headers */,
 				6C6AADA0138372E400203261 /* UIView+BlocksKit.h in Headers */,
+				6C145417138497D50067A56E /* BlocksKit_Globals.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

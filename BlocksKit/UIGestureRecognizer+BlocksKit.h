@@ -10,6 +10,7 @@
  - Kevin O'Neill.  <https://github.com/kevinoneill>. 2011. BSD.
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
  */
+
 @interface UIGestureRecognizer (BlocksKit)
 
 /** An autoreleased gesture recognizer that will call the given block.
@@ -17,7 +18,7 @@
  @return An initialized and autoreleased instance of a concrete UIGestureRecognizer subclass, or `nil`.
  @param block The block which handles an executed gesture.
  */
-+ (id)recognizerWithHandler:(void (^)(id recognizer))block;
++ (id)recognizerWithHandler:(BKSenderBlock)block;
 
 /** Initializes an allocated gesture recognizer that will call the given block.
 
@@ -26,6 +27,6 @@
  @return An initialized instance of a concrete UIGestureRecognizer subclass or `nil`.
  @param block The block which handles an executed gesture.
  */
-- (id)initWithHandler:(void (^)(id recognizer))block;
+- (id)initWithHandler:(BKSenderBlock)block;
 
 @end

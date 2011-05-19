@@ -14,11 +14,11 @@ static char kGestureRecognizerBlockKey;
 
 @implementation UIGestureRecognizer (BlocksKit)
 
-+ (id)recognizerWithHandler:(void (^)(id recognizer))block {
++ (id)recognizerWithHandler:(BKSenderBlock)block {
     return [[[[self class] alloc] initWithHandler:block] autorelease];
 }
 
-- (id)initWithHandler:(void (^)(id recognizer))block {
+- (id)initWithHandler:(BKSenderBlock)block {
     if ((self = [self initWithTarget:self action:@selector(_handleAction:)])) {
         [self associateCopyOfValue:block withKey:&kGestureRecognizerBlockKey];
     }

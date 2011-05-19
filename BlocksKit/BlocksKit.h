@@ -27,6 +27,8 @@
 #ifndef __BlocksKit__
 #define __BlocksKit__
 
+#import "BlocksKit_Globals.h"
+
 #import "NSObject+BlocksKit.h"
 
 #import "NSObject+AssociatedObjects.h"

@@ -26,7 +26,7 @@
  @see whenTapped:
  @see whenDoubleTapped:
  */
-- (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(void (^)())block;
+- (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block;
 
 /** Adds a recognizer for one finger tapping once.
 
@@ -34,7 +34,7 @@
  @see whenDoubleTapped:
  @see whenTouches:tapped:handler:
  */
-- (void)whenTapped:(void (^)())block;
+- (void)whenTapped:(BKBlock)block;
 
 /** Adds a recognizer for one finger tapping twice.
  
@@ -42,7 +42,7 @@
  @see whenTapped:
  @see whenTouches:tapped:handler:
  */
-- (void)whenDoubleTapped:(void (^)())block;
+- (void)whenDoubleTapped:(BKBlock)block;
 
 /** Adds a block that gets called on a finger down.
 
@@ -52,7 +52,7 @@
 
  @param block The handler for the touch recognizer
  */
-- (void)whenTouchedDown:(void (^)())block;
+- (void)whenTouchedDown:(BKBlock)block;
 
 /** Adds a block that gets called on a finger up.
  
@@ -62,6 +62,6 @@
  
  @param block The handler for the touch recognizer
  */
-- (void)whenTouchedUp:(void (^)())block;
+- (void)whenTouchedUp:(BKBlock)block;
 
 @end

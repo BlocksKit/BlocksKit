@@ -7,13 +7,13 @@
 
 @implementation NSArray (BlocksKit)
 
-- (void)each:(void (^)(id obj))block {
+- (void)each:(BKSenderBlock)block {
     for (id obj in self) {
         block(obj);
     }
 }
 
-- (id)match:(BOOL (^)(id obj))block {
+- (id)match:(BKValidationBlock)block {
     for (id obj in self) {
         if (block(obj))
             return obj;
@@ -21,7 +21,7 @@
     return nil;
 }
 
-- (NSArray *)select:(BOOL (^)(id obj))block {
+- (NSArray *)select:(BKValidationBlock)block {
     NSMutableArray *list = [[NSMutableArray alloc] initWithCapacity:self.count];
     for (id obj in self) {
         if (block(obj))
@@ -38,7 +38,7 @@
     return [result autorelease];
 }
 
-- (NSArray *)reject:(BOOL (^)(id))block {
+- (NSArray *)reject:(BKValidationBlock)block {
     NSMutableArray *list = [[NSMutableArray alloc] initWithCapacity:self.count];
     for (id obj in self) {
         if (!block(obj))
@@ -55,7 +55,7 @@
     return [result autorelease];    
 }
 
-- (NSArray *)map:(id (^)(id obj))block {
+- (NSArray *)map:(BKTransformBlock)block {
     NSMutableArray *list = [[NSMutableArray alloc] initWithCapacity:self.count];
     for (id obj in self) {
         [list addObject:block(obj)];
@@ -65,7 +65,7 @@
     return [result autorelease];
 }
 
-- (id)reduce:(id)initial withBlock:(id (^)(id sum, id obj))block {
+- (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
     id result = initial;
     for (id obj in self) {
         result = block(result, obj);

@@ -42,7 +42,7 @@
 
 @implementation NSInvocation (BlocksKit)
 
-+ (NSInvocation *)invocationWithTarget:(id)target block:(void (^)(id target))block {
++ (NSInvocation *)invocationWithTarget:(id)target block:(BKSenderBlock)block {
     JRInvocationGrabber *grabber = [JRInvocationGrabber grabberWithTarget:target];
     block(grabber);
     return grabber.invocation;

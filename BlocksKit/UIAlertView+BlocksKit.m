@@ -27,13 +27,13 @@ static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
     return [self initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
 }
 
-- (void)addButtonWithTitle:(NSString *)title handler:(void (^)())block {
+- (void)addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
     NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
     NSInteger index = [self addButtonWithTitle:title];
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:[NSNumber numberWithInteger:index]];
 }
 
-- (void)setCancelButtonWithTitle:(NSString *)title handler:(void (^)())block {
+- (void)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
     if (!title) title = NSLocalizedString(@"Cancel", nil);
     NSInteger index = [self addButtonWithTitle:title];
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kAlertViewCancelBlockKey];

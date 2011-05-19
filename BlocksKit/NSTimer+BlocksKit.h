@@ -17,7 +17,7 @@
  @param inRepeats If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.
  @return A new NSTimer object, configured according to the specified parameters.
  */
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)())inBlock repeats:(BOOL)inRepeats;
++ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKBlock)inBlock repeats:(BOOL)inRepeats;
 
 /** Creates and returns a block-based NSTimer initialized with the specified block.
 
@@ -30,6 +30,6 @@
  @param inRepeats If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.
  @return A new NSTimer object, configured according to the specified parameters.
  */
-+ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)())inBlock repeats:(BOOL)inRepeats;
++ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKBlock)inBlock repeats:(BOOL)inRepeats;
 
 @end

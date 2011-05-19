@@ -7,13 +7,13 @@
 
 @implementation NSDictionary (BlocksKit)
 
-- (void)each:(void (^)(id, id))block {
+- (void)each:(BKKeyValueBlock)block {
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         block(key, obj);
     }];
 }
 
-- (NSDictionary *)map:(id (^)(id key, id obj))block {
+- (NSDictionary *)map:(BKKeyValueTransformBlock)block {
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:self.count];
     
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

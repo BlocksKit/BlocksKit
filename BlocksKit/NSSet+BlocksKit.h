@@ -26,7 +26,7 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)each:(void (^)(id obj))block;
+- (void)each:(BKSenderBlock)block;
 
 /** Loops through a set and returns the object matching the block.
  
@@ -34,7 +34,7 @@
  @return Returns the object if found, `nil` otherwise.
  @see select:
  */
-- (id)match:(BOOL (^)(id obj))block;
+- (id)match:(BKValidationBlock)block;
 
 /** Loops through a set and returns a set of the objects matching the block.
  
@@ -42,7 +42,7 @@
  @return Returns a set of the objects found, `nil` otherwise.
  @see match:
  */
-- (NSSet *)select:(BOOL (^)(id obj))block;
+- (NSSet *)select:(BKValidationBlock)block;
 
 /** Loops through a set and returns a set of all objects but the ones matching the block.
  
@@ -56,7 +56,7 @@
  @param block A single-argument, BOOL-returning code block.
  @return Returns an array of all objects not found, `nil` if all are excluded.
  */
-- (NSSet *)reject:(BOOL (^)(id obj))block;
+- (NSSet *)reject:(BKValidationBlock)block;
 
 /** Call the block once for each object and create a set of the return values.
  
@@ -68,7 +68,7 @@
  @param block A single-argument, object-returning code block.
  @return Returns a set of the objects returned by the block.
  */
-- (NSSet *)map:(id (^)(id obj))block;
+- (NSSet *)map:(BKTransformBlock)block;
 
 /** Arbitrarily accumulate objects using a block.
  
@@ -85,6 +85,6 @@
  @param block A block that takes the current sum and the next object to return the new sum.
  @return An accumulated value.
  */
-- (id)reduce:(id)initial withBlock:(id (^)(id sum, id obj))block;
+- (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block;
 
 @end

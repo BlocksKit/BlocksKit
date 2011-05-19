@@ -11,13 +11,13 @@ static char kControlBlockArrayKey;
 
 @interface BKBlockWrapper : NSObject {
 @private
-    void (^action)(id sender);
+    BKSenderBlock action;
     UIControlEvents controlEvents;
 }
 
-+ (BKBlockWrapper *)wrapperWithAction:(void (^)(id sender))action forControlEvents:(UIControlEvents)controlEvents;
++ (BKBlockWrapper *)wrapperWithAction:(BKSenderBlock)action forControlEvents:(UIControlEvents)controlEvents;
 
-@property (nonatomic, copy) void (^action)(id sender);
+@property (nonatomic, copy) BKSenderBlock action;
 @property (nonatomic, assign) UIControlEvents controlEvents;
 
 - (void)invokeWithSender:(id)sender;
@@ -28,7 +28,7 @@ static char kControlBlockArrayKey;
 
 @synthesize action, controlEvents;
 
-+ (BKBlockWrapper *)wrapperWithAction:(void (^)(id sender))action forControlEvents:(UIControlEvents)controlEvents {
++ (BKBlockWrapper *)wrapperWithAction:(BKSenderBlock)action forControlEvents:(UIControlEvents)controlEvents {
     BKBlockWrapper *instance = [[BKBlockWrapper alloc] init];
     instance.action = action;
     instance.controlEvents = controlEvents;
@@ -49,7 +49,7 @@ static char kControlBlockArrayKey;
 
 @implementation UIControl (BlocksKit)
 
-- (void)addEventHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents {
+- (void)addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
     NSMutableArray *actions = [self associatedValueForKey:&kControlBlockArrayKey];
     
     if (!actions) {

@@ -23,7 +23,7 @@
  
  @param block A block that performs an action using a key/value pair.
  */
-- (void)each:(void (^)(id key, id obj))block;
+- (void)each:(BKKeyValueBlock)block;
 
 /** Call the block once for each object and create a dictionary with the same keys
  and a new set of values.
@@ -31,6 +31,6 @@
  @param block A block that returns a new value for a key/value pair.
  @return Returns a dictionary of the objects returned by the block.
  */
-- (NSDictionary *)map:(id (^)(id key, id obj))block;
+- (NSDictionary *)map:(BKKeyValueTransformBlock)block;
 
 @end

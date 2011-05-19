@@ -55,7 +55,7 @@
  @param title The text of the button.
  @param block A block of code.
  */
-- (void)addButtonWithTitle:(NSString *)title handler:(void (^)())block;
+- (void)addButtonWithTitle:(NSString *)title handler:(BKBlock)block;
 
 /** Set the destructive (red) button with an associated code block.
 
@@ -66,7 +66,7 @@
  @param title The text of the button.
  @param block A block of code.
  */
-- (void)setDestructiveButtonWithTitle:(NSString *)title handler:(void (^)())block;
+- (void)setDestructiveButtonWithTitle:(NSString *)title handler:(BKBlock)block;
 
 /** Set the title and trigger of the cancel button.
  
@@ -82,6 +82,6 @@
  @param title The text of the button.
  @param block A block of code.
  */
-- (void)setCancelButtonWithTitle:(NSString *)title handler:(void (^)())block;
+- (void)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block;
 
 @end

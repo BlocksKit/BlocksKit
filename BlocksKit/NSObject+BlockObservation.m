@@ -10,12 +10,12 @@
 @private
     __weak id observee;
     NSString *keyPath;
-    void (^task)(id obj, NSDictionary *change);
+    BKObservationBlock task;
     NSOperationQueue *queue;
     dispatch_once_t cancellationPredicate;    
 }
 
-- (AMObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(void (^)(id obj, NSDictionary *change))task;
+- (AMObserverTrampoline *)initWithObservingObject:(id)obj keyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(BKObservationBlock)task;
 - (void)cancelObservation;
 
 @end
@@ -24,7 +24,7 @@ static NSString *AMObserverTrampolineContext = @"AMObserverTrampolineContext";
 
 @implementation AMObserverTrampoline
 
-- (AMObserverTrampoline *)initObservingObject:(id)obj keyPath:(NSString *)newKeyPath onQueue:(NSOperationQueue *)newQueue task:(void (^)(id obj, NSDictionary *change))newTask {
+- (AMObserverTrampoline *)initWithObservingObject:(id)obj keyPath:(NSString *)newKeyPath onQueue:(NSOperationQueue *)newQueue task:(BKObservationBlock)newTask {
     if (!(self = [super init])) return nil;
     task = [newTask copy];
     keyPath = [newKeyPath copy];
@@ -75,11 +75,11 @@ static dispatch_queue_t AMObserverMutationQueueCreateIfNecessary() {
 
 @implementation NSObject (BlockObservation)
 
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(void (^)(id obj, NSDictionary *change))task {
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task {
     return [self addObserverForKeyPath:keyPath onQueue:nil task:task];
 }
 
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(void (^)(id obj, NSDictionary *change))task {
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(BKObservationBlock)task {
     NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
     dispatch_sync(AMObserverMutationQueueCreateIfNecessary(), ^{
         NSMutableDictionary *dict = [self associatedValueForKey:AMObserverMapKey];
@@ -88,7 +88,7 @@ static dispatch_queue_t AMObserverMutationQueueCreateIfNecessary() {
             [self associateValue:dict withKey:AMObserverMapKey];
             [dict release];
         }
-        AMObserverTrampoline *trampoline = [[AMObserverTrampoline alloc] initObservingObject:self keyPath:keyPath onQueue:queue task:task];
+        AMObserverTrampoline *trampoline = [[AMObserverTrampoline alloc] initWithObservingObject:self keyPath:keyPath onQueue:queue task:task];
         [dict setObject:trampoline forKey:token];
         [trampoline release];
     });
