@@ -30,28 +30,27 @@
 #import "BlocksKit_Globals.h"
 
 #import "NSObject+BlocksKit.h"
-
 #import "NSObject+AssociatedObjects.h"
 #import "NSObject+BlockObservation.h"
 
 #import "NSArray+BlocksKit.h"
 #import "NSSet+BlocksKit.h"
 #import "NSDictionary+BlocksKit.h"
-
 #import "BKMacros.h"
 
 #import "NSInvocation+BlocksKit.h"
-
 #import "NSTimer+BlocksKit.h"
 
+#if BK_IS_IOS
 #import "UIAlertView+BlocksKit.h"
 #import "UIActionSheet+BlocksKit.h"
-
 #import "UIControl+BlocksKit.h"
-
 #import "UIBarButtonItem+BlocksKit.h"
-
 #import "UIGestureRecognizer+BlocksKit.h"
 #import "UIView+BlocksKit.h"
+#else
+// AppKit extensions
+#endif
+
 
 #endif
