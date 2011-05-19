@@ -43,7 +43,7 @@ static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSMutableDictionary *blocks = self.blocks;
     
-    void (^actionBlock)() = nil;
+    __block BKBlock actionBlock = nil;
     
     if (buttonIndex == 0)
         actionBlock = [blocks objectForKey:kAlertViewCancelBlockKey];
@@ -51,7 +51,7 @@ static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
         actionBlock = [blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
     
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        actionBlock();
+        dispatch_async(dispatch_get_main_queue(), actionBlock);
                        
     self.blocks = nil;
 }

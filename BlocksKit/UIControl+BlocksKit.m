@@ -41,7 +41,8 @@ static char kControlBlockArrayKey;
 }
 
 - (void)invokeWithSender:(id)sender {
-    self.action(sender);
+    __block BKSenderBlock block = self.action;
+    dispatch_async(dispatch_get_main_queue(), ^{ block(sender); });
 }
 
 @end

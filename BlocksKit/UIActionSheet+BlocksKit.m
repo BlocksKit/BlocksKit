@@ -50,7 +50,7 @@ static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSMutableDictionary *blocks = self.blocks;
     
-    void (^actionBlock)() = nil;
+    __block BKBlock actionBlock = nil;
     
     if (buttonIndex == self.cancelButtonIndex)
         actionBlock = [blocks objectForKey:kActionSheetCancelBlockKey];
@@ -58,7 +58,7 @@ static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
         actionBlock = [blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
     
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        actionBlock();
+        dispatch_async(dispatch_get_main_queue(), actionBlock);
     
     self.blocks = nil;
 }

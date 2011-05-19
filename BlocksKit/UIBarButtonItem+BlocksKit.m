@@ -36,9 +36,9 @@ static char kBarButtonItemBlockKey;
 }
 
 - (void)_handleAction:(UIBarButtonItem *)sender {
-    __block void (^handler)(id sender) = [self associatedValueForKey:&kBarButtonItemBlockKey];
+    __block BKSenderBlock handler = [self associatedValueForKey:&kBarButtonItemBlockKey];
     if (handler)
-        handler(sender);
+        dispatch_async(dispatch_get_main_queue(), ^{ handler(sender); });
 }
 
 @end

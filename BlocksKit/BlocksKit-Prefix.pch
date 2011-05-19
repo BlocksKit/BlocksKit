@@ -10,4 +10,5 @@
     #else
         #import <Cocoa/Cocoa.h>
     #endif
+    #import <dispatch/dispatch.h>
 #endif
