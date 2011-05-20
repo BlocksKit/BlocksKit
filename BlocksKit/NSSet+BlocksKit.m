@@ -5,7 +5,7 @@
 
 #import "NSSet+BlocksKit.h"
 
-@implementation NSArray (BlocksKit)
+@implementation NSSet (BlocksKit)
 
 - (void)each:(BKSenderBlock)block {
     for (id obj in self) {
