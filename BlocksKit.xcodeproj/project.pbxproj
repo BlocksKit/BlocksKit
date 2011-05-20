@@ -97,6 +97,10 @@
 		6CC0902313855E9400DDEABB /* NSIndexSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0901F13855E8600DDEABB /* NSIndexSet+BlocksKit.m */; };
 		6CC0902413855E9700DDEABB /* NSIndexSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC0901E13855E8600DDEABB /* NSIndexSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC0902513855E9A00DDEABB /* NSIndexSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0901F13855E8600DDEABB /* NSIndexSet+BlocksKit.m */; };
+		6CC56DF91386A48900925FDC /* UIWebView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */; };
+		6CC56DFA1386A48900925FDC /* UIWebView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */; };
+		6CC56DFB1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
+		6CC56DFC1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +147,8 @@
 		6CC0900913855CAE00DDEABB /* BlocksKit_Chameleon.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = BlocksKit_Chameleon.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC0901E13855E8600DDEABB /* NSIndexSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BlocksKit.h"; sourceTree = "<group>"; };
 		6CC0901F13855E8600DDEABB /* NSIndexSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BlocksKit.m"; sourceTree = "<group>"; };
+		6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+BlocksKit.h"; sourceTree = "<group>"; };
+		6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+BlocksKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +262,8 @@
 				6C6AAD9B138372D200203261 /* UIGestureRecognizer+BlocksKit.m */,
 				6C6AAD9E138372E300203261 /* UIView+BlocksKit.h */,
 				6C6AAD9F138372E300203261 /* UIView+BlocksKit.m */,
+				6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */,
+				6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -295,6 +303,7 @@
 				6C6AADA0138372E400203261 /* UIView+BlocksKit.h in Headers */,
 				6C145417138497D50067A56E /* BlocksKit_Globals.h in Headers */,
 				6CC0902013855E8700DDEABB /* NSIndexSet+BlocksKit.h in Headers */,
+				6CC56DF91386A48900925FDC /* UIWebView+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +348,7 @@
 				6CC0900313855CAE00DDEABB /* BKMacros.h in Headers */,
 				6CC0900413855CAE00DDEABB /* NSInvocation+BlocksKit.h in Headers */,
 				6CC0900513855CAE00DDEABB /* NSTimer+BlocksKit.h in Headers */,
+				6CC56DFA1386A48900925FDC /* UIWebView+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +453,7 @@
 				6C6AAD9D138372D200203261 /* UIGestureRecognizer+BlocksKit.m in Sources */,
 				6C6AADA1138372E400203261 /* UIView+BlocksKit.m in Sources */,
 				6CC0902113855E8700DDEABB /* NSIndexSet+BlocksKit.m in Sources */,
+				6CC56DFB1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +492,7 @@
 				6CC0901513855CEE00DDEABB /* UIBarButtonItem+BlocksKit.m in Sources */,
 				6CC0901613855CEE00DDEABB /* UIGestureRecognizer+BlocksKit.m in Sources */,
 				6CC0901713855CEE00DDEABB /* UIView+BlocksKit.m in Sources */,
+				6CC56DFC1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,6 +682,7 @@
 				6CC08FDA1385555D00DDEABB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6CC0900613855CAE00DDEABB /* Build configuration list for PBXNativeTarget "BlocksKit Chameleon" */ = {
 			isa = XCConfigurationList;
@@ -678,6 +691,7 @@
 				6CC0900813855CAE00DDEABB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

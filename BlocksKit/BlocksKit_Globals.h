@@ -20,6 +20,10 @@
 #define BK_HAS_APPKIT 1
 #endif
 
+#if BK_HAS_UIKIT
+#import <UIKit/UIKit.h>
+#endif
+
 
 typedef void(^BKBlock)();
 

@@ -116,58 +116,58 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     return [self.blocks objectForKey:kAlertViewCancelBlockKey];
 }
 
-- (void)setCancelBlock:(BKBlock)cancelBlock {
+- (void)setCancelBlock:(BKBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
     if (self.cancelButtonIndex == -1)
-        [self setCancelButtonWithTitle:nil handler:cancelBlock];
+        [self setCancelButtonWithTitle:nil handler:block];
     else
-        [self.blocks setObject:(cancelBlock ? [[cancelBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewCancelBlockKey];
+        [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kAlertViewCancelBlockKey];
 }
 
 - (BKBlock)willShowBlock {
     return [self.blocks objectForKey:kAlertViewWillShowBlockKey];    
 }
 
-- (void)setWillShowBlock:(BKBlock)willShowBlock {
+- (void)setWillShowBlock:(BKBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
-    [self.blocks setObject:(willShowBlock ? [[willShowBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewWillShowBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kAlertViewWillShowBlockKey];
 }
 
 - (BKBlock)didShowBlock {
     return [self.blocks objectForKey:kAlertViewDidShowBlockKey];
 }
 
-- (void)setDidShowBlock:(BKBlock)didShowBlock {
+- (void)setDidShowBlock:(BKBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
-    [self.blocks setObject:(didShowBlock ? [[didShowBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewDidShowBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kAlertViewDidShowBlockKey];
 }
 
 - (BKIndexBlock)willDismissBlock {
     return [self.blocks objectForKey:kAlertViewWillDismissBlockKey];
 }
 
-- (void)setWillDismissBlock:(BKIndexBlock)willDismissBlock {
+- (void)setWillDismissBlock:(BKIndexBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
-    [self.blocks setObject:(willDismissBlock ? [[willDismissBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewWillDismissBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kAlertViewWillDismissBlockKey];
 }
 
 - (BKIndexBlock)didDismissBlock {
     return [self.blocks objectForKey:kAlertViewDidDismissBlockKey];
 }
 
-- (void)setDidDismissBlock:(BKIndexBlock)didDismissBlock {
+- (void)setDidDismissBlock:(BKIndexBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
-    [self.blocks setObject:(didDismissBlock ? [[didDismissBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewDidDismissBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kAlertViewDidDismissBlockKey];
 }
 
 @end

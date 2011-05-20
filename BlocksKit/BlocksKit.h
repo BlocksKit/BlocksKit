@@ -44,13 +44,14 @@
 #import "NSInvocation+BlocksKit.h"
 #import "NSTimer+BlocksKit.h"
 
-#if BK_IS_IOS
+#if BK_HAS_UIKIT
 #import "UIAlertView+BlocksKit.h"
 #import "UIActionSheet+BlocksKit.h"
 #import "UIControl+BlocksKit.h"
 #import "UIBarButtonItem+BlocksKit.h"
 #import "UIGestureRecognizer+BlocksKit.h"
 #import "UIView+BlocksKit.h"
+#import "UIWebView+BlocksKit.h"
 #else
 // AppKit extensions
 #endif

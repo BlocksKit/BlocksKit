@@ -128,58 +128,58 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     return [self.blocks objectForKey:kActionSheetCancelBlockKey];
 }
 
-- (void)setCancelBlock:(BKBlock)cancelBlock {
+- (void)setCancelBlock:(BKBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
     if (self.cancelButtonIndex == -1)
-        [self setCancelButtonWithTitle:nil handler:cancelBlock];
+        [self setCancelButtonWithTitle:nil handler:block];
     else
-        [self.blocks setObject:(cancelBlock ? [[cancelBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetCancelBlockKey];
+        [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kActionSheetCancelBlockKey];
 }
 
 - (BKBlock)willShowBlock {
     return [self.blocks objectForKey:kActionSheetWillShowBlockKey];    
 }
 
-- (void)setWillShowBlock:(BKBlock)willShowBlock {
+- (void)setWillShowBlock:(BKBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
-    [self.blocks setObject:(willShowBlock ? [[willShowBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetWillShowBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kActionSheetWillShowBlockKey];
 }
 
 - (BKBlock)didShowBlock {
     return [self.blocks objectForKey:kActionSheetDidShowBlockKey];
 }
 
-- (void)setDidShowBlock:(BKBlock)didShowBlock {
+- (void)setDidShowBlock:(BKBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
-    [self.blocks setObject:(didShowBlock ? [[didShowBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetDidShowBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kActionSheetDidShowBlockKey];
 }
 
 - (BKIndexBlock)willDismissBlock {
     return [self.blocks objectForKey:kActionSheetWillDismissBlockKey];
 }
 
-- (void)setWillDismissBlock:(BKIndexBlock)willDismissBlock {
+- (void)setWillDismissBlock:(BKIndexBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
-    [self.blocks setObject:(willDismissBlock ? [[willDismissBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetWillDismissBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kActionSheetWillDismissBlockKey];
 }
 
 - (BKIndexBlock)didDismissBlock {
     return [self.blocks objectForKey:kActionSheetDidDismissBlockKey];
 }
 
-- (void)setDidDismissBlock:(BKIndexBlock)didDismissBlock {
+- (void)setDidDismissBlock:(BKIndexBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
-    [self.blocks setObject:(didDismissBlock ? [[didDismissBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetDidDismissBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kActionSheetDidDismissBlockKey];
 }
 
 @end
