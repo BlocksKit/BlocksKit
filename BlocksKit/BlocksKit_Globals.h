@@ -25,7 +25,7 @@
 #endif
 
 
-typedef void(^BKBlock)();
+typedef void(^BKBlock)(void); // compatible with dispatch_block_t
 
 typedef void(^BKSenderBlock)(id sender);
 typedef id(^BKTransformBlock)(id obj);

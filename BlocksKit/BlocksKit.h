@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#ifndef __BlocksKit__
-#define __BlocksKit__
+#pragma once
 
+#import <Foundation/Foundation.h>
 #import <dispatch/dispatch.h>
 
 #import "BlocksKit_Globals.h"
@@ -54,7 +54,4 @@
 #import "UIWebView+BlocksKit.h"
 #else
 // AppKit extensions
-#endif
-
-
 #endif
