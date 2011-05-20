@@ -5,9 +5,10 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
     #import "BlocksKit_Globals.h"
-    #if BK_IS_IOS
+    #if BK_HAS_UIKIT
         #import <UIKit/UIKit.h>
-    #else
+    #endif
+    #if BK_HAS_APPKIT
         #import <Cocoa/Cocoa.h>
     #endif
     #import <dispatch/dispatch.h>
