@@ -8,16 +8,14 @@
 @implementation NSIndexSet (BlocksKit)
 
 - (void)each:(BKIndexBlock)block {
-    __block BKIndexBlock theBlock = block;
     [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        dispatch_async(dispatch_get_main_queue(), ^{ theBlock(idx); });
+        dispatch_async(dispatch_get_main_queue(), ^{ block(idx); });
     }];
 }
 
 - (NSUInteger)match:(BKIndexValidationBlock)block {
-    __block BKIndexValidationBlock theBlock = block;
     return [self indexPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-        if (theBlock(idx)) {
+        if (block(idx)) {
             *stop = YES;
             return YES;
         }
@@ -26,11 +24,10 @@
 }
 
 - (NSIndexSet *)select:(BKIndexValidationBlock)block {
-    __block BKIndexValidationBlock theBlock = block;
-    __block NSMutableIndexSet *list = [[NSMutableIndexSet alloc] initWithCapacity:self.count];
+    NSMutableIndexSet *list = [[NSMutableIndexSet alloc] initWithCapacity:self.count];
     
     [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        if (theBlock(idx))
+        if (block(idx))
             [list addIndex:idx];
     }];
     
@@ -44,12 +41,11 @@
     return [result autorelease];    
 }
 
-- (NSIndexSet *)reject:(BKIndexValidationBlock)block {
-    __block BKIndexValidationBlock theBlock = block;
-    __block NSMutableIndexSet *list = [[NSMutableIndexSet alloc] initWithCapacity:self.count];
+- (NSIndexSet *)reject:(BKIndexValidationBlock)block {    
+    NSMutableIndexSet *list = [[NSMutableIndexSet alloc] initWithCapacity:self.count];
     
     [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        if (!theBlock(idx))
+        if (!block(idx))
             [list addIndex:idx];
     }];
     

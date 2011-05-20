@@ -28,20 +28,20 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    __block BKBlock actionBlock = [self.blocks objectForKey:kWebViewDidStartBlockKey];
+    BKBlock actionBlock = [self.blocks objectForKey:kWebViewDidStartBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), actionBlock);
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    __block BKBlock actionBlock = [self.blocks objectForKey:kWebViewDidFinishBlockKey];
+    BKBlock actionBlock = [self.blocks objectForKey:kWebViewDidFinishBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), actionBlock);
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    __block BKErrorBlock actionBlock = [self.blocks objectForKey:kWebViewDidErrorBlockKey];
-    __block NSError *theError = error;
+    BKErrorBlock actionBlock = [self.blocks objectForKey:kWebViewDidErrorBlockKey];
+    NSError *theError = error;
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(theError); });    
 }

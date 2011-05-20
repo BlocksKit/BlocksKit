@@ -26,9 +26,8 @@ static char kGestureRecognizerBlockKey;
 }
                  
 - (void)_handleAction:(id)recognizer {
-    __block BKSenderBlock handler = [self associatedValueForKey:&kGestureRecognizerBlockKey];
-    if (handler)
-        dispatch_async(dispatch_get_main_queue(), ^{ handler(recognizer); });
+    BKSenderBlock block = [self associatedValueForKey:&kGestureRecognizerBlockKey];
+    if (block) dispatch_async(dispatch_get_main_queue(), ^{ handler(block); });
 }
 
 @end

@@ -26,7 +26,7 @@
 }
 
 + (void)_executeBlockFromTimer:(NSTimer *)aTimer {
-    __block BKBlock block = [aTimer userInfo];
+    BKBlock block = [aTimer userInfo];
     if (block) dispatch_sync(dispatch_get_main_queue(), block);
 }
 

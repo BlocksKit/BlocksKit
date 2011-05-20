@@ -61,7 +61,7 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSMutableDictionary *blocks = self.blocks;
     
-    __block BKBlock actionBlock = nil;
+    BKBlock actionBlock = nil;
     
     if (buttonIndex == 0)
         actionBlock = [blocks objectForKey:kAlertViewCancelBlockKey];
@@ -73,25 +73,25 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
 }
 
 - (void)willPresentAlertView:(UIAlertView *)alertView {
-    __block BKBlock actionBlock = [self.blocks objectForKey:kAlertViewWillShowBlockKey];
+    BKBlock actionBlock = [self.blocks objectForKey:kAlertViewWillShowBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), actionBlock);
 }
 
 - (void)didPresentAlertView:(UIAlertView *)alertView {
-    __block BKBlock actionBlock = [self.blocks objectForKey:kAlertViewDidShowBlockKey];
+    BKBlock actionBlock = [self.blocks objectForKey:kAlertViewDidShowBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), actionBlock);
 }
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    __block BKIndexBlock actionBlock = [self.blocks objectForKey:kAlertViewWillDismissBlockKey];
+    BKIndexBlock actionBlock = [self.blocks objectForKey:kAlertViewWillDismissBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    __block BKIndexBlock actionBlock = [self.blocks objectForKey:kAlertViewDidDismissBlockKey];
+    BKIndexBlock actionBlock = [self.blocks objectForKey:kAlertViewDidDismissBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });
 }

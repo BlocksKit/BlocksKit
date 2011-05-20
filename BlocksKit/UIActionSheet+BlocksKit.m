@@ -73,7 +73,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSMutableDictionary *blocks = self.blocks;
     
-    __block BKBlock actionBlock = nil;
+    BKBlock actionBlock = nil;
     
     if (buttonIndex == self.cancelButtonIndex)
         actionBlock = [blocks objectForKey:kActionSheetCancelBlockKey];
@@ -85,25 +85,25 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 }
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
-    __block BKBlock actionBlock = [self.blocks objectForKey:kActionSheetWillShowBlockKey];
+    BKBlock actionBlock = [self.blocks objectForKey:kActionSheetWillShowBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), actionBlock);
 }
 
 - (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
-    __block BKBlock actionBlock = [self.blocks objectForKey:kActionSheetDidShowBlockKey];
+    BKBlock actionBlock = [self.blocks objectForKey:kActionSheetDidShowBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), actionBlock);    
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    __block BKIndexBlock actionBlock = [self.blocks objectForKey:kActionSheetWillDismissBlockKey];
+    BKIndexBlock actionBlock = [self.blocks objectForKey:kActionSheetWillDismissBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });    
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    __block BKIndexBlock actionBlock = [self.blocks objectForKey:kActionSheetDidDismissBlockKey];
+    BKIndexBlock actionBlock = [self.blocks objectForKey:kActionSheetDidDismissBlockKey];
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });
 }

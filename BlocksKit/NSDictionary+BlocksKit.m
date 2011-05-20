@@ -9,19 +9,16 @@
 @implementation NSDictionary (BlocksKit)
 
 - (void)each:(BKKeyValueBlock)block {
-    __block BKKeyValueBlock theBlock = block;
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        dispatch_async(dispatch_get_main_queue(), ^{ theBlock(key, obj); });
+        dispatch_async(dispatch_get_main_queue(), ^{ block(key, obj); });
     }];
 }
 
 - (NSDictionary *)map:(BKKeyValueTransformBlock)block {
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:self.count];
-    
-    __block BKKeyValueTransformBlock theBlock = block;
-    
+
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [dictionary setObject:theBlock(key, obj) forKey:key];
+        [dictionary setObject:block(key, obj) forKey:key];
     }];
     
     NSDictionary *result = [dictionary copy];
