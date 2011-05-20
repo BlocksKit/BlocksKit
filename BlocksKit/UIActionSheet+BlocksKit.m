@@ -14,7 +14,13 @@
 
 static char kActionSheetBlockDictionaryKey; 
 static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
+static NSString *kActionSheetWillShowBlockKey = @"UIActionSheetWillShowBlock";
+static NSString *kActionSheetDidShowBlockKey = @"UIActionSheetDidShowBlock";
+static NSString *kActionSheetWillDismissBlockKey = @"UIActionSheetWillDismissBlock";
+static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock";
 
+
+#pragma mark Initializers
 
 + (id)sheetWithTitle:(NSString *)title {
     return [[[UIActionSheet alloc] initWithTitle:title] autorelease];
@@ -23,6 +29,8 @@ static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
 - (id)initWithTitle:(NSString *)title {
     return [self initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 }
+
+#pragma mark Public methods
 
 - (void)addButtonWithTitle:(NSString *)title handler:(BKBlock) block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
@@ -60,7 +68,9 @@ static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
     self.cancelButtonIndex = index;
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+#pragma mark Delegates
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSMutableDictionary *blocks = self.blocks;
     
     __block BKBlock actionBlock = nil;
@@ -72,9 +82,33 @@ static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
     
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), actionBlock);
-    
-    self.blocks = nil;
 }
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
+    __block BKBlock actionBlock = [self.blocks objectForKey:kActionSheetWillShowBlockKey];
+    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
+        dispatch_async(dispatch_get_main_queue(), actionBlock);
+}
+
+- (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
+    __block BKBlock actionBlock = [self.blocks objectForKey:kActionSheetDidShowBlockKey];
+    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
+        dispatch_async(dispatch_get_main_queue(), actionBlock);    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    __block BKIndexBlock actionBlock = [self.blocks objectForKey:kActionSheetWillDismissBlockKey];
+    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
+        dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    __block BKIndexBlock actionBlock = [self.blocks objectForKey:kActionSheetDidDismissBlockKey];
+    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
+        dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });
+}
+
+#pragma mark Properties
 
 - (NSMutableDictionary *)blocks {
     NSMutableDictionary *blocks = [self associatedValueForKey:&kActionSheetBlockDictionaryKey];
@@ -88,6 +122,49 @@ static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
 
 - (void)setBlocks:(NSMutableDictionary *)blocks {
     [self associateValue:blocks withKey:&kActionSheetBlockDictionaryKey];
+}
+
+- (BKBlock)cancelBlock {
+    return [self.blocks objectForKey:kActionSheetCancelBlockKey];
+}
+
+- (void)setCancelBlock:(BKBlock)cancelBlock {
+    if (self.cancelButtonIndex == -1)
+        [self setCancelButtonWithTitle:nil handler:cancelBlock];
+    else
+        [self.blocks setObject:(cancelBlock ? [[cancelBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetCancelBlockKey];
+}
+
+- (BKBlock)willShowBlock {
+    return [self.blocks objectForKey:kActionSheetWillShowBlockKey];    
+}
+
+- (void)setWillShowBlock:(BKBlock)willShowBlock {
+    [self.blocks setObject:(willShowBlock ? [[willShowBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetWillShowBlockKey];
+}
+
+- (BKBlock)didShowBlock {
+    return [self.blocks objectForKey:kActionSheetDidShowBlockKey];
+}
+
+- (void)setDidShowBlock:(BKBlock)didShowBlock {
+    [self.blocks setObject:(didShowBlock ? [[didShowBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetDidShowBlockKey];
+}
+
+- (BKIndexBlock)willDismissBlock {
+    return [self.blocks objectForKey:kActionSheetWillDismissBlockKey];
+}
+
+- (void)setWillDismissBlock:(BKIndexBlock)willDismissBlock {
+    [self.blocks setObject:(willDismissBlock ? [[willDismissBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetWillDismissBlockKey];
+}
+
+- (BKIndexBlock)didDismissBlock {
+    return [self.blocks objectForKey:kActionSheetDidDismissBlockKey];
+}
+
+- (void)setDidDismissBlock:(BKIndexBlock)didDismissBlock {
+    [self.blocks setObject:(didDismissBlock ? [[didDismissBlock copy] autorelease] : [NSNull null]) forKey:kActionSheetDidDismissBlockKey];
 }
 
 @end

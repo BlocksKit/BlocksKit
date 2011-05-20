@@ -86,4 +86,30 @@
  */
 - (void)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block;
 
+///-----------------------------------
+/// @name Altering actions
+///-----------------------------------
+
+/** The block to be fired when the action sheet is dismissed with the cancel
+ button and/or action.
+
+ This property performs the same action as setCancelButtonWithTitle:handler:
+ but with `title` set to nil.  Contrary to setCancelButtonWithTitle:handler:,
+ you can set this property multiple times and multiple cancel buttons will
+ not be generated.
+ */
+@property (nonatomic, copy) BKBlock cancelBlock;
+
+/** The block to be fired before the action sheet will show. */
+@property (nonatomic, copy) BKBlock willShowBlock;
+
+/** The block to be fired when the action sheet shows. */
+@property (nonatomic, copy) BKBlock didShowBlock;
+
+/** The block to be fired before the action sheet will dismiss. */
+@property (nonatomic, copy) BKIndexBlock willDismissBlock;
+
+/** The block to be fired after the action sheet dismisses. */
+@property (nonatomic, copy) BKIndexBlock didDismissBlock;
+
 @end

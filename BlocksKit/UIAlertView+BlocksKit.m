@@ -14,6 +14,12 @@
 
 static char kAlertViewBlockDictionaryKey; 
 static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
+static NSString *kAlertViewWillShowBlockKey = @"UIAlertViewWillShowBlock";
+static NSString *kAlertViewDidShowBlockKey = @"UIAlertViewDidShowBlock";
+static NSString *kAlertViewWillDismissBlockKey = @"UIAlertViewWillDismissBlock";
+static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
+
+#pragma mark Initializers
 
 + (id)alertWithTitle:(NSString *)title {
     return [[[UIAlertView alloc] initWithTitle:title message:nil] autorelease];
@@ -26,6 +32,8 @@ static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
 - (id)initWithTitle:(NSString *)title message:(NSString *)message {
     return [self initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
 }
+
+#pragma mark Public methods
 
 - (void)addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
     NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
@@ -48,7 +56,9 @@ static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
     self.cancelButtonIndex = index;
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+#pragma mark Delegates
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSMutableDictionary *blocks = self.blocks;
     
     __block BKBlock actionBlock = nil;
@@ -60,9 +70,33 @@ static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
     
     if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
         dispatch_async(dispatch_get_main_queue(), actionBlock);
-                       
-    self.blocks = nil;
 }
+
+- (void)willPresentAlertView:(UIAlertView *)alertView {
+    __block BKBlock actionBlock = [self.blocks objectForKey:kAlertViewWillShowBlockKey];
+    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
+        dispatch_async(dispatch_get_main_queue(), actionBlock);
+}
+
+- (void)didPresentAlertView:(UIAlertView *)alertView {
+    __block BKBlock actionBlock = [self.blocks objectForKey:kAlertViewDidShowBlockKey];
+    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
+        dispatch_async(dispatch_get_main_queue(), actionBlock);
+}
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    __block BKIndexBlock actionBlock = [self.blocks objectForKey:kAlertViewWillDismissBlockKey];
+    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
+        dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    __block BKIndexBlock actionBlock = [self.blocks objectForKey:kAlertViewDidDismissBlockKey];
+    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
+        dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });
+}
+
+#pragma mark Properties
 
 - (NSMutableDictionary *)blocks {
     NSMutableDictionary *blocks = [self associatedValueForKey:&kAlertViewBlockDictionaryKey];
@@ -76,6 +110,49 @@ static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
 
 - (void)setBlocks:(NSMutableDictionary *)blocks {
     [self associateValue:blocks withKey:&kAlertViewBlockDictionaryKey];
+}
+
+- (BKBlock)cancelBlock {
+    return [self.blocks objectForKey:kAlertViewCancelBlockKey];
+}
+
+- (void)setCancelBlock:(BKBlock)cancelBlock {
+    if (self.cancelButtonIndex == -1)
+        [self setCancelButtonWithTitle:nil handler:cancelBlock];
+    else
+        [self.blocks setObject:(cancelBlock ? [[cancelBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewCancelBlockKey];
+}
+
+- (BKBlock)willShowBlock {
+    return [self.blocks objectForKey:kAlertViewWillShowBlockKey];    
+}
+
+- (void)setWillShowBlock:(BKBlock)willShowBlock {
+    [self.blocks setObject:(willShowBlock ? [[willShowBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewWillShowBlockKey];
+}
+
+- (BKBlock)didShowBlock {
+    return [self.blocks objectForKey:kAlertViewDidShowBlockKey];
+}
+
+- (void)setDidShowBlock:(BKBlock)didShowBlock {
+    [self.blocks setObject:(didShowBlock ? [[didShowBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewDidShowBlockKey];
+}
+
+- (BKIndexBlock)willDismissBlock {
+    return [self.blocks objectForKey:kAlertViewWillDismissBlockKey];
+}
+
+- (void)setWillDismissBlock:(BKIndexBlock)willDismissBlock {
+    [self.blocks setObject:(willDismissBlock ? [[willDismissBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewWillDismissBlockKey];
+}
+
+- (BKIndexBlock)didDismissBlock {
+    return [self.blocks objectForKey:kAlertViewDidDismissBlockKey];
+}
+
+- (void)setDidDismissBlock:(BKIndexBlock)didDismissBlock {
+    [self.blocks setObject:(didDismissBlock ? [[didDismissBlock copy] autorelease] : [NSNull null]) forKey:kAlertViewDidDismissBlockKey];
 }
 
 @end
