@@ -30,6 +30,9 @@ typedef BOOL(^BKValidationBlock)(id obj);
 typedef void(^BKIndexBlock)(NSUInteger index);
 typedef BOOL(^BKIndexValidationBlock)(NSUInteger index);
 
+typedef BOOL(^BKWebViewStartBlock)(NSURLRequest *request, UIWebViewNavigationType navigationType);
+typedef void(^BKErrorBlock)(NSError *error);
+
 typedef void(^BKWithObjectBlock)(id obj, id arg);
 typedef void(^BKObservationBlock)(id obj, NSDictionary *change);
 typedef void(^BKKeyValueBlock)(id key, id obj);
