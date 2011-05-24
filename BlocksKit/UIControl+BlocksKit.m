@@ -15,7 +15,7 @@ static char kControlBlockArrayKey;
     UIControlEvents controlEvents;
 }
 
-+ (BKBlockWrapper *)wrapperWithAction:(BKSenderBlock)action forControlEvents:(UIControlEvents)controlEvents;
+- (id)initWithAction:(BKSenderBlock)anAction forControlEvents:(UIControlEvents)someControlEvents;
 
 @property (nonatomic, copy) BKSenderBlock action;
 @property (nonatomic, assign) UIControlEvents controlEvents;
@@ -28,11 +28,12 @@ static char kControlBlockArrayKey;
 
 @synthesize action, controlEvents;
 
-+ (BKBlockWrapper *)wrapperWithAction:(BKSenderBlock)action forControlEvents:(UIControlEvents)controlEvents {
-    BKBlockWrapper *instance = [[BKBlockWrapper alloc] init];
-    instance.action = action;
-    instance.controlEvents = controlEvents;
-    return [instance autorelease];
+- (id)initWithAction:(BKSenderBlock)anAction forControlEvents:(UIControlEvents)someControlEvents {
+    if ((self = [super init])) {
+        self.action = anAction;
+        self.controlEvents = someControlEvents;
+    }
+    return self;
 }
 
 - (void)dealloc {
@@ -59,7 +60,7 @@ static char kControlBlockArrayKey;
         [actions release];
     }
     
-    BKBlockWrapper *target = [BKBlockWrapper wrapperWithAction:handler forControlEvents:controlEvents];
+    BKBlockWrapper *target = [[BKBlockWrapper alloc] initWithAction:handler forControlEvents:controlEvents];
     [actions addObject:target];
     [self addTarget:target action:@selector(invokeWithSender:) forControlEvents:controlEvents];
     [target release];    
