@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Blocks wrapper for NSInvocation.
 
  Usage example:

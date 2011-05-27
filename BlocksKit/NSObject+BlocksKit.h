@@ -6,6 +6,8 @@
 //  Copyright 2011 Dizzy Technology. All rights reserved.
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Block execution on *any* object.
 
  This category overhauls the `performSelector:` utilities on

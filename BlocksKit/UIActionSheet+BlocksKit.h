@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** UIActionSheet without delegates!
  
  This set of extensions and convenience classes allows

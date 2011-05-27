@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /*
  Block extensions for NSIndexSet.
  

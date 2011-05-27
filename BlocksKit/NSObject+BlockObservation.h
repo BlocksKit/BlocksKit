@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Blocks wrapper for key-value observation.
 
  In Mac OS X Panther, Apple introduced an API called "key-value

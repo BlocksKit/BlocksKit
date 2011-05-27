@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Block control event handling for UIControl.
 
  This set of extensions allows for block: simply

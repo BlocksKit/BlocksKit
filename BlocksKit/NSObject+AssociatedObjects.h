@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Objective-C wrapper for 10.6 associated object API.
 
  In Mac OS X Snow Leopard and iOS 3.0, Apple introduced an

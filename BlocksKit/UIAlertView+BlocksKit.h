@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** UIAlertView without delegates!
 
  This set of extensions and convenience classes allows

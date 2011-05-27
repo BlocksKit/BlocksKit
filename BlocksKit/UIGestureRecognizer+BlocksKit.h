@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Block initialization for UIGestureRecognizer.
 
  @warning UIGestureRecognizer is only available on iOS or in a Mac app using Chameleon.

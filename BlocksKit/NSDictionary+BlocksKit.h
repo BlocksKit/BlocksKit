@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Block extension for NSDictionary.
 
  Both inspired by and resembling Smalltalk syntax, this utility

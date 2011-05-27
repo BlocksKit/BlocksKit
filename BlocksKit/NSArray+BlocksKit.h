@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Block extensions for NSArray.
 
  Both inspired by and resembling Smalltalk syntax, these utilities

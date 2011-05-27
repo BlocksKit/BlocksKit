@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Simple category on NSTimer to give it blocks capability.
 
  Created by Jiva DeVoe as [NSTimer-Blocks](https://github.com/jivadevoe/NSTimer-Blocks).

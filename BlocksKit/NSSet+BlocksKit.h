@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Block extensions for NSSet.
 
  Both inspired by and resembling Smalltalk syntax, these utilities

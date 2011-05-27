@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Convenience on-touch methods for UIView.
 
  @warning UIView is only available on iOS or in a Mac app using Chameleon.

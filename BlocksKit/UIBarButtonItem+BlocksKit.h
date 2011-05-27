@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Block event initialization for UIBarButtonItem.
 
  This set of extensions has near-drop-in replacements

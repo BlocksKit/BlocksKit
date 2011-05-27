@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Delegation replacement for UIWebView.
 
  Unlike other block extensions like UIAlertView(BlocksKit) and
