@@ -48,5 +48,4 @@
  */
 - (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action;
 
-
 @end

@@ -11,8 +11,8 @@
 #import "UIGestureRecognizer+BlocksKit.h"
 #import "NSArray+BlocksKit.h"
 
-static char kViewTouchDownBlockKey;
-static char kViewTouchUpBlockKey;
+static char *kViewTouchDownBlockKey = "UIViewTouchDownBlock";
+static char *kViewTouchUpBlockKey = "UIViewTouchDownBlock";
 
 @implementation UIView (BlocksKit)
 
@@ -51,23 +51,23 @@ static char kViewTouchUpBlockKey;
 
 - (void)whenTouchedDown:(BKBlock)block {
     self.userInteractionEnabled = YES;
-    [self associateCopyOfValue:block withKey:&kViewTouchDownBlockKey];
+    [self associateCopyOfValue:block withKey:kViewTouchDownBlockKey];
 }
 
 - (void)whenTouchedUp:(BKBlock)block {
     self.userInteractionEnabled = YES;
-    [self associateCopyOfValue:block withKey:&kViewTouchUpBlockKey];
+    [self associateCopyOfValue:block withKey:kViewTouchUpBlockKey];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    BKBlock block = [self associatedValueForKey:&kViewTouchDownBlockKey];
+    BKBlock block = [self associatedValueForKey:kViewTouchDownBlockKey];
     if (block) dispatch_async(dispatch_get_main_queue(), block);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesEnded:touches withEvent:event];
-    BKBlock block = [self associatedValueForKey:&kViewTouchUpBlockKey];
+    BKBlock block = [self associatedValueForKey:kViewTouchUpBlockKey];
     if (block) dispatch_async(dispatch_get_main_queue(), block);
 }
 

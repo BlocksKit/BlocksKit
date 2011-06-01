@@ -33,4 +33,9 @@
  */
 - (id)initWithHandler:(BKSenderBlock)block;
 
+/** Allows the block that will be fired by the gesture recognizer
+ to be modified after the fact.
+ */
+@property (copy) BKSenderBlock handler;
+
 @end

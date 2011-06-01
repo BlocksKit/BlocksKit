@@ -9,7 +9,7 @@
 
 - (void)each:(BKIndexBlock)block {
     [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        dispatch_async(dispatch_get_main_queue(), ^{ block(idx); });
+        block(idx);
     }];
 }
 

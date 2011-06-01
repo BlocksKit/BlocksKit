@@ -10,7 +10,7 @@
 
 - (void)each:(BKKeyValueBlock)block {
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        dispatch_async(dispatch_get_main_queue(), ^{ block(key, obj); });
+        block(key, obj);
     }];
 }
 

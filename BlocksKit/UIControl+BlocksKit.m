@@ -7,7 +7,7 @@
 #import "NSObject+AssociatedObjects.h"
 #import "NSArray+BlocksKit.h"
 
-static char kControlBlockArrayKey; 
+static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
 
 @interface BKBlockWrapper : NSObject {
 @private
@@ -17,8 +17,8 @@ static char kControlBlockArrayKey;
 
 - (id)initWithAction:(BKSenderBlock)anAction forControlEvents:(UIControlEvents)someControlEvents;
 
-@property (nonatomic, copy) BKSenderBlock action;
-@property (nonatomic, assign) UIControlEvents controlEvents;
+@property (copy) BKSenderBlock action;
+@property (assign) UIControlEvents controlEvents;
 
 - (void)invokeWithSender:(id)sender;
 

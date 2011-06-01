@@ -9,7 +9,7 @@
 
 - (void)each:(BKSenderBlock)block {
     for (id obj in self) {
-        dispatch_async(dispatch_get_main_queue(), ^{ block(obj); });
+        block(obj);
     }
 }
 

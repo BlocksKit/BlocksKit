@@ -12,7 +12,7 @@
 
 @implementation UIActionSheet (BlocksKit)
 
-static char kActionSheetBlockDictionaryKey; 
+static char *kActionSheetBlockDictionaryKey = "UIAlertViewBlockHandlers"; 
 static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
 static NSString *kActionSheetWillShowBlockKey = @"UIActionSheetWillShowBlock";
 static NSString *kActionSheetDidShowBlockKey = @"UIActionSheetDidShowBlock";
@@ -58,12 +58,12 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     if (!self.delegate)
         self.delegate = self;
     
-    
     NSInteger index = -1;
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && !title)
         title = NSLocalizedString(@"Cancel", nil);
     if (title)
         index = [self addButtonWithTitle:title];
+    
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kActionSheetCancelBlockKey];
     self.cancelButtonIndex = index;
 }
@@ -73,45 +73,45 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSMutableDictionary *blocks = self.blocks;
     
-    BKBlock actionBlock = nil;
+    BKBlock block = nil;
     
     if (buttonIndex == self.cancelButtonIndex)
-        actionBlock = [blocks objectForKey:kActionSheetCancelBlockKey];
+        block = [blocks objectForKey:kActionSheetCancelBlockKey];
     else
-        actionBlock = [blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
+        block = [blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
     
-    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        dispatch_async(dispatch_get_main_queue(), actionBlock);
+    if (block && (![block isEqual:[NSNull null]]))
+        block();
 }
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
-    BKBlock actionBlock = [self.blocks objectForKey:kActionSheetWillShowBlockKey];
-    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        dispatch_async(dispatch_get_main_queue(), actionBlock);
+    BKBlock block = [self.blocks objectForKey:kActionSheetWillShowBlockKey];
+    if (block && (![block isEqual:[NSNull null]]))
+        block();
 }
 
 - (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
-    BKBlock actionBlock = [self.blocks objectForKey:kActionSheetDidShowBlockKey];
-    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        dispatch_async(dispatch_get_main_queue(), actionBlock);    
+    BKBlock block = [self.blocks objectForKey:kActionSheetDidShowBlockKey];
+    if (block && (![block isEqual:[NSNull null]]))
+        block();
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BKIndexBlock actionBlock = [self.blocks objectForKey:kActionSheetWillDismissBlockKey];
-    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });    
+    BKIndexBlock block = [self.blocks objectForKey:kActionSheetWillDismissBlockKey];
+    if (block && (![block isEqual:[NSNull null]]))
+        block(buttonIndex);
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BKIndexBlock actionBlock = [self.blocks objectForKey:kActionSheetDidDismissBlockKey];
-    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(buttonIndex); });
+    BKIndexBlock block = [self.blocks objectForKey:kActionSheetDidDismissBlockKey];
+    if (block && (![block isEqual:[NSNull null]]))
+        block(buttonIndex);
 }
 
 #pragma mark Properties
 
 - (NSMutableDictionary *)blocks {
-    NSMutableDictionary *blocks = [self associatedValueForKey:&kActionSheetBlockDictionaryKey];
+    NSMutableDictionary *blocks = [self associatedValueForKey:kActionSheetBlockDictionaryKey];
     if (!blocks) {
         blocks = [[NSMutableDictionary alloc] init];
         self.blocks = blocks;
@@ -121,7 +121,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 }
 
 - (void)setBlocks:(NSMutableDictionary *)blocks {
-    [self associateValue:blocks withKey:&kActionSheetBlockDictionaryKey];
+    [self associateValue:blocks withKey:kActionSheetBlockDictionaryKey];
 }
 
 - (BKBlock)cancelBlock {

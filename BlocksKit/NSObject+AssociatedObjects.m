@@ -13,7 +13,7 @@
 }
 
 - (void)associateCopyOfValue:(id)value withKey:(void *)key {
-    objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY);
 }
 
 - (void)weaklyAssociateValue:(id)value withKey:(void *)key {

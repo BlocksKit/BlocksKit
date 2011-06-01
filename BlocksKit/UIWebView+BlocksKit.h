@@ -23,15 +23,15 @@
 @interface UIWebView (BlocksKit) <UIWebViewDelegate>
 
 /** The block to be decide whether a URL will be loaded. */
-@property (nonatomic, copy) BKWebViewStartBlock shouldStartLoadBlock;
+@property (copy) BKWebViewStartBlock shouldStartLoadBlock;
 
 /** The block that is fired when the web view starts loading. */
-@property (nonatomic, copy) BKBlock didStartLoadBlock;
+@property (copy) BKBlock didStartLoadBlock;
 
 /** The block that is fired when the web view finishes loading. */
-@property (nonatomic, copy) BKBlock didFinishLoadBlock;
+@property (copy) BKBlock didFinishLoadBlock;
 
 /** The block that is fired when the web view stops loading due to an error. */
-@property (nonatomic, copy) BKErrorBlock didFinishWithErrorBlock;
+@property (copy) BKErrorBlock didFinishWithErrorBlock;
 
 @end

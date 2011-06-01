@@ -94,19 +94,19 @@
  you can set this property multiple times and multiple cancel buttons will
  not be generated.
  */
-@property (nonatomic, copy) BKBlock cancelBlock;
+@property (copy) BKBlock cancelBlock;
 
 /** The block to be fired before the alert view will show. */
-@property (nonatomic, copy) BKBlock willShowBlock;
+@property (copy) BKBlock willShowBlock;
 
 /** The block to be fired when the alert view shows. */
-@property (nonatomic, copy) BKBlock didShowBlock;
+@property (copy) BKBlock didShowBlock;
 
 /** The block to be fired before the alert view will dismiss. */
-@property (nonatomic, copy) BKIndexBlock willDismissBlock;
+@property (copy) BKIndexBlock willDismissBlock;
 
 /** The block to be fired after the alert view dismisses. */
-@property (nonatomic, copy) BKIndexBlock didDismissBlock;
+@property (copy) BKIndexBlock didDismissBlock;
 
 
 @end

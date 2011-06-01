@@ -7,12 +7,12 @@
 #import "NSObject+AssociatedObjects.h"
 
 @interface UIWebView (BlocksKitPrivate)
-@property (nonatomic, retain) NSMutableDictionary *blocks;
+@property (retain) NSMutableDictionary *blocks;
 @end
 
 @implementation UIWebView (BlocksKit)
 
-static char kWebViewBlockDictionaryKey; 
+static char *kWebViewBlockDictionaryKey = "UIWebViewBlockHandlers"; 
 static NSString *kWebViewShouldStartBlockKey = @"UIWebViewShouldStartBlock";
 static NSString *kWebViewDidStartBlockKey = @"UIWebViewDidStartBlock";
 static NSString *kWebViewDidFinishBlockKey = @"UIWebViewDidFinishBlock";
@@ -21,35 +21,34 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 #pragma mark Delegates
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    BKWebViewStartBlock actionBlock = [self.blocks objectForKey:kWebViewShouldStartBlockKey];
-    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        return actionBlock(request, navigationType);
+    BKWebViewStartBlock block = [self.blocks objectForKey:kWebViewShouldStartBlockKey];
+    if (block && (![block isEqual:[NSNull null]]))
+        return block(request, navigationType);
     return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    BKBlock actionBlock = [self.blocks objectForKey:kWebViewDidStartBlockKey];
-    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        dispatch_async(dispatch_get_main_queue(), actionBlock);
+    BKBlock block = [self.blocks objectForKey:kWebViewDidStartBlockKey];
+    if (block && (![block isEqual:[NSNull null]]))
+        block();
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    BKBlock actionBlock = [self.blocks objectForKey:kWebViewDidFinishBlockKey];
-    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        dispatch_async(dispatch_get_main_queue(), actionBlock);
+    BKBlock block = [self.blocks objectForKey:kWebViewDidFinishBlockKey];
+    if (block && (![block isEqual:[NSNull null]]))
+        block();
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    BKErrorBlock actionBlock = [self.blocks objectForKey:kWebViewDidErrorBlockKey];
-    NSError *theError = error;
-    if (actionBlock && (![actionBlock isEqual:[NSNull null]]))
-        dispatch_async(dispatch_get_main_queue(), ^{ actionBlock(theError); });    
+    BKErrorBlock block = [self.blocks objectForKey:kWebViewDidErrorBlockKey];
+    if (block && (![block isEqual:[NSNull null]]))
+        block(error);
 }
 
 #pragma mark Properties
 
 - (NSMutableDictionary *)blocks {
-    NSMutableDictionary *blocks = [self associatedValueForKey:&kWebViewBlockDictionaryKey];
+    NSMutableDictionary *blocks = [self associatedValueForKey:kWebViewBlockDictionaryKey];
     if (!blocks) {
         blocks = [[NSMutableDictionary alloc] initWithCapacity:4];
         self.blocks = blocks;
@@ -59,7 +58,7 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 }
 
 - (void)setBlocks:(NSMutableDictionary *)blocks {
-    [self associateValue:blocks withKey:&kWebViewBlockDictionaryKey];
+    [self associateValue:blocks withKey:kWebViewBlockDictionaryKey];
 }
 
 - (BKWebViewStartBlock)shouldStartLoadBlock {
