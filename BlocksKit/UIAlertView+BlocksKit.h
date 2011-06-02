@@ -70,7 +70,7 @@
  @param title The text of the button.
  @param block A block of code.
  */
-- (void)addButtonWithTitle:(NSString *)title handler:(BKBlock)block;
+- (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock)block;
 
 /** Set the title and trigger of the cancel button.
 
@@ -80,7 +80,7 @@
  @param title The text of the button.
  @param block A block of code.
  */
-- (void)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block;
+- (NSInteger)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block;
 
 ///-----------------------------------
 /// @name Altering actions

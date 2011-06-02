@@ -13,7 +13,6 @@
 @implementation UIAlertView (BlocksKit)
 
 static char *kAlertViewBlockDictionaryKey = "UIAlertViewBlockHandlers";
-static NSString *kAlertViewCancelBlockKey = @"UIAlertViewCancelBlock";
 static NSString *kAlertViewWillShowBlockKey = @"UIAlertViewWillShowBlock";
 static NSString *kAlertViewDidShowBlockKey = @"UIAlertViewDidShowBlock";
 static NSString *kAlertViewWillDismissBlockKey = @"UIAlertViewWillDismissBlock";
@@ -35,7 +34,7 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
 
 #pragma mark Public methods
 
-- (void)addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
+- (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
     NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
@@ -43,17 +42,19 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     
     NSInteger index = [self addButtonWithTitle:title];
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:[NSNumber numberWithInteger:index]];
+    return index;
 }
 
-- (void)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
+- (NSInteger)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
     
     if (!title) title = NSLocalizedString(@"Cancel", nil);
     NSInteger index = [self addButtonWithTitle:title];
-    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kAlertViewCancelBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:[NSNumber numberWithInteger:index]];
     self.cancelButtonIndex = index;
+    return index;
 }
 
 #pragma mark Delegates
@@ -61,13 +62,7 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSMutableDictionary *blocks = self.blocks;
     
-    BKBlock block = nil;
-    
-    if (buttonIndex == 0)
-        block = [blocks objectForKey:kAlertViewCancelBlockKey];
-    else
-        block = [blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
-    
+    BKBlock block = [blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
     if (block && (![block isEqual:[NSNull null]]))
         block();
 }
@@ -110,7 +105,8 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
 }
 
 - (BKBlock)cancelBlock {
-    return [self.blocks objectForKey:kAlertViewCancelBlockKey];
+    NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
+    return [self.blocks objectForKey:key];
 }
 
 - (void)setCancelBlock:(BKBlock)block {
@@ -119,8 +115,10 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
         self.delegate = self;
     if (self.cancelButtonIndex == -1)
         [self setCancelButtonWithTitle:nil handler:block];
-    else
-        [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kAlertViewCancelBlockKey];
+    else {
+        NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
+        [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:key];
+    }
 }
 
 - (BKBlock)willShowBlock {

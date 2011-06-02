@@ -12,8 +12,7 @@
 
 @implementation UIActionSheet (BlocksKit)
 
-static char *kActionSheetBlockDictionaryKey = "UIAlertViewBlockHandlers"; 
-static NSString *kActionSheetCancelBlockKey = @"UIActionSheetCancelBlock";
+static char *kActionSheetBlockDictionaryKey = "UIActionSheetBlockHandlers"; 
 static NSString *kActionSheetWillShowBlockKey = @"UIActionSheetWillShowBlock";
 static NSString *kActionSheetDidShowBlockKey = @"UIActionSheetDidShowBlock";
 static NSString *kActionSheetWillDismissBlockKey = @"UIActionSheetWillDismissBlock";
@@ -32,7 +31,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 
 #pragma mark Public methods
 
-- (void)addButtonWithTitle:(NSString *)title handler:(BKBlock) block {
+- (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock) block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
@@ -40,9 +39,11 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     NSAssert(title.length, @"A button without a title cannot be added to the action sheet.");
     NSInteger index = [self addButtonWithTitle:title];
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:[NSNumber numberWithInteger:index]];
+    
+    return index;
 }
 
-- (void)setDestructiveButtonWithTitle:(NSString *) title handler:(BKBlock) block {
+- (NSInteger)setDestructiveButtonWithTitle:(NSString *) title handler:(BKBlock) block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
@@ -51,9 +52,11 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     NSInteger index = [self addButtonWithTitle:title];
     [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:[NSNumber numberWithInteger:index]];
     self.destructiveButtonIndex = index;
+    
+    return index;
 }
 
-- (void)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
+- (NSInteger)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     if (!self.delegate)
         self.delegate = self;
@@ -64,8 +67,10 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     if (title)
         index = [self addButtonWithTitle:title];
     
-    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kActionSheetCancelBlockKey];
+    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:[NSNumber numberWithInteger:index]];
     self.cancelButtonIndex = index;
+    
+    return index;
 }
 
 #pragma mark Delegates
@@ -73,13 +78,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSMutableDictionary *blocks = self.blocks;
     
-    BKBlock block = nil;
-    
-    if (buttonIndex == self.cancelButtonIndex)
-        block = [blocks objectForKey:kActionSheetCancelBlockKey];
-    else
-        block = [blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
-    
+    BKBlock block = [blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
     if (block && (![block isEqual:[NSNull null]]))
         block();
 }
@@ -125,7 +124,8 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 }
 
 - (BKBlock)cancelBlock {
-    return [self.blocks objectForKey:kActionSheetCancelBlockKey];
+    NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
+    return [self.blocks objectForKey:key];
 }
 
 - (void)setCancelBlock:(BKBlock)block {
@@ -134,8 +134,10 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     if (self.cancelButtonIndex == -1)
         [self setCancelButtonWithTitle:nil handler:block];
-    else
-        [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kActionSheetCancelBlockKey];
+    else {
+        NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
+        [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:key];
+    }
 }
 
 - (BKBlock)willShowBlock {
