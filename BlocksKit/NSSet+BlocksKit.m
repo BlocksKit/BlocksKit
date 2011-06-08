@@ -8,68 +8,60 @@
 @implementation NSSet (BlocksKit)
 
 - (void)each:(BKSenderBlock)block {
-    for (id obj in self) {
-        dispatch_async(dispatch_get_main_queue(), ^{ block(obj); });
-    }
+    [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        block(obj);
+    }];
 }
 
 - (id)match:(BKValidationBlock)block {
-    for (id obj in self) {
-        if (block(obj))
-            return obj;
-    }
-    return nil;
+    return [[self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+        if (block(obj)) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }] anyObject];
 }
 
-- (NSSet *)select:(BKValidationBlock)block {
-    NSMutableSet *list = [[NSMutableSet alloc] initWithCapacity:self.count];
-    for (id obj in self) {
-        if (block(obj))
-            [list addObject:obj];
-    }
+- (NSSet *)select:(BKValidationBlock)block {    
+    NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+        return (block(obj));
+    }];
     
-    if (!list.count) {
-        [list release];
+    if (!list.count)
         return nil;
-    }
     
-    NSSet *result = [list copy];
-    [list release];
-    return [result autorelease];
+    return list;
 }
 
 - (NSSet *)reject:(BKValidationBlock)block {
-    NSMutableSet *list = [[NSMutableSet alloc] initWithCapacity:self.count];
-    for (id obj in self) {
-        if (!block(obj))
-            [list addObject:obj];
-    }
+    NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+        return (!block(obj));
+    }];
     
-    if (!list.count) {
-        [list release];
+    if (!list.count)
         return nil;
-    }
     
-    NSSet *result = [list copy];
-    [list release];
-    return [result autorelease];
+    return list;
 }
 
 - (NSSet *)map:(BKTransformBlock)block {
     NSMutableSet *list = [[NSMutableSet alloc] initWithCapacity:self.count];
-    for (id obj in self) {
+    
+    [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         [list addObject:block(obj)];
-    }
-    NSSet *result = [list copy];
-    [list release];
-    return [result autorelease];
+    }];
+
+    return [list autorelease];
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
-    id result = initial;
-    for (id obj in self) {
+    __block id result = initial;
+    
+    [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         result = block(result, obj);
-    }
+    }];
+    
     return result;
 }
 

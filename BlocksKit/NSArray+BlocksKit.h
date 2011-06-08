@@ -32,6 +32,9 @@
 
 /** Loops through an array and returns the object matching the block.
  
+ match: is functionally identical to select:, but will stop and return
+ on the first match.
+ 
  @param block A single-argument, `BOOL`-returning code block.
  @return Returns the object if found, `nil` otherwise.
  @see select:

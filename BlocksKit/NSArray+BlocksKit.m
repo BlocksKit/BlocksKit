@@ -8,51 +8,46 @@
 @implementation NSArray (BlocksKit)
 
 - (void)each:(BKSenderBlock)block {
-    for (id obj in self) {
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         block(obj);
-    }
+    }];
 }
 
 - (id)match:(BKValidationBlock)block {
-    for (id obj in self) {
-        if (block(obj))
-            return obj;
-    }
+    NSIndexSet *indexes = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        if (block(obj)) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    
+    if (indexes.count)
+        return [self objectAtIndex:[indexes firstIndex]];
+    
     return nil;
 }
 
 - (NSArray *)select:(BKValidationBlock)block {
-    NSMutableArray *list = [[NSMutableArray alloc] initWithCapacity:self.count];
-    for (id obj in self) {
-        if (block(obj))
-            [list addObject:obj];
-    }
+    NSArray *list = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return (block(obj));
+    }]];
     
-    if (!list.count) {
-        [list release];
+    if (!list.count)
         return nil;
-    }
     
-    NSArray *result = [list copy];
-    [list release];
-    return [result autorelease];
+    return list;
 }
 
 - (NSArray *)reject:(BKValidationBlock)block {
-    NSMutableArray *list = [[NSMutableArray alloc] initWithCapacity:self.count];
-    for (id obj in self) {
-        if (!block(obj))
-            [list addObject:obj];
-    }
+    NSArray *list = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return (!block(obj));
+    }]];
     
-    if (!list.count) {
-        [list release];
+    if (!list.count)
         return nil;
-    }
     
-    NSArray *result = [list copy];
-    [list release];
-    return [result autorelease];    
+    return list;
 }
 
 - (NSArray *)map:(BKTransformBlock)block {
@@ -66,10 +61,12 @@
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
-    id result = initial;
-    for (id obj in self) {
+    __block id result = initial;
+    
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         result = block(result, obj);
-    }
+    }];
+    
     return result;
 }
 

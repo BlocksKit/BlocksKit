@@ -24,39 +24,25 @@
 }
 
 - (NSIndexSet *)select:(BKIndexValidationBlock)block {
-    NSMutableIndexSet *list = [NSMutableIndexSet new];
-    
-    [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        if (block(idx))
-            [list addIndex:idx];
+    NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+        return (block(idx));
     }];
     
-    if (!list.count) {
-        [list release];
+    if (!list.count)
         return nil;
-    }
     
-    NSIndexSet *result = [list copy];
-    [list release];
-    return [result autorelease];    
+    return list;
 }
 
 - (NSIndexSet *)reject:(BKIndexValidationBlock)block {    
-    NSMutableIndexSet *list = [NSMutableIndexSet new];
-    
-    [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        if (!block(idx))
-            [list addIndex:idx];
+    NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+        return (!block(idx));
     }];
     
-    if (!list.count) {
-        [list release];
+    if (!list.count)
         return nil;
-    }
     
-    NSIndexSet *result = [list copy];
-    [list release];
-    return [result autorelease];     
+    return list;     
 }
 
 @end
