@@ -19,7 +19,7 @@
 @synthesize target, invocation;
 
 + (JRInvocationGrabber *)grabberWithTarget:(id)target {
-    JRInvocationGrabber *instance = [[JRInvocationGrabber alloc] init];
+    JRInvocationGrabber *instance = [JRInvocationGrabber alloc];
     instance.target = target;
     return [instance autorelease];
 }
