@@ -24,7 +24,7 @@
 }
 
 - (NSIndexSet *)select:(BKIndexValidationBlock)block {
-    NSMutableIndexSet *list = [[NSMutableIndexSet alloc] initWithCapacity:self.count];
+    NSMutableIndexSet *list = [NSMutableIndexSet new];
     
     [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         if (block(idx))
@@ -42,7 +42,7 @@
 }
 
 - (NSIndexSet *)reject:(BKIndexValidationBlock)block {    
-    NSMutableIndexSet *list = [[NSMutableIndexSet alloc] initWithCapacity:self.count];
+    NSMutableIndexSet *list = [NSMutableIndexSet new];
     
     [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         if (!block(idx))
