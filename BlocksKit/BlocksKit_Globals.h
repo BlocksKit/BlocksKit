@@ -42,3 +42,5 @@ typedef void(^BKObservationBlock)(id obj, NSDictionary *change);
 typedef void(^BKKeyValueBlock)(id key, id obj);
 typedef id(^BKKeyValueTransformBlock)(id key, id obj);
 typedef id(^BKAccumulationBlock)(id sum, id obj);
+
+typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);

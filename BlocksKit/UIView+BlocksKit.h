@@ -56,7 +56,16 @@
 
  @param block The handler for the touch recognizer
  */
-- (void)whenTouchedDown:(BKBlock)block;
+- (void)whenTouchedDown:(BKTouchBlock)block;
+
+/** Adds a block that gets called on a finger drag.
+ 
+ Internally, this method overrides the touchesMoved:withEvent:
+ selector of UIView.
+ 
+ @param block The handler for the touch recognizer
+ */
+- (void)whenTouchMove:(BKTouchBlock)block;
 
 /** Adds a block that gets called on a finger up.
  
@@ -66,6 +75,6 @@
  
  @param block The handler for the touch recognizer
  */
-- (void)whenTouchedUp:(BKBlock)block;
+- (void)whenTouchedUp:(BKTouchBlock)block;
 
 @end
