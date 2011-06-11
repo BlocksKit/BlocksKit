@@ -26,8 +26,8 @@ Installation
 * Clone the repository.
 * In Xcode 4, click-and-drag (or add using File > Add Files to Project) the BlocksKit XCode project into a project or workspace.
 * In the build phases of a target, add libBlocksKit.a to the "Target Dependencies" and "Link Binary with Libraries".
-* In the build settings, change "All Linker Flags" to "-ObjC -all_load" and "Header Search Paths" to "$(BUILT_PRODUCTS_DIR)".
-* In your project prefix or any other header file, insert `#import <BlocksKit.h>`.
+* In the build settings, change "All Linker Flags" to `-ObjC -all_load` and "Header Search Paths" to `$(BUILT_PRODUCTS_DIR)/../BlocksKit/**`.
+* In any header file, insert `#import "BlocksKit/BlocksKit.h"`.  _This is a change from previous version._ It is not recommended to insert the import statement in your project prefix, as it will break Xcode 4's Code Sense for the entire project.
 
 
 Documentation

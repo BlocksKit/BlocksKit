@@ -24,12 +24,11 @@
 //  THE SOFTWARE.
 //
 
-#pragma once
-
 #import <Foundation/Foundation.h>
 #import <dispatch/dispatch.h>
 
-#import "BlocksKit_Globals.h"
+#include "BlocksKit_Globals.h"
+#include "BKMacros.h"
 
 #import "NSObject+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
@@ -39,7 +38,6 @@
 #import "NSSet+BlocksKit.h"
 #import "NSDictionary+BlocksKit.h"
 #import "NSIndexSet+BlocksKit.h"
-#import "BKMacros.h"
 
 #import "NSInvocation+BlocksKit.h"
 #import "NSTimer+BlocksKit.h"
