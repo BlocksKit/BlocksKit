@@ -26,21 +26,25 @@
 
 
 typedef void(^BKBlock)(void); // compatible with dispatch_block_t
-
 typedef void(^BKSenderBlock)(id sender);
-typedef id(^BKTransformBlock)(id obj);
-typedef BOOL(^BKValidationBlock)(id obj);
-
 typedef void(^BKIndexBlock)(NSUInteger index);
-typedef BOOL(^BKIndexValidationBlock)(NSUInteger index);
-
-typedef BOOL(^BKWebViewStartBlock)(NSURLRequest *request, UIWebViewNavigationType navigationType);
 typedef void(^BKErrorBlock)(NSError *error);
+
+#if BK_HAS_UIKIT
+typedef void(^BKViewBlock)(UIView *view);
+#endif
 
 typedef void(^BKWithObjectBlock)(id obj, id arg);
 typedef void(^BKObservationBlock)(id obj, NSDictionary *change);
 typedef void(^BKKeyValueBlock)(id key, id obj);
+
+typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);
+
+typedef BOOL(^BKValidationBlock)(id obj);
+typedef BOOL(^BKIndexValidationBlock)(NSUInteger index);
+typedef BOOL(^BKWebViewStartBlock)(NSURLRequest *request, UIWebViewNavigationType navigationType);
+
+typedef id(^BKTransformBlock)(id obj);
 typedef id(^BKKeyValueTransformBlock)(id key, id obj);
 typedef id(^BKAccumulationBlock)(id sum, id obj);
 
-typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);

@@ -77,4 +77,10 @@
  */
 - (void)whenTouchedUp:(BKTouchBlock)block;
 
+/** A convenience wrapper that non-recursively loops through the subviews of a view.
+ 
+ @param block A code block that interacts with a UIView sender.
+ */
+- (void)eachSubview:(BKViewBlock)block;
+
 @end
