@@ -20,7 +20,7 @@ static char *kViewTouchUpBlockKey = "UIViewTouchDownBlock";
 - (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
     self.userInteractionEnabled = YES;
     
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithHandler:^(id recognizer) {
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
         block();
     }];
     

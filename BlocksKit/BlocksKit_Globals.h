@@ -32,6 +32,7 @@ typedef void(^BKErrorBlock)(NSError *error);
 
 #if BK_HAS_UIKIT
 typedef void(^BKViewBlock)(UIView *view);
+typedef void(^BKGestureRecognizerBlock)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location);
 #endif
 
 typedef void(^BKWithObjectBlock)(id obj, id arg);

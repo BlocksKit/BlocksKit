@@ -33,6 +33,11 @@
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
 
  @warning UIGestureRecognizer is only available on iOS or in a Mac app using Chameleon.
+ 
+ @warning It is not recommended to use the Apple-supplied locationInView and state
+ methods on a *delayed* block-backed gesture recognizer, as these properties are
+ likely to have been cleared by the time by the block fires.  It is instead recommended
+ to use the arguments provided to the block in BlocksKit builds after 15 Jun. 2011.
  */
 
 @interface UIGestureRecognizer (BlocksKit)
@@ -44,7 +49,7 @@
  @param block The block which handles an executed gesture.
  @param delay A number of seconds after which the block will fire.
  */
-+ (id)recognizerWithHandler:(BKSenderBlock)block delay:(NSTimeInterval)delay;
++ (id)recognizerWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay;
 
 /** Initializes an allocated gesture recognizer that will call the given block
  after a given delay.
@@ -55,7 +60,7 @@
  @param block The block which handles an executed gesture.
  @param delay A number of seconds after which the block will fire.
  */
-- (id)initWithHandler:(BKSenderBlock)block delay:(NSTimeInterval)delay;
+- (id)initWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay;
 
 /** An autoreleased gesture recognizer that will call the given block.
  
@@ -66,7 +71,7 @@
  subclass, or `nil`.
  @param block The block which handles an executed gesture.
  */
-+ (id)recognizerWithHandler:(BKSenderBlock)block;
++ (id)recognizerWithHandler:(BKGestureRecognizerBlock)block;
 
 /** Initializes an allocated gesture recognizer that will call the given block.
  
@@ -75,12 +80,12 @@
  @return An initialized instance of a concrete UIGestureRecognizer subclass or `nil`.
  @param block The block which handles an executed gesture.
  */
-- (id)initWithHandler:(BKSenderBlock)block;
+- (id)initWithHandler:(BKGestureRecognizerBlock)block;
 
 /** Allows the block that will be fired by the gesture recognizer
  to be modified after the fact.
  */
-@property (copy) BKSenderBlock handler;
+@property (copy) BKGestureRecognizerBlock handler;
 
 /** Allows the length of the delay after which the gesture
  recognizer will be fired to modify.
