@@ -47,7 +47,7 @@ static char *kGestureRecognizerCancelRefKey = "BKGestureRecognizerCancellationBl
     BKSenderBlock block = self.handler;
     if (block) {
         id cancel = [NSObject performBlock:^{ block(self); } afterDelay:self.delay];
-        [self weaklyAssociateValue:cancel withKey:kGestureRecognizerCancelRefKey];
+        [self associateCopyOfValue:cancel withKey:kGestureRecognizerCancelRefKey];
     }
 }
 
