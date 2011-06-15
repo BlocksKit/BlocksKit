@@ -12,25 +12,25 @@
  of a delegate.  Any time you instantiate a UIAlertView
  using the methods here, you must add buttons using
  addButtonWithTitle:handler: otherwise nothing will happen.
- 
+
  A typical invocation will go like this:
      UIAlertView *testView = [UIAlertView alertWithTitle:@"Application Alert" message:@"This app will explode in 42 seconds."];
      [testView setCancelButtonWithTitle:@"Oh No!" handler:^void() { NSLog(@"Boom!"); }];
      [testView show];
- 
+
  A more traditional, and more useful, modal dialog looks like so:
     UIAlertView *testView = [UIAlertView alertWithTitle:@"Very important!" message:@"Do you like chocolate?"];
     [testView addButtonWithTitle:@"Yes" handler:^void() { NSLog(@"Yay!"); }];
     [testView addButtonWithTitle:@"No" handler:^void() { NSLog(@"We hate you."); }];
     [testView show];
 
- @warning UIAlertView is only available on iOS or in a Mac app using Chameleon.
-
  Includes code by the following:
 
  - Landon Fuller, "Using Blocks".  <http://landonf.bikemonkey.org>.
  - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
  - Zach Waldowski.    <https://github.com/zwaldowski>. 2011. MIT.
+
+ @warning UIAlertView is only available on iOS or in a Mac app using Chameleon.
  */
 @interface UIAlertView (BlocksKit) <UIAlertViewDelegate>
 

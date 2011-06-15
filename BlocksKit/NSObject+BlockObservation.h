@@ -17,13 +17,13 @@
 
  Like most of the other block abilities in BlocksKit, observation saves
  and a bunch of code and a bunch of potential bugs.
+ 
+ Created by Andy Matuschak as [AMBlockObservation](https://gist.github.com/153676).
+ Licensed in the public domain.
 
  @warning *Important:* Due to a design flaw in recent version of the Objective-C
  runtime, you must call removeObserverWithBlockToken: in the dealloc method
  of any object making use of block-based KVO.
-
- Created by Andy Matuschak as [AMBlockObservation](https://gist.github.com/153676).
- Licensed in the public domain.
  */
 
 @interface NSObject (BlockObservation)

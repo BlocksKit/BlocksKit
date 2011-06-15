@@ -5,20 +5,19 @@
 
 #import "BlocksKit_Globals.h"
 
-/*
- Block extensions for NSIndexSet.
- 
+/** Block extensions for NSIndexSet.
+
  Both inspired by and resembling Smalltalk syntax, these utilities
  allows for iteration of an array in a concise way that
  saves quite a bit of boilerplate code for filtering or finding
  objects or an object.
- 
+
  Includes code by the following:
- 
- - Robin Lu.       <https://github.com/robin>.      2009. MIT.
- - Michael Ash.    <https://github.com/mikeash>.    2010. BSD.
- - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
- 
+
+- Robin Lu.       <https://github.com/robin>.      2009. MIT.
+- Michael Ash.    <https://github.com/mikeash>.    2010. BSD.
+- Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
+
  @see NSArray(BlocksKit)
  @see NSDictionary(BlocksKit)
  @see NSSet(BlocksKit)

@@ -6,13 +6,13 @@
 #import "BlocksKit_Globals.h"
 
 /** UIActionSheet without delegates!
- 
+
  This set of extensions and convenience classes allows
  for an instance of UIAlertView without the implementation
  of a delegate.  Any time you instantiate a UIAlertView
  using the methods here, you must add buttons using
  addButtonWithTitle:handler: to make sure nothing breaks.
- 
+
  A typical invocation might go like this:
      UIActionSheet *testSheet = [UIActionSheet sheetWithTitle:@"Please select one."];
      [testSheet addButtonWithTitle:@"Zip" handler:^void() { NSLog(@"Zip!"); }];
@@ -22,13 +22,13 @@
      [testSheet setCancelButtonWithTitle:nil handler:^void() { NSLog(@"Never mind, then!"); }];
      [testSheet showInView:self.view];
 
- @warning UIActionSheet is only available on iOS or in a Mac app using Chameleon.
- 
  Includes code by the following:
- 
+
  - Landon Fuller, "Using Blocks".  <http://landonf.bikemonkey.org>.
  - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
  - Zach Waldowski.    <https://github.com/zwaldowski>. 2011. MIT.
+
+ @warning UIActionSheet is only available on iOS or in a Mac app using Chameleon.
  */
 @interface UIActionSheet (BlocksKit) <UIActionSheetDelegate>
 

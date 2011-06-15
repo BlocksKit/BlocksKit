@@ -5,14 +5,34 @@
 
 #import "BlocksKit_Globals.h"
 
-/** Block initialization for UIGestureRecognizer.
+/** Block functionality for UIGestureRecognizer.
 
- @warning UIGestureRecognizer is only available on iOS or in a Mac app using Chameleon.
+ Use of the delay property is pretty straightforward, although
+ cancellation might be a little harder to swallow.  An example
+ follows:
+     UITapGestureRecognizer *singleTap = [UITapGestureRecognizer recognizerWithHandler:^(id sender) {
+         NSLog(@"Single tap.");
+     } delay:0.18];
+     [self addGestureRecognizer:singleTap];
  
+     UITapGestureRecognizer *doubleTap = [UITapGestureRecognizer recognizerWithHandler:^(id sender) {
+        [singleTap cancel];
+        NSLog(@"Double tap.");
+     }];
+     doubleTap.numberOfTapsRequired = 2;
+     [self addGestureRecognizer:doubleTap];
+
+ Believe it or not, the above code is fully memory-safe and efficient.  Eagle-eyed coders
+ will notice that this setup emulates UIGestureRecognizer's requireGestureRecognizerToFail:,
+ and, yes, it totally apes it.  Not only is this setup much faster on the user's end of
+ things, it is more flexible and allows for much more complicated setups.
+
  Includes code by the following:
- 
+
  - Kevin O'Neill.  <https://github.com/kevinoneill>. 2011. BSD.
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
+
+ @warning UIGestureRecognizer is only available on iOS or in a Mac app using Chameleon.
  */
 
 @interface UIGestureRecognizer (BlocksKit)
@@ -69,6 +89,11 @@
 
 /** If the recognizer happens to be fired, calling this method
  will stop it from firing, but only if a delay is set.
+
+ @warning This method is not for arbitrarily canceling the
+ firing of a recognizer, but will only function for a block
+ handler *after the recognizer has already been fired*.  Be
+ sure to make your delay times accomodate this likelihood.
  */
 - (void)cancel;
 

@@ -13,11 +13,11 @@
  discussed here were result in the delegate being set to the
  web view itself.
 
- @warning UIWebView is only available on iOS or in a Mac app using Chameleon.
-
  Includes code by the following:
 
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
+
+ @warning UIWebView is only available on iOS or in a Mac app using Chameleon.
  */
 
 @interface UIWebView (BlocksKit) <UIWebViewDelegate>

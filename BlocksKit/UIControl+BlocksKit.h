@@ -10,12 +10,12 @@
  This set of extensions allows for block: simply
  add it using -addEventHandler:forControlEvents: and go!
 
- @warning UIControl is only available on iOS or in a Mac app using Chameleon.
-
  Includes code by the following:
 
  - Kevin O'Neill.  <https://github.com/kevinoneill>. 2011. BSD.
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
+
+ @warning UIControl is only available on iOS or in a Mac app using Chameleon.
  */
 @interface UIControl (BlocksKit)
 

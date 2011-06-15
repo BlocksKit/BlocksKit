@@ -16,14 +16,14 @@
  Grand Central Dispatch, but each convenience method also returns
  a pointer that can be used to cancel the execution before it happens!
 
- @warning *Important:* Use of the **self** reference in a block will
- reference the current implementation context.  The first argument,
- `obj`, should be used instead.
-
  Includes code by the following:
 
  - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
  - Zach Waldowski.    <https://github.com/zwaldowski>. 2011. MIT.
+
+ @warning *Important:* Use of the **self** reference in a block will
+ reference the current implementation context.  The first argument,
+ `obj`, should be used instead.
  */
 @interface NSObject (BlocksKit)
 
