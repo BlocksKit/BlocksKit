@@ -11,23 +11,24 @@
 
 @implementation NSTimer (BlocksKit)
 
-+ (id)scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKBlock)inBlock repeats:(BOOL)inRepeats {
-    BKBlock block = [inBlock copy];
++ (id)scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKTimerBlock)inBlock repeats:(BOOL)inRepeats {
+    BKTimerBlock block = [inBlock copy];
     id ret = [self scheduledTimerWithTimeInterval:inTimeInterval target:self selector:@selector(_executeBlockFromTimer:) userInfo:block repeats:inRepeats];
     [block release];
     return ret;
 }
 
-+ (id)timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKBlock)inBlock repeats:(BOOL)inRepeats {
-    BKBlock block = [inBlock copy];
++ (id)timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKTimerBlock)inBlock repeats:(BOOL)inRepeats {
+    BKTimerBlock block = [inBlock copy];
     id ret = [self timerWithTimeInterval:inTimeInterval target:self selector:@selector(_executeBlockFromTimer:) userInfo:block repeats:inRepeats];
     [block release];
     return ret;
 }
 
 + (void)_executeBlockFromTimer:(NSTimer *)aTimer {
-    BKBlock block = [aTimer userInfo];
-    if (block) block();
+    BKTimerBlock block = [aTimer userInfo];
+    NSTimeInterval time = [aTimer timeInterval];
+    if (block) block(time);
 }
 
 @end

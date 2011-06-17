@@ -29,6 +29,7 @@ typedef void(^BKBlock)(void); // compatible with dispatch_block_t
 typedef void(^BKSenderBlock)(id sender);
 typedef void(^BKIndexBlock)(NSUInteger index);
 typedef void(^BKErrorBlock)(NSError *error);
+typedef void(^BKTimerBlock)(NSTimeInterval time);
 
 #if BK_HAS_UIKIT
 typedef void(^BKViewBlock)(UIView *view);
