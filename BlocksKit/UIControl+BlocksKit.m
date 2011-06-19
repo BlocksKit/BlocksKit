@@ -61,7 +61,6 @@ static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
     BKControlWrapper *target = [BKControlWrapper wrapperWithHandler:handler forControlEvents:controlEvents];
     [actions addObject:target];
     [self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
-    [target release];    
 }
 
 - (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents {

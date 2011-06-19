@@ -20,9 +20,9 @@ static char *kViewTouchUpBlockKey = "UIViewTouchDownBlock";
 - (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
     self.userInteractionEnabled = YES;
     
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+    UITapGestureRecognizer *gesture = [UITapGestureRecognizer recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
         block();
-    }];
+    }
     
     [[self.gestureRecognizers select:^BOOL(id obj) {
         if ([obj isKindOfClass:[UITapGestureRecognizer class]]) {
@@ -34,12 +34,11 @@ static char *kViewTouchUpBlockKey = "UIViewTouchDownBlock";
     }] each:^(id obj) {
         [gesture requireGestureRecognizerToFail:(UITapGestureRecognizer *)obj];
     }];
-    
+
     [gesture setNumberOfTouchesRequired:numberOfTouches];
     [gesture setNumberOfTapsRequired:numberOfTaps];
     
     [self addGestureRecognizer:gesture];
-    [gesture release];    
 }
 
 - (void)whenTapped:(BKBlock)block {
