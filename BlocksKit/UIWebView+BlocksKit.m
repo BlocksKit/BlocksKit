@@ -51,7 +51,7 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
     NSMutableDictionary *blocks = [self associatedValueForKey:kWebViewBlockDictionaryKey];
     
     if (!blocks) {
-        blocks = [NSMutableDictionary dictionaryWithCapacity:4]
+        blocks = [NSMutableDictionary dictionaryWithCapacity:4];
         self.blocks = blocks;
     }
     
