@@ -10,7 +10,7 @@
 #import <dispatch/dispatch.h>
 
 static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
-    int64_t delta = (int64_t)(NSEC_PER_SEC * time);
+    int64_t delta = (NSEC_PER_SEC * time);
     return dispatch_time(DISPATCH_TIME_NOW, delta);
 }
 
@@ -21,39 +21,17 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     
     __block BOOL cancelled = NO;
     
-    void (^wrappingBlock)(BOOL, id) = ^(BOOL cancel, id obj) {
+    void (^wrappingBlock)(BOOL, id) = ^(BOOL cancel) {
         if (cancel) {
             cancelled = YES;
             return;
         }
-        if (!cancelled) block(obj);
+        if (!cancelled) block(self);
     };
-    
-    wrappingBlock = [wrappingBlock copy];
-    
+
 	dispatch_after(dTimeDelay(delay), dispatch_get_main_queue(), ^{  wrappingBlock(NO, self); });
     
-    return [wrappingBlock autorelease];
-}
-
-- (id)performBlock:(BKWithObjectBlock)block withObject:(id)anObject afterDelay:(NSTimeInterval)delay {
-    if (!block) return nil;
-    
-    __block BOOL cancelled = NO;
-    
-    void (^wrappingBlock)(BOOL, id, id) = ^(BOOL cancel, id obj, id arg) {
-        if (cancel) {
-            cancelled = YES;
-            return;
-        }
-        if (!cancelled) block(obj, arg);
-    };
-    
-    wrappingBlock = [wrappingBlock copy];
-    
-	dispatch_after(dTimeDelay(delay), dispatch_get_main_queue(), ^{ wrappingBlock(NO, self, anObject); });
-    
-    return [wrappingBlock autorelease];
+    return wrappingBlock;
 }
 
 + (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay {
@@ -66,34 +44,12 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
             cancelled = YES;
             return;
         }
-        if (!cancelled)block();
+        if (!cancelled) block();
     };
-    
-    wrappingBlock = [wrappingBlock copy];
-    
+
 	dispatch_after(dTimeDelay(delay), dispatch_get_main_queue(), ^{ wrappingBlock(NO); });
     
-    return [wrappingBlock autorelease];
-}
-
-+ (id)performBlock:(BKSenderBlock)block withObject:(id)anObject afterDelay:(NSTimeInterval)delay {
-    if (!block) return nil;
-    
-    __block BOOL cancelled = NO;
-    
-    void (^wrappingBlock)(BOOL, id) = ^(BOOL cancel, id arg) {
-        if (cancel) {
-            cancelled = YES;
-            return;
-        }
-        if (!cancelled) block(arg);
-    };
-    
-    wrappingBlock = [wrappingBlock copy];
-    
-	dispatch_after(dTimeDelay(delay), dispatch_get_main_queue(), ^{  wrappingBlock(NO, anObject); });
-    
-    return [wrappingBlock autorelease];    
+    return wrappingBlock;
 }
 
 + (void)cancelBlock:(id)block {

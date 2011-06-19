@@ -21,9 +21,6 @@
  - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
  - Zach Waldowski.    <https://github.com/zwaldowski>. 2011. MIT.
 
- @warning *Important:* Use of the **self** reference in a block will
- reference the current implementation context.  The first argument,
- `obj`, should be used instead.
  */
 @interface NSObject (BlocksKit)
 
@@ -34,21 +31,16 @@
      [object performBlock:^(){
        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
      } afterDelay:0.5f];
+ 
+ @warning *Important:* Use of the **self** reference in a block will
+ reference the current implementation context.  The first argument,
+ `obj`, should be used instead.
 
  @param block A single-argument code block, where `obj` is the reciever.
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */
 - (id)performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay;
-
-/** Performs a block on the current object using an
-
- @param block A single-argument code block, where `obj` is the reciever.
- @param anObject Any object for use in the block.
- @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
- */
-- (id)performBlock:(BKWithObjectBlock)block withObject:(id)anObject afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block after a given delay.
 
@@ -72,19 +64,6 @@
  @return Returns a pointer to the block that may or may not execute the given block.
  */
 + (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay;
-
-/** Executes a block using an object after a given delay.
-
- Like the other block-based class method, this is identical to its instance method
- with the exception that it does not have a reference to a reciever.
-
- @see performBlock:withObject:afterDelay:
- @param block A single-argument code block, with **NO** reciever.
- @param anObject Any object for use in the block.
- @param delay A measure in seconds.
- @return Returns the object if found, `nil` otherwise.
- */
-+ (id)performBlock:(BKSenderBlock)block withObject:(id)anObject afterDelay:(NSTimeInterval)delay;
 
 /** Cancels the potential execution of a block.
 
