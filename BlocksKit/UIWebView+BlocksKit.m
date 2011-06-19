@@ -49,11 +49,12 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 
 - (NSMutableDictionary *)blocks {
     NSMutableDictionary *blocks = [self associatedValueForKey:kWebViewBlockDictionaryKey];
+    
     if (!blocks) {
-        blocks = [[NSMutableDictionary alloc] initWithCapacity:4];
+        blocks = [NSMutableDictionary dictionaryWithCapacity:4]
         self.blocks = blocks;
-        [blocks release];
     }
+    
     return blocks;
 }
 
@@ -68,7 +69,14 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 - (void)setShouldStartLoadBlock:(BKWebViewStartBlock)block {
     if (self.delegate != self)
         self.delegate = self;
-    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kWebViewShouldStartBlockKey];
+    
+#if __has_feature(objc_arc)
+    BKWebViewStartBlock handler = block ? [block copy] : [NSNull null];
+#else
+    BKWebViewStartBlock handler = block ? [[block copy] autorelease] : [NSNull null];
+#endif
+    
+    [self.blocks setObject:handler forKey:kWebViewShouldStartBlockKey];
 }
 
 - (BKBlock)didStartLoadBlock {
@@ -77,8 +85,15 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 
 - (void)setDidStartLoadBlock:(BKBlock)block {
     if (self.delegate != self)
-        self.delegate = self;    
-    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kWebViewDidStartBlockKey];
+        self.delegate = self; 
+    
+#if __has_feature(objc_arc)
+    BKBlock handler = block ? [block copy] : [NSNull null];
+#else
+    BKBlock handler = block ? [[block copy] autorelease] : [NSNull null];
+#endif
+    
+    [self.blocks setObject:handler forKey:kWebViewDidStartBlockKey];
 }
 
 - (BKBlock)didFinishLoadBlock {
@@ -87,8 +102,15 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 
 - (void)setDidFinishLoadBlock:(BKBlock)block {
     if (self.delegate != self)
-        self.delegate = self;    
-    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kWebViewDidFinishBlockKey];
+        self.delegate = self;
+    
+#if __has_feature(objc_arc)
+    BKBlock handler = block ? [block copy] : [NSNull null];
+#else
+    BKBlock handler = block ? [[block copy] autorelease] : [NSNull null];
+#endif
+    
+    [self.blocks setObject:handler forKey:kWebViewDidFinishBlockKey];
 }
 
 - (BKErrorBlock)didFinishWithErrorBlock {
@@ -97,8 +119,15 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 
 - (void)setDidFinishWithErrorBlock:(BKErrorBlock)block {
     if (self.delegate != self)
-        self.delegate = self;    
-    [self.blocks setObject:(block ? [[block copy] autorelease] : [NSNull null]) forKey:kWebViewDidErrorBlockKey];
+        self.delegate = self;   
+    
+#if __has_feature(objc_arc)
+    BKBlock handler = block ? [block copy] : [NSNull null];
+#else
+    BKBlock handler = block ? [[block copy] autorelease] : [NSNull null];
+#endif
+    
+    [self.blocks setObject:handler forKey:kWebViewDidErrorBlockKey];
 }
 
 @end

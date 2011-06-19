@@ -8,7 +8,11 @@
 
 @interface AMObserverTrampoline : NSObject {
 @private
+#if !__has_feature(objc_arc) || __has_feature(objc_arc_weak)
     __weak id observee;
+#else
+    id observee;
+#endif
     NSString *keyPath;
     BKObservationBlock task;
     NSOperationQueue *queue;
@@ -20,7 +24,7 @@
 
 @end
 
-static NSString *AMObserverTrampolineContext = @"AMObserverTrampolineContext";
+static char *AMObserverTrampolineContext = "AMObserverTrampolineContext";
 
 @implementation AMObserverTrampoline
 
@@ -28,7 +32,11 @@ static NSString *AMObserverTrampolineContext = @"AMObserverTrampolineContext";
     if (!(self = [super init])) return nil;
     task = [newTask copy];
     keyPath = [newKeyPath copy];
+#if __has_feature(objc_arc)
+    queue = newQueue;
+#else
     queue = [newQueue retain];
+#endif
     observee = obj;
     cancellationPredicate = 0;
     [(NSObject*)obj addObserver:self forKeyPath:keyPath options:0 context:AMObserverTrampolineContext];
@@ -36,11 +44,12 @@ static NSString *AMObserverTrampolineContext = @"AMObserverTrampolineContext";
 }
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    BKObservationBlock block = task;
     if (context == AMObserverTrampolineContext) {
         if (queue)
-            [queue addOperationWithBlock:^{ task(object, change); }];
+            [queue addOperationWithBlock:^{ block(object, change); }];
         else
-            task(object, change);
+            block(object, change);
     }
 }
 
@@ -61,7 +70,7 @@ static NSString *AMObserverTrampolineContext = @"AMObserverTrampolineContext";
 
 @end
 
-static NSString *AMObserverMapKey = @"org.andymatuschak.observerMap";
+static char *AMObserverMapKey = "org.andymatuschak.observerMap";
 static dispatch_queue_t AMObserverMutationQueue = NULL;
 
 static dispatch_queue_t AMObserverMutationQueueCreateIfNecessary() {
