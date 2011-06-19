@@ -22,7 +22,7 @@ static char *kViewTouchUpBlockKey = "UIViewTouchDownBlock";
     
     UITapGestureRecognizer *gesture = [UITapGestureRecognizer recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
         block();
-    }
+    }];
     
     [[self.gestureRecognizers select:^BOOL(id obj) {
         if ([obj isKindOfClass:[UITapGestureRecognizer class]]) {
