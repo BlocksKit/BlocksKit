@@ -9,40 +9,41 @@
 
 static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
 
-@interface BKBlockWrapper : NSObject {
-@private
-    BKSenderBlock action;
-    UIControlEvents controlEvents;
-}
+@interface BKControlWrapper : NSObject
 
-- (id)initWithAction:(BKSenderBlock)anAction forControlEvents:(UIControlEvents)someControlEvents;
++ (id)wrapperWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents;
 
-@property (copy) BKSenderBlock action;
+@property (copy) BKSenderBlock handler;
 @property (assign) UIControlEvents controlEvents;
 
-- (void)invokeWithSender:(id)sender;
+- (void)invoke:(id)sender;
 
 @end
 
-@implementation BKBlockWrapper
+@implementation BKControlWrapper
 
-@synthesize action, controlEvents;
+@synthesize handler, controlEvents;
 
-- (id)initWithAction:(BKSenderBlock)anAction forControlEvents:(UIControlEvents)someControlEvents {
-    if ((self = [super init])) {
-        self.action = anAction;
-        self.controlEvents = someControlEvents;
-    }
-    return self;
++ (id)wrapperWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents {
+    BKControlWrapper *instance = [BKControlWrapper new];
+    instance.handler = aHandler;
+    instance.controlEvents = someControlEvents;
+#if __has_feature(objc_arc)
+    return instance;
+#else
+    return [instance autorelease];
+#endif
 }
 
+#if !__has_feature(objc_arc)
 - (void)dealloc {
-    [action release]; action = nil;
+    self.handler = nil;
     [super dealloc];
 }
+#endif
 
-- (void)invokeWithSender:(id)sender {
-    BKSenderBlock block = self.action;
+- (void)invoke:(id)sender {
+    BKSenderBlock block = self.handler;
     if (block) dispatch_async(dispatch_get_main_queue(), ^{ block(sender); });
 }
 
@@ -54,15 +55,12 @@ static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
 - (void)addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
     NSMutableArray *actions = [self associatedValueForKey:&kControlBlockArrayKey];
     
-    if (!actions) {
-        actions = [[NSMutableArray alloc] init];
-        [self associateValue:actions withKey:&kControlBlockArrayKey];
-        [actions release];
-    }
+    if (!actions)
+        [self associateValue:[NSMutableArray array] withKey:&kControlBlockArrayKey];
     
-    BKBlockWrapper *target = [[BKBlockWrapper alloc] initWithAction:handler forControlEvents:controlEvents];
+    BKControlWrapper *target = [BKControlWrapper wrapperWithHandler:handler forControlEvents:controlEvents];
     [actions addObject:target];
-    [self addTarget:target action:@selector(invokeWithSender:) forControlEvents:controlEvents];
+    [self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
     [target release];    
 }
 
@@ -72,11 +70,15 @@ static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
     if (!actions)
         return;
     
-    [actions removeObjectsInArray:[actions select:^BOOL(id obj) {
-        if ([obj isKindOfClass:[BKBlockWrapper class]])
-            return ([(BKBlockWrapper*)obj controlEvents] == controlEvents);
-        return NO;
-    }]];
+    NSArray *forControlEvent = [actions select:^BOOL(id obj) {
+        return ([(BKControlWrapper*)obj controlEvents] == controlEvents);
+    }];
+    
+    [forControlEvent each:^(id sender) {
+        [self removeTarget:sender action:NULL forControlEvents:controlEvents];
+    }];
+    
+    [actions removeObjectsInArray:forControlEvent];
 }
 
 @end
