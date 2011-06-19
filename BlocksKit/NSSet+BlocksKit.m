@@ -46,13 +46,13 @@
 }
 
 - (NSSet *)map:(BKTransformBlock)block {
-    NSMutableSet *list = [[NSMutableSet alloc] initWithCapacity:self.count];
+    NSMutableSet *result = [NSMutableSet setWithCapacity:self.count];
     
     [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        [list addObject:block(obj)];
+        [result addObject:block(obj)];
     }];
 
-    return [list autorelease];
+    return result;
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {

@@ -15,15 +15,13 @@
 }
 
 - (NSDictionary *)map:(BKKeyValueTransformBlock)block {
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:self.count];
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
 
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [dictionary setObject:block(key, obj) forKey:key];
+        [result setObject:block(key, obj) forKey:key];
     }];
     
-    NSDictionary *result = [dictionary copy];
-    [dictionary release];
-    return [result autorelease];
+    return result;
 }
 
 @end
