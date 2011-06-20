@@ -49,7 +49,11 @@
     NSMutableSet *result = [NSMutableSet setWithCapacity:self.count];
     
     [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        [result addObject:block(obj)];
+        id value = block(obj);
+        if (!value)
+            value = [NSNull null];
+        
+        [result addObject:value];
     }];
 
     return result;

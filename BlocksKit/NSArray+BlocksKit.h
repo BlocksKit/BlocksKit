@@ -70,9 +70,6 @@
        return [obj stringByAppendingString:@".png"]);
      }];
  
- @warning *Important:* the block can NOT return nil for a given object.  If you
- really have nothing to insert, pass `[NSNull null]` as the return value.
- 
  @param block A single-argument, object-returning code block.
  @return Returns an array of the objects returned by the block.
  */

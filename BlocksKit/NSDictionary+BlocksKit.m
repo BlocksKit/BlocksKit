@@ -18,7 +18,11 @@
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
 
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [result setObject:block(key, obj) forKey:key];
+        id value = block(key, obj);
+        if (!value)
+            value = [NSNull null];
+        
+        [result setObject:value forKey:key];
     }];
     
     return result;
