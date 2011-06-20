@@ -18,43 +18,14 @@ static NSString *kWebViewDidStartBlockKey = @"UIWebViewDidStartBlock";
 static NSString *kWebViewDidFinishBlockKey = @"UIWebViewDidFinishBlock";
 static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 
-#pragma mark Delegates
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    BKWebViewStartBlock block = [self.blocks objectForKey:kWebViewShouldStartBlockKey];
-    if (block && (![block isEqual:[NSNull null]]))
-        return block(request, navigationType);
-    return YES;
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    BKBlock block = [self.blocks objectForKey:kWebViewDidStartBlockKey];
-    if (block && (![block isEqual:[NSNull null]]))
-        block();
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    BKBlock block = [self.blocks objectForKey:kWebViewDidFinishBlockKey];
-    if (block && (![block isEqual:[NSNull null]]))
-        block();
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    BKErrorBlock block = [self.blocks objectForKey:kWebViewDidErrorBlockKey];
-    if (block && (![block isEqual:[NSNull null]]))
-        block(error);
-}
-
 #pragma mark Properties
 
 - (NSMutableDictionary *)blocks {
     NSMutableDictionary *blocks = [self associatedValueForKey:kWebViewBlockDictionaryKey];
-    
     if (!blocks) {
         blocks = [NSMutableDictionary dictionaryWithCapacity:4];
-        self.blocks = blocks;
+        [self associateValue:blocks withKey:kWebViewBlockDictionaryKey];
     }
-    
     return blocks;
 }
 
@@ -71,9 +42,9 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
         self.delegate = self;
     
 #if __has_feature(objc_arc)
-    BKWebViewStartBlock handler = block ? [block copy] : [NSNull null];
+    BKWebViewStartBlock handler = [block copy];
 #else
-    BKWebViewStartBlock handler = block ? [[block copy] autorelease] : [NSNull null];
+    BKWebViewStartBlock handler = [[block copy] autorelease];
 #endif
     
     [self.blocks setObject:handler forKey:kWebViewShouldStartBlockKey];
@@ -88,9 +59,9 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
         self.delegate = self; 
     
 #if __has_feature(objc_arc)
-    BKBlock handler = block ? [block copy] : [NSNull null];
+    BKBlock handler = [block copy];
 #else
-    BKBlock handler = block ? [[block copy] autorelease] : [NSNull null];
+    BKBlock handler = [[block copy] autorelease];
 #endif
     
     [self.blocks setObject:handler forKey:kWebViewDidStartBlockKey];
@@ -105,9 +76,9 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
         self.delegate = self;
     
 #if __has_feature(objc_arc)
-    BKBlock handler = block ? [block copy] : [NSNull null];
+    BKBlock handler = [block copy];
 #else
-    BKBlock handler = block ? [[block copy] autorelease] : [NSNull null];
+    BKBlock handler = [[block copy] autorelease];
 #endif
     
     [self.blocks setObject:handler forKey:kWebViewDidFinishBlockKey];
@@ -122,12 +93,39 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
         self.delegate = self;   
     
 #if __has_feature(objc_arc)
-    BKBlock handler = block ? [block copy] : [NSNull null];
+    BKBlock handler = [block copy];
 #else
-    BKBlock handler = block ? [[block copy] autorelease] : [NSNull null];
+    BKBlock handler = [[block copy] autorelease];
 #endif
     
     [self.blocks setObject:handler forKey:kWebViewDidErrorBlockKey];
+}
+
+#pragma mark Delegates
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    BKWebViewStartBlock block = [self.blocks objectForKey:kWebViewShouldStartBlockKey];
+    if (block)
+        return block(request, navigationType);
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    BKBlock block = [self.blocks objectForKey:kWebViewDidStartBlockKey];
+    if (block)
+        block();
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    BKBlock block = [self.blocks objectForKey:kWebViewDidFinishBlockKey];
+    if (block)
+        block();
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    BKErrorBlock block = [self.blocks objectForKey:kWebViewDidErrorBlockKey];
+    if (block)
+        block(error);
 }
 
 @end
