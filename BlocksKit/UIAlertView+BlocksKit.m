@@ -21,11 +21,15 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
 #pragma mark Initializers
 
 + (id)alertWithTitle:(NSString *)title {
-    return [[[UIAlertView alloc] initWithTitle:title message:nil] autorelease];
+    return [self alertWithTitle:title message:nil];
 }
 
 + (id)alertWithTitle:(NSString *)title message:(NSString *)message {
+#if __has_feature(objc_arc)
+    return [[UIAlertView alloc] initWithTitle:title message:message];
+#else
     return [[[UIAlertView alloc] initWithTitle:title message:message] autorelease];
+#endif
 }
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message {

@@ -22,7 +22,11 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 #pragma mark Initializers
 
 + (id)sheetWithTitle:(NSString *)title {
+#if __has_feature(objc_arc)
+    return [[UIActionSheet alloc] initWithTitle:title];
+#else
     return [[[UIActionSheet alloc] initWithTitle:title] autorelease];
+#endif
 }
 
 - (id)initWithTitle:(NSString *)title {
