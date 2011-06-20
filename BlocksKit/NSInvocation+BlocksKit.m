@@ -21,7 +21,11 @@
 + (JRInvocationGrabber *)grabberWithTarget:(id)target {
     JRInvocationGrabber *instance = [JRInvocationGrabber alloc];
     instance.target = target;
+#if __has_feature(objc_arc)
+    return instance;
+#else
     return [instance autorelease];
+#endif
 }
 
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)selector_ {
@@ -33,11 +37,14 @@
     self.invocation = invocation_;
 }
 
+#if !__has_feature(objc_arc)
 - (void)dealloc {
     self.target = nil;
     self.invocation = nil;
     [super dealloc];
 }
+#endif
+
 @end
 
 @implementation NSInvocation (BlocksKit)

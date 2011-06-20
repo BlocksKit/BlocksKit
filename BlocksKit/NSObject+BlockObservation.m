@@ -62,10 +62,12 @@ static char *AMObserverTrampolineContext = "AMObserverTrampolineContext";
 
 - (void)dealloc {
     [self cancelObservation];
+#if !__has_feature(objc_arc)
     [task release];
     [keyPath release];
     [queue release];
     [super dealloc];
+#endif
 }
 
 @end
@@ -93,13 +95,15 @@ static dispatch_queue_t AMObserverMutationQueueCreateIfNecessary() {
     dispatch_sync(AMObserverMutationQueueCreateIfNecessary(), ^{
         NSMutableDictionary *dict = [self associatedValueForKey:AMObserverMapKey];
         if (!dict) {
-            dict = [[NSMutableDictionary alloc] init];
+            dict = [NSMutableDictionary dictionary];
             [self associateValue:dict withKey:AMObserverMapKey];
-            [dict release];
         }
+        
         AMObserverTrampoline *trampoline = [[AMObserverTrampoline alloc] initWithObservingObject:self keyPath:keyPath onQueue:queue task:task];
         [dict setObject:trampoline forKey:token];
+#if !__has_feature(objc_arc)
         [trampoline release];
+#endif
     });
     return token;
 }
