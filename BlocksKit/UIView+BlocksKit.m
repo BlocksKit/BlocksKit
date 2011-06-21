@@ -83,7 +83,7 @@ static char *kViewTouchUpBlockKey = "UIViewTouchDownBlock";
 }
 
 - (void)eachSubview:(BKViewBlock)block {
-    [self.subviews each:block];
+    [self.subviews each:(BKSenderBlock)block];
 }
 
 @end
