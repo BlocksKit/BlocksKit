@@ -25,11 +25,7 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
 }
 
 + (id)alertWithTitle:(NSString *)title message:(NSString *)message {
-#if __has_feature(objc_arc)
-    return [[UIAlertView alloc] initWithTitle:title message:message];
-#else
-    return [[[UIAlertView alloc] initWithTitle:title message:message] autorelease];
-#endif
+    return BK_AUTORELEASE([[UIAlertView alloc] initWithTitle:title message:message]);
 }
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message {
@@ -46,13 +42,9 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
     NSInteger index = [self addButtonWithTitle:title];
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
+    
     return index;
 }
 
@@ -65,12 +57,7 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     NSInteger index = [self addButtonWithTitle:title];
     self.cancelButtonIndex = index;
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
 
     return index;
@@ -104,13 +91,8 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     if (self.cancelButtonIndex == -1) {
         [self setCancelButtonWithTitle:nil handler:block];
     } else {
+        BKBlock handler = BK_AUTORELEASE([block copy]);
         NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
-        
-#if __has_feature(objc_arc)
-        BKBlock handler = [block copy];
-#else
-        BKBlock handler = [[block copy] autorelease];
-#endif
         
         [self.blocks setObject:handler forKey:key];
     }
@@ -125,12 +107,7 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kAlertViewWillShowBlockKey];
 }
 
@@ -142,13 +119,8 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     if (!self.delegate)
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
 
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kAlertViewDidShowBlockKey];
 }
 
@@ -161,12 +133,7 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-#if __has_feature(objc_arc)
-    BKIndexBlock handler = [block copy];
-#else
-    BKIndexBlock handler = [[block copy] autorelease];
-#endif
-
+    BKIndexBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kAlertViewWillDismissBlockKey];
 }
 
@@ -179,12 +146,7 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-#if __has_feature(objc_arc)
-    BKIndexBlock handler = [block copy];
-#else
-    BKIndexBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKIndexBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kAlertViewDidDismissBlockKey];
 }
 

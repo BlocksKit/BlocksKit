@@ -40,13 +40,8 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
 - (void)setShouldStartLoadBlock:(BKWebViewStartBlock)block {
     if (self.delegate != self)
         self.delegate = self;
-    
-#if __has_feature(objc_arc)
-    BKWebViewStartBlock handler = [block copy];
-#else
-    BKWebViewStartBlock handler = [[block copy] autorelease];
-#endif
-    
+
+    BKWebViewStartBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kWebViewShouldStartBlockKey];
 }
 
@@ -58,12 +53,7 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
     if (self.delegate != self)
         self.delegate = self; 
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kWebViewDidStartBlockKey];
 }
 
@@ -75,12 +65,7 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
     if (self.delegate != self)
         self.delegate = self;
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kWebViewDidFinishBlockKey];
 }
 
@@ -92,12 +77,7 @@ static NSString *kWebViewDidErrorBlockKey = @"UIWebViewDidErrorBlock";
     if (self.delegate != self)
         self.delegate = self;   
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kWebViewDidErrorBlockKey];
 }
 

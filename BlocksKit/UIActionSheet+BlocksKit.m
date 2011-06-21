@@ -22,11 +22,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 #pragma mark Initializers
 
 + (id)sheetWithTitle:(NSString *)title {
-#if __has_feature(objc_arc)
-    return [[UIActionSheet alloc] initWithTitle:title];
-#else
-    return [[[UIActionSheet alloc] initWithTitle:title] autorelease];
-#endif
+    return BK_AUTORELEASE([[UIActionSheet alloc] initWithTitle:title]);
 }
 
 - (id)initWithTitle:(NSString *)title {
@@ -43,12 +39,8 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     NSAssert(title.length, @"A button without a title cannot be added to an action sheet.");
     NSInteger index = [self addButtonWithTitle:title];
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
     
     return index;
@@ -63,12 +55,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     NSInteger index = [self addButtonWithTitle:title];
     self.destructiveButtonIndex = index;
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKBlock handler = BK_AUTORELEASE([block copy]);    
     [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
     
     return index;
@@ -87,12 +74,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     if (title)
         index = [self addButtonWithTitle:title];
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
     self.cancelButtonIndex = index;
     
@@ -129,12 +111,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     } else {
         NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
         
-#if __has_feature(objc_arc)
-        BKBlock handler = [block copy];
-#else
-        BKBlock handler = [[block copy] autorelease];
-#endif
-        
+        BKBlock handler = BK_AUTORELEASE([block copy]);
         [self.blocks setObject:handler forKey:key];
     }
 }
@@ -148,12 +125,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kActionSheetWillShowBlockKey];
 }
 
@@ -166,12 +138,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-#if __has_feature(objc_arc)
-    BKBlock handler = [block copy];
-#else
-    BKBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kActionSheetDidShowBlockKey];
 }
 
@@ -184,12 +151,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-#if __has_feature(objc_arc)
-    BKIndexBlock handler = [block copy];
-#else
-    BKIndexBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKIndexBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kActionSheetWillDismissBlockKey];
 }
 
@@ -202,12 +164,7 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-#if __has_feature(objc_arc)
-    BKIndexBlock handler = [block copy];
-#else
-    BKIndexBlock handler = [[block copy] autorelease];
-#endif
-    
+    BKIndexBlock handler = BK_AUTORELEASE([block copy]);
     [self.blocks setObject:handler forKey:kActionSheetDidDismissBlockKey];
 }
 

@@ -50,3 +50,18 @@ typedef id(^BKTransformBlock)(id obj);
 typedef id(^BKKeyValueTransformBlock)(id key, id obj);
 typedef id(^BKAccumulationBlock)(id sum, id obj);
 
+#if __has_feature(objc_arc)
+#define BK_AUTORELEASE(o) o
+#define BK_RETAIN(o) o
+#define BK_SHOULD_DEALLOC 0
+#else
+#define BK_AUTORELEASE(o) [o autorelease]
+#define BK_RETAIN(o) [o retain]
+#define BK_SHOULD_DEALLOC 1
+#endif
+
+#if !__has_feature(objc_arc) || __has_feature(objc_arc_weak)
+#define __bk_weak __weak
+#else
+#define __bk_weak
+#endif

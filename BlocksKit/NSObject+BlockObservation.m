@@ -8,11 +8,7 @@
 
 @interface AMObserverTrampoline : NSObject {
 @private
-#if !__has_feature(objc_arc) || __has_feature(objc_arc_weak)
-    __weak id observee;
-#else
-    id observee;
-#endif
+    __bk_weak id observee;
     NSString *keyPath;
     BKObservationBlock task;
     NSOperationQueue *queue;
@@ -32,11 +28,7 @@ static char *AMObserverTrampolineContext = "AMObserverTrampolineContext";
     if (!(self = [super init])) return nil;
     task = [newTask copy];
     keyPath = [newKeyPath copy];
-#if __has_feature(objc_arc)
-    queue = newQueue;
-#else
-    queue = [newQueue retain];
-#endif
+    queue = BK_RETAIN(newQueue);
     observee = obj;
     cancellationPredicate = 0;
     [(NSObject*)obj addObserver:self forKeyPath:keyPath options:0 context:AMObserverTrampolineContext];
@@ -62,7 +54,7 @@ static char *AMObserverTrampolineContext = "AMObserverTrampolineContext";
 
 - (void)dealloc {
     [self cancelObservation];
-#if !__has_feature(objc_arc)
+#if BK_SHOULD_DEALLOC
     [task release];
     [keyPath release];
     [queue release];
@@ -99,11 +91,8 @@ static dispatch_queue_t AMObserverMutationQueueCreateIfNecessary() {
             [self associateValue:dict withKey:AMObserverMapKey];
         }
         
-        AMObserverTrampoline *trampoline = [[AMObserverTrampoline alloc] initWithObservingObject:self keyPath:keyPath onQueue:queue task:task];
+        AMObserverTrampoline *trampoline = BK_AUTORELEASE([[AMObserverTrampoline alloc] initWithObservingObject:self keyPath:keyPath onQueue:queue task:task]);
         [dict setObject:trampoline forKey:token];
-#if !__has_feature(objc_arc)
-        [trampoline release];
-#endif
     });
     return token;
 }

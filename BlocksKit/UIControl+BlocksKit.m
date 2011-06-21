@@ -28,14 +28,10 @@ static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
     BKControlWrapper *instance = [BKControlWrapper new];
     instance.handler = aHandler;
     instance.controlEvents = someControlEvents;
-#if __has_feature(objc_arc)
-    return instance;
-#else
-    return [instance autorelease];
-#endif
+    return BK_AUTORELEASE(instance);
 }
 
-#if !__has_feature(objc_arc)
+#if BK_SHOULD_DEALLOC
 - (void)dealloc {
     self.handler = nil;
     [super dealloc];
