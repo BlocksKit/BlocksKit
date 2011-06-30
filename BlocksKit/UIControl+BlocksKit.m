@@ -55,6 +55,7 @@ static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
         [self associateValue:[NSMutableArray array] withKey:&kControlBlockArrayKey];
     
     BKControlWrapper *target = [BKControlWrapper wrapperWithHandler:handler forControlEvents:controlEvents];
+    BK_RETAIN(target);
     [actions addObject:target];
     [self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
 }
