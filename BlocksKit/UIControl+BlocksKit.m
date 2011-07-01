@@ -32,13 +32,6 @@ static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
     return self;
 }
 
-+ (id)wrapperWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents {
-    BKControlWrapper *instance = [BKControlWrapper new];
-    instance.handler = aHandler;
-    instance.controlEvents = someControlEvents;
-    return BK_AUTORELEASE(instance);
-}
-
 #if BK_SHOULD_DEALLOC
 - (void)dealloc {
     self.handler = nil;
