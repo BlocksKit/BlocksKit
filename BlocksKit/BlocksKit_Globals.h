@@ -54,10 +54,12 @@ typedef id(^BKAccumulationBlock)(id sum, id obj);
 #define BK_AUTORELEASE(o) o
 #define BK_RETAIN(o) o
 #define BK_SHOULD_DEALLOC 0
+#define BK_RELEASE(o)
 #else
 #define BK_AUTORELEASE(o) [o autorelease]
 #define BK_RETAIN(o) [o retain]
 #define BK_SHOULD_DEALLOC 1
+#define BK_RELEASE(o) [o release]
 #endif
 
 #if !__has_feature(objc_arc) || __has_feature(objc_arc_weak)
