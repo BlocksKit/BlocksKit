@@ -33,7 +33,7 @@
   // Run after each test method
 }  
 
-- (void)testEach { 
+- (void)testEach {
     BKSenderBlock senderBlock = ^(id sender) {
         _total += [sender length];
     };

@@ -14,4 +14,14 @@
     NSInteger _total;
 }
 
+- (void)testEach;
+- (void)testMatch;
+- (void)testNotMatch;
+- (void)testSelect;
+- (void)testSelectedNone;
+- (void)testReject;
+- (void)testRejectedNone;
+- (void)testMap;
+- (void)testReduceWithBlock;
+
 @end
