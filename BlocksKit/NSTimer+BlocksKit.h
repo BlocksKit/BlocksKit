@@ -5,6 +5,10 @@
 
 #import "BlocksKit_Globals.h"
 
+@interface NSTimerBlocksKitCategories : NSObject {
+}
+@end
+
 /** Simple category on NSTimer to give it blocks capability.
 
  Created by Jiva DeVoe as [NSTimer-Blocks](https://github.com/jivadevoe/NSTimer-Blocks).

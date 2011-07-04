@@ -5,6 +5,9 @@
 
 #import "NSInvocation+BlocksKit.h"
 
+@implementation NSInvocationBlocksKitCategories
+@end
+
 @interface JRInvocationGrabber : NSProxy {
     id              target;
     NSInvocation    *invocation;

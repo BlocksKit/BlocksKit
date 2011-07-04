@@ -15,6 +15,9 @@ static char *kViewTouchDownBlockKey = "UIViewTouchDownBlock";
 static char *kViewTouchMoveBlockKey = "UIViewTouchMoveBlock";
 static char *kViewTouchUpBlockKey = "UIViewTouchDownBlock";
 
+@implementation UIViewBlocksKitCategories
+@end
+
 @implementation UIView (BlocksKit)
 
 - (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {

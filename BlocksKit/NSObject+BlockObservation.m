@@ -6,6 +6,9 @@
 #import "NSObject+BlockObservation.h"
 #import "NSObject+AssociatedObjects.h"
 
+@implementation NSObjectBlockObservationCategories
+@end
+
 @interface AMObserverTrampoline : NSObject {
 @private
     __bk_weak id observee;

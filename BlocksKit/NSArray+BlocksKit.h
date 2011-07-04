@@ -5,6 +5,10 @@
 
 #import "BlocksKit_Globals.h"
 
+@interface NSArrayBlocksKitCategories : NSObject {
+}
+@end
+
 /** Block extensions for NSArray.
 
  Both inspired by and resembling Smalltalk syntax, these utilities

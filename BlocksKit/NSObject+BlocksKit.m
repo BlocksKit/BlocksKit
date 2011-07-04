@@ -16,6 +16,9 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     return dispatch_time(DISPATCH_TIME_NOW, delta);
 }
 
+@implementation NSObjectBlocksKitCategories
+@end
+
 @implementation NSObject (BlocksKit)
 
 - (id)performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay {

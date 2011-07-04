@@ -5,6 +5,10 @@
 
 #import "BlocksKit_Globals.h"
 
+@interface UIActionSheetBlocksKitCategories : NSObject {
+}
+@end
+
 /** UIActionSheet without delegates!
 
  This set of extensions and convenience classes allows

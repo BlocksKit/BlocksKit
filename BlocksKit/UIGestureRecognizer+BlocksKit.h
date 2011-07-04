@@ -5,6 +5,10 @@
 
 #import "BlocksKit_Globals.h"
 
+@interface UIGestureRecognizerBlocksKitCategories : NSObject {
+}
+@end
+
 /** Block functionality for UIGestureRecognizer.
 
  Use of the delay property is pretty straightforward, although

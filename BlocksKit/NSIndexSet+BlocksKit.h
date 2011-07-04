@@ -5,6 +5,10 @@
 
 #import "BlocksKit_Globals.h"
 
+@interface NSIndexSetBlocksKitCategories : NSObject {
+}
+@end
+
 /** Block extensions for NSIndexSet.
 
  Both inspired by and resembling Smalltalk syntax, these utilities

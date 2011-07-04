@@ -8,6 +8,10 @@
 
 #import "BlocksKit_Globals.h"
 
+@interface NSObjectBlocksKitCategories : NSObject {
+}
+@end
+
 /** Block execution on *any* object.
 
  This category overhauls the `performSelector:` utilities on

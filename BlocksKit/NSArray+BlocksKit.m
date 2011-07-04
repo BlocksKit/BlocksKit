@@ -5,6 +5,9 @@
 
 #import "NSArray+BlocksKit.h"
 
+@implementation NSArrayBlocksKitCategories
+@end
+
 @implementation NSArray (BlocksKit)
 
 - (void)each:(BKSenderBlock)block {

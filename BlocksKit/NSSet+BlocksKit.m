@@ -5,6 +5,9 @@
 
 #import "NSSet+BlocksKit.h"
 
+@implementation NSSetBlocksKitCategories
+@end
+
 @implementation NSSet (BlocksKit)
 
 - (void)each:(BKSenderBlock)block {

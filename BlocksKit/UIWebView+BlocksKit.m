@@ -6,6 +6,9 @@
 #import "UIWebView+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
 
+@implementation UIWebViewBlocksKitCategories
+@end
+
 @interface UIWebView (BlocksKitPrivate)
 @property (retain) NSMutableDictionary *blocks;
 @end

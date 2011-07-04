@@ -11,6 +11,9 @@ static char *kGestureRecognizerBlockKey = "BKGestureRecognizerBlock";
 static char *kGestureRecognizerDelayKey = "BKGestureRecognizerDelay";
 static char *kGestureRecognizerCancelRefKey = "BKGestureRecognizerCancellationBlock";
 
+@implementation UIGestureRecognizerBlocksKitCategories
+@end
+
 @interface UIGestureRecognizer (BlocksKitInternal)
 - (void)_handleAction:(id)recognizer;
 - (void)_handleActionUsingDelay:(id)recognizer;
