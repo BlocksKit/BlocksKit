@@ -1,5 +1,5 @@
 //
-//  NSIndexSetBlocksKitTest.h
+//  NSSetBlocksKitTest.h
 //  BlocksKit
 //
 //  Created by WU Kai on 7/4/11.
@@ -8,9 +8,9 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface NSIndexSetBlocksKitTest : GHTestCase {
-    NSIndexSet *_subject;
-    NSMutableArray  *_target;
+@interface NSSetBlocksKitTest : GHTestCase {
+    NSSet *_subject;
+    NSInteger _total;
 }
 
 - (void)testEach;
@@ -20,5 +20,7 @@
 - (void)testSelectedNone;
 - (void)testReject;
 - (void)testRejectedNone;
+- (void)testMap;
+- (void)testReduceWithBlock;
 
 @end

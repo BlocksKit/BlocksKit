@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6037A12913C1B2AE00CB847A /* NSSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */; };
+		6037A12D13C1BAAB00CB847A /* NSObjectBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6037A12C13C1BAAB00CB847A /* NSObjectBlocksKitTest.m */; };
 		604FA5FB13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 604FA5FA13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m */; };
 		60F3F70E13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F3F70D13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m */; };
 		60FF000A13C023CB004A1394 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF000913C023CB004A1394 /* UIKit.framework */; };
@@ -126,6 +128,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6037A12713C1B2AE00CB847A /* NSSetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSetBlocksKitTest.h; sourceTree = "<group>"; };
+		6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSetBlocksKitTest.m; sourceTree = "<group>"; };
+		6037A12B13C1BAAB00CB847A /* NSObjectBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectBlocksKitTest.h; sourceTree = "<group>"; };
+		6037A12C13C1BAAB00CB847A /* NSObjectBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectBlocksKitTest.m; sourceTree = "<group>"; };
 		604FA5F913C0A077001DB7F7 /* NSDictionaryBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionaryBlocksKitTest.h; sourceTree = "<group>"; };
 		604FA5FA13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionaryBlocksKitTest.m; sourceTree = "<group>"; };
 		60F3F70C13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSIndexSetBlocksKitTest.h; sourceTree = "<group>"; };
@@ -243,6 +249,10 @@
 				604FA5FA13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m */,
 				60F3F70C13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.h */,
 				60F3F70D13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m */,
+				6037A12713C1B2AE00CB847A /* NSSetBlocksKitTest.h */,
+				6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */,
+				6037A12B13C1BAAB00CB847A /* NSObjectBlocksKitTest.h */,
+				6037A12C13C1BAAB00CB847A /* NSObjectBlocksKitTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -558,6 +568,8 @@
 				60FF002513C02863004A1394 /* NSArrayBlocksKitTest.m in Sources */,
 				604FA5FB13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m in Sources */,
 				60F3F70E13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m in Sources */,
+				6037A12913C1B2AE00CB847A /* NSSetBlocksKitTest.m in Sources */,
+				6037A12D13C1BAAB00CB847A /* NSObjectBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
