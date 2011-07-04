@@ -5,10 +5,6 @@
 
 #import "BlocksKit_Globals.h"
 
-@interface UIWebViewBlocksKitCategories : NSObject {
-}
-@end
-
 /** Delegation replacement for UIWebView.
 
  Unlike other block extensions like UIAlertView(BlocksKit) and

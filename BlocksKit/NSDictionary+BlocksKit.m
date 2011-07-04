@@ -6,9 +6,6 @@
 #import "NSDictionary+BlocksKit.h"
 #import <dispatch/dispatch.h>
 
-@implementation NSDictionaryBlocksKitCategories
-@end
-
 @implementation NSDictionary (BlocksKit)
 
 - (void)each:(BKKeyValueBlock)block {

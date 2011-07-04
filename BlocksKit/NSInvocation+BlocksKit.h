@@ -5,10 +5,6 @@
 
 #import "BlocksKit_Globals.h"
 
-@interface NSInvocationBlocksKitCategories : NSObject {
-}
-@end
-
 /** Blocks wrapper for NSInvocation.
 
  Usage example:

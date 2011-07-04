@@ -5,10 +5,6 @@
 
 #import "BlocksKit_Globals.h"
 
-@interface NSDictionaryBlocksKitCategories : NSObject {
-}
-@end
-
 /** Block extension for NSDictionary.
 
  Both inspired by and resembling Smalltalk syntax, this utility

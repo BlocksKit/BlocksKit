@@ -5,10 +5,6 @@
 
 #import "BlocksKit_Globals.h"
 
-@interface UIAlertViewBlocksKitCategories : NSObject {
-}
-@end
-
 /** UIAlertView without delegates!
 
  This set of extensions and convenience classes allows

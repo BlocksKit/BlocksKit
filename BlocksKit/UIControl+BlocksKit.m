@@ -9,9 +9,6 @@
 
 static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
 
-@implementation UIControlBlocksKitCategories
-@end
-
 @interface BKControlWrapper : NSObject
 
 - (id)initWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents;

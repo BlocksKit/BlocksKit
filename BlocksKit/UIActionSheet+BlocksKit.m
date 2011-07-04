@@ -6,9 +6,6 @@
 #import "UIActionSheet+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
 
-@implementation UIActionSheetBlocksKitCategories
-@end
-
 @interface UIActionSheet (BlocksKitPrivate)
 @property (nonatomic, retain) NSMutableDictionary *blocks;
 @end

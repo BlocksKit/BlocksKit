@@ -5,10 +5,6 @@
 
 #import "BlocksKit_Globals.h"
 
-@interface NSSetBlocksKitCategories : NSObject {
-}
-@end
-
 /** Block extensions for NSSet.
 
  Both inspired by and resembling Smalltalk syntax, these utilities

@@ -5,10 +5,6 @@
 
 #import "BlocksKit_Globals.h"
 
-@interface UIBarButtonItemBlocksKitCategories : NSObject {
-}
-@end
-
 /** Block event initialization for UIBarButtonItem.
 
  This set of extensions has near-drop-in replacements

@@ -10,9 +10,6 @@
 @property (nonatomic, retain) NSMutableDictionary *blocks;
 @end
 
-@implementation UIAlertViewBlocksKitCategories
-@end
-
 @implementation UIAlertView (BlocksKit)
 
 static char *kAlertViewBlockDictionaryKey = "UIAlertViewBlockHandlers";

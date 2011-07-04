@@ -6,9 +6,6 @@
 #import "NSObject+AssociatedObjects.h"
 #import <objc/runtime.h>
 
-@implementation NSObjectAssociatedObjectsCategories
-@end
-
 @implementation NSObject (AssociatedObjects)
 
 - (void)associateValue:(id)value withKey:(void *)key {

@@ -5,10 +5,6 @@
 
 #import "BlocksKit_Globals.h"
 
-@interface UIControlBlocksKitCategories : NSObject {
-}
-@end
-
 /** Block control event handling for UIControl.
 
  This set of extensions allows for block: simply

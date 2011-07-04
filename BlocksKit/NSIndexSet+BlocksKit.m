@@ -5,9 +5,6 @@
 
 #import "NSIndexSet+BlocksKit.h"
 
-@implementation NSIndexSetBlocksKitCategories
-@end
-
 @implementation NSIndexSet (BlocksKit)
 
 - (void)each:(BKIndexBlock)block {

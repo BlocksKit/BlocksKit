@@ -8,9 +8,6 @@
 
 static char *kBarButtonItemBlockKey = "UIBarButtonItemBlock";
 
-@implementation UIBarButtonItemBlocksKitCategories
-@end
-
 @interface UIBarButtonItem (BlocksKitPrivate)
 - (void)_handleAction:(UIBarButtonItem *)sender;
 @end

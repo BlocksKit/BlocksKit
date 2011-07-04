@@ -5,10 +5,6 @@
 
 #import "BlocksKit_Globals.h"
 
-@interface UIViewBlocksKitCategories : NSObject {
-}
-@end
-
 /** Convenience on-touch methods for UIView.
 
  Includes code by the following:
