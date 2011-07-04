@@ -3,7 +3,6 @@
 //  BlocksKit
 //
 //  Created by WU Kai on 7/3/11.
-//  Copyright 2011 Dizzy Technology. All rights reserved.
 //
 
 #import "NSDictionaryBlocksKitTest.h"

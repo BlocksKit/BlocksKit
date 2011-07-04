@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		604FA5FB13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 604FA5FA13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m */; };
+		60F3F70E13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F3F70D13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m */; };
 		60FF000A13C023CB004A1394 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF000913C023CB004A1394 /* UIKit.framework */; };
 		60FF000B13C023CB004A1394 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF901382F1BA00E6C9AA /* Foundation.framework */; };
 		60FF000D13C023CB004A1394 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF000C13C023CB004A1394 /* CoreGraphics.framework */; };
@@ -127,6 +128,8 @@
 /* Begin PBXFileReference section */
 		604FA5F913C0A077001DB7F7 /* NSDictionaryBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionaryBlocksKitTest.h; sourceTree = "<group>"; };
 		604FA5FA13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionaryBlocksKitTest.m; sourceTree = "<group>"; };
+		60F3F70C13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSIndexSetBlocksKitTest.h; sourceTree = "<group>"; };
+		60F3F70D13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSIndexSetBlocksKitTest.m; sourceTree = "<group>"; };
 		60FF000713C023CB004A1394 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60FF000913C023CB004A1394 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		60FF000C13C023CB004A1394 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -238,6 +241,8 @@
 				60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */,
 				604FA5F913C0A077001DB7F7 /* NSDictionaryBlocksKitTest.h */,
 				604FA5FA13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m */,
+				60F3F70C13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.h */,
+				60F3F70D13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -552,6 +557,7 @@
 				60FF001913C023CB004A1394 /* TestsAppDelegate.m in Sources */,
 				60FF002513C02863004A1394 /* NSArrayBlocksKitTest.m in Sources */,
 				604FA5FB13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m in Sources */,
+				60F3F70E13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

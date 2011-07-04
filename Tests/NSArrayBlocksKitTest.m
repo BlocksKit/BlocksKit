@@ -3,7 +3,6 @@
 //  BlocksKit
 //
 //  Created by WU Kai on 7/3/11.
-//  Copyright 2011 Dizzy Technology. All rights reserved.
 //
 
 #import "NSArrayBlocksKitTest.h"
@@ -134,6 +133,6 @@
         return [sum stringByAppendingString:obj];
     };
     NSString *concatenated = [_subject reduce:@"" withBlock:accumlationBlock];
-    GHAssertEqualStrings(@"122333",@"122333",@"concatenated string is %@",concatenated);
+    GHAssertEqualStrings(concatenated,@"122333",@"concatenated string is %@",concatenated);
 }
 @end
