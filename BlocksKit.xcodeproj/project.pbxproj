@@ -261,11 +261,11 @@
 		6C3DBF821382F1BA00E6C9AA = {
 			isa = PBXGroup;
 			children = (
-				6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */,
 				6C3DBF921382F1BA00E6C9AA /* BlocksKit */,
 				60FF000E13C023CB004A1394 /* Tests */,
 				6C3DBF8F1382F1BA00E6C9AA /* Frameworks */,
 				6C3DBF8E1382F1BA00E6C9AA /* Products */,
+				6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */,
 			);
 			sourceTree = "<group>";
 		};

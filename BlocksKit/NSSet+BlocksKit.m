@@ -60,13 +60,14 @@
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
-    __block id result = initial;
+    __block id result = nil;
+    BK_SET_RETAINED(result, initial);
     
     [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        result = block(result, obj);
+        BK_SET_RETAINED(result, block(result, obj));
     }];
     
-    return result;
+    return BK_AUTORELEASE(result);
 }
 
 @end
