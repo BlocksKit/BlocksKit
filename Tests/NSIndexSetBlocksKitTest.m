@@ -63,7 +63,7 @@
     GHAssertTrue([[_target objectAtIndex:found] isEqual:@"2"],@"the target array becomes %@",_target);
 }
 
-- (void)testNoMatch {
+- (void)testNotMatch {
     __block NSMutableString *order = [NSMutableString string];
     BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
         [order appendFormat:@"%d",index];
