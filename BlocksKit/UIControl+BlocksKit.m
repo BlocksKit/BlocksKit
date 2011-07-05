@@ -52,12 +52,14 @@ static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
 - (void)addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
     NSMutableArray *actions = [self associatedValueForKey:&kControlBlockArrayKey];
     
-    if (!actions)
-        [self associateValue:[NSMutableArray array] withKey:&kControlBlockArrayKey];
+    if (!actions) {
+        actions = [NSMutableArray array];
+        [self associateValue:actions withKey:&kControlBlockArrayKey];
+    }
     
     BKControlWrapper *target = [[BKControlWrapper alloc] initWithHandler:handler forControlEvents:controlEvents];
     [actions addObject:target];
-    [self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
+    [self addTarget:[actions objectAtIndex:[actions count] - 1] action:@selector(invoke:) forControlEvents:controlEvents];
     BK_RELEASE(target);
 }
 

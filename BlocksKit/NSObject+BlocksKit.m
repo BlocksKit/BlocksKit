@@ -33,7 +33,7 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     
 	dispatch_after(dTimeDelay(delay), dispatch_get_main_queue(), ^{  wrapper(NO); });
     
-    return [[wrapper copy] autorelease];
+    return BK_AUTORELEASE([wrapper copy]);
 }
 
 + (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay {
@@ -51,7 +51,7 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     
 	dispatch_after(dTimeDelay(delay), dispatch_get_main_queue(), ^{ wrapper(NO); });
     
-    return [[wrapper copy] autorelease];
+    return BK_AUTORELEASE([wrapper copy]);
 }
 
 + (void)cancelBlock:(id)block {
