@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		600986FB13C2A2B700A8887E /* NSTimerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 600986FA13C2A2B700A8887E /* NSTimerBlocksKitTest.m */; };
+		600986FF13C2B49D00A8887E /* NSInvocationBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 600986FE13C2B49D00A8887E /* NSInvocationBlocksKitTest.m */; };
+		6009870213C2C6E800A8887E /* NSObjectBlockObservationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6009870113C2C6E800A8887E /* NSObjectBlockObservationTest.m */; };
 		6037A12913C1B2AE00CB847A /* NSSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */; };
 		6037A12D13C1BAAB00CB847A /* NSObjectBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6037A12C13C1BAAB00CB847A /* NSObjectBlocksKitTest.m */; };
 		604FA5FB13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 604FA5FA13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m */; };
@@ -128,6 +131,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		600986F913C2A2B700A8887E /* NSTimerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTimerBlocksKitTest.h; sourceTree = "<group>"; };
+		600986FA13C2A2B700A8887E /* NSTimerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTimerBlocksKitTest.m; sourceTree = "<group>"; };
+		600986FD13C2B49D00A8887E /* NSInvocationBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSInvocationBlocksKitTest.h; sourceTree = "<group>"; };
+		600986FE13C2B49D00A8887E /* NSInvocationBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInvocationBlocksKitTest.m; sourceTree = "<group>"; };
+		6009870013C2C6E800A8887E /* NSObjectBlockObservationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectBlockObservationTest.h; sourceTree = "<group>"; };
+		6009870113C2C6E800A8887E /* NSObjectBlockObservationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectBlockObservationTest.m; sourceTree = "<group>"; };
 		6037A12713C1B2AE00CB847A /* NSSetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSetBlocksKitTest.h; sourceTree = "<group>"; };
 		6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSetBlocksKitTest.m; sourceTree = "<group>"; };
 		6037A12B13C1BAAB00CB847A /* NSObjectBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectBlocksKitTest.h; sourceTree = "<group>"; };
@@ -253,6 +262,12 @@
 				6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */,
 				6037A12B13C1BAAB00CB847A /* NSObjectBlocksKitTest.h */,
 				6037A12C13C1BAAB00CB847A /* NSObjectBlocksKitTest.m */,
+				600986F913C2A2B700A8887E /* NSTimerBlocksKitTest.h */,
+				600986FA13C2A2B700A8887E /* NSTimerBlocksKitTest.m */,
+				600986FD13C2B49D00A8887E /* NSInvocationBlocksKitTest.h */,
+				600986FE13C2B49D00A8887E /* NSInvocationBlocksKitTest.m */,
+				6009870013C2C6E800A8887E /* NSObjectBlockObservationTest.h */,
+				6009870113C2C6E800A8887E /* NSObjectBlockObservationTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -570,6 +585,9 @@
 				60F3F70E13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m in Sources */,
 				6037A12913C1B2AE00CB847A /* NSSetBlocksKitTest.m in Sources */,
 				6037A12D13C1BAAB00CB847A /* NSObjectBlocksKitTest.m in Sources */,
+				600986FB13C2A2B700A8887E /* NSTimerBlocksKitTest.m in Sources */,
+				600986FF13C2B49D00A8887E /* NSInvocationBlocksKitTest.m in Sources */,
+				6009870213C2C6E800A8887E /* NSObjectBlockObservationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
