@@ -7,7 +7,7 @@
 
 @implementation NSMutableDictionary (BlocksKit)
 
-- (void)select:(BKKeyValueValidationBlock)block {
+- (void)performSelect:(BKKeyValueValidationBlock)block {
     NSMutableArray *keys = [NSMutableArray arrayWithCapacity:self.count];
     
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -18,7 +18,7 @@
     [self removeObjectsForKeys:keys];
 }
 
-- (void)reject:(BKKeyValueValidationBlock)block {
+- (void)performReject:(BKKeyValueValidationBlock)block {
     NSMutableArray *keys = [NSMutableArray arrayWithCapacity:self.count];
     
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -29,7 +29,7 @@
     [self removeObjectsForKeys:keys];    
 }
 
-- (void)map:(BKKeyValueTransformBlock)block {
+- (void)performMap:(BKKeyValueTransformBlock)block {
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         id value = block(key, value);
         

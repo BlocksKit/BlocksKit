@@ -7,7 +7,7 @@
 
 @implementation NSMutableArray (BlocksKit)
 
-- (void)select:(BKValidationBlock)block {
+- (void)performSelect:(BKValidationBlock)block {
     NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return block(obj);
     }];
@@ -18,7 +18,7 @@
     [self removeObjectsAtIndexes:list];
 }
 
-- (void)reject:(BKValidationBlock)block {
+- (void)performReject:(BKValidationBlock)block {
     NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return !block(obj);
     }];
@@ -29,7 +29,7 @@
     [self removeObjectsAtIndexes:list];
 }
 
-- (void)map:(BKTransformBlock)block {
+- (void)performMap:(BKTransformBlock)block {
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         id value = block(obj);
         

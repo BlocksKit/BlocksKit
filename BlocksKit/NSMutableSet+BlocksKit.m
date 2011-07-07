@@ -7,7 +7,7 @@
 
 @implementation NSMutableSet (BlocksKit)
 
-- (void)select:(BKValidationBlock)block {
+- (void)performSelect:(BKValidationBlock)block {
     NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
         return block(obj);
     }];
@@ -18,7 +18,7 @@
     [self setSet:list];
 }
 
-- (void)reject:(BKValidationBlock)block {
+- (void)performReject:(BKValidationBlock)block {
     NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
         return !block(obj);
     }];
@@ -29,7 +29,7 @@
     [self setSet:list];    
 }
 
-- (void)map:(BKTransformBlock)block {
+- (void)performMap:(BKTransformBlock)block {
     [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         id value = block(obj);
         
