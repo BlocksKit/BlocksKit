@@ -30,7 +30,7 @@
  */
 - (void)each:(BKSenderBlock)block;
 
-/** Loops through an array and returns the object matching the block.
+/** Loops through an array to find the object matching the block.
  
  match: is functionally identical to select:, but will stop and return
  on the first match.
@@ -41,7 +41,7 @@
  */
 - (id)match:(BKValidationBlock)block;
 
-/** Loops through an array and returns an array of the objects matching the block.
+/** Loops through an array to find the objects matching the block.
  
  @param block A single-argument, BOOL-returning code block.
  @return Returns an array of the objects found, `nil` otherwise.
@@ -49,7 +49,7 @@
  */
 - (NSArray *)select:(BKValidationBlock)block;
 
-/** Loops through an array and returns an array of all objects but the ones matching the block.
+/** Loops through an array to find the objects not matching the block.
  
  This selector performs *literally* the exact same function as select: but in reverse.
  

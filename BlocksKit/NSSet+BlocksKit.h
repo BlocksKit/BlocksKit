@@ -24,13 +24,13 @@
  */
 @interface NSSet (BlocksKit)
 
-/** Loops through set and executes the given block with each object.
+/** Loops through a set and executes the given block with each object.
  
  @param block A single-argument, void-returning code block.
  */
 - (void)each:(BKSenderBlock)block;
 
-/** Loops through a set and returns the object matching the block.
+/** Loops through a set to find the object matching the block.
  
  match: is functionally identical to select:, but will stop and return
  on the first match.
@@ -41,7 +41,7 @@
  */
 - (id)match:(BKValidationBlock)block;
 
-/** Loops through a set and returns a set of the objects matching the block.
+/** Loops through a set to find the objects matching the block.
  
  @param block A single-argument, BOOL-returning code block.
  @return Returns a set of the objects found, `nil` otherwise.
@@ -49,7 +49,7 @@
  */
 - (NSSet *)select:(BKValidationBlock)block;
 
-/** Loops through a set and returns a set of all objects but the ones matching the block.
+/** Loops through a set to find the objects not matching the block.
  
  This selector performs *literally* the exact same function as select: but in reverse.
  
