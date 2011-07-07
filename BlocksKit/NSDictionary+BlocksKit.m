@@ -14,6 +14,32 @@
     }];
 }
 
+- (NSDictionary *)select:(BKKeyValueValidationBlock)block {
+    NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
+    [self each:^(id key, id obj) {
+        if (block(key, obj))
+            [list setObject:obj forKey:key];
+    }];
+    
+    if (!list.count)
+        return nil;
+    
+    return list;
+}
+
+- (NSDictionary *)reject:(BKKeyValueValidationBlock)block {
+    NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
+    [self each:^(id key, id obj) {
+        if (!block(key, obj))
+            [list setObject:obj forKey:key];
+    }];
+    
+    if (!list.count)
+        return nil;
+    
+    return list;    
+}
+
 - (NSDictionary *)map:(BKKeyValueTransformBlock)block {
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
 

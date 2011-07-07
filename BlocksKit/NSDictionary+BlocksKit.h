@@ -21,11 +21,32 @@
  */
 @interface NSDictionary (BlocksKit)
 
-/** Loops through set and executes the given block using each dictionary item.
+/** Loops through the dictionary and executes the given block using each item.
  
  @param block A block that performs an action using a key/value pair.
  */
 - (void)each:(BKKeyValueBlock)block;
+
+/** Loops through a dictionary to find the key/value pair matching the block.
+ 
+ @param block A BOOL-returning code block for a key/value pair.
+ @return Returns a dictionary of the objects found, `nil` otherwise.
+ */
+- (NSDictionary *)select:(BKKeyValueValidationBlock)block;
+
+/** Loops through a dictionary to find the key/value pairs not matching the block.
+ 
+ This selector performs *literally* the exact same function as select: but in reverse.
+ 
+ This is useful, as one may expect, for filtering objects.
+ NSDictionary *strings = [userData reject:^BOOL(id key, id value) {
+ return ([obj isKindOfClass:[NSString class]]);
+ }];
+ 
+ @param block A BOOL-returning code block for a key/value pair.
+ @return Returns a dictionary of all objects not found, `nil` if all are excluded.
+ */
+- (NSDictionary *)reject:(BKKeyValueValidationBlock)block;
 
 /** Call the block once for each object and create a dictionary with the same keys
  and a new set of values.

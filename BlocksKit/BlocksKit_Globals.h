@@ -43,6 +43,7 @@ typedef void(^BKKeyValueBlock)(id key, id obj);
 typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);
 
 typedef BOOL(^BKValidationBlock)(id obj);
+typedef BOOL(^BKKeyValueValidationBlock)(id key, id obj);
 typedef BOOL(^BKIndexValidationBlock)(NSUInteger index);
 typedef BOOL(^BKWebViewStartBlock)(NSURLRequest *request, UIWebViewNavigationType navigationType);
 
