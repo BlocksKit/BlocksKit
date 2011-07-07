@@ -27,7 +27,7 @@
  */
 - (void)each:(BKKeyValueBlock)block;
 
-/** Loops through a dictionary to find the key/value pair matching the block.
+/** Loops through a dictionary to find the key/value pairs matching the block.
  
  @param block A BOOL-returning code block for a key/value pair.
  @return Returns a dictionary of the objects found, `nil` otherwise.
