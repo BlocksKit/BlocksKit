@@ -51,7 +51,7 @@
 
 /** Loops through a set to find the objects not matching the block.
  
- This selector performs *literally* the exact same function as select: but in reverse.
+ This selector performs *literally* the exact same function as select, but in reverse.
  
  This is useful, as one may expect, for removing objects from a set:
      NSSet *new = [reusableWebViews reject:^BOOL(id obj) {

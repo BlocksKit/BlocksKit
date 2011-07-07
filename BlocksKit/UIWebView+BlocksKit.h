@@ -7,11 +7,11 @@
 
 /** Delegation replacement for UIWebView.
 
- Unlike other block extensions like UIAlertView(BlocksKit) and
- UIActionSheet(BlocksKit), UIWebView does not have an initializer
- that we are overriding.  Using any of the blocks properties
- discussed here were result in the delegate being set to the
- web view itself.
+ Unlike BlocksKit's extensions for UIAlertView and
+ UIActionSheet, UIWebView does not have an initializer that
+ we substitute.  Using any of the blocks properties
+ discussed here will result in the web view's delegate being
+ set to the web view itself.
 
  Includes code by the following:
 

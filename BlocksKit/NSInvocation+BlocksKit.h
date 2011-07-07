@@ -8,7 +8,7 @@
 /** Blocks wrapper for NSInvocation.
 
  Usage example:
-     NSInvocation *invocation = [NSInvocation jr_invocationWithTarget:myObject block:^(id myObject){
+     NSInvocation *invocation = [NSInvocation invocationWithTarget:myObject block:^(id myObject){
        [myObject someMethodWithArg:42.0];
      }];
  

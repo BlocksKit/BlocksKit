@@ -37,9 +37,9 @@
 /** Transform the objects in the array to the results of the block.
  
  This is sometimes referred to as a transform, mutating one of each object:
- [foo map:^id(id obj) {
-    return [dateTransformer dateFromString:obj];
- }];
+    [foo map:^id(id obj) {
+      return [dateTransformer dateFromString:obj];
+    }];
  
  @param block A single-argument, object-returning code block.
  */
