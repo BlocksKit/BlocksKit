@@ -26,14 +26,13 @@
 
 /** Executes a block after a given delay on the reciever.
 
- Block execution is very useful, particularly for small events that you would like delayed.
-
-     [object performBlock:^(){
-       [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-     } afterDelay:0.5f];
+    [array performBlock:^(id obj){
+      [obj addObject:self];
+      [self release];
+    } afterDelay:0.5f];
  
  @warning *Important:* Use of the **self** reference in a block will
- reference the current implementation context.  The first argument,
+ reference the current implementation context.  The block argument,
  `obj`, should be used instead.
 
  @param block A single-argument code block, where `obj` is the reciever.
@@ -48,18 +47,14 @@
  asynchronously via GCD.  However, the current context is not passed so that the block is performed
  in a general context.
 
- For example, in a AudioServices abstraction class, I (zwaldowski) have this code:
-     -(void)dealloc {
-       [NSObject performBlock:^(void) {
-         AudioServicesDisposeSystemSoundID(_soundID);
-       } afterDelay:3.0];
-       [super dealloc];
-     }
- By the time the block gets executed, it is a foregone conclusion that the object will be disposed of,
- so it would be both useless and dangerous to have a reference to `obj` around.
+ Block execution is very useful, particularly for small events that you would like delayed.
+
+    [object performBlock:^(){
+      [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    } afterDelay:0.5f];
 
  @see performBlock:afterDelay:
- @param block A code block with **NO** reciever.
+ @param block A code block.
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */

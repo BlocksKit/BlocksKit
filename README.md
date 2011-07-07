@@ -46,15 +46,19 @@ BlocksKit takes, repurposes, fiddles with, and groups together a variety of bloc
 
 The following people (in alphabetical order) have their code lovingly enshrined in BlocksKit:
 
-* Michael Ash. @mikeash
-* Jiva DeVoe. @jivadevote
-* Corey Floyd. @coreyfloyd
-* Landon Fuller, Plausible Labs.
-* Mirko Kiefer. @mirkok
-* Robin Lu.  @robin
-* Jake Marsh.  @jakemarsh
-* Andy Matuschak.  @andymatuschak
-* Aleks Nesterow.  @nesterow
-* Kevin O'Neill.  @kevinoneill
-* Jonathan Rentzch.  @rentzch
-* Peter Steinberger.  @steipete
+* [Michael Ash](https://github.com/mikeash).
+* [Jiva DeVoe](https://github.com/jivadevoe).
+* [Corey Floyd](https://github.com/coreyfloyd).
+* [Landon Fuller, Plausible Labs](http://plausiblelabs.com).
+* [Mirko Kiefer](https://github.com/mirkok).
+* [Robin Lu](https://github.com/robin).
+* [Jake Marsh](https://github.com/jakemarsh).
+* [Andy Matuschak](https://github.com/andymatuschak).
+* [Aleks Nesterow](https://github.com/nesterow).
+* [Kevin O'Neill](https://github.com/kevinoneill).
+* [Jonathan Rentzch](https://github.com/rentzch).
+* [Peter Steinberger](https://github.com/steipete).
+* [Martin Schürrer](https://github.com/MSch).
+* [Zach Waldowski](https://github.com/zwaldowski).
+
+Individual credits exist in the header files and, consequently, in the documentation.
