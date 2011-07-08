@@ -24,7 +24,7 @@
  @param block A BOOL-returning code block for a key/value pair.
  @see reject:
  */
-- (void)select:(BKKeyValueValidationBlock)block;
+- (void)performSelect:(BKKeyValueValidationBlock)block;
 
 /** Filters a mutable dictionary to the key/value pairs not matching the block,
  the logical inverse to select:.
@@ -32,13 +32,13 @@
  @param block A BOOL-returning code block for a key/value pair.
  @see select:
  */
-- (void)reject:(BKKeyValueValidationBlock)block;
+- (void)performReject:(BKKeyValueValidationBlock)block;
 
 /** Transform each value of the dictionary to a new value, as returned by the
  block.
  
  @param block A block that returns a new value for a given key/value pair.
  */
-- (void)map:(BKKeyValueTransformBlock)block;
+- (void)performMap:(BKKeyValueTransformBlock)block;
 
 @end

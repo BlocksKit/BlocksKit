@@ -24,7 +24,7 @@
  @param block A single-argument, BOOL-returning code block.
  @see reject:
  */
-- (void)select:(BKValidationBlock)block;
+- (void)performSelect:(BKValidationBlock)block;
 
 /** Filters a mutable array to all objects but the ones matching the block,
  the logical inverse to select:.
@@ -32,7 +32,7 @@
  @param block A single-argument, BOOL-returning code block.
  @see select:
  */
-- (void)reject:(BKValidationBlock)block;
+- (void)performReject:(BKValidationBlock)block;
 
 /** Transform the objects in the array to the results of the block.
  
@@ -43,6 +43,6 @@
  
  @param block A single-argument, object-returning code block.
  */
-- (void)map:(BKTransformBlock)block;
+- (void)performMap:(BKTransformBlock)block;
 
 @end

@@ -7,7 +7,7 @@
 
 @implementation NSMutableIndexSet (BlocksKit)
 
-- (void)select:(BKIndexValidationBlock)block {
+- (void)performSelect:(BKIndexValidationBlock)block {
     NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
         return !block(idx);
     }];
@@ -18,7 +18,7 @@
     [self removeIndexes:list];
 }
 
-- (void)reject:(BKIndexValidationBlock)block {
+- (void)performReject:(BKIndexValidationBlock)block {
     NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
         return block(idx);
     }];

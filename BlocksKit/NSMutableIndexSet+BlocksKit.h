@@ -23,7 +23,7 @@
  @param block A single-argument, BOOL-returning code block.
  @see reject:
  */
-- (void)select:(BKIndexValidationBlock)block;
+- (void)performSelect:(BKIndexValidationBlock)block;
 
 /** Filters a mutable index set to all indexes but the ones matching the block,
  the logical inverse to select:.
@@ -31,6 +31,6 @@
  @param block A single-argument, BOOL-returning code block.
  @see select:
  */
-- (void)reject:(BKIndexValidationBlock)block;
+- (void)performReject:(BKIndexValidationBlock)block;
 
 @end
