@@ -12,9 +12,6 @@
         return block(obj);
     }];
     
-    if (!list.count)
-        return;
-    
     [self setSet:list];
 }
 
@@ -22,9 +19,6 @@
     NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
         return !block(obj);
     }];
-    
-    if (!list.count)
-        return;
     
     [self setSet:list];    
 }
@@ -39,8 +33,8 @@
         if ([value isEqual:obj])
             return;
         
-        [self addObject:value];
         [self removeObject:obj];
+        [self addObject:value];
     }];
 }
 
