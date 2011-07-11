@@ -31,7 +31,7 @@
 
 - (void)performMap:(BKKeyValueTransformBlock)block {
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        id value = block(key, value);
+        id value = block(key, obj);
         
         if (!value)
             value = [NSNull null];

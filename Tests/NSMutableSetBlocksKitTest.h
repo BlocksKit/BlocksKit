@@ -1,19 +1,19 @@
 //
-//  NSDictionaryBlocksKitTest.h
+//  NSMutableSetBlocksKitTest.h
 //  BlocksKit
 //
-//  Created by WU Kai on 7/3/11.
+//  Created by WU Kai on 7/8/11.
 //
 
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface NSDictionaryBlocksKitTest : GHTestCase {
-    NSDictionary *_subject;
+@interface NSMutableSetBlocksKitTest : GHTestCase {
+    NSMutableSet *_subject;
     NSInteger _total;
 }
+@property (nonatomic,retain) NSMutableSet *subject;
 
-- (void)testEach;
 - (void)testSelect;
 - (void)testSelectedNone;
 - (void)testReject;

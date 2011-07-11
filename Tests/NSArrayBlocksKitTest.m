@@ -104,7 +104,7 @@
     GHAssertEqualObjects(left,target,@"not rejected items are %@",left);
 }
 
-- (void)testRejectedNone {
+- (void)testRejectedAll {
     BKValidationBlock validationBlock = ^(id obj) {
         _total += [obj length];
         BOOL match = ([obj intValue] < 400) ? YES : NO;
