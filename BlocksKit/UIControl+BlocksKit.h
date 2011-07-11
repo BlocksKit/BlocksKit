@@ -34,4 +34,11 @@
  */
 - (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents;
 
+/** Checks to see if the control has any blocks for a particular event combination.
+ @param controlEvents A bitmask specifying the control events for which to check for blocks.
+ @see addEventHandler:forControlEvents:
+ @return Returns YES if there are blocks for these control events, NO otherwise.
+ */
+- (BOOL)hasEventHandlersForControlEvents:(UIControlEvents)controlEvents;
+
 @end
