@@ -80,4 +80,19 @@ static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
     [actions removeObjectsInArray:forControlEvent];
 }
 
+- (BOOL)hasEventHandlersForControlEvents:(UIControlEvents)controlEvents {
+    NSMutableArray *actions = [self associatedValueForKey:&kControlBlockArrayKey];
+    
+    if (!actions)
+        return NO;
+    
+    for (BKControlWrapper *wrapper in actions) {
+        if ([wrapper controlEvents] == controlEvents) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 @end
