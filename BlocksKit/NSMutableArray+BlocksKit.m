@@ -9,7 +9,7 @@
 
 - (void)performSelect:(BKValidationBlock)block {
     NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return block(obj);
+        return !block(obj);
     }];
     
     if (!list.count)
@@ -20,7 +20,7 @@
 
 - (void)performReject:(BKValidationBlock)block {
     NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return !block(obj);
+        return block(obj);
     }];
     
     if (!list.count)

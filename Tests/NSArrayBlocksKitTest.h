@@ -19,7 +19,7 @@
 - (void)testSelect;
 - (void)testSelectedNone;
 - (void)testReject;
-- (void)testRejectedNone;
+- (void)testRejectedAll;
 - (void)testMap;
 - (void)testReduceWithBlock;
 

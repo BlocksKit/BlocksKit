@@ -35,9 +35,13 @@
 #import "NSObject+BlockObservation.h"
 
 #import "NSArray+BlocksKit.h"
+#import "NSMutableArray+BlocksKit.h"
 #import "NSSet+BlocksKit.h"
+#import "NSMutableSet+BlocksKit.h"
 #import "NSDictionary+BlocksKit.h"
+#import "NSMutableDictionary+BlocksKit.h"
 #import "NSIndexSet+BlocksKit.h"
+#import "NSMutableIndexSet+BlocksKit.h"
 
 #import "NSInvocation+BlocksKit.h"
 #import "NSTimer+BlocksKit.h"
