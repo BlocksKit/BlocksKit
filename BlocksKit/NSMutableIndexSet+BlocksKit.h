@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 /** Block extensions for NSMutableIndexSet.
  
  These utilities expound upon the BlocksKit additions
