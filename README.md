@@ -19,6 +19,7 @@ What's Included
 * Block initializers for `UIControl` and `UIBarButtonItem`
 * Initializer for `UIGestureRecognizer`
 * On-touch utilities for `UIView`.
+* both delegation and block callbacks on `NSURLConnection`
 
 Installation
 ============
