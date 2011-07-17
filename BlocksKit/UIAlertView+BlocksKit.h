@@ -15,13 +15,13 @@
 
  A typical invocation will go like this:
      UIAlertView *testView = [UIAlertView alertWithTitle:@"Application Alert" message:@"This app will explode in 42 seconds."];
-     [testView setCancelButtonWithTitle:@"Oh No!" handler:^void() { NSLog(@"Boom!"); }];
+     [testView setCancelButtonWithTitle:@"Oh No!" handler:^{ NSLog(@"Boom!"); }];
      [testView show];
 
  A more traditional, and more useful, modal dialog looks like so:
     UIAlertView *testView = [UIAlertView alertWithTitle:@"Very important!" message:@"Do you like chocolate?"];
-    [testView addButtonWithTitle:@"Yes" handler:^void() { NSLog(@"Yay!"); }];
-    [testView addButtonWithTitle:@"No" handler:^void() { NSLog(@"We hate you."); }];
+    [testView addButtonWithTitle:@"Yes" handler:^{ NSLog(@"Yay!"); }];
+    [testView addButtonWithTitle:@"No" handler:^{ NSLog(@"We hate you."); }];
     [testView show];
 
  Includes code by the following:

@@ -15,11 +15,11 @@
 
  A typical invocation might go like this:
      UIActionSheet *testSheet = [UIActionSheet sheetWithTitle:@"Please select one."];
-     [testSheet addButtonWithTitle:@"Zip" handler:^void() { NSLog(@"Zip!"); }];
-     [testSheet addButtonWithTitle:@"Zap" handler:^void() { NSLog(@"Zap!"); }];
-     [testSheet addButtonWithTitle:@"Zop" handler:^void() { NSLog(@"Zop!"); }];
-     [testSheet setDestructiveButtonWithTitle:@"No!" handler:^void() { NSLog(@"Fine!"); }];
-     [testSheet setCancelButtonWithTitle:nil handler:^void() { NSLog(@"Never mind, then!"); }];
+     [testSheet addButtonWithTitle:@"Zip" handler:^{ NSLog(@"Zip!"); }];
+     [testSheet addButtonWithTitle:@"Zap" handler:^{ NSLog(@"Zap!"); }];
+     [testSheet addButtonWithTitle:@"Zop" handler:^{ NSLog(@"Zop!"); }];
+     [testSheet setDestructiveButtonWithTitle:@"No!" handler:^{ NSLog(@"Fine!"); }];
+     [testSheet setCancelButtonWithTitle:nil handler:^{ NSLog(@"Never mind, then!"); }];
      [testSheet showInView:self.view];
 
  Includes code by the following:
