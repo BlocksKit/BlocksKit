@@ -214,13 +214,7 @@ static char* kDownloadProgressHandlerKey = "downloadProgressHandler";
 @implementation NSURLConnection (BlocksKit)
 
 #pragma mark - monkeypatching
-+ (void)load {
-#if BK_SHOULD_DEALLOC
-    Method originalDeallocMethod = class_getInstanceMethod([self class], @selector(dealloc));
-    Method categoryDeallocMethod = class_getInstanceMethod([self class], @selector(bk_dealloc));
-    method_exchangeImplementations(originalDeallocMethod, categoryDeallocMethod);
-#endif
-    
++ (void)load {    
     Method originalInitWithRequestDelegateMethod = class_getInstanceMethod([self class], @selector(initWithRequest:delegate:));
     Method categoryInitWithRequestDelegateMethod = class_getInstanceMethod([self class], @selector(bk_initWithRequest:delegate:));
     method_exchangeImplementations(originalInitWithRequestDelegateMethod, categoryInitWithRequestDelegateMethod);
@@ -269,41 +263,12 @@ static char* kDownloadProgressHandlerKey = "downloadProgressHandler";
     return [[self alloc] initWithRequest:request delegate:nil startImmediately:NO];
 }
 
-#if BK_SHOULD_DEALLOC
-#pragma mark 
-- (void)bk_dealloc {
-    self.delegate = nil;
-    
-    self.responseData = nil;
-    self.response = nil;
-    
-    self.canAuthenticateAgainstProtectionSpaceHandler = nil;
-    self.didCancelAuthenticationChallengeHandler = nil;
-    self.didReceiveAuthenticationChallengeHandler = nil;
-    self.shouldUseCredentialStorageHandler = nil;
-    
-    self.willCacheResponseHandler = nil;
-    self.didReceiveResponseHandler = nil;
-    self.didReceiveDataHandler = nil;
-    self.sendBodyDataHandler = nil;
-    self.willSendRequestRedirectResponseHandler = nil;
-    
-    self.didFailWithErrorHandler = nil;
-    self.didFinishLoadingHandler = nil;
-    
-    self.uploadProgressHandler = nil;
-    self.downloadProgressHandler = nil;
-    
-    [self bk_dealloc];
-}
-#endif
-
 #pragma mark - getters and setters
 - (id)delegate {
     return [self associatedValueForKey:kDelegateKey];
 }
 - (void)setDelegate:(id)delegate {
-    [self associateValue:delegate withKey:kDelegateKey];
+    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
 }
 
 - (NSMutableData *)responseData {
