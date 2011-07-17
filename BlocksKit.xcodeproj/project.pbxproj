@@ -148,6 +148,12 @@
 		6CC56DFA1386A48900925FDC /* UIWebView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC56DFB1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
 		6CC56DFC1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
+		A99DD88613D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; };
+		A99DD88713D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; };
+		A99DD88813D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; };
+		A99DD88913D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */; };
+		A99DD88A13D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */; };
+		A99DD88B13D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,6 +259,8 @@
 		6CC0901F13855E8600DDEABB /* NSIndexSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BlocksKit.m"; sourceTree = "<group>"; };
 		6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+BlocksKit.h"; sourceTree = "<group>"; };
 		6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+BlocksKit.m"; sourceTree = "<group>"; };
+		A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+BlocksKit.h"; sourceTree = "<group>"; };
+		A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+BlocksKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +418,8 @@
 				6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */,
 				6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */,
 				6C8063B213C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m */,
+				A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */,
+				A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */,
 				6CC08FC91385553B00DDEABB /* UIKit */,
 				6C3DBF931382F1BA00E6C9AA /* Supporting Files */,
 			);
@@ -487,6 +497,7 @@
 				6C2427FC13C565550016A271 /* NSMutableSet+BlocksKit.h in Headers */,
 				6C24280413C565660016A271 /* NSMutableDictionary+BlocksKit.h in Headers */,
 				6C8063B313C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */,
+				A99DD88613D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +521,7 @@
 				6C2427FD13C565550016A271 /* NSMutableSet+BlocksKit.h in Headers */,
 				6C24280513C565660016A271 /* NSMutableDictionary+BlocksKit.h in Headers */,
 				6C8063B413C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */,
+				A99DD88713D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +552,7 @@
 				6C2427FE13C565550016A271 /* NSMutableSet+BlocksKit.h in Headers */,
 				6C24280613C565660016A271 /* NSMutableDictionary+BlocksKit.h in Headers */,
 				6C8063B513C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */,
+				A99DD88813D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +716,7 @@
 				6C2427FF13C565550016A271 /* NSMutableSet+BlocksKit.m in Sources */,
 				6C24280713C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */,
 				6C8063B613C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m in Sources */,
+				A99DD88913D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,6 +737,7 @@
 				6C24280013C565550016A271 /* NSMutableSet+BlocksKit.m in Sources */,
 				6C24280813C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */,
 				6C8063B713C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m in Sources */,
+				A99DD88A13D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,6 +765,7 @@
 				6C24280113C565550016A271 /* NSMutableSet+BlocksKit.m in Sources */,
 				6C24280913C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */,
 				6C8063B813C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m in Sources */,
+				A99DD88B13D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
