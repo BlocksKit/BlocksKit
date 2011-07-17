@@ -49,6 +49,7 @@ The following people (in alphabetical order) have their code lovingly enshrined 
 
 * [Michael Ash](https://github.com/mikeash).
 * [Jiva DeVoe](https://github.com/jivadevoe).
+* [Igor Evsukov](https://github.com/evsukov89).
 * [Corey Floyd](https://github.com/coreyfloyd).
 * [Landon Fuller, Plausible Labs](http://plausiblelabs.com).
 * [Mirko Kiefer](https://github.com/mirkok).

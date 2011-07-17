@@ -5,6 +5,8 @@
 
 #import "BlocksKit_Globals.h"
 
+typedef BOOL(^BKWebViewStartBlock)(NSURLRequest *request, UIWebViewNavigationType navigationType);
+
 /** Delegation replacement for UIWebView.
 
  Unlike BlocksKit's extensions for UIAlertView and

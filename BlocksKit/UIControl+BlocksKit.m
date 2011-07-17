@@ -9,15 +9,13 @@
 
 static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
 
+#pragma mark Private
+
 @interface BKControlWrapper : NSObject
-
 - (id)initWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents;
-
 @property (copy) BKSenderBlock handler;
 @property (assign) UIControlEvents controlEvents;
-
 - (void)invoke:(id)sender;
-
 @end
 
 @implementation BKControlWrapper
@@ -43,9 +41,9 @@ static char *kControlBlockArrayKey = "UIControlBlockHandlerArray";
     BKSenderBlock block = self.handler;
     if (block) dispatch_async(dispatch_get_main_queue(), ^{ block(sender); });
 }
-
 @end
 
+#pragma mark Category
 
 @implementation UIControl (BlocksKit)
 

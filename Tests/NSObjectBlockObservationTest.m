@@ -85,7 +85,9 @@
 
 - (void)setUpClass {
     // Run at start of all tests in the class
-    self.subject = [[SubjectKVCAndKVO alloc] initSubjectWithTest:self];
+    SubjectKVCAndKVO *newSubject = [[SubjectKVCAndKVO alloc] initSubjectWithTest:self];
+    self.subject = newSubject;
+    [newSubject release];
 }
 
 - (void)tearDownClass {
