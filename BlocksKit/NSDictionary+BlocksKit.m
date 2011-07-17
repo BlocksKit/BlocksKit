@@ -16,6 +16,7 @@
 
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {
     NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
+    
     [self each:^(id key, id obj) {
         if (block(key, obj))
             [list setObject:obj forKey:key];
@@ -29,6 +30,7 @@
 
 - (NSDictionary *)reject:(BKKeyValueValidationBlock)block {
     NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
+    
     [self each:^(id key, id obj) {
         if (!block(key, obj))
             [list setObject:obj forKey:key];
@@ -41,9 +43,9 @@
 }
 
 - (NSDictionary *)map:(BKKeyValueTransformBlock)block {
-    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] initWithCapacity:self.count];
 
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [self each:^(id key, id obj) {
         id value = block(key, obj);
         if (!value)
             value = [NSNull null];
@@ -51,7 +53,7 @@
         [result setObject:value forKey:key];
     }];
     
-    return result;
+    return BK_AUTORELEASE(result);
 }
 
 @end

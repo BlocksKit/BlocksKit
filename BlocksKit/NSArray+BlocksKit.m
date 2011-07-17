@@ -22,10 +22,10 @@
         return NO;
     }];
     
-    if (indexes.count)
-        return [self objectAtIndex:[indexes firstIndex]];
+    if (!indexes.count)
+        return nil;
     
-    return nil;
+    return [self objectAtIndex:[indexes firstIndex]];
 }
 
 - (NSArray *)select:(BKValidationBlock)block {
@@ -51,7 +51,7 @@
 }
 
 - (NSArray *)map:(BKTransformBlock)block {
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
+    NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:self.count];
     
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         id value = block(obj);
@@ -61,7 +61,7 @@
         [result addObject:value];
     }];
     
-    return result;
+    return BK_AUTORELEASE(result);
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
