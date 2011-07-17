@@ -5,6 +5,9 @@
 
 #pragma once
 
+#import <Foundation/Foundation.h>
+#import <dispatch/dispatch.h>
+
 #if TARGET_IPHONE_SIMULATOR
     #define BK_HAS_UIKIT 1
     #define BK_HAS_APPKIT 0
@@ -27,8 +30,9 @@
 
 typedef void(^BKBlock)(void); // compatible with dispatch_block_t
 typedef void(^BKSenderBlock)(id sender);
-typedef void(^BKIndexBlock)(NSUInteger index);
+typedef void(^BKDataBlock)(NSData *data);
 typedef void(^BKErrorBlock)(NSError *error);
+typedef void(^BKIndexBlock)(NSUInteger index);
 typedef void(^BKTimerBlock)(NSTimeInterval time);
 
 #if BK_HAS_UIKIT
@@ -42,10 +46,10 @@ typedef void(^BKKeyValueBlock)(id key, id obj);
 
 typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);
 
+typedef BOOL(^BKAnswerBlock)(void);
 typedef BOOL(^BKValidationBlock)(id obj);
 typedef BOOL(^BKKeyValueValidationBlock)(id key, id obj);
 typedef BOOL(^BKIndexValidationBlock)(NSUInteger index);
-typedef BOOL(^BKWebViewStartBlock)(NSURLRequest *request, UIWebViewNavigationType navigationType);
 
 typedef id(^BKTransformBlock)(id obj);
 typedef id(^BKKeyValueTransformBlock)(id key, id obj);
@@ -53,13 +57,11 @@ typedef id(^BKAccumulationBlock)(id sum, id obj);
 
 #if __has_feature(objc_arc)
 #define BK_AUTORELEASE(o) o
-#define BK_RETAIN(o) o
 #define BK_SHOULD_DEALLOC 0
 #define BK_RELEASE(o)
 #define BK_SET_RETAINED(var, val) var = val
 #else
 #define BK_AUTORELEASE(o) [o autorelease]
-#define BK_RETAIN(o) [o retain]
 #define BK_SHOULD_DEALLOC 1
 #define BK_RELEASE(o) [o release]
 #define BK_SET_RETAINED(var, val) { \

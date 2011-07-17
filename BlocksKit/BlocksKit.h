@@ -24,9 +24,6 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import <dispatch/dispatch.h>
-
 #include "BlocksKit_Globals.h"
 #include "BKMacros.h"
 

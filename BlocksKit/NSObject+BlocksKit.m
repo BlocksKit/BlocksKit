@@ -7,7 +7,6 @@
 //
 
 #import "NSObject+BlocksKit.h"
-#import <dispatch/dispatch.h>
 
 typedef void(^BKInternalWrappingBlock)(BOOL cancel);
 
