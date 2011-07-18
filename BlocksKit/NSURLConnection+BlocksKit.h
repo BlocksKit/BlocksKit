@@ -4,15 +4,7 @@
 //
 
 typedef void (^BKProgressBlock) (float progress);
-typedef void (^BKResponseBlock) (NSURLResponse *response);
-typedef void (^BKChallengeBlock) (NSURLAuthenticationChallenge *challenge);
 typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
-typedef void (^BKDataSentBlock) (NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite);
-
-typedef   id (^BKCachedResponseBlock) (NSCachedURLResponse *cachedResponse);
-typedef   id (^BKRedirectBlock) (NSURLRequest *request, NSURLResponse *redirectResponse);
-
-typedef BOOL (^BKCanAuthenticateBlock) (NSURLProtectionSpace *protectionSpace);
 
 /** NSURLConnection with both delegate and block callback support
  
@@ -48,7 +40,7 @@ typedef BOOL (^BKCanAuthenticateBlock) (NSURLProtectionSpace *protectionSpace);
      }
      
      //these methods will be called too!
-     - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+     - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
          NSLog(@"%s",__PRETTY_FUNCTION__);
      }
      
@@ -57,40 +49,64 @@ typedef BOOL (^BKCanAuthenticateBlock) (NSURLProtectionSpace *protectionSpace);
      }
 
  Created by Igor Evsukov as [IEURLConnection](https://github.com/evsukov89/IEURLConnection) and contributed to BlocksKit.
-    
- @warning If a delegate method is required to return a value and is implemented in the delegate, the
- implementation will take priority over the block.
 */
 
 @interface NSURLConnection (BlocksKit)
 
+/** A mutable delegate that implements the NSURLConnectionDelegate protocol.
+ 
+ This property allows for both use of block callbacks and delegate methods
+ in an instance of NSURLConnection.
+ */
 @property (nonatomic, assign) id delegate;
 
-@property (nonatomic, retain) NSMutableData *responseData;
-@property (nonatomic, retain) NSURLResponse *response;
-
-@property (nonatomic, copy) BKCanAuthenticateBlock canAuthenticateAgainstProtectionSpaceHandler;
-@property (nonatomic, copy) BKChallengeBlock didCancelAuthenticationChallengeHandler;
-@property (nonatomic, copy) BKChallengeBlock didReceiveAuthenticationChallengeHandler;
-@property (nonatomic, copy) BKAnswerBlock shouldUseCredentialStorageHandler;
-
-@property (nonatomic, copy) BKCachedResponseBlock willCacheResponseHandler;
+/** The block that is fired once the connection recieves a response from the server. */
 @property (nonatomic, copy) BKResponseBlock didReceiveResponseHandler;
-@property (nonatomic, copy) BKDataBlock didReceiveDataHandler;
-@property (nonatomic, copy) BKDataSentBlock sendBodyDataHandler;
-@property (nonatomic, copy) BKRedirectBlock willSendRequestRedirectResponseHandler;
 
+/** The block that is fired upon the failure of the connection. */
 @property (nonatomic, copy) BKErrorBlock didFailWithErrorHandler;
+
+/** The block that is fired upon the successful completion of the connection. */
 @property (nonatomic, copy) BKConnectionFinishBlock didFinishLoadingHandler;
 
+/** The block that is fired every time new data is sent to the server,
+ representing the current percentage of completion. */
 @property (nonatomic, copy) BKProgressBlock uploadProgressHandler;
+
+/** The block that is fired every time new data is recieved from the server,
+ representing the current percentage of completion. */
 @property (nonatomic, copy) BKProgressBlock downloadProgressHandler;
 
+/** Creates and returns an initialized URL connection that does not begin to load the data for the URL request.
+ 
+ @param request The URL request to load.
+ @return An autoreleased NSURLConnection for the specified URL request.
+ */
 + (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request;
-+ (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate;
 
+/** Returns an initialized URL connection.
+ 
+ @return Newly initialized NSURLConnection with the specified properties.
+ @param request The URL request to load.
+ */
 - (id)initWithRequest:(NSURLRequest *)request;
+
+/** Returns an initialized URL connection and begins to load the data for the URL request, if specified.
+ 
+ @return Newly initialized NSURLConnection with the specified properties.
+ @param request The URL request to load.
+ @param startImmediately YES if the connection should being loading data immediately, otherwise NO.
+ */
 - (id)initWithRequest:(NSURLRequest *)request startImmediately:(BOOL)startImmediately;
+
+/** Returns an initialized URL connection with the specified completion handler and begins to load the data for the URL request, if specified.
+ 
+ @return Newly initialized NSURLConnection with the specified properties.
+ @param request The URL request to load.
+ @param startImmediately YES if the connection should being loading data immediately, otherwise NO.
+ @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
+ */
+- (id)initWithRequest:(NSURLRequest *)request startImmediately:(BOOL)startImmediately completionHandler:(BKConnectionFinishBlock)block;
 
 
 @end

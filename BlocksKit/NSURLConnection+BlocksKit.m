@@ -9,23 +9,24 @@
 static char *kDelegateKey = "NSURLConnectionDelegate";
 static char *kResponseDataKey = "NSURLConnectionResponseData";
 static char *kResponseKey = "NSURLConnectionResponse";
-static char *kCanAuthenticateAgainstProtectionSpaceHandlerKey = "NSURLConnectionCanAuthenticate";
-static char *kDidCancelAuthenticationChallengeHandlerKey = "NSURLConnectionDidCancelAuthentication";
-static char *kDidReceiveAuthenticationChallengeHandlerKey = "NSURLConnectionDidReceiveAuthentication";
-static char *kShouldUseCredentialStorageHandlerKey = "NSURLConnectionShouldUseCredentialStorage";
-static char *kWillCacheResponseHandlerKey = "NSURLConnectionWillCacheResponse";
 static char *kDidReceiveResponseHandlerKey = "NSURLConnectionDidReceiveResponse";
-static char *kdidReceiveDataHandlerKey = "NSURLConnectionDidReceiveData";
-static char *kSendBodyDataHandlerKey = "NSURLConnectionSendBodyData";
-static char *kWillSendRequestRedirectResponseHandlerKey = "NSURLConnectionWillSendRequestRedirect";
 static char *kDidFailWithErrorHandlerKey = "NSURLConnectionDidFail";
 static char *kDidFinishLoadingHandlerKey = "NSURLConnectionDidFinish";
 static char *kUploadProgressHandlerKey = "NSURLConnectionUploadProgress";
 static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
-#pragma mark 
+#pragma mark Private
 
-@interface BKURLConnectionDelegateProxy : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface NSURLConnection (BlocksKitPrivate)
+@property (nonatomic, retain) NSMutableData *responseData;
+@property (nonatomic, retain) NSURLResponse *response;
+- (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate;
+- (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate startImmediately:(BOOL)startImmediately;
+@end
+
+#pragma mark Delegate proxy
+
+@interface BKURLConnectionDelegateProxy : NSObject <NSURLConnectionDelegate>
 + (id)shared;
 @end
 
@@ -51,37 +52,25 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 - (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
         return [connection.delegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
-
-    if (connection.canAuthenticateAgainstProtectionSpaceHandler)
-        return connection.canAuthenticateAgainstProtectionSpaceHandler(protectionSpace);
-
+    
     return NO;
 }
 
 - (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
     if (connection.delegate != nil && [connection.delegate respondsToSelector:@selector(connection:didCancelAuthenticationChallenge:)])
         [connection.delegate connection:connection didCancelAuthenticationChallenge:challenge];
-
-    if (connection.didCancelAuthenticationChallengeHandler)
-        connection.didCancelAuthenticationChallengeHandler(challenge);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
         [connection.delegate connection:connection didReceiveAuthenticationChallenge:challenge];
-
-    if (connection.didReceiveAuthenticationChallengeHandler)
-        connection.didReceiveAuthenticationChallengeHandler(challenge);
 }
 
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connectionShouldUseCredentialStorage:)])
         return [connection.delegate connectionShouldUseCredentialStorage:connection];
 
-    if (connection.shouldUseCredentialStorageHandler)
-        return connection.shouldUseCredentialStorageHandler();
-
-    return NO;   
+    return YES;   
 }
 
 #pragma mark Connection delegate
@@ -89,9 +78,6 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willCacheResponse:)])
         return [connection.delegate connection:connection willCacheResponse:cachedResponse];
-    
-    if (connection.willCacheResponseHandler)
-        return connection.willCacheResponseHandler(cachedResponse);
     
     return cachedResponse;
 }
@@ -122,9 +108,6 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
     
     [responseData appendData:data];
     
-    if (connection.didReceiveDataHandler)
-        connection.didReceiveDataHandler(data);
-    
     if (connection.downloadProgressHandler && connection.response && [connection.response expectedContentLength] != NSURLResponseUnknownLength)
         connection.downloadProgressHandler(responseData.length/connection.response.expectedContentLength);
 }
@@ -133,9 +116,6 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)])
         [connection.delegate connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
     
-    if (connection.sendBodyDataHandler)
-        connection.sendBodyDataHandler(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
-    
     if (connection.uploadProgressHandler)
         connection.uploadProgressHandler(totalBytesWritten/totalBytesExpectedToWrite);
 }
@@ -143,9 +123,6 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
         return [connection.delegate connection:connection willSendRequest:request redirectResponse:redirectResponse];
-    
-    if (connection.willSendRequestRedirectResponseHandler)
-        return connection.willSendRequestRedirectResponseHandler(request, redirectResponse);
     
     return request;
 }
@@ -170,11 +147,6 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
 #pragma mark Category
 
-@interface NSURLConnection (BlocksKitPrivate)
-- (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate;
-- (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate startImmediately:(BOOL)startImmediately;
-@end
-
 @implementation NSURLConnection (BlocksKit)
 
 #pragma mark Initializers
@@ -191,30 +163,31 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
     method_exchangeImplementations(originalInitWithRequestDelegateStartImmediatelyMethod, categoryInitWithRequestDelegateStartImmediatelyMethod);    
 }
 
-+ (NSURLConnection*)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate {
-    return BK_AUTORELEASE([[self alloc] initWithRequest:request delegate:delegate startImmediately:NO]);
-}
-
 + (NSURLConnection*)connectionWithRequest:(NSURLRequest *)request {
-    return [[self alloc] initWithRequest:request delegate:nil startImmediately:NO];
+    return BK_AUTORELEASE([[[self class] alloc] initWithRequest:request delegate:nil startImmediately:NO]);
 }
 
-// new method
+// new methods
 - (id)initWithRequest:(NSURLRequest *)request {
     return [self initWithRequest:request delegate:nil startImmediately:NO];
 }
 
-// new method
 - (id)initWithRequest:(NSURLRequest *)request startImmediately:(BOOL)startImmediately {
     return [self initWithRequest:request delegate:nil startImmediately:startImmediately];
 }
 
-// swizzled method
+- (id)initWithRequest:(NSURLRequest *)request startImmediately:(BOOL)startImmediately completionHandler:(BKConnectionFinishBlock)block {
+    if ((self = [self initWithRequest:request delegate:nil startImmediately:startImmediately]) && block) {
+        self.didFinishLoadingHandler = block;
+    }
+    return self;
+}
+
+// swizzled methods
 - (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate {
     return [self initWithRequest:request delegate:aDelegate startImmediately:NO];
 }
 
-// swizzled method
 - (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate startImmediately:(BOOL)startImmediately {
     if ([self bk_initWithRequest:request delegate:[BKURLConnectionDelegateProxy shared] startImmediately:startImmediately]) {
         if (aDelegate && [aDelegate isKindOfClass:[self class]]) {
@@ -224,15 +197,7 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
     return self;
 }
 
-#pragma mark Properties
-
-- (id)delegate {
-    return [self associatedValueForKey:kDelegateKey];
-}
-
-- (void)setDelegate:(id)delegate {
-    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
-}
+#pragma mark Private
 
 - (NSMutableData *)responseData {
     return [self associatedValueForKey:kResponseDataKey];
@@ -245,48 +210,19 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 - (NSURLResponse *)response {
     return [self associatedValueForKey:kResponseKey];
 }
+
 - (void)setResponse:(NSURLResponse *)response {
     return [self associateValue:response withKey:kResponseKey];
 }
 
-- (BKCanAuthenticateBlock)canAuthenticateAgainstProtectionSpaceHandler {
-    return [self associatedValueForKey:kCanAuthenticateAgainstProtectionSpaceHandlerKey];
+#pragma mark Properties
+
+- (id)delegate {
+    return [self associatedValueForKey:kDelegateKey];
 }
 
-- (void)setCanAuthenticateAgainstProtectionSpaceHandler:(BKCanAuthenticateBlock)canAuthenticateAgainstProtectionSpaceHandler {
-    [self associateCopyOfValue:canAuthenticateAgainstProtectionSpaceHandler withKey:kCanAuthenticateAgainstProtectionSpaceHandlerKey];
-}
-
-- (BKChallengeBlock)didCancelAuthenticationChallengeHandler {
-    return [self associatedValueForKey:kDidCancelAuthenticationChallengeHandlerKey];
-}
-
-- (void)setDidCancelAuthenticationChallengeHandler:(BKChallengeBlock)didCancelAuthenticationChallengeHandler {
-    [self associateCopyOfValue:didCancelAuthenticationChallengeHandler withKey:kDidCancelAuthenticationChallengeHandlerKey];
-}
-
-- (BKChallengeBlock)didReceiveAuthenticationChallengeHandler {
-    return [self associatedValueForKey:kDidReceiveAuthenticationChallengeHandlerKey];
-}
-
-- (void)setDidReceiveAuthenticationChallengeHandler:(BKChallengeBlock)didReceiveAuthenticationChallengeHandler {
-    [self associateCopyOfValue:didReceiveAuthenticationChallengeHandler withKey:kDidReceiveAuthenticationChallengeHandlerKey];
-}
-
-- (BKAnswerBlock)shouldUseCredentialStorageHandler {
-    return [self associatedValueForKey:kShouldUseCredentialStorageHandlerKey];
-}
-
-- (void)setShouldUseCredentialStorageHandler:(BKAnswerBlock)shouldUseCredentialStorageHandler {
-    [self associateCopyOfValue:shouldUseCredentialStorageHandler withKey:kShouldUseCredentialStorageHandlerKey];
-}
-
-- (BKCachedResponseBlock)willCacheResponseHandler {
-    return [self associatedValueForKey:kWillCacheResponseHandlerKey];
-}
-
-- (void)setWillCacheResponseHandler:(BKCachedResponseBlock)willCacheResponseHandler {
-    [self associateCopyOfValue:willCacheResponseHandler withKey:kWillCacheResponseHandlerKey];
+- (void)setDelegate:(id)delegate {
+    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
 }
 
 - (BKResponseBlock)didReceiveResponseHandler {
@@ -295,30 +231,6 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
 - (void)setDidReceiveResponseHandler:(BKResponseBlock)didReceiveResponseHandler {
     [self associateCopyOfValue:didReceiveResponseHandler withKey:kDidReceiveResponseHandlerKey];
-}
-
-- (BKDataBlock)didReceiveDataHandler {
-    return [self associatedValueForKey:kdidReceiveDataHandlerKey];
-}
-
-- (void)setDidReceiveDataHandler:(BKDataBlock)didReceiveDataHandler {
-    [self associateCopyOfValue:didReceiveDataHandler withKey:kdidReceiveDataHandlerKey];
-}
-
-- (BKDataSentBlock)sendBodyDataHandler {
-    return [self associatedValueForKey:kSendBodyDataHandlerKey];
-}
-
-- (void)setSendBodyDataHandler:(BKDataSentBlock)sendBodyDataHandler {
-    [self associateCopyOfValue:sendBodyDataHandler withKey:kSendBodyDataHandlerKey];
-}
-
-- (BKRedirectBlock)willSendRequestRedirectResponseHandler {
-    return [self associatedValueForKey:kWillSendRequestRedirectResponseHandlerKey];
-}
-
-- (void)setWillSendRequestRedirectResponseHandler:(BKRedirectBlock)willSendRequestRedirectResponseHandler {
-    [self associateCopyOfValue:willSendRequestRedirectResponseHandler withKey:kWillSendRequestRedirectResponseHandlerKey];
 }
 
 - (BKErrorBlock)didFailWithErrorHandler {
