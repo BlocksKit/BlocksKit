@@ -34,6 +34,7 @@ typedef void(^BKDataBlock)(NSData *data);
 typedef void(^BKErrorBlock)(NSError *error);
 typedef void(^BKIndexBlock)(NSUInteger index);
 typedef void(^BKTimerBlock)(NSTimeInterval time);
+typedef void(^BKResponseBlock)(NSURLResponse *response);
 
 #if BK_HAS_UIKIT
 typedef void(^BKViewBlock)(UIView *view);
@@ -46,7 +47,6 @@ typedef void(^BKKeyValueBlock)(id key, id obj);
 
 typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);
 
-typedef BOOL(^BKAnswerBlock)(void);
 typedef BOOL(^BKValidationBlock)(id obj);
 typedef BOOL(^BKKeyValueValidationBlock)(id key, id obj);
 typedef BOOL(^BKIndexValidationBlock)(NSUInteger index);
