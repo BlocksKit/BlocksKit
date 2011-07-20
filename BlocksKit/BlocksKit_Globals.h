@@ -55,6 +55,10 @@ typedef id(^BKTransformBlock)(id obj);
 typedef id(^BKKeyValueTransformBlock)(id key, id obj);
 typedef id(^BKAccumulationBlock)(id sum, id obj);
 
+#ifndef __has_feature
+#define __has_feature(x) 0
+#endif
+
 #if __has_feature(objc_arc)
 #define BK_AUTORELEASE(o) o
 #define BK_SHOULD_DEALLOC 0

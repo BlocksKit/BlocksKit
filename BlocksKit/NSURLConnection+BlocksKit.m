@@ -5,6 +5,7 @@
 
 #import "NSURLConnection+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
+#import <objc/runtime.h>
 
 static char *kDelegateKey = "NSURLConnectionDelegate";
 static char *kResponseDataKey = "NSURLConnectionResponseData";
@@ -26,7 +27,7 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
 #pragma mark Delegate proxy
 
-@interface BKURLConnectionDelegateProxy : NSObject <NSURLConnectionDelegate>
+@interface BKURLConnectionDelegateProxy : NSObject
 + (id)shared;
 @end
 
