@@ -10,6 +10,7 @@
 static char *kDelegateKey = "NSURLConnectionDelegate";
 static char *kResponseDataKey = "NSURLConnectionResponseData";
 static char *kResponseKey = "NSURLConnectionResponse";
+static char *kResponseLengthKey = "NSURLConnectionResponseLength";
 static char *kDidReceiveResponseHandlerKey = "NSURLConnectionDidReceiveResponse";
 static char *kDidFailWithErrorHandlerKey = "NSURLConnectionDidFail";
 static char *kDidFinishLoadingHandlerKey = "NSURLConnectionDidFinish";
@@ -21,6 +22,7 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 @interface NSURLConnection (BlocksKitPrivate)
 @property (nonatomic, retain) NSMutableData *responseData;
 @property (nonatomic, retain) NSURLResponse *response;
+@property (nonatomic, assign) NSUInteger responseLength;
 - (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate;
 - (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate startImmediately:(BOOL)startImmediately;
 @end
@@ -87,6 +89,8 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveResponse:)])
         [connection.delegate connection:connection didReceiveResponse:response];
     
+    connection.responseLength = 0;
+    
     if (connection.responseData)
         [connection.responseData setLength:0];
     
@@ -97,8 +101,15 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveData:)])
+    connection.responseLength += data.length;
+    
+    if (connection.downloadProgressHandler && connection.response && [connection.response expectedContentLength] != NSURLResponseUnknownLength)
+        connection.downloadProgressHandler(connection.responseLength/connection.response.expectedContentLength);
+
+    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveData:)]) {
         [connection.delegate connection:connection didReceiveData:data];
+        return;
+    }
     
     NSMutableData *responseData = connection.responseData;
     
@@ -108,9 +119,6 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
     }
     
     [responseData appendData:data];
-    
-    if (connection.downloadProgressHandler && connection.response && [connection.response expectedContentLength] != NSURLResponseUnknownLength)
-        connection.downloadProgressHandler(responseData.length/connection.response.expectedContentLength);
 }
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
@@ -139,6 +147,9 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connectionDidFinishLoading:)])
         [connection.delegate connectionDidFinishLoading:connection];
+    
+    if (connection.responseData && !connection.responseData.length)
+        connection.responseData = nil;
     
     if (connection.didFinishLoadingHandler)
         connection.didFinishLoadingHandler(connection.response, connection.responseData);
@@ -214,6 +225,16 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
 - (void)setResponse:(NSURLResponse *)response {
     return [self associateValue:response withKey:kResponseKey];
+}
+
+- (NSUInteger)responseLength {
+    NSNumber *value = [self associatedValueForKey:kResponseLengthKey];
+    return [value unsignedIntegerValue];
+}
+
+- (void)setResponseLength:(NSUInteger)responseLength {
+    NSNumber *value = [NSNumber numberWithUnsignedInteger:responseLength];
+    return [self associateValue:value withKey:kResponseKey];
 }
 
 #pragma mark Properties

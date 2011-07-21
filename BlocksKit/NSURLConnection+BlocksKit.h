@@ -44,7 +44,7 @@ typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
          NSLog(@"%s",__PRETTY_FUNCTION__);
      }
      
-     - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+     - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
          NSLog(@"%s",__PRETTY_FUNCTION__);
      }
 
@@ -66,7 +66,13 @@ typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
 /** The block that is fired upon the failure of the connection. */
 @property (nonatomic, copy) BKErrorBlock didFailWithErrorHandler;
 
-/** The block that is fired upon the successful completion of the connection. */
+/** The block that is fired upon the successful completion of the connection.
+  
+ @warning If the delegate implements connection:didRecieveData:, then this
+ block will *not* include the data recieved by the connection and appending
+ the recieved data to an instance NSMutableData is left up to the user due
+ to the behavior of frameworks that use NSURLConnection.
+*/
 @property (nonatomic, copy) BKConnectionFinishBlock didFinishLoadingHandler;
 
 /** The block that is fired every time new data is sent to the server,
