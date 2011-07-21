@@ -191,7 +191,7 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
 - (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate startImmediately:(BOOL)startImmediately {
     if ([self bk_initWithRequest:request delegate:[BKURLConnectionDelegateProxy shared] startImmediately:startImmediately]) {
-        if (aDelegate && [aDelegate isKindOfClass:[self class]]) {
+        if (aDelegate && (aDelegate != self) && ![aDelegate isKindOfClass:[self class]]) {
             self.delegate = aDelegate;
         }          
     }
