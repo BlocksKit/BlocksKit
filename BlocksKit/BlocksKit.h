@@ -43,6 +43,9 @@
 #import "NSInvocation+BlocksKit.h"
 #import "NSTimer+BlocksKit.h"
 
+#import "NSURLConnection+BlocksKit.h"
+#import "NSCache+BlocksKit.h"
+
 #if BK_HAS_UIKIT
 #import "UIAlertView+BlocksKit.h"
 #import "UIActionSheet+BlocksKit.h"
