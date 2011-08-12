@@ -1,12 +1,9 @@
 //
-//  BlocksKit_Globals.h
-//  BlocksKit
+//  BKGlobals.h
+//  %PROJECT
 //
 
 #pragma once
-
-#import <Foundation/Foundation.h>
-#import <dispatch/dispatch.h>
 
 #if TARGET_IPHONE_SIMULATOR
     #define BK_HAS_UIKIT 1
@@ -27,6 +24,9 @@
 #import <UIKit/UIKit.h>
 #endif
 
+#if BK_HAS_APPKIT
+#import <Cocoa/Cocoa.h>
+#endif
 
 typedef void(^BKBlock)(void); // compatible with dispatch_block_t
 typedef void(^BKSenderBlock)(id sender);
@@ -39,13 +39,12 @@ typedef void(^BKResponseBlock)(NSURLResponse *response);
 #if BK_HAS_UIKIT
 typedef void(^BKViewBlock)(UIView *view);
 typedef void(^BKGestureRecognizerBlock)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location);
+typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);
 #endif
 
 typedef void(^BKWithObjectBlock)(id obj, id arg);
 typedef void(^BKObservationBlock)(id obj, NSDictionary *change);
 typedef void(^BKKeyValueBlock)(id key, id obj);
-
-typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);
 
 typedef BOOL(^BKValidationBlock)(id obj);
 typedef BOOL(^BKKeyValueValidationBlock)(id key, id obj);
