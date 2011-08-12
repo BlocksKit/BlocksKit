@@ -24,8 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#include "BlocksKit_Globals.h"
-#include "BKMacros.h"
+#import "BlocksKit_Globals.h"
+#import "BKMacros.h"
+#import "BKDelegateProxy.h"
 
 #import "NSObject+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"

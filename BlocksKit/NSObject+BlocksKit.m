@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+BlocksKit.h"
+#import <objc/runtime.h>
 
 typedef void(^BKInternalWrappingBlock)(BOOL cancel);
 
@@ -57,6 +58,12 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
     if (!block) return;
     BKInternalWrappingBlock wrapper = block;
     wrapper(YES);
+}
+
++ (void)swizzleSelector:(SEL)oldSel withSelector:(SEL)newSel {
+    Method oldMethod = class_getInstanceMethod(self, oldSel);
+    Method newMethod = class_getInstanceMethod(self, newSel);
+    method_exchangeImplementations(oldMethod, newMethod);
 }
 
 @end

@@ -4,8 +4,8 @@
 //
 
 #import "NSURLConnection+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
-#import <objc/runtime.h>
+#import "NSObject+BlocksKit.h"
+#import "BKDelegateProxy.h"
 
 static char *kDelegateKey = "NSURLConnectionDelegate";
 static char *kResponseDataKey = "NSURLConnectionResponseData";
@@ -29,21 +29,10 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
 #pragma mark Delegate proxy
 
-@interface BKURLConnectionDelegateProxy : NSObject
-+ (id)shared;
+@interface BKURLConnectionDelegate : BKDelegateProxy
 @end
 
-@implementation BKURLConnectionDelegateProxy
-
-+ (id)shared {
-    static BKURLConnectionDelegateProxy *proxyDelegate = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        proxyDelegate = [[BKURLConnectionDelegateProxy alloc] init];
-    });
-    
-    return proxyDelegate;
-}
+@implementation BKURLConnectionDelegate
 
 #pragma mark Authentication delegate
 
@@ -164,15 +153,8 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 #pragma mark Initializers
 
 + (void)load {
-    Class myClass = [self class];
-    
-    Method originalInitWithRequestDelegateMethod = class_getInstanceMethod(myClass, @selector(initWithRequest:delegate:));
-    Method categoryInitWithRequestDelegateMethod = class_getInstanceMethod(myClass, @selector(bk_initWithRequest:delegate:));
-    method_exchangeImplementations(originalInitWithRequestDelegateMethod, categoryInitWithRequestDelegateMethod);
-    
-    Method originalInitWithRequestDelegateStartImmediatelyMethod = class_getInstanceMethod(myClass, @selector(initWithRequest:delegate:startImmediately:));
-    Method categoryInitWithRequestDelegateStartImmediatelyMethod = class_getInstanceMethod(myClass, @selector(bk_initWithRequest:delegate:startImmediately:));
-    method_exchangeImplementations(originalInitWithRequestDelegateStartImmediatelyMethod, categoryInitWithRequestDelegateStartImmediatelyMethod);    
+    [NSURLConnection swizzleSelector:@selector(initWithRequest:delegate:) withSelector:@selector(bk_initWithRequest:delegate:)];
+    [NSURLConnection swizzleSelector:@selector(initWithRequest:delegate:startImmediately:) withSelector:@selector(bk_initWithRequest:delegate:startImmediately:)];
 }
 
 + (NSURLConnection*)connectionWithRequest:(NSURLRequest *)request {
@@ -201,7 +183,7 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 }
 
 - (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate startImmediately:(BOOL)startImmediately {
-    if ([self bk_initWithRequest:request delegate:[BKURLConnectionDelegateProxy shared] startImmediately:startImmediately]) {
+    if ([self bk_initWithRequest:request delegate:[BKURLConnectionDelegate shared] startImmediately:startImmediately]) {
         if (aDelegate && (aDelegate != self) && ![aDelegate isKindOfClass:[self class]]) {
             self.delegate = aDelegate;
         }          

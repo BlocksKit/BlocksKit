@@ -51,6 +51,7 @@ typedef BOOL(^BKValidationBlock)(id obj);
 typedef BOOL(^BKKeyValueValidationBlock)(id key, id obj);
 typedef BOOL(^BKIndexValidationBlock)(NSUInteger index);
 
+typedef id(^BKReturnBlock)(void);
 typedef id(^BKTransformBlock)(id obj);
 typedef id(^BKKeyValueTransformBlock)(id key, id obj);
 typedef id(^BKAccumulationBlock)(id sum, id obj);

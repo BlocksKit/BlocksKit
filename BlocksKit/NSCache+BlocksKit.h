@@ -2,40 +2,46 @@
 //  NSCache+BlocksKit.h
 //  BlocksKit
 //
-//  Created by Evsukov Igor on 11.08.11.
-//  Copyright 2011 Dizzy Technology. All rights reserved.
-//
 
-#import <Foundation/Foundation.h>
+/** NSCache with block adding of objects
+ 
+ This category allows you to conditionally add objects to
+ an instance of NSCache using blocks.  Both the normal
+ delegation pattern and a block callback for NSCache's one
+ delegate method are allowed.
+ 
+ These methods emulate Rails caching behavior.
 
-typedef id(^BKReturnBlock)();
+ Created by Igor Evsukov and contributed to BlocksKit.
+ */
 
 @interface NSCache (BlocksKit)
 
-/** Returns an object from cache by key. If there is no object for key it is executes block,
- store it return object in cache by key and and return it.
+/** Returns the value associated with a given key. If there is no
+ object for that key, it uses the result of the block, saves
+ that to the cache, and returns it.
  
- This mimics Rails cache behavior:
+ This mimics the cache behavior of Ruby on Rails.  The following code:
  
      @products = Rails.cache.fetch('products') do
        Product.all
      end
  
- will become:
+ becomes:
  
      NSMutableArray *products = [cache objectForKey:@"products" withGetter:^id{
        return [Product all];
      }];
  
- @return object from cache. If non present, get it as block return value
- @param key a key for searching in cache
- @param getterBlock used to get a value for key if it is not present in cache
+ @return The value associated with *key*, or the object returned
+ by the block if no value is associated with *key*.
+ @param key An object identifying the value.
+ @param getterBlock A block used to get an object if there is no
+ value in the cache.
  */
 - (id)objectForKey:(id)key withGetter:(BKReturnBlock)getterBlock;
 
-
-/** Called when an object is about to be evicted or removed from the cache.
- */
+/** Called when an object is about to be evicted or removed from the cache. */
 @property (nonatomic, copy) BKSenderBlock willEvictObjectHandler;
 
 @end

@@ -2,97 +2,74 @@
 //  NSCache+BlocksKit.m
 //  BlocksKit
 //
-//  Created by Evsukov Igor on 11.08.11.
-//  Copyright 2011 Dizzy Technology. All rights reserved.
-//
 
 #import "NSCache+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
-#import <objc/runtime.h>
+#import "NSObject+BlocksKit.h"
+#import "BKDelegateProxy.h"
 
-#pragma mark - constants
 static char *kWillEvictObjectHandlerKey = "willEvictObjectHandler";
 static char *kBKDelegateKey = "BKDelegate";
 
-#pragma mark - Delegate proxy
-@interface BKCacheDelegateProxy : NSObject<NSCacheDelegate>
-+ (id)shared;
+#pragma mark Delegate
+
+@interface BKCacheDelegate : BKDelegateProxy <NSCacheDelegate>
 @end
 
-@implementation BKCacheDelegateProxy
-
-+ (id)shared {
-    static BKCacheDelegateProxy *proxyDelegate = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        proxyDelegate = [[BKCacheDelegateProxy alloc] init];
-    });
-    
-    return proxyDelegate;
-}
+@implementation BKCacheDelegate
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
-    if (cache.delegate && [cache.delegate respondsToSelector:@selector(cache:willEvictObject:)]) {
+    if (cache.delegate && [cache.delegate respondsToSelector:@selector(cache:willEvictObject:)])
         [cache.delegate cache:cache willEvictObject:obj];
-    }
     
-    if (cache.willEvictObjectHandler) {
-        cache.willEvictObjectHandler(obj);
-    }
+    BKSenderBlock block = cache.willEvictObjectHandler;
+    if (block)
+        block(obj);
 }
 
 @end
 
+#pragma mark Category
 
-#pragma mark - category implementation
 @implementation NSCache (BlocksKit)
 
-#pragma mark - monkeypatching
 + (void)load {
-    Class myClass = [self class];
-    
-    Method originalDelegateGetterMethod = class_getInstanceMethod(myClass, @selector(delegate));
-    Method categoryDelegateGetterMethod = class_getInstanceMethod(myClass, @selector(bk_delegate));
-    method_exchangeImplementations(originalDelegateGetterMethod, categoryDelegateGetterMethod);
-
-    Method originalDelegateSetterMethod = class_getInstanceMethod(myClass, @selector(setDelegate:));
-    Method categoryDelegateSetterMethod = class_getInstanceMethod(myClass, @selector(bk_setDelegate:));
-    method_exchangeImplementations(originalDelegateSetterMethod, categoryDelegateSetterMethod);
+    [NSCache swizzleSelector:@selector(delegate) withSelector:@selector(bk_delegate)];
+    [NSCache swizzleSelector:@selector(setDelegate:) withSelector:@selector(bk_setDelegate:)];
 }
 
-#pragma mark - properties
-@dynamic willEvictObjectHandler;
+#pragma mark Methods
 
-
-#pragma mark - methods
-- (id)objectForKey:(id)key withGetter:(BKReturnBlock)getterBlock {
+- (id)objectForKey:(id)key withGetter:(BKReturnBlock)block {
     id object = [self objectForKey:key];
-    if (object) return object;
+    if (object)
+        return object;
     
-    if (getterBlock) {
-        object = getterBlock();
+    if (block) {
+        object = block();
         [self setObject:object forKey:key];
     }
     
     return object;
 }
 
+#pragma mark Properties
 
-#pragma mark - getters & setters
 - (BKSenderBlock)willEvictObjectHandler {
     return [self associatedValueForKey:kWillEvictObjectHandlerKey];
 }
-- (void)setWillEvictObjectHandler:(BKSenderBlock)willEvictObjectHandler {
-    [self associateCopyOfValue:willEvictObjectHandler withKey:kWillEvictObjectHandlerKey];
+
+- (void)setWillEvictObjectHandler:(BKSenderBlock)handler {
+    [self associateCopyOfValue:handler withKey:kWillEvictObjectHandlerKey];
 }
 
 - (id)bk_delegate {
     return [self associatedValueForKey:kBKDelegateKey];
 }
+
 - (void)bk_setDelegate:(id)delegate {
     [self weaklyAssociateValue:delegate withKey:kBKDelegateKey];
     
-    [self bk_setDelegate:[BKCacheDelegateProxy shared]];
+    [self bk_setDelegate:[BKCacheDelegate shared]];
 }
 
 @end
