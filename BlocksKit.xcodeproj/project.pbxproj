@@ -30,7 +30,7 @@
 		60FF002213C024E8004A1394 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF002113C024E8004A1394 /* GHUnitIOS.framework */; };
 		60FF002513C02863004A1394 /* NSArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */; };
 		60FF002913C03199004A1394 /* libBlocksKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */; };
-		6C0A1ECE13F5A2DF00870F75 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; settings = {ATTRIBUTES = (); }; };
+		6C0A1ECE13F5A2DF00870F75 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C0A1ECF13F5A2DF00870F75 /* BKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0A1ECD13F5A2DF00870F75 /* BKDelegateProxy.m */; };
 		6C145417138497D50067A56E /* BKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C2427F313C5653E0016A271 /* NSMutableArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -83,9 +83,9 @@
 		6C6AADA0138372E400203261 /* UIView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD9E138372E300203261 /* UIView+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C6AADA1138372E400203261 /* UIView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD9F138372E300203261 /* UIView+BlocksKit.m */; };
 		6C79A15413F5AEE800CD8064 /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C79A15513F5AEE800CD8064 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; settings = {ATTRIBUTES = (); }; };
+		6C79A15513F5AEE800CD8064 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C79A15713F5AEF300CD8064 /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C79A15813F5AEF300CD8064 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; settings = {ATTRIBUTES = (); }; };
+		6C79A15813F5AEF300CD8064 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C79A16313F5B58C00CD8064 /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
 		6C79A16413F5B58C00CD8064 /* BKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0A1ECD13F5A2DF00870F75 /* BKDelegateProxy.m */; };
 		6C79A16513F5B59300CD8064 /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
