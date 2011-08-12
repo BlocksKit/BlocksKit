@@ -2,9 +2,6 @@
 //  BKDelegateProxy.m
 //  BlocksKit
 //
-//  Created by Zachary Waldowski on 8/12/11.
-//  Copyright 2011 Dizzy Technology. All rights reserved.
-//
 
 #import "BKDelegateProxy.h"
 

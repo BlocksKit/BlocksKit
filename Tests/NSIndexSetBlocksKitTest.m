@@ -1,6 +1,6 @@
 //
 //  NSIndexSetBlocksKitTest.m
-//  BlocksKit
+//  %PROJECT
 //
 //  Created by WU Kai on 7/4/11.
 //

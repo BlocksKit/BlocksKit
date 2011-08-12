@@ -1,9 +1,9 @@
 //
 //  UIView+BlocksKit.h
-//  BlocksKit
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 
 /** Convenience on-touch methods for UIView.
 

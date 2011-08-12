@@ -1,9 +1,9 @@
 //
 //  NSURLConnection+BlocksKit.h
-//  BlocksKit
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 
 typedef void (^BKProgressBlock) (float progress);
 typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);

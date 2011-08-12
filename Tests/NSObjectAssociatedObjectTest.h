@@ -1,6 +1,6 @@
 //
 //  NSObjectAssociatedObjectTest.h
-//  BlocksKit
+//  %PROJECT
 //
 //  Created by WU Kai on 7/6/11.
 //

@@ -6,11 +6,7 @@
 //  Copyright 2011 None. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface TestsAppDelegate : NSObject <UIApplicationDelegate> {
-
-}
+@interface TestsAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 

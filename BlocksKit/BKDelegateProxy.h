@@ -1,6 +1,6 @@
 //
 //  BKDelegateProxy.h
-//  BlocksKit
+//  %PROJECT
 //
 
 @interface BKDelegateProxy : NSObject

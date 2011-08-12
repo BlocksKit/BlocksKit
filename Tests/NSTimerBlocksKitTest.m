@@ -1,6 +1,6 @@
 //
 //  NSTimerBlocksKitTest.m
-//  BlocksKit
+//  %PROJECT
 //
 //  Created by WU Kai on 7/5/11.
 //

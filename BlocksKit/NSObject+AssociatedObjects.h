@@ -1,9 +1,9 @@
 //
 //  NSObject+AssociatedObjects.h
-//  BlocksKit
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 
 /** Objective-C wrapper for 10.6 associated object API.
 

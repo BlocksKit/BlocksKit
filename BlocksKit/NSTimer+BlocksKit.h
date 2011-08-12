@@ -1,9 +1,9 @@
 //
 //  NSTimer+BlocksKit.h
-//  BlocksKit
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 
 /** Simple category on NSTimer to give it blocks capability.
 

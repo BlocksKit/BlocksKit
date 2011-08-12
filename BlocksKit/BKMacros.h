@@ -1,6 +1,6 @@
 //
 //  BKMacros.h
-//  BlocksKit
+//  %PROJECT
 //
 //  Includes code by Michael Ash. <https://github.com/mikeash>. 2010. BSD.
 //
@@ -10,8 +10,8 @@
 #import "NSDictionary+BlocksKit.h"
 #import "NSIndexSet+BlocksKit.h"
 
-#ifndef __BlocksKitMacros__
-#define __BlocksKitMacros__
+#ifndef __BKMacros_h__
+#define __BKMacros_h__
 
 #define EACH_WRAPPER(...) (^{ __block CFMutableDictionaryRef MA_eachTable = nil; \
         (void)MA_eachTable; \

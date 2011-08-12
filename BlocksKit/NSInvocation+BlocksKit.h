@@ -1,9 +1,9 @@
 //
 //  NSInvocation+BlocksKit.h
-//  BlocksKit
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 
 /** Blocks wrapper for NSInvocation.
 

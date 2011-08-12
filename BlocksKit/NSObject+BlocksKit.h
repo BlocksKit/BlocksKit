@@ -1,12 +1,9 @@
 //
 //  NSObject+BlocksKit.h
-//  BlocksKit
-//
-//  Created by Zachary Waldowski on 5/17/11.
-//  Copyright 2011 Dizzy Technology. All rights reserved.
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 #import "NSObject+AssociatedObjects.h"
 
 /** Block execution on *any* object.

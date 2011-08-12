@@ -1,9 +1,9 @@
 //
 //  UIControl+BlocksKit.h
-//  BlocksKit
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 
 /** Block control event handling for UIControl.
 

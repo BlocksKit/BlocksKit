@@ -1,9 +1,9 @@
 //
 //  UIActionSheet+BlocksKit.h
-//  BlocksKit
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 
 /** UIActionSheet without delegates!
 

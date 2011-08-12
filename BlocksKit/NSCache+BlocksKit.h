@@ -1,6 +1,6 @@
 //
 //  NSCache+BlocksKit.h
-//  BlocksKit
+//  %PROJECT
 //
 
 /** NSCache with block adding of objects

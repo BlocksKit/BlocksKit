@@ -1,9 +1,9 @@
 //
 //  NSMutableDictionary+BlocksKit.h
-//  BlocksKit
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 
 /** Block extensions for NSMutableDictionary.
  

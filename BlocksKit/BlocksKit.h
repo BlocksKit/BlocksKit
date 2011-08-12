@@ -1,9 +1,9 @@
 //
-//  BlocksKit
+//  %PROJECT
 //
 //  The Objective-C block utilities you always wish you had.
 //
-//  Copyright (c) 2011 Dizzy Technology.
+//  Copyright (c) %YEAR %COMPANY.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,19 @@
 //  THE SOFTWARE.
 //
 
-#import "BlocksKit_Globals.h"
+#import <Foundation/Foundation.h>
+#import <dispatch/dispatch.h>
+
+#import "BKGlobals.h"
+
+#if BK_HAS_UIKIT
+#import <UIKit/UIKit.h>
+#endif
+
+#if BK_HAS_APPKIT
+#import <Cocoa/Cocoa.h>
+#endif
+
 #import "BKMacros.h"
 #import "BKDelegateProxy.h"
 

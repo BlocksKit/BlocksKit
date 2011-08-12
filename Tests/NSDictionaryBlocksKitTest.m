@@ -1,6 +1,6 @@
 //
 //  NSDictionaryBlocksKitTest.m
-//  BlocksKit
+//  %PROJECT
 //
 //  Created by WU Kai on 7/3/11.
 //

@@ -30,9 +30,9 @@
 		60FF002213C024E8004A1394 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF002113C024E8004A1394 /* GHUnitIOS.framework */; };
 		60FF002513C02863004A1394 /* NSArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */; };
 		60FF002913C03199004A1394 /* libBlocksKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */; };
-		6C0A1ECE13F5A2DF00870F75 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; };
+		6C0A1ECE13F5A2DF00870F75 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; settings = {ATTRIBUTES = (); }; };
 		6C0A1ECF13F5A2DF00870F75 /* BKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0A1ECD13F5A2DF00870F75 /* BKDelegateProxy.m */; };
-		6C145417138497D50067A56E /* BlocksKit_Globals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BlocksKit_Globals.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C145417138497D50067A56E /* BKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C2427F313C5653E0016A271 /* NSMutableArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C2427F413C5653E0016A271 /* NSMutableArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C2427F513C5653E0016A271 /* NSMutableArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,6 +86,10 @@
 		6C79A15513F5AEE800CD8064 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; settings = {ATTRIBUTES = (); }; };
 		6C79A15713F5AEF300CD8064 /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C79A15813F5AEF300CD8064 /* BKDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */; settings = {ATTRIBUTES = (); }; };
+		6C79A16313F5B58C00CD8064 /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
+		6C79A16413F5B58C00CD8064 /* BKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0A1ECD13F5A2DF00870F75 /* BKDelegateProxy.m */; };
+		6C79A16513F5B59300CD8064 /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
+		6C79A16613F5B59300CD8064 /* BKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0A1ECD13F5A2DF00870F75 /* BKDelegateProxy.m */; };
 		6C8063B313C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C8063B413C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C8063B513C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -102,7 +106,7 @@
 		6CC08FE1138556A300DDEABB /* NSInvocation+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD8F1383706000203261 /* NSInvocation+BlocksKit.m */; };
 		6CC08FE2138556A300DDEABB /* NSTimer+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */; };
 		6CC08FE3138556BC00DDEABB /* BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFB21383044600E6C9AA /* BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6CC08FE4138556BC00DDEABB /* BlocksKit_Globals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BlocksKit_Globals.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CC08FE4138556BC00DDEABB /* BKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC08FE5138556BC00DDEABB /* NSObject+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFB61383085800E6C9AA /* NSObject+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC08FE6138556BC00DDEABB /* NSObject+BlockObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFDA1383202400E6C9AA /* NSObject+BlockObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC08FE7138556BC00DDEABB /* NSObject+AssociatedObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFD2138318C900E6C9AA /* NSObject+AssociatedObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -114,7 +118,7 @@
 		6CC08FED138556BC00DDEABB /* NSTimer+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFDE1383265900E6C9AA /* NSTimer+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC08FF913855CAE00DDEABB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC08FCF1385555D00DDEABB /* Cocoa.framework */; };
 		6CC08FFB13855CAE00DDEABB /* BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFB21383044600E6C9AA /* BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6CC08FFC13855CAE00DDEABB /* BlocksKit_Globals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BlocksKit_Globals.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CC08FFC13855CAE00DDEABB /* BKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC08FFD13855CAE00DDEABB /* NSObject+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFB61383085800E6C9AA /* NSObject+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC08FFE13855CAE00DDEABB /* NSObject+BlockObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFDA1383202400E6C9AA /* NSObject+BlockObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC08FFF13855CAE00DDEABB /* NSObject+AssociatedObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFD2138318C900E6C9AA /* NSObject+AssociatedObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -216,7 +220,7 @@
 		60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayBlocksKitTest.m; sourceTree = "<group>"; };
 		6C0A1ECC13F5A2DE00870F75 /* BKDelegateProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKDelegateProxy.h; sourceTree = "<group>"; };
 		6C0A1ECD13F5A2DF00870F75 /* BKDelegateProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKDelegateProxy.m; sourceTree = "<group>"; };
-		6C145416138497D40067A56E /* BlocksKit_Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlocksKit_Globals.h; sourceTree = "<group>"; };
+		6C145416138497D40067A56E /* BKGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKGlobals.h; sourceTree = "<group>"; };
 		6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+BlocksKit.h"; sourceTree = "<group>"; };
 		6C2427F213C5653E0016A271 /* NSMutableArray+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+BlocksKit.m"; sourceTree = "<group>"; };
 		6C2427FA13C565530016A271 /* NSMutableSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableSet+BlocksKit.h"; sourceTree = "<group>"; };
@@ -321,7 +325,6 @@
 				60FF001713C023CB004A1394 /* TestsAppDelegate.h */,
 				60FF001813C023CB004A1394 /* TestsAppDelegate.m */,
 				60FF001A13C023CB004A1394 /* MainWindow.xib */,
-				60FF000F13C023CB004A1394 /* Supporting Files */,
 				60FF002313C02863004A1394 /* NSArrayBlocksKitTest.h */,
 				60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */,
 				604FA5F913C0A077001DB7F7 /* NSDictionaryBlocksKitTest.h */,
@@ -350,6 +353,7 @@
 				60EAE9D113C69D4B00415A3E /* NSMutableIndexSetBlocksKitTest.m */,
 				60EAE9D313C69D6E00415A3E /* NSMutableSetBlocksKitTest.h */,
 				60EAE9D413C69D6E00415A3E /* NSMutableSetBlocksKitTest.m */,
+				60FF000F13C023CB004A1394 /* Supporting Files */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -372,7 +376,6 @@
 				60FF000E13C023CB004A1394 /* Tests */,
 				6C3DBF8F1382F1BA00E6C9AA /* Frameworks */,
 				6C3DBF8E1382F1BA00E6C9AA /* Products */,
-				6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -389,6 +392,7 @@
 		6C3DBF8F1382F1BA00E6C9AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */,
 				6C3DBF901382F1BA00E6C9AA /* Foundation.framework */,
 				6CC08FCF1385555D00DDEABB /* Cocoa.framework */,
 				60FF000913C023CB004A1394 /* UIKit.framework */,
@@ -402,7 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				6C3DBFB21383044600E6C9AA /* BlocksKit.h */,
-				6C145416138497D40067A56E /* BlocksKit_Globals.h */,
+				6C145416138497D40067A56E /* BKGlobals.h */,
 				6C3DBFB41383050F00E6C9AA /* BKMacros.h */,
 				6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */,
 				6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */,
@@ -506,7 +510,7 @@
 				6C6AAD98138372C400203261 /* UIBarButtonItem+BlocksKit.h in Headers */,
 				6C6AAD9C138372D200203261 /* UIGestureRecognizer+BlocksKit.h in Headers */,
 				6C6AADA0138372E400203261 /* UIView+BlocksKit.h in Headers */,
-				6C145417138497D50067A56E /* BlocksKit_Globals.h in Headers */,
+				6C145417138497D50067A56E /* BKGlobals.h in Headers */,
 				6CC0902013855E8700DDEABB /* NSIndexSet+BlocksKit.h in Headers */,
 				6CC56DF91386A48900925FDC /* UIWebView+BlocksKit.h in Headers */,
 				6C2427F313C5653E0016A271 /* NSMutableArray+BlocksKit.h in Headers */,
@@ -524,7 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CC08FE3138556BC00DDEABB /* BlocksKit.h in Headers */,
-				6CC08FE4138556BC00DDEABB /* BlocksKit_Globals.h in Headers */,
+				6CC08FE4138556BC00DDEABB /* BKGlobals.h in Headers */,
 				6CC08FE5138556BC00DDEABB /* NSObject+BlocksKit.h in Headers */,
 				6CC08FE6138556BC00DDEABB /* NSObject+BlockObservation.h in Headers */,
 				6CC08FE7138556BC00DDEABB /* NSObject+AssociatedObjects.h in Headers */,
@@ -550,7 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CC08FFB13855CAE00DDEABB /* BlocksKit.h in Headers */,
-				6CC08FFC13855CAE00DDEABB /* BlocksKit_Globals.h in Headers */,
+				6CC08FFC13855CAE00DDEABB /* BKGlobals.h in Headers */,
 				6CC08FFD13855CAE00DDEABB /* NSObject+BlocksKit.h in Headers */,
 				6CC0902413855E9700DDEABB /* NSIndexSet+BlocksKit.h in Headers */,
 				6CC08FFE13855CAE00DDEABB /* NSObject+BlockObservation.h in Headers */,
@@ -749,6 +753,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C79A16513F5B59300CD8064 /* NSCache+BlocksKit.m in Sources */,
+				6C79A16613F5B59300CD8064 /* BKDelegateProxy.m in Sources */,
 				6CC08FDB138556A300DDEABB /* NSObject+BlocksKit.m in Sources */,
 				6CC08FDC138556A300DDEABB /* NSObject+BlockObservation.m in Sources */,
 				6CC08FDD138556A300DDEABB /* NSObject+AssociatedObjects.m in Sources */,
@@ -770,6 +776,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C79A16313F5B58C00CD8064 /* NSCache+BlocksKit.m in Sources */,
+				6C79A16413F5B58C00CD8064 /* BKDelegateProxy.m in Sources */,
 				6CC0900A13855CEE00DDEABB /* NSObject+BlocksKit.m in Sources */,
 				6CC0900B13855CEE00DDEABB /* NSObject+BlockObservation.m in Sources */,
 				6CC0900C13855CEE00DDEABB /* NSObject+AssociatedObjects.m in Sources */,

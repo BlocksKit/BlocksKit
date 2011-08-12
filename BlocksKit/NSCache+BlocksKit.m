@@ -7,8 +7,8 @@
 #import "NSObject+BlocksKit.h"
 #import "BKDelegateProxy.h"
 
-static char *kWillEvictObjectHandlerKey = "willEvictObjectHandler";
-static char *kBKDelegateKey = "BKDelegate";
+static char *kWillEvictObjectHandlerKey = "NSCacheWillEvictObject";
+static char *kBKDelegateKey = "NSCacheDelegate";
 
 #pragma mark Delegate
 

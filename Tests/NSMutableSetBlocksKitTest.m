@@ -1,6 +1,6 @@
 //
 //  NSMutableSetBlocksKitTest.m
-//  BlocksKit
+//  %PROJECT
 //
 //  Created by WU Kai on 7/8/11.
 //

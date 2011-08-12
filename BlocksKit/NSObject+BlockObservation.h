@@ -1,9 +1,9 @@
 //
 //  NSObject+BlockObservation.h
-//  BlocksKit
+//  %PROJECT
 //
 
-#import "BlocksKit_Globals.h"
+#import "BKGlobals.h"
 
 /** Blocks wrapper for key-value observation.
 
