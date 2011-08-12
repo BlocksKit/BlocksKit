@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "BlocksKit_Globals.h"
+
 typedef void (^BKProgressBlock) (float progress);
 typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
 
