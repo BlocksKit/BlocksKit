@@ -59,6 +59,10 @@ static char *kBKDelegateKey = "NSCacheDelegate";
 }
 
 - (void)setWillEvictObjectHandler:(BKSenderBlock)handler {
+    // in case of using only blocks we still need to point our delegate
+    // to proxy class
+    [self bk_setDelegate:[BKCacheDelegate shared]];
+    
     [self associateCopyOfValue:handler withKey:kWillEvictObjectHandlerKey];
 }
 
