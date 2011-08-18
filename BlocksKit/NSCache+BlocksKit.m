@@ -33,8 +33,8 @@ static char *kBKDelegateKey = "NSCacheDelegate";
 @implementation NSCache (BlocksKit)
 
 + (void)load {
-    [NSCache swizzleSelector:@selector(delegate) withSelector:@selector(bk_delegate)];
-    [NSCache swizzleSelector:@selector(setDelegate:) withSelector:@selector(bk_setDelegate:)];
+    [self swizzleSelector:@selector(delegate) withSelector:@selector(bk_delegate)];
+    [self swizzleSelector:@selector(setDelegate:) withSelector:@selector(bk_setDelegate:)];
 }
 
 #pragma mark Methods
@@ -61,7 +61,7 @@ static char *kBKDelegateKey = "NSCacheDelegate";
 - (void)setWillEvictObjectHandler:(BKSenderBlock)handler {
     // in case of using only blocks we still need to point our delegate
     // to proxy class
-    [self bk_setDelegate:[BKCacheDelegate shared]];
+    [self setDelegate:[BKCacheDelegate shared]];
     
     [self associateCopyOfValue:handler withKey:kWillEvictObjectHandlerKey];
 }

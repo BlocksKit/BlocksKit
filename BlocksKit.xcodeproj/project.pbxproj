@@ -20,7 +20,6 @@
 		60EAE9D213C69D4B00415A3E /* NSMutableIndexSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EAE9D113C69D4B00415A3E /* NSMutableIndexSetBlocksKitTest.m */; };
 		60EAE9D513C69D6E00415A3E /* NSMutableSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60EAE9D413C69D6E00415A3E /* NSMutableSetBlocksKitTest.m */; };
 		60F3F70E13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F3F70D13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m */; };
-		60FF000A13C023CB004A1394 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF000913C023CB004A1394 /* UIKit.framework */; };
 		60FF000B13C023CB004A1394 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF901382F1BA00E6C9AA /* Foundation.framework */; };
 		60FF000D13C023CB004A1394 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF000C13C023CB004A1394 /* CoreGraphics.framework */; };
 		60FF001313C023CB004A1394 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60FF001113C023CB004A1394 /* InfoPlist.strings */; };
@@ -160,6 +159,12 @@
 		6CC56DFC1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
 		A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A92C9A6413F41E0A006DA96A /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
+		A97E4C9A13FD5AAB001BB376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9813FD5AAB001BB376 /* MessageUI.framework */; };
+		A97E4C9B13FD5AAB001BB376 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9913FD5AAB001BB376 /* UIKit.framework */; };
+		A97E4C9F13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A97E4C9D13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h */; };
+		A97E4CA013FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A97E4C9E13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.m */; };
+		A97E4CA313FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A97E4CA113FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h */; };
+		A97E4CA413FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */; };
 		A99DD88613D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A99DD88713D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A99DD88813D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -206,7 +211,6 @@
 		60F3F70C13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSIndexSetBlocksKitTest.h; sourceTree = "<group>"; };
 		60F3F70D13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSIndexSetBlocksKitTest.m; sourceTree = "<group>"; };
 		60FF000713C023CB004A1394 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		60FF000913C023CB004A1394 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		60FF000C13C023CB004A1394 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		60FF001013C023CB004A1394 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		60FF001213C023CB004A1394 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -275,6 +279,12 @@
 		6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+BlocksKit.m"; sourceTree = "<group>"; };
 		A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
 		A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BlocksKit.m"; sourceTree = "<group>"; };
+		A97E4C9813FD5AAB001BB376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		A97E4C9913FD5AAB001BB376 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A97E4C9D13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMailComposeViewController+BlocksKit.h"; sourceTree = "<group>"; };
+		A97E4C9E13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMailComposeViewController+BlocksKit.m"; sourceTree = "<group>"; };
+		A97E4CA113FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMessageComposeViewController+BlocksKit.h"; sourceTree = "<group>"; };
+		A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMessageComposeViewController+BlocksKit.m"; sourceTree = "<group>"; };
 		A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+BlocksKit.h"; sourceTree = "<group>"; };
 		A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+BlocksKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -285,7 +295,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				60FF002913C03199004A1394 /* libBlocksKit.a in Frameworks */,
-				60FF000A13C023CB004A1394 /* UIKit.framework in Frameworks */,
 				60FF000B13C023CB004A1394 /* Foundation.framework in Frameworks */,
 				60FF000D13C023CB004A1394 /* CoreGraphics.framework in Frameworks */,
 				60FF002213C024E8004A1394 /* GHUnitIOS.framework in Frameworks */,
@@ -296,6 +305,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A97E4C9A13FD5AAB001BB376 /* MessageUI.framework in Frameworks */,
+				A97E4C9B13FD5AAB001BB376 /* UIKit.framework in Frameworks */,
 				6C3DBF911382F1BA00E6C9AA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,10 +403,11 @@
 		6C3DBF8F1382F1BA00E6C9AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A97E4C9813FD5AAB001BB376 /* MessageUI.framework */,
+				A97E4C9913FD5AAB001BB376 /* UIKit.framework */,
 				6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */,
 				6C3DBF901382F1BA00E6C9AA /* Foundation.framework */,
 				6CC08FCF1385555D00DDEABB /* Cocoa.framework */,
-				60FF000913C023CB004A1394 /* UIKit.framework */,
 				60FF000C13C023CB004A1394 /* CoreGraphics.framework */,
 				6CC08FD11385555D00DDEABB /* Other Frameworks */,
 			);
@@ -458,6 +470,10 @@
 		6CC08FC91385553B00DDEABB /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				A97E4C9D13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h */,
+				A97E4C9E13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.m */,
+				A97E4CA113FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h */,
+				A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */,
 				6C3DBFE21383299C00E6C9AA /* UIAlertView+BlocksKit.h */,
 				6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */,
 				6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */,
@@ -520,6 +536,8 @@
 				A99DD88613D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */,
 				A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */,
 				6C0A1ECE13F5A2DF00870F75 /* BKDelegateProxy.h in Headers */,
+				A97E4C9F13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h in Headers */,
+				A97E4CA313FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,6 +764,8 @@
 				A99DD88913D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */,
 				A92C9A6413F41E0A006DA96A /* NSCache+BlocksKit.m in Sources */,
 				6C0A1ECF13F5A2DF00870F75 /* BKDelegateProxy.m in Sources */,
+				A97E4CA013FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.m in Sources */,
+				A97E4CA413FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,7 +918,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -915,7 +935,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -933,7 +953,7 @@
 				DSTROOT = /tmp/BlocksKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlocksKit/BlocksKit-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = "-ObjC";
@@ -951,7 +971,7 @@
 				DSTROOT = /tmp/BlocksKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlocksKit/BlocksKit-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = "-ObjC";

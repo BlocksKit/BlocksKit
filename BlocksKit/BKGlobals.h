@@ -22,6 +22,7 @@
 
 #if BK_HAS_UIKIT
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #endif
 
 #if BK_HAS_APPKIT
