@@ -7,24 +7,22 @@
 
 typedef BOOL(^BKWebViewStartBlock)(NSURLRequest *request, UIWebViewNavigationType navigationType);
 
-/** Delegation replacement for UIWebView.
-
- Unlike BlocksKit's extensions for UIAlertView and
- UIActionSheet, UIWebView does not have an initializer that
- we substitute.  Using any of the blocks properties
- discussed here will result in the web view's delegate being
- set to the web view itself.
+/** Block callbacks for UIWebView.
 
  Includes code by the following:
 
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
 
  @warning UIWebView is only available on iOS or in a Mac app using Chameleon.
- */
+*/
 
-@interface UIWebView (BlocksKit) <UIWebViewDelegate>
+@interface UIWebView (BlocksKit)
 
-/** The block to be decide whether a URL will be loaded. */
+/** The block to be decide whether a URL will be loaded. 
+ 
+ @warning If the delegate implements webView:shouldStartLoadWithRequest:navigationType:,
+ the return values of both the delegate method and the block will be considered.
+*/
 @property (copy) BKWebViewStartBlock shouldStartLoadBlock;
 
 /** The block that is fired when the web view starts loading. */
