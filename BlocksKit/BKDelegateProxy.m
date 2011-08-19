@@ -5,7 +5,7 @@
 
 #import "BKDelegateProxy.h"
 
-static char *kBKDelegateKey = "BlocksKitCustomDelegate";
+char *kBKDelegateKey = "BlocksKitCustomDelegate";
 
 @implementation BKDelegateProxy
 

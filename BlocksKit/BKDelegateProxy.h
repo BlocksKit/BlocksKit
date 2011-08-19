@@ -3,7 +3,7 @@
 //  %PROJECT
 //
 
-static char *kBKDelegateKey;
+extern char *kBKDelegateKey;
 
 @interface BKDelegateProxy : NSObject
 
