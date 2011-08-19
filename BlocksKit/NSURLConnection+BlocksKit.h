@@ -60,13 +60,13 @@ typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
  This property allows for both use of block callbacks and delegate methods
  in an instance of NSURLConnection.
  */
-@property (nonatomic, assign) id delegate;
+@property (assign) id delegate;
 
 /** The block that is fired once the connection recieves a response from the server. */
-@property (nonatomic, copy) BKResponseBlock didReceiveResponseHandler;
+@property (copy) BKResponseBlock didReceiveResponseHandler;
 
 /** The block that is fired upon the failure of the connection. */
-@property (nonatomic, copy) BKErrorBlock didFailWithErrorHandler;
+@property (copy) BKErrorBlock didFailWithErrorHandler;
 
 /** The block that is fired upon the successful completion of the connection.
   
@@ -75,15 +75,15 @@ typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
  the recieved data to an instance NSMutableData is left up to the user due
  to the behavior of frameworks that use NSURLConnection.
 */
-@property (nonatomic, copy) BKConnectionFinishBlock didFinishLoadingHandler;
+@property (copy) BKConnectionFinishBlock didFinishLoadingHandler;
 
 /** The block that is fired every time new data is sent to the server,
  representing the current percentage of completion. */
-@property (nonatomic, copy) BKProgressBlock uploadProgressHandler;
+@property (copy) BKProgressBlock uploadProgressHandler;
 
 /** The block that is fired every time new data is recieved from the server,
  representing the current percentage of completion. */
-@property (nonatomic, copy) BKProgressBlock downloadProgressHandler;
+@property (copy) BKProgressBlock downloadProgressHandler;
 
 /** Creates and returns an initialized URL connection that does not begin to load the data for the URL request.
  

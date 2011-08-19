@@ -42,6 +42,6 @@
 - (id)objectForKey:(id)key withGetter:(BKReturnBlock)getterBlock;
 
 /** Called when an object is about to be evicted or removed from the cache. */
-@property (nonatomic, copy) BKSenderBlock willEvictObjectHandler;
+@property (copy) BKSenderBlock willEvictObjectHandler;
 
 @end

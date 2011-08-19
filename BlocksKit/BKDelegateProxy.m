@@ -5,6 +5,8 @@
 
 #import "BKDelegateProxy.h"
 
+static char *kBKDelegateKey = "BlocksKitCustomDelegate";
+
 @implementation BKDelegateProxy
 
 #pragma mark - Initialization

@@ -7,7 +7,6 @@
 #import "NSObject+BlocksKit.h"
 #import "BKDelegateProxy.h"
 
-static char *kDelegateKey = "NSURLConnectionDelegate";
 static char *kResponseDataKey = "NSURLConnectionResponseData";
 static char *kResponseKey = "NSURLConnectionResponse";
 static char *kResponseLengthKey = "NSURLConnectionResponseLength";
@@ -222,11 +221,11 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 #pragma mark Properties
 
 - (id)delegate {
-    return [self associatedValueForKey:kDelegateKey];
+    return [self associatedValueForKey:kBKDelegateKey];
 }
 
 - (void)setDelegate:(id)delegate {
-    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
+    [self weaklyAssociateValue:delegate withKey:kBKDelegateKey];
 }
 
 - (BKResponseBlock)didReceiveResponseHandler {

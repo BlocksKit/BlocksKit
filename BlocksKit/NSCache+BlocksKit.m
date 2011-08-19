@@ -8,7 +8,6 @@
 #import "BKDelegateProxy.h"
 
 static char *kWillEvictObjectHandlerKey = "NSCacheWillEvictObject";
-static char *kBKDelegateKey = "NSCacheDelegate";
 
 #pragma mark Delegate
 
