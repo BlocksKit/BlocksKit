@@ -10,7 +10,7 @@
 
 static char *kViewTouchDownBlockKey = "UIViewTouchDownBlock";
 static char *kViewTouchMoveBlockKey = "UIViewTouchMoveBlock";
-static char *kViewTouchUpBlockKey = "UIViewTouchDownBlock";
+static char *kViewTouchUpBlockKey = "UIViewTouchUpBlock";
 
 @implementation UIView (BlocksKit)
 
