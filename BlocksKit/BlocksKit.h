@@ -67,6 +67,8 @@
 #import "UIGestureRecognizer+BlocksKit.h"
 #import "UIView+BlocksKit.h"
 #import "UIWebView+BlocksKit.h"
+#import "MFMailComposeViewController+BlocksKit.h"
+#import "MFMessageComposeViewController+BlocksKit.h"
 #else
 // AppKit extensions
 #endif
