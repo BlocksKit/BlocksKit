@@ -3,17 +3,22 @@
 //  %PROJECT
 //
 
-typedef void (^BKMailComposeViewControllerCompletionBlock) (MFMailComposeResult result, NSError *error);
+typedef void (^BKMailComposeBlock) (MFMailComposeResult result, NSError *error);
 
-/** MFMailComposeViewController with block callback in addition to delegation
-  
+/** MFMailComposeViewController with block callbacks.
+
  Created by Igor Evsukov and contributed to BlocksKit.
+
+ @warning UIWebView is only available on iOS or in a Mac app using Chameleon.
  */
 @interface MFMailComposeViewController (BlocksKit)
 
-/** Block callback analog for MFMailComposeViewControllerDelegate 
- mailComposeController:didFinishWithResult:error: method */
-@property (nonatomic, copy) BKMailComposeViewControllerCompletionBlock completionHandler;
+/** The block fired on the dismissal of the mail composition interface.
+ 
+ This block callback is an analog for the
+ mailComposeController:didFinishWithResult:error: method
+ of MFMailComposeViewControllerDelegate.
+*/
+@property (copy) BKMailComposeBlock completionHandler;
 
 @end
-
