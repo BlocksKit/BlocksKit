@@ -60,7 +60,9 @@ The following people (in alphabetical order) have their code lovingly enshrined 
 * [Kevin O'Neill](https://github.com/kevinoneill).
 * [Jonathan Rentzch](https://github.com/rentzch).
 * [Peter Steinberger](https://github.com/steipete).
+* [Jon Sterling](https://github.com/jonsterling).
 * [Martin Schürrer](https://github.com/MSch).
 * [Zach Waldowski](https://github.com/zwaldowski).
+* [Jonathan Wight](https://github.com/schwa).
 
 Individual credits exist in the header files and, consequently, in the documentation.

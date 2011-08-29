@@ -23,10 +23,17 @@
 #if BK_HAS_UIKIT
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
+
+typedef void(^BKViewBlock)(UIView *view);
+typedef void(^BKGestureRecognizerBlock)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location);
+typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);
 #endif
 
 #if BK_HAS_APPKIT
 #import <Cocoa/Cocoa.h>
+
+typedef void(^BKViewBlock)(NSView *view);
+typedef void(^BKEventBlock)(NSEvent* event);
 #endif
 
 typedef void(^BKBlock)(void); // compatible with dispatch_block_t
@@ -36,12 +43,6 @@ typedef void(^BKErrorBlock)(NSError *error);
 typedef void(^BKIndexBlock)(NSUInteger index);
 typedef void(^BKTimerBlock)(NSTimeInterval time);
 typedef void(^BKResponseBlock)(NSURLResponse *response);
-
-#if BK_HAS_UIKIT
-typedef void(^BKViewBlock)(UIView *view);
-typedef void(^BKGestureRecognizerBlock)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location);
-typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);
-#endif
 
 typedef void(^BKWithObjectBlock)(id obj, id arg);
 typedef void(^BKObservationBlock)(id obj, NSDictionary *change);
@@ -74,10 +75,4 @@ if (var) \
 [var release]; \
 var = [val retain]; \
 }
-#endif
-
-#if !__has_feature(objc_arc) || __has_feature(objc_arc_weak)
-#define __bk_weak __weak
-#else
-#define __bk_weak
 #endif
