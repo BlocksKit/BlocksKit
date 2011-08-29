@@ -64,19 +64,22 @@ static char *kViewTouchUpBlockKey = "UIViewTouchUpBlock";
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     BKTouchBlock block = [self associatedValueForKey:kViewTouchDownBlockKey];
-    if (block) dispatch_async(dispatch_get_main_queue(), ^{ block(touches, event); });
+    if (block)
+        block(touches, event);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
     BKTouchBlock block = [self associatedValueForKey:kViewTouchMoveBlockKey];
-    if (block) dispatch_async(dispatch_get_main_queue(), ^{ block(touches, event); });
+    if (block)
+        block(touches, event);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesEnded:touches withEvent:event];
     BKTouchBlock block = [self associatedValueForKey:kViewTouchUpBlockKey];
-    if (block) dispatch_async(dispatch_get_main_queue(), ^{ block(touches, event); });
+    if (block)
+        block(touches, event);
 }
 
 - (void)eachSubview:(BKViewBlock)block {
