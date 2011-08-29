@@ -18,22 +18,25 @@
  Like most of the other block abilities in BlocksKit, observation saves
  and a bunch of code and a bunch of potential bugs.
  
- Created by Andy Matuschak as [AMBlockObservation](https://gist.github.com/153676).
- Licensed in the public domain.
+ Includes code by the following:
+ 
+ - Andy Matuschak. <https://github.com/andymatuschak>. 2009. Public domain.
+ - Jon Sterling. <https://github.com/jonsterling>. 2010. Public domain.
+ - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
+ - Jonathan Wight. <https://github.com/schwa>. 2011. BSD.
 
- @warning *Important:* Due to a design flaw in recent version of the Objective-C
- runtime, you must call removeObserverWithBlockToken: in the dealloc method
- of any object making use of block-based KVO.
+ @warning *Important:* Due to a design flaw in some recent versions of the
+ Objective-C runtime, you must call removeObserverWithBlockToken: in the
+ dealloc method of any object making use of block-based KVO.
  */
 
 @interface NSObject (BlockObservation)
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
 
- Adds a block observer that notifies executes the block immediately
- upon a state change.
+ Adds a block observer that notifies executes the block upon a
+ state change.
 
- @see addObserverForKeyPath:onQueue:task
  @param keyPath A unique key identifying the observer to the reciever.
  @param task A block responding to the reciever and the KVO change.
  @return Returns a globally unique process identifier for removing
@@ -41,24 +44,45 @@
  */
 - (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task;
 
-/** Adds an observer to an object conforming to NSKeyValueObserving on a queue.
-
- Adds a block observer that notifies executes the block according
- to the given operation queue upon a state change.
+/** Adds an observer to an object conforming to NSKeyValueObserving.
+ 
+ Adds a block observer that notifies executes the block upon a
+ state change.
  
  @param keyPath A unique key identifying the observer to the reciever.
- @param queue An NSOperationQueue the block can be fired on.
+ @param token An identifier for observation block.
+ @param task A block responding to the reciever and the KVO change.
+ observation with removeObserverWithBlockToken:.
+ */
+- (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token task:(BKObservationBlock)task;
+
+/** Adds an observer to an object conforming to NSKeyValueObserving.
+
+ Adds a block observer that notifies executes the block immediately
+ upon a state change.
+ 
+ As of 29 Aug. 2011, this method is deprecated and all observation
+ blocks are executed immediately.
+ 
+ @param keyPath A unique key identifying the observer to the reciever.
+ @param queue Deprecated, not honored.
  @param task A block responding to the reciever and the KVO change.
  @return Returns a globally unique process identifier for removing
  observation with removeObserverWithBlockToken:.
  */
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(BKObservationBlock)task;
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(BKObservationBlock)task DEPRECATED_ATTRIBUTE;
+
+/** Removes a block overserver.
+ 
+ @param token The unique key returned by addObserverForKeyPath:task:
+ or the identifier given in addObserverForKeyPath:identifier:task:.
+ */ 
+- (void)removeObserverForKeyPath:(NSString *)inKeyPath identifier:(NSString *)token;
 
 /** Removes a block observer.
  
- @param token The unique key returned by the addObserverForKeyPath:task:
- and addObserverForKeyPath:onQueue:task: functions.
+ @param token The unique key returned by addObserverForKeyPath:task:.
  */
-- (void)removeObserverWithBlockToken:(NSString *)token;
+- (void)removeObserverWithBlockToken:(NSString *)token DEPRECATED_ATTRIBUTE;
 
 @end
