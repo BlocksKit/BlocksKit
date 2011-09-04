@@ -20,6 +20,14 @@ static char *kCompletionHandlerKey = "BKCompletionHandler";
     id delegate = controller.messageComposeDelegate;
     if (delegate && [delegate respondsToSelector:@selector(messageComposeViewController:didFinishWithResult:)])
         [delegate messageComposeViewController:controller didFinishWithResult:result];
+    else {
+        #ifdef __IPHONE_5_0 // preemptive compatibility with the 5.0 SDK
+        if ([controller respondsToSelector:@selector(presentingViewController)]) 
+            [[controller presentingViewController] dismissModalViewControllerAnimated:YES]; // iOS 5
+        else
+        #endif
+            [controller.parentViewController dismissModalViewControllerAnimated:YES]; // 4.3 and below
+    }
     
     BKMessageComposeBlock block = controller.completionHandler;
     if (block)
