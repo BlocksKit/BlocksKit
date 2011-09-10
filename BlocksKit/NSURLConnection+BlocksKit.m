@@ -152,8 +152,11 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 #pragma mark Initializers
 
 + (void)load {
-    [NSURLConnection swizzleSelector:@selector(initWithRequest:delegate:) withSelector:@selector(bk_initWithRequest:delegate:)];
-    [NSURLConnection swizzleSelector:@selector(initWithRequest:delegate:startImmediately:) withSelector:@selector(bk_initWithRequest:delegate:startImmediately:)];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [NSURLConnection swizzleSelector:@selector(initWithRequest:delegate:) withSelector:@selector(bk_initWithRequest:delegate:)];
+        [NSURLConnection swizzleSelector:@selector(initWithRequest:delegate:startImmediately:) withSelector:@selector(bk_initWithRequest:delegate:startImmediately:)];
+    });
 }
 
 + (NSURLConnection*)connectionWithRequest:(NSURLRequest *)request {

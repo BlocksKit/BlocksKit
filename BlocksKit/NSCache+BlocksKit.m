@@ -32,8 +32,11 @@ static char *kWillEvictObjectHandlerKey = "NSCacheWillEvictObject";
 @implementation NSCache (BlocksKit)
 
 + (void)load {
-    [self swizzleSelector:@selector(delegate) withSelector:@selector(bk_delegate)];
-    [self swizzleSelector:@selector(setDelegate:) withSelector:@selector(bk_setDelegate:)];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self swizzleSelector:@selector(delegate) withSelector:@selector(bk_delegate)];
+        [self swizzleSelector:@selector(setDelegate:) withSelector:@selector(bk_setDelegate:)];
+    });
 }
 
 #pragma mark Methods

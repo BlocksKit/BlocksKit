@@ -41,8 +41,11 @@ static char *kCompletionHandlerKey = "BKCompletionHandler";
 @implementation MFMessageComposeViewController (BlocksKit)
 
 + (void)load {
-    [self swizzleSelector:@selector(messageComposeDelegate) withSelector:@selector(bk_messageComposeDelegate)];
-    [self swizzleSelector:@selector(setMessageComposeDelegate:) withSelector:@selector(bk_setMessageComposeDelegate:)];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self swizzleSelector:@selector(messageComposeDelegate) withSelector:@selector(bk_messageComposeDelegate)];
+        [self swizzleSelector:@selector(setMessageComposeDelegate:) withSelector:@selector(bk_setMessageComposeDelegate:)];
+    });
 }
 
 #pragma mark Methods
