@@ -92,19 +92,18 @@ static dispatch_queue_t BKObserverMutationQueue() {
 
 - (void)removeObserverWithBlockToken:(NSString *)token {
     NSArray *split = [token componentsSeparatedByString:@"////"];
-    NSString *identifier = [split objectAtIndex:0];
-    NSString *keyPath = [split objectAtIndex:1];
+    NSString *keyPath = [split objectAtIndex:0];
+    NSString *identifier = [split objectAtIndex:1];
     [self removeObserverForKeyPath:keyPath identifier:identifier];
 }
 
 - (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier {
     dispatch_async(BKObserverMutationQueue(), ^{
-        NSMutableDictionary *observationDictionary = [self associatedValueForKey:kObserversKey];        
+        NSMutableDictionary *observationDictionary = [self associatedValueForKey:kObserversKey];
         BKObserver *trampoline = [observationDictionary objectForKey:identifier];
         NSString *key = identifier;
-        
         if (!trampoline) {
-            NSString *token = [NSString stringWithFormat:@"%@////%@", identifier, keyPath];
+            NSString *token = [NSString stringWithFormat:@"%@////%@", keyPath, identifier];
             trampoline = [observationDictionary objectForKey:token];
             key = token;
         }
@@ -115,10 +114,24 @@ static dispatch_queue_t BKObserverMutationQueue() {
         if (![trampoline.keyPath isEqualToString:keyPath])
             return;
         
+        [self removeObserver:trampoline forKeyPath:keyPath];
+        
         [observationDictionary removeObjectForKey:key];
         
         if (!observationDictionary.count)
             [self associateValue:nil withKey:kObserversKey];
+    });
+}
+
+- (void)removeAllBlockObservers {
+    dispatch_async(BKObserverMutationQueue(), ^{
+        NSMutableDictionary *observationDictionary = [self associatedValueForKey:kObserversKey];
+        [observationDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            BKObserver *trampoline = obj;
+            NSString *keyPath = trampoline.keyPath;
+            [self removeObserver:trampoline forKeyPath:keyPath];
+        }];
+        [self associateValue:nil withKey:kObserversKey];
     });
 }
 
