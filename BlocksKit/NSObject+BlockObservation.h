@@ -85,4 +85,8 @@
  */
 - (void)removeObserverWithBlockToken:(NSString *)token DEPRECATED_ATTRIBUTE;
 
+/** Removes all block observers regitered to this object.
+ */
+- (void)removeAllKVObservers;
+
 @end
