@@ -122,4 +122,13 @@ static dispatch_queue_t BKObserverMutationQueue() {
     });
 }
 
+- (void)removeAllKVObservers {
+    NSMutableDictionary *observationDictionary = objc_getAssociatedObject(self, AMObserverMapKey);
+    if (observationDictionary) {
+        NSSet *tokens = [NSSet setWithArray:[observationDictionary allKeys]];
+        for (NSString *token in tokens)
+            [self removeObserverWithBlockToken:token];
+    }
+}
+
 @end
