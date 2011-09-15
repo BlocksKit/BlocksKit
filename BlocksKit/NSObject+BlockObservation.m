@@ -66,16 +66,6 @@ static dispatch_queue_t BKObserverMutationQueue() {
 
 @implementation NSObject (BlockObservation)
 
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task {
-    NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
-    [self addObserverForKeyPath:keyPath identifier:token task:task];
-    return token;
-}
-
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(BKObservationBlock)task {
-    return [self addObserverForKeyPath:keyPath task:task];
-}
-
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier task:(BKObservationBlock)task {
     dispatch_sync(BKObserverMutationQueue(), ^{
         NSString *token = [NSString stringWithFormat:@"%@////%@", identifier, keyPath];
@@ -88,13 +78,6 @@ static dispatch_queue_t BKObserverMutationQueue() {
         
         [dict setObject:[BKObserver trampolineWithObservingObject:self keyPath:keyPath task:task] forKey:token];
     });
-}
-
-- (void)removeObserverWithBlockToken:(NSString *)token {
-    NSArray *split = [token componentsSeparatedByString:@"////"];
-    NSString *keyPath = [split objectAtIndex:0];
-    NSString *identifier = [split objectAtIndex:1];
-    [self removeObserverForKeyPath:keyPath identifier:identifier];
 }
 
 - (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier {
