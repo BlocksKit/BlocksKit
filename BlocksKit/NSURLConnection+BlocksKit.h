@@ -23,7 +23,8 @@ typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
          self.progressView.progress = 0.0f;
          NSURL *imageURL = [NSURL URLWithString:@"http://icanhascheezburger.files.wordpress.com/2011/06/funny-pictures-nyan-cat-wannabe1.jpg"];
          NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
-         NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+         NSURLConnection *connection = [NSURLConnection connectionWithRequest:request];
+         connection.delegate = self;
          connection.didFailWithErrorHandler = ^(NSError *error){
              [[UIAlertView alertWithTitle:@"Download error" message:[error localizedDescription]] show];
              
@@ -58,7 +59,8 @@ typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
 /** A mutable delegate that implements the NSURLConnectionDelegate protocol.
  
  This property allows for both use of block callbacks and delegate methods
- in an instance of NSURLConnection.
+ in an instance of NSURLConnection.  It only works on block-backed
+ NSURLConnection instances.
  */
 @property (assign) id delegate;
 
@@ -85,27 +87,27 @@ typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
  representing the current percentage of completion. */
 @property (copy) BKProgressBlock downloadProgressHandler;
 
-/** Creates and returns an initialized URL connection that does not begin to load the data for the URL request.
+/** Creates and returns an initialized block-backed URL connection that does not begin to load the data for the URL request.
  
  @param request The URL request to load.
  @return An autoreleased NSURLConnection for the specified URL request.
  */
 + (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request;
 
-/** Returns an initialized URL connection.
+/** Returns an initialized block-backed URL connection.
  
  @return Newly initialized NSURLConnection with the specified properties.
  @param request The URL request to load.
  */
 - (id)initWithRequest:(NSURLRequest *)request;
 
-/** Returns an initialized URL connection and begins to load the data for the URL request, if specified.
+/** Returns an initialized URL connection with the specified completion handler.
  
  @return Newly initialized NSURLConnection with the specified properties.
  @param request The URL request to load.
- @param startImmediately YES if the connection should being loading data immediately, otherwise NO.
+ @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  */
-- (id)initWithRequest:(NSURLRequest *)request startImmediately:(BOOL)startImmediately;
+- (id)initWithRequest:(NSURLRequest *)request completionHandler:(BKConnectionFinishBlock)block;
 
 /** Returns an initialized URL connection with the specified completion handler and begins to load the data for the URL request, if specified.
  
@@ -116,5 +118,10 @@ typedef void (^BKConnectionFinishBlock) (NSURLResponse *response, NSData *data);
  */
 - (id)initWithRequest:(NSURLRequest *)request startImmediately:(BOOL)startImmediately completionHandler:(BKConnectionFinishBlock)block;
 
+/** Causes the connection to begin loading data, if it has not already, with the specified block to be fired on successful completion.
+ 
+ @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
+ */
+- (void)startWithCompletionBlock:(BKConnectionFinishBlock)block;
 
 @end

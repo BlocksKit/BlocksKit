@@ -8,6 +8,7 @@
 #import "BKDelegateProxy.h"
 
 static char *kResponseDataKey = "NSURLConnectionResponseData";
+static char *kIsBlockBackedKey = "NSURLConnectionIsBlockBacked";
 static char *kResponseKey = "NSURLConnectionResponse";
 static char *kResponseLengthKey = "NSURLConnectionResponseLength";
 static char *kDidReceiveResponseHandlerKey = "NSURLConnectionDidReceiveResponse";
@@ -21,9 +22,8 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 @interface NSURLConnection (BlocksKitPrivate)
 @property (nonatomic, retain) NSMutableData *responseData;
 @property (nonatomic, retain) NSURLResponse *response;
-@property (nonatomic, assign) NSUInteger responseLength;
-- (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate;
-- (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate startImmediately:(BOOL)startImmediately;
+@property (nonatomic) NSUInteger responseLength;
+@property (nonatomic, getter = isBlockBased) BOOL blockBased;
 @end
 
 #pragma mark Delegate proxy
@@ -151,55 +151,59 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
 #pragma mark Initializers
 
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [NSURLConnection swizzleSelector:@selector(initWithRequest:delegate:) withSelector:@selector(bk_initWithRequest:delegate:)];
-        [NSURLConnection swizzleSelector:@selector(initWithRequest:delegate:startImmediately:) withSelector:@selector(bk_initWithRequest:delegate:startImmediately:)];
-    });
-}
-
 + (NSURLConnection*)connectionWithRequest:(NSURLRequest *)request {
-    return BK_AUTORELEASE([[[self class] alloc] initWithRequest:request delegate:nil startImmediately:NO]);
+    return BK_AUTORELEASE([[[self class] alloc] initWithRequest:request]);
 }
 
-// new methods
 - (id)initWithRequest:(NSURLRequest *)request {
-    return [self initWithRequest:request delegate:nil startImmediately:NO];
+    if ((self = [self initWithRequest:request delegate:[BKURLConnectionDelegate shared] startImmediately:NO])) {
+        self.blockBased = YES;
+    }
+    return self;
 }
 
-- (id)initWithRequest:(NSURLRequest *)request startImmediately:(BOOL)startImmediately {
-    return [self initWithRequest:request delegate:nil startImmediately:startImmediately];
+- (id)initWithRequest:(NSURLRequest *)request completionHandler:(BKConnectionFinishBlock)block {
+    return [self initWithRequest:request startImmediately:NO completionHandler:block];
 }
 
 - (id)initWithRequest:(NSURLRequest *)request startImmediately:(BOOL)startImmediately completionHandler:(BKConnectionFinishBlock)block {
-    if ((self = [self initWithRequest:request delegate:nil startImmediately:startImmediately]) && block) {
+    if (block && (self = [self initWithRequest:request delegate:[BKURLConnectionDelegate shared] startImmediately:startImmediately])) {
         self.didFinishLoadingHandler = block;
+        self.blockBased = YES;
     }
     return self;
 }
 
-// swizzled methods
-- (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate {
-    return [self initWithRequest:request delegate:aDelegate startImmediately:NO];
-}
+#pragma mark Actions
 
-- (id)bk_initWithRequest:(NSURLRequest *)request delegate:(id)aDelegate startImmediately:(BOOL)startImmediately {
-    if ([self bk_initWithRequest:request delegate:[BKURLConnectionDelegate shared] startImmediately:startImmediately]) {
-        if (aDelegate && (aDelegate != self) && ![aDelegate isKindOfClass:[self class]]) {
-            self.delegate = aDelegate;
-        }          
-    }
-    return self;
+- (void)startWithCompletionBlock:(BKConnectionFinishBlock)block {
+    if (!self.isBlockBased)
+        return;
+    
+    self.didFinishLoadingHandler = block;
+    [self start];
 }
 
 #pragma mark Private
+
+- (BOOL)isBlockBased {
+    NSNumber *value = [self associatedValueForKey:kIsBlockBackedKey];
+    NSAssert(value && [value boolValue], @"Block-backed NSURLConnection methods have been sent to this normal NSURLConnection:  %@", self);
+    return [value boolValue];
+}
+
+- (void)setBlockBased:(BOOL)blockBased {
+    [self associateValue:[NSNumber numberWithBool:blockBased] withKey:kIsBlockBackedKey];
+}
 
 - (NSMutableData *)responseData {
     return [self associatedValueForKey:kResponseDataKey];
 }
 
 - (void)setResponseData:(NSMutableData *)responseData {
+    if (!self.isBlockBased)
+        return;
+    
     [self associateValue:responseData withKey:kResponseDataKey];
 }
 
@@ -208,15 +212,20 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 }
 
 - (void)setResponse:(NSURLResponse *)response {
+    if (!self.isBlockBased)
+        return;
+    
     return [self associateValue:response withKey:kResponseKey];
 }
 
 - (NSUInteger)responseLength {
-    NSNumber *value = [self associatedValueForKey:kResponseLengthKey];
-    return [value unsignedIntegerValue];
+    return [[self associatedValueForKey:kResponseLengthKey] unsignedIntegerValue];
 }
 
 - (void)setResponseLength:(NSUInteger)responseLength {
+    if (!self.isBlockBased)
+        return;
+    
     NSNumber *value = [NSNumber numberWithUnsignedInteger:responseLength];
     return [self associateValue:value withKey:kResponseKey];
 }
@@ -228,7 +237,11 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 }
 
 - (void)setDelegate:(id)delegate {
-    [self weaklyAssociateValue:delegate withKey:kBKDelegateKey];
+    if (!self.isBlockBased)
+        return;
+    
+    if (delegate && delegate != self && delegate != [BKURLConnectionDelegate shared] && ![delegate isKindOfClass:[self class]])
+        [self weaklyAssociateValue:delegate withKey:kBKDelegateKey];
 }
 
 - (BKResponseBlock)didReceiveResponseHandler {
@@ -236,6 +249,9 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 }
 
 - (void)setDidReceiveResponseHandler:(BKResponseBlock)didReceiveResponseHandler {
+    if (!self.isBlockBased)
+        return;
+    
     [self associateCopyOfValue:didReceiveResponseHandler withKey:kDidReceiveResponseHandlerKey];
 }
 
@@ -244,6 +260,9 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 }
 
 - (void)setDidFailWithErrorHandler:(BKErrorBlock)didFailWithErrorHandler {
+    if (!self.isBlockBased)
+        return;
+    
     [self associateCopyOfValue:didFailWithErrorHandler withKey:kDidFailWithErrorHandlerKey];
 }
 
@@ -252,6 +271,9 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 }
 
 - (void)setDidFinishLoadingHandler:(BKConnectionFinishBlock)didFinishLoadingHandler {
+    if (!self.isBlockBased)
+        return;
+    
     [self associateCopyOfValue:didFinishLoadingHandler withKey:kDidFinishLoadingHandlerKey];
 }
 
@@ -260,6 +282,9 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 }
 
 - (void)setUploadProgressHandler:(BKProgressBlock)uploadProgressHandler {
+    if (!self.isBlockBased)
+        return;
+    
     [self associateCopyOfValue:uploadProgressHandler withKey:kUploadProgressHandlerKey];
 }
 
@@ -268,6 +293,9 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 }
 
 - (void)setDownloadProgressHandler:(BKProgressBlock)downloadProgressHandler {
+    if (!self.isBlockBased)
+        return;
+    
     [self associateCopyOfValue:downloadProgressHandler withKey:kDownloadProgressHandlerKey];
 }
 
