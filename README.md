@@ -52,6 +52,7 @@ The following people (in alphabetical order) have their code lovingly enshrined 
 * [Igor Evsukov](https://github.com/evsukov89).
 * [Corey Floyd](https://github.com/coreyfloyd).
 * [Landon Fuller, Plausible Labs](http://plausiblelabs.com).
+* [Martin Hering](https://github.com/vemedio).
 * [Mirko Kiefer](https://github.com/mirkok).
 * [Robin Lu](https://github.com/robin).
 * [Jake Marsh](https://github.com/jakemarsh).
