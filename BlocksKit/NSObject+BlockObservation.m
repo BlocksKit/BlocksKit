@@ -66,6 +66,12 @@ static dispatch_queue_t BKObserverMutationQueue() {
 
 @implementation NSObject (BlockObservation)
 
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task {
+    NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
+    [self addObserverForKeyPath:keyPath identifier:token task:task];
+    return token;
+}
+
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier task:(BKObservationBlock)task {
     dispatch_sync(BKObserverMutationQueue(), ^{
         NSString *token = [NSString stringWithFormat:@"%@////%@", identifier, keyPath];

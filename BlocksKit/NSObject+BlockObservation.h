@@ -33,6 +33,18 @@
 @interface NSObject (BlockObservation)
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
+ -
+ - Adds a block observer that notifies executes the block upon a
+ - state change.
+ -
+ - @param keyPath A unique key identifying the observer to the reciever.
+ - @param task A block responding to the reciever and the KVO change.
+ - @return Returns a globally unique process identifier for removing
+ - observation with removeObserverWithBlockToken:.
+ - */
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task;
+
+/** Adds an observer to an object conforming to NSKeyValueObserving.
  
  Adds a block observer that notifies executes the block upon a
  state change.
