@@ -29,4 +29,12 @@
     [self removeIndexes:list];    
 }
 
+- (void)performMap:(BKIndexTransformBlock)block {
+    NSIndexSet *list = BK_AUTORELEASE([self copy]);
+    [self removeAllIndexes];
+    [list enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [self addIndex:block(idx)];
+    }];
+}
+
 @end

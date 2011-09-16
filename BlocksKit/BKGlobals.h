@@ -57,6 +57,8 @@ typedef id(^BKTransformBlock)(id obj);
 typedef id(^BKKeyValueTransformBlock)(id key, id obj);
 typedef id(^BKAccumulationBlock)(id sum, id obj);
 
+typedef NSUInteger(^BKIndexTransformBlock)(NSUInteger index);
+
 #ifndef __has_feature
 #define __has_feature(x) 0
 #endif

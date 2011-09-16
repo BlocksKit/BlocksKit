@@ -35,4 +35,12 @@
  */
 - (void)performReject:(BKIndexValidationBlock)block;
 
+/** Transform each index of the index set to a new index, as returned by the
+ block.
+ 
+ @param block A block that returns a new index for a index.
+ */
+- (void)performMap:(BKIndexTransformBlock)block;
+
+
 @end

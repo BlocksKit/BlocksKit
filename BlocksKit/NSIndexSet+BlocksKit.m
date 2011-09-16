@@ -45,4 +45,17 @@
     return list;     
 }
 
+- (NSIndexSet *)map:(BKIndexTransformBlock)block {
+    NSMutableIndexSet *list = [NSMutableIndexSet indexSet];
+    
+    [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [list addIndex:block(idx)];
+    }];
+    
+    if (!list.count)
+        return nil;
+    
+    return list;
+}
+
 @end

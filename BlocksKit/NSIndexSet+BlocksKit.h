@@ -55,4 +55,11 @@
  */
 - (NSIndexSet *)reject:(BKIndexValidationBlock)block;
 
+/** Call the block once for each index and create an index set with the new values.
+ 
+ @param block A block that returns a new index for an index.
+ @return An index set of the indexes returned by the block.
+ */
+- (NSIndexSet *)map:(BKIndexTransformBlock)block;
+
 @end
