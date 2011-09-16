@@ -12,6 +12,9 @@
         return block(obj);
     }];
     
+    if (!list.count)
+        return;
+    
     [self setSet:list];
 }
 
@@ -20,21 +23,17 @@
         return !block(obj);
     }];
     
+    if (!list.count)
+        return;
+    
     [self setSet:list];    
 }
 
 - (void)performMap:(BKTransformBlock)block {
-    [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        id value = block(obj);
-        
-        if (!value)
-            value = [NSNull null];
-        
-        if ([value isEqual:obj])
-            return;
-        
-        [self removeObject:obj];
-        [self addObject:value];
+    NSSet *old = BK_AUTORELEASE([self copy]);
+    [self removeAllObjects];
+    [old enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [self addObject:block(obj)];
     }];
 }
 
