@@ -11,7 +11,6 @@
 @property (nonatomic, assign) id observee;
 @property (nonatomic, copy) NSString *keyPath;
 @property (nonatomic, copy) BKObservationBlock task;
-@property (nonatomic, assign) dispatch_once_t cancellationPredicate;
 
 + (BKObserver *)trampolineWithObservingObject:(id)obj keyPath:(NSString *)newKeyPath task:(BKObservationBlock)newTask;
 
@@ -21,14 +20,13 @@ static char *kBKBlockObservationContext = "BKBlockObservationContext";
 
 @implementation BKObserver
 
-@synthesize observee, keyPath, task, cancellationPredicate;
+@synthesize observee, keyPath, task;
 
 + (BKObserver *)trampolineWithObservingObject:(id)obj keyPath:(NSString *)newKeyPath task:(BKObservationBlock)newTask {
     BKObserver *instance = [BKObserver new];
     instance.task = newTask;
     instance.keyPath = newKeyPath;
     instance.observee = obj;
-    instance.cancellationPredicate = 0;
     [(NSObject*)obj addObserver:instance forKeyPath:instance.keyPath options:0 context:kBKBlockObservationContext];
     return BK_AUTORELEASE(instance);
 }
@@ -39,21 +37,17 @@ static char *kBKBlockObservationContext = "BKBlockObservationContext";
         block(object, change);
 }
 
-- (void)dealloc {
-    dispatch_once(&cancellationPredicate, ^{
-        [(NSObject*)self.observee removeObserver:self forKeyPath:self.keyPath];
-        self.observee = nil;
-    });
 #if BK_SHOULD_DEALLOC
+- (void)dealloc {
     self.task = nil;
     self.keyPath = nil;
     [super dealloc];
-#endif
 }
+#endif
 
 @end
 
-static char *kObserversKey = "org.blockskit.observers.map";
+static char *kObserverBlocksKey = "BKKeyValueObservers";
 
 static dispatch_queue_t BKObserverMutationQueue() {
     static dispatch_queue_t queue = nil;
@@ -74,12 +68,12 @@ static dispatch_queue_t BKObserverMutationQueue() {
 
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier task:(BKObservationBlock)task {
     dispatch_sync(BKObserverMutationQueue(), ^{
-        NSString *token = [NSString stringWithFormat:@"%@////%@", identifier, keyPath];
+        NSString *token = [NSString stringWithFormat:@"%@_%@", keyPath, identifier];
         
-        NSMutableDictionary *dict = [self associatedValueForKey:kObserversKey];
+        NSMutableDictionary *dict = [self associatedValueForKey:kObserverBlocksKey];
         if (!dict) {
             dict = [NSMutableDictionary dictionary];
-            [self associateValue:dict withKey:kObserversKey];
+            [self associateValue:dict withKey:kObserverBlocksKey];
         }
         
         [dict setObject:[BKObserver trampolineWithObservingObject:self keyPath:keyPath task:task] forKey:token];
@@ -88,14 +82,9 @@ static dispatch_queue_t BKObserverMutationQueue() {
 
 - (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier {
     dispatch_async(BKObserverMutationQueue(), ^{
-        NSMutableDictionary *observationDictionary = [self associatedValueForKey:kObserversKey];
-        BKObserver *trampoline = [observationDictionary objectForKey:identifier];
-        NSString *key = identifier;
-        if (!trampoline) {
-            NSString *token = [NSString stringWithFormat:@"%@////%@", keyPath, identifier];
-            trampoline = [observationDictionary objectForKey:token];
-            key = token;
-        }
+        NSString *token = [NSString stringWithFormat:@"%@_%@", keyPath, identifier];
+        NSMutableDictionary *dict = [self associatedValueForKey:kObserverBlocksKey];
+        BKObserver *trampoline = [dict objectForKey:token];
         
         if (!trampoline)
             return;
@@ -105,22 +94,22 @@ static dispatch_queue_t BKObserverMutationQueue() {
         
         [self removeObserver:trampoline forKeyPath:keyPath];
         
-        [observationDictionary removeObjectForKey:key];
+        [dict removeObjectForKey:token];
         
-        if (!observationDictionary.count)
-            [self associateValue:nil withKey:kObserversKey];
+        if (!dict.count)
+            [self associateValue:nil withKey:kObserverBlocksKey];
     });
 }
 
 - (void)removeAllBlockObservers {
     dispatch_async(BKObserverMutationQueue(), ^{
-        NSMutableDictionary *observationDictionary = [self associatedValueForKey:kObserversKey];
+        NSMutableDictionary *observationDictionary = [self associatedValueForKey:kObserverBlocksKey];
         [observationDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             BKObserver *trampoline = obj;
             NSString *keyPath = trampoline.keyPath;
             [self removeObserver:trampoline forKeyPath:keyPath];
         }];
-        [self associateValue:nil withKey:kObserversKey];
+        [self associateValue:nil withKey:kObserverBlocksKey];
     });
 }
 
