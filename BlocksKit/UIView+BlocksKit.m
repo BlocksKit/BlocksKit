@@ -17,9 +17,16 @@ static char *kViewTouchUpBlockKey = "UIViewTouchUpBlock";
 - (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
     self.userInteractionEnabled = YES;
     
+    block = [block copy];
+    
     UITapGestureRecognizer *gesture = [UITapGestureRecognizer recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
         block();
     }];
+    
+    BK_RELEASE(block);
+    
+    [gesture setNumberOfTouchesRequired:numberOfTouches];
+    [gesture setNumberOfTapsRequired:numberOfTaps];
     
     [[self.gestureRecognizers select:^BOOL(id obj) {
         if ([obj isKindOfClass:[UITapGestureRecognizer class]]) {
@@ -31,9 +38,6 @@ static char *kViewTouchUpBlockKey = "UIViewTouchUpBlock";
     }] each:^(id obj) {
         [gesture requireGestureRecognizerToFail:(UITapGestureRecognizer *)obj];
     }];
-
-    [gesture setNumberOfTouchesRequired:numberOfTouches];
-    [gesture setNumberOfTapsRequired:numberOfTaps];
     
     [self addGestureRecognizer:gesture];
 }
@@ -48,16 +52,22 @@ static char *kViewTouchUpBlockKey = "UIViewTouchUpBlock";
 
 - (void)whenTouchedDown:(BKTouchBlock)block {
     self.userInteractionEnabled = YES;
+    if (!block)
+        block = nil;
     [self associateCopyOfValue:block withKey:kViewTouchDownBlockKey];
 }
 
 - (void)whenTouchMove:(BKTouchBlock)block {
 	self.userInteractionEnabled = YES;
+    if (!block)
+        block = nil;
     [self associateCopyOfValue:block withKey:kViewTouchMoveBlockKey];
 }	
 
 - (void)whenTouchedUp:(BKTouchBlock)block {
     self.userInteractionEnabled = YES;
+    if (!block)
+        block = nil;
     [self associateCopyOfValue:block withKey:kViewTouchUpBlockKey];
 }
 
