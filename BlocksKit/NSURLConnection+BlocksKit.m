@@ -227,7 +227,7 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
         return;
     
     NSNumber *value = [NSNumber numberWithUnsignedInteger:responseLength];
-    return [self associateValue:value withKey:kResponseKey];
+    return [self associateValue:value withKey:kResponseLengthKey];
 }
 
 #pragma mark Properties
