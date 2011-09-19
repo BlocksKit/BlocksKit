@@ -188,7 +188,7 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
 - (BOOL)isBlockBased {
     NSNumber *value = [self associatedValueForKey:kIsBlockBackedKey];
-    NSAssert(value && [value boolValue], @"Block-backed NSURLConnection methods have been sent to this normal NSURLConnection:  %@", self);
+    NSAssert1(value && [value boolValue], @"Block-backed NSURLConnection methods have been sent to this normal NSURLConnection:  %@", self);
     return [value boolValue];
 }
 
