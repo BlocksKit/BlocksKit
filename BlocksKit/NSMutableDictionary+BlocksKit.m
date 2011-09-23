@@ -30,6 +30,8 @@
 }
 
 - (void)performMap:(BKKeyValueTransformBlock)block {
+    NSMutableDictionary *new = BK_AUTORELEASE([self mutableCopy]);
+    
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         id value = block(key, obj);
         
@@ -39,8 +41,10 @@
         if ([value isEqual:obj])
             return;
 
-        [self setObject:value forKey:key];
+        [new setObject:value forKey:key];
     }];
+    
+    [self setDictionary:new];
 }
 
 @end

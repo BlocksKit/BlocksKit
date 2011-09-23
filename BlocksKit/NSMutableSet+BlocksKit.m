@@ -30,11 +30,13 @@
 }
 
 - (void)performMap:(BKTransformBlock)block {
-    NSSet *old = BK_AUTORELEASE([self copy]);
-    [self removeAllObjects];
-    [old enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        [self addObject:block(obj)];
+    NSMutableSet *new = BK_AUTORELEASE([NSMutableSet set]);
+
+    [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        [new addObject:block(obj)];
     }];
+    
+    [self setSet:new];
 }
 
 @end

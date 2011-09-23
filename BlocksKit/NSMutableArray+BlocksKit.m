@@ -30,6 +30,8 @@
 }
 
 - (void)performMap:(BKTransformBlock)block {
+    NSMutableArray *new = BK_AUTORELEASE([self mutableCopy]);
+    
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         id value = block(obj);
         
@@ -39,8 +41,10 @@
         if ([value isEqual:obj])
             return;
         
-        [self replaceObjectAtIndex:idx withObject:value];
+        [new replaceObjectAtIndex:idx withObject:value];
     }];
+    
+    [self setArray:new];
 }
 
 @end

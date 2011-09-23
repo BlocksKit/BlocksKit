@@ -30,11 +30,14 @@
 }
 
 - (void)performMap:(BKIndexTransformBlock)block {
-    NSIndexSet *list = BK_AUTORELEASE([self copy]);
-    [self removeAllIndexes];
-    [list enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [self addIndex:block(idx)];
+    NSMutableIndexSet *new = BK_AUTORELEASE([self mutableCopy]);
+    
+    [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [new addIndex:block(idx)];
     }];
+    
+    [self removeAllIndexes];
+    [self addIndexes:new];
 }
 
 @end
