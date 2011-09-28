@@ -1,3 +1,5 @@
+#import "BKGlobals.h"
+
 //
 //  NSCache+BlocksKit.h
 //  %PROJECT
