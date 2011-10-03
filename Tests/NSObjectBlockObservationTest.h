@@ -19,6 +19,5 @@
 - (void)testNSNumberKeyValueObservation;
 - (void)testNSArrayKeyValueObservation;
 - (void)testNSSetKeyValueObservation;
-- (void)testKeyValueObservationOnOperationQueue;
 
 @end

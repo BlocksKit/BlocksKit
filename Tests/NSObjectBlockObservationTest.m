@@ -116,7 +116,7 @@
     [self setValue:[NSNumber numberWithBool:NO] forKeyPath:@"subject.kvc"];
     GHAssertFalse(self.subject.kvc,@"kvc is NO");
     GHAssertEquals(_total,1,@"total is %d",_total);
-    [self removeObserverWithBlockToken:token];
+    [self removeObserverForKeyPath:@"subject.kvc" identifier:token];
 }
 
 - (void)testNSNumberKeyValueObservation {
@@ -129,7 +129,8 @@
     [self setValue:number forKeyPath:@"subject.number"];
     GHAssertEquals(self.subject.number,number,@"number is %@",self.subject.number);
     GHAssertEquals(_total,1,@"total is %d",_total);
-    [self removeObserverWithBlockToken:token];
+    
+    [self removeObserverForKeyPath:@"subject.number" identifier:token];
 }
 
 - (void)testNSArrayKeyValueObservation {
@@ -144,7 +145,8 @@
     NSArray *target = [NSArray arrayWithObjects:@"1",@"2",nil];
     GHAssertEqualObjects(self.subject.names,target,@"names are %@",self.subject.names);
     GHAssertEquals(_total,2,@"total is %d",_total);
-    [self removeObserverWithBlockToken:token];
+    
+    [self removeObserverForKeyPath:@"subject.names" identifier:token];
 }
 
 - (void)testNSSetKeyValueObservation {
@@ -159,21 +161,7 @@
     NSSet *target = [NSSet setWithObjects:@"foo",@"one",nil];
     GHAssertEqualObjects(self.subject.members,target,@"members are %@",self.subject.members);
     GHAssertEquals(_total,2,@"total is %d",_total);
-    [self removeObserverWithBlockToken:token];
+    
+    [self removeObserverForKeyPath:@"subject.members" identifier:token];
 } 
-
-- (void)testKeyValueObservationOnOperationQueue {
-    BKObservationBlock observeBlock = ^(id obj, NSDictionary *change) {
-        [(NSObjectBlockObservationTest *)obj action];
-    };
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    NSString *token = [self addObserverForKeyPath:@"subject.kvc" onQueue:queue task:observeBlock];
-
-    [self setValue:[NSNumber numberWithBool:NO] forKeyPath:@"subject.kvc"];
-    [queue waitUntilAllOperationsAreFinished];
-    [queue release];
-    GHAssertFalse(self.subject.kvc,@"kvc is NO");
-    GHAssertEquals(_total,1,@"total is %d",_total);
-    [self removeObserverWithBlockToken:token];
-}
 @end
