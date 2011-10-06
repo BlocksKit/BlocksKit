@@ -1,8 +1,6 @@
 //
 //  NSMutableDictionaryBlocksKitTest.m
-//  %PROJECT
-//
-//  Created by WU Kai on 7/8/11.
+//  BlocksKit Unit Tests
 //
 
 #import "NSMutableDictionaryBlocksKitTest.h"

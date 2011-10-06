@@ -1,8 +1,6 @@
 //
 //  UIActionSheetBlocksKitTest.h
-//  %PROJECT
-//
-//  Created by WU Kai on 7/7/11.
+//  BlocksKit Unit Tests
 //
 
 #import <GHUnitIOS/GHUnit.h>

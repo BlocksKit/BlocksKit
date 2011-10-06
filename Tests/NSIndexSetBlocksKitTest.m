@@ -1,8 +1,6 @@
 //
 //  NSIndexSetBlocksKitTest.m
-//  %PROJECT
-//
-//  Created by WU Kai on 7/4/11.
+//  BlocksKit Unit Tests
 //
 
 #import "NSIndexSetBlocksKitTest.h"

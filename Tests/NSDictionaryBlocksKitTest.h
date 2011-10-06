@@ -1,8 +1,6 @@
 //
 //  NSDictionaryBlocksKitTest.h
-//  %PROJECT
-//
-//  Created by WU Kai on 7/3/11.
+//  BlocksKit Unit Tests
 //
 
 #import <GHUnitIOS/GHUnit.h>

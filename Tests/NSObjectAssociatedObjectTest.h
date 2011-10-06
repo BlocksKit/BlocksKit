@@ -1,8 +1,6 @@
 //
 //  NSObjectAssociatedObjectTest.h
-//  %PROJECT
-//
-//  Created by WU Kai on 7/6/11.
+//  BlocksKit Unit Tests
 //
 
 #import <GHUnitIOS/GHUnit.h>

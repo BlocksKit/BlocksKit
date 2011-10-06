@@ -1,8 +1,6 @@
 //
 //  NSInvocationBlocksKitTest.m
-//  %PROJECT
-//
-//  Created by WU Kai on 7/5/11.
+//  BlocksKit Unit Tests
 //
 
 #import "NSInvocationBlocksKitTest.h"
