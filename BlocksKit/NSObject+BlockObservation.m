@@ -28,7 +28,6 @@ static char *kBKBlockObservationContext = "BKBlockObservationContext";
     instance.task = newTask;
     instance.keyPath = newKeyPath;
     instance.observee = obj;
-    [(NSObject*)obj addObserver:instance forKeyPath:instance.keyPath options:0 context:kBKBlockObservationContext];
     return BK_AUTORELEASE(instance);
 }
 
@@ -36,8 +35,6 @@ static char *kBKBlockObservationContext = "BKBlockObservationContext";
     BKObservationBlock block = self.task;
     if (self.task && context == kBKBlockObservationContext)
         block(object, change);
-    else
-        [super observeValueForKeyPath:aKeyPath ofObject:object change:change context:context];
 }
 
 #if BK_SHOULD_DEALLOC
