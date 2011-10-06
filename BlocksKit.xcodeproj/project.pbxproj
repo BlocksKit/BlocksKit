@@ -24,8 +24,6 @@
 		60FF000D13C023CB004A1394 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF000C13C023CB004A1394 /* CoreGraphics.framework */; };
 		60FF001313C023CB004A1394 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60FF001113C023CB004A1394 /* InfoPlist.strings */; };
 		60FF001613C023CB004A1394 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FF001513C023CB004A1394 /* main.m */; };
-		60FF001913C023CB004A1394 /* TestsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FF001813C023CB004A1394 /* TestsAppDelegate.m */; };
-		60FF001C13C023CB004A1394 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60FF001A13C023CB004A1394 /* MainWindow.xib */; };
 		60FF002213C024E8004A1394 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FF002113C024E8004A1394 /* GHUnitIOS.framework */; };
 		60FF002513C02863004A1394 /* NSArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */; };
 		60FF002913C03199004A1394 /* libBlocksKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */; };
@@ -69,6 +67,7 @@
 		6C3DBFE51383299E00E6C9AA /* UIAlertView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */; };
 		6C501276143D40BB0038CE72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9913FD5AAB001BB376 /* UIKit.framework */; };
 		6C501277143D40C40038CE72 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9813FD5AAB001BB376 /* MessageUI.framework */; };
+		6C50127A143D466C0038CE72 /* NSCacheBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C501279143D466C0038CE72 /* NSCacheBlocksKitTest.m */; };
 		6C6AAD8C13835D1300203261 /* UIActionSheet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C6AAD8D13835D1300203261 /* UIActionSheet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */; };
 		6C6AAD901383706100203261 /* NSInvocation+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD8E1383706000203261 /* NSInvocation+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -212,9 +211,6 @@
 		60FF001213C023CB004A1394 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		60FF001413C023CB004A1394 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		60FF001513C023CB004A1394 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		60FF001713C023CB004A1394 /* TestsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestsAppDelegate.h; sourceTree = "<group>"; };
-		60FF001813C023CB004A1394 /* TestsAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestsAppDelegate.m; sourceTree = "<group>"; };
-		60FF001B13C023CB004A1394 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		60FF002113C024E8004A1394 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		60FF002313C02863004A1394 /* NSArrayBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSArrayBlocksKitTest.h; sourceTree = "<group>"; };
 		60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayBlocksKitTest.m; sourceTree = "<group>"; };
@@ -246,6 +242,8 @@
 		6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+BlocksKit.m"; sourceTree = "<group>"; };
 		6C3DBFE21383299C00E6C9AA /* UIAlertView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BlocksKit.h"; sourceTree = "<group>"; };
 		6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+BlocksKit.m"; sourceTree = "<group>"; };
+		6C501278143D466B0038CE72 /* NSCacheBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCacheBlocksKitTest.h; sourceTree = "<group>"; };
+		6C501279143D466C0038CE72 /* NSCacheBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCacheBlocksKitTest.m; sourceTree = "<group>"; };
 		6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+BlocksKit.h"; sourceTree = "<group>"; };
 		6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+BlocksKit.m"; sourceTree = "<group>"; };
 		6C6AAD8E1383706000203261 /* NSInvocation+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+BlocksKit.h"; sourceTree = "<group>"; };
@@ -329,9 +327,6 @@
 		60FF000E13C023CB004A1394 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				60FF001713C023CB004A1394 /* TestsAppDelegate.h */,
-				60FF001813C023CB004A1394 /* TestsAppDelegate.m */,
-				60FF001A13C023CB004A1394 /* MainWindow.xib */,
 				60FF002313C02863004A1394 /* NSArrayBlocksKitTest.h */,
 				60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */,
 				604FA5F913C0A077001DB7F7 /* NSDictionaryBlocksKitTest.h */,
@@ -360,6 +355,8 @@
 				600986FA13C2A2B700A8887E /* NSTimerBlocksKitTest.m */,
 				60698AF713C55EF700E58FD8 /* UIActionSheetBlocksKitTest.h */,
 				60698AF813C55EF700E58FD8 /* UIActionSheetBlocksKitTest.m */,
+				6C501278143D466B0038CE72 /* NSCacheBlocksKitTest.h */,
+				6C501279143D466C0038CE72 /* NSCacheBlocksKitTest.m */,
 				60FF000F13C023CB004A1394 /* Supporting Files */,
 			);
 			path = Tests;
@@ -698,7 +695,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				60FF001313C023CB004A1394 /* InfoPlist.strings in Resources */,
-				60FF001C13C023CB004A1394 /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,7 +706,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				60FF001613C023CB004A1394 /* main.m in Sources */,
-				60FF001913C023CB004A1394 /* TestsAppDelegate.m in Sources */,
 				60FF002513C02863004A1394 /* NSArrayBlocksKitTest.m in Sources */,
 				604FA5FB13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m in Sources */,
 				60F3F70E13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m in Sources */,
@@ -725,6 +720,7 @@
 				60EAE9CF13C69D1700415A3E /* NSMutableDictionaryBlocksKitTest.m in Sources */,
 				60EAE9D213C69D4B00415A3E /* NSMutableIndexSetBlocksKitTest.m in Sources */,
 				60EAE9D513C69D6E00415A3E /* NSMutableSetBlocksKitTest.m in Sources */,
+				6C50127A143D466C0038CE72 /* NSCacheBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,14 +823,6 @@
 				60FF001213C023CB004A1394 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		60FF001A13C023CB004A1394 /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				60FF001B13C023CB004A1394 /* en */,
-			);
-			name = MainWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
