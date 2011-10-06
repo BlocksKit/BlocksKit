@@ -9,22 +9,16 @@
 
 - (void)performSelect:(BKValidationBlock)block {
     NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-        return block(obj);
+        return (block(obj));
     }];
-    
-    if (!list.count)
-        return;
     
     [self setSet:list];
 }
 
 - (void)performReject:(BKValidationBlock)block {
     NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-        return !block(obj);
+        return !(block(obj));
     }];
-    
-    if (!list.count)
-        return;
     
     [self setSet:list];    
 }

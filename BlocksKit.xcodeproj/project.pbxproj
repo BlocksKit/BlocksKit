@@ -67,6 +67,8 @@
 		6C3DBFE11383265B00E6C9AA /* NSTimer+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */; };
 		6C3DBFE41383299E00E6C9AA /* UIAlertView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBFE21383299C00E6C9AA /* UIAlertView+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C3DBFE51383299E00E6C9AA /* UIAlertView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */; };
+		6C501276143D40BB0038CE72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9913FD5AAB001BB376 /* UIKit.framework */; };
+		6C501277143D40C40038CE72 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9813FD5AAB001BB376 /* MessageUI.framework */; };
 		6C6AAD8C13835D1300203261 /* UIActionSheet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C6AAD8D13835D1300203261 /* UIActionSheet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */; };
 		6C6AAD901383706100203261 /* NSInvocation+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD8E1383706000203261 /* NSInvocation+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -286,6 +288,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C501277143D40C40038CE72 /* MessageUI.framework in Frameworks */,
+				6C501276143D40BB0038CE72 /* UIKit.framework in Frameworks */,
 				60FF002913C03199004A1394 /* libBlocksKit.a in Frameworks */,
 				60FF000B13C023CB004A1394 /* Foundation.framework in Frameworks */,
 				60FF000D13C023CB004A1394 /* CoreGraphics.framework in Frameworks */,
@@ -334,20 +338,8 @@
 				604FA5FA13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m */,
 				60F3F70C13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.h */,
 				60F3F70D13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.m */,
-				6037A12713C1B2AE00CB847A /* NSSetBlocksKitTest.h */,
-				6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */,
-				6037A12B13C1BAAB00CB847A /* NSObjectBlocksKitTest.h */,
-				6037A12C13C1BAAB00CB847A /* NSObjectBlocksKitTest.m */,
-				600986F913C2A2B700A8887E /* NSTimerBlocksKitTest.h */,
-				600986FA13C2A2B700A8887E /* NSTimerBlocksKitTest.m */,
 				600986FD13C2B49D00A8887E /* NSInvocationBlocksKitTest.h */,
 				600986FE13C2B49D00A8887E /* NSInvocationBlocksKitTest.m */,
-				6009870013C2C6E800A8887E /* NSObjectBlockObservationTest.h */,
-				6009870113C2C6E800A8887E /* NSObjectBlockObservationTest.m */,
-				605E2CF713C4013C00B490FC /* NSObjectAssociatedObjectTest.h */,
-				605E2CF813C4013C00B490FC /* NSObjectAssociatedObjectTest.m */,
-				60698AF713C55EF700E58FD8 /* UIActionSheetBlocksKitTest.h */,
-				60698AF813C55EF700E58FD8 /* UIActionSheetBlocksKitTest.m */,
 				60EAE9C913C69CF400415A3E /* NSMutableArrayBlocksKitTest.h */,
 				60EAE9CA13C69CF400415A3E /* NSMutableArrayBlocksKitTest.m */,
 				60EAE9CD13C69D1700415A3E /* NSMutableDictionaryBlocksKitTest.h */,
@@ -356,6 +348,18 @@
 				60EAE9D113C69D4B00415A3E /* NSMutableIndexSetBlocksKitTest.m */,
 				60EAE9D313C69D6E00415A3E /* NSMutableSetBlocksKitTest.h */,
 				60EAE9D413C69D6E00415A3E /* NSMutableSetBlocksKitTest.m */,
+				605E2CF713C4013C00B490FC /* NSObjectAssociatedObjectTest.h */,
+				605E2CF813C4013C00B490FC /* NSObjectAssociatedObjectTest.m */,
+				6037A12B13C1BAAB00CB847A /* NSObjectBlocksKitTest.h */,
+				6037A12C13C1BAAB00CB847A /* NSObjectBlocksKitTest.m */,
+				6009870013C2C6E800A8887E /* NSObjectBlockObservationTest.h */,
+				6009870113C2C6E800A8887E /* NSObjectBlockObservationTest.m */,
+				6037A12713C1B2AE00CB847A /* NSSetBlocksKitTest.h */,
+				6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */,
+				600986F913C2A2B700A8887E /* NSTimerBlocksKitTest.h */,
+				600986FA13C2A2B700A8887E /* NSTimerBlocksKitTest.m */,
+				60698AF713C55EF700E58FD8 /* UIActionSheetBlocksKitTest.h */,
+				60698AF813C55EF700E58FD8 /* UIActionSheetBlocksKitTest.m */,
 				60FF000F13C023CB004A1394 /* Supporting Files */,
 			);
 			path = Tests;

@@ -31,7 +31,7 @@
     NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
     
     [self each:^(id key, id obj) {
-        if (!block(key, obj))
+        if (!(block(key, obj)))
             [list setObject:obj forKey:key];
     }];
     

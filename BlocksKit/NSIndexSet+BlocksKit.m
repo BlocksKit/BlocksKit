@@ -36,7 +36,7 @@
 
 - (NSIndexSet *)reject:(BKIndexValidationBlock)block {    
     NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-        return (!block(idx));
+        return !(block(idx));
     }];
     
     if (!list.count)
