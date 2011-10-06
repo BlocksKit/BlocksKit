@@ -5,8 +5,8 @@
 
 #import "NSURLConnection+BlocksKit.h"
 #import "NSObject+BlocksKit.h"
-#import "BKDelegateProxy.h"
 
+static char *kDelegateKey = "NSURLConnectionDelegate";
 static char *kResponseDataKey = "NSURLConnectionResponseData";
 static char *kIsBlockBackedKey = "NSURLConnectionIsBlockBacked";
 static char *kResponseKey = "NSURLConnectionResponse";
@@ -28,10 +28,22 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 
 #pragma mark Delegate proxy
 
-@interface BKURLConnectionDelegate : BKDelegateProxy
+@interface BKURLConnectionDelegate : NSObject
+
++ (id)shared;
+
 @end
 
 @implementation BKURLConnectionDelegate
+
++ (id)shared {
+    static id __strong proxyDelegate = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        proxyDelegate = [BKURLConnectionDelegate new];
+    });
+    return proxyDelegate;
+}
 
 #pragma mark Authentication delegate
 
@@ -233,7 +245,7 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
 #pragma mark Properties
 
 - (id)delegate {
-    return [self associatedValueForKey:kBKDelegateKey];
+    return [self associatedValueForKey:kDelegateKey];
 }
 
 - (void)setDelegate:(id)delegate {
@@ -241,7 +253,7 @@ static char *kDownloadProgressHandlerKey = "NSURLConnectionDownload";
         return;
     
     if (delegate && delegate != self && delegate != [BKURLConnectionDelegate shared] && ![delegate isKindOfClass:[self class]])
-        [self weaklyAssociateValue:delegate withKey:kBKDelegateKey];
+        [self weaklyAssociateValue:delegate withKey:kDelegateKey];
 }
 
 - (BKResponseBlock)didReceiveResponseHandler {

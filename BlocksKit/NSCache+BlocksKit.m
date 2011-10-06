@@ -5,16 +5,28 @@
 
 #import "NSCache+BlocksKit.h"
 #import "NSObject+BlocksKit.h"
-#import "BKDelegateProxy.h"
 
+static char *kDelegateKey = "NSCacheDelegate";
 static char *kWillEvictObjectHandlerKey = "NSCacheWillEvictObject";
 
 #pragma mark Delegate
 
-@interface BKCacheDelegate : BKDelegateProxy <NSCacheDelegate>
+@interface BKCacheDelegate : NSObject <NSCacheDelegate>
+
++ (id)shared;
+
 @end
 
 @implementation BKCacheDelegate
+
++ (id)shared {
+    static id __strong proxyDelegate = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        proxyDelegate = [BKCacheDelegate new];
+    });
+    return proxyDelegate;
+}
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
     if (cache.delegate && [cache.delegate respondsToSelector:@selector(cache:willEvictObject:)])
@@ -69,11 +81,11 @@ static char *kWillEvictObjectHandlerKey = "NSCacheWillEvictObject";
 }
 
 - (id)bk_delegate {
-    return [self associatedValueForKey:kBKDelegateKey];
+    return [self associatedValueForKey:kDelegateKey];
 }
 
 - (void)bk_setDelegate:(id)delegate {
-    [self weaklyAssociateValue:delegate withKey:kBKDelegateKey];
+    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
     
     [self bk_setDelegate:[BKCacheDelegate shared]];
 }

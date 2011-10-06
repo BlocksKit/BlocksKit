@@ -38,7 +38,6 @@
 #endif
 
 #import "BKMacros.h"
-#import "BKDelegateProxy.h"
 
 #import "NSObject+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"

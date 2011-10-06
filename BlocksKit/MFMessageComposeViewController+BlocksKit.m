@@ -5,16 +5,28 @@
 
 #import "MFMessageComposeViewController+BlocksKit.h"
 #import "NSObject+BlocksKit.h"
-#import "BKDelegateProxy.h"
 
-static char *kCompletionHandlerKey = "BKCompletionHandler";
+static char *kDelegateKey = "MFMessageComposeViewControllerDelegate";
+static char *kCompletionHandlerKey = "MFMessageComposeViewControllerCompletion";
 
 #pragma mark Delegate
 
-@interface BKMessageComposeViewControllerDelegate : BKDelegateProxy <MFMessageComposeViewControllerDelegate>
+@interface BKMessageComposeViewControllerDelegate : NSObject <MFMessageComposeViewControllerDelegate>
+
++ (id)shared;
+
 @end
 
 @implementation BKMessageComposeViewControllerDelegate
+
++ (id)shared {
+    static id __strong proxyDelegate = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        proxyDelegate = [BKMessageComposeViewControllerDelegate new];
+    });
+    return proxyDelegate;
+}
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     id delegate = controller.messageComposeDelegate;
@@ -51,11 +63,11 @@ static char *kCompletionHandlerKey = "BKCompletionHandler";
 #pragma mark Methods
 
 - (id)bk_messageComposeDelegate {
-    return [self associatedValueForKey:kBKDelegateKey];
+    return [self associatedValueForKey:kDelegateKey];
 }
 
 - (void)bk_setMessageComposeDelegate:(id)delegate {
-    [self weaklyAssociateValue:delegate withKey:kBKDelegateKey];
+    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
     [self bk_setMessageComposeDelegate:[BKMessageComposeViewControllerDelegate shared]];
 }
 

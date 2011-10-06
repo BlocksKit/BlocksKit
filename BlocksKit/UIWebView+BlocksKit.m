@@ -5,20 +5,31 @@
 
 #import "UIWebView+BlocksKit.h"
 #import "NSObject+BlocksKit.h"
-#import "BKDelegateProxy.h"
 
 static char *kWebViewShouldStartBlockKey = "UIWebViewShouldStartBlock";
 static char *kWebViewDidStartBlockKey = "UIWebViewDidStartBlock";
 static char *kWebViewDidFinishBlockKey = "UIWebViewDidFinishBlock";
 static char *kWebViewDidErrorBlockKey = "UIWebViewDidErrorBlock";
+static char *kDelegateKey = "UIWebViewDelegate";
 
 #pragma mark Delegate
 
-@interface BKWebViewDelegate : BKDelegateProxy <UIWebViewDelegate>
+@interface BKWebViewDelegate : NSObject <UIWebViewDelegate>
+
++ (id)shared;
 
 @end
 
 @implementation BKWebViewDelegate
+
++ (id)shared {
+    static id __strong proxyDelegate = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        proxyDelegate = [BKWebViewDelegate new];
+    });
+    return proxyDelegate;
+}
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     BOOL ret = YES;
@@ -82,11 +93,11 @@ static char *kWebViewDidErrorBlockKey = "UIWebViewDidErrorBlock";
 #pragma mark Delegate
 
 - (id)bk_delegate {
-    return [self associatedValueForKey:kBKDelegateKey];
+    return [self associatedValueForKey:kDelegateKey];
 }
 
 - (void)bk_setDelegate:(id)delegate {
-    [self weaklyAssociateValue:delegate withKey:kBKDelegateKey];
+    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
     
     [self bk_setDelegate:[BKWebViewDelegate shared]];
 }

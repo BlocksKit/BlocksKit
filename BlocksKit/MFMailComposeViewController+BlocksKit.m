@@ -5,16 +5,28 @@
 
 #import "MFMailComposeViewController+BlocksKit.h"
 #import "NSObject+BlocksKit.h"
-#import "BKDelegateProxy.h"
 
-static char *kCompletionHandlerKey = "BKCompletionHandler";
+static char *kDelegateKey = "MFMailComposeViewControllerDelegate";
+static char *kCompletionHandlerKey = "MFMailComposeViewControllerCompletion";
 
 #pragma mark Delegate
 
-@interface BKMailComposeViewControllerDelegate : BKDelegateProxy <MFMailComposeViewControllerDelegate>
+@interface BKMailComposeViewControllerDelegate : NSObject <MFMailComposeViewControllerDelegate>
+
++ (id)shared;
+
 @end
 
 @implementation BKMailComposeViewControllerDelegate
+
++ (id)shared {
+    static id __strong proxyDelegate = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        proxyDelegate = [BKMailComposeViewControllerDelegate new];
+    });
+    return proxyDelegate;
+}
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     id delegate = controller.mailComposeDelegate;
@@ -52,11 +64,11 @@ static char *kCompletionHandlerKey = "BKCompletionHandler";
 #pragma mark Methods
 
 - (id)bk_mailComposeDelegate {
-    return [self associatedValueForKey:kBKDelegateKey];
+    return [self associatedValueForKey:kDelegateKey];
 }
 
 - (void)bk_setMailComposeDelegate:(id)delegate {
-    [self weaklyAssociateValue:delegate withKey:kBKDelegateKey];
+    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
     [self bk_setMailComposeDelegate:[BKMailComposeViewControllerDelegate shared]];
 }
 
