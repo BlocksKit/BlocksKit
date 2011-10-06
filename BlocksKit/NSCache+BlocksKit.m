@@ -68,6 +68,15 @@ static char *kWillEvictObjectHandlerKey = "NSCacheWillEvictObject";
 
 #pragma mark Properties
 
+- (id)bk_delegate {
+    return [self associatedValueForKey:kDelegateKey];
+}
+
+- (void)bk_setDelegate:(id)delegate {
+    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
+    [self bk_setDelegate:[BKCacheDelegate shared]];
+}
+
 - (BKSenderBlock)willEvictObjectHandler {
     return [self associatedValueForKey:kWillEvictObjectHandlerKey];
 }
@@ -75,19 +84,8 @@ static char *kWillEvictObjectHandlerKey = "NSCacheWillEvictObject";
 - (void)setWillEvictObjectHandler:(BKSenderBlock)handler {
     // in case of using only blocks we still need to point our delegate
     // to proxy class
-    [self setDelegate:[BKCacheDelegate shared]];
-    
-    [self associateCopyOfValue:handler withKey:kWillEvictObjectHandlerKey];
-}
-
-- (id)bk_delegate {
-    return [self associatedValueForKey:kDelegateKey];
-}
-
-- (void)bk_setDelegate:(id)delegate {
-    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
-    
     [self bk_setDelegate:[BKCacheDelegate shared]];
+    [self associateCopyOfValue:handler withKey:kWillEvictObjectHandlerKey];
 }
 
 @end

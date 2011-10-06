@@ -1,9 +1,9 @@
-#import "BKGlobals.h"
-
 //
 //  NSCache+BlocksKit.h
 //  %PROJECT
 //
+
+#import "BKGlobals.h"
 
 /** NSCache with block adding of objects
  
