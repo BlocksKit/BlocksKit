@@ -36,7 +36,7 @@ static char *kDelegateKey = "UIWebViewDelegate";
     
     id delegate = webView.delegate;
     if (delegate && [delegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)])
-        [delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+        ret = [delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
     
     BKWebViewStartBlock block = webView.shouldStartLoadBlock;
     if (block)
