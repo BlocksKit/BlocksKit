@@ -38,6 +38,15 @@
 /// @name Creating alert views
 ///-----------------------------------
 
+/** Creates and shows a new alert view with only a title, message, and cancel button.
+ 
+ @param title The title of the alert view.
+ @param message The message content of the alert.
+ @param buttonText The text of the single button.  If empty or nil, defaults to a localized variant of "Dismiss".
+ @param block A block of code to be fired on the dismissal of the 
+ */
++ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonText handler:(BKBlock)block;
+
 /** Creates and returns a new alert view with only a title and cancel button.
 
  @param title The title of the alert view.

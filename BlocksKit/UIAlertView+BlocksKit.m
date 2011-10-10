@@ -18,6 +18,19 @@ static NSString *kAlertViewDidShowBlockKey = @"UIAlertViewDidShowBlock";
 static NSString *kAlertViewWillDismissBlockKey = @"UIAlertViewWillDismissBlock";
 static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
 
+#pragma mark - Convenience
+
++ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonText handler:(BKBlock)block {
+    UIAlertView *alert = [UIAlertView alertWithTitle:title message:message];
+    if (!buttonText || !buttonText.length)
+        buttonText = NSLocalizedString(@"Dismiss", nil);
+    [alert addButtonWithTitle:buttonText];
+    alert.didDismissBlock = ^(NSUInteger index){
+        block();
+    };
+    [alert show];
+}
+
 #pragma mark Initializers
 
 + (id)alertWithTitle:(NSString *)title {
