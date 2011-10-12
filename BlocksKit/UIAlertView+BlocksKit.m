@@ -26,7 +26,8 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
         buttonText = NSLocalizedString(@"Dismiss", nil);
     [alert addButtonWithTitle:buttonText];
     alert.didDismissBlock = ^(NSUInteger index){
-        block();
+        if (block)
+            block();
     };
     [alert show];
 }
