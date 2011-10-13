@@ -17,13 +17,11 @@ static char *kViewTouchUpBlockKey = "UIViewTouchUpBlock";
 - (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
     self.userInteractionEnabled = YES;
     
-    block = [block copy];
+    block = BK_AUTORELEASE([block copy]);
     
     UITapGestureRecognizer *gesture = [UITapGestureRecognizer recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
         block();
     }];
-    
-    BK_RELEASE(block);
     
     [gesture setNumberOfTouchesRequired:numberOfTouches];
     [gesture setNumberOfTapsRequired:numberOfTaps];

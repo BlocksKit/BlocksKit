@@ -12,10 +12,11 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
 #pragma mark Private
 
 @interface BKControlWrapper : NSObject <NSCopying>
+
 - (id)initWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents;
-@property (retain) BKSenderBlock handler;
-@property (assign) UIControlEvents controlEvents;
-- (void)invoke:(id)sender;
+@property (nonatomic, copy) BKSenderBlock handler;
+@property (nonatomic) UIControlEvents controlEvents;
+
 @end
 
 @implementation BKControlWrapper
@@ -36,7 +37,8 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
 
 - (void)invoke:(id)sender {
     BKSenderBlock block = self.handler;
-    if (block) dispatch_async(dispatch_get_main_queue(), ^{ block(sender); });
+    if (block)
+        block(sender);
 }
 
 #if BK_SHOULD_DEALLOC
@@ -53,10 +55,10 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
 @implementation UIControl (BlocksKit)
 
 - (void)addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
-    NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
+    NSMutableDictionary *events = [self associatedValueForKey:kControlHandlersKey];
     if (!events) {
         events = [NSMutableDictionary dictionary];
-        [self associateValue:events withKey:&kControlHandlersKey];
+        [self associateValue:events withKey:kControlHandlersKey];
     }
     
     NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
@@ -66,18 +68,17 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
         [events setObject:handlers forKey:key];
     }
     
-    BKSenderBlock blockCopy = BK_AUTORELEASE([handler copy]);
-    BKControlWrapper *target = [[BKControlWrapper alloc] initWithHandler:blockCopy forControlEvents:controlEvents];
+    BKControlWrapper *target = [[BKControlWrapper alloc] initWithHandler:handler forControlEvents:controlEvents];
     [handlers addObject:target];
     [self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
     BK_RELEASE(target);
 }
 
 - (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents {
-    NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
+    NSMutableDictionary *events = [self associatedValueForKey:kControlHandlersKey];
     if (!events) {
         events = [NSMutableDictionary dictionary];
-        [self associateValue:events withKey:&kControlHandlersKey];
+        [self associateValue:events withKey:kControlHandlersKey];
     }
     
     NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
@@ -86,7 +87,7 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
     if (!handlers)
         return;
     
-    [handlers each:^(id sender) {
+    [handlers each:^(BKControlWrapper *sender) {
         [self removeTarget:sender action:NULL forControlEvents:controlEvents];
     }];
     
@@ -94,10 +95,10 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
 }
 
 - (BOOL)hasEventHandlersForControlEvents:(UIControlEvents)controlEvents {
-    NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
+    NSMutableDictionary *events = [self associatedValueForKey:kControlHandlersKey];
     if (!events) {
         events = [NSMutableDictionary dictionary];
-        [self associateValue:events withKey:&kControlHandlersKey];
+        [self associateValue:events withKey:kControlHandlersKey];
     }
     
     NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
@@ -106,7 +107,7 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
     if (!handlers)
         return NO;
     
-    return (handlers.count);
+    return handlers.count;
 }
 
 @end
