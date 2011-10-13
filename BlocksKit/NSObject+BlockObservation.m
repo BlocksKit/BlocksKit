@@ -67,9 +67,11 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier task:(BKObservationBlock)task {
-    BKObserver *newObserver = [BKObserver trampolineWithObservingObject:self keyPath:keyPath task:task];
+    __block BKObserver *newObserver = nil;
     
     dispatch_sync(BKObserverMutationQueue(), ^{
+        newObserver = [BKObserver trampolineWithObservingObject:self keyPath:keyPath task:task];
+        
         NSMutableDictionary *dict = [self associatedValueForKey:kObserverBlocksKey];
         if (!dict) {
             dict = [NSMutableDictionary dictionary];

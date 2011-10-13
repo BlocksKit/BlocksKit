@@ -9,13 +9,14 @@
     id              target;
     NSInvocation    *invocation;
 }
-@property (retain) id target;
-@property (retain) NSInvocation *invocation;
+@property (nonatomic, retain) id target;
+@property (nonatomic, retain) NSInvocation *invocation;
 
 + (JRInvocationGrabber *)grabberWithTarget:(id)target;
 @end
 
 @implementation JRInvocationGrabber
+
 @synthesize target, invocation;
 
 + (JRInvocationGrabber *)grabberWithTarget:(id)target {

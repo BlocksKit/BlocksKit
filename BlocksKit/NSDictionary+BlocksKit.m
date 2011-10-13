@@ -31,7 +31,7 @@
     NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
     
     [self each:^(id key, id obj) {
-        if (!(block(key, obj)))
+        if (!block(key, obj))
             [list setObject:obj forKey:key];
     }];
     
@@ -42,7 +42,7 @@
 }
 
 - (NSDictionary *)map:(BKKeyValueTransformBlock)block {
-    NSMutableDictionary *result = [[NSMutableDictionary alloc] initWithCapacity:self.count];
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
 
     [self each:^(id key, id obj) {
         id value = block(key, obj);
@@ -52,7 +52,7 @@
         [result setObject:value forKey:key];
     }];
     
-    return BK_AUTORELEASE(result);
+    return result;
 }
 
 @end

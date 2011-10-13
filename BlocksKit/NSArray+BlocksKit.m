@@ -14,44 +14,40 @@
 }
 
 - (id)match:(BKValidationBlock)block {
-    NSIndexSet *indexes = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        if (block(obj)) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
+    NSUInteger index = [self indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return block(obj);
     }];
     
-    if (!indexes.count)
+    if (index == NSNotFound)
         return nil;
     
-    return [self objectAtIndex:[indexes firstIndex]];
+    return [self objectAtIndex:index];
 }
 
 - (NSArray *)select:(BKValidationBlock)block {
-    NSArray *list = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return (block(obj));
+    NSArray *result = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return block(obj);
     }]];
     
-    if (!list.count)
+    if (!result.count)
         return nil;
     
-    return list;
+    return result;
 }
 
 - (NSArray *)reject:(BKValidationBlock)block {
-    NSArray *list = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        return (!block(obj));
+    NSArray *result = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return !block(obj);
     }]];
     
-    if (!list.count)
+    if (!result.count)
         return nil;
     
-    return list;
+    return result;
 }
 
 - (NSArray *)map:(BKTransformBlock)block {
-    NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:self.count];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
     
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         id value = block(obj);
@@ -61,7 +57,7 @@
         [result addObject:value];
     }];
     
-    return BK_AUTORELEASE(result);
+    return result;
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
