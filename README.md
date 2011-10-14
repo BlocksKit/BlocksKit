@@ -3,33 +3,52 @@ Overview
 
 Blocks in C and Objective-C are downright magical.  They make coding easier and potentially quicker, not to mention faster on the front end with multithreading and Grand Central Dispatch.  BlocksKit hopes to facilitate this kind of programming by removing some of the annoying - and, in some cases, impeding - limits on coding with blocks.
 
-BlocksKit is a static library for iOS 3.2 and up.  It can technically work on Mac OS X 10.6+ (with Chameleon for the UIKit stuff), but this project does not encompass that target at this time.
+BlocksKit is a framework andr static library for iOS 4.0+ and Mac OS X 10.6+.
 
-What's Included
-===============
+What's In The Box
+=================
 
 * Performing blocks on an `NSObject`.
-* Key-value observation (`<NSKeyValueObserving>`) using a block handler
-* Associated objects using an Obj-C API.  (Not directly block-related.)
-* `NSArray`, `NSSet`, and `NSDictionary` filter utilities
-* BKMacros, for more quickly typing out the above.
-* `NSInvocation` creation using blocks
-* `NSTimer` block execution
-* `UIAlertView`, `UIActionSheet` with block callbacks
+* Key-value observation (`<NSKeyValueObserving>`) with block handlers.
+* Associated objects in an Obj-C API.  (Not directly block-related.)
+* `NSArray`, `NSSet`, `NSDictionary`, and `NSIndexSet` filtering and enumeration.
+* Macros for more quickly typing out the above.
+* `NSInvocation` creation using a block.
+* `NSTimer` block execution.
+* Both delegation and block callbacks on `NSURLConnection`.
+* Delegate callback for `NSCache`.
+
+### UIKit Extensions
+
+* `UIAlertView`, `UIActionSheet` with block callbacks and convenience methods.
 * Block initializers for `UIControl` and `UIBarButtonItem`
-* Initializer for `UIGestureRecognizer`
+* Block-backed initializers for `UIGestureRecognizer`.
 * On-touch utilities for `UIView`.
-* both delegation and block callbacks on `NSURLConnection`
+* Block callbacks for `MFMailComposeViewController` and `MFMessageComposeViewController`.
+* Delegate alternative for `UIWebView`.
+
 
 Installation
 ============
 
+### Production Build
+
+This is recommended, but we don't have a release yet.
+
+* Download a release of BlocksKit or clone the repository and build a framework target.  Locate BlocksKit.framework in the Products folder of the Files and Folders pane.
+* Move BlocksKit.framework to your project's folder.  From there, simply drag it into your project.
+* Insert `#import <BlocksKit/BlocksKit.h>` in any header file, including your project's prefix header.
+
+### Development Build
+
+If you want to work with a new, untagged checkout of BlocksKit, you can build against a library target.
+
 * Clone the repository.
-* In Xcode 4, click-and-drag (or add using File > Add Files to Project) the BlocksKit XCode project into a project or workspace.
+* In Xcode 4, click-and-drag (or add using File > Add Files to Project) the BlocksKit project into a project or workspace.
 * In the build phases of a target, add libBlocksKit.a to the "Target Dependencies" and "Link Binary with Libraries".
 * In the build settings, change "All Linker Flags" to `-ObjC -all_load` and "Header Search Paths" to `$(BUILT_PRODUCTS_DIR)/../BlocksKit/**`.
  * If you are using Xcode 4.2 with the iOS 5.0 SDK on a **non-ARC** target, set "All Linker Flags" to `-ObjC -all_load -fobjc-arc`.  
-* In any header file, insert `#import "BlocksKit/BlocksKit.h"`.  _This is a change from previous version._ It is not recommended to insert the import statement in your project prefix, as it will break Xcode 4's Code Sense for the entire project.
+* In any header file, insert `#import "BlocksKit/BlocksKit.h"`.  It is not recommended to insert the import statement in your project prefix, as it might will break Xcode 4's Code Sense for the entire project.
 
 
 Documentation
@@ -44,7 +63,7 @@ You can also view the documentation online [at my website](http://dizzytechnolog
 License
 =======
 
-BlocksKit is created and maintained by Zachary Waldowski under the MIT license [(hello, nice to meet you)](https://github.com/zwaldowski).  All of the included code is licensed either under BSD, MIT, or is in the public domain.  The project itself is free for use in any and all projects.
+BlocksKit is created and maintained by Zachary Waldowski under the MIT license [(hello, nice to meet you)](https://github.com/zwaldowski).  All of the included code is licensed either under BSD, MIT, or is in the public domain.  **The project itself is free for use in any and all projects.**  You can use BlocksKit in any project, public or private, with or without attribution.
 
 Unsure about your rights?  [Read more.](http://www.opensource.org/licenses/mit-license.php)
 
