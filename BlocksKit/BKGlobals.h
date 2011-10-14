@@ -5,6 +5,9 @@
 
 #pragma once
 
+#import <Foundation/Foundation.h>
+#import <dispatch/dispatch.h>
+
 #if TARGET_IPHONE_SIMULATOR
     #define BK_HAS_UIKIT 1
     #define BK_HAS_APPKIT 0
