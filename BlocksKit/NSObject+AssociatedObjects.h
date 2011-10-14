@@ -31,9 +31,9 @@
  `NSAutoreleasePool`.
 
  @param value Any object.
- @param key A pointer representing a unique key.
+ @param key A unique key string.
  */
-- (void)associateValue:(id)value withKey:(void *)key;
+- (void)associateValue:(id)value withKey:(const char *)key;
 
 /** Associates a copy of an object with the reciever.
 
@@ -44,9 +44,9 @@
  temporarily-allocated Objective-C instances like NSString.
 
  @param value Any object, pointer, or value.
- @param key A pointer representing a unique key.
+ @param key A unique key string.
  */
-- (void)associateCopyOfValue:(id)value withKey:(void *)key;
+- (void)associateCopyOfValue:(id)value withKey:(const char *)key;
 
 /** Weakly associates an object with the reciever.
 
@@ -55,9 +55,9 @@
  in other words, the associated object is not kept alive.
 
  @param value Any object.
- @param key A pointer representing a unique key.
+ @param key A unique key string.
  */
-- (void)weaklyAssociateValue:(id)value withKey:(void *)key;
+- (void)weaklyAssociateValue:(id)value withKey:(const char *)key;
 
 /** Weakly associates an object with the reciever.
 
@@ -65,9 +65,9 @@
  or nil upon the disappearance of what it references;
  in other words, the associated object is not kept alive.
 
- @param key A pointer representing a unique key.
+ @param key A unique key string.
  @return The value associated with the key, or `nil` if not found.
  */
-- (id)associatedValueForKey:(void *)key;
+- (id)associatedValueForKey:(const char *)key;
 
 @end

@@ -8,19 +8,19 @@
 
 @implementation NSObject (AssociatedObjects)
 
-- (void)associateValue:(id)value withKey:(void *)key {
+- (void)associateValue:(id)value withKey:(const char *)key {
 	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)associateCopyOfValue:(id)value withKey:(void *)key {
+- (void)associateCopyOfValue:(id)value withKey:(const char *)key {
     objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (void)weaklyAssociateValue:(id)value withKey:(void *)key {
+- (void)weaklyAssociateValue:(id)value withKey:(const char *)key {
 	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (id)associatedValueForKey:(void *)key {
+- (id)associatedValueForKey:(const char *)key {
 	return objc_getAssociatedObject(self, key);
 }
 

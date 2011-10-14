@@ -8,7 +8,7 @@
 
 typedef void(^BKInternalWrappingBlock)(BOOL cancel);
 
-static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
+static inline dispatch_time_t BKTimeDelay(NSTimeInterval time) {
     int64_t delta = (NSEC_PER_SEC * time);
     return dispatch_time(DISPATCH_TIME_NOW, delta);
 }
@@ -28,7 +28,9 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
         if (!cancelled) block(self);
     };
     
-	dispatch_after(dTimeDelay(delay), dispatch_get_main_queue(), ^{  wrapper(NO); });
+	dispatch_after(BKTimeDelay(delay), dispatch_get_main_queue(), ^{
+        wrapper(NO);
+    });
     
     return BK_AUTORELEASE([wrapper copy]);
 }
@@ -46,13 +48,14 @@ static inline dispatch_time_t dTimeDelay(NSTimeInterval time) {
         if (!cancelled) block();
     };
     
-	dispatch_after(dTimeDelay(delay), dispatch_get_main_queue(), ^{ wrapper(NO); });
+	dispatch_after(BKTimeDelay(delay), dispatch_get_main_queue(), ^{ wrapper(NO); });
     
     return BK_AUTORELEASE([wrapper copy]);
 }
 
 + (void)cancelBlock:(id)block {
-    if (!block) return;
+    if (!block)
+        return;
     BKInternalWrappingBlock wrapper = block;
     wrapper(YES);
 }

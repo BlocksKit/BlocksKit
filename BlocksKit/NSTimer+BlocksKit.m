@@ -24,7 +24,8 @@
 + (void)_executeBlockFromTimer:(NSTimer *)aTimer {
     BKTimerBlock block = [aTimer userInfo];
     NSTimeInterval time = [aTimer timeInterval];
-    if (block) block(time);
+    if (block)
+        block(time);
 }
 
 @end

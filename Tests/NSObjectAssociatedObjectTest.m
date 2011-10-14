@@ -5,8 +5,8 @@
 
 #import "NSObjectAssociatedObjectTest.h"
 
-static NSInteger *kAssociationKey = 0;
-static NSInteger *kNotFoundKey = 0;
+static char *kAssociationKey = "NSObjectAssociatedObjectTest";
+static char *kNotFoundKey = "NSObjectAssociatedObjectNil";
 
 @implementation NSObjectAssociatedObjectTest
 

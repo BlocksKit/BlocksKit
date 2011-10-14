@@ -5,22 +5,21 @@
 
 #import "NSInvocation+BlocksKit.h"
 
-@interface JRInvocationGrabber : NSProxy {
-    id              target;
-    NSInvocation    *invocation;
-}
+@interface BKInvocationGrabber : NSProxy
+
++ (BKInvocationGrabber *)grabberWithTarget:(id)target;
+
 @property (nonatomic, retain) id target;
 @property (nonatomic, retain) NSInvocation *invocation;
 
-+ (JRInvocationGrabber *)grabberWithTarget:(id)target;
 @end
 
-@implementation JRInvocationGrabber
+@implementation BKInvocationGrabber
 
 @synthesize target, invocation;
 
-+ (JRInvocationGrabber *)grabberWithTarget:(id)target {
-    JRInvocationGrabber *instance = [JRInvocationGrabber alloc];
++ (BKInvocationGrabber *)grabberWithTarget:(id)target {
+    BKInvocationGrabber *instance = [BKInvocationGrabber alloc];
     instance.target = target;
     return BK_AUTORELEASE(instance);
 }
@@ -44,10 +43,11 @@
 
 @end
 
+
 @implementation NSInvocation (BlocksKit)
 
 + (NSInvocation *)invocationWithTarget:(id)target block:(BKSenderBlock)block {
-    JRInvocationGrabber *grabber = [JRInvocationGrabber grabberWithTarget:target];
+    BKInvocationGrabber *grabber = [BKInvocationGrabber grabberWithTarget:target];
     block(grabber);
     return grabber.invocation;
 }
