@@ -5,29 +5,141 @@
 
 #import "UIAlertView+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
+#import "NSObject+BlocksKit.h"
 
-@interface UIAlertView (BlocksKitPrivate)
-@property (nonatomic, retain) NSMutableDictionary *blocks;
+#pragma mark - Delegate proxy
+@interface BKAlertViewDelegate : NSObject<UIAlertViewDelegate>
+
++ (id)shared;
+
 @end
 
+@implementation BKAlertViewDelegate
+
++ (id)shared {
+    static id __strong proxyDelegate = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        proxyDelegate = [BKAlertViewDelegate new];
+    });
+    return proxyDelegate;
+}
+
+#pragma mark Responding to Actions
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.delegate && [alertView.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)])
+        [alertView.delegate alertView:alertView clickedButtonAtIndex:buttonIndex];
+    
+    BKBlock block = [alertView handlerForButtonAtIndex:buttonIndex];
+    if (block)
+        block();
+}
+
+#pragma mark Customizing Behavior
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView {
+    if (alertView.delegate && [alertView.delegate respondsToSelector:@selector(alertViewShouldEnableFirstOtherButton:)])
+        return [alertView.delegate alertViewShouldEnableFirstOtherButton:alertView];
+    
+    return YES;
+}
+
+- (void)willPresentAlertView:(UIAlertView *)alertView {
+    if (alertView.delegate && [alertView.delegate respondsToSelector:@selector(willPresentAlertView:)])
+        [alertView.delegate willPresentAlertView:alertView];    
+    
+    BKBlock block = alertView.willShowHandler;
+    if (block)
+        block();
+}
+
+- (void)didPresentAlertView:(UIAlertView *)alertView {
+    if (alertView.delegate && [alertView.delegate respondsToSelector:@selector(didPresentAlertView:)])
+        [alertView.delegate didPresentAlertView:alertView];
+    
+    BKBlock block = alertView.didShowHandler;
+    if (block)
+        block();
+}
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (alertView.delegate && [alertView.delegate respondsToSelector:@selector(alertView:willDismissWithButtonIndex:)])
+        [alertView.delegate alertView:alertView willDismissWithButtonIndex:buttonIndex];
+    
+    BKIndexBlock block = alertView.willDismissHandler;
+    if (block)
+        block(buttonIndex);
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (alertView.delegate && [alertView.delegate respondsToSelector:@selector(alertView:didDismissWithButtonIndex:)])
+        [alertView.delegate alertView:alertView didDismissWithButtonIndex:buttonIndex];    
+    
+    BKIndexBlock block = alertView.didDismissHandler;
+    if (block)
+        block(buttonIndex);
+}
+
+#pragma mark Canceling
+- (void)alertViewCancel:(UIAlertView *)alertView {
+    if (alertView.delegate && [alertView.delegate respondsToSelector:@selector(alertViewCancel)])
+        [alertView.delegate alertViewCancel:alertView];
+    
+    BKBlock block = alertView.cancelHandler;
+    if (block)
+        block();
+}
+
+@end
+
+#pragma mark - constants
+static char *kAlertViewButtonHandlersDictionaryKey = "BKAlertViewButtonHandlersDictionary";
+
+static char *kAlertViewWillShowHandlerKey    = "BKAlertViewWillShowHandler";
+static char *kAlertViewDidShowHandlerKey     = "BKAlertViewDidShowHandler";
+static char *kAlertViewWillDismissHandlerKey = "BKAlertViewWillDismissHandler";
+static char *kAlertViewDidDismissHandlerKey  = "BKAlertViewDidDismissHandler";
+
+static char *kDelegateKey = "BKAlertViewDelegate";
+
+#pragma mark - Private
+@interface UIAlertView (BlocksKitPrivate)
+@property (nonatomic, retain) NSMutableDictionary *buttonHandlers;
+@end
+
+#pragma mark -
 @implementation UIAlertView (BlocksKit)
 
-static char *kAlertViewBlockDictionaryKey = "UIAlertViewBlockHandlers";
-static NSString *kAlertViewWillShowBlockKey = @"UIAlertViewWillShowBlock";
-static NSString *kAlertViewDidShowBlockKey = @"UIAlertViewDidShowBlock";
-static NSString *kAlertViewWillDismissBlockKey = @"UIAlertViewWillDismissBlock";
-static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
+#pragma mark Methods swizzling
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self swizzleSelector:@selector(delegate) withSelector:@selector(bk_delegate)];
+        [self swizzleSelector:@selector(setDelegate:) withSelector:@selector(bk_setDelegate:)];
+    });
+}
 
-#pragma mark - Convenience
+#pragma mark Delegation
+- (id)bk_delegate {
+    return [self associatedValueForKey:kDelegateKey];
+}
 
+- (void)bk_setDelegate:(id)delegate {
+    [self weaklyAssociateValue:delegate withKey:kDelegateKey];
+    [self bk_setDelegate:[BKAlertViewDelegate shared]];
+}
+
+#pragma mark Convenience
 + (void)showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonText handler:(BKBlock)block {
     UIAlertView *alert = [UIAlertView alertWithTitle:title message:message];
     if (!buttonText || !buttonText.length)
         buttonText = NSLocalizedString(@"Dismiss", nil);
     [alert addButtonWithTitle:buttonText];
-    alert.didDismissBlock = ^(NSUInteger index){
-        block();
-    };
+    
+    if (block)
+        alert.didDismissHandler = ^(NSUInteger index){
+            block();
+        };
+    
     [alert show];
 }
 
@@ -48,151 +160,101 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
 #pragma mark Public methods
 
 - (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
     NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
     NSInteger index = [self addButtonWithTitle:title];
     
     BKBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
+    [self.buttonHandlers setObject:handler forKey:[NSNumber numberWithInteger:index]];
+    
+    [self bk_setDelegate:[BKAlertViewDelegate shared]];
     
     return index;
 }
 
-- (NSInteger)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");    
-    
+- (NSInteger)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {    
     if (!title) title = NSLocalizedString(@"Cancel", nil);
     NSInteger index = [self addButtonWithTitle:title];
     self.cancelButtonIndex = index;
     
     BKBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
+    [self.buttonHandlers setObject:handler forKey:[NSNumber numberWithInteger:index]];
+    
+    [self bk_setDelegate:[BKAlertViewDelegate shared]];
 
     return index;
 }
 
+- (BKBlock)handlerForButtonAtIndex:(NSInteger)index {
+    return BK_AUTORELEASE([[self.buttonHandlers objectForKey:[NSNumber numberWithInteger:index]] copy]);
+}
+
 #pragma mark Properties
 
-- (NSMutableDictionary *)blocks {
-    NSMutableDictionary *blocks = [self associatedValueForKey:kAlertViewBlockDictionaryKey];
+- (NSMutableDictionary *)buttonHandlers {
+    NSMutableDictionary *blocks = [self associatedValueForKey:kAlertViewButtonHandlersDictionaryKey];
     if (!blocks) {
         blocks = [NSMutableDictionary dictionary];
-        [self associateValue:blocks withKey:kAlertViewBlockDictionaryKey];
+        [self associateValue:blocks withKey:kAlertViewButtonHandlersDictionaryKey];
     }
     return blocks;
 }
 
-- (void)setBlocks:(NSMutableDictionary *)blocks {
-    [self associateValue:blocks withKey:kAlertViewBlockDictionaryKey];
+- (void)setButtonHandlers:(NSMutableDictionary *)blocks {
+    [self associateValue:blocks withKey:kAlertViewButtonHandlersDictionaryKey];
 }
 
-- (BKBlock)cancelBlock {
+- (BKBlock)cancelHandler {
     NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
-    return [self.blocks objectForKey:key];
+    return BK_AUTORELEASE([[self.buttonHandlers objectForKey:key] copy]);
 }
 
-- (void)setCancelBlock:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
+- (void)setCancelHandler:(BKBlock)block {
     if (self.cancelButtonIndex == -1) {
         [self setCancelButtonWithTitle:nil handler:block];
-    } else {
+    } 
+    else {
         BKBlock handler = BK_AUTORELEASE([block copy]);
         NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
         
-        [self.blocks setObject:handler forKey:key];
+        [self.buttonHandlers setObject:handler forKey:key];
     }
+    [self bk_setDelegate:[BKAlertViewDelegate shared]];
 }
 
-- (BKBlock)willShowBlock {
-    return [self.blocks objectForKey:kAlertViewWillShowBlockKey];    
+- (BKBlock)willShowHandler {
+    return BK_AUTORELEASE([[self associatedValueForKey:kAlertViewWillShowHandlerKey] copy]);
 }
 
-- (void)setWillShowBlock:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    BKBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:kAlertViewWillShowBlockKey];
+- (void)setWillShowHandler:(BKBlock)block {
+    [self associateCopyOfValue:block withKey:kAlertViewWillShowHandlerKey];
+    [self bk_setDelegate:[BKAlertViewDelegate shared]];
 }
 
-- (BKBlock)didShowBlock {
-    return [self.blocks objectForKey:kAlertViewDidShowBlockKey];
+- (BKBlock)didShowHandler {
+    return BK_AUTORELEASE([[self associatedValueForKey:kAlertViewDidShowHandlerKey] copy]);
 }
 
-- (void)setDidShowBlock:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-
-    BKBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:kAlertViewDidShowBlockKey];
+- (void)setDidShowHandler:(BKBlock)block {
+    [self associateCopyOfValue:block withKey:kAlertViewDidShowHandlerKey];
+    [self bk_setDelegate:[BKAlertViewDelegate shared]];
 }
 
-- (BKIndexBlock)willDismissBlock {
-    return [self.blocks objectForKey:kAlertViewWillDismissBlockKey];
+- (BKIndexBlock)willDismissHandler {
+    return BK_AUTORELEASE([[self associatedValueForKey:kAlertViewWillDismissHandlerKey] copy]);
 }
 
-- (void)setWillDismissBlock:(BKIndexBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    BKIndexBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:kAlertViewWillDismissBlockKey];
+- (void)setWillDismissHandler:(BKIndexBlock)block {
+    [self associateCopyOfValue:block withKey:kAlertViewWillDismissHandlerKey];
+    [self bk_setDelegate:[BKAlertViewDelegate shared]];
 }
 
-- (BKIndexBlock)didDismissBlock {
-    return [self.blocks objectForKey:kAlertViewDidDismissBlockKey];
+- (BKIndexBlock)didDismissHandler {
+    return BK_AUTORELEASE([[self associatedValueForKey:kAlertViewDidDismissHandlerKey] copy]);
 }
 
-- (void)setDidDismissBlock:(BKIndexBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    BKIndexBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:kAlertViewDidDismissBlockKey];
-}
-
-#pragma mark Delegates
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    BKBlock block = [self.blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
-    if (block)
-        block();
-}
-
-- (void)willPresentAlertView:(UIAlertView *)alertView {
-    BKBlock block = [self.blocks objectForKey:kAlertViewWillShowBlockKey];
-    if (block)
-        block();
-}
-
-- (void)didPresentAlertView:(UIAlertView *)alertView {
-    BKBlock block = [self.blocks objectForKey:kAlertViewDidShowBlockKey];
-    if (block)
-        block();
-}
-
-- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BKIndexBlock block = [self.blocks objectForKey:kAlertViewWillDismissBlockKey];
-    if (block)
-        block(buttonIndex);
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BKIndexBlock block = [self.blocks objectForKey:kAlertViewDidDismissBlockKey];
-    if (block)
-        block(buttonIndex);
+- (void)setDidDismissHandler:(BKIndexBlock)block {
+    [self associateCopyOfValue:block withKey:kAlertViewDidDismissHandlerKey];
+    [self bk_setDelegate:[BKAlertViewDelegate shared]];
 }
 
 @end
