@@ -103,19 +103,21 @@
  you can set this property multiple times and multiple cancel buttons will
  not be generated.
  */
-@property (copy) BKBlock cancelBlock;
+@property (copy) BKBlock cancelHandler;
+
+/** returns block that fired when button specified by index is pressed. */
+- (BKBlock)handlerForButtonAtIndex:(NSInteger)index;
 
 /** The block to be fired before the alert view will show. */
-@property (copy) BKBlock willShowBlock;
+@property (copy) BKBlock willShowHandler;
 
 /** The block to be fired when the alert view shows. */
-@property (copy) BKBlock didShowBlock;
+@property (copy) BKBlock didShowHandler;
 
 /** The block to be fired before the alert view will dismiss. */
-@property (copy) BKIndexBlock willDismissBlock;
+@property (copy) BKIndexBlock willDismissHandler;
 
 /** The block to be fired after the alert view dismisses. */
-@property (copy) BKIndexBlock didDismissBlock;
-
+@property (copy) BKIndexBlock didDismissHandler;
 
 @end

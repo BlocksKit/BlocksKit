@@ -259,12 +259,12 @@
 		6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableIndexSet+BlocksKit.h"; sourceTree = "<group>"; };
 		6C8063B213C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableIndexSet+BlocksKit.m"; sourceTree = "<group>"; };
 		6CC08FC71385553300DDEABB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
-		6CC08FCE1385555D00DDEABB /* BlocksKit.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = BlocksKit.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CC08FCE1385555D00DDEABB /* BlocksKit */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.dylib"; name = BlocksKit; path = BlocksKit.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC08FCF1385555D00DDEABB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		6CC08FD21385555D00DDEABB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		6CC08FD31385555D00DDEABB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6CC08FD41385555D00DDEABB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		6CC0900913855CAE00DDEABB /* BlocksKit_Chameleon.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = BlocksKit_Chameleon.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CC0900913855CAE00DDEABB /* BlocksKit_Chameleon */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.dylib"; name = BlocksKit_Chameleon; path = BlocksKit_Chameleon.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC0901E13855E8600DDEABB /* NSIndexSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BlocksKit.h"; sourceTree = "<group>"; };
 		6CC0901F13855E8600DDEABB /* NSIndexSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BlocksKit.m"; sourceTree = "<group>"; };
 		6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+BlocksKit.h"; sourceTree = "<group>"; };
@@ -386,8 +386,8 @@
 		6C3DBF8E1382F1BA00E6C9AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6CC08FCE1385555D00DDEABB /* BlocksKit.dylib */,
-				6CC0900913855CAE00DDEABB /* BlocksKit_Chameleon.dylib */,
+				6CC08FCE1385555D00DDEABB /* BlocksKit */,
+				6CC0900913855CAE00DDEABB /* BlocksKit_Chameleon */,
 				60FF000713C023CB004A1394 /* Tests.app */,
 			);
 			name = Products;
@@ -640,7 +640,7 @@
 			);
 			name = "BlocksKit Mac";
 			productName = "BlocksKit Mac";
-			productReference = 6CC08FCE1385555D00DDEABB /* BlocksKit.dylib */;
+			productReference = 6CC08FCE1385555D00DDEABB /* BlocksKit */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		6CC08FEE13855CAE00DDEABB /* BlocksKit Chameleon */ = {
@@ -657,7 +657,7 @@
 			);
 			name = "BlocksKit Chameleon";
 			productName = "BlocksKit Mac";
-			productReference = 6CC0900913855CAE00DDEABB /* BlocksKit_Chameleon.dylib */;
+			productReference = 6CC0900913855CAE00DDEABB /* BlocksKit_Chameleon */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
