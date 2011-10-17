@@ -33,13 +33,7 @@ static char *kCompletionHandlerKey = "MFMailComposeViewControllerCompletion";
     if (delegate && [delegate respondsToSelector:@selector(mailComposeController:didFinishWithResult:error:)])
         [controller.mailComposeDelegate mailComposeController:controller didFinishWithResult:result error:error];
     else {
-        #ifdef __IPHONE_5_0 // preemptive compatibility with the 5.0 SDK
-        if ([controller respondsToSelector:@selector(presentingViewController)]) 
-            [[controller presentingViewController] dismissModalViewControllerAnimated:YES]; // iOS 5
-        else
-        #endif
-            [controller.parentViewController dismissModalViewControllerAnimated:YES]; // 4.3 and below
-
+        [controller dismissModalViewControllerAnimated:YES];
     }
         
     BKMailComposeBlock block = controller.completionHandler;
