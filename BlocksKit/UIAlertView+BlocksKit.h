@@ -95,6 +95,14 @@
 /// @name Altering actions
 ///-----------------------------------
 
+/** The block that is to be fired when a button is pressed.
+ 
+ @param index The index of the button already added to the alert view.
+ @return A copied, autoreleased instance of a code block, or nil
+ if no block yet assigned.
+ */
+- (BKBlock)handlerForButtonAtIndex:(NSInteger)index;
+
 /** The block to be fired when the action sheet is dismissed with the cancel
  button.
 
