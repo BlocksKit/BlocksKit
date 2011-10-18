@@ -33,7 +33,7 @@
 }
 
 - (void)testEvictionDelegate {
-    self.subject.willEvictObjectHandler = ^(id obj){
+    self.subject.willEvictBlock = ^(id obj){
         total--;
     };
     
@@ -57,7 +57,7 @@
 - (void)_succeed {
     GHAssertEquals(total, 2, @"The cache should have been emptied!");
     [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testEvictionDelegate)];
-    self.subject.willEvictObjectHandler = nil;
+    self.subject.willEvictBlock = nil;
 }
 
 @end
