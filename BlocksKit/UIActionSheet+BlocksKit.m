@@ -7,7 +7,7 @@
 #import "NSObject+AssociatedObjects.h"
 
 @interface UIActionSheet (BlocksKitPrivate)
-@property (nonatomic, retain) NSMutableDictionary *blocks;
+@property (nonatomic, readonly) NSMutableDictionary *handlers;
 @end
 
 @implementation UIActionSheet (BlocksKit)
@@ -17,7 +17,6 @@ static NSString *kActionSheetWillShowBlockKey = @"UIActionSheetWillShowBlock";
 static NSString *kActionSheetDidShowBlockKey = @"UIActionSheetDidShowBlock";
 static NSString *kActionSheetWillDismissBlockKey = @"UIActionSheetWillDismissBlock";
 static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock";
-
 
 #pragma mark Initializers
 
@@ -39,9 +38,8 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     NSAssert(title.length, @"A button without a title cannot be added to an action sheet.");
     NSInteger index = [self addButtonWithTitle:title];
     
-
-    BKBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
+    block = BK_AUTORELEASE([block copy]);
+    [self.handlers setObject:block forKey:[NSNumber numberWithInteger:index]];
     
     return index;
 }
@@ -55,8 +53,8 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     NSInteger index = [self addButtonWithTitle:title];
     self.destructiveButtonIndex = index;
     
-    BKBlock handler = BK_AUTORELEASE([block copy]);    
-    [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
+    block = BK_AUTORELEASE([block copy]);    
+    [self.handlers setObject:block forKey:[NSNumber numberWithInteger:index]];
     
     return index;
 }
@@ -74,8 +72,8 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     if (title)
         index = [self addButtonWithTitle:title];
     
-    BKBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:[NSNumber numberWithInteger:index]];
+    block = BK_AUTORELEASE([block copy]);
+    [self.handlers setObject:block forKey:[NSNumber numberWithInteger:index]];
     self.cancelButtonIndex = index;
     
     return index;
@@ -83,22 +81,19 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
 
 #pragma mark Properties
 
-- (NSMutableDictionary *)blocks {
-    NSMutableDictionary *blocks = [self associatedValueForKey:kActionSheetBlockDictionaryKey];
-    if (!blocks) {
-        blocks = [NSMutableDictionary dictionary];
-        [self associateValue:blocks withKey:kActionSheetBlockDictionaryKey];
+- (NSMutableDictionary *)handlers {
+    NSMutableDictionary *handlers = [self associatedValueForKey:kActionSheetBlockDictionaryKey];
+    if (!handlers) {
+        handlers = [NSMutableDictionary dictionary];
+        [self associateValue:handlers withKey:kActionSheetBlockDictionaryKey];
     }
-    return blocks;
-}
-
-- (void)setBlocks:(NSMutableDictionary *)blocks {
-    [self associateValue:blocks withKey:kActionSheetBlockDictionaryKey];
+    return handlers;
 }
 
 - (BKBlock)cancelBlock {
     NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
-    return [self.blocks objectForKey:key];
+    BKBlock block = [self.handlers objectForKey:key];
+    return BK_AUTORELEASE([block copy]);
 }
 
 - (void)setCancelBlock:(BKBlock)block {
@@ -111,13 +106,14 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     } else {
         NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
         
-        BKBlock handler = BK_AUTORELEASE([block copy]);
-        [self.blocks setObject:handler forKey:key];
+        block = BK_AUTORELEASE([block copy]);
+        [self.handlers setObject:block forKey:key];
     }
 }
 
 - (BKBlock)willShowBlock {
-    return [self.blocks objectForKey:kActionSheetWillShowBlockKey];    
+    BKBlock block = [self.handlers objectForKey:kActionSheetWillShowBlockKey]; 
+    return BK_AUTORELEASE([block copy]);   
 }
 
 - (void)setWillShowBlock:(BKBlock)block {
@@ -125,12 +121,13 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-    BKBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:kActionSheetWillShowBlockKey];
+    block = BK_AUTORELEASE([block copy]);
+    [self.handlers setObject:block forKey:kActionSheetWillShowBlockKey];
 }
 
 - (BKBlock)didShowBlock {
-    return [self.blocks objectForKey:kActionSheetDidShowBlockKey];
+    BKBlock block = [self.handlers objectForKey:kActionSheetDidShowBlockKey];
+    return BK_AUTORELEASE([block copy]);
 }
 
 - (void)setDidShowBlock:(BKBlock)block {
@@ -138,12 +135,13 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-    BKBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:kActionSheetDidShowBlockKey];
+    block = BK_AUTORELEASE([block copy]);
+    [self.handlers setObject:block forKey:kActionSheetDidShowBlockKey];
 }
 
 - (BKIndexBlock)willDismissBlock {
-    return [self.blocks objectForKey:kActionSheetWillDismissBlockKey];
+    BKIndexBlock block = [self.handlers objectForKey:kActionSheetWillDismissBlockKey];
+    return BK_AUTORELEASE([block copy]);
 }
 
 - (void)setWillDismissBlock:(BKIndexBlock)block {
@@ -151,12 +149,13 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-    BKIndexBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:kActionSheetWillDismissBlockKey];
+    block = BK_AUTORELEASE([block copy]);
+    [self.handlers setObject:block forKey:kActionSheetWillDismissBlockKey];
 }
 
 - (BKIndexBlock)didDismissBlock {
-    return [self.blocks objectForKey:kActionSheetDidDismissBlockKey];
+    BKIndexBlock block = [self.handlers objectForKey:kActionSheetDidDismissBlockKey];
+    return BK_AUTORELEASE([block copy]);
 }
 
 - (void)setDidDismissBlock:(BKIndexBlock)block {
@@ -164,38 +163,38 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
-    BKIndexBlock handler = BK_AUTORELEASE([block copy]);
-    [self.blocks setObject:handler forKey:kActionSheetDidDismissBlockKey];
+    block = BK_AUTORELEASE([block copy]);
+    [self.handlers setObject:block forKey:kActionSheetDidDismissBlockKey];
 }
 
 #pragma mark Delegates
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    BKBlock block = [self.blocks objectForKey:[NSNumber numberWithInteger:buttonIndex]];
+    BKBlock block = [self.handlers objectForKey:[NSNumber numberWithInteger:buttonIndex]];
     if (block)
         block();
 }
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
-    BKBlock block = [self.blocks objectForKey:kActionSheetWillShowBlockKey];
+    BKBlock block = [self.handlers objectForKey:kActionSheetWillShowBlockKey];
     if (block)
         block();
 }
 
 - (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
-    BKBlock block = [self.blocks objectForKey:kActionSheetDidShowBlockKey];
+    BKBlock block = [self.handlers objectForKey:kActionSheetDidShowBlockKey];
     if (block)
         block();
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BKIndexBlock block = [self.blocks objectForKey:kActionSheetWillDismissBlockKey];
+    BKIndexBlock block = [self.handlers objectForKey:kActionSheetWillDismissBlockKey];
     if (block)
         block(buttonIndex);
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BKIndexBlock block = [self.blocks objectForKey:kActionSheetDidDismissBlockKey];
+    BKIndexBlock block = [self.handlers objectForKey:kActionSheetDidDismissBlockKey];
     if (block)
         block(buttonIndex);
 }
