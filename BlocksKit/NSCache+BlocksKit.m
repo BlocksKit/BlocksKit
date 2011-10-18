@@ -5,34 +5,28 @@
 
 #import "NSCache+BlocksKit.h"
 #import "NSObject+BlocksKit.h"
+#import "BKDelegate.h"
 
 static char *kDelegateKey = "NSCacheDelegate";
-static char *kWillEvictObjectHandlerKey = "NSCacheWillEvictObject";
+static char *kWillEvictObjectBlockKey = "NSCacheWillEvictObject";
 
 #pragma mark Delegate
 
-@interface BKCacheDelegate : NSObject <NSCacheDelegate>
-
-+ (id)shared;
+@interface BKCacheDelegate : BKDelegate <NSCacheDelegate>
 
 @end
 
 @implementation BKCacheDelegate
 
-+ (id)shared {
-    static id __strong proxyDelegate = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        proxyDelegate = [BKCacheDelegate new];
-    });
-    return proxyDelegate;
++ (Class)targetClass {
+    return [NSCache class];
 }
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
     if (cache.delegate && [cache.delegate respondsToSelector:@selector(cache:willEvictObject:)])
         [cache.delegate cache:cache willEvictObject:obj];
     
-    BKSenderBlock block = cache.willEvictObjectHandler;
+    BKSenderBlock block = cache.willEvictBlock;
     if (block)
         block(obj);
 }
@@ -78,14 +72,21 @@ static char *kWillEvictObjectHandlerKey = "NSCacheWillEvictObject";
 }
 
 - (BKSenderBlock)willEvictObjectHandler {
-    return [self associatedValueForKey:kWillEvictObjectHandlerKey];
+    return [self willEvictBlock];
 }
 
 - (void)setWillEvictObjectHandler:(BKSenderBlock)handler {
-    // in case of using only blocks we still need to point our delegate
-    // to proxy class
+    [self setWillEvictBlock:handler];
+}
+
+- (BKSenderBlock)willEvictBlock {
+    BKSenderBlock block = [self associatedValueForKey:kWillEvictObjectBlockKey];
+    return BK_AUTORELEASE([block copy]);
+}
+
+- (void)setWillEvictBlock:(BKSenderBlock)handler {
     [self bk_setDelegate:[BKCacheDelegate shared]];
-    [self associateCopyOfValue:handler withKey:kWillEvictObjectHandlerKey];
+    [self associateCopyOfValue:handler withKey:kWillEvictObjectBlockKey];
 }
 
 @end

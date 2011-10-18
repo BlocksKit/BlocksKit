@@ -20,11 +20,15 @@ typedef void (^BKMailComposeBlock) (MFMailComposeResult result, NSError *error);
 @interface MFMailComposeViewController (BlocksKit)
 
 /** The block fired on the dismissal of the mail composition interface.
- 
+ Deprecated in favor of completionBlock. */
+@property (copy) BKMailComposeBlock completionHandler DEPRECATED_ATTRIBUTE;
+
+/**  The block fired on the dismissal of the mail composition interface.
+
  This block callback is an analog for the
  mailComposeController:didFinishWithResult:error: method
  of MFMailComposeViewControllerDelegate.
 */
-@property (copy) BKMailComposeBlock completionHandler;
+@property (copy) BKMailComposeBlock completionBlock;
 
 @end

@@ -20,11 +20,15 @@ typedef void (^BKMessageComposeBlock) (MessageComposeResult result);
 @interface MFMessageComposeViewController (BlocksKit)
 
 /** The block fired on the dismissal of the SMS composition interface.
+ Deprecated in favor of completionBlock. */
+@property (copy) BKMessageComposeBlock completionHandler DEPRECATED_ATTRIBUTE;
 
+/** The block fired on the dismissal of the SMS composition interface.
+ 
  This block callback is an analog for the
  messageComposeViewController:didFinishWithResult method
  of MFMessageComposeViewControllerDelegate.
-*/
-@property (copy) BKMessageComposeBlock completionHandler;
+ */
+@property (copy) BKMessageComposeBlock completionBlock;
 
 @end

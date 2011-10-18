@@ -5,38 +5,31 @@
 
 #import "MFMessageComposeViewController+BlocksKit.h"
 #import "NSObject+BlocksKit.h"
+#import "BKDelegate.h"
 
 static char *kDelegateKey = "MFMessageComposeViewControllerDelegate";
-static char *kCompletionHandlerKey = "MFMessageComposeViewControllerCompletion";
+static char *kCompletionBlockKey = "MFMessageComposeViewControllerCompletion";
 
 #pragma mark Delegate
 
-@interface BKMessageComposeViewControllerDelegate : NSObject <MFMessageComposeViewControllerDelegate>
-
-+ (id)shared;
+@interface BKMessageComposeViewControllerDelegate : BKDelegate <MFMessageComposeViewControllerDelegate>
 
 @end
 
 @implementation BKMessageComposeViewControllerDelegate
 
-+ (id)shared {
-    static id __strong proxyDelegate = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        proxyDelegate = [BKMessageComposeViewControllerDelegate new];
-    });
-    return proxyDelegate;
++ (Class)targetClass {
+    return [MFMessageComposeViewController class];
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     id delegate = controller.messageComposeDelegate;
     if (delegate && [delegate respondsToSelector:@selector(messageComposeViewController:didFinishWithResult:)])
         [delegate messageComposeViewController:controller didFinishWithResult:result];
-    else {
-        [controller dismissModalViewControllerAnimated:YES]; // 4.3 and below
-    }
+    else
+        [controller dismissModalViewControllerAnimated:YES];
     
-    BKMessageComposeBlock block = controller.completionHandler;
+    BKMessageComposeBlock block = controller.completionBlock;
     if (block)
         block(result);
 }
@@ -69,12 +62,21 @@ static char *kCompletionHandlerKey = "MFMessageComposeViewControllerCompletion";
 #pragma mark Properties
 
 - (BKMessageComposeBlock)completionHandler {
-    return [self associatedValueForKey:kCompletionHandlerKey];
+    return [self completionBlock];
 }
 
-- (void)setCompletionHandler:(BKMessageComposeBlock)handler {
+- (void)setCompletionHandler:(BKMessageComposeBlock)completionHandler {
+    [self setCompletionBlock:completionHandler];
+}
+
+- (BKMessageComposeBlock)completionBlock {
+    BKMessageComposeBlock block = [self associatedValueForKey:kCompletionBlockKey];
+    return BK_AUTORELEASE([block copy]);
+}
+
+- (void)setCompletionBlock:(BKMessageComposeBlock)handler {
     [self bk_setMessageComposeDelegate:[BKMessageComposeViewControllerDelegate shared]];
-    [self associateCopyOfValue:handler withKey:kCompletionHandlerKey];
+    [self associateCopyOfValue:handler withKey:kCompletionBlockKey];
 }
 
 @end

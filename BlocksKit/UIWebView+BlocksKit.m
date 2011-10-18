@@ -5,6 +5,7 @@
 
 #import "UIWebView+BlocksKit.h"
 #import "NSObject+BlocksKit.h"
+#import "BKDelegate.h"
 
 static char *kWebViewShouldStartBlockKey = "UIWebViewShouldStartBlock";
 static char *kWebViewDidStartBlockKey = "UIWebViewDidStartBlock";
@@ -14,21 +15,14 @@ static char *kDelegateKey = "UIWebViewDelegate";
 
 #pragma mark Delegate
 
-@interface BKWebViewDelegate : NSObject <UIWebViewDelegate>
-
-+ (id)shared;
+@interface BKWebViewDelegate : BKDelegate <UIWebViewDelegate>
 
 @end
 
 @implementation BKWebViewDelegate
 
-+ (id)shared {
-    static id __strong proxyDelegate = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        proxyDelegate = [BKWebViewDelegate new];
-    });
-    return proxyDelegate;
++ (Class)targetClass {
+    return [UIWebView class];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -98,14 +92,14 @@ static char *kDelegateKey = "UIWebViewDelegate";
 
 - (void)bk_setDelegate:(id)delegate {
     [self weaklyAssociateValue:delegate withKey:kDelegateKey];
-    
     [self bk_setDelegate:[BKWebViewDelegate shared]];
 }
 
 #pragma mark Properties
 
 - (BKWebViewStartBlock)shouldStartLoadBlock {
-    return [self associatedValueForKey:kWebViewShouldStartBlockKey];
+    BKWebViewStartBlock block = [self associatedValueForKey:kWebViewShouldStartBlockKey];
+    return BK_AUTORELEASE([block copy]);
 }
 
 - (void)setShouldStartLoadBlock:(BKWebViewStartBlock)block {
@@ -114,7 +108,8 @@ static char *kDelegateKey = "UIWebViewDelegate";
 }
 
 - (BKBlock)didStartLoadBlock {
-    return [self associatedValueForKey:kWebViewDidStartBlockKey];
+    BKBlock block = [self associatedValueForKey:kWebViewDidStartBlockKey];
+    return BK_AUTORELEASE([block copy]);
 }
 
 - (void)setDidStartLoadBlock:(BKBlock)block {
@@ -123,7 +118,8 @@ static char *kDelegateKey = "UIWebViewDelegate";
 }
 
 - (BKBlock)didFinishLoadBlock {
-    return [self associatedValueForKey:kWebViewDidFinishBlockKey];
+    BKBlock block = [self associatedValueForKey:kWebViewDidFinishBlockKey];
+    return BK_AUTORELEASE([block copy]);
 }
 
 - (void)setDidFinishLoadBlock:(BKBlock)block {
@@ -132,7 +128,8 @@ static char *kDelegateKey = "UIWebViewDelegate";
 }
 
 - (BKErrorBlock)didFinishWithErrorBlock {
-    return [self associatedValueForKey:kWebViewDidErrorBlockKey];
+    BKErrorBlock block = [self associatedValueForKey:kWebViewDidErrorBlockKey];
+    return BK_AUTORELEASE([block copy]);
 }
 
 - (void)setDidFinishWithErrorBlock:(BKErrorBlock)block {

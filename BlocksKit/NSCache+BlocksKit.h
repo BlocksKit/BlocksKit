@@ -43,7 +43,17 @@
  */
 - (id)objectForKey:(id)key withGetter:(BKReturnBlock)getterBlock;
 
-/** Called when an object is about to be evicted or removed from the cache. */
-@property (copy) BKSenderBlock willEvictObjectHandler;
+/** Called when an object is about to be evicted or removed from the cache.
+ 
+ Deprecated in favor of willEvictBlock. 
+ */
+@property (copy) BKSenderBlock willEvictObjectHandler DEPRECATED_ATTRIBUTE;
+
+/** Called when an object is about to be evicted from the cache.
+
+ This block callback is an analog for the cache:willEviceObject:
+ method of NSCacheDelegate.
+ */
+@property (copy) BKSenderBlock willEvictBlock;
 
 @end
