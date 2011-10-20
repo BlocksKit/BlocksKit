@@ -56,8 +56,13 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
     NSInteger index = [self addButtonWithTitle:title];
     
-    BKBlock handler = BK_AUTORELEASE([block copy]);
-    [self.handlers setObject:handler forKey:[NSNumber numberWithInteger:index]];
+    id key = [NSNumber numberWithInteger:index];
+    
+    if (block) {
+        block = BK_AUTORELEASE([block copy]);
+        [self.handlers setObject:block forKey:key];
+    } else
+        [self.handlers removeObjectForKey:key];
     
     return index;
 }
@@ -71,8 +76,13 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     NSInteger index = [self addButtonWithTitle:title];
     self.cancelButtonIndex = index;
     
-    block = BK_AUTORELEASE([block copy]);
-    [self.handlers setObject:block forKey:[NSNumber numberWithInteger:index]];
+    id key = [NSNumber numberWithInteger:index];
+    
+    if (block) {
+        block = BK_AUTORELEASE([block copy]);
+        [self.handlers setObject:block forKey:key];
+    } else
+        [self.handlers removeObjectForKey:key];
 
     return index;
 }
@@ -108,8 +118,14 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     if (self.cancelButtonIndex == -1) {
         [self setCancelButtonWithTitle:nil handler:block];
     } else {
+        id key = [NSNumber numberWithInteger:self.cancelButtonIndex];
+        
+        if (!block) {
+            [self.handlers removeObjectForKey:key];
+            return;
+        }
+        
         block = BK_AUTORELEASE([block copy]);
-        NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
         [self.handlers setObject:block forKey:key];
     }
 }
@@ -124,6 +140,11 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
+    if (!block) {
+        [self.handlers removeObjectForKey:kAlertViewWillShowBlockKey];
+        return;
+    }
+    
     block = BK_AUTORELEASE([block copy]);
     [self.handlers setObject:block forKey:kAlertViewWillShowBlockKey];
 }
@@ -137,6 +158,11 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     if (!self.delegate)
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
+    
+    if (!block) {
+        [self.handlers removeObjectForKey:kAlertViewDidShowBlockKey];
+        return;
+    }
 
     block = BK_AUTORELEASE([block copy]);
     [self.handlers setObject:block forKey:kAlertViewDidShowBlockKey];
@@ -152,6 +178,11 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
+    if (!block) {
+        [self.handlers removeObjectForKey:kAlertViewWillDismissBlockKey];
+        return;
+    }
+    
     block = BK_AUTORELEASE([block copy]);
     [self.handlers setObject:block forKey:kAlertViewWillDismissBlockKey];
 }
@@ -165,6 +196,11 @@ static NSString *kAlertViewDidDismissBlockKey = @"UIAlertViewDidDismissBlock";
     if (!self.delegate)
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
+    
+    if (!block) {
+        [self.handlers removeObjectForKey:kAlertViewDidDismissBlockKey];
+        return;
+    }
     
     block = BK_AUTORELEASE([block copy]);
     [self.handlers setObject:block forKey:kAlertViewDidDismissBlockKey];

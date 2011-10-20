@@ -37,9 +37,14 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     
     NSAssert(title.length, @"A button without a title cannot be added to an action sheet.");
     NSInteger index = [self addButtonWithTitle:title];
+
+    id key = [NSNumber numberWithInteger:index];
     
-    block = BK_AUTORELEASE([block copy]);
-    [self.handlers setObject:block forKey:[NSNumber numberWithInteger:index]];
+    if (block) {
+        block = BK_AUTORELEASE([block copy]);
+        [self.handlers setObject:block forKey:key];
+    } else
+        [self.handlers removeObjectForKey:key];
     
     return index;
 }
@@ -53,8 +58,13 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     NSInteger index = [self addButtonWithTitle:title];
     self.destructiveButtonIndex = index;
     
-    block = BK_AUTORELEASE([block copy]);    
-    [self.handlers setObject:block forKey:[NSNumber numberWithInteger:index]];
+    id key = [NSNumber numberWithInteger:index];
+    
+    if (block) {
+        block = BK_AUTORELEASE([block copy]);
+        [self.handlers setObject:block forKey:key];
+    } else
+        [self.handlers removeObjectForKey:key];
     
     return index;
 }
@@ -72,9 +82,14 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     if (title)
         index = [self addButtonWithTitle:title];
     
-    block = BK_AUTORELEASE([block copy]);
-    [self.handlers setObject:block forKey:[NSNumber numberWithInteger:index]];
     self.cancelButtonIndex = index;
+    id key = [NSNumber numberWithInteger:index];
+    
+    if (block) {
+        block = BK_AUTORELEASE([block copy]);
+        [self.handlers setObject:block forKey:key];
+    } else
+        [self.handlers removeObjectForKey:key];
     
     return index;
 }
@@ -106,6 +121,11 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     } else {
         NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
         
+        if (!block) {
+            [self.handlers removeObjectForKey:key];
+            return;
+        }
+        
         block = BK_AUTORELEASE([block copy]);
         [self.handlers setObject:block forKey:key];
     }
@@ -121,6 +141,11 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
+    if (!block) {
+        [self.handlers removeObjectForKey:kActionSheetWillShowBlockKey];
+        return;
+    }
+    
     block = BK_AUTORELEASE([block copy]);
     [self.handlers setObject:block forKey:kActionSheetWillShowBlockKey];
 }
@@ -134,6 +159,11 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     if (!self.delegate)
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
+    
+    if (!block) {
+        [self.handlers removeObjectForKey:kActionSheetDidShowBlockKey];
+        return;
+    }
     
     block = BK_AUTORELEASE([block copy]);
     [self.handlers setObject:block forKey:kActionSheetDidShowBlockKey];
@@ -149,6 +179,11 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
     
+    if (!block) {
+        [self.handlers removeObjectForKey:kActionSheetWillDismissBlockKey];
+        return;
+    }
+    
     block = BK_AUTORELEASE([block copy]);
     [self.handlers setObject:block forKey:kActionSheetWillDismissBlockKey];
 }
@@ -162,6 +197,11 @@ static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock
     if (!self.delegate)
         self.delegate = self;
     NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
+
+    if (!block) {
+        [self.handlers removeObjectForKey:kActionSheetDidDismissBlockKey];
+        return;
+    }
     
     block = BK_AUTORELEASE([block copy]);
     [self.handlers setObject:block forKey:kActionSheetDidDismissBlockKey];
