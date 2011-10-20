@@ -13,7 +13,7 @@ static char *kSharedDelegateKey = "BKDelegate";
 + (id)shared {
     id proxyDelegate = objc_getAssociatedObject([self targetClass], kSharedDelegateKey);
     if (!proxyDelegate) {
-        proxyDelegate = [[self class] new];
+        proxyDelegate = BK_AUTORELEASE([[self class] new]);
         objc_setAssociatedObject([self targetClass], kSharedDelegateKey, proxyDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return proxyDelegate;
