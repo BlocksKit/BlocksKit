@@ -3,6 +3,8 @@
 //  %PROJECT
 //
 
+#import "BKGlobals.h"
+
 typedef void (^BKMessageComposeBlock) (MessageComposeResult result);
 
 /** MFMessageComposeViewController with block callback in addition to delegation.
