@@ -37,7 +37,8 @@ This is recommended, but we don't have a release yet.
 
 * Download a release of BlocksKit or clone the repository and build a framework target.  Locate BlocksKit.framework in the Products folder of the Files and Folders pane.
 * Move BlocksKit.framework to your project's folder.  From there, simply drag it into your project.
-* Insert `#import <BlocksKit/BlocksKit.h>` in any header file, including your project's prefix header.
+* In the build settings of your target or project, change "All Linker Flags" to `-ObjC`.
+* Insert `#import <BlocksKit/BlocksKit.h>` in any header file, including your project's prefix header if you'd like.
 
 ### Development Build
 
@@ -46,8 +47,8 @@ If you want to work with a new, untagged checkout of BlocksKit, you can build ag
 * Clone the repository.
 * In Xcode 4, click-and-drag (or add using File > Add Files to Project) the BlocksKit project into a project or workspace.
 * In the build phases of a target, add libBlocksKit.a to the "Target Dependencies" and "Link Binary with Libraries".
-* In the build settings, change "All Linker Flags" to `-ObjC -all_load` and "Header Search Paths" to `$(BUILT_PRODUCTS_DIR)/../BlocksKit/**`.
- * If you are using Xcode 4.2 with the iOS 5.0 SDK on a **non-ARC** target, set "All Linker Flags" to `-ObjC -all_load -fobjc-arc`.  
+* In the build settings, change "All Linker Flags" to `-ObjC` and "Header Search Paths" to `$(BUILT_PRODUCTS_DIR)/../BlocksKit/**`.
+ * If you are using Xcode 4.2 with the iOS 5.0 SDK on a **non-ARC** target, set "All Linker Flags" to `-ObjC -fobjc-arc`.  
 * In any header file, insert `#import "BlocksKit/BlocksKit.h"`.  It is not recommended to insert the import statement in your project prefix, as it might will break Xcode 4's Code Sense for the entire project.
 
 
