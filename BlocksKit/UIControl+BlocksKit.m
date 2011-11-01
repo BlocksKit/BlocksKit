@@ -87,7 +87,7 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
     if (!handlers)
         return;
     
-    [handlers each:^(BKControlWrapper *sender) {
+    [handlers each:^(id sender) {
         [self removeTarget:sender action:NULL forControlEvents:controlEvents];
     }];
     

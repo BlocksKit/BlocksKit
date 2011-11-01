@@ -1381,6 +1381,11 @@
 		6CC40A331447B58600E47595 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				"ARCHS[sdk=iphonesimulator*]" = i386;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CONTENTS_FOLDER_PATH = "$(WRAPPER_NAME)/Versions/$(FRAMEWORK_VERSION)";
 				DEAD_CODE_STRIPPING = NO;
@@ -1406,6 +1411,11 @@
 		6CC40A341447B58600E47595 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				"ARCHS[sdk=iphonesimulator*]" = i386;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CONTENTS_FOLDER_PATH = "$(WRAPPER_NAME)/Versions/$(FRAMEWORK_VERSION)";
 				DEAD_CODE_STRIPPING = NO;

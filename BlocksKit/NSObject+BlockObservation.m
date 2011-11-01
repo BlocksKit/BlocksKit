@@ -105,9 +105,8 @@ static dispatch_queue_t BKObserverMutationQueue() {
 - (void)removeAllBlockObservers {
     dispatch_async(BKObserverMutationQueue(), ^{
         NSMutableDictionary *observationDictionary = [self associatedValueForKey:kObserverBlocksKey];
-        [observationDictionary each:^(id key, BKObserver *trampoline) {
-            NSString *keyPath = trampoline.keyPath;
-            [self removeObserver:trampoline forKeyPath:keyPath];
+        [observationDictionary each:^(id key, id trampoline) {
+            [self removeObserver:trampoline forKeyPath:[trampoline keyPath]];
         }];
         [self associateValue:nil withKey:kObserverBlocksKey];
     });
