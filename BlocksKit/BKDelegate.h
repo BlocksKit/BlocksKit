@@ -3,6 +3,8 @@
 //  %PROJECT
 //
 
+#import "BKGlobals.h"
+
 @interface BKDelegate : NSObject
 
 + (id)shared;
