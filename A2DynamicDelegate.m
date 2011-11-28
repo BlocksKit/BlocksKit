@@ -140,10 +140,23 @@
 
 - (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) aProtocol
 {
-	id dynamicDelegate = [A2DynamicDelegate dynamicDelegateForProtocol: aProtocol];
+	/**
+	 * Storing the dynamic delegate as an associated object of the delegating
+	 * object not only allows us to later retrieve the delegate, but it also
+	 * creates a strong relationship to the delegate. Since delegates are weak
+	 * references on the part of the delegating object, a dynamic delegate
+	 * would be deallocated immediately after its declaring scope ends.
+	 * Therefore, this strong relationship is required to ensure that the
+	 * delegate's lifetime is at least as long as that of the delegating object.
+	 **/
 	
-	// Ensure the delegate's lifetime is at least as long as that of the delegating object
-	objc_setAssociatedObject(self, &aProtocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	id dynamicDelegate = objc_getAssociatedObject(self, &aProtocol);
+	
+	if (!dynamicDelegate)
+	{
+		dynamicDelegate = [A2DynamicDelegate dynamicDelegateForProtocol: aProtocol];
+		objc_setAssociatedObject(self, &aProtocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	}
 	
 	return dynamicDelegate;
 }
