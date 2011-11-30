@@ -12,7 +12,7 @@
 #import "A2DynamicDelegate.h"
 
 #if __has_attribute(objc_arc)
-	#error "At present, 'A2DynamicDelegate.m' must be compiled without ARC (add the '-fno-objc-arc' compile flag)."
+	#error "At present, 'A2DynamicDelegate.m' must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
 #endif
 
 @interface A2DynamicDelegate ()
