@@ -15,6 +15,10 @@
 	#error "At present, 'A2DynamicDelegate.m' must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
 #endif
 
+static id a2_implementationForSelector(A2DynamicDelegate *dd, SEL aSelector, BOOL isClassMethod);
+static void a2_implementSelectorWithBlock(A2DynamicDelegate *dd, SEL aSelector, BOOL isClassMethod, id block);
+static void a2_removeImplementationForSelector(A2DynamicDelegate *dd, SEL aSelector, BOOL isClassMethod);
+
 @interface A2DynamicDelegate ()
 
 @property (nonatomic, assign) Protocol *protocol;
@@ -39,72 +43,12 @@
 	Class cls = objc_allocateClassPair([A2DynamicDelegate class], subclassName.UTF8String, 0);
 	NSAssert(cls, @"Could not allocate A2DynamicDelegate subclass");
 	
-	BOOL success = class_addProtocol(cls, aProtocol);
-	NSAssert1(success, @"Could not add protocol <%s> to A2DynamicDelegate subclass", protocol_getName(aProtocol));
-	
 	objc_registerClassPair(cls);
 	
 	A2DynamicDelegate *delegate = [[cls new] autorelease];
 	delegate.protocol = aProtocol;
 	
 	return delegate;
-}
-
-- (BOOL) implementSelector: (SEL) aSelector withBlock: (id) block
-{
-	NSAssert1(block, @"%s requires a non-nil block", _cmd);
-	NSAssert1(aSelector, @"%s requires a non-nil aSelector", _cmd);
-		
-	// Maybe it's a required method...
-	struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, aSelector, YES, YES);
-	
-	// Or not...
-	if (!methodDescription.name)
-	{
-		methodDescription = protocol_getMethodDescription(self.protocol, aSelector, NO, YES);
-	}
-
-	const char *types = methodDescription.types;
-	
-	// We need that type encoding
-	NSAssert2(types, @"Method %s not found in protocol <%s>", aSelector, protocol_getName(self.protocol));
-
-	// Copy the block to the heap.
-	block = [[block copy] autorelease];
-	
-	// Get the implementation trampoline.
-	IMP implementation = imp_implementationWithBlock(block);
-	
-	// Add the trampoline as our class's method.
-	return class_addMethod(self.class, aSelector, implementation, types);
-}
-- (BOOL) removeImplementationForSelector: (SEL) aSelector
-{
-	IMP implementation = [self methodForSelector: aSelector];
-	BOOL didRemovedBlock = imp_removeBlock(implementation);
-	
-	// Implementing a method with the `(IMP) _objc_msgForward` is the same as removing it
-	Method method = class_getInstanceMethod(self.class, aSelector);
-	method_setImplementation(method, _objc_msgForward);
-	
-	BOOL didSetImplementation = (_objc_msgForward == class_getMethodImplementation(self.class, aSelector));
-	
-	return (didRemovedBlock && didSetImplementation);
-}
-
-- (id) implementationForSelector: (SEL) aSelector
-{
-	// Get the implementation trampoline.
-	IMP implementation = [self methodForSelector: aSelector];
-	
-	// Get the block from the trampoline.
-	id block = imp_getBlock(implementation);
-	
-	// Return the block
-	if (block)
-		return [[block copy] autorelease];
-	else
-		return nil;
 }
 
 - (NSString *) description
@@ -121,6 +65,89 @@
 	
 	// Dispose of unique A2DynamicDelegate subclass
 	objc_disposeClassPair(self.class);
+}
+- (void) setProtocol: (Protocol *) protocol
+{
+	NSAssert(!_protocol || !protocol, @"A2DynamicDelegate protocol may only be set once");
+	_protocol = protocol;
+	
+	if (!protocol)
+		return;
+	
+	BOOL success = class_addProtocol(self.class, protocol);
+	NSAssert2(success, @"Could not add protocol <%s> to %@", protocol_getName(protocol), self);
+	
+	unsigned int i, count;
+	objc_property_t *properties = protocol_copyPropertyList(protocol, &count);
+	
+	for (i = 0; i < count; ++i)
+	{
+		objc_property_t property = properties[i];
+		
+		const char *name = property_getName(property);
+		unsigned int attributeCount;
+		objc_property_attribute_t *attributes = property_copyAttributeList(property, &attributeCount);
+		
+		BOOL success = class_addProperty(self.class, name, attributes, attributeCount);
+		NSAssert2(success, @"Could not add property %s to %@", name, self);
+		
+		free(attributes);
+	}
+	
+	free(properties);
+}
+
+#pragma mark - Protocol Instance Methods
+
+- (id) implementationForSelector: (SEL) aSelector
+{
+	NSAssert1(aSelector, @"%s requires a non-nil aSelector", _cmd);
+	return a2_implementationForSelector(self, aSelector, NO);
+}
+
+- (void) implementSelector: (SEL) aSelector withBlock: (id) block
+{
+	NSAssert1(aSelector, @"%s requires a non-nil aSelector", _cmd);
+	NSAssert1(block, @"%s requires a non-nil block", _cmd);
+	a2_implementSelectorWithBlock(self, aSelector, NO, block);
+}
+- (void) removeImplementationForSelector: (SEL) aSelector
+{
+	NSAssert1(aSelector, @"%s requires a non-nil aSelector", _cmd);
+	a2_removeImplementationForSelector(self, aSelector, NO);
+}
+
+#pragma mark - Protocol Class Methods
+
+- (id) implementationForClassSelector: (SEL) aSelector
+{
+	NSAssert1(aSelector, @"%s requires a non-nil aSelector", _cmd);
+	return a2_implementationForSelector(self, aSelector, YES);
+}
+
+- (void) implementClassSelector: (SEL) aSelector withBlock: (id) block
+{
+	NSAssert1(aSelector, @"%s requires a non-nil aSelector", _cmd);
+	NSAssert1(block, @"%s requires a non-nil block", _cmd);
+	a2_implementSelectorWithBlock(self, aSelector, YES, block);
+}
+- (void) removeImplementationForClassSelector: (SEL) aSelector
+{
+	NSAssert1(aSelector, @"%s requires a non-nil aSelector", _cmd);
+	a2_removeImplementationForSelector(self, aSelector, YES);
+}
+
+#pragma mark - Protocol Properties
+
+- (void *) valueForProperty: (NSString *) propertyName
+{
+	void *outValue = NULL;
+	object_getInstanceVariable(self, propertyName.UTF8String, &outValue);
+	return outValue;
+}
+- (void) setValue: (void *) value forProperty: (NSString *) propertyName
+{
+	object_setInstanceVariable(self, propertyName.UTF8String, value);
 }
 
 @end
@@ -160,3 +187,75 @@
 }
 
 @end
+
+static id a2_implementationForSelector(A2DynamicDelegate *dd, SEL aSelector, BOOL isClassMethod)
+{
+	// Get class (but if class method, use meta-class).
+	Class cls = dd.class;
+	if (isClassMethod) cls = object_getClass(cls);
+	
+	// Get the implementation trampoline.
+	IMP implementation = [cls methodForSelector: aSelector];
+	
+	// Get the block from the trampoline.
+	id block = imp_getBlock(implementation);
+	
+	// Return the block
+	if (block)
+		return [[block copy] autorelease];
+	else
+		return nil;
+}
+static void a2_implementSelectorWithBlock(A2DynamicDelegate *dd, SEL aSelector, BOOL isClassMethod, id block)
+{
+	// Maybe it's a required method...
+	struct objc_method_description methodDescription = protocol_getMethodDescription(dd.protocol, aSelector, YES /* isRequiredMethod */, !isClassMethod /* isInstanceMethod */);
+	
+	// Or not...
+	if (!methodDescription.name)
+	{
+		methodDescription = protocol_getMethodDescription(dd.protocol, aSelector, NO /* isRequiredMethod */, !isClassMethod /* isInstanceMethod */);
+	}
+	
+	const char *types = methodDescription.types;
+	
+	// We need that type encoding
+	NSCAssert2(types, @"Method %s not found in protocol <%s>", aSelector, protocol_getName(dd.protocol));
+	
+	// Copy the block to the heap.
+	block = [[block copy] autorelease];
+	
+	// Get the implementation trampoline.
+	IMP implementation = imp_implementationWithBlock(block);
+	
+	BOOL success;
+	
+	if (isClassMethod)
+	{
+		// Add the trampoline as a class method.
+		Class metaClass = object_getClass(dd.class);
+		success = class_addMethod(metaClass, aSelector, implementation, types);
+	}
+	else
+	{
+		// Add the trampoline as an instance method.
+		success = class_addMethod(dd.class, aSelector, implementation, types);
+	}
+	
+	NSCAssert3(success, @"Could not add %s method to %@ for protocol <%s>", isClassMethod ? "class" : "method", dd, protocol_getName(dd.protocol));
+}
+static void a2_removeImplementationForSelector(A2DynamicDelegate *dd, SEL aSelector, BOOL isClassMethod)
+{
+	// Get class (but if class method, use meta-class).
+	Class cls = dd.class;
+	if (isClassMethod) cls = object_getClass(cls);
+	
+	Method method = class_getInstanceMethod(cls, aSelector);
+	
+	// Remove the block from the trampoline.
+	IMP implementation = method_getImplementation(method);
+	imp_removeBlock(implementation);
+	
+	// Implementing a method with the `(IMP) _objc_msgForward` is the same as removing it
+	method_setImplementation(method, _objc_msgForward);
+}

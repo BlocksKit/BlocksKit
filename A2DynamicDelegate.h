@@ -10,10 +10,24 @@
 
 @interface A2DynamicDelegate : NSObject
 
-- (BOOL) implementSelector: (SEL) aSelector withBlock: (id) block;
-- (BOOL) removeImplementationForSelector: (SEL) aSelector;
+#pragma mark - Protocol Instance Methods
 
 - (id) implementationForSelector: (SEL) aSelector;
+
+- (void) implementSelector: (SEL) aSelector withBlock: (id) block;
+- (void) removeImplementationForSelector: (SEL) aSelector;
+
+#pragma mark - Protocol Class Methods
+
+- (id) implementationForClassSelector: (SEL) aSelector;
+
+- (void) implementClassSelector: (SEL) aSelector withBlock: (id) block;
+- (void) removeImplementationForClassSelector: (SEL) aSelector;
+
+#pragma mark - Protocol Properties
+
+- (void *) valueForProperty: (NSString *) propertyName;
+- (void) setValue: (void *) value forProperty: (NSString *) propertyName;
 
 @end
 
