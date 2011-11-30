@@ -98,7 +98,7 @@ static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
     
     BKProgressBlock block = connection.downloadBlock;
     if (block && connection.bk_response && connection.bk_response.expectedContentLength != NSURLResponseUnknownLength)
-        block(connection.bk_responseLength / connection.bk_response.expectedContentLength);
+        block( (float)connection.bk_responseLength / (float)connection.bk_response.expectedContentLength);
 
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveData:)]) {
         [connection.delegate connection:connection didReceiveData:data];
@@ -121,7 +121,7 @@ static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
     
     BKProgressBlock block = connection.uploadBlock;
     if (block)
-        block(totalBytesWritten/totalBytesExpectedToWrite);
+        block((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
 }
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
