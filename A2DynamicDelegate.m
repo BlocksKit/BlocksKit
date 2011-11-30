@@ -17,7 +17,7 @@
 
 @interface A2DynamicDelegate ()
 
-@property (nonatomic, strong) Protocol *protocol;
+@property (nonatomic, assign) Protocol *protocol;
 
 + (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) aProtocol; // Designated initializer
 
@@ -117,8 +117,6 @@
 
 - (void) dealloc
 {
-	self.protocol = nil;
-	
 	[super dealloc];
 	
 	// Dispose of unique A2DynamicDelegate subclass
