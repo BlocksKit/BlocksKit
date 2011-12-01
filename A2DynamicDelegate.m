@@ -143,7 +143,7 @@ static void a2_removeImplementationForSelector(A2DynamicDelegate *dd, SEL aSelec
 {
 #ifndef NS_BLOCK_ASSERTIONS
 	objc_property_t property = protocol_getProperty(self.protocol, propertyName.UTF8String, YES, YES);
-	if (!propertyName) property = protocol_getProperty(self.protocol, propertyName.UTF8String, NO, YES);
+	if (!property) property = protocol_getProperty(self.protocol, propertyName.UTF8String, NO, YES);
 	
 	NSAssert2(property, @"Property \"%@\" is not a valid property of protocol <%s>", propertyName, protocol_getName(self.protocol));
 #endif
@@ -156,7 +156,7 @@ static void a2_removeImplementationForSelector(A2DynamicDelegate *dd, SEL aSelec
 {
 #ifndef NS_BLOCK_ASSERTIONS
 	objc_property_t property = protocol_getProperty(self.protocol, propertyName.UTF8String, YES, YES);
-	if (!propertyName) property = protocol_getProperty(self.protocol, propertyName.UTF8String, NO, YES);
+	if (!property) property = protocol_getProperty(self.protocol, propertyName.UTF8String, NO, YES);
 	
 	NSAssert2(property, @"Property \"%@\" is not a valid property of protocol <%s>", propertyName, protocol_getName(self.protocol));
 #endif
