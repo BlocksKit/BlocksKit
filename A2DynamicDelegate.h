@@ -33,7 +33,7 @@
 
 @interface NSObject (A2DynamicDelegate)
 
-// Assumes protocol name is "ClassName + Delegate
+// Assumes protocol name is "ClassName" + Delegate
 - (A2DynamicDelegate *) dynamicDelegate;
 
 // Designated initializer
