@@ -23,7 +23,7 @@
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"A2DynamicDelegate" message: @"This alert view has a dynamic delegate! \U0001f604" delegate: nil cancelButtonTitle: @"Meh\u2026" otherButtonTitles: @"OH HUZZAH!", nil];
 	
 	A2DynamicDelegate *delegate = [alertView dynamicDelegate];
-	[delegate implementSelector: @selector(alertView:willDismissWithButtonIndex:) withBlock: ^(A2DynamicDelegate *_delegate, UIAlertView *alertView, NSInteger buttonIndex) {
+	[delegate implementMethod: @selector(alertView:willDismissWithButtonIndex:) withBlock: ^(A2DynamicDelegate *_delegate, UIAlertView *alertView, NSInteger buttonIndex) {
 		NSLog(@"You pushed button #%d", buttonIndex);
 	}];
 

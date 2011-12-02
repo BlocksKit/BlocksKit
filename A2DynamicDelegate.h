@@ -12,31 +12,34 @@
 
 #pragma mark - Protocol Instance Methods
 
-- (id) implementationForSelector: (SEL) aSelector;
+- (id) blockImplementationForMethod: (SEL) selector;
 
-- (void) implementSelector: (SEL) aSelector withBlock: (id) block;
-- (void) removeImplementationForSelector: (SEL) aSelector;
+- (void) implementMethod: (SEL) selector withBlock: (id) block;
+- (void) removeBlockImplementationForMethod: (SEL) selector;
 
 #pragma mark - Protocol Class Methods
 
-- (id) implementationForClassSelector: (SEL) aSelector;
+- (id) blockImplementationForClassMethod: (SEL) selector;
 
-- (void) implementClassSelector: (SEL) aSelector withBlock: (id) block;
-- (void) removeImplementationForClassSelector: (SEL) aSelector;
+- (void) implementClassMethod: (SEL) selector withBlock: (id) block;
+- (void) removeBlockImplementationForClassMethod: (SEL) selector;
 
 #pragma mark - Protocol Properties
 
-- (void *) valueForProperty: (NSString *) propertyName;
-- (void) setValue: (void *) value forProperty: (NSString *) propertyName;
+- (void *) valueForProtocolProperty: (NSString *) propertyName;
+- (void) setValue: (void *) value forProtocolProperty: (NSString *) propertyName;
 
 @end
 
 @interface NSObject (A2DynamicDelegate)
 
-// Assumes protocol name is "ClassName" + Delegate
+// Assumes protocol name is "Class ## DataSource"
+- (A2DynamicDelegate *) dynamicDataSource;
+
+// Assumes protocol name is "Class ## Delegate"
 - (A2DynamicDelegate *) dynamicDelegate;
 
 // Designated initializer
-- (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) aProtocol;
+- (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol;
 
 @end
