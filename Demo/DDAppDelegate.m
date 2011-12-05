@@ -15,7 +15,10 @@
 
 - (BOOL) application: (UIApplication *) application didFinishLaunchingWithOptions: (NSDictionary *) launchOptions
 {
-	self.window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
+	UIWindow *window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
+	self.window = window;
+	[window release];
+	
 	// Override point for customization after application launch.
 	self.window.backgroundColor = [UIColor whiteColor];
 	[self.window makeKeyAndVisible];
@@ -26,7 +29,12 @@
 	[delegate implementMethod: @selector(alertView:willDismissWithButtonIndex:) withBlock: ^(A2DynamicDelegate *_delegate, UIAlertView *alertView, NSInteger buttonIndex) {
 		NSLog(@"You pushed button #%d", buttonIndex);
 	}];
-
+	
+	[delegate implementMethod: @selector(alertViewShouldEnableFirstOtherButton:) withBlock: ^(A2DynamicDelegate *_delegate, UIAlertView *alertView) {
+		NSLog(@"Should I? %@", alertView);
+		return YES;
+	}];
+	
 	alertView.delegate = delegate;
 	
 	[alertView show];
