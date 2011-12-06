@@ -299,33 +299,6 @@ static void *BlockImpl(id block);
 	[self.blockMap removeObjectForKey: DICT_KEY(selector, NO)];
 }
 
-#pragma mark - Protocol Properties
-
-- (void *) valueForProtocolProperty: (NSString *) propertyName
-{
-#ifndef NS_BLOCK_ASSERTIONS
-	objc_property_t property = protocol_getProperty(self.protocol, propertyName.UTF8String, YES, YES);
-	if (!property) property = protocol_getProperty(self.protocol, propertyName.UTF8String, NO, YES);
-	
-	NSAssert2(property, @"Property \"%@\" is not a valid property of protocol <%s>", propertyName, protocol_getName(self.protocol));
-#endif
-	
-	void *outValue = NULL;
-	object_getInstanceVariable(self, propertyName.UTF8String, &outValue);
-	return outValue;
-}
-- (void) setValue: (void *) value forProtocolProperty: (NSString *) propertyName
-{
-#ifndef NS_BLOCK_ASSERTIONS
-	objc_property_t property = protocol_getProperty(self.protocol, propertyName.UTF8String, YES, YES);
-	if (!property) property = protocol_getProperty(self.protocol, propertyName.UTF8String, NO, YES);
-	
-	NSAssert2(property, @"Property \"%@\" is not a valid property of protocol <%s>", propertyName, protocol_getName(self.protocol));
-#endif
-	
-	object_setInstanceVariable(self, propertyName.UTF8String, value);
-}
-
 #pragma mark - Responds To Selector
 
 + (BOOL) instancesRespondToSelector: (SEL) selector

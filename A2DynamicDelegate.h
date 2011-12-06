@@ -24,11 +24,6 @@
 - (void) implementClassMethod: (SEL) selector withBlock: (id) block;
 - (void) removeBlockImplementationForClassMethod: (SEL) selector;
 
-#pragma mark - Protocol Properties
-
-- (void *) valueForProtocolProperty: (NSString *) propertyName;
-- (void) setValue: (void *) value forProtocolProperty: (NSString *) propertyName;
-
 @end
 
 @interface NSObject (A2DynamicDelegate)
