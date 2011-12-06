@@ -15,9 +15,19 @@
 	#error "At present, 'A2DynamicDelegate.m' must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
 #endif
 
-static id a2_blockImplementationForMethod(A2DynamicDelegate *dd, SEL selector, BOOL isClassMethod);
-static void a2_implementMethodWithBlock(A2DynamicDelegate *dd, SEL selector, BOOL isClassMethod, id block);
-static void a2_removeBlockImplementationForMethod(A2DynamicDelegate *dd, SEL selector, BOOL isClassMethod);
+#define DICT_KEY(selector, isClassMethod) ([NSString stringWithFormat: @"%c%s", (isClassMethod) ? '+' : '-', sel_getName(selector)])
+
+static void *A2BlockMapKey;
+static void *A2ProtocolKey;
+
+static const char *BlockSig(id blockObj);
+static void *BlockImpl(id block);
+
+@interface NSInvocation ()
+
+- (void) invokeUsingIMP: (IMP)imp;
+
+@end
 
 @interface A2DynamicDelegate ()
 
@@ -25,11 +35,17 @@ static void a2_removeBlockImplementationForMethod(A2DynamicDelegate *dd, SEL sel
 
 + (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol; // Designated initializer
 
++ (NSMutableDictionary *) blockMap;
+- (NSMutableDictionary *) blockMap;
+
++ (Protocol *) protocol;
+
++ (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod;
++ (void) setProtocol: (Protocol *) protocol;
+
 @end
 
 @implementation A2DynamicDelegate
-
-@synthesize protocol = _protocol;
 
 + (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol
 {
@@ -66,16 +82,135 @@ static void a2_removeBlockImplementationForMethod(A2DynamicDelegate *dd, SEL sel
 	// Dispose of unique A2DynamicDelegate subclass
 	objc_disposeClassPair(self.class);
 }
-- (void) setProtocol: (Protocol *) protocol
+
+#pragma mark - Block Map
+
++ (NSMutableDictionary *) blockMap
 {
-	NSAssert(!_protocol || !protocol, @"A2DynamicDelegate protocol may only be set once");
-	_protocol = protocol;
+	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2BlockMapKey);
+	if (!blockMap)
+	{
+		blockMap = [NSMutableDictionary dictionary];
+		objc_setAssociatedObject(self, &A2BlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	}
+	
+	return blockMap;
+}
+- (NSMutableDictionary *) blockMap
+{
+	return [self.class blockMap];
+}
+
+#pragma mark - Forward Invocation
+
++ (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod
+{
+	SEL selector = fwdInvocation.selector;
+	id block = [self.blockMap objectForKey: DICT_KEY(selector, NO)];
+	NSParameterAssert(block);
+	
+	const char *types = BlockSig(block);
+	NSMethodSignature *sig = [NSMethodSignature signatureWithObjCTypes: types];
+	
+	NSInvocation *invocation = [NSInvocation invocationWithMethodSignature: sig];
+	[invocation setTarget: block];
+	
+	NSMethodSignature *fwdSig = fwdInvocation.methodSignature;
+	NSUInteger i, argc = fwdSig.numberOfArguments;
+	for (i = 2; i < argc; ++i)
+	{
+		const char *argType = [fwdSig getArgumentTypeAtIndex: i];
+		NSString *tmpEncoding = [NSString stringWithFormat: @"%s@:", argType];
+		NSMethodSignature *tmpSig = [NSMethodSignature signatureWithObjCTypes: tmpEncoding.UTF8String];
+		NSUInteger length = tmpSig.methodReturnLength;
+		
+		void *argBufer = malloc(length);
+		[fwdInvocation getArgument: argBufer atIndex: i];
+		
+		NSData *argData = [NSData dataWithBytesNoCopy: argBufer length: length];
+		[invocation setArgument: (void *) argData.bytes atIndex: i - 1];
+	}
+	
+	[invocation invokeUsingIMP: BlockImpl(block)];
+	
+	NSUInteger returnLength = fwdSig.methodReturnLength;
+	if (returnLength)
+	{
+		void *returnBuffer = malloc(returnLength);
+		[invocation getReturnValue: returnBuffer];
+		
+		NSData *returnData = [NSData dataWithBytesNoCopy: returnBuffer length: returnLength];
+		[fwdInvocation setReturnValue: (void *) returnData.bytes];
+	}
+}
++ (void) forwardInvocation: (NSInvocation *) fwdInvocation
+{
+	[self forwardInvocation: fwdInvocation fromClass: YES];
+}
+- (void) forwardInvocation: (NSInvocation *) fwdInvocation
+{
+	[self.class forwardInvocation: fwdInvocation fromClass: NO];
+}
+
+#pragma mark - Method Signature
+
++ (NSMethodSignature *) instanceMethodSignatureForSelector: (SEL) selector
+{
+	NSMethodSignature *sig = [super instanceMethodSignatureForSelector: selector];
+	if (!sig)
+	{
+		struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, NO);
+		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, NO);
+		
+		const char *types = methodDescription.types;
+		NSAssert2(types, @"Instance method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
+		
+		sig = [NSMethodSignature signatureWithObjCTypes: types];
+	}
+	
+	return sig;
+}
++ (NSMethodSignature *) methodSignatureForSelector: (SEL) selector
+{
+	NSMethodSignature *sig = [super instanceMethodSignatureForSelector: selector];
+	if (!sig)
+	{
+		struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, YES);
+		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, YES);
+		
+		const char *types = methodDescription.types;
+		NSAssert2(types, @"Class method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
+		
+		sig = [NSMethodSignature signatureWithObjCTypes: types];
+	}
+	
+	return sig;
+}
+- (NSMethodSignature *) methodSignatureForSelector: (SEL) selector
+{
+	return [super methodSignatureForSelector: selector] ?: [self.class instanceMethodSignatureForSelector: selector];
+}
+
+#pragma mark - Protocol
+
++ (Protocol *) protocol
+{
+	return objc_getAssociatedObject(self, &A2ProtocolKey);
+}
++ (void) setProtocol: (Protocol *) protocol
+{
+#ifndef NS_BLOCK_ASSERTIONS
+	Protocol *existing = objc_getAssociatedObject(self, &A2ProtocolKey);
+	NSAssert(!existing || !protocol, @"A2DynamicDelegate protocol may only be set once");
+#endif
 	
 	if (!protocol)
 		return;
 	
+	objc_setAssociatedObject(self, &A2ProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
+	
 	BOOL success = class_addProtocol(self.class, protocol);
-	NSAssert2(success, @"Could not add protocol <%s> to %@", protocol_getName(protocol), self);
+	NSAssert2(success, @"Protocol <%s> could not be added to %@", protocol_getName(protocol), self);
 	
 	unsigned int i, count;
 	objc_property_t *properties = protocol_copyPropertyList(protocol, &count);
@@ -89,7 +224,7 @@ static void a2_removeBlockImplementationForMethod(A2DynamicDelegate *dd, SEL sel
 		objc_property_attribute_t *attributes = property_copyAttributeList(property, &attributeCount);
 		
 		BOOL success = class_addProperty(self.class, name, attributes, attributeCount);
-		NSAssert2(success, @"Could not add property %s to %@", name, self);
+		NSAssert2(success, @"Property %s could not be added to %@", name, self);
 		
 		free(attributes);
 	}
@@ -97,24 +232,13 @@ static void a2_removeBlockImplementationForMethod(A2DynamicDelegate *dd, SEL sel
 	free(properties);
 }
 
-#pragma mark - Protocol Instance Methods
-
-- (id) blockImplementationForMethod: (SEL) selector
+- (Protocol *) protocol
 {
-	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
-	return a2_blockImplementationForMethod(self, selector, NO);
+	return [self.class protocol];
 }
-
-- (void) implementMethod: (SEL) selector withBlock: (id) block
+- (void) setProtocol: (Protocol *) protocol
 {
-	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
-	NSAssert1(block, @"%s requires a non-nil block", _cmd);
-	a2_implementMethodWithBlock(self, selector, NO, block);
-}
-- (void) removeBlockImplementationForMethod: (SEL) selector
-{
-	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
-	a2_removeBlockImplementationForMethod(self, selector, NO);
+	[self.class setProtocol: protocol];
 }
 
 #pragma mark - Protocol Class Methods
@@ -122,19 +246,57 @@ static void a2_removeBlockImplementationForMethod(A2DynamicDelegate *dd, SEL sel
 - (id) blockImplementationForClassMethod: (SEL) selector
 {
 	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
-	return a2_blockImplementationForMethod(self, selector, YES);
+	
+	return [self.blockMap objectForKey: DICT_KEY(selector, YES)];
 }
 
 - (void) implementClassMethod: (SEL) selector withBlock: (id) block
 {
 	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
 	NSAssert1(block, @"%s requires a non-nil block", _cmd);
-	a2_implementMethodWithBlock(self, selector, YES, block);
+	
+#ifndef NS_BLOCK_ASSERTIONS
+	// Throws if `selector` is not found in protocol
+	[self.class methodSignatureForSelector: selector];
+#endif
+	
+	block = [[block copy] autorelease];
+	[self.blockMap setObject: block forKey: DICT_KEY(selector, YES)];
 }
 - (void) removeBlockImplementationForClassMethod: (SEL) selector
 {
 	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
-	a2_removeBlockImplementationForMethod(self, selector, YES);
+	
+	[self.blockMap removeObjectForKey: DICT_KEY(selector, YES)];
+}
+
+#pragma mark - Protocol Instance Methods
+
+- (id) blockImplementationForMethod: (SEL) selector
+{
+	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
+	
+	return [self.blockMap objectForKey: DICT_KEY(selector, NO)];
+}
+
+- (void) implementMethod: (SEL) selector withBlock: (id) block
+{
+	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
+	NSAssert1(block, @"%s requires a non-nil block", _cmd);
+	
+#ifndef NS_BLOCK_ASSERTIONS
+	// Throws if `selector` is not found in protocol
+	[self methodSignatureForSelector: selector];
+#endif
+	
+	block = [[block copy] autorelease];
+	[self.blockMap setObject: block forKey: DICT_KEY(selector, NO)];
+}
+- (void) removeBlockImplementationForMethod: (SEL) selector
+{
+	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
+	
+	[self.blockMap removeObjectForKey: DICT_KEY(selector, NO)];
 }
 
 #pragma mark - Protocol Properties
@@ -162,6 +324,21 @@ static void a2_removeBlockImplementationForMethod(A2DynamicDelegate *dd, SEL sel
 #endif
 	
 	object_setInstanceVariable(self, propertyName.UTF8String, value);
+}
+
+#pragma mark - Responds To Selector
+
++ (BOOL) instancesRespondToSelector: (SEL) selector
+{
+	return [super instancesRespondToSelector: selector] || [self.blockMap objectForKey: DICT_KEY(selector, NO)];
+}
++ (BOOL) respondsToSelector: (SEL) selector
+{
+	return [super respondsToSelector: selector] || [self.blockMap objectForKey: DICT_KEY(selector, YES)];
+}
+- (BOOL) respondsToSelector: (SEL) selector
+{
+	return [self.class instancesRespondToSelector: selector];
 }
 
 @end
@@ -213,74 +390,45 @@ static void a2_removeBlockImplementationForMethod(A2DynamicDelegate *dd, SEL sel
 
 @end
 
-static id a2_blockImplementationForMethod(A2DynamicDelegate *dd, SEL selector, BOOL isClassMethod)
+struct BlockDescriptor
 {
-	// Get class (but if class method, use meta-class).
-	Class cls = dd.class;
-	if (isClassMethod) cls = object_getClass(cls);
+	unsigned long reserved;
+	unsigned long size;
+	void *rest[1];
+};
+
+struct Block
+{
+	void *isa;
+	int flags;
+	int reserved;
+	void *invoke;
+	struct BlockDescriptor *descriptor;
+};
+
+enum {
+	BLOCK_HAS_COPY_DISPOSE = (1 << 25),
+	BLOCK_HAS_CXX_OBJ =		 (1 << 26), // Helpers have C++ code
+	BLOCK_IS_GLOBAL =		 (1 << 28),
+	BLOCK_HAS_STRET =		 (1 << 29), // IFF BLOCK_HAS_SIGNATURE
+	BLOCK_HAS_SIGNATURE =	 (1 << 30), 
+};
+
+static const char *BlockSig(id blockObj)
+{
+	struct Block *block = (void *) blockObj;
+	struct BlockDescriptor *descriptor = block->descriptor;
 	
-	// Get the implementation trampoline.
-	IMP implementation = [cls methodForSelector: selector];
+	assert(block->flags & BLOCK_HAS_SIGNATURE);
 	
-	// Get the block from the trampoline.
-	id block = imp_getBlock(implementation);
+	int index = 0;
+	if(block->flags & BLOCK_HAS_COPY_DISPOSE)
+		index += 2;
 	
-	// Return the block
-	if (block)
-		return [[block copy] autorelease];
-	else
-		return nil;
+	return descriptor->rest[index];
 }
-static void a2_implementMethodWithBlock(A2DynamicDelegate *dd, SEL selector, BOOL isClassMethod, id block)
+
+static void *BlockImpl(id block)
 {
-	// Maybe it's a required method...
-	struct objc_method_description methodDescription = protocol_getMethodDescription(dd.protocol, selector, YES /* isRequiredMethod */, !isClassMethod /* isInstanceMethod */);
-	
-	// Or not...
-	if (!methodDescription.name)
-	{
-		methodDescription = protocol_getMethodDescription(dd.protocol, selector, NO /* isRequiredMethod */, !isClassMethod /* isInstanceMethod */);
-	}
-	
-	const char *types = methodDescription.types;
-	
-	// We need that type encoding
-	NSCAssert2(types, @"Method %s not found in protocol <%s>", selector, protocol_getName(dd.protocol));
-	
-	// Copy the block to the heap.
-	block = [[block copy] autorelease];
-	
-	// Get the implementation trampoline.
-	IMP implementation = imp_implementationWithBlock(block);
-	
-	BOOL success;
-	
-	if (isClassMethod)
-	{
-		// Add the trampoline as a class method.
-		Class metaClass = object_getClass(dd.class);
-		success = class_addMethod(metaClass, selector, implementation, types);
-	}
-	else
-	{
-		// Add the trampoline as an instance method.
-		success = class_addMethod(dd.class, selector, implementation, types);
-	}
-	
-	NSCAssert4(success, @"Could not add%s method %s to %@ for protocol <%s>", isClassMethod ? " class" : "", selector, dd, protocol_getName(dd.protocol));
-}
-static void a2_removeBlockImplementationForMethod(A2DynamicDelegate *dd, SEL selector, BOOL isClassMethod)
-{
-	// Get class (but if class method, use meta-class).
-	Class cls = dd.class;
-	if (isClassMethod) cls = object_getClass(cls);
-	
-	Method method = class_getInstanceMethod(cls, selector);
-	
-	// Remove the block from the trampoline.
-	IMP implementation = method_getImplementation(method);
-	imp_removeBlock(implementation);
-	
-	// Implementing a method with the `(IMP) _objc_msgForward` is the same as removing it
-	method_setImplementation(method, _objc_msgForward);
+	return ((struct Block *) block)->invoke;
 }
