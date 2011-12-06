@@ -15,13 +15,13 @@
 	#error "At present, 'A2DynamicDelegate.m' must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
 #endif
 
-#define DICT_KEY(selector, isClassMethod) ([NSString stringWithFormat: @"%c%s", (isClassMethod) ? '+' : '-', sel_getName(selector)])
+#define DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", (isClassMethod) ? '+' : '-', sel_getName(selector)] : nil)
 
 static void *A2BlockMapKey;
 static void *A2ProtocolKey;
 
-static const char *BlockSig(id blockObj);
-static void *BlockImpl(id block);
+static const char *BlockGetSignature(id block);
+static void *BlockGetImplementation(id block);
 
 @interface NSInvocation ()
 
@@ -109,7 +109,7 @@ static void *BlockImpl(id block);
 	id block = [self.blockMap objectForKey: DICT_KEY(selector, NO)];
 	NSParameterAssert(block);
 	
-	const char *types = BlockSig(block);
+	const char *types = BlockGetSignature(block);
 	NSMethodSignature *sig = [NSMethodSignature signatureWithObjCTypes: types];
 	
 	NSInvocation *invocation = [NSInvocation invocationWithMethodSignature: sig];
@@ -131,7 +131,7 @@ static void *BlockImpl(id block);
 		[invocation setArgument: (void *) argData.bytes atIndex: i - 1];
 	}
 	
-	[invocation invokeUsingIMP: BlockImpl(block)];
+	[invocation invokeUsingIMP: BlockGetImplementation(block)];
 	
 	NSUInteger returnLength = fwdSig.methodReturnLength;
 	if (returnLength)
@@ -245,19 +245,34 @@ static void *BlockImpl(id block);
 
 - (id) blockImplementationForClassMethod: (SEL) selector
 {
-	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
-	
 	return [self.blockMap objectForKey: DICT_KEY(selector, YES)];
 }
 
 - (void) implementClassMethod: (SEL) selector withBlock: (id) block
 {
-	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
-	NSAssert1(block, @"%s requires a non-nil block", _cmd);
+	NSAssert(selector, @"Attempt to implement NULL selector");
+	NSAssert1(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
 	
 #ifndef NS_BLOCK_ASSERTIONS
 	// Throws if `selector` is not found in protocol
-	[self.class methodSignatureForSelector: selector];
+	NSMethodSignature *protoSig = [self.class methodSignatureForSelector: selector];
+	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: BlockGetSignature(block)];
+	
+	BOOL blockIsCompatible = (strcmp(protoSig.methodReturnType, blockSig.methodReturnType) == 0);
+	NSUInteger i, argc = blockSig.numberOfArguments;
+	
+	// Start at `i = 1` because the block type ("@?") and target object type ("@") will appear to be incompatible
+	for (i = 1; i < argc && blockIsCompatible; ++i)
+	{
+		// `i + 1` because the protocol method sig has an extra ":" (selector) argument
+		const char *protoArgType = [protoSig getArgumentTypeAtIndex: i + 1];
+		const char *blockArgType = [blockSig getArgumentTypeAtIndex: i];
+		
+		if (strcmp(protoArgType, blockArgType))
+			blockIsCompatible = NO;
+	}
+	
+	NSAssert1(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
 #endif
 	
 	block = [[block copy] autorelease];
@@ -265,7 +280,7 @@ static void *BlockImpl(id block);
 }
 - (void) removeBlockImplementationForClassMethod: (SEL) selector
 {
-	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
+	NSAssert(selector, @"Attempt to remove NULL selector");
 	
 	[self.blockMap removeObjectForKey: DICT_KEY(selector, YES)];
 }
@@ -274,19 +289,34 @@ static void *BlockImpl(id block);
 
 - (id) blockImplementationForMethod: (SEL) selector
 {
-	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
-	
 	return [self.blockMap objectForKey: DICT_KEY(selector, NO)];
 }
 
 - (void) implementMethod: (SEL) selector withBlock: (id) block
 {
-	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
-	NSAssert1(block, @"%s requires a non-nil block", _cmd);
+	NSAssert(selector, @"Attempt to implement NULL selector");
+	NSAssert1(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
 	
 #ifndef NS_BLOCK_ASSERTIONS
 	// Throws if `selector` is not found in protocol
-	[self methodSignatureForSelector: selector];
+	NSMethodSignature *protoSig = [self methodSignatureForSelector: selector];
+	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: BlockGetSignature(block)];
+	
+	BOOL blockIsCompatible = (strcmp(protoSig.methodReturnType, blockSig.methodReturnType) == 0);
+	NSUInteger i, argc = blockSig.numberOfArguments;
+	
+	// Start at `i = 1` because the block type ("@?") and target object type ("@") will appear to be incompatible
+	for (i = 1; i < argc && blockIsCompatible; ++i)
+	{
+		// `i + 1` because the protocol method sig has an extra ":" (selector) argument
+		const char *protoArgType = [protoSig getArgumentTypeAtIndex: i + 1];
+		const char *blockArgType = [blockSig getArgumentTypeAtIndex: i];
+		
+		if (strcmp(protoArgType, blockArgType))
+			blockIsCompatible = NO;
+	}
+	
+	NSAssert1(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
 #endif
 	
 	block = [[block copy] autorelease];
@@ -294,7 +324,7 @@ static void *BlockImpl(id block);
 }
 - (void) removeBlockImplementationForMethod: (SEL) selector
 {
-	NSAssert1(selector, @"%s requires a non-nil selector", _cmd);
+	NSAssert(selector, @"Attempt to remove NULL selector");
 	
 	[self.blockMap removeObjectForKey: DICT_KEY(selector, NO)];
 }
@@ -387,9 +417,9 @@ enum {
 	BLOCK_HAS_SIGNATURE =	 (1 << 30), 
 };
 
-static const char *BlockSig(id blockObj)
+static const char *BlockGetSignature(id _block)
 {
-	struct Block *block = (void *) blockObj;
+	struct Block *block = (void *) _block;
 	struct BlockDescriptor *descriptor = block->descriptor;
 	
 	assert(block->flags & BLOCK_HAS_SIGNATURE);
@@ -401,7 +431,7 @@ static const char *BlockSig(id blockObj)
 	return descriptor->rest[index];
 }
 
-static void *BlockImpl(id block)
+static void *BlockGetImplementation(id block)
 {
 	return ((struct Block *) block)->invoke;
 }
