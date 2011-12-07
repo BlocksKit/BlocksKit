@@ -228,11 +228,11 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDataSourceMethod: (SEL) selector
 {
 	NSDictionary *dictionary = [NSDictionary dictionaryWithObject: NSStringFromSelector(selector) forKey: propertyName];
-	[self linkDataSourceMethods: dictionary];
+	[self linkProtocol: self._dataSourceProtocol methods: dictionary];
 }
 + (void) linkDataSourceMethods: (NSDictionary *) dictionary
 {
-	[[self propertyMapForProtocol: self._dataSourceProtocol] addEntriesFromDictionary: dictionary];
+	[self linkProtocol: self._dataSourceProtocol methods: dictionary];
 }
 
 #pragma mark - Delegate
@@ -240,11 +240,11 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDelegateMethod: (SEL) selector
 {
 	NSDictionary *dictionary = [NSDictionary dictionaryWithObject: NSStringFromSelector(selector) forKey: propertyName];
-	[self linkDelegateMethods: dictionary];
+	[self linkProtocol: self._delegateProtocol methods: dictionary];
 }
 + (void) linkDelegateMethods: (NSDictionary *) dictionary
 {
-	[[self propertyMapForProtocol: self._delegateProtocol] addEntriesFromDictionary: dictionary];
+	[self linkProtocol: self._delegateProtocol methods: dictionary];
 }
 
 #pragma mark - Other Protocol
