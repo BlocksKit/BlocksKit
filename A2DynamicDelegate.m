@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 
 #import "A2DynamicDelegate.h"
-#import "A2DynamicDelegate+Private.h"
 
 #if __has_attribute(objc_arc)
 	#error "At present, 'A2DynamicDelegate.m' must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
@@ -27,6 +26,13 @@ static void *BlockGetImplementation(id block);
 @interface NSInvocation ()
 
 - (void) invokeUsingIMP: (IMP)imp;
+
+@end
+
+@interface NSObject ()
+
++ (Protocol *) _dataSourceProtocol;
++ (Protocol *) _delegateProtocol;
 
 @end
 

@@ -10,7 +10,6 @@
 
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
-#import "A2DynamicDelegate+Private.h"
 
 #if __has_attribute(objc_arc)
 	#error "At present, 'A2BlockDelegate.m' must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
@@ -32,6 +31,9 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (NSMutableDictionary *) selectorCacheForProtocol: (Protocol *) protocol;
 
 + (NSMutableSet *) protocols;
+
++ (Protocol *) _dataSourceProtocol;
++ (Protocol *) _delegateProtocol;
 
 @end
 

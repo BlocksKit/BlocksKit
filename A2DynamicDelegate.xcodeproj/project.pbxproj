@@ -22,7 +22,6 @@
 		0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegate.m; sourceTree = SOURCE_ROOT; };
 		0039561B148EE28600FA51A8 /* A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockDelegate.h; sourceTree = SOURCE_ROOT; };
 		0039561C148EE28600FA51A8 /* A2BlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockDelegate.m; sourceTree = SOURCE_ROOT; };
-		0039561E148EE90000FA51A8 /* A2DynamicDelegate+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "A2DynamicDelegate+Private.h"; sourceTree = SOURCE_ROOT; };
 		0051A03F1481BE160089CC41 /* A2DD Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A2DD Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0051A0431481BE160089CC41 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0051A0451481BE160089CC41 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -83,7 +82,6 @@
 				0039561C148EE28600FA51A8 /* A2BlockDelegate.m */,
 				0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */,
 				0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */,
-				0039561E148EE90000FA51A8 /* A2DynamicDelegate+Private.h */,
 				0051A0521481BE160089CC41 /* DDAppDelegate.h */,
 				0051A0531481BE160089CC41 /* DDAppDelegate.m */,
 				0051A04A1481BE160089CC41 /* Supporting Files */,
