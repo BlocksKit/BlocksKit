@@ -79,10 +79,7 @@ static void *BlockGetImplementation(id block);
 
 - (NSString *) description
 {
-	if (self.protocol)
-		return [NSString stringWithFormat: @"<A2DynamicDelegate[%@] %p>", NSStringFromProtocol(self.protocol), self];
-	else
-		return [NSString stringWithFormat: @"<A2DynamicDelegate %p>", self];
+	return [NSString stringWithFormat: @"<A2DynamicDelegate[%s] %p>", NSStringFromProtocol(self.protocol), self];
 }
 
 - (void) dealloc
@@ -382,12 +379,12 @@ static void *BlockGetImplementation(id block);
 	 * delegate's lifetime is at least as long as that of the delegating object.
 	 **/
 	
-	id dynamicDelegate = objc_getAssociatedObject(self, &protocol);
-	
+	id dynamicDelegate = objc_getAssociatedObject(self, protocol);
+
 	if (!dynamicDelegate)
 	{
 		dynamicDelegate = [A2DynamicDelegate dynamicDelegateForProtocol: protocol];
-		objc_setAssociatedObject(self, &protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return dynamicDelegate;
