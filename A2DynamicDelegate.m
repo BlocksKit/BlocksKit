@@ -176,7 +176,7 @@ static void *BlockGetImplementation(id block);
 }
 + (NSMethodSignature *) methodSignatureForSelector: (SEL) selector
 {
-	NSMethodSignature *sig = [super instanceMethodSignatureForSelector: selector];
+	NSMethodSignature *sig = [super methodSignatureForSelector: selector];
 	if (!sig)
 	{
 		struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, YES);
