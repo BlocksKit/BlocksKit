@@ -54,18 +54,27 @@ static void *BlockGetImplementation(id block);
 	NSString *uuid = (NSString *) CFUUIDCreateString(kCFAllocatorDefault, cfuuid);
 	CFRelease(cfuuid);
 	
+	// Generate unique class name
 	NSString *subclassName = [NSString stringWithFormat: @"A2DynamicDelegate-%@", uuid];
 	[uuid release];
 	
+	// Allocate class
 	Class cls = objc_allocateClassPair([A2DynamicDelegate class], subclassName.UTF8String, 0);
 	NSAssert1(cls, @"Could not allocate A2DynamicDelegate subclass for protocol <%s>", protocol_getName(protocol));
 	
+	// Register class
 	objc_registerClassPair(cls);
 	
-	A2DynamicDelegate *delegate = [[cls new] autorelease];
-	delegate.protocol = protocol;
+	// Set protocol and add properties
+	cls.protocol = protocol;
 	
-	return delegate;
+	return [[cls new] autorelease];
+}
+
+- (id) init
+{
+	NSAssert(![self isMemberOfClass: [A2DynamicDelegate class]], @"Tried to initialize instance of abstract class A2DynamicDelegate");
+	return [super init];
 }
 
 - (NSString *) description
