@@ -25,8 +25,10 @@
 {
 	@autoreleasepool
 	{
-		[self linkCategoryBlockProperty: @"willDismissBlock" withDelegateMethod: @selector(alertView:willDismissWithButtonIndex:)];
-		[self linkCategoryBlockProperty: @"shouldEnableFirstOtherButtonBlock" withDelegateMethod: @selector(alertViewShouldEnableFirstOtherButton:)];
+		[self linkCategoryBlockProperty: @"shouldEnableFirstOtherButtonBlock"
+					 withDelegateMethod: @selector(alertViewShouldEnableFirstOtherButton:)];
+		[self linkCategoryBlockProperty: @"willDismissBlock"
+					 withDelegateMethod: @selector(alertView:willDismissWithButtonIndex:)];
 	}
 }
 
@@ -46,17 +48,18 @@
 	self.window.backgroundColor = [UIColor whiteColor];
 	[self.window makeKeyAndVisible];
 	
-	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"A2DynamicDelegate" message: @"This alert view has a dynamic delegate! \U0001f604" delegate: nil cancelButtonTitle: @"Meh\u2026" otherButtonTitles: @"OH HUZZAH!", nil];
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"A2DynamicDelegate\n+\nA2BlockDelegate" message: @"This alert's delegate is implemented using blocks! That's so cool! \U0001f604" delegate: nil cancelButtonTitle: @"Meh\u2026" otherButtonTitles: @"HUZZAH!", nil];
 	
 	// Implements -alertViewShouldEnableFirstOtherButton:
 	alertView.shouldEnableFirstOtherButtonBlock = ^(UIAlertView *alertView) {
-		NSLog(@"Should I? %@", alertView);
+		NSLog(@"Message: %@", alertView.message);
 		return YES;
 	};
 	
 	// Implements -alertView:willDismissWithButtonIndex:
 	alertView.willDismissBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
-		NSLog(@"You pushed button #%d", buttonIndex);
+		NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex: buttonIndex]);
+		
 	};
 	
 	// Set the delegate
