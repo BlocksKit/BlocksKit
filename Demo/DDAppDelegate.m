@@ -6,8 +6,31 @@
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
 //
 
-#import "A2DynamicDelegate.h"
+#import "A2BlockDelegate.h"
 #import "DDAppDelegate.h"
+
+@interface UIAlertView (A2DynamicDelegate)
+
+@property (nonatomic, copy) BOOL (^shouldEnableFirstOtherButtonBlock)(UIAlertView *alertView);
+@property (nonatomic, copy) void (^willDismissBlock)(UIAlertView *alertView, NSInteger buttonIndex);
+
+@end
+
+@implementation UIAlertView (A2DynamicDelegate)
+
+@dynamic shouldEnableFirstOtherButtonBlock;
+@dynamic willDismissBlock;
+
++ (void) load
+{
+	@autoreleasepool
+	{
+		[self linkCategoryBlockProperty: @"willDismissBlock" withDelegateMethod: @selector(alertView:willDismissWithButtonIndex:)];
+		[self linkCategoryBlockProperty: @"shouldEnableFirstOtherButtonBlock" withDelegateMethod: @selector(alertViewShouldEnableFirstOtherButton:)];
+	}
+}
+
+@end
 
 @implementation DDAppDelegate
 
@@ -25,17 +48,19 @@
 	
 	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"A2DynamicDelegate" message: @"This alert view has a dynamic delegate! \U0001f604" delegate: nil cancelButtonTitle: @"Meh\u2026" otherButtonTitles: @"OH HUZZAH!", nil];
 	
-	A2DynamicDelegate *delegate = [alertView dynamicDelegate];
-	[delegate implementMethod: @selector(alertView:willDismissWithButtonIndex:) withBlock: ^(UIAlertView *alertView, NSInteger buttonIndex) {
-		NSLog(@"You pushed button #%d", buttonIndex);
-	}];
-	
-	[delegate implementMethod: @selector(alertViewShouldEnableFirstOtherButton:) withBlock: ^(UIAlertView *alertView) {
+	// Implements -alertViewShouldEnableFirstOtherButton:
+	alertView.shouldEnableFirstOtherButtonBlock = ^(UIAlertView *alertView) {
 		NSLog(@"Should I? %@", alertView);
 		return YES;
-	}];
+	};
 	
-	alertView.delegate = delegate;
+	// Implements -alertView:willDismissWithButtonIndex:
+	alertView.willDismissBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
+		NSLog(@"You pushed button #%d", buttonIndex);
+	};
+	
+	// Set the delegate
+	alertView.delegate = alertView.dynamicDelegate;
 	
 	[alertView show];
 	
