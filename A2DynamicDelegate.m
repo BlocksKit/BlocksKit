@@ -10,12 +10,13 @@
 #import <objc/runtime.h>
 
 #import "A2DynamicDelegate.h"
+#import "A2DynamicDelegate+Private.h"
 
 #if __has_attribute(objc_arc)
 	#error "At present, 'A2DynamicDelegate.m' must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
 #endif
 
-#define DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", (isClassMethod) ? '+' : '-', sel_getName(selector)] : nil)
+#define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", (isClassMethod) ? '+' : '-', sel_getName(selector)] : nil)
 
 static void *A2BlockMapKey;
 static void *A2ProtocolKey;
@@ -31,11 +32,6 @@ static void *BlockGetImplementation(id block);
 
 @interface A2DynamicDelegate ()
 
-@property (nonatomic, assign) Protocol *protocol;
-
-+ (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol; // Designated initializer
-
-+ (NSMutableDictionary *) blockMap;
 - (NSMutableDictionary *) blockMap;
 
 + (Protocol *) protocol;
@@ -57,7 +53,7 @@ static void *BlockGetImplementation(id block);
 	[uuid release];
 	
 	Class cls = objc_allocateClassPair([A2DynamicDelegate class], subclassName.UTF8String, 0);
-	NSAssert(cls, @"Could not allocate A2DynamicDelegate subclass");
+	NSAssert1(cls, @"Could not allocate A2DynamicDelegate subclass for protocol <%s>", protocol_getName(protocol));
 	
 	objc_registerClassPair(cls);
 	
@@ -79,8 +75,11 @@ static void *BlockGetImplementation(id block);
 {
 	[super dealloc];
 	
-	// Dispose of unique A2DynamicDelegate subclass
-	objc_disposeClassPair(self.class);
+	if (self.superclass == [A2DynamicDelegate class])
+	{
+		// Dispose of unique A2DynamicDelegate (but not A2BlockDelegate) subclass.
+		objc_disposeClassPair(self.class);
+	}
 }
 
 #pragma mark - Block Map
@@ -106,7 +105,7 @@ static void *BlockGetImplementation(id block);
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod
 {
 	SEL selector = fwdInvocation.selector;
-	id block = [self.blockMap objectForKey: DICT_KEY(selector, NO)];
+	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 	NSParameterAssert(block);
 	
 	const char *types = BlockGetSignature(block);
@@ -224,7 +223,7 @@ static void *BlockGetImplementation(id block);
 		objc_property_attribute_t *attributes = property_copyAttributeList(property, &attributeCount);
 		
 		BOOL success = class_addProperty(self.class, name, attributes, attributeCount);
-		NSAssert2(success, @"Property %s could not be added to %@", name, self);
+		NSAssert2(success, @"Property \"%s\" could not be added to %@", name, self);
 		
 		free(attributes);
 	}
@@ -245,7 +244,7 @@ static void *BlockGetImplementation(id block);
 
 - (id) blockImplementationForClassMethod: (SEL) selector
 {
-	return [self.blockMap objectForKey: DICT_KEY(selector, YES)];
+	return [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 
 - (void) implementClassMethod: (SEL) selector withBlock: (id) block
@@ -276,20 +275,20 @@ static void *BlockGetImplementation(id block);
 #endif
 	
 	block = [[block copy] autorelease];
-	[self.blockMap setObject: block forKey: DICT_KEY(selector, YES)];
+	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 - (void) removeBlockImplementationForClassMethod: (SEL) selector
 {
 	NSAssert(selector, @"Attempt to remove NULL selector");
 	
-	[self.blockMap removeObjectForKey: DICT_KEY(selector, YES)];
+	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 
 #pragma mark - Protocol Instance Methods
 
 - (id) blockImplementationForMethod: (SEL) selector
 {
-	return [self.blockMap objectForKey: DICT_KEY(selector, NO)];
+	return [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 
 - (void) implementMethod: (SEL) selector withBlock: (id) block
@@ -320,24 +319,24 @@ static void *BlockGetImplementation(id block);
 #endif
 	
 	block = [[block copy] autorelease];
-	[self.blockMap setObject: block forKey: DICT_KEY(selector, NO)];
+	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 - (void) removeBlockImplementationForMethod: (SEL) selector
 {
 	NSAssert(selector, @"Attempt to remove NULL selector");
 	
-	[self.blockMap removeObjectForKey: DICT_KEY(selector, NO)];
+	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 
 #pragma mark - Responds To Selector
 
 + (BOOL) instancesRespondToSelector: (SEL) selector
 {
-	return [super instancesRespondToSelector: selector] || [self.blockMap objectForKey: DICT_KEY(selector, NO)];
+	return [super instancesRespondToSelector: selector] || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 + (BOOL) respondsToSelector: (SEL) selector
 {
-	return [super respondsToSelector: selector] || [self.blockMap objectForKey: DICT_KEY(selector, YES)];
+	return [super respondsToSelector: selector] || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 - (BOOL) respondsToSelector: (SEL) selector
 {
@@ -350,21 +349,13 @@ static void *BlockGetImplementation(id block);
 
 - (A2DynamicDelegate *) dynamicDataSource
 {
-	NSString *className = NSStringFromClass(self.class);
-	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
-	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
-	
-	NSAssert2(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
+	Protocol *protocol = [self.class _dataSourceProtocol];
 	return [self dynamicDelegateForProtocol: protocol];
 }
 
 - (A2DynamicDelegate *) dynamicDelegate
 {
-	NSString *className = NSStringFromClass(self.class);
-	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
-	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
-	
-	NSAssert2(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
+	Protocol *protocol = [self.class _delegateProtocol];
 	return [self dynamicDelegateForProtocol: protocol];
 }
 
@@ -389,6 +380,25 @@ static void *BlockGetImplementation(id block);
 	}
 	
 	return dynamicDelegate;
+}
+
++ (Protocol *) _dataSourceProtocol
+{
+	NSString *className = NSStringFromClass(self.class);
+	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
+	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
+	
+	NSAssert2(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
+	return protocol;
+}
++ (Protocol *) _delegateProtocol
+{
+	NSString *className = NSStringFromClass(self.class);
+	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
+	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
+	
+	NSAssert2(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
+	return protocol;
 }
 
 @end
