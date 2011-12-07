@@ -80,11 +80,8 @@ static void *BlockGetImplementation(id block);
 {
 	[super dealloc];
 	
-	if (self.superclass == [A2DynamicDelegate class])
-	{
-		// Dispose of unique A2DynamicDelegate (but not A2BlockDelegate) subclass.
-		objc_disposeClassPair(self.class);
-	}
+	// Dispose of unique A2DynamicDelegate subclass.
+	objc_disposeClassPair(self.class);
 }
 
 #pragma mark - Block Map
