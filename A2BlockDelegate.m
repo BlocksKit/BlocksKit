@@ -247,7 +247,12 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 		NSAssert2(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
 		
 		char *dynamic = a2_property_copyAttributeValue(property, "D");
-		NSAssert2(dynamic, @"Property \"%@\" on class %s is not dynamic", propertyName, class_getName(self));
+		NSAssert2(dynamic, @"Property \"%@\" on class %s must be backed with \"@dynamic\"", propertyName, class_getName(self));
+		free(dynamic);
+		
+		char *copy = a2_property_copyAttributeValue(property, "C");
+		NSAssert2(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
+		free(copy);
 		
 		SEL selector = NSSelectorFromString(selectorName);
 		struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, YES, YES);
