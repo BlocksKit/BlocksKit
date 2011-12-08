@@ -27,6 +27,8 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
 + (BOOL) getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
 
++ (NSDictionary *) mapForProtocol: (Protocol *) protocol;
+
 + (NSMutableDictionary *) propertyMapForProtocol: (Protocol *) protocol;
 + (NSMutableDictionary *) selectorCacheForProtocol: (Protocol *) protocol;
 
