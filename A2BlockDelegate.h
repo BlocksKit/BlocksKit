@@ -14,16 +14,16 @@
 #pragma mark - Data Source
 
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDataSourceMethod: (SEL) selector;
-+ (void) linkDataSourceMethods: (NSDictionary *) dictionary;
++ (void) linkDataSourceMethods: (NSDictionary *) selectorsForPropertyNames;
 
 #pragma mark - Delegate
 
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDelegateMethod: (SEL) selector;
-+ (void) linkDelegateMethods: (NSDictionary *) dictionary;
++ (void) linkDelegateMethods: (NSDictionary *) selectorsForPropertyNames;
 
 #pragma mark - Other Protocol
 
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withProtocol: (Protocol *) protocol method: (SEL) selector;
-+ (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) dictionary;
++ (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) selectorsForPropertyNames;
 
 @end
