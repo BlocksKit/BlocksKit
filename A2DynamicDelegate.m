@@ -8,6 +8,7 @@
 
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <pthread.h>
 
 #import "A2DynamicDelegate.h"
 
