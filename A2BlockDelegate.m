@@ -25,17 +25,17 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 @interface NSObject ()
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
-+ (BOOL) getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
++ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
 
-+ (NSDictionary *) mapForProtocol: (Protocol *) protocol;
++ (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol;
 
-+ (NSMutableDictionary *) propertyMapForProtocol: (Protocol *) protocol;
-+ (NSMutableDictionary *) selectorCacheForProtocol: (Protocol *) protocol;
++ (NSMutableDictionary *) a2_propertyMapForProtocol: (Protocol *) protocol;
++ (NSMutableDictionary *) a2_selectorCacheForProtocol: (Protocol *) protocol;
 
-+ (NSMutableSet *) protocols;
++ (NSMutableSet *) a2_protocols;
 
-+ (Protocol *) _dataSourceProtocol;
-+ (Protocol *) _delegateProtocol;
++ (Protocol *) a2_dataSourceProtocol;
++ (Protocol *) a2_delegateProtocol;
 
 @end
 
@@ -49,7 +49,7 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	SEL representedSelector;
 	
 	NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
-	if (argc <= 1 && [self getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
+	if (argc <= 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
 	{
 		IMP implementation;
 		const char *types;
@@ -90,12 +90,12 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	
 	return [self a2_resolveInstanceMethod: selector];
 }
-+ (BOOL) getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector
++ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector
 {
 	__block BOOL found = NO;
 	
-	[self.protocols enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
-		NSString *representedName = [[self selectorCacheForProtocol: protocol] objectForKey: NSStringFromSelector(selector)];
+	[self.a2_protocols enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
+		NSString *representedName = [[self a2_selectorCacheForProtocol: protocol] objectForKey: NSStringFromSelector(selector)];
 		if (representedName)
 		{
 			*_representedSelector = NSSelectorFromString(representedName);
@@ -149,11 +149,11 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	
 	if (!propertyName) return NO;
 
-	[self.protocols enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
-		NSString *selectorName = [[self propertyMapForProtocol: protocol] objectForKey: propertyName];
+	[self.a2_protocols enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
+		NSString *selectorName = [[self a2_propertyMapForProtocol: protocol] objectForKey: propertyName];
 		if (!selectorName) return;
 		
-		[[self selectorCacheForProtocol: protocol] setObject: selectorName forKey: NSStringFromSelector(selector)];
+		[[self a2_selectorCacheForProtocol: protocol] setObject: selectorName forKey: NSStringFromSelector(selector)];
 		
 		*_representedSelector = NSSelectorFromString(selectorName);
 		*_protocol = protocol;
@@ -164,9 +164,9 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	return found;
 ;}
 
-+ (NSDictionary *) mapForProtocol: (Protocol *) protocol
++ (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol
 {
-	[self.protocols addObject: protocol];
+	[self.a2_protocols addObject: protocol];
 	
 	NSMutableDictionary *map = objc_getAssociatedObject(self, &A2BlockDelegateMapKey);
 	if (!map)
@@ -187,25 +187,25 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	return protocolMap;
 }
 
-+ (NSMutableDictionary *) propertyMapForProtocol: (Protocol *) protocol
++ (NSMutableDictionary *) a2_propertyMapForProtocol: (Protocol *) protocol
 {
-	return [[self mapForProtocol: protocol] objectForKey: @"properties"];
+	return [[self a2_mapForProtocol: protocol] objectForKey: @"properties"];
 }
-+ (NSMutableDictionary *) selectorCacheForProtocol: (Protocol *) protocol
++ (NSMutableDictionary *) a2_selectorCacheForProtocol: (Protocol *) protocol
 {
-	return [[self mapForProtocol: protocol] objectForKey: @"cache"];
+	return [[self a2_mapForProtocol: protocol] objectForKey: @"cache"];
 }
 
-+ (NSMutableSet *) protocols
++ (NSMutableSet *) a2_protocols
 {
-	NSMutableSet *protocols = objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey);
-	if (!protocols)
+	NSMutableSet *a2_protocols = objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey);
+	if (!a2_protocols)
 	{
-		protocols = [NSMutableSet set];
-		objc_setAssociatedObject(self, &A2BlockDelegateProtocolsKey, protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		a2_protocols = [NSMutableSet set];
+		objc_setAssociatedObject(self, &A2BlockDelegateProtocolsKey, a2_protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
-	return protocols;
+	return a2_protocols;
 }
 
 #pragma mark - Data Source
@@ -213,11 +213,11 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDataSourceMethod: (SEL) selector
 {
 	NSDictionary *dictionary = [NSDictionary dictionaryWithObject: NSStringFromSelector(selector) forKey: propertyName];
-	[self linkProtocol: self._dataSourceProtocol methods: dictionary];
+	[self linkProtocol: self.a2_dataSourceProtocol methods: dictionary];
 }
 + (void) linkDataSourceMethods: (NSDictionary *) dictionary
 {
-	[self linkProtocol: self._dataSourceProtocol methods: dictionary];
+	[self linkProtocol: self.a2_dataSourceProtocol methods: dictionary];
 }
 
 #pragma mark - Delegate
@@ -225,11 +225,11 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDelegateMethod: (SEL) selector
 {
 	NSDictionary *dictionary = [NSDictionary dictionaryWithObject: NSStringFromSelector(selector) forKey: propertyName];
-	[self linkProtocol: self._delegateProtocol methods: dictionary];
+	[self linkProtocol: self.a2_delegateProtocol methods: dictionary];
 }
 + (void) linkDelegateMethods: (NSDictionary *) dictionary
 {
-	[self linkProtocol: self._delegateProtocol methods: dictionary];
+	[self linkProtocol: self.a2_delegateProtocol methods: dictionary];
 }
 
 #pragma mark - Other Protocol
@@ -279,7 +279,7 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 		objc_setAssociatedObject(self, &didSwizzleKey, (void *) kCFBooleanTrue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
-	[[self propertyMapForProtocol: protocol] addEntriesFromDictionary: dictionary];
+	[[self a2_propertyMapForProtocol: protocol] addEntriesFromDictionary: dictionary];
 }
 
 @end
@@ -288,7 +288,7 @@ static void *a2_blockPropertyGetter(NSObject *self, SEL _cmd)
 {
 	Protocol *protocol;
 	SEL representedSelector;
-	if (![self.class getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: _cmd])
+	if (![self.class a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: _cmd])
 		return nil;
 
 	return [[self dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
@@ -297,7 +297,7 @@ static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 {
 	Protocol *protocol;
 	SEL representedSelector;
-	if (![self.class getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: _cmd])
+	if (![self.class a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: _cmd])
 		return;
 	
 	[[self dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];

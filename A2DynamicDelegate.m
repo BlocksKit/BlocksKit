@@ -31,8 +31,8 @@ static void *BlockGetImplementation(id block);
 
 @interface NSObject ()
 
-+ (Protocol *) _dataSourceProtocol;
-+ (Protocol *) _delegateProtocol;
++ (Protocol *) a2_dataSourceProtocol;
++ (Protocol *) a2_delegateProtocol;
 
 @end
 
@@ -398,13 +398,13 @@ static void *BlockGetImplementation(id block);
 
 - (A2DynamicDelegate *) dynamicDataSource
 {
-	Protocol *protocol = [self.class _dataSourceProtocol];
+	Protocol *protocol = [self.class a2_dataSourceProtocol];
 	return [self dynamicDelegateForProtocol: protocol];
 }
 
 - (A2DynamicDelegate *) dynamicDelegate
 {
-	Protocol *protocol = [self.class _delegateProtocol];
+	Protocol *protocol = [self.class a2_delegateProtocol];
 	return [self dynamicDelegateForProtocol: protocol];
 }
 
@@ -431,7 +431,7 @@ static void *BlockGetImplementation(id block);
 	return dynamicDelegate;
 }
 
-+ (Protocol *) _dataSourceProtocol
++ (Protocol *) a2_dataSourceProtocol
 {
 	NSString *className = NSStringFromClass(self.class);
 	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
@@ -440,7 +440,7 @@ static void *BlockGetImplementation(id block);
 	NSAssert2(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
-+ (Protocol *) _delegateProtocol
++ (Protocol *) a2_delegateProtocol
 {
 	NSString *className = NSStringFromClass(self.class);
 	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
