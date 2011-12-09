@@ -1,12 +1,6 @@
 //
-// Prefix header for all source files of the 'DynamicDelegate' target in the 'DynamicDelegate' project
+// Prefix header for all source files of the 'A2DD Demo' target in the 'A2DynamicDelegate' project
 //
-
-#import <Availability.h>
-
-#ifndef __IPHONE_4_3
-	#warning "This project uses features only available in iOS SDK 4.3 and later."
-#endif
 
 #ifdef __OBJC__
 	#import <UIKit/UIKit.h>
