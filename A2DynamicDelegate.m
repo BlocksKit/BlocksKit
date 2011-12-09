@@ -42,6 +42,8 @@ static void *BlockGetImplementation(id block);
 
 + (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol; // Designated initializer
 
++ (Class) clusterSubclassForProtocol: (Protocol *) protocol;
+
 + (NSMutableDictionary *) blockMap;
 - (NSMutableDictionary *) blockMap;
 
@@ -56,16 +58,20 @@ static void *BlockGetImplementation(id block);
 
 + (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol
 {
+	// Get cluster subclass
+	Class cluster = [self clusterSubclassForProtocol: protocol];
+	
+	// Generate unique suffix
 	CFUUIDRef cfuuid = CFUUIDCreate(kCFAllocatorDefault);
 	NSString *uuid = (NSString *) CFUUIDCreateString(kCFAllocatorDefault, cfuuid);
 	CFRelease(cfuuid);
 	
-	// Generate unique class name
-	NSString *subclassName = [NSString stringWithFormat: @"A2DynamicDelegate-%@", uuid];
+	// Get unique subclass name, i.e. "A2Dynamic ## ProtocolName ## / ## UUID"
+	NSString *subclassName = [NSString stringWithFormat: @"%@/%@", NSStringFromClass(cluster), uuid];
 	[uuid release];
 	
-	// Allocate class
-	Class cls = objc_allocateClassPair([A2DynamicDelegate class], subclassName.UTF8String, 0);
+	// Allocate subclass
+	Class cls = objc_allocateClassPair(cluster, subclassName.UTF8String, 0);
 	NSAssert1(cls, @"Could not allocate A2DynamicDelegate subclass for protocol <%s>", protocol_getName(protocol));
 	
 	// Register class
@@ -77,9 +83,38 @@ static void *BlockGetImplementation(id block);
 	return [[cls new] autorelease];
 }
 
++ (Class) clusterSubclassForProtocol: (Protocol *) protocol
+{
+	// Get cluster name, e.g. "A2DynamicUIAlertViewDelegate"
+	NSString *clusterName = [NSString stringWithFormat: @"A2Dynamic%@", NSStringFromProtocol(protocol)];
+	
+	// Lock mutex
+	static pthread_mutex_t clusterMtx = PTHREAD_MUTEX_INITIALIZER;
+	pthread_mutex_lock(&clusterMtx);
+	
+	// Get cluster subclass
+	Class cluster = NSClassFromString(clusterName);
+	if (!cluster)
+	{
+		// If the cluster doesn't exist, allocate it
+		cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
+		NSAssert1(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
+		
+		// And register it
+		objc_registerClassPair(cluster);
+	}
+	
+	// Unlock mutex
+	pthread_mutex_unlock(&clusterMtx);
+	
+	return cluster;
+}
+
 - (id) init
 {
-	NSAssert(![self isMemberOfClass: [A2DynamicDelegate class]], @"Tried to initialize instance of abstract class A2DynamicDelegate");
+	NSAssert(![self isMemberOfClass: [A2DynamicDelegate class]] && \
+			 ![self isMemberOfClass: [self.class clusterSubclassForProtocol: self.protocol]], \
+			 @"Tried to initialize instance of abstract dynamic delegate class %s", class_getName(self.class));
 	return [super init];
 }
 
