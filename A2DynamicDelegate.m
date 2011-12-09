@@ -120,7 +120,7 @@ static void *BlockGetImplementation(id block);
 
 - (NSString *) description
 {
-	return [NSString stringWithFormat: @"<A2DynamicDelegate[%s] %p>", NSStringFromProtocol(self.protocol), self];
+	return [NSString stringWithFormat: @"<A2DynamicDelegate[%@] %p>", NSStringFromProtocol(self.protocol), self];
 }
 
 - (void) dealloc
