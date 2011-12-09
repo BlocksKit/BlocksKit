@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define NSEAssert(condition, desc, ...) \
+	do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: @"%s: " desc, __PRETTY_FUNCTION__, ## __VA_ARGS__]; } } while(0)
+
 @interface A2DynamicDelegate : NSObject
 
 #pragma mark - Protocol Instance Methods

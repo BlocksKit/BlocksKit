@@ -73,7 +73,7 @@ static void *BlockGetImplementation(id block);
 	
 	// Allocate subclass
 	Class cls = objc_allocateClassPair(cluster, subclassName.UTF8String, 0);
-	NSAssert1(cls, @"Could not allocate A2DynamicDelegate subclass for protocol <%s>", protocol_getName(protocol));
+	NSEAssert(cls, @"Could not allocate A2DynamicDelegate subclass for protocol <%s>", protocol_getName(protocol));
 	
 	// Register class
 	objc_registerClassPair(cls);
@@ -99,7 +99,7 @@ static void *BlockGetImplementation(id block);
 	{
 		// If the cluster doesn't exist, allocate it
 		cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
-		NSAssert1(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
+		NSEAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
 		
 		// And register it
 		objc_registerClassPair(cluster);
@@ -113,7 +113,7 @@ static void *BlockGetImplementation(id block);
 
 - (id) init
 {
-	NSAssert(![self isMemberOfClass: [A2DynamicDelegate class]] && \
+	NSEAssert(![self isMemberOfClass: [A2DynamicDelegate class]] && \
 			 ![self isMemberOfClass: [self.class clusterSubclassForProtocol: self.protocol]], \
 			 @"Tried to initialize instance of abstract dynamic delegate class %s", class_getName(self.class));
 	return [super init];
@@ -212,7 +212,7 @@ static void *BlockGetImplementation(id block);
 		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, NO);
 		
 		const char *types = methodDescription.types;
-		NSAssert2(types, @"Instance method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
+		NSEAssert(types, @"Instance method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
 		
 		sig = [NSMethodSignature signatureWithObjCTypes: types];
 	}
@@ -228,7 +228,7 @@ static void *BlockGetImplementation(id block);
 		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, YES);
 		
 		const char *types = methodDescription.types;
-		NSAssert2(types, @"Class method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
+		NSEAssert(types, @"Class method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
 		
 		sig = [NSMethodSignature signatureWithObjCTypes: types];
 	}
@@ -248,10 +248,8 @@ static void *BlockGetImplementation(id block);
 }
 + (void) setProtocol: (Protocol *) protocol
 {
-#ifndef NS_BLOCK_ASSERTIONS
 	Protocol *existing = objc_getAssociatedObject(self, &A2ProtocolKey);
-	NSAssert(!existing || !protocol, @"A2DynamicDelegate protocol may only be set once");
-#endif
+	NSEAssert(!existing || !protocol, @"A2DynamicDelegate protocol may only be set once");
 	
 	if (!protocol)
 		return;
@@ -259,7 +257,7 @@ static void *BlockGetImplementation(id block);
 	objc_setAssociatedObject(self, &A2ProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
 	
 	BOOL success = class_addProtocol(self.class, protocol);
-	NSAssert2(success, @"Protocol <%s> could not be added to %@", protocol_getName(protocol), self);
+	NSEAssert(success, @"Protocol <%s> could not be added to %@", protocol_getName(protocol), self);
 	
 	unsigned int i, count;
 	objc_property_t *properties = protocol_copyPropertyList(protocol, &count);
@@ -273,7 +271,7 @@ static void *BlockGetImplementation(id block);
 		objc_property_attribute_t *attributes = property_copyAttributeList(property, &attributeCount);
 		
 		BOOL success = class_addProperty(self.class, name, attributes, attributeCount);
-		NSAssert2(success, @"Property \"%s\" could not be added to %@", name, self);
+		NSEAssert(success, @"Property \"%s\" could not be added to %@", name, self);
 		
 		free(attributes);
 	}
@@ -299,10 +297,9 @@ static void *BlockGetImplementation(id block);
 
 - (void) implementClassMethod: (SEL) selector withBlock: (id) block
 {
-	NSAssert(selector, @"Attempt to implement NULL selector");
-	NSAssert1(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
+	NSEAssert(selector, @"Attempt to implement NULL selector");
+	NSEAssert(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
 	
-#ifndef NS_BLOCK_ASSERTIONS
 	// Throws if `selector` is not found in protocol
 	NSMethodSignature *protoSig = [self.class methodSignatureForSelector: selector];
 	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: BlockGetSignature(block)];
@@ -321,15 +318,14 @@ static void *BlockGetImplementation(id block);
 			blockIsCompatible = NO;
 	}
 	
-	NSAssert1(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
-#endif
+	NSEAssert(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
 	
 	block = [[block copy] autorelease];
 	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 - (void) removeBlockImplementationForClassMethod: (SEL) selector
 {
-	NSAssert(selector, @"Attempt to remove NULL selector");
+	NSEAssert(selector, @"Attempt to remove NULL selector");
 	
 	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
@@ -343,10 +339,9 @@ static void *BlockGetImplementation(id block);
 
 - (void) implementMethod: (SEL) selector withBlock: (id) block
 {
-	NSAssert(selector, @"Attempt to implement NULL selector");
-	NSAssert1(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
+	NSEAssert(selector, @"Attempt to implement NULL selector");
+	NSEAssert(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
 	
-#ifndef NS_BLOCK_ASSERTIONS
 	// Throws if `selector` is not found in protocol
 	NSMethodSignature *protoSig = [self methodSignatureForSelector: selector];
 	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: BlockGetSignature(block)];
@@ -365,15 +360,14 @@ static void *BlockGetImplementation(id block);
 			blockIsCompatible = NO;
 	}
 	
-	NSAssert1(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
-#endif
+	NSEAssert(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
 	
 	block = [[block copy] autorelease];
 	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 - (void) removeBlockImplementationForMethod: (SEL) selector
 {
-	NSAssert(selector, @"Attempt to remove NULL selector");
+	NSEAssert(selector, @"Attempt to remove NULL selector");
 	
 	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
@@ -438,7 +432,7 @@ static void *BlockGetImplementation(id block);
 	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	
-	NSAssert2(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
+	NSEAssert(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
 + (Protocol *) a2_delegateProtocol
@@ -447,7 +441,7 @@ static void *BlockGetImplementation(id block);
 	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	
-	NSAssert2(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
+	NSEAssert(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
 

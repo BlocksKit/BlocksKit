@@ -241,25 +241,23 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 }
 + (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) dictionary
 {
-#ifndef NS_BLOCK_ASSERTIONS
 	[dictionary enumerateKeysAndObjectsUsingBlock: ^(NSString *propertyName, NSString *selectorName, BOOL *stop) {
 		objc_property_t property = class_getProperty(self, propertyName.UTF8String);
-		NSAssert2(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
+		NSEAssert(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
 		
 		char *dynamic = a2_property_copyAttributeValue(property, "D");
-		NSAssert2(dynamic, @"Property \"%@\" on class %s must be backed with \"@dynamic\"", propertyName, class_getName(self));
+		NSEAssert(dynamic, @"Property \"%@\" on class %s must be backed with \"@dynamic\"", propertyName, class_getName(self));
 		free(dynamic);
 		
 		char *copy = a2_property_copyAttributeValue(property, "C");
-		NSAssert2(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
+		NSEAssert(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
 		free(copy);
 		
 		SEL selector = NSSelectorFromString(selectorName);
 		struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, YES, YES);
 		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-		NSAssert2(methodDescription.name, @"Instance method %@ not found in protocol <%s>", selectorName, protocol_getName(protocol));
+		NSEAssert(methodDescription.name, @"Instance method %@ not found in protocol <%s>", selectorName, protocol_getName(protocol));
 	}];
-#endif
 	
 	static void *didSwizzleKey;
 	if (!objc_getAssociatedObject(self, &didSwizzleKey))
