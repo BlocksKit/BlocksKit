@@ -56,12 +56,10 @@ static void *BlockGetImplementation(id block);
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
 
 // Block Map
-+ (NSMutableDictionary *) blockMap;
-- (NSMutableDictionary *) blockMap;
-
-// Block Map Mutex
 + (int) lockBlockMapMutex;
 + (int) unlockBlockMapMutex;
+
++ (NSMutableDictionary *) blockMap;
 
 + (pthread_mutex_t *) blockMapMutex;
 
@@ -155,6 +153,15 @@ static void *BlockGetImplementation(id block);
 
 #pragma mark - Block Map
 
++ (int) unlockBlockMapMutex
+{
+	return pthread_mutex_unlock([self blockMapMutex]);
+}
++ (int) lockBlockMapMutex
+{
+	return pthread_mutex_lock([self blockMapMutex]);
+}
+
 + (NSMutableDictionary *) blockMap
 {
 	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
@@ -165,21 +172,6 @@ static void *BlockGetImplementation(id block);
 	}
 	
 	return blockMap;
-}
-- (NSMutableDictionary *) blockMap
-{
-	return [self.class blockMap];
-}
-
-#pragma mark - Block Map Mutex
-
-+ (int) unlockBlockMapMutex
-{
-	return pthread_mutex_unlock([self blockMapMutex]);
-}
-+ (int) lockBlockMapMutex
-{
-	return pthread_mutex_lock([self blockMapMutex]);
 }
 
 + (pthread_mutex_t *) blockMapMutex
