@@ -10,6 +10,20 @@
 #import "A2BlockDelegate.h"
 #import "DDAppDelegate.h"
 
+#pragma mark - A2DynamicUIAlertViewDelegate
+
+@interface A2DynamicUIAlertViewDelegate : A2DynamicDelegate <UIAlertViewDelegate>
+
+// Custom block handlers could go here
+
+@end
+
+@implementation A2DynamicUIAlertViewDelegate
+
+@end
+
+#pragma mark - UIAlertView+A2DynamicDelegate
+
 @interface UIAlertView (A2DynamicDelegate)
 
 @property (nonatomic, copy) BOOL (^shouldEnableFirstOtherButtonBlock)(UIAlertView *alertView);
@@ -35,6 +49,8 @@
 
 @end
 
+#pragma mark - DDAppDelegate
+
 @implementation DDAppDelegate
 
 @synthesize window = _window;
@@ -59,8 +75,13 @@
 	
 	// Implements -alertView:willDismissWithButtonIndex:
 	alertView.willDismissBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
+		NSLog(@"This block was set using -[UIAlertView(A2DynamicDelegate) setWillDismissBlock:]");
 		NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex: buttonIndex]);
 	};
+	
+	[alertView.dynamicDelegate implementMethod: @selector(alertView:clickedButtonAtIndex:) withBlock: ^(UIAlertView *alertView, NSInteger buttonIndex) {
+		NSLog(@"This block was set using -[A2DynamicDelegate implementMethod:withBlock:]");
+	}];
 	
 	// Set the delegate
 	alertView.delegate = alertView.dynamicDelegate;
