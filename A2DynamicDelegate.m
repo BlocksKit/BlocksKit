@@ -219,9 +219,8 @@ static void *BlockGetImplementation(id block);
 	for (i = 2; i < argc; ++i)
 	{
 		const char *argType = [fwdSig getArgumentTypeAtIndex: i];
-		NSString *tmpEncoding = [NSString stringWithFormat: @"%s@:", argType];
-		NSMethodSignature *tmpSig = [NSMethodSignature signatureWithObjCTypes: tmpEncoding.UTF8String];
-		NSUInteger length = tmpSig.methodReturnLength;
+		NSUInteger length;
+		NSGetSizeAndAlignment(argType, &length, NULL);
 		
 		void *argBufer = malloc(length);
 		[fwdInvocation getArgument: argBufer atIndex: i];
