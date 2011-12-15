@@ -208,6 +208,9 @@ static void *BlockGetImplementation(id block);
 	
 	NSMethodSignature *fwdSig = fwdInvocation.methodSignature;
 	NSUInteger i, argc = fwdSig.numberOfArguments;
+	
+	NSMutableArray *argumentsData = [NSMutableArray arrayWithCapacity: argc - 2];
+	
 	for (i = 2; i < argc; ++i)
 	{
 		const char *argType = [fwdSig getArgumentTypeAtIndex: i];
@@ -217,7 +220,11 @@ static void *BlockGetImplementation(id block);
 		void *argBufer = malloc(length);
 		[fwdInvocation getArgument: argBufer atIndex: i];
 		
+		// `argData` now owns the pointer and will free it upon its deallocation
 		NSData *argData = [NSData dataWithBytesNoCopy: argBufer length: length];
+		// `argumentsData` extends the lifetime of the pointer data past the block's invocation
+		[argumentsData addObject: argumentsData];
+		
 		[invocation setArgument: (void *) argData.bytes atIndex: i - 1];
 	}
 	
@@ -232,6 +239,9 @@ static void *BlockGetImplementation(id block);
 		NSData *returnData = [NSData dataWithBytesNoCopy: returnBuffer length: returnLength];
 		[fwdInvocation setReturnValue: (void *) returnData.bytes];
 	}
+	
+	// Deallocates all data objects and in turn frees their pointers
+	[argumentsData removeAllObjects];
 }
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation
 {
