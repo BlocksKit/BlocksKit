@@ -206,7 +206,7 @@ static void *BlockGetImplementation(id block);
 	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 	[self unlockBlockMapMutex];
 	
-	NSAlwaysAssert(block, @"Block implementation not found for method %c%s", "+-"[!!isClassMethod], fwdInvocation.selector);
+	NSAlwaysAssert(block, @"Block implementation not found for %s method %c%s", (isClassMethod) ? "class" : "instance", "+-"[!!isClassMethod], fwdInvocation.selector);
 	
 	const char *types = BlockGetSignature(block);
 	NSMethodSignature *sig = [NSMethodSignature signatureWithObjCTypes: types];
@@ -338,20 +338,24 @@ static void *BlockGetImplementation(id block);
 	[self.class setProtocol: protocol];
 }
 
-#pragma mark - Protocol Class Methods
+#pragma mark - Protocol Methods
 
-- (id) blockImplementationForClassMethod: (SEL) selector
++ (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
 {
-	return [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
+	[self lockBlockMapMutex];
+	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
+	[self unlockBlockMapMutex];
+	return block;
 }
 
-- (void) implementClassMethod: (SEL) selector withBlock: (id) block
++ (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block
 {
 	NSAlwaysAssert(selector, @"Attempt to implement NULL selector");
-	NSAlwaysAssert(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
+	NSAlwaysAssert(block, @"Attempt to implement nil block (selector: %c%s)", "+-"[!!isClassMethod], sel_getName(selector));
 	
 	// Throws if `selector` is not found in protocol
-	NSMethodSignature *protoSig = [self.class methodSignatureForSelector: selector];
+	SEL methodSignatureSelector = (isClassMethod) ? @selector(methodSignatureForSelector:) : @selector(instanceMethodSignatureForSelector:);
+	NSMethodSignature *protoSig = ((NSMethodSignature *(*)(id, SEL, SEL)) objc_msgSend)(self, methodSignatureSelector, selector);
 	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: BlockGetSignature(block)];
 	
 	BOOL blockIsCompatible = (strcmp(protoSig.methodReturnType, blockSig.methodReturnType) == 0);
@@ -368,58 +372,52 @@ static void *BlockGetImplementation(id block);
 			blockIsCompatible = NO;
 	}
 	
-	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
+	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "+-"[!!isClassMethod], sel_getName(selector));
 	
+	[self lockBlockMapMutex];
 	block = [[block copy] autorelease];
-	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, YES)];
+	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
+	[self unlockBlockMapMutex];
 }
-- (void) removeBlockImplementationForClassMethod: (SEL) selector
++ (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
 {
 	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
 	
-	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
+	[self lockBlockMapMutex];
+	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	[self unlockBlockMapMutex];
+}
+
+#pragma mark - Protocol Class Methods
+
+- (id) blockImplementationForClassMethod: (SEL) selector
+{
+	return [self.class blockImplementationForMethod: selector classMethod: YES];
+}
+
+- (void) implementClassMethod: (SEL) selector withBlock: (id) block
+{
+	[self.class implementMethod: selector classMethod: YES withBlock: block];
+}
+- (void) removeBlockImplementationForClassMethod: (SEL) selector
+{
+	[self.class removeBlockImplementationForMethod: selector classMethod: YES];
 }
 
 #pragma mark - Protocol Instance Methods
 
 - (id) blockImplementationForMethod: (SEL) selector
 {
-	return [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	return [self.class blockImplementationForMethod: selector classMethod: NO];
 }
 
 - (void) implementMethod: (SEL) selector withBlock: (id) block
 {
-	NSAlwaysAssert(selector, @"Attempt to implement NULL selector");
-	NSAlwaysAssert(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
-	
-	// Throws if `selector` is not found in protocol
-	NSMethodSignature *protoSig = [self methodSignatureForSelector: selector];
-	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: BlockGetSignature(block)];
-	
-	BOOL blockIsCompatible = (strcmp(protoSig.methodReturnType, blockSig.methodReturnType) == 0);
-	NSUInteger i, argc = blockSig.numberOfArguments;
-	
-	// Start at `i = 1` because the block type ("@?") and target object type ("@") will appear to be incompatible
-	for (i = 1; i < argc && blockIsCompatible; ++i)
-	{
-		// `i + 1` because the protocol method sig has an extra ":" (selector) argument
-		const char *protoArgType = [protoSig getArgumentTypeAtIndex: i + 1];
-		const char *blockArgType = [blockSig getArgumentTypeAtIndex: i];
-		
-		if (strcmp(protoArgType, blockArgType))
-			blockIsCompatible = NO;
-	}
-	
-	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
-	
-	block = [[block copy] autorelease];
-	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	[self.class implementMethod: selector classMethod: NO withBlock: block];
 }
 - (void) removeBlockImplementationForMethod: (SEL) selector
 {
-	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
-	
-	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	[self.class removeBlockImplementationForMethod: selector classMethod: NO];
 }
 
 #pragma mark - Responds To Selector
