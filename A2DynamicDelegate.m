@@ -51,17 +51,27 @@ static void *BlockGetImplementation(id block);
 
 + (Class) clusterSubclassForProtocol: (Protocol *) protocol;
 
-+ (int) lockBlockMapMutex;
-+ (int) unlockBlockMapMutex;
+// Block Implementation Abstraction
++ (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
 
++ (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block;
++ (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
+
+// Block Map
 + (NSMutableDictionary *) blockMap;
 - (NSMutableDictionary *) blockMap;
 
-+ (Protocol *) protocol;
+// Block Map Mutex
++ (int) lockBlockMapMutex;
++ (int) unlockBlockMapMutex;
 
 + (pthread_mutex_t *) blockMapMutex;
 
+// Forward Invocation Abstraction
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod;
+
+// Protocol
++ (Protocol *) protocol;
 + (void) setProtocol: (Protocol *) protocol;
 
 @end
