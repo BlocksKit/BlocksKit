@@ -7,17 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0038F6DD1481CDD500532784 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */; };
-		0039561D148EE28600FA51A8 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039561C148EE28600FA51A8 /* A2BlockDelegate.m */; };
+		0008844A1491AE4900552AB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0451481BE160089CC41 /* Foundation.framework */; };
+		001ED6551491B143006EE0B2 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039561C148EE28600FA51A8 /* A2BlockDelegate.m */; };
+		001ED6571491B146006EE0B2 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */; };
+		001ED6581491B148006EE0B2 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0039561B148EE28600FA51A8 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		001ED6591491B14A006EE0B2 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0051A0441481BE160089CC41 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0431481BE160089CC41 /* UIKit.framework */; };
 		0051A0461481BE160089CC41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0451481BE160089CC41 /* Foundation.framework */; };
 		0051A0481481BE160089CC41 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0471481BE160089CC41 /* CoreGraphics.framework */; };
-		0051A04E1481BE160089CC41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0051A04C1481BE160089CC41 /* InfoPlist.strings */; };
 		0051A0501481BE160089CC41 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0051A04F1481BE160089CC41 /* main.m */; };
 		0051A0541481BE160089CC41 /* DDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0051A0531481BE160089CC41 /* DDAppDelegate.m */; };
+		00F6D21B149968E70003DEAE /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		00F6D21814995D3C0003DEAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0051A0361481BE160089CC41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000884481491AE4900552AB0;
+			remoteInfo = "iOS Library";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		000884491491AE4900552AB0 /* libA2DynamicDelegate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libA2DynamicDelegate.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		000884551491AE9500552AB0 /* iOS Library-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iOS Library-Prefix.pch"; sourceTree = "<group>"; };
 		0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicDelegate.h; sourceTree = SOURCE_ROOT; };
 		0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegate.m; sourceTree = SOURCE_ROOT; };
 		0039561B148EE28600FA51A8 /* A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -27,7 +42,6 @@
 		0051A0451481BE160089CC41 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0051A0471481BE160089CC41 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0051A04B1481BE160089CC41 /* Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; sourceTree = "<group>"; };
-		0051A04D1481BE160089CC41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0051A04F1481BE160089CC41 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0051A0511481BE160089CC41 /* Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-Prefix.pch"; sourceTree = "<group>"; };
 		0051A0521481BE160089CC41 /* DDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
@@ -35,6 +49,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		000884461491AE4900552AB0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0008844A1491AE4900552AB0 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0051A03C1481BE160089CC41 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -42,6 +64,7 @@
 				0051A0481481BE160089CC41 /* CoreGraphics.framework in Frameworks */,
 				0051A0461481BE160089CC41 /* Foundation.framework in Frameworks */,
 				0051A0441481BE160089CC41 /* UIKit.framework in Frameworks */,
+				00F6D21B149968E70003DEAE /* libA2DynamicDelegate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				0051A0491481BE160089CC41 /* A2DynamicDelegate */,
+				0051A04A1481BE160089CC41 /* Supporting Files */,
 				0051A0421481BE160089CC41 /* Frameworks */,
 				0051A0401481BE160089CC41 /* Products */,
 			);
@@ -61,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				0051A03F1481BE160089CC41 /* A2DD Demo.app */,
+				000884491491AE4900552AB0 /* libA2DynamicDelegate.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,9 +107,6 @@
 				0039561C148EE28600FA51A8 /* A2BlockDelegate.m */,
 				0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */,
 				0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */,
-				0051A0521481BE160089CC41 /* DDAppDelegate.h */,
-				0051A0531481BE160089CC41 /* DDAppDelegate.m */,
-				0051A04A1481BE160089CC41 /* Supporting Files */,
 			);
 			name = A2DynamicDelegate;
 			path = Demo;
@@ -93,17 +115,50 @@
 		0051A04A1481BE160089CC41 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0051A0521481BE160089CC41 /* DDAppDelegate.h */,
+				0051A0531481BE160089CC41 /* DDAppDelegate.m */,
 				0051A04B1481BE160089CC41 /* Demo-Info.plist */,
 				0051A0511481BE160089CC41 /* Demo-Prefix.pch */,
-				0051A04C1481BE160089CC41 /* InfoPlist.strings */,
+				000884551491AE9500552AB0 /* iOS Library-Prefix.pch */,
 				0051A04F1481BE160089CC41 /* main.m */,
 			);
 			name = "Supporting Files";
+			path = Demo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		000884471491AE4900552AB0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				001ED6591491B14A006EE0B2 /* A2DynamicDelegate.h in Headers */,
+				001ED6581491B148006EE0B2 /* A2BlockDelegate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		000884481491AE4900552AB0 /* iOS Library */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000884531491AE4900552AB0 /* Build configuration list for PBXNativeTarget "iOS Library" */;
+			buildPhases = (
+				000884451491AE4900552AB0 /* Sources */,
+				000884461491AE4900552AB0 /* Frameworks */,
+				000884471491AE4900552AB0 /* Headers */,
+				00F6D21C14996AA50003DEAE /* Run Script */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iOS Library";
+			productName = A2DynamicDelegate;
+			productReference = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		0051A03E1481BE160089CC41 /* A2DD Demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0051A0571481BE160089CC41 /* Build configuration list for PBXNativeTarget "A2DD Demo" */;
@@ -115,6 +170,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				00F6D21914995D3C0003DEAE /* PBXTargetDependency */,
 			);
 			name = "A2DD Demo";
 			productName = DynamicDelegate;
@@ -143,6 +199,7 @@
 			projectRoot = "";
 			targets = (
 				0051A03E1481BE160089CC41 /* A2DD Demo */,
+				000884481491AE4900552AB0 /* iOS Library */,
 			);
 		};
 /* End PBXProject section */
@@ -152,44 +209,86 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0051A04E1481BE160089CC41 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		00F6D21C14996AA50003DEAE /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		000884451491AE4900552AB0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				001ED6551491B143006EE0B2 /* A2BlockDelegate.m in Sources */,
+				001ED6571491B146006EE0B2 /* A2DynamicDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0051A03B1481BE160089CC41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0051A0501481BE160089CC41 /* main.m in Sources */,
 				0051A0541481BE160089CC41 /* DDAppDelegate.m in Sources */,
-				0038F6DD1481CDD500532784 /* A2DynamicDelegate.m in Sources */,
-				0039561D148EE28600FA51A8 /* A2BlockDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		0051A04C1481BE160089CC41 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0051A04D1481BE160089CC41 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
+/* Begin PBXTargetDependency section */
+		00F6D21914995D3C0003DEAE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000884481491AE4900552AB0 /* iOS Library */;
+			targetProxy = 00F6D21814995D3C0003DEAE /* PBXContainerItemProxy */;
 		};
-/* End PBXVariantGroup section */
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		000884511491AE4900552AB0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Demo/iOS Library-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = A2DynamicDelegate;
+				STRIP_STYLE = "non-global";
+			};
+			name = Debug;
+		};
+		000884521491AE4900552AB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Demo/iOS Library-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = A2DynamicDelegate;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Release;
+		};
 		0051A0551481BE160089CC41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -199,11 +298,10 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -213,15 +311,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -232,9 +327,14 @@
 		0051A0581481BE160089CC41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -243,9 +343,14 @@
 		0051A0591481BE160089CC41 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -254,6 +359,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		000884531491AE4900552AB0 /* Build configuration list for PBXNativeTarget "iOS Library" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000884511491AE4900552AB0 /* Debug */,
+				000884521491AE4900552AB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0051A0391481BE160089CC41 /* Build configuration list for PBXProject "A2DynamicDelegate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

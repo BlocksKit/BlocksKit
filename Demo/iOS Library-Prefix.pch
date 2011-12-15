@@ -1,0 +1,16 @@
+//
+// Prefix header for all source files of the 'iOS Library' target in the 'A2DynamicDelegate' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+#endif
+
+#ifndef NSAlwaysAssert
+	#define NSAlwaysAssert(condition, desc, ...) \
+		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, (desc)], ## __VA_ARGS__]; } } while(0)
+#endif
+
+#if __has_attribute(objc_arc)
+	#error "At present, A2DynamicDelegate must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
+#endif
