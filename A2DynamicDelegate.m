@@ -24,6 +24,7 @@
 #define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "+-"[!!isClassMethod], sel_getName(selector)] : nil)
 
 static void *A2DynamicDelegateBlockMapKey;
+static void *A2DynamicDelegateBlockMapMutexKey;
 static void *A2DynamicDelegateProtocolKey;
 
 static const char *BlockGetSignature(id block);
@@ -50,10 +51,15 @@ static void *BlockGetImplementation(id block);
 
 + (Class) clusterSubclassForProtocol: (Protocol *) protocol;
 
++ (int) a2_lockBlockMapMutex;
++ (int) a2_unlockBlockMapMutex;
+
 + (NSMutableDictionary *) blockMap;
 - (NSMutableDictionary *) blockMap;
 
 + (Protocol *) protocol;
+
++ (pthread_mutex_t *) a2_blockMapMutex;
 
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod;
 + (void) setProtocol: (Protocol *) protocol;
@@ -155,12 +161,40 @@ static void *BlockGetImplementation(id block);
 	return [self.class blockMap];
 }
 
+#pragma mark - Block Map Mutex
+
++ (int) a2_unlockBlockMapMutex
+{
+	return pthread_mutex_unlock([self a2_blockMapMutex]);
+}
++ (int) a2_lockBlockMapMutex
+{
+	return pthread_mutex_lock([self a2_blockMapMutex]);
+}
+
++ (pthread_mutex_t *) a2_blockMapMutex
+{
+	NSData *mutexData = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapMutexKey);
+	if (mutexData)
+	{
+		return (pthread_mutex_t *) mutexData.bytes;
+	}
+	
+	pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(mutex, NULL);
+	mutexData = [NSData dataWithBytesNoCopy: mutex length: sizeof(pthread_mutex_t)];
+	objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapMutexKey, mutexData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return mutex;
+}
+
 #pragma mark - Forward Invocation
 
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod
 {
 	SEL selector = fwdInvocation.selector;
+	[self a2_lockBlockMapMutex];
 	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	[self a2_unlockBlockMapMutex];
 	
 	NSAlwaysAssert(block, @"Block implementation not found for method %c%s", "+-"[!!isClassMethod], fwdInvocation.selector);
 	

@@ -7,6 +7,7 @@
 //
 
 #import <objc/runtime.h>
+#import <pthread.h>
 
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
@@ -22,6 +23,7 @@
 
 static void *A2BlockDelegateProtocolsKey;
 static void *A2BlockDelegateMapKey;
+static void *A2BlockDelegateMapMutexDataKey;
 
 static char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 static void *a2_blockPropertyGetter(id self, SEL _cmd);
@@ -32,6 +34,9 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
 + (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
 
++ (int) a2_lockMapMutex;
++ (int) a2_unlockMapMutex;
+
 + (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol;
 
 + (NSMutableDictionary *) a2_propertyMapForProtocol: (Protocol *) protocol;
@@ -41,6 +46,8 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 + (Protocol *) a2_dataSourceProtocol;
 + (Protocol *) a2_delegateProtocol;
+
++ (pthread_mutex_t *) a2_mapMutex;
 
 @end
 
@@ -99,8 +106,11 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 {
 	__block BOOL found = NO;
 	
-	[self.a2_protocols enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
+	[[self a2_protocols] enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
+		[self a2_lockMapMutex];
 		NSString *representedName = [[self a2_selectorCacheForProtocol: protocol] objectForKey: NSStringFromSelector(selector)];
+		[self a2_unlockMapMutex];
+		
 		if (representedName)
 		{
 			*_representedSelector = NSSelectorFromString(representedName);
@@ -154,16 +164,22 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	
 	if (!propertyName) return NO;
 
-	[self.a2_protocols enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
+	[[self a2_protocols] enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
+		[self a2_lockMapMutex];
 		NSString *selectorName = [[self a2_propertyMapForProtocol: protocol] objectForKey: propertyName];
-		if (!selectorName) return;
+		
+		if (!selectorName) 
+		{
+			[self a2_unlockMapMutex];
+			return;
+		}
 		
 		[[self a2_selectorCacheForProtocol: protocol] setObject: selectorName forKey: NSStringFromSelector(selector)];
+		[self a2_unlockMapMutex];
 		
 		*_representedSelector = NSSelectorFromString(selectorName);
 		*_protocol = protocol;
 		found = *stop = YES;
-		return;
 	}];
 	
 	return found;
@@ -171,7 +187,7 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 + (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol
 {
-	[self.a2_protocols addObject: protocol];
+	[[self a2_protocols] addObject: protocol];
 	
 	NSMutableDictionary *map = objc_getAssociatedObject(self, &A2BlockDelegateMapKey);
 	if (!map)
@@ -212,12 +228,31 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	
 	return protocols;
 }
+
+#pragma mark - Map Mutex
+
++ (int) a2_unlockMapMutex
+{
+	return pthread_mutex_unlock([self a2_mapMutex]);
+}
++ (int) a2_lockMapMutex
+{
+	return pthread_mutex_lock([self a2_mapMutex]);
+}
+
++ (pthread_mutex_t *) a2_mapMutex;
+{
+	NSData *mutexData = objc_getAssociatedObject(self, &A2BlockDelegateMapMutexDataKey);
+	if (mutexData)
 	{
-		a2_protocols = [NSMutableSet set];
-		objc_setAssociatedObject(self, &A2BlockDelegateProtocolsKey, a2_protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		return (pthread_mutex_t *) mutexData.bytes;
 	}
 	
-	return a2_protocols;
+	pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(mutex, NULL);
+	mutexData = [NSData dataWithBytesNoCopy: mutex length: sizeof(pthread_mutex_t)];
+	objc_setAssociatedObject(self, &A2BlockDelegateMapMutexDataKey, mutexData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return mutex;
 }
 
 #pragma mark - Data Source
@@ -289,7 +324,9 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 		objc_setAssociatedObject(self, &didSwizzleKey, (void *) kCFBooleanTrue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
+	[self a2_lockMapMutex];
 	[[self a2_propertyMapForProtocol: protocol] addEntriesFromDictionary: dictionary];
+	[self a2_unlockMapMutex];
 }
 
 @end
