@@ -51,15 +51,15 @@ static void *BlockGetImplementation(id block);
 
 + (Class) clusterSubclassForProtocol: (Protocol *) protocol;
 
-+ (int) a2_lockBlockMapMutex;
-+ (int) a2_unlockBlockMapMutex;
++ (int) lockBlockMapMutex;
++ (int) unlockBlockMapMutex;
 
 + (NSMutableDictionary *) blockMap;
 - (NSMutableDictionary *) blockMap;
 
 + (Protocol *) protocol;
 
-+ (pthread_mutex_t *) a2_blockMapMutex;
++ (pthread_mutex_t *) blockMapMutex;
 
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod;
 + (void) setProtocol: (Protocol *) protocol;
@@ -163,16 +163,16 @@ static void *BlockGetImplementation(id block);
 
 #pragma mark - Block Map Mutex
 
-+ (int) a2_unlockBlockMapMutex
++ (int) unlockBlockMapMutex
 {
-	return pthread_mutex_unlock([self a2_blockMapMutex]);
+	return pthread_mutex_unlock([self blockMapMutex]);
 }
-+ (int) a2_lockBlockMapMutex
++ (int) lockBlockMapMutex
 {
-	return pthread_mutex_lock([self a2_blockMapMutex]);
+	return pthread_mutex_lock([self blockMapMutex]);
 }
 
-+ (pthread_mutex_t *) a2_blockMapMutex
++ (pthread_mutex_t *) blockMapMutex
 {
 	NSData *mutexData = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapMutexKey);
 	if (mutexData)
@@ -192,9 +192,9 @@ static void *BlockGetImplementation(id block);
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod
 {
 	SEL selector = fwdInvocation.selector;
-	[self a2_lockBlockMapMutex];
+	[self lockBlockMapMutex];
 	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
-	[self a2_unlockBlockMapMutex];
+	[self unlockBlockMapMutex];
 	
 	NSAlwaysAssert(block, @"Block implementation not found for method %c%s", "+-"[!!isClassMethod], fwdInvocation.selector);
 	
