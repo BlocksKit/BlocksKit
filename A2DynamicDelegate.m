@@ -112,15 +112,22 @@ static void *BlockGetImplementation(id block);
 	
 	// Get cluster subclass
 	Class cluster = NSClassFromString(clusterName);
-	if (!cluster)
+	if (cluster)
 	{
-		// If the cluster doesn't exist, allocate it
-		cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
-		NSAlwaysAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
+		NSAlwaysAssert(class_getSuperclass(cluster) == [A2DynamicDelegate class], @"Dynamic delegate cluster subclass %@ must be subclass of A2DynamicDelegate", clusterName);
+
+		// Unlock mutex
+		pthread_mutex_unlock(&clusterMtx);
 		
-		// And register it
-		objc_registerClassPair(cluster);
+		return cluster;
 	}
+	
+	// If the cluster doesn't exist, allocate it
+	cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
+	NSAlwaysAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
+	
+	// And register it
+	objc_registerClassPair(cluster);
 	
 	// Unlock mutex
 	pthread_mutex_unlock(&clusterMtx);
