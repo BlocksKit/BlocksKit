@@ -138,9 +138,13 @@ static void *BlockGetImplementation(id block);
 	return [super allocWithZone: zone];
 }
 
++ (NSString *) description
+{
+	return [NSString stringWithFormat: @"A2DynamicDelegate[%@]", NSStringFromProtocol(self.protocol)];
+}
 - (NSString *) description
 {
-	return [NSString stringWithFormat: @"<A2DynamicDelegate[%@] %p>", NSStringFromProtocol(self.protocol), self];
+	return [NSString stringWithFormat: @"<%@ %p>", [self.class description], self];
 }
 
 - (void) dealloc
