@@ -447,19 +447,17 @@ static void *BlockGetImplementation(id block);
 
 @implementation NSObject (A2DynamicDelegate)
 
-- (A2DynamicDelegate *) dynamicDataSource
+- (id) dynamicDataSource
 {
 	Protocol *protocol = [self.class a2_dataSourceProtocol];
 	return [self dynamicDelegateForProtocol: protocol];
 }
-
-- (A2DynamicDelegate *) dynamicDelegate
+- (id) dynamicDelegate
 {
 	Protocol *protocol = [self.class a2_delegateProtocol];
 	return [self dynamicDelegateForProtocol: protocol];
 }
-
-- (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol
+- (id) dynamicDelegateForProtocol: (Protocol *) protocol
 {
 	/**
 	 * Storing the dynamic delegate as an associated object of the delegating

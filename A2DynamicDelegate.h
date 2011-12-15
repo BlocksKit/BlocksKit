@@ -29,12 +29,12 @@
 @interface NSObject (A2DynamicDelegate)
 
 // Assumes protocol name is "Class ## DataSource"
-- (A2DynamicDelegate *) dynamicDataSource;
+- (id) dynamicDataSource;
 
 // Assumes protocol name is "Class ## Delegate"
-- (A2DynamicDelegate *) dynamicDelegate;
+- (id) dynamicDelegate;
 
 // Designated initializer
-- (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol;
+- (id) dynamicDelegateForProtocol: (Protocol *) protocol;
 
 @end
