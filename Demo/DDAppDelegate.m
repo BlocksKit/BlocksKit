@@ -6,6 +6,7 @@
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
 //
 
+#import "A2DynamicDelegate.h"
 #import "A2BlockDelegate.h"
 #import "DDAppDelegate.h"
 

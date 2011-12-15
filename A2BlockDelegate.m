@@ -12,7 +12,12 @@
 #import "A2DynamicDelegate.h"
 
 #if __has_attribute(objc_arc)
-	#error "At present, 'A2BlockDelegate.m' must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
+	#error "At present, 'A2BlockDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
+#endif
+
+#ifndef NSAlwaysAssert
+	#define NSAlwaysAssert(condition, desc, ...) \
+		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, (desc)], ## __VA_ARGS__]; } } while(0)
 #endif
 
 static void *A2BlockDelegateProtocolsKey;
@@ -198,8 +203,15 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 + (NSMutableSet *) a2_protocols
 {
-	NSMutableSet *a2_protocols = objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey);
-	if (!a2_protocols)
+	NSMutableSet *protocols = objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey);
+	if (!protocols)
+	{
+		protocols = [NSMutableSet set];
+		objc_setAssociatedObject(self, &A2BlockDelegateProtocolsKey, protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	}
+	
+	return protocols;
+}
 	{
 		a2_protocols = [NSMutableSet set];
 		objc_setAssociatedObject(self, &A2BlockDelegateProtocolsKey, a2_protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -213,11 +225,11 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDataSourceMethod: (SEL) selector
 {
 	NSDictionary *dictionary = [NSDictionary dictionaryWithObject: NSStringFromSelector(selector) forKey: propertyName];
-	[self linkProtocol: self.a2_dataSourceProtocol methods: dictionary];
+	[self linkProtocol: [self a2_dataSourceProtocol] methods: dictionary];
 }
 + (void) linkDataSourceMethods: (NSDictionary *) dictionary
 {
-	[self linkProtocol: self.a2_dataSourceProtocol methods: dictionary];
+	[self linkProtocol: [self a2_dataSourceProtocol] methods: dictionary];
 }
 
 #pragma mark - Delegate
@@ -225,11 +237,11 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDelegateMethod: (SEL) selector
 {
 	NSDictionary *dictionary = [NSDictionary dictionaryWithObject: NSStringFromSelector(selector) forKey: propertyName];
-	[self linkProtocol: self.a2_delegateProtocol methods: dictionary];
+	[self linkProtocol: [self a2_delegateProtocol] methods: dictionary];
 }
 + (void) linkDelegateMethods: (NSDictionary *) dictionary
 {
-	[self linkProtocol: self.a2_delegateProtocol methods: dictionary];
+	[self linkProtocol: [self a2_delegateProtocol] methods: dictionary];
 }
 
 #pragma mark - Other Protocol
@@ -243,20 +255,20 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 {
 	[dictionary enumerateKeysAndObjectsUsingBlock: ^(NSString *propertyName, NSString *selectorName, BOOL *stop) {
 		objc_property_t property = class_getProperty(self, propertyName.UTF8String);
-		NSEAssert(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
+		NSAlwaysAssert(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
 		
 		char *dynamic = a2_property_copyAttributeValue(property, "D");
-		NSEAssert(dynamic, @"Property \"%@\" on class %s must be backed with \"@dynamic\"", propertyName, class_getName(self));
+		NSAlwaysAssert(dynamic, @"Property \"%@\" on class %s must be backed with \"@dynamic\"", propertyName, class_getName(self));
 		free(dynamic);
 		
 		char *copy = a2_property_copyAttributeValue(property, "C");
-		NSEAssert(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
+		NSAlwaysAssert(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
 		free(copy);
 		
 		SEL selector = NSSelectorFromString(selectorName);
 		struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, YES, YES);
 		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-		NSEAssert(methodDescription.name, @"Instance method %@ not found in protocol <%s>", selectorName, protocol_getName(protocol));
+		NSAlwaysAssert(methodDescription.name, @"Instance method %@ not found in protocol <%s>", selectorName, protocol_getName(protocol));
 	}];
 	
 	static void *didSwizzleKey;

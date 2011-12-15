@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "A2DynamicDelegate.h"
 
 @interface NSObject (A2BlockDelegate)
 

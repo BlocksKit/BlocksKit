@@ -13,13 +13,18 @@
 #import "A2DynamicDelegate.h"
 
 #if __has_attribute(objc_arc)
-	#error "At present, 'A2DynamicDelegate.m' must be compiled without ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
+	#error "At present, 'A2DynamicDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
 #endif
 
-#define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", (isClassMethod) ? '+' : '-', sel_getName(selector)] : nil)
+#ifndef NSAlwaysAssert
+	#define NSAlwaysAssert(condition, desc, ...) \
+		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
+#endif
 
-static void *A2BlockMapKey;
-static void *A2ProtocolKey;
+#define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "+-"[!!isClassMethod], sel_getName(selector)] : nil)
+
+static void *A2DynamicDelegateBlockMapKey;
+static void *A2DynamicDelegateProtocolKey;
 
 static const char *BlockGetSignature(id block);
 static void *BlockGetImplementation(id block);
@@ -73,7 +78,7 @@ static void *BlockGetImplementation(id block);
 	
 	// Allocate subclass
 	Class cls = objc_allocateClassPair(cluster, subclassName.UTF8String, 0);
-	NSEAssert(cls, @"Could not allocate A2DynamicDelegate subclass for protocol <%s>", protocol_getName(protocol));
+	NSAlwaysAssert(cls, @"Could not allocate A2DynamicDelegate subclass for protocol <%s>", protocol_getName(protocol));
 	
 	// Register class
 	objc_registerClassPair(cls);
@@ -99,7 +104,7 @@ static void *BlockGetImplementation(id block);
 	{
 		// If the cluster doesn't exist, allocate it
 		cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
-		NSEAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
+		NSAlwaysAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
 		
 		// And register it
 		objc_registerClassPair(cluster);
@@ -113,7 +118,7 @@ static void *BlockGetImplementation(id block);
 
 - (id) init
 {
-	NSEAssert(![self isMemberOfClass: [A2DynamicDelegate class]] && \
+	NSAlwaysAssert(![self isMemberOfClass: [A2DynamicDelegate class]] && \
 			 ![self isMemberOfClass: [self.class clusterSubclassForProtocol: self.protocol]], \
 			 @"Tried to initialize instance of abstract dynamic delegate class %s", class_getName(self.class));
 	return [super init];
@@ -136,11 +141,11 @@ static void *BlockGetImplementation(id block);
 
 + (NSMutableDictionary *) blockMap
 {
-	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2BlockMapKey);
+	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
 	if (!blockMap)
 	{
 		blockMap = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, &A2BlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return blockMap;
@@ -156,7 +161,8 @@ static void *BlockGetImplementation(id block);
 {
 	SEL selector = fwdInvocation.selector;
 	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
-	NSParameterAssert(block);
+	
+	NSAlwaysAssert(block, @"Block implementation not found for method %c%s", "+-"[!!isClassMethod], fwdInvocation.selector);
 	
 	const char *types = BlockGetSignature(block);
 	NSMethodSignature *sig = [NSMethodSignature signatureWithObjCTypes: types];
@@ -212,7 +218,7 @@ static void *BlockGetImplementation(id block);
 		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, NO);
 		
 		const char *types = methodDescription.types;
-		NSEAssert(types, @"Instance method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
+		NSAlwaysAssert(types, @"Instance method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
 		
 		sig = [NSMethodSignature signatureWithObjCTypes: types];
 	}
@@ -228,7 +234,7 @@ static void *BlockGetImplementation(id block);
 		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, YES);
 		
 		const char *types = methodDescription.types;
-		NSEAssert(types, @"Class method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
+		NSAlwaysAssert(types, @"Class method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
 		
 		sig = [NSMethodSignature signatureWithObjCTypes: types];
 	}
@@ -244,20 +250,20 @@ static void *BlockGetImplementation(id block);
 
 + (Protocol *) protocol
 {
-	return objc_getAssociatedObject(self, &A2ProtocolKey);
+	return objc_getAssociatedObject(self, &A2DynamicDelegateProtocolKey);
 }
 + (void) setProtocol: (Protocol *) protocol
 {
-	Protocol *existing = objc_getAssociatedObject(self, &A2ProtocolKey);
-	NSEAssert(!existing || !protocol, @"A2DynamicDelegate protocol may only be set once");
+	Protocol *existing = objc_getAssociatedObject(self, &A2DynamicDelegateProtocolKey);
+	NSAlwaysAssert(!existing || !protocol, @"A2DynamicDelegate protocol may only be set once");
 	
 	if (!protocol)
 		return;
 	
-	objc_setAssociatedObject(self, &A2ProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
+	objc_setAssociatedObject(self, &A2DynamicDelegateProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
 	
 	BOOL success = class_addProtocol(self.class, protocol);
-	NSEAssert(success, @"Protocol <%s> could not be added to %@", protocol_getName(protocol), self);
+	NSAlwaysAssert(success, @"Protocol <%s> could not be added to %@", protocol_getName(protocol), self);
 	
 	unsigned int i, count;
 	objc_property_t *properties = protocol_copyPropertyList(protocol, &count);
@@ -271,7 +277,7 @@ static void *BlockGetImplementation(id block);
 		objc_property_attribute_t *attributes = property_copyAttributeList(property, &attributeCount);
 		
 		BOOL success = class_addProperty(self.class, name, attributes, attributeCount);
-		NSEAssert(success, @"Property \"%s\" could not be added to %@", name, self);
+		NSAlwaysAssert(success, @"Property \"%s\" could not be added to %@", name, self);
 		
 		free(attributes);
 	}
@@ -297,8 +303,8 @@ static void *BlockGetImplementation(id block);
 
 - (void) implementClassMethod: (SEL) selector withBlock: (id) block
 {
-	NSEAssert(selector, @"Attempt to implement NULL selector");
-	NSEAssert(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
+	NSAlwaysAssert(selector, @"Attempt to implement NULL selector");
+	NSAlwaysAssert(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
 	
 	// Throws if `selector` is not found in protocol
 	NSMethodSignature *protoSig = [self.class methodSignatureForSelector: selector];
@@ -318,14 +324,14 @@ static void *BlockGetImplementation(id block);
 			blockIsCompatible = NO;
 	}
 	
-	NSEAssert(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
+	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
 	
 	block = [[block copy] autorelease];
 	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 - (void) removeBlockImplementationForClassMethod: (SEL) selector
 {
-	NSEAssert(selector, @"Attempt to remove NULL selector");
+	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
 	
 	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
@@ -339,8 +345,8 @@ static void *BlockGetImplementation(id block);
 
 - (void) implementMethod: (SEL) selector withBlock: (id) block
 {
-	NSEAssert(selector, @"Attempt to implement NULL selector");
-	NSEAssert(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
+	NSAlwaysAssert(selector, @"Attempt to implement NULL selector");
+	NSAlwaysAssert(block, @"Attempt to implement nil block (selector: %s)", sel_getName(selector));
 	
 	// Throws if `selector` is not found in protocol
 	NSMethodSignature *protoSig = [self methodSignatureForSelector: selector];
@@ -360,14 +366,14 @@ static void *BlockGetImplementation(id block);
 			blockIsCompatible = NO;
 	}
 	
-	NSEAssert(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
+	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement selector with incompatible block (selector: %s)", sel_getName(selector));
 	
 	block = [[block copy] autorelease];
 	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 - (void) removeBlockImplementationForMethod: (SEL) selector
 {
-	NSEAssert(selector, @"Attempt to remove NULL selector");
+	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
 	
 	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
@@ -432,7 +438,7 @@ static void *BlockGetImplementation(id block);
 	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	
-	NSEAssert(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
+	NSAlwaysAssert(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
 + (Protocol *) a2_delegateProtocol
@@ -441,7 +447,7 @@ static void *BlockGetImplementation(id block);
 	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	
-	NSEAssert(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
+	NSAlwaysAssert(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
 
