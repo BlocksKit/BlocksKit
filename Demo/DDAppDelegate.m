@@ -1,6 +1,6 @@
 //
 //  DDAppDelegate.m
-//  DynamicDelegate
+//  A2DynamicDelegate
 //
 //  Created by Alexsander Akers on 11/26/11.
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
@@ -59,7 +59,6 @@
 	// Implements -alertView:willDismissWithButtonIndex:
 	alertView.willDismissBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
 		NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex: buttonIndex]);
-		
 	};
 	
 	// Set the delegate
