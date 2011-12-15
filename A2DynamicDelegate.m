@@ -132,12 +132,10 @@ static void *BlockGetImplementation(id block);
 	return cluster;
 }
 
-- (id) init
++ (id) allocWithZone: (NSZone *) zone
 {
-	NSAlwaysAssert(![self isMemberOfClass: [A2DynamicDelegate class]] && \
-			 ![self isMemberOfClass: [self.class clusterSubclassForProtocol: self.protocol]], \
-			 @"Tried to initialize instance of abstract dynamic delegate class %s", class_getName(self.class));
-	return [super init];
+	NSAlwaysAssert(self != [A2DynamicDelegate class] && self != [self clusterSubclassForProtocol: self.protocol], @"Tried to initialize instance of abstract dynamic delegate class %s", class_getName(self.class));
+	return [super allocWithZone: zone];
 }
 
 - (NSString *) description
