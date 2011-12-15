@@ -45,8 +45,6 @@ static void *BlockGetImplementation(id block);
 
 @interface A2DynamicDelegate ()
 
-@property (nonatomic, assign) Protocol *protocol;
-
 + (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol; // Designated initializer
 
 + (Class) clusterSubclassForProtocol: (Protocol *) protocol;
