@@ -84,8 +84,32 @@ static dispatch_queue_t BKObserverMutationQueue() {
     [self addObserver:newObserver forKeyPath:keyPath options:0 context:kBKBlockObservationContext];
 }
 
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
+    NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
+    [self addObserverForKeyPath:keyPath identifier:token options:options task:task];
+    return token;
+}
+
+- (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
+    __block BKObserver *newObserver = nil;
+    
+    dispatch_sync(BKObserverMutationQueue(), ^{
+        newObserver = [BKObserver observerForObject:self keyPath:keyPath task:task];
+        
+        NSMutableDictionary *dict = [self associatedValueForKey:kObserverBlocksKey];
+        if (!dict) {
+            dict = [NSMutableDictionary dictionary];
+            [self associateValue:dict withKey:kObserverBlocksKey];
+        }
+        
+        [dict setObject:newObserver forKey:[NSString stringWithFormat:@"%@_%@", keyPath, identifier]];
+    });
+    
+    [self addObserver:newObserver forKeyPath:keyPath options:options context:kBKBlockObservationContext];
+}
+
 - (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier {
-    dispatch_async(BKObserverMutationQueue(), ^{
+    dispatch_sync(BKObserverMutationQueue(), ^{
         NSString *token = [NSString stringWithFormat:@"%@_%@", keyPath, identifier];
         NSMutableDictionary *dict = [self associatedValueForKey:kObserverBlocksKey];
         BKObserver *trampoline = [dict objectForKey:token];
@@ -103,7 +127,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 - (void)removeAllBlockObservers {
-    dispatch_async(BKObserverMutationQueue(), ^{
+    dispatch_sync(BKObserverMutationQueue(), ^{
         NSMutableDictionary *observationDictionary = [self associatedValueForKey:kObserverBlocksKey];
         [observationDictionary each:^(id key, id trampoline) {
             [self removeObserver:trampoline forKeyPath:[trampoline keyPath]];
