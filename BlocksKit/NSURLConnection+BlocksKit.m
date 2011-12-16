@@ -42,6 +42,8 @@ static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willSendRequestForAuthenticationChallenge:)])
         [connection.delegate connection:connection willSendRequestForAuthenticationChallenge:challenge];
+	else
+		[challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
 }
 
 - (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
@@ -52,7 +54,7 @@ static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
 }
 
 - (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    if (connection.delegate != nil && [connection.delegate respondsToSelector:@selector(connection:didCancelAuthenticationChallenge:)])
+    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didCancelAuthenticationChallenge:)])
         [connection.delegate connection:connection didCancelAuthenticationChallenge:challenge];
 }
 
