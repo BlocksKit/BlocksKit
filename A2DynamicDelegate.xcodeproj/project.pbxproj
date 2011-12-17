@@ -250,10 +250,6 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/iOS Library-Prefix.pch";
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = A2DynamicDelegate;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -268,11 +264,6 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/iOS Library-Prefix.pch";
-				OTHER_CFLAGS = (
-					"-DNS_BLOCK_ASSERTIONS=1",
-					"-Wall",
-					"-Wextra",
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = A2DynamicDelegate;
 				STRIP_INSTALLED_PRODUCT = YES;
