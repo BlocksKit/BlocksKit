@@ -267,9 +267,7 @@ static void *BlockGetImplementation(id block);
 		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, NO);
 		
 		const char *types = methodDescription.types;
-		NSAlwaysAssert(types, @"Instance method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
-		
-		sig = [NSMethodSignature signatureWithObjCTypes: types];
+		if (types) sig = [NSMethodSignature signatureWithObjCTypes: types];
 	}
 	
 	return sig;
@@ -283,9 +281,7 @@ static void *BlockGetImplementation(id block);
 		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, YES);
 		
 		const char *types = methodDescription.types;
-		NSAlwaysAssert(types, @"Class method %s not found in protocol <%s>", selector, protocol_getName(self.protocol));
-		
-		sig = [NSMethodSignature signatureWithObjCTypes: types];
+		if (types) sig = [NSMethodSignature signatureWithObjCTypes: types];
 	}
 	
 	return sig;
@@ -346,9 +342,12 @@ static void *BlockGetImplementation(id block);
 	NSAlwaysAssert(selector, @"Attempt to implement NULL selector");
 	NSAlwaysAssert(block, @"Attempt to implement nil block (selector: %c%s)", "+-"[!!isClassMethod], sel_getName(selector));
 	
-	// Throws if `selector` is not found in protocol
 	SEL methodSignatureSelector = (isClassMethod) ? @selector(methodSignatureForSelector:) : @selector(instanceMethodSignatureForSelector:);
 	NSMethodSignature *protoSig = ((NSMethodSignature *(*)(id, SEL, SEL)) objc_msgSend)(self, methodSignatureSelector, selector);
+	
+	// If the protocol does not have a method signature for this selecor, return.
+	if (!protoSig) return;
+	
 	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: BlockGetSignature(block)];
 	
 	BOOL blockIsCompatible = (strcmp(protoSig.methodReturnType, blockSig.methodReturnType) == 0);
