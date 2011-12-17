@@ -27,7 +27,8 @@ static void *A2DynamicDelegateBlockMapKey;
 static void *A2DynamicDelegateBlockMapMutexKey;
 static void *A2DynamicDelegateProtocolKey;
 
-static static const void *A2CFCopy(CFAllocatorRef allocator, const void *value);
+static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
+static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value);
 
 static const char *BlockGetSignature(id block);
 static void *BlockGetImplementation(id block);
@@ -150,10 +151,11 @@ static void *BlockGetImplementation(id block);
 {
 	if ((self = [super init]))
 	{
-		CFDictionaryValueCallBacks callBacks = kCFTypeDictionaryValueCallBacks;
-		callBacks.retain = A2CFCopy;
+		CFDictionaryValueCallBacks valueCallBacks = kCFTypeDictionaryValueCallBacks;
+		valueCallBacks.retain = A2BlockDictionaryRetain;
+		valueCallBacks.release = A2BlockDictionaryRelease;
 		
-		CFMutableDictionaryRef handlers = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFCopyStringDictionaryKeyCallBacks, &callBacks);
+		CFMutableDictionaryRef handlers = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &valueCallBacks);
 		self.handlers = (NSMutableDictionary *) handlers;
 		CFRelease(handlers);
 	}
@@ -518,12 +520,14 @@ static void *BlockGetImplementation(id block);
 
 @end
 
-static const void *A2CFCopy(CFAllocatorRef allocator, const void *value)
+static const void *A2BlockDictionaryRetain(__unused CFAllocatorRef allocator, const void *value)
 {
-	if ([(id) value respondsToSelector: @selector(copy)])
-		return [(id) value copy];
-	
-	return kCFTypeDictionaryValueCallBacks.retain(allocator, value);
+	return Block_copy(value);
+}
+
+static void A2BlockDictionaryRelease(__unused CFAllocatorRef allocator, const void *value)
+{
+	Block_release(value);
 }
 
 struct BlockDescriptor
