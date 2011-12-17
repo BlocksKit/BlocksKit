@@ -246,10 +246,17 @@
 		000884511491AE4900552AB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/iOS Library-Prefix.pch";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = A2DynamicDelegate;
+				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
 			};
 			name = Debug;
@@ -257,8 +264,15 @@
 		000884521491AE4900552AB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/iOS Library-Prefix.pch";
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"-Wall",
+					"-Wextra",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = A2DynamicDelegate;
 				STRIP_INSTALLED_PRODUCT = YES;

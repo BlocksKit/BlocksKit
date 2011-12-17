@@ -153,7 +153,9 @@ static void *BlockGetImplementation(id block);
 		CFDictionaryValueCallBacks callBacks = kCFTypeDictionaryValueCallBacks;
 		callBacks.retain = A2CFCopy;
 		
-		self.handlers = (NSMutableDictionary *) CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFCopyStringDictionaryKeyCallBacks, &callBacks);
+		CFMutableDictionaryRef handlers = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFCopyStringDictionaryKeyCallBacks, &callBacks);
+		self.handlers = (NSMutableDictionary *) handlers;
+		CFRelease(handlers);
 	}
 	
 	return self;
@@ -407,7 +409,7 @@ static void *BlockGetImplementation(id block);
 	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
 	
 	[self lockBlockMapMutex];
-	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
 	[self unlockBlockMapMutex];
 }
 

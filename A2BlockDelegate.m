@@ -240,7 +240,7 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	return pthread_mutex_lock([self a2_mapMutex]);
 }
 
-+ (pthread_mutex_t *) a2_mapMutex;
++ (pthread_mutex_t *) a2_mapMutex
 {
 	NSData *mutexData = objc_getAssociatedObject(self, &A2BlockDelegateMapMutexDataKey);
 	if (mutexData)
@@ -288,7 +288,7 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 }
 + (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) dictionary
 {
-	[dictionary enumerateKeysAndObjectsUsingBlock: ^(NSString *propertyName, NSString *selectorName, BOOL *stop) {
+	[dictionary enumerateKeysAndObjectsUsingBlock: ^(NSString *propertyName, NSString *selectorName, __unused BOOL *stop) {
 		objc_property_t property = class_getProperty(self, propertyName.UTF8String);
 		NSAlwaysAssert(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
 		
@@ -449,7 +449,7 @@ static unsigned int a2_iteratePropertyAttributes(const char *attrs, BOOL (*fn)(u
 	
     return attrcount;
 }
-static BOOL a2_findOneAttribute(unsigned int index, void *ctxa, void *ctxs, const char *name, size_t nlen, const char *value, size_t vlen)
+static BOOL a2_findOneAttribute(__unused unsigned int index, void *ctxa, void *ctxs, const char *name, size_t nlen, const char *value, size_t vlen)
 {
 	const char *query = (char *)ctxa;
     char **resultp = (char **)ctxs;
