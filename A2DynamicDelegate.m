@@ -24,7 +24,6 @@
 #define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "+-"[!!isClassMethod], sel_getName(selector)] : nil)
 
 static void *A2DynamicDelegateBlockMapKey;
-static void *A2DynamicDelegateBlockMapMutexKey;
 static void *A2DynamicDelegateProtocolKey;
 
 static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
@@ -61,12 +60,7 @@ static void *BlockGetImplementation(id block);
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
 
 // Block Map
-+ (int) lockBlockMapMutex;
-+ (int) unlockBlockMapMutex;
-
 + (NSMutableDictionary *) blockMap;
-
-+ (pthread_mutex_t *) blockMapMutex;
 
 // Forward Invocation Abstraction
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod;
@@ -144,7 +138,8 @@ static void *BlockGetImplementation(id block);
 
 + (id) allocWithZone: (NSZone *) zone
 {
-	NSAlwaysAssert(self != [A2DynamicDelegate class] && self != [self clusterSubclassForProtocol: self.protocol], @"Tried to initialize instance of abstract dynamic delegate class %s", class_getName(self.class));
+	NSAlwaysAssert(self != [A2DynamicDelegate class] && self != [self clusterSubclassForProtocol: self.protocol], \
+				   @"Tried to initialize instance of abstract dynamic delegate class %s", class_getName(self.class));
 	return [super allocWithZone: zone];
 }
 - (id) init
@@ -184,15 +179,6 @@ static void *BlockGetImplementation(id block);
 
 #pragma mark - Block Map
 
-+ (int) unlockBlockMapMutex
-{
-	return pthread_mutex_unlock([self blockMapMutex]);
-}
-+ (int) lockBlockMapMutex
-{
-	return pthread_mutex_lock([self blockMapMutex]);
-}
-
 + (NSMutableDictionary *) blockMap
 {
 	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
@@ -205,29 +191,12 @@ static void *BlockGetImplementation(id block);
 	return blockMap;
 }
 
-+ (pthread_mutex_t *) blockMapMutex
-{
-	NSData *mutexData = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapMutexKey);
-	if (mutexData)
-	{
-		return (pthread_mutex_t *) mutexData.bytes;
-	}
-	
-	pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(mutex, NULL);
-	mutexData = [NSData dataWithBytesNoCopy: mutex length: sizeof(pthread_mutex_t)];
-	objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapMutexKey, mutexData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	return mutex;
-}
-
 #pragma mark - Forward Invocation
 
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod
 {
 	SEL selector = fwdInvocation.selector;
-	[self lockBlockMapMutex];
 	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
-	[self unlockBlockMapMutex];
 	
 	NSAlwaysAssert(block, @"Block implementation not found for %s method %c%s", (isClassMethod) ? "class" : "instance", "+-"[!!isClassMethod], fwdInvocation.selector);
 	
@@ -369,10 +338,7 @@ static void *BlockGetImplementation(id block);
 
 + (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
 {
-	[self lockBlockMapMutex];
-	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
-	[self unlockBlockMapMutex];
-	return block;
+	return [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
 }
 
 + (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block
@@ -401,18 +367,14 @@ static void *BlockGetImplementation(id block);
 	
 	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "+-"[!!isClassMethod], sel_getName(selector));
 	
-	[self lockBlockMapMutex];
 	block = [[block copy] autorelease];
 	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
-	[self unlockBlockMapMutex];
 }
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
 {
 	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
 	
-	[self lockBlockMapMutex];
 	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
-	[self unlockBlockMapMutex];
 }
 
 #pragma mark - Protocol Class Methods
