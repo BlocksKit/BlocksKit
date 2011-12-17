@@ -265,6 +265,10 @@ static void *BlockGetImplementation(id block);
 		
 		NSData *returnData = [NSData dataWithBytesNoCopy: returnBuffer length: returnLength];
 		[fwdInvocation setReturnValue: (void *) returnData.bytes];
+		
+		// Extends the lifetime of `returnData` and by association, `returnBuffer`
+		static void *returnDataKey;
+		objc_setAssociatedObject(fwdInvocation, &returnDataKey, returnData, OBJC_ASSOCIATION_RETAIN);
 	}
 	
 	// Deallocates all data objects and in turn frees their pointers
