@@ -27,6 +27,8 @@ static void *A2DynamicDelegateBlockMapKey;
 static void *A2DynamicDelegateBlockMapMutexKey;
 static void *A2DynamicDelegateProtocolKey;
 
+static static const void *A2CFCopy(CFAllocatorRef allocator, const void *value);
+
 static const char *BlockGetSignature(id block);
 static void *BlockGetImplementation(id block);
 
@@ -44,6 +46,8 @@ static void *BlockGetImplementation(id block);
 @end
 
 @interface A2DynamicDelegate ()
+
+@property (nonatomic, retain, readwrite) NSMutableDictionary *handlers;
 
 + (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol; // Designated initializer
 
@@ -73,6 +77,8 @@ static void *BlockGetImplementation(id block);
 @end
 
 @implementation A2DynamicDelegate
+
+@synthesize handlers = _handlers;
 
 + (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol
 {
@@ -140,6 +146,18 @@ static void *BlockGetImplementation(id block);
 	NSAlwaysAssert(self != [A2DynamicDelegate class] && self != [self clusterSubclassForProtocol: self.protocol], @"Tried to initialize instance of abstract dynamic delegate class %s", class_getName(self.class));
 	return [super allocWithZone: zone];
 }
+- (id) init
+{
+	if ((self = [super init]))
+	{
+		CFDictionaryValueCallBacks callBacks = kCFTypeDictionaryValueCallBacks;
+		callBacks.retain = A2CFCopy;
+		
+		self.handlers = (NSMutableDictionary *) CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFCopyStringDictionaryKeyCallBacks, &callBacks);
+	}
+	
+	return self;
+}
 
 + (NSString *) description
 {
@@ -152,6 +170,8 @@ static void *BlockGetImplementation(id block);
 
 - (void) dealloc
 {
+	self.handlers = nil;
+	
 	[super dealloc];
 	
 	// Dispose of unique A2DynamicDelegate subclass.
@@ -337,15 +357,6 @@ static void *BlockGetImplementation(id block);
 	free(properties);
 }
 
-- (Protocol *) protocol
-{
-	return [self.class protocol];
-}
-- (void) setProtocol: (Protocol *) protocol
-{
-	[self.class setProtocol: protocol];
-}
-
 #pragma mark - Protocol Methods
 
 + (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
@@ -500,6 +511,14 @@ static void *BlockGetImplementation(id block);
 }
 
 @end
+
+static const void *A2CFCopy(CFAllocatorRef allocator, const void *value)
+{
+	if ([(id) value respondsToSelector: @selector(copy)])
+		return [(id) value copy];
+	
+	return kCFTypeDictionaryValueCallBacks.retain(allocator, value);
+}
 
 struct BlockDescriptor
 {

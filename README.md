@@ -85,6 +85,69 @@ A2DynamicDelegate is designed to be 'plug and play'. It just works. Pretty neat,
 
 *Dont't forget to check out the Demo project.*
 
+### Advanced Example
+
+The dynamic delegate returned from one of the `-dynamic*` methods is actually part of a class cluster. For a dynamic delegate for protocol `UIAlertViewDelegate`, the following chain is produced:
+
+* `A2DynamicDelegate`
+* `A2DynamicUIAlertViewDelegate`
+* `A2DynamicUIAlertViewDelegate/983C3E20-285D-11E1-BFC2-0800200C9A66`
+
+Therefore, you can actually create a subclass of A2DynamicDelegate in order to provide custom handling.
+
+**UIAlertView+A2DynamicDelegate.h**:
+
+	#import <dispatch/dispatch.h> // typedef void (^dispatch_block_t)(void);
+	
+	@interface UIAlertView (A2DynamicDelegate)
+	
+	- (NSInteger) addButtonWithTitle: (NSString *) title handler: (dispatch_block_t) block;
+	- (dispatch_block_t) handlerForButtonAtIndex: (NSInteger) index;
+	
+	@end
+	
+	@interface A2DynamicUIAlertViewDelegate : A2DynamicDelegate
+	
+	@end
+
+**UIAlertView+A2DynamicDelegate.m**:
+
+	@interface UIAlertView (A2DynamicDelegate)
+	
+	- (NSInteger) addButtonWithTitle: (NSString *) title handler: (dispatch_block_t) block
+	{
+		NSInteger index = [self addButtonWithTitle: title];
+		id key = [NSNumber numberWithInteger: index];
+		
+		if (block)
+			[self.dynamicDelegate.handlers setObject: block forKey: key];
+		else
+			[self.dynamicDelegate.handlers removeObjectForKey: key];
+		
+		return index;
+	}
+	- (dispatch_block_t) handlerForButtonAtIndex: (NSInteger) index
+	{
+		id key = [NSNumber numberWithInteger: index];
+		return [self.dynamicDelegate.handlers objectForKey: key];
+	}
+	
+	@end
+	
+	@implementation A2DynamicUIAlertViewDelegate
+	
+	- (void) alertView: (UIAlertView *) alertView clickedButtonAtIndex: (NSInteger) buttonIndex
+	{
+		id key = [NSNumber numberWithInteger: buttonIndex];
+		dispatch_block_t block = [self.handlers objectForKey: key];
+		if (block) block();
+		
+		void (^buttonClicked)(UIAlertView *, NSInteger) = [self blockImplementationForMethod: _cmd];
+		if (buttonClicked) buttonClicked(alertView, buttonIndex);
+	}
+
+	@end
+
 ## A2BlockDelegate
 
 Create custom block properties in a category on a delegating object and dynamically map them to delegate (`UIAlertViewDelegate`), datasource (`UITableViewDataSource`), or other delegated protocol (`NSErrorRecoveryAttempting`) methods.

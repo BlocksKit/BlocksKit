@@ -10,6 +10,9 @@
 
 @interface A2DynamicDelegate : NSObject
 
+// Block objects *DO NOT* need to be copied before entering the dictionary.
+@property (nonatomic, retain, readonly) NSMutableDictionary *handlers;
+
 #pragma mark - Protocol Instance Methods
 
 - (id) blockImplementationForMethod: (SEL) selector;
