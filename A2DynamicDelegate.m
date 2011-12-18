@@ -38,7 +38,7 @@ static void *BlockGetImplementation(id block);
 
 @end
 
-@interface NSObject (A2DynamicDelegatePrivate)
+@interface NSObject (A2DelegateProtocols)
 
 + (Protocol *) a2_dataSourceProtocol;
 + (Protocol *) a2_delegateProtocol;
@@ -459,6 +459,10 @@ static void *BlockGetImplementation(id block);
 	
 	return dynamicDelegate;
 }
+
+@end
+
+@implementation NSObject (A2DelegateProtocols)
 
 + (Protocol *) a2_dataSourceProtocol
 {

@@ -39,6 +39,10 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 + (NSMutableSet *) a2_protocols;
 
+@end
+
+@interface NSObject (A2DelegateProtocols)
+
 + (Protocol *) a2_dataSourceProtocol;
 + (Protocol *) a2_delegateProtocol;
 
