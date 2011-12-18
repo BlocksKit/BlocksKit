@@ -130,11 +130,10 @@ extern IMP imp_implementationWithBlock(void *block);
 	if (!class_getProperty(self, propertyName.UTF8String))
 	{
 		// It's not a simple -xBlock/setXBlock: pair
-		const char *selectorName = sel_getName(selector);
-		char lastChar = selectorName[strlen(selectorName) - 1];
 		
-		// If the selector's last character is a ':', it's a setter.
-		const BOOL isSetter = (lastChar == ':');
+		// If selector ends in ':', it's a setter.
+		const BOOL isSetter = [NSStringFromSelector(selector) hasSuffix: @":"];
+		const char *key = (isSetter ? "S" : "G");
 	
 		unsigned int i, count;
 		objc_property_t *properties = class_copyPropertyList(self, &count);
@@ -143,7 +142,6 @@ extern IMP imp_implementationWithBlock(void *block);
 		{
 			objc_property_t property = properties[i];
 			
-			const char *key = (isSetter ? "S" : "G");
 			char *accessorName = a2_property_copyAttributeValue(property, key);
 			SEL accessor = sel_getUid(accessorName);
 			if (sel_isEqual(selector, accessor))
