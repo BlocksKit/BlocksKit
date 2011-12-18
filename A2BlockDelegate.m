@@ -24,7 +24,7 @@ static void *A2BlockDelegateProtocolsKey;
 static void *A2BlockDelegateMapKey;
 
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
-static void *a2_blockPropertyGetter(id self, SEL _cmd);
+static id a2_blockPropertyGetter(id self, SEL _cmd);
 static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 @interface NSObject (A2BlockDelegatePrivate)
@@ -284,7 +284,7 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 @end
 
-static void *a2_blockPropertyGetter(NSObject *self, SEL _cmd)
+static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
 {
 	Protocol *protocol;
 	SEL representedSelector;
