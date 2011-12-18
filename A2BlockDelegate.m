@@ -167,7 +167,7 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	}];
 	
 	return found;
-;}
+}
 
 + (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol
 {
