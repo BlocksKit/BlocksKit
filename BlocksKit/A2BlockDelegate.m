@@ -130,11 +130,9 @@ extern IMP imp_implementationWithBlock(void *block);
 	if (!class_getProperty(self, propertyName.UTF8String))
 	{
 		// It's not a simple -xBlock/setXBlock: pair
-		const char *selectorName = sel_getName(selector);
-		char lastChar = selectorName[strlen(selectorName) - 1];
-		
+
 		// If the selector's last character is a ':', it's a setter.
-		const BOOL isSetter = (lastChar == ':');
+		const BOOL isSetter = [NSStringFromSelector(selector) hasSuffix: @":"];
 	
 		unsigned int i, count;
 		objc_property_t *properties = class_copyPropertyList(self, &count);
@@ -289,6 +287,12 @@ extern IMP imp_implementationWithBlock(void *block);
 
 @end
 
+@interface NSObject (A2BlockDelegateBlocksKitPrivate)
+
++ (NSMutableDictionary *) bk_accessorsMap;
+
+@end
+
 // Block Property Accessors
 static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
 {
@@ -307,6 +311,32 @@ static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 		return;
 	
 	[[self dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
+	
+	if ([self.class respondsToSelector: @selector(bk_accessorsMap)])
+	{
+		NSMutableDictionary *accessorsMap = [self.class bk_accessorsMap];
+		if (![accessorsMap count]) return;
+		
+		__block SEL delegateGetter = NULL;
+		__block SEL delegateSetter = NULL;
+		[[accessorsMap allKeysForObject: protocol] enumerateObjectsUsingBlock: ^(NSString *selectorName, NSUInteger idx, BOOL *stop) {
+			if ([selectorName hasSuffix: @":"] && !delegateSetter)
+				delegateSetter = NSSelectorFromString(selectorName);
+			else if (!delegateGetter)
+				delegateGetter = NSSelectorFromString(selectorName);
+			else
+				*stop = YES;
+		}];
+		
+		NSAssert1(delegateGetter && delegateSetter, @"Could not find both accessors for delegate of protocol <%@>", NSStringFromProtocol(protocol));
+		
+		if (![self performSelector: delegateGetter])
+		{
+			[self performSelector: delegateSetter withObject: self];
+		}
+		
+		NSAssert([[self performSelector: delegateGetter] isEqual: self], @"A block-backed object cannot be added when the delegate isn't self.");
+	}
 }
 
 /*

@@ -13,17 +13,36 @@
 #import "NSObject+AssociatedObjects.h"
 #import "NSObject+BlocksKit.h"
 
-@interface A2DynamicDelegate ()
-
-@property (nonatomic, assign, readwrite) id realDelegate;
-
-@end
-
+static char kRealDelegateKey;
 static void bk_blockDelegateSetter(id self, SEL _cmd, id delegate);
 
 // Forward Declarations
 extern IMP imp_implementationWithBlock(void *block);
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *name);
+
+// Helpers
+static SEL bk_getterForProperty(Class cls, NSString *propertyName);
+static SEL bk_setterForProperty(Class cls, NSString *propertyName);
+
+@interface A2DynamicDelegate (A2BlockDelegate)
+
+@property (nonatomic, assign) id realDelegate;
+
+@end
+
+@implementation A2DynamicDelegate (A2BlockDelegate)
+
+- (id) realDelegate
+{
+	return [self associatedValueForKey: &kRealDelegateKey];
+}
+
+- (void) setRealDelegate: (id) rd
+{
+	[self weaklyAssociateValue: rd withKey: &kRealDelegateKey];
+}
+
+@end
 
 @interface NSObject (A2DelegateProtocols)
 
@@ -32,7 +51,13 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 
 @end
 
-@implementation NSObject (A2BlockDelegateBlocksKit)
+@interface NSObject (A2BlockDelegateBlocksKitPrivate)
+
++ (NSMutableDictionary *) bk_accessorsMap;
+
+@end
+
+@implementation NSObject (A2BlockDelegateBlocksKitPrivate)
 
 + (NSMutableDictionary *) bk_accessorsMap
 {
@@ -47,6 +72,10 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 	
 	return accessorsMap;
 }
+
+@end
+
+@implementation NSObject (A2BlockDelegateBlocksKit)
 
 #pragma mark - Register Dynamic Delegate
 
@@ -73,24 +102,12 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 	NSMutableDictionary *accessorsMap = [self bk_accessorsMap];
 	if ([accessorsMap objectForKey: delegateName]) return;
 	
-	SEL setter = NULL;
-	objc_property_t property = class_getProperty(self, delegateName.UTF8String);
-	if (property)
-	{
-		char *setterName = a2_property_copyAttributeValue(property, "S");
-		if (setterName) setter = sel_getUid(setterName);
-		free(setterName);
-	}
-	
-	if (!setter)
-	{
-		unichar firstChar = [delegateName characterAtIndex: 0];
-		NSString *coda = [delegateName substringFromIndex: 1];
-		
-		setter = NSSelectorFromString([NSString stringWithFormat: @"set%c%@:", toupper(firstChar), coda]);
-	}
-	
+	SEL getter = bk_getterForProperty(self, delegateName);
+	SEL setter = bk_setterForProperty(self, delegateName);
+	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
+
 	[accessorsMap setObject: protocol forKey: NSStringFromSelector(setter)];
+	[accessorsMap setObject: protocol forKey: NSStringFromSelector(getter)];
 	
 	IMP implementation;
 	
@@ -109,8 +126,6 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 	}
 	
 	const char *types = "v@:@";
-	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
-	
 	class_addMethod(self, a2_setter, implementation, types);
 	
 	Method method = class_getInstanceMethod(self, setter);
@@ -137,13 +152,6 @@ static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 }
 
 // Helpers
-static SEL bk_fakeAccessor(SEL accessor)
-{
-	if ([NSStringFromSelector(accessor) hasPrefix: @"bk_"])
-		return NSSelectorFromString([NSStringFromSelector(accessor) substringFromIndex: 3]);
-	else
-		return NSSelectorFromString([NSString stringWithFormat: @"bk_%s", sel_getName(accessor)]);
-}
 static SEL bk_getterForProperty(Class cls, NSString *propertyName)
 {
 	SEL getter = NULL;
