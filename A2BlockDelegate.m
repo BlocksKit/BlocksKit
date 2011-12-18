@@ -23,7 +23,7 @@
 static void *A2BlockDelegateProtocolsKey;
 static void *A2BlockDelegateMapKey;
 
-static char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
+extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 static void *a2_blockPropertyGetter(id self, SEL _cmd);
 static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
@@ -420,7 +420,7 @@ static BOOL a2_findOneAttribute(__unused unsigned int index, void *ctxa, void *c
 	
     return YES;
 }
-static char *a2_property_copyAttributeValue(objc_property_t property, const char *name)
+char *a2_property_copyAttributeValue(objc_property_t property, const char *name)
 {
 	if (&property_copyAttributeValue)
 	{
