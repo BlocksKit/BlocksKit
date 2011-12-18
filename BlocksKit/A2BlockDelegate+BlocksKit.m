@@ -13,118 +13,127 @@
 #import "NSObject+AssociatedObjects.h"
 #import "NSObject+BlocksKit.h"
 
-// Data Source Accessors
-static id bk_dataSourceGetter(id self, SEL _cmd);
-static void bk_dataSourceSetter(id self, SEL _cmd, id dataSource);
+@interface A2DynamicDelegate ()
 
-// Delegate Accessors
-static id bk_delegateGetter(id self, SEL _cmd);
-static void bk_delegateSetter(id self, SEL _cmd, id delegate);
+@property (nonatomic, assign, readwrite) id realDelegate;
 
-// Helpers
-static SEL bk_fakeAccessor(SEL accessor);
-static SEL bk_getterForProperty(Class cls, NSString *propertyName);
-static SEL bk_setterForProperty(Class cls, NSString *propertyName);
+@end
 
+static void bk_blockDelegateSetter(id self, SEL _cmd, id delegate);
+
+// Forward Declarations
+extern IMP imp_implementationWithBlock(void *block);
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *name);
+
+@interface NSObject (A2DelegateProtocols)
+
++ (Protocol *) a2_dataSourceProtocol;
++ (Protocol *) a2_delegateProtocol;
+
+@end
 
 @implementation NSObject (A2BlockDelegateBlocksKit)
 
-+ (NSMutableDictionary *) bk_propertyMap
++ (NSMutableDictionary *) bk_accessorsMap
 {
-	static char propertyMapKey;
-	NSMutableDictionary *propertyMap = [self associatedValueForKey: &propertyMapKey];
+	static char accessorsMapKey;
+	NSMutableDictionary *accessorsMap = [self associatedValueForKey: &accessorsMapKey];
 	
-	if (!propertyMap)
+	if (!accessorsMap)
 	{
-		propertyMap = [NSMutableDictionary dictionary];
-		[self associateValue: propertyMap withKey: &propertyMapKey];
+		accessorsMap = [NSMutableDictionary dictionary];
+		[self associateValue: accessorsMap withKey: &accessorsMapKey];
 	}
 	
-	return propertyMap;
+	return accessorsMap;
 }
 
-+ (void) swizzleDataSourceProperty
+#pragma mark - Register Dynamic Delegate
+
++ (void) registerDynamicDataSource
 {
-	[self swizzleDataSourcePropertyNamed: @"dataSource"];
+	[self registerDynamicDelegateNamed: @"dataSource" forProtocol: [self a2_dataSourceProtocol]];
 }
-+ (void) swizzleDataSourcePropertyNamed: (NSString *) dataSourceName
++ (void) registerDynamicDelegate
 {
-	SEL getter = bk_getterForProperty(self, dataSourceName);
-	SEL setter = bk_setterForProperty(self, dataSourceName);
-	
-	SEL bk_getter = bk_fakeAccessor(getter);
-	SEL bk_setter = bk_fakeAccessor(setter);
-	
-	[[self bk_propertyMap] setObject: dataSourceName forKey: NSStringFromSelector(bk_getter)];
-	[[self bk_propertyMap] setObject: dataSourceName forKey: NSStringFromSelector(bk_setter)];
-	
-	class_addMethod(self, bk_getter, (IMP) bk_dataSourceGetter, "@@:");
-	class_addMethod(self, bk_setter, (IMP) bk_dataSourceSetter, "v@:@");
-	
-	[self swizzleSelector: getter withSelector: bk_getter];
-	[self swizzleSelector: setter withSelector: bk_setter];
-	
+	[self registerDynamicDelegateNamed: @"delegate" forProtocol: [self a2_delegateProtocol]];
 }
 
-+ (void)swizzleDelegateProperty
++ (void) registerDynamicDataSourceNamed: (NSString *) dataSourceName
 {
-	[self swizzleDelegatePropertyNamed: @"delegate"];
+	[self registerDynamicDelegateNamed: dataSourceName forProtocol: [self a2_dataSourceProtocol]];
 }
-+ (void)swizzleDelegatePropertyNamed: (NSString *) delegateName
++ (void) registerDynamicDelegateNamed: (NSString *) delegateName
 {
-	SEL getter = bk_getterForProperty(self, delegateName);
-	SEL setter = bk_setterForProperty(self, delegateName);
+	[self registerDynamicDelegateNamed: delegateName forProtocol: [self a2_delegateProtocol]];
+}
+
++ (void) registerDynamicDelegateNamed: (NSString *) delegateName forProtocol: (Protocol *) protocol
+{
+	NSMutableDictionary *accessorsMap = [self bk_accessorsMap];
+	if ([accessorsMap objectForKey: delegateName]) return;
 	
-	SEL bk_getter = bk_fakeAccessor(getter);
-	SEL bk_setter = bk_fakeAccessor(setter);
+	SEL setter = NULL;
+	objc_property_t property = class_getProperty(self, delegateName.UTF8String);
+	if (property)
+	{
+		char *setterName = a2_property_copyAttributeValue(property, "S");
+		if (setterName) setter = sel_getUid(setterName);
+		free(setterName);
+	}
 	
-	[[self bk_propertyMap] setObject: delegateName forKey: NSStringFromSelector(bk_getter)];
-	[[self bk_propertyMap] setObject: delegateName forKey: NSStringFromSelector(bk_setter)];
+	if (!setter)
+	{
+		unichar firstChar = [delegateName characterAtIndex: 0];
+		NSString *coda = [delegateName substringFromIndex: 1];
+		
+		setter = NSSelectorFromString([NSString stringWithFormat: @"set%c%@:", toupper(firstChar), coda]);
+	}
 	
-	class_addMethod(self, bk_getter, (IMP) bk_delegateGetter, "@@:");
-	class_addMethod(self, bk_setter, (IMP) bk_delegateSetter, "v@:@");
+	[accessorsMap setObject: protocol forKey: NSStringFromSelector(setter)];
 	
-	[self swizzleSelector: getter withSelector: bk_getter];
-	[self swizzleSelector: setter withSelector: bk_setter];
+	IMP implementation;
+	
+	if (&imp_implementationWithBlock)
+	{
+		implementation = imp_implementationWithBlock((__bridge void *) ^(NSObject *self, SEL _cmd, id delegate) {
+			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+			
+			if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
+			dynamicDelegate.realDelegate = delegate;
+		});
+	}
+	else
+	{
+		implementation = (IMP) bk_blockDelegateSetter;
+	}
+	
+	const char *types = "v@:@";
+	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
+	
+	class_addMethod(self, a2_setter, implementation, types);
+	
+	Method method = class_getInstanceMethod(self, setter);
+	Method a2_method = class_getInstanceMethod(self, a2_setter);
+	
+	if (class_addMethod(self, setter, method_getImplementation(a2_method), types))
+		class_replaceMethod(self, a2_setter, method_getImplementation(method), types);
+	else
+		method_exchangeImplementations(method, a2_method);
 }
 
 @end
 
-// Data Source Accessors
-static id bk_dataSourceGetter(id self, SEL _cmd)
+// Block Delegate Setter (Swizzled)
+static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 {
-	NSString *propertyName = [[[self class] bk_propertyMap] objectForKey: NSStringFromSelector(_cmd)];
-	return [[self dynamicDataSource] associatedValueForKey: propertyName.UTF8String];
-}
-static void bk_dataSourceSetter(id self, SEL _cmd, id dataSource)
-{
-	id dynamicDataSource = [self dynamicDataSource];
-	((void (*)(id, SEL, id)) objc_msgSend)(self, bk_fakeAccessor(_cmd), dynamicDataSource);
-
-	if ([dataSource isEqual: self] || [dataSource isEqual: dynamicDataSource])
-		dataSource = nil;
+	NSMutableDictionary *propertyMap = [self.class bk_accessorsMap];
+	Protocol *protocol = [propertyMap objectForKey: NSStringFromSelector(_cmd)];
 	
-	NSString *propertyName = [[[self class] bk_propertyMap] objectForKey: NSStringFromSelector(_cmd)];
-	[dynamicDataSource weaklyAssociateValue: dataSource withKey: propertyName.UTF8String];
-}
-
-// Delegate Accessors
-static id bk_delegateGetter(id self, SEL _cmd)
-{
-	NSString *propertyName = [[[self class] bk_propertyMap] objectForKey: NSStringFromSelector(_cmd)];
-	return [[self dynamicDelegate] associatedValueForKey: propertyName.UTF8String];
-}
-static void bk_delegateSetter(id self, SEL _cmd, id delegate)
-{
-	id dynamicDelegate = [self dynamicDelegate];
-	((void (*)(id, SEL, id)) objc_msgSend)(self, bk_fakeAccessor(_cmd), dynamicDelegate);
+	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 	
-	if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate])
-		delegate = nil;
-	
-	NSString *propertyName = [[[self class] bk_propertyMap] objectForKey: NSStringFromSelector(_cmd)];
-	[dynamicDelegate weaklyAssociateValue: delegate withKey: propertyName.UTF8String];
+	if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
+	dynamicDelegate.realDelegate = delegate;
 }
 
 // Helpers

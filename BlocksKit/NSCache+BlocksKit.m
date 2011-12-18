@@ -6,13 +6,22 @@
 #import "NSCache+BlocksKit.h"
 #import "A2BlockDelegate+BlocksKit.h"
 
+@interface NSCache (BKDynamicAccessors)
+
+- (id <NSCacheDelegate>) bk_delegate;
+- (void) bk_setDelegate: (id <NSCacheDelegate>) d;
+
+@end
+
 @interface A2DynamicNSCacheDelegate : A2DynamicDelegate
+
 @end
 
 @implementation A2DynamicNSCacheDelegate
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
-	id realDelegate = self.realDelegate;
+	id realDelegate = [cache bk_delegate];
+	
 	if (realDelegate && [realDelegate respondsToSelector:@selector(cache:willEvictObject:)])
 		[realDelegate cache:cache willEvictObject:obj];
 
@@ -31,7 +40,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self swizzleDelegateProperty];
+		[self registerDynamicDelegate];
 		[self linkCategoryBlockProperty:@"willEvictBlock" withDelegateMethod:@selector(cache:willEvictObject:)];
 	}
 }
