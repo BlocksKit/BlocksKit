@@ -20,10 +20,9 @@
 		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, (desc)], ## __VA_ARGS__]; } } while(0)
 #endif
 
-static void *A2BlockDelegateProtocolsKey;
-static void *A2BlockDelegateMapKey;
-
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
+
+// Block Property Accessors
 static id a2_blockPropertyGetter(id self, SEL _cmd);
 static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
@@ -179,11 +178,12 @@ extern IMP imp_implementationWithBlock(void *block);
 {
 	[[self a2_protocols] addObject: protocol];
 	
-	NSMutableDictionary *map = objc_getAssociatedObject(self, &A2BlockDelegateMapKey);
+	static void *mapKey;
+	NSMutableDictionary *map = objc_getAssociatedObject(self, &mapKey);
 	if (!map)
 	{
 		map = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, &A2BlockDelegateMapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, &mapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSDictionary *protocolMap = [map objectForKey: NSStringFromProtocol(protocol)];
@@ -209,11 +209,12 @@ extern IMP imp_implementationWithBlock(void *block);
 
 + (NSMutableSet *) a2_protocols
 {
-	NSMutableSet *protocols = objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey);
+	static void *protocolsKey;
+	NSMutableSet *protocols = objc_getAssociatedObject(self, &protocolsKey);
 	if (!protocols)
 	{
 		protocols = [NSMutableSet set];
-		objc_setAssociatedObject(self, &A2BlockDelegateProtocolsKey, protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, &protocolsKey, protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return protocols;
@@ -288,6 +289,7 @@ extern IMP imp_implementationWithBlock(void *block);
 
 @end
 
+// Block Property Accessors
 static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
 {
 	Protocol *protocol;
