@@ -4,20 +4,15 @@
 //
 
 #import "NSURLConnection+BlocksKit.h"
-#import "NSObject+BlocksKit.h"
-#import "BKDelegate.h"
-
-static char *kDelegateKey = "NSURLConnectionDelegate";
-static char *kResponseDataKey = "NSURLConnectionResponseData";
-static char *kResponseKey = "NSURLConnectionResponse";
-static char *kResponseLengthKey = "NSURLConnectionResponseLength";
-static char *kResponseBlockKey = "NSURLConnectionDidReceiveResponse";
-static char *kFailureBlockKey = "NSURLConnectionDidFail";
-static char *kSuccessBlockKey = "NSURLConnectionDidFinish";
-static char *kUploadBlockKey = "NSURLConnectionUploadProgress";
-static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
+#import "NSObject+AssociatedObjects.h"
+#import "A2BlockDelegate+BlocksKit.h"
+#import <objc/runtime.h>
 
 #pragma mark Private
+
+static char kResponseDataKey;
+static char kResponseKey;
+static char kResponseLengthKey;
 
 @interface NSURLConnection (BlocksKitPrivate)
 @property (nonatomic, retain) NSMutableData *bk_responseData;
@@ -25,32 +20,66 @@ static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
 @property (nonatomic) NSUInteger bk_responseLength;
 @end
 
-#pragma mark Delegate proxy
+@implementation NSURLConnection (BlocksKitPrivate)
 
-@interface BKURLConnectionDelegate : BKDelegate
+- (NSMutableData *)bk_responseData {
+	return [self associatedValueForKey:&kResponseDataKey];
+}
+
+- (void)setBk_responseData:(NSMutableData *)responseData {
+	[self associateValue:responseData withKey:&kResponseDataKey];
+}
+
+- (NSURLResponse *)bk_response {
+	return [self associatedValueForKey:&kResponseKey];
+}
+
+- (void)setBk_response:(NSURLResponse *)response {
+	return [self associateValue:response withKey:&kResponseKey];
+}
+
+- (NSUInteger)bk_responseLength {
+	return [[self associatedValueForKey:&kResponseLengthKey] unsignedIntegerValue];
+}
+
+- (void)setBk_responseLength:(NSUInteger)responseLength {
+	NSNumber *value = [NSNumber numberWithUnsignedInteger:responseLength];
+	return [self associateValue:value withKey:&kResponseLengthKey];
+}
 
 @end
 
-@implementation BKURLConnectionDelegate
+#pragma mark - BKURLConnectionInformalDelegate - iOS 4.3 support
 
-+ (Class)targetClass {
-    return [NSURLConnection class];
-}
+@protocol BKURLConnectionInformalDelegate <NSObject>
+@optional
+- (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
+- (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
+- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection;
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse;
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
+- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse;
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection;
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
+@end
 
-#pragma mark Authentication delegate
+@interface A2DynamicBKURLConnectionInformalDelegate : A2DynamicDelegate <BKURLConnectionInformalDelegate>
 
-- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willSendRequestForAuthenticationChallenge:)])
-        [connection.delegate connection:connection willSendRequestForAuthenticationChallenge:challenge];
-	else
-		[challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
-}
+@end
+
+@implementation A2DynamicBKURLConnectionInformalDelegate
 
 - (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
         return [connection.delegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
-    
-    return NO;
+	
+	NSString *authMethod = protectionSpace.authenticationMethod;
+	if (authMethod == NSURLAuthenticationMethodServerTrust || authMethod == NSURLAuthenticationMethodClientCertificate)
+		return NO;
+    return YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
@@ -66,49 +95,75 @@ static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connectionShouldUseCredentialStorage:)])
         return [connection.delegate connectionShouldUseCredentialStorage:connection];
-
+	
     return YES;   
 }
 
-#pragma mark Connection delegate
-
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
-    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willCacheResponse:)])
+	if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willCacheResponse:)])
         return [connection.delegate connection:connection willCacheResponse:cachedResponse];
     
     return cachedResponse;
 }
 
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
+    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
+        return [connection.delegate connection:connection willSendRequest:request redirectResponse:redirectResponse];
+    
+    return request;
+}
+
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveResponse:)])
+	if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveResponse:)])
         [connection.delegate connection:connection didReceiveResponse:response];
     
     connection.bk_responseLength = 0;
-    
-    if (connection.bk_responseData)
-        [connection.bk_responseData setLength:0];
+    [connection.bk_responseData setLength:0];
     
     connection.bk_response = response;
+	
+	void (^block)(NSURLConnection *, NSURLResponse *) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(connection, response);
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didFailWithError:)])
+        [connection.delegate connection:connection didFailWithError:error];
+	
+	connection.bk_responseLength = 0;
+	[connection.bk_responseData setLength:0];
+	
+	void (^block)(NSURLConnection *, NSError *) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(connection, error);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	if (connection.delegate && [connection.delegate respondsToSelector:@selector(connectionDidFinishLoading:)])
+        [connection.delegate connectionDidFinishLoading:connection];
     
-    BKResponseBlock responseBlock = connection.responseBlock;
-    if (responseBlock)
-        responseBlock(response);
+    if (!connection.bk_responseData.length)
+        connection.bk_responseData = nil;
+    
+    void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
+    if (block)
+        block(connection, connection.bk_response, connection.bk_responseData);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     connection.bk_responseLength += data.length;
     
-    BKProgressBlock block = connection.downloadBlock;
+    void (^block)(CGFloat) = connection.downloadBlock;
     if (block && connection.bk_response && connection.bk_response.expectedContentLength != NSURLResponseUnknownLength)
-        block( (float)connection.bk_responseLength / (float)connection.bk_response.expectedContentLength);
-
+        block((CGFloat)connection.bk_responseLength / (CGFloat)connection.bk_response.expectedContentLength);
+	
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveData:)]) {
         [connection.delegate connection:connection didReceiveData:data];
         return;
     }
     
     NSMutableData *responseData = connection.bk_responseData;
-    
     if (!responseData) {
         responseData = [NSMutableData data];
         connection.bk_responseData = responseData;
@@ -121,44 +176,132 @@ static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)])
         [connection.delegate connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
     
-    BKProgressBlock block = connection.uploadBlock;
+    void (^block)(CGFloat) = connection.uploadBlock;
     if (block)
-        block((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
+        block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
 }
 
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
+@end
+
+#pragma mark - NSURLConnectionDelegate - iOS 5.0+ support
+
+
+@interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate <NSURLConnectionDataDelegate>
+
+@end
+
+@implementation A2DynamicNSURLConnectionDelegate
+
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+	if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willSendRequestForAuthenticationChallenge:)])
+        [connection.delegate connection:connection willSendRequestForAuthenticationChallenge:challenge];
+	else
+		[challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
+	if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willCacheResponse:)])
+        return [connection.delegate connection:connection willCacheResponse:cachedResponse];
+    
+    return cachedResponse;
+}
+
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
     if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
-        return [connection.delegate connection:connection willSendRequest:request redirectResponse:redirectResponse];
+        return [connection.delegate connection:connection willSendRequest:request redirectResponse:response];
     
     return request;
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didFailWithError:)])
-        [connection.delegate connection:connection didFailWithError:error];
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveResponse:)])
+        [connection.delegate connection:connection didReceiveResponse:response];
     
-    BKErrorBlock block = connection.failureBlock;
-    if (block)
-        block(error);
+    connection.bk_responseLength = 0;
+    
+    if (connection.bk_responseData)
+        [connection.bk_responseData setLength:0];
+    
+    connection.bk_response = response;
+	
+	void (^block)(NSURLConnection *, NSURLResponse *) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(connection, response);
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didFailWithError:)])
+        [connection.delegate connection:connection didFailWithError:error];
+	
+	connection.bk_responseLength = 0;
+	[connection.bk_responseData setLength:0];
+	
+	void (^block)(NSURLConnection *, NSError *) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(connection, error);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connectionDidFinishLoading:)])
+	if (connection.delegate && [connection.delegate respondsToSelector:@selector(connectionDidFinishLoading:)])
         [connection.delegate connectionDidFinishLoading:connection];
     
     if (!connection.bk_responseData.length)
         connection.bk_responseData = nil;
     
-    BKConnectionFinishBlock block = connection.successBlock;
+    void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
     if (block)
-        block(connection.bk_response, connection.bk_responseData);
+        block(connection, connection.bk_response, connection.bk_responseData);
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    connection.bk_responseLength += data.length;
+    
+    void (^block)(CGFloat) = connection.downloadBlock;
+    if (block && connection.bk_response && connection.bk_response.expectedContentLength != NSURLResponseUnknownLength)
+        block((CGFloat)connection.bk_responseLength / (CGFloat)connection.bk_response.expectedContentLength);
+	
+    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didReceiveData:)]) {
+        [connection.delegate connection:connection didReceiveData:data];
+        return;
+    }
+    
+    NSMutableData *responseData = connection.bk_responseData;
+    if (!responseData) {
+        responseData = [NSMutableData data];
+        connection.bk_responseData = responseData;
+    }
+    
+    [responseData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
+    if (connection.delegate && [connection.delegate respondsToSelector:@selector(connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)])
+        [connection.delegate connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
+    
+    void (^block)(CGFloat) = connection.uploadBlock;
+    if (block)
+        block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
 }
 
 @end
 
-#pragma mark Category
+#pragma mark - Category
+
+static NSString *const kSuccessBlockKey = @"NSURLConnectionDidFinishLoading";
+static NSString *const kUploadBlockKey = @"NSURLConnectionDidSendData";
+static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 
 @implementation NSURLConnection (BlocksKit)
+
+@dynamic delegate, responseBlock, failureBlock;
+
++ (void)load {
+	@autoreleasepool {
+		[self swizzleDelegateProperty];
+		[self linkCategoryBlockProperty:@"responseBlock" withDelegateMethod:@selector(connection:didReceiveResponse:)];
+		[self linkCategoryBlockProperty:@"failureBlock" withDelegateMethod:@selector(connection:didFailWithError:)];
+	}
+}
 
 #pragma mark Initializers
 
@@ -166,7 +309,7 @@ static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
     return BK_AUTORELEASE([[[self class] alloc] initWithRequest:request]);
 }
 
-+ (NSURLConnection *)startConnectionWithRequest:(NSURLRequest *)request successHandler:(BKConnectionFinishBlock)success failureHandler:(BKErrorBlock)failure {
++ (NSURLConnection *)startConnectionWithRequest:(NSURLRequest *)request successHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))success failureHandler:(void(^)(NSURLConnection *, NSError *))failure {
     NSURLConnection *connection = [[[self class] alloc] initWithRequest:request];
     connection.successBlock = success;
     connection.failureBlock = failure;
@@ -178,142 +321,44 @@ static char *kDownloadBlockKey = "NSURLConnectionDownloadProgress";
     return [self initWithRequest:request completionHandler:NULL];
 }
 
-- (id)initWithRequest:(NSURLRequest *)request completionHandler:(BKConnectionFinishBlock)block {
-    if ((self = [self initWithRequest:request delegate:[BKURLConnectionDelegate shared] startImmediately:NO]))
+- (id)initWithRequest:(NSURLRequest *)request completionHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block {
+	Protocol *delegateProtocol = objc_getProtocol("NSURLConnectionDelegate");
+	if (!delegateProtocol)
+		delegateProtocol = @protocol(BKURLConnectionInformalDelegate);
+    if ((self = [self initWithRequest:request delegate:[self dynamicDelegateForProtocol:delegateProtocol] startImmediately:NO]))
         self.successBlock = block;
     return self;
 }
 
-#pragma mark Actions
-
-- (void)startWithCompletionBlock:(BKConnectionFinishBlock)block {
+- (void)startWithCompletionBlock:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block {
     self.successBlock = block;
     [self start];
 }
 
-#pragma mark Private
-
-- (NSMutableData *)bk_responseData {
-    return [self associatedValueForKey:kResponseDataKey];
-}
-
-- (void)setBk_responseData:(NSMutableData *)responseData {
-    [self associateValue:responseData withKey:kResponseDataKey];
-}
-
-- (NSURLResponse *)bk_response {
-    return [self associatedValueForKey:kResponseKey];
-}
-
-- (void)setBk_response:(NSURLResponse *)response {
-    return [self associateValue:response withKey:kResponseKey];
-}
-
-- (NSUInteger)bk_responseLength {
-    return [[self associatedValueForKey:kResponseLengthKey] unsignedIntegerValue];
-}
-
-- (void)setBk_responseLength:(NSUInteger)responseLength {
-    NSNumber *value = [NSNumber numberWithUnsignedInteger:responseLength];
-    return [self associateValue:value withKey:kResponseLengthKey];
-}
-
 #pragma mark Properties
 
-- (id)delegate {
-    return [self associatedValueForKey:kDelegateKey];
+- (void(^)(NSURLConnection *, NSURLResponse *, NSData *))successBlock {
+	return [[self.dynamicDelegate handlers] objectForKey:kSuccessBlockKey];
 }
 
-- (void)setDelegate:(id)delegate {
-    if (delegate && delegate != self && delegate != [BKURLConnectionDelegate shared] && ![delegate isKindOfClass:[self class]])
-        [self weaklyAssociateValue:delegate withKey:kDelegateKey];
+- (void)setSuccessBlock:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block {
+	[[self.dynamicDelegate handlers] setObject:block forKey:kSuccessBlockKey];
 }
 
-- (BKResponseBlock)responseBlock {
-    BKResponseBlock block = [self associatedValueForKey:kResponseBlockKey];
-    return BK_AUTORELEASE([block copy]);
+- (void(^)(CGFloat))uploadBlock {
+	return [[self.dynamicDelegate handlers] objectForKey:kUploadBlockKey];
 }
 
-- (void)setResponseBlock:(BKResponseBlock)block {
-    [self associateCopyOfValue:block withKey:kResponseBlockKey];
+- (void)setUploadBlock:(void(^)(CGFloat))block {
+	[[self.dynamicDelegate handlers] setObject:block forKey:kUploadBlockKey];
 }
 
-- (BKErrorBlock)failureBlock {
-    BKErrorBlock block = [self associatedValueForKey:kFailureBlockKey];
-    return BK_AUTORELEASE([block copy]);
+- (void(^)(CGFloat))downloadBlock {
+	return [[self.dynamicDelegate handlers] objectForKey:kDownloadBlockKey];
 }
 
-- (void)setFailureBlock:(BKErrorBlock)block {
-    [self associateCopyOfValue:block withKey:kFailureBlockKey];
-}
-
-- (BKConnectionFinishBlock)successBlock {
-    BKConnectionFinishBlock block = [self associatedValueForKey:kSuccessBlockKey];
-    return BK_AUTORELEASE([block copy]);
-}
-
-- (void)setSuccessBlock:(BKConnectionFinishBlock)block {
-    [self associateCopyOfValue:block withKey:kSuccessBlockKey];
-}
-
-- (BKProgressBlock)uploadBlock {
-    BKProgressBlock block = [self associatedValueForKey:kUploadBlockKey];
-    return BK_AUTORELEASE([block copy]);
-}
-
-- (void)setUploadBlock:(BKProgressBlock)block {
-    [self associateCopyOfValue:block withKey:kUploadBlockKey];
-}
-
-- (BKProgressBlock)downloadBlock {
-    BKProgressBlock block = [self associatedValueForKey:kDownloadBlockKey];
-    return BK_AUTORELEASE([block copy]);
-}
-
-- (void)setDownloadBlock:(BKProgressBlock)block {
-    [self associateCopyOfValue:block withKey:kDownloadBlockKey];
-}
-
-#pragma mark - Deprecated
-
-- (BKResponseBlock)didReceiveResponseHandler {
-    return [self responseBlock];
-}
-
-- (void)setDidReceiveResponseHandler:(BKResponseBlock)block {
-    [self setResponseBlock:block];
-}
-
-- (BKErrorBlock)didFailWithErrorHandler {
-    return [self failureBlock];
-}
-
-- (void)setDidFailWithErrorHandler:(BKErrorBlock)block {
-    [self setFailureBlock:block];
-}
-
-- (BKConnectionFinishBlock)didFinishLoadingHandler {
-    return [self successBlock];
-}
-
-- (void)setDidFinishLoadingHandler:(BKConnectionFinishBlock)block {
-    [self setSuccessBlock:block];
-}
-
-- (BKProgressBlock)uploadProgressHandler {
-    return [self uploadBlock];
-}
-
-- (void)setUploadProgressHandler:(BKProgressBlock)block {
-    [self setUploadBlock:block];
-}
-
-- (BKProgressBlock)downloadProgressHandler {
-    return [self downloadBlock];
-}
-
-- (void)setDownloadProgressHandler:(BKProgressBlock)block {
-    [self setDownloadBlock:block];
+- (void)setDownloadBlock:(void(^)(CGFloat))block {
+	[[self.dynamicDelegate handlers] setObject:block forKey:kDownloadBlockKey];
 }
 
 @end

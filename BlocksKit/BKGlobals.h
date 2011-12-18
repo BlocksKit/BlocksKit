@@ -43,8 +43,6 @@ typedef void(^BKEventBlock)(NSEvent* event);
 
 typedef void(^BKBlock)(void); // compatible with dispatch_block_t
 typedef void(^BKSenderBlock)(id sender);
-typedef void(^BKDataBlock)(NSData *data);
-typedef void(^BKErrorBlock)(NSError *error);
 typedef void(^BKIndexBlock)(NSUInteger index);
 typedef void(^BKTimerBlock)(NSTimeInterval time);
 typedef void(^BKResponseBlock)(NSURLResponse *response);
