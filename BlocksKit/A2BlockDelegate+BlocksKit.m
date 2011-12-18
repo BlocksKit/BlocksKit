@@ -21,19 +21,15 @@ static id bk_dataSourceGetter(id self, SEL _cmd);
 @implementation NSObject (A2BlockDelegateBlocksKit)
 
 + (void)swizzleDelegateProperty {
-	const char *getterTypes = "@?@:";
-	const char *setterTypes = "v@:@?";
-	class_addMethod(self, @selector(bk_delegate), (IMP)bk_delegateGetter, getterTypes);
-	class_addMethod(self, @selector(bk_setDelegate:), (IMP)bk_delegateSetter, setterTypes);
+	class_addMethod(self, @selector(bk_delegate), (IMP)bk_delegateGetter, "@@:");
+	class_addMethod(self, @selector(bk_setDelegate:), (IMP)bk_delegateSetter, "v@:@");
 	[self swizzleSelector:@selector(delegate) withSelector:@selector(bk_delegate)];
 	[self swizzleSelector:@selector(setDelegate:) withSelector:@selector(bk_setDelegate:)];
 }
 
 + (void)swizzleDataSourceProperty {
-	const char *getterTypes = "@?@:";
-	const char *setterTypes = "v@:@?";
-	class_addMethod(self, @selector(bk_dataSource), (IMP)bk_dataSourceGetter, getterTypes);
-	class_addMethod(self, @selector(bk_setDataSource:), (IMP)bk_dataSourceSetter, setterTypes);
+	class_addMethod(self, @selector(bk_dataSource), (IMP)bk_dataSourceGetter, "@@:");
+	class_addMethod(self, @selector(bk_setDataSource:), (IMP)bk_dataSourceSetter, "v@:@");
 	[self swizzleSelector:@selector(dataSource) withSelector:@selector(bk_dataSource)];
 	[self swizzleSelector:@selector(setDataSource:) withSelector:@selector(bk_setDataSource:)];
 }
