@@ -14,9 +14,9 @@
 static char kDelegateKey;
 static char kDataSourceKey;
 static void bk_delegateSetter(id self, SEL _cmd, id delegate);
-static void *bk_delegateGetter(id self, SEL _cmd);
+static id bk_delegateGetter(id self, SEL _cmd);
 static void bk_dataSourceSetter(id self, SEL _cmd, id dataSource);
-static void *bk_dataSourceGetter(id self, SEL _cmd);
+static id bk_dataSourceGetter(id self, SEL _cmd);
 
 @implementation NSObject (A2BlockDelegateBlocksKit)
 
@@ -60,7 +60,7 @@ static void bk_delegateSetter(id self, SEL _cmd, id delegate) {
 	[dynamicDelegate weaklyAssociateValue:delegate withKey:&kDelegateKey];
 }
 
-static void *bk_delegateGetter(id self, SEL _cmd) {
+static id bk_delegateGetter(id self, SEL _cmd) {
 	return [[self dynamicDelegate] associatedValueForKey:&kDelegateKey];
 }
 
@@ -73,6 +73,6 @@ static void bk_dataSourceSetter(id self, SEL _cmd, id dataSource) {
 
 }
 
-static void *bk_dataSourceGetter(id self, SEL _cmd) {
+static id bk_dataSourceGetter(id self, SEL _cmd) {
 	return [[self dynamicDataSource] associatedValueForKey:&kDataSourceKey];
 }
