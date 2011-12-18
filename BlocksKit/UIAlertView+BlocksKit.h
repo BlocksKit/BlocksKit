@@ -32,7 +32,7 @@
 
  @warning UIAlertView is only available on iOS or in a Mac app using Chameleon.
  */
-@interface UIAlertView (BlocksKit) <UIAlertViewDelegate>
+@interface UIAlertView (BlocksKit)
 
 ///-----------------------------------
 /// @name Creating alert views
@@ -98,8 +98,7 @@
 /** The block that is to be fired when a button is pressed.
  
  @param index The index of the button already added to the alert view.
- @return A copied, autoreleased instance of a code block, or nil
- if no block yet assigned.
+ @return An instance of a code block, or nil if no block yet assigned.
  */
 - (BKBlock)handlerForButtonAtIndex:(NSInteger)index;
 
@@ -114,16 +113,16 @@
 @property (copy) BKBlock cancelBlock;
 
 /** The block to be fired before the alert view will show. */
-@property (copy) BKBlock willShowBlock;
+@property (copy) void (^willShowBlock)(UIAlertView *);
 
 /** The block to be fired when the alert view shows. */
-@property (copy) BKBlock didShowBlock;
+@property (copy) void (^didShowBlock)(UIAlertView *);
 
 /** The block to be fired before the alert view will dismiss. */
-@property (copy) BKIndexBlock willDismissBlock;
+@property (copy) void (^willDismissBlock)(UIAlertView *, NSInteger);
 
 /** The block to be fired after the alert view dismisses. */
-@property (copy) BKIndexBlock didDismissBlock;
+@property (copy) void (^didDismissBlock)(UIAlertView *, NSInteger);
 
 
 @end
