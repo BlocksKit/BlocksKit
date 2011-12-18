@@ -27,6 +27,10 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 static id a2_blockPropertyGetter(id self, SEL _cmd);
 static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
+// Forward Declarations
+extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName);
+extern IMP imp_implementationWithBlock(void *block);
+
 @interface NSObject (A2BlockDelegatePrivate)
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
