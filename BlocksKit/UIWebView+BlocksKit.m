@@ -16,7 +16,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	BOOL ret = YES;
 
-	id delegate = self.realDelegate;
+	id delegate = webView.delegate;
 	if (delegate && [delegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)])
 		ret = [delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
 
@@ -28,7 +28,7 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-	id delegate = self.realDelegate;
+	id delegate = webView.delegate;
 	if (delegate && [delegate respondsToSelector:@selector(webViewDidStartLoad:)])
 		[delegate webViewDidStartLoad:webView];
 
@@ -38,7 +38,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	id delegate = self.realDelegate;
+	id delegate = webView.delegate;
 	if (delegate && [delegate respondsToSelector:@selector(webViewDidFinishLoad:)])
 		[delegate webViewDidFinishLoad:webView];
 
@@ -48,7 +48,7 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-	id delegate = self.realDelegate;
+	id delegate = webView.delegate;
 	if (delegate && [delegate respondsToSelector:@selector(webView:didFailLoadWithError:)])
 		[delegate webView:webView didFailLoadWithError:error];
 
