@@ -22,13 +22,13 @@
          NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
          NSURLConnection *connection = [NSURLConnection connectionWithRequest:request];
          connection.delegate = self;
-         connection.failureBlock = ^(NSError *error){
+         connection.failureBlock = ^(NSURLConnection *connection, NSError *error){
              [[UIAlertView alertWithTitle:@"Download error" message:[error localizedDescription]] show];
              
              self.downloadButton.enabled = YES;
              self.progressView.progress = 0.0f;
          };
-         connection.successBlock = ^(NSURLResponse *response, NSData *responseData){
+         connection.successBlock = ^(NSURLConnection *connection, NSURLResponse *response, NSData *responseData){
              self.imageView.image = [UIImage imageWithData:responseData];
              self.downloadButton.enabled = YES;
          };
