@@ -46,6 +46,16 @@
 		6C24280713C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */; };
 		6C24280813C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */; };
 		6C24280913C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */; };
+		6C386842149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */; };
+		6C386843149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */; };
+		6C386844149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */; };
+		6C386845149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */; };
+		6C386846149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */; };
+		6C386847149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C386841149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m */; };
+		6C386848149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C386841149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m */; };
+		6C386849149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C386841149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m */; };
+		6C38684A149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C386841149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m */; };
+		6C38684B149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C386841149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m */; };
 		6C3DBF911382F1BA00E6C9AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF901382F1BA00E6C9AA /* Foundation.framework */; };
 		6C3DBFA01382F27300E6C9AA /* NSArray+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */; };
 		6C3DBFA11382F27300E6C9AA /* NSArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -335,6 +345,8 @@
 		6C2427FB13C565530016A271 /* NSMutableSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableSet+BlocksKit.m"; sourceTree = "<group>"; };
 		6C24280213C565640016A271 /* NSMutableDictionary+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+BlocksKit.h"; sourceTree = "<group>"; };
 		6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+BlocksKit.m"; sourceTree = "<group>"; };
+		6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "A2BlockDelegate+BlocksKit.h"; sourceTree = "<group>"; };
+		6C386841149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "A2BlockDelegate+BlocksKit.m"; sourceTree = "<group>"; };
 		6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlocksKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C3DBF901382F1BA00E6C9AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6C3DBF941382F1BA00E6C9AA /* BlocksKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlocksKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -599,6 +611,8 @@
 				6C50C84B149D7AB30056AB59 /* A2BlockDelegate.m */,
 				6C50C84C149D7AB30056AB59 /* A2DynamicDelegate.h */,
 				6C50C84D149D7AB30056AB59 /* A2DynamicDelegate.m */,
+				6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */,
+				6C386841149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m */,
 			);
 			name = A2DynamicDelegate;
 			sourceTree = "<group>";
@@ -687,6 +701,7 @@
 				6C5FA859144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C850149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C85A149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
+				6C386844149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,6 +730,7 @@
 				6C5FA85A144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C851149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C85B149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
+				6C386845149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,6 +766,7 @@
 				6C5FA85B144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C852149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C85C149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
+				6C386846149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -787,6 +804,7 @@
 				6C5FA857144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C84E149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C858149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
+				6C386842149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -815,6 +833,7 @@
 				6C5FA858144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C84F149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C859149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
+				6C386843149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1068,6 +1087,7 @@
 				6C5FA85E144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C855149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C85F149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
+				6C386849149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1093,6 +1113,7 @@
 				6C5FA85F144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C856149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C860149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
+				6C38684A149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1125,6 +1146,7 @@
 				6C5FA860144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C857149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C861149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
+				6C38684B149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1159,6 +1181,7 @@
 				6C5FA85C144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C853149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C85D149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
+				6C386847149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1184,6 +1207,7 @@
 				6C5FA85D144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C854149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C85E149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
+				6C386848149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
