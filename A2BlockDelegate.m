@@ -123,8 +123,6 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	if (!class_getProperty(self, propertyName.UTF8String))
 	{
 		// It's not a simple -xBlock/setXBlock: pair
-		propertyName = nil;
-		
 		const char *selectorName = sel_getName(selector);
 		char lastChar = selectorName[strlen(selectorName) - 1];
 		
