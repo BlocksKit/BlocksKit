@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import <dispatch/dispatch.h>
+#import "A2BlockDelegate.h"
+#import "A2DynamicDelegate.h"
 
 #if TARGET_IPHONE_SIMULATOR
     #define BK_HAS_UIKIT 1
