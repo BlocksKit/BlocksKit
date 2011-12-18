@@ -27,7 +27,7 @@ static char *a2_property_copyAttributeValue(objc_property_t property, const char
 static void *a2_blockPropertyGetter(id self, SEL _cmd);
 static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
-@interface NSObject ()
+@interface NSObject (A2BlockDelegatePrivate)
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
 + (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
