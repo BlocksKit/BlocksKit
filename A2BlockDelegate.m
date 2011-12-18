@@ -11,7 +11,7 @@
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
 
-#if __has_attribute(objc_arc)
+#if __has_feature(objc_arc)
 	#error "At present, 'A2BlockDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
 #endif
 
