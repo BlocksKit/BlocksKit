@@ -259,11 +259,6 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 		char *copy = a2_property_copyAttributeValue(property, "C");
 		NSAlwaysAssert(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
 		free(copy);
-		
-		SEL selector = NSSelectorFromString(selectorName);
-		struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, YES, YES);
-		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-		NSAlwaysAssert(methodDescription.name, @"Instance method %@ not found in protocol <%s>", selectorName, protocol_getName(protocol));
 	}];
 	
 	static void *didSwizzleKey;
