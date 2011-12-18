@@ -6,6 +6,8 @@
 #import "NSCache+BlocksKit.h"
 #import "A2BlockDelegate+BlocksKit.h"
 
+#pragma mark Custom delegate
+
 @interface A2DynamicNSCacheDelegate : A2DynamicDelegate
 @end
 
