@@ -18,6 +18,16 @@ static id bk_delegateGetter(id self, SEL _cmd);
 static void bk_dataSourceSetter(id self, SEL _cmd, id dataSource);
 static id bk_dataSourceGetter(id self, SEL _cmd);
 
+@interface NSObject ()
+
+- (id) bk_dataSource;
+- (void) bk_setDataSource: (id) dataSource;
+
+- (id) bk_delegate;
+- (void) bk_setDelegate: (id) delegate;
+
+@end
+
 @implementation NSObject (A2BlockDelegateBlocksKit)
 
 + (void)swizzleDelegateProperty {
@@ -50,8 +60,8 @@ static id bk_dataSourceGetter(id self, SEL _cmd);
 
 static void bk_delegateSetter(id self, SEL _cmd, id delegate) {
 	id dynamicDelegate = [self dynamicDelegate];
-	[self setDelegate:dynamicDelegate];
-	if ([delegate isEqual:self] || [delegate isEqual:dynamicDelegate] || [delegate isKindOfClass:[self class]])
+	[self bk_setDelegate:dynamicDelegate];
+	if ([delegate isEqual:self] || [delegate isEqual:dynamicDelegate])
 		delegate = nil;
 	[dynamicDelegate weaklyAssociateValue:delegate withKey:&kDelegateKey];
 }
@@ -62,8 +72,8 @@ static id bk_delegateGetter(id self, SEL _cmd) {
 
 static void bk_dataSourceSetter(id self, SEL _cmd, id dataSource) {
 	id dynamicDataSource = [self dynamicDataSource];
-	[self setDataSource:dynamicDataSource];
-	if ([dataSource isEqual:self] || [dataSource isEqual:dynamicDataSource] || [dataSource isKindOfClass:[self class]])
+	[self bk_setDataSource:dynamicDataSource];
+	if ([dataSource isEqual:self] || [dataSource isEqual:dynamicDataSource])
 		dataSource = nil;
 	[dynamicDataSource weaklyAssociateValue:dataSource withKey:&kDataSourceKey];
 
