@@ -64,7 +64,7 @@
         block(touches, event);
 }
 
-- (void)eachSubview:(BKViewBlock)block {
+- (void)eachSubview:(void(^)(UIView *))block {
     [self.subviews each:(BKSenderBlock)block];
 }
 

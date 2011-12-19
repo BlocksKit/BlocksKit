@@ -25,20 +25,16 @@
 #define BK_HAS_APPKIT 1
 #endif
 
+#if BK_HAS_APPKIT
+#import <Cocoa/Cocoa.h>
+#endif
+
 #if BK_HAS_UIKIT
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-typedef void(^BKViewBlock)(UIView *view);
 typedef void(^BKGestureRecognizerBlock)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location);
 typedef void(^BKTouchBlock)(NSSet* set, UIEvent* event);
-#endif
-
-#if BK_HAS_APPKIT
-#import <Cocoa/Cocoa.h>
-
-typedef void(^BKViewBlock)(NSView *view);
-typedef void(^BKEventBlock)(NSEvent* event);
 #endif
 
 typedef void(^BKBlock)(void); // compatible with dispatch_block_t
@@ -47,7 +43,6 @@ typedef void(^BKIndexBlock)(NSUInteger index);
 typedef void(^BKTimerBlock)(NSTimeInterval time);
 typedef void(^BKResponseBlock)(NSURLResponse *response);
 
-typedef void(^BKWithObjectBlock)(id obj, id arg);
 typedef void(^BKObservationBlock)(id obj, NSDictionary *change);
 typedef void(^BKKeyValueBlock)(id key, id obj);
 
