@@ -23,6 +23,10 @@
  of fingers tapping any number of times on a view.  An instance
  of UITapGesture recognizer is allocated for the block and added
  to the recieving view.
+ 
+ @warning This method has an _additive_ effect. Do not call it multiple
+ times to set-up or tear-down. The view will discard the gesture recognizer
+ on release.
 
  @param numberOfTouches The number of fingers tapping that will trigger the block.
  @param numberOfTaps The number of taps required to trigger the block.
@@ -33,6 +37,10 @@
 - (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block;
 
 /** Adds a recognizer for one finger tapping once.
+ 
+ @warning This method has an _additive_ effect. Do not call it multiple
+ times to set-up or tear-down. The view will discard the gesture recognizer
+ on release.
 
  @param block The handler for the tap recognizer
  @see whenDoubleTapped:
@@ -41,6 +49,10 @@
 - (void)whenTapped:(BKBlock)block;
 
 /** Adds a recognizer for one finger tapping twice.
+ 
+ @warning This method has an _additive_ effect. Do not call it multiple
+ times to set-up or tear-down. The view will discard the gesture recognizer
+ on release.
  
  @param block The handler for the tap recognizer
  @see whenTapped:

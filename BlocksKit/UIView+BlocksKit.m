@@ -11,7 +11,8 @@
 @implementation UIView (BlocksKit)
 
 - (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
-    self.userInteractionEnabled = YES;
+    if (!block)
+		return;
     
     UITapGestureRecognizer *gesture = [UITapGestureRecognizer recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
         block();
