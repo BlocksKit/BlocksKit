@@ -463,6 +463,8 @@
 			children = (
 				60FF002313C02863004A1394 /* NSArrayBlocksKitTest.h */,
 				60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */,
+				6C501278143D466B0038CE72 /* NSCacheBlocksKitTest.h */,
+				6C501279143D466C0038CE72 /* NSCacheBlocksKitTest.m */,
 				604FA5F913C0A077001DB7F7 /* NSDictionaryBlocksKitTest.h */,
 				604FA5FA13C0A077001DB7F7 /* NSDictionaryBlocksKitTest.m */,
 				60F3F70C13C15F2A00B7A3E6 /* NSIndexSetBlocksKitTest.h */,
@@ -479,18 +481,16 @@
 				60EAE9D413C69D6E00415A3E /* NSMutableSetBlocksKitTest.m */,
 				605E2CF713C4013C00B490FC /* NSObjectAssociatedObjectTest.h */,
 				605E2CF813C4013C00B490FC /* NSObjectAssociatedObjectTest.m */,
-				6037A12B13C1BAAB00CB847A /* NSObjectBlocksKitTest.h */,
-				6037A12C13C1BAAB00CB847A /* NSObjectBlocksKitTest.m */,
 				6009870013C2C6E800A8887E /* NSObjectBlockObservationTest.h */,
 				6009870113C2C6E800A8887E /* NSObjectBlockObservationTest.m */,
+				6037A12B13C1BAAB00CB847A /* NSObjectBlocksKitTest.h */,
+				6037A12C13C1BAAB00CB847A /* NSObjectBlocksKitTest.m */,
 				6037A12713C1B2AE00CB847A /* NSSetBlocksKitTest.h */,
 				6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */,
 				600986F913C2A2B700A8887E /* NSTimerBlocksKitTest.h */,
 				600986FA13C2A2B700A8887E /* NSTimerBlocksKitTest.m */,
 				60698AF713C55EF700E58FD8 /* UIActionSheetBlocksKitTest.h */,
 				60698AF813C55EF700E58FD8 /* UIActionSheetBlocksKitTest.m */,
-				6C501278143D466B0038CE72 /* NSCacheBlocksKitTest.h */,
-				6C501279143D466C0038CE72 /* NSCacheBlocksKitTest.m */,
 				60FF000F13C023CB004A1394 /* Supporting Files */,
 			);
 			path = Tests;
@@ -541,11 +541,13 @@
 		6C3DBF921382F1BA00E6C9AA /* BlocksKit */ = {
 			isa = PBXGroup;
 			children = (
-				6C3DBFB21383044600E6C9AA /* BlocksKit.h */,
 				6C145416138497D40067A56E /* BKGlobals.h */,
 				6C3DBFB41383050F00E6C9AA /* BKMacros.h */,
+				6C3DBFB21383044600E6C9AA /* BlocksKit.h */,
 				6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */,
 				6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */,
+				A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */,
+				A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */,
 				6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */,
 				6C3DBFAF1383010000E6C9AA /* NSDictionary+BlocksKit.m */,
 				6CC0901E13855E8600DDEABB /* NSIndexSet+BlocksKit.h */,
@@ -554,26 +556,24 @@
 				6C6AAD8F1383706000203261 /* NSInvocation+BlocksKit.m */,
 				6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */,
 				6C2427F213C5653E0016A271 /* NSMutableArray+BlocksKit.m */,
-				6C2427FA13C565530016A271 /* NSMutableSet+BlocksKit.h */,
-				6C2427FB13C565530016A271 /* NSMutableSet+BlocksKit.m */,
 				6C24280213C565640016A271 /* NSMutableDictionary+BlocksKit.h */,
 				6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */,
 				6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */,
 				6C8063B213C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m */,
+				6C2427FA13C565530016A271 /* NSMutableSet+BlocksKit.h */,
+				6C2427FB13C565530016A271 /* NSMutableSet+BlocksKit.m */,
 				6C3DBFD2138318C900E6C9AA /* NSObject+AssociatedObjects.h */,
 				6C3DBFD3138318CA00E6C9AA /* NSObject+AssociatedObjects.m */,
-				6C3DBFB61383085800E6C9AA /* NSObject+BlocksKit.h */,
-				6C3DBFB71383085800E6C9AA /* NSObject+BlocksKit.m */,
 				6C3DBFDA1383202400E6C9AA /* NSObject+BlockObservation.h */,
 				6C3DBFDB1383202400E6C9AA /* NSObject+BlockObservation.m */,
+				6C3DBFB61383085800E6C9AA /* NSObject+BlocksKit.h */,
+				6C3DBFB71383085800E6C9AA /* NSObject+BlocksKit.m */,
 				6C3DBFA91382FD3B00E6C9AA /* NSSet+BlocksKit.h */,
 				6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */,
 				6C3DBFDE1383265900E6C9AA /* NSTimer+BlocksKit.h */,
 				6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */,
 				A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */,
 				A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */,
-				A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */,
-				A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */,
 				6C50C863149D7AB80056AB59 /* A2DynamicDelegate */,
 				6CC08FC91385553B00DDEABB /* UIKit */,
 				6C3DBF931382F1BA00E6C9AA /* Supporting Files */,
@@ -610,10 +610,10 @@
 				A97E4C9E13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.m */,
 				A97E4CA113FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h */,
 				A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */,
-				6C3DBFE21383299C00E6C9AA /* UIAlertView+BlocksKit.h */,
-				6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */,
 				6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */,
 				6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */,
+				6C3DBFE21383299C00E6C9AA /* UIAlertView+BlocksKit.h */,
+				6C3DBFE31383299D00E6C9AA /* UIAlertView+BlocksKit.m */,
 				6C6AAD96138372C300203261 /* UIBarButtonItem+BlocksKit.h */,
 				6C6AAD97138372C400203261 /* UIBarButtonItem+BlocksKit.m */,
 				6C6AAD92138372B400203261 /* UIControl+BlocksKit.h */,
@@ -631,12 +631,12 @@
 		6CC08FD11385555D00DDEABB /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				6C3DBF901382F1BA00E6C9AA /* Foundation.framework */,
 				60FF000C13C023CB004A1394 /* CoreGraphics.framework */,
-				6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */,
-				A97E4C9913FD5AAB001BB376 /* UIKit.framework */,
-				A97E4C9813FD5AAB001BB376 /* MessageUI.framework */,
+				6C3DBF901382F1BA00E6C9AA /* Foundation.framework */,
 				60FF002113C024E8004A1394 /* GHUnitIOS.framework */,
+				A97E4C9813FD5AAB001BB376 /* MessageUI.framework */,
+				A97E4C9913FD5AAB001BB376 /* UIKit.framework */,
+				6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -644,8 +644,8 @@
 		6CC40AAB1447BCD200E47595 /* Mac OS X */ = {
 			isa = PBXGroup;
 			children = (
-				6CC40AA71447BBCF00E47595 /* Foundation.framework */,
 				6CC40A931447BB5F00E47595 /* Cocoa.framework */,
+				6CC40AA71447BBCF00E47595 /* Foundation.framework */,
 			);
 			name = "Mac OS X";
 			sourceTree = "<group>";
