@@ -9,6 +9,8 @@
 #import "NSCacheBlocksKitTest.h"
 #import "NSTimer+BlocksKit.h"
 
+#define OBJECT_COUNT 300
+
 @interface NSCacheBlocksKitTest () <NSCacheDelegate>
 @property (nonatomic) NSInteger total;
 @end
@@ -46,16 +48,15 @@
 	GHAssertEquals(self.total, 0, @"The delegates should have been called!");
 }
 
-#if 0
 - (void)testEvictionDelegate {
     self.subject.willEvictBlock = ^(NSCache *cache, id obj){
         self.total--;
     };
 	
-	self.total = 300;
+	self.total = OBJECT_COUNT;
 	
 	@autoreleasepool {
-		for (NSUInteger i = 0; i < total; i++) {
+		for (NSInteger i = 0; i < OBJECT_COUNT; i++) {
 			NSString *string = [NSString stringWithFormat:@"%i", i];
 			NSPurgeableData *obj = [NSPurgeableData dataWithBytes:string.UTF8String length:string.length];
 			NSIndexPath *key = [NSIndexPath indexPathWithIndex:i];
@@ -63,7 +64,6 @@
 		}
 	}
 	
-    
     // force an eviction
     CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)@"UISimulatedMemoryWarningNotification", NULL, NULL, true);
     
@@ -75,10 +75,15 @@
 }
 
 - (void)_succeed {
-    GHAssertEquals(self.total, 2, @"The cache should have been emptied!");
+	NSInteger count = 0;
+	for (NSInteger i = 0; i < OBJECT_COUNT; i++) {
+		NSIndexPath *key = [NSIndexPath indexPathWithIndex:i];
+		if ([self.subject objectForKey: key]) count++;
+	}
+	
+    GHAssertEquals(self.total, count, @"The cache should have been emptied!");
     [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testEvictionDelegate)];
     self.subject.willEvictBlock = nil;
 }
-#endif
 
 @end
