@@ -60,15 +60,4 @@ static inline dispatch_time_t BKTimeDelay(NSTimeInterval time) {
     wrapper(YES);
 }
 
-+ (void)swizzleSelector:(SEL)oldSel withSelector:(SEL)newSel {
-    Method oldMethod = class_getInstanceMethod(self, oldSel);
-    Method newMethod = class_getInstanceMethod(self, newSel);
-    Class c = [self class];
-    
-    if(class_addMethod(c, oldSel, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
-        class_replaceMethod(c, newSel, method_getImplementation(oldMethod), method_getTypeEncoding(oldMethod));
-    else
-        method_exchangeImplementations(oldMethod, newMethod);
-}
-
 @end

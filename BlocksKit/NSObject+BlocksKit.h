@@ -69,23 +69,4 @@
  */
 + (void)cancelBlock:(id)block;
 
-/** Purely swaps the implementations of two selectors.  No more, no less.
-
- Both selectors must have existing implementations available to the
- runtime.  If you intend to extend an Apple class, introduce your
- new method using a category.
-
- After this method is called on a class object, all subsequent
- calls to the original selector will instead trigger the
- new selector.
-
- This method is used interally by BlocksKit. It is only guaranteed
- to work on iOS and Mac OS 10.6+.  Attempts should not be made to
- use it on any earlier platform.
- 
- @param oldSel The name of the original selector.
- @param newSel The name of your new selector.
- */
-+ (void)swizzleSelector:(SEL)oldSel withSelector:(SEL)newSel;
-
 @end
