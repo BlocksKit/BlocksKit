@@ -120,15 +120,12 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	}
 	
 	const char *types = "v@:@";
-	class_addMethod(self, a2_setter, implementation, types);
-	
-	Method method = class_getInstanceMethod(self, setter);
-	Method a2_method = class_getInstanceMethod(self, a2_setter);
-	
-	if (class_addMethod(self, setter, method_getImplementation(a2_method), types))
-		class_replaceMethod(self, a2_setter, method_getImplementation(method), types);
-	else
+	if (!class_addMethod(self, setter, implementation, types)) {
+		class_addMethod(self, a2_setter, implementation, types);
+		Method method = class_getInstanceMethod(self, setter);
+		Method a2_method = class_getInstanceMethod(self, a2_setter);
 		method_exchangeImplementations(method, a2_method);
+	}
 }
 
 @end
