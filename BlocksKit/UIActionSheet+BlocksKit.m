@@ -92,10 +92,10 @@
 	@autoreleasepool {
 		[self registerDynamicDelegate];
 		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:nil,
-								 @"willShowBlock", @"willPresentActionSheet:",
-								 @"didShowBlock", @"didPresentActionSheet:",
-								 @"willDismissBock", @"actionSheet:willDismissWithButtonIndex:",
-								 @"didDismissBlock", @"actionSheet:didDismissWithButtonIndex:",
+								 @"willPresentActionSheet:", @"willShowBlock",
+								 @"didPresentActionSheet:", @"didShowBlock",
+								 @"actionSheet:willDismissWithButtonIndex:", @"willDismissBock",
+								 @"actionSheet:didDismissWithButtonIndex:", @"didDismissBlock",
 								 nil];
 		[self linkDelegateMethods:methods];
 	}

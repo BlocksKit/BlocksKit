@@ -35,7 +35,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self registerDynamicDelegateNamed:@"messageComposeDelegate"];
+		[self registerDynamicDelegateNamed:@"messageComposeDelegate" forProtocol:@protocol(MFMessageComposeViewControllerDelegate)];
 		[self linkCategoryBlockProperty:@"completionBlock" withDelegateMethod:@selector(messageComposeViewController:didFinishWithResult:)];
 	}
 }

@@ -35,7 +35,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self registerDynamicDelegateNamed:@"mailComposeDelegate"];
+		[self registerDynamicDelegateNamed:@"mailComposeDelegate" forProtocol:@protocol(MFMailComposeViewControllerDelegate)];
 		[self linkCategoryBlockProperty:@"completionBlock" withDelegateMethod:@selector(mailComposeController:didFinishWithResult:error:)];
 	}
 }

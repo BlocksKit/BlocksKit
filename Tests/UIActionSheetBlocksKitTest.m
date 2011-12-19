@@ -82,12 +82,10 @@
 
 //TODO trigger the block
 - (void)testDelegationBlocks {
-    BKBlock willShowBlock = ^(void) {
+    self.subject.willShowBlock = ^(UIActionSheet *sheet) {
     };
-    BKBlock didShowBlock = ^(void) {
+    self.subject.didShowBlock = ^(UIActionSheet *sheet) {
     };
-    self.subject.willShowBlock = willShowBlock;
-    self.subject.didShowBlock = didShowBlock;
 }
 
 @end

@@ -103,10 +103,10 @@
 	@autoreleasepool {
 		[self registerDynamicDelegate];
 		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
-								 @"willShowBlock", @"willPresentAlertView:",
-								 @"didShowBlock", @"didPresentAlertView:",
-								 @"willDismissBlock", @"alertView:willDismissWithButtonIndex:",
-								 @"didDismissBlock", @"alertView:didDismissWithButtonIndex:",
+								 @"willPresentAlertView:", @"willShowBlock",
+								 @"didPresentAlertView:", @"didShowBlock",
+								 @"alertView:willDismissWithButtonIndex:", @"willDismissBlock",
+								 @"alertView:didDismissWithButtonIndex:", @"didDismissBlock",
 								 nil];
 		[self linkDelegateMethods:methods];
 	}

@@ -33,7 +33,7 @@
 }
 
 - (void)testEvictionDelegate {
-    self.subject.willEvictBlock = ^(id obj){
+    self.subject.willEvictBlock = ^(NSCache *cache, id obj){
         total--;
     };
     

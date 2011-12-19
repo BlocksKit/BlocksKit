@@ -69,10 +69,10 @@
 	@autoreleasepool {
 		[self registerDynamicDelegate];
 		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
-								 @"shouldStartLoadBlock", @"webView:shouldStartLoadWithRequest:navigationType:",
-								 @"didStartLoadBlock", @"webViewDidStartLoad:",
-								 @"didFinishLoadBlock", @"webViewDidFinishLoad:",
-								 @"didFinishWithErrorBlock", @"webView:didFailLoadWithError:",
+								 @"webView:shouldStartLoadWithRequest:navigationType:", @"shouldStartLoadBlock",
+								 @"webViewDidStartLoad:", @"didStartLoadBlock",
+								 @"webViewDidFinishLoad:", @"didFinishLoadBlock",
+								 @"webView:didFailLoadWithError:", @"didFinishWithErrorBlock",
 								 nil];
 		[self linkDelegateMethods:methods];
 	}
