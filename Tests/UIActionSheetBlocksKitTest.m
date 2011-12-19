@@ -34,7 +34,7 @@
 
 - (void)testInit {
     GHAssertTrue([self.subject isKindOfClass:[UIActionSheet class]],@"subject is UIActionSheet");
-    GHAssertEqualObjects(self.subject.delegate,self.subject,@"the delegate is itself");
+    GHAssertEqualObjects(self.subject.delegate,self.subject.dynamicDelegate,@"the delegate is the dynamice delegate");
     GHAssertEqualStrings(self.subject.title,@"Hello BlocksKit",@"the UIActionSheet title is %@",self.subject.title);
     GHAssertEquals(self.subject.numberOfButtons,0,@"the action sheet has %d buttons",self.subject.numberOfButtons);
     GHAssertFalse(self.subject.isVisible,@"the action sheet is not visible");
