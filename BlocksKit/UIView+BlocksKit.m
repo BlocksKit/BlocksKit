@@ -47,23 +47,14 @@ static char *kViewTouchUpBlockKey = "UIViewTouchUpBlock";
 }
 
 - (void)whenTouchedDown:(BKTouchBlock)block {
-    self.userInteractionEnabled = YES;
-    if (!block)
-        block = nil;
     [self associateCopyOfValue:block withKey:kViewTouchDownBlockKey];
 }
 
 - (void)whenTouchMove:(BKTouchBlock)block {
-	self.userInteractionEnabled = YES;
-    if (!block)
-        block = nil;
     [self associateCopyOfValue:block withKey:kViewTouchMoveBlockKey];
 }	
 
 - (void)whenTouchedUp:(BKTouchBlock)block {
-    self.userInteractionEnabled = YES;
-    if (!block)
-        block = nil;
     [self associateCopyOfValue:block withKey:kViewTouchUpBlockKey];
 }
 
