@@ -196,7 +196,11 @@ static char kResponseLengthKey;
 
 #pragma mark - NSURLConnectionDelegate - iOS 5.0+ support
 
+#ifdef NSURLConnectionDataDelegate
 @interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate <NSURLConnectionDataDelegate>
+#else
+@interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate <NSURLConnectionDelegate>
+#endif
 
 @end
 
