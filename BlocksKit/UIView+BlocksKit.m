@@ -8,9 +8,9 @@
 #import "UIGestureRecognizer+BlocksKit.h"
 #import "NSArray+BlocksKit.h"
 
-static char *kViewTouchDownBlockKey = "UIViewTouchDownBlock";
-static char *kViewTouchMoveBlockKey = "UIViewTouchMoveBlock";
-static char *kViewTouchUpBlockKey = "UIViewTouchUpBlock";
+static char kViewTouchDownBlockKey;
+static char kViewTouchMoveBlockKey;
+static char kViewTouchUpBlockKey;
 
 @implementation UIView (BlocksKit)
 
@@ -47,34 +47,34 @@ static char *kViewTouchUpBlockKey = "UIViewTouchUpBlock";
 }
 
 - (void)whenTouchedDown:(BKTouchBlock)block {
-    [self associateCopyOfValue:block withKey:kViewTouchDownBlockKey];
+    [self associateCopyOfValue:block withKey:&kViewTouchDownBlockKey];
 }
 
 - (void)whenTouchMove:(BKTouchBlock)block {
-    [self associateCopyOfValue:block withKey:kViewTouchMoveBlockKey];
+    [self associateCopyOfValue:block withKey:&kViewTouchMoveBlockKey];
 }	
 
 - (void)whenTouchedUp:(BKTouchBlock)block {
-    [self associateCopyOfValue:block withKey:kViewTouchUpBlockKey];
+    [self associateCopyOfValue:block withKey:&kViewTouchUpBlockKey];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    BKTouchBlock block = [self associatedValueForKey:kViewTouchDownBlockKey];
+    BKTouchBlock block = [self associatedValueForKey:&kViewTouchDownBlockKey];
     if (block)
         block(touches, event);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
-    BKTouchBlock block = [self associatedValueForKey:kViewTouchMoveBlockKey];
+    BKTouchBlock block = [self associatedValueForKey:&kViewTouchMoveBlockKey];
     if (block)
         block(touches, event);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesEnded:touches withEvent:event];
-    BKTouchBlock block = [self associatedValueForKey:kViewTouchUpBlockKey];
+    BKTouchBlock block = [self associatedValueForKey:&kViewTouchUpBlockKey];
     if (block)
         block(touches, event);
 }

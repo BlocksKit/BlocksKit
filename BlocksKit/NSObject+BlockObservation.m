@@ -17,8 +17,8 @@
 
 @end
 
-static char *kObserverBlocksKey = "BKKeyValueObservers";
-static char *kBKBlockObservationContext = "BKBlockObservationContext";
+static char kObserverBlocksKey;
+static char kBlockObservationContext;
 
 @implementation BKObserver
 
@@ -34,7 +34,7 @@ static char *kBKBlockObservationContext = "BKBlockObservationContext";
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     BKObservationBlock block = self.task;
-    if (self.task && context == kBKBlockObservationContext)
+    if (self.task && context == &kBlockObservationContext)
         block(object, change);
 }
 
@@ -72,16 +72,16 @@ static dispatch_queue_t BKObserverMutationQueue() {
     dispatch_sync(BKObserverMutationQueue(), ^{
         newObserver = [BKObserver observerForObject:self keyPath:keyPath task:task];
         
-        NSMutableDictionary *dict = [self associatedValueForKey:kObserverBlocksKey];
+        NSMutableDictionary *dict = [self associatedValueForKey:&kObserverBlocksKey];
         if (!dict) {
             dict = [NSMutableDictionary dictionary];
-            [self associateValue:dict withKey:kObserverBlocksKey];
+            [self associateValue:dict withKey:&kObserverBlocksKey];
         }
         
         [dict setObject:newObserver forKey:[NSString stringWithFormat:@"%@_%@", keyPath, identifier]];
     });
     
-    [self addObserver:newObserver forKeyPath:keyPath options:0 context:kBKBlockObservationContext];
+    [self addObserver:newObserver forKeyPath:keyPath options:0 context:&kBlockObservationContext];
 }
 
 - (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
@@ -96,22 +96,22 @@ static dispatch_queue_t BKObserverMutationQueue() {
     dispatch_sync(BKObserverMutationQueue(), ^{
         newObserver = [BKObserver observerForObject:self keyPath:keyPath task:task];
         
-        NSMutableDictionary *dict = [self associatedValueForKey:kObserverBlocksKey];
+        NSMutableDictionary *dict = [self associatedValueForKey:&kObserverBlocksKey];
         if (!dict) {
             dict = [NSMutableDictionary dictionary];
-            [self associateValue:dict withKey:kObserverBlocksKey];
+            [self associateValue:dict withKey:&kObserverBlocksKey];
         }
         
         [dict setObject:newObserver forKey:[NSString stringWithFormat:@"%@_%@", keyPath, identifier]];
     });
     
-    [self addObserver:newObserver forKeyPath:keyPath options:options context:kBKBlockObservationContext];
+    [self addObserver:newObserver forKeyPath:keyPath options:options context:&kBlockObservationContext];
 }
 
 - (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier {
     dispatch_sync(BKObserverMutationQueue(), ^{
         NSString *token = [NSString stringWithFormat:@"%@_%@", keyPath, identifier];
-        NSMutableDictionary *dict = [self associatedValueForKey:kObserverBlocksKey];
+        NSMutableDictionary *dict = [self associatedValueForKey:&kObserverBlocksKey];
         BKObserver *trampoline = [dict objectForKey:token];
         
         if (!trampoline || ![trampoline.keyPath isEqualToString:keyPath])
@@ -122,17 +122,17 @@ static dispatch_queue_t BKObserverMutationQueue() {
         [dict removeObjectForKey:token];
         
         if (!dict.count)
-            [self associateValue:nil withKey:kObserverBlocksKey];
+            [self associateValue:nil withKey:&kObserverBlocksKey];
     });
 }
 
 - (void)removeAllBlockObservers {
     dispatch_sync(BKObserverMutationQueue(), ^{
-        NSMutableDictionary *observationDictionary = [self associatedValueForKey:kObserverBlocksKey];
+        NSMutableDictionary *observationDictionary = [self associatedValueForKey:&kObserverBlocksKey];
         [observationDictionary each:^(id key, id trampoline) {
             [self removeObserver:trampoline forKeyPath:[trampoline keyPath]];
         }];
-        [self associateValue:nil withKey:kObserverBlocksKey];
+        [self associateValue:nil withKey:&kObserverBlocksKey];
     });
 }
 

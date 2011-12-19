@@ -7,9 +7,9 @@
 #import "NSObject+AssociatedObjects.h"
 #import "NSObject+BlocksKit.h"
 
-static char *kGestureRecognizerBlockKey = "BKGestureRecognizerBlock";
-static char *kGestureRecognizerDelayKey = "BKGestureRecognizerDelay";
-static char *kGestureRecognizerCancelRefKey = "BKGestureRecognizerCancellationBlock";
+static char kGestureRecognizerBlockKey;
+static char kGestureRecognizerDelayKey;
+static char kGestureRecognizerCancelKey;
 
 @interface UIGestureRecognizer (BlocksKitInternal)
 - (void)_handleAction:(id)recognizer;
@@ -55,16 +55,16 @@ static char *kGestureRecognizerCancelRefKey = "BKGestureRecognizerCancellationBl
         id cancel = [NSObject performBlock:^{
             block(self, state, location);
         } afterDelay:self.delay];
-        [self associateCopyOfValue:cancel withKey:kGestureRecognizerCancelRefKey];
+        [self associateCopyOfValue:cancel withKey:&kGestureRecognizerCancelKey];
     }
 }
 
 - (void)setHandler:(BKGestureRecognizerBlock)handler {
-    [self associateCopyOfValue:handler withKey:kGestureRecognizerBlockKey];
+    [self associateCopyOfValue:handler withKey:&kGestureRecognizerBlockKey];
 }
 
 - (BKGestureRecognizerBlock)handler {
-    return [self associatedValueForKey:kGestureRecognizerBlockKey];
+    return [self associatedValueForKey:&kGestureRecognizerBlockKey];
 }
 
 - (void)setDelay:(NSTimeInterval)delay {
@@ -73,11 +73,11 @@ static char *kGestureRecognizerCancelRefKey = "BKGestureRecognizerCancellationBl
         [self addTarget:self action:@selector(_handleActionUsingDelay:)];
     else
         [self addTarget:self action:@selector(_handleAction:)];
-    [self associateValue:[NSNumber numberWithDouble:(delay) ? delay : 0.0] withKey:kGestureRecognizerDelayKey];
+    [self associateValue:[NSNumber numberWithDouble:(delay) ? delay : 0.0] withKey:&kGestureRecognizerDelayKey];
 }
 
 - (NSTimeInterval)delay {
-    NSNumber *delay = [self associatedValueForKey:kGestureRecognizerDelayKey];
+    NSNumber *delay = [self associatedValueForKey:&kGestureRecognizerDelayKey];
     if (delay)
         return [delay doubleValue];
     else
@@ -85,7 +85,7 @@ static char *kGestureRecognizerCancelRefKey = "BKGestureRecognizerCancellationBl
 }
 
 - (void)cancel {
-    id cancel = [self associatedValueForKey:kGestureRecognizerCancelRefKey];
+    id cancel = [self associatedValueForKey:&kGestureRecognizerCancelKey];
     if (cancel)
         [NSObject cancelBlock:cancel];
 }

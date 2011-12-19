@@ -7,7 +7,7 @@
 #import "NSObject+AssociatedObjects.h"
 #import "NSSet+BlocksKit.h"
 
-static char *kControlHandlersKey = "UIControlBlockHandlers";
+static char kControlHandlersKey;
 
 #pragma mark Private
 
@@ -55,10 +55,10 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
 @implementation UIControl (BlocksKit)
 
 - (void)addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
-    NSMutableDictionary *events = [self associatedValueForKey:kControlHandlersKey];
+    NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
     if (!events) {
         events = [NSMutableDictionary dictionary];
-        [self associateValue:events withKey:kControlHandlersKey];
+        [self associateValue:events withKey:&kControlHandlersKey];
     }
     
     NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
@@ -75,10 +75,10 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
 }
 
 - (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents {
-    NSMutableDictionary *events = [self associatedValueForKey:kControlHandlersKey];
+    NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
     if (!events) {
         events = [NSMutableDictionary dictionary];
-        [self associateValue:events withKey:kControlHandlersKey];
+        [self associateValue:events withKey:&kControlHandlersKey];
     }
     
     NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
@@ -95,10 +95,10 @@ static char *kControlHandlersKey = "UIControlBlockHandlers";
 }
 
 - (BOOL)hasEventHandlersForControlEvents:(UIControlEvents)controlEvents {
-    NSMutableDictionary *events = [self associatedValueForKey:kControlHandlersKey];
+    NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
     if (!events) {
         events = [NSMutableDictionary dictionary];
-        [self associateValue:events withKey:kControlHandlersKey];
+        [self associateValue:events withKey:&kControlHandlersKey];
     }
     
     NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
