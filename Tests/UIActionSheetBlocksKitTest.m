@@ -24,7 +24,7 @@
 
 - (void)setUp {
     // Run before each test method
-    self.subject = [UIActionSheet sheetWithTitle:@"Hello BlocksKit"];
+    self.subject = [UIActionSheet actionSheetWithTitle:@"Hello BlocksKit"];
 }
 
 - (void)tearDown {

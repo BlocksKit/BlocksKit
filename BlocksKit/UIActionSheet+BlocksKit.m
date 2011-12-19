@@ -103,7 +103,7 @@
 
 #pragma mark Initializers
 
-+ (id)sheetWithTitle:(NSString *)title {
++ (id)actionSheetWithTitle:(NSString *)title {
 	return BK_AUTORELEASE([[UIActionSheet alloc] initWithTitle:title]);
 }
 

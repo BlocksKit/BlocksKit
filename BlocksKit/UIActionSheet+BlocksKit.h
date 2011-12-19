@@ -14,7 +14,7 @@
  addButtonWithTitle:handler: to make sure nothing breaks.
 
  A typical invocation might go like this:
-     UIActionSheet *testSheet = [UIActionSheet sheetWithTitle:@"Please select one."];
+     UIActionSheet *testSheet = [UIActionSheet actionSheetWithTitle:@"Please select one."];
      [testSheet addButtonWithTitle:@"Zip" handler:^{ NSLog(@"Zip!"); }];
      [testSheet addButtonWithTitle:@"Zap" handler:^{ NSLog(@"Zap!"); }];
      [testSheet addButtonWithTitle:@"Zop" handler:^{ NSLog(@"Zop!"); }];
@@ -41,7 +41,7 @@
  @param title The header of the action sheet.
  @return A newly created action sheet.
  */
-+ (id)sheetWithTitle:(NSString *)title;
++ (id)actionSheetWithTitle:(NSString *)title;
 
 /** Returns a configured action sheet with only a title and cancel button.
 
