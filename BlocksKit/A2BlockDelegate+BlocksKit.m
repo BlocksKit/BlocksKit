@@ -24,12 +24,6 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 static SEL bk_getterForProperty(Class cls, NSString *propertyName);
 static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 
-@interface A2DynamicDelegate (A2BlockDelegate)
-
-@property (nonatomic, assign) id realDelegate;
-
-@end
-
 @implementation A2DynamicDelegate (A2BlockDelegate)
 
 - (id) realDelegate

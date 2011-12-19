@@ -15,7 +15,7 @@
 @implementation A2DynamicNSCacheDelegate
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
-	id realDelegate = cache.delegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(cache:willEvictObject:)])
 		[realDelegate cache:cache willEvictObject:obj];
 

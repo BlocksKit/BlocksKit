@@ -15,7 +15,7 @@
 @implementation A2DynamicUIAlertViewDelegate
 
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView {
-	id realDelegate = alertView.delegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(alertViewShouldEnableFirstOtherButton:)])
 		return [realDelegate alertViewShouldEnableFirstOtherButton:alertView];
 
@@ -23,7 +23,7 @@
 }
 
 - (void)alertViewCancel:(UIAlertView *)alertView {
-	id realDelegate = alertView.delegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(alertViewCancel:)])
 		return [realDelegate alertViewCancel:alertView];
 	
@@ -34,7 +34,7 @@
 }
 
 - (void)willPresentAlertView:(UIAlertView *)alertView {
-	id realDelegate = alertView.delegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(willPresentAlertView:)])
 		return [realDelegate willPresentAlertView:alertView];
 	
@@ -44,7 +44,7 @@
 }
 
 - (void)didPresentAlertView:(UIAlertView *)alertView {
-	id realDelegate = alertView.delegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(didPresentAlertView:)])
 		return [realDelegate didPresentAlertView:alertView];
 	
@@ -54,7 +54,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
-	id realDelegate = alertView.delegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(alertView:willDismissWithButtonIndex:)])
 		[realDelegate alertView:alertView willDismissWithButtonIndex:buttonIndex];
 	
@@ -64,7 +64,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	id realDelegate = alertView.delegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(alertView:didDismissWithButtonIndex:)])
 		[realDelegate alertView:alertView didDismissWithButtonIndex:buttonIndex];
 	
@@ -74,7 +74,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	id realDelegate = alertView.delegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)])
 		[realDelegate alertView:alertView clickedButtonAtIndex:buttonIndex];
 	
@@ -101,7 +101,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self swizzleDelegateProperty];
+		[self registerDynamicDelegate];
 		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
 								 @"willShowBlock", @"willPresentAlertView:",
 								 @"didShowBlock", @"didPresentAlertView:",

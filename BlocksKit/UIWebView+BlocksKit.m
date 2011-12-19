@@ -15,10 +15,10 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	BOOL ret = YES;
-
-	id delegate = webView.delegate;
-	if (delegate && [delegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)])
-		ret = [delegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+	
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(webView:shouldStartLoadWithRequest:navigationType:)])
+		ret = [realDelegate webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
 
 	BOOL (^block)(UIWebView *, NSURLRequest *, UIWebViewNavigationType) = [self blockImplementationForMethod:_cmd];
 	if (block)
@@ -28,9 +28,9 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-	id delegate = webView.delegate;
-	if (delegate && [delegate respondsToSelector:@selector(webViewDidStartLoad:)])
-		[delegate webViewDidStartLoad:webView];
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(webViewDidStartLoad:)])
+		[realDelegate webViewDidStartLoad:webView];
 
 	BOOL(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
 	if (block)
@@ -38,9 +38,9 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	id delegate = webView.delegate;
-	if (delegate && [delegate respondsToSelector:@selector(webViewDidFinishLoad:)])
-		[delegate webViewDidFinishLoad:webView];
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(webViewDidFinishLoad:)])
+		[realDelegate webViewDidFinishLoad:webView];
 
 	BOOL(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
 	if (block)
@@ -48,9 +48,9 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-	id delegate = webView.delegate;
-	if (delegate && [delegate respondsToSelector:@selector(webView:didFailLoadWithError:)])
-		[delegate webView:webView didFailLoadWithError:error];
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(webView:didFailLoadWithError:)])
+		[realDelegate webView:webView didFailLoadWithError:error];
 
 	BOOL(^block)(UIWebView *, NSError *) = [self blockImplementationForMethod:_cmd];
 	if (block)
@@ -67,7 +67,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self swizzleDelegateProperty];
+		[self registerDynamicDelegate];
 		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
 								 @"shouldStartLoadBlock", @"webView:shouldStartLoadWithRequest:navigationType:",
 								 @"didStartLoadBlock", @"webViewDidStartLoad:",

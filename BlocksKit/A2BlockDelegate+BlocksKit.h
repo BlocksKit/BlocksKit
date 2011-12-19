@@ -18,3 +18,9 @@
 + (void) registerDynamicDelegateNamed: (NSString *) delegateName forProtocol: (Protocol *) protocol;
 
 @end
+
+@interface A2DynamicDelegate (A2BlockDelegate)
+
+@property (nonatomic, assign) id realDelegate;
+
+@end
