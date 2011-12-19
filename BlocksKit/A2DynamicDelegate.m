@@ -340,7 +340,11 @@ static void *BlockGetImplementation(id block);
 + (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block
 {
 	NSAlwaysAssert(selector, @"Attempt to implement NULL selector");
-	NSAlwaysAssert(block, @"Attempt to implement nil block (selector: %c%s)", "+-"[!!isClassMethod], sel_getName(selector));
+	if (!block)
+	{
+		[self removeBlockImplementationForMethod: selector classMethod: isClassMethod];
+		return;
+	}
 	
 	SEL methodSignatureSelector = (isClassMethod) ? @selector(methodSignatureForSelector:) : @selector(instanceMethodSignatureForSelector:);
 	NSMethodSignature *protoSig = ((NSMethodSignature *(*)(id, SEL, SEL)) objc_msgSend)(self, methodSignatureSelector, selector);
