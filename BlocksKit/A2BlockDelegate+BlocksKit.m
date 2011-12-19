@@ -202,10 +202,10 @@ static SEL bk_getterForSetter(SEL setter)
 {
 	NSString *setterString = NSStringFromSelector(setter);
 	if ([setterString hasPrefix:@"a2_"])
-		setterString = [setterString substringFromIndex:2];
+		setterString = [setterString substringFromIndex:3];
 	
 	// get rid of set, last colon
-	setterString = [setterString substringWithRange:NSMakeRange(2, setterString.length-4)];
+	setterString = [setterString substringWithRange:NSMakeRange(3, setterString.length-4)];
 	
 	unichar firstChar = [setterString characterAtIndex: 0];
 	NSString *coda = [setterString substringFromIndex: 1];
