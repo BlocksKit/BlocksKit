@@ -98,16 +98,6 @@
 		6C50C85F149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C50C84D149D7AB30056AB59 /* A2DynamicDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6C50C860149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C50C84D149D7AB30056AB59 /* A2DynamicDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6C50C861149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C50C84D149D7AB30056AB59 /* A2DynamicDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6C5FA857144D08B700997A2F /* BKDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C5FA855144D08B600997A2F /* BKDelegate.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		6C5FA858144D08B700997A2F /* BKDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C5FA855144D08B600997A2F /* BKDelegate.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		6C5FA859144D08B700997A2F /* BKDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C5FA855144D08B600997A2F /* BKDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C5FA85A144D08B700997A2F /* BKDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C5FA855144D08B600997A2F /* BKDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C5FA85B144D08B700997A2F /* BKDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C5FA855144D08B600997A2F /* BKDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C5FA85C144D08B700997A2F /* BKDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FA856144D08B700997A2F /* BKDelegate.m */; };
-		6C5FA85D144D08B700997A2F /* BKDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FA856144D08B700997A2F /* BKDelegate.m */; };
-		6C5FA85E144D08B700997A2F /* BKDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FA856144D08B700997A2F /* BKDelegate.m */; };
-		6C5FA85F144D08B700997A2F /* BKDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FA856144D08B700997A2F /* BKDelegate.m */; };
-		6C5FA860144D08B700997A2F /* BKDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FA856144D08B700997A2F /* BKDelegate.m */; };
 		6C6AAD8C13835D1300203261 /* UIActionSheet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C6AAD8D13835D1300203261 /* UIActionSheet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */; };
 		6C6AAD901383706100203261 /* NSInvocation+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6AAD8E1383706000203261 /* NSInvocation+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -374,8 +364,6 @@
 		6C50C84B149D7AB30056AB59 /* A2BlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockDelegate.m; sourceTree = "<group>"; };
 		6C50C84C149D7AB30056AB59 /* A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicDelegate.h; sourceTree = "<group>"; };
 		6C50C84D149D7AB30056AB59 /* A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegate.m; sourceTree = "<group>"; };
-		6C5FA855144D08B600997A2F /* BKDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKDelegate.h; sourceTree = "<group>"; };
-		6C5FA856144D08B700997A2F /* BKDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKDelegate.m; sourceTree = "<group>"; };
 		6C6AAD8A13835D1300203261 /* UIActionSheet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+BlocksKit.h"; sourceTree = "<group>"; };
 		6C6AAD8B13835D1300203261 /* UIActionSheet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+BlocksKit.m"; sourceTree = "<group>"; };
 		6C6AAD8E1383706000203261 /* NSInvocation+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+BlocksKit.h"; sourceTree = "<group>"; };
@@ -556,8 +544,6 @@
 				6C3DBFB21383044600E6C9AA /* BlocksKit.h */,
 				6C145416138497D40067A56E /* BKGlobals.h */,
 				6C3DBFB41383050F00E6C9AA /* BKMacros.h */,
-				6C5FA855144D08B600997A2F /* BKDelegate.h */,
-				6C5FA856144D08B700997A2F /* BKDelegate.m */,
 				6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */,
 				6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */,
 				6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */,
@@ -698,7 +684,6 @@
 				A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */,
 				A97E4C9F13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h in Headers */,
 				A97E4CA313FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h in Headers */,
-				6C5FA859144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C850149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C85A149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
 				6C386844149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
@@ -727,7 +712,6 @@
 				6C8063B413C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */,
 				A99DD88713D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */,
 				6C79A15413F5AEE800CD8064 /* NSCache+BlocksKit.h in Headers */,
-				6C5FA85A144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C851149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C85B149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
 				6C386845149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
@@ -763,7 +747,6 @@
 				6C8063B513C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */,
 				A99DD88813D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */,
 				6C79A15713F5AEF300CD8064 /* NSCache+BlocksKit.h in Headers */,
-				6C5FA85B144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C852149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C85C149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
 				6C386846149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
@@ -801,7 +784,6 @@
 				6CC40A681447B73B00E47595 /* UIGestureRecognizer+BlocksKit.h in Headers */,
 				6CC40A691447B73B00E47595 /* UIView+BlocksKit.h in Headers */,
 				6CC40A6A1447B73B00E47595 /* UIWebView+BlocksKit.h in Headers */,
-				6C5FA857144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C84E149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C858149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
 				6C386842149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
@@ -830,7 +812,6 @@
 				6CC40AA41447BBC200E47595 /* NSTimer+BlocksKit.h in Headers */,
 				6CC40AA51447BBC200E47595 /* NSURLConnection+BlocksKit.h in Headers */,
 				6CC40AA61447BBC200E47595 /* NSCache+BlocksKit.h in Headers */,
-				6C5FA858144D08B700997A2F /* BKDelegate.h in Headers */,
 				6C50C84F149D7AB30056AB59 /* A2BlockDelegate.h in Headers */,
 				6C50C859149D7AB30056AB59 /* A2DynamicDelegate.h in Headers */,
 				6C386843149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
@@ -1084,7 +1065,6 @@
 				A92C9A6413F41E0A006DA96A /* NSCache+BlocksKit.m in Sources */,
 				A97E4CA013FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.m in Sources */,
 				A97E4CA413FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m in Sources */,
-				6C5FA85E144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C855149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C85F149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
 				6C386849149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
@@ -1110,7 +1090,6 @@
 				6C24280813C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */,
 				6C8063B713C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m in Sources */,
 				A99DD88A13D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */,
-				6C5FA85F144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C856149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C860149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
 				6C38684A149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
@@ -1143,7 +1122,6 @@
 				6C24280913C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */,
 				6C8063B813C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m in Sources */,
 				A99DD88B13D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */,
-				6C5FA860144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C857149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C861149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
 				6C38684B149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
@@ -1178,7 +1156,6 @@
 				6CC40A4B1447B67A00E47595 /* UIView+BlocksKit.m in Sources */,
 				6CC40A4C1447B67A00E47595 /* UIWebView+BlocksKit.m in Sources */,
 				6CC40A351447B67000E47595 /* UIGestureRecognizer+BlocksKit.m in Sources */,
-				6C5FA85C144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C853149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C85D149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
 				6C386847149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
@@ -1204,7 +1181,6 @@
 				6CC40A901447BB2900E47595 /* NSTimer+BlocksKit.m in Sources */,
 				6CC40A911447BB2900E47595 /* NSURLConnection+BlocksKit.m in Sources */,
 				6CC40A921447BB2900E47595 /* NSCache+BlocksKit.m in Sources */,
-				6C5FA85D144D08B700997A2F /* BKDelegate.m in Sources */,
 				6C50C854149D7AB30056AB59 /* A2BlockDelegate.m in Sources */,
 				6C50C85E149D7AB30056AB59 /* A2DynamicDelegate.m in Sources */,
 				6C386848149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
