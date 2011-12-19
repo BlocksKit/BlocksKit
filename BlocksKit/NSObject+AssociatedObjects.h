@@ -33,6 +33,7 @@
  @param value Any object.
  @param key A unique key string.
  */
++ (void)associateValue:(id)value withKey:(const char *)key;
 - (void)associateValue:(id)value withKey:(const char *)key;
 
 /** Associates a copy of an object with the reciever.
@@ -46,6 +47,7 @@
  @param value Any object, pointer, or value.
  @param key A unique key string.
  */
++ (void)associateCopyOfValue:(id)value withKey:(const char *)key;
 - (void)associateCopyOfValue:(id)value withKey:(const char *)key;
 
 /** Weakly associates an object with the reciever.
@@ -57,6 +59,7 @@
  @param value Any object.
  @param key A unique key string.
  */
++ (void)weaklyAssociateValue:(id)value withKey:(const char *)key;
 - (void)weaklyAssociateValue:(id)value withKey:(const char *)key;
 
 /** Weakly associates an object with the reciever.
@@ -68,6 +71,7 @@
  @param key A unique key string.
  @return The value associated with the key, or `nil` if not found.
  */
++ (id)associatedValueForKey:(const char *)key;
 - (id)associatedValueForKey:(const char *)key;
 
 @end

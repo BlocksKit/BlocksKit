@@ -10,14 +10,11 @@
 
 @interface NSObject (A2BlockDelegateBlocksKit)
 
-+ (void)swizzleDelegateProperty;
-+ (void)swizzleDataSourceProperty;
++ (void) registerDynamicDataSource;
++ (void) registerDynamicDelegate;
 
-@end
-
-@interface A2DynamicDelegate (BlocksKit)
-
-@property (nonatomic, readonly) id realDelegate;
-@property (nonatomic, readonly) id realDataSource;
++ (void) registerDynamicDataSourceNamed: (NSString *) dataSourceName;
++ (void) registerDynamicDelegateNamed: (NSString *) delegateName;
++ (void) registerDynamicDelegateNamed: (NSString *) delegateName forProtocol: (Protocol *) protocol;
 
 @end

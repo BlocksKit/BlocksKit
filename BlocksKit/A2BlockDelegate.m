@@ -20,12 +20,15 @@
 		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, (desc)], ## __VA_ARGS__]; } } while(0)
 #endif
 
-static void *A2BlockDelegateProtocolsKey;
-static void *A2BlockDelegateMapKey;
+extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 
-static char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
-static void *a2_blockPropertyGetter(id self, SEL _cmd);
+// Block Property Accessors
+static id a2_blockPropertyGetter(id self, SEL _cmd);
 static void a2_blockPropertySetter(id self, SEL _cmd, id block);
+
+// Forward Declarations
+extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName);
+extern IMP imp_implementationWithBlock(void *block);
 
 @interface NSObject (A2BlockDelegatePrivate)
 
@@ -38,6 +41,10 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 + (NSMutableDictionary *) a2_selectorCacheForProtocol: (Protocol *) protocol;
 
 + (NSMutableSet *) a2_protocols;
+
+@end
+
+@interface NSObject (A2DelegateProtocols)
 
 + (Protocol *) a2_dataSourceProtocol;
 + (Protocol *) a2_delegateProtocol;
@@ -123,13 +130,9 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	if (!class_getProperty(self, propertyName.UTF8String))
 	{
 		// It's not a simple -xBlock/setXBlock: pair
-		propertyName = nil;
-		
-		const char *selectorName = sel_getName(selector);
-		char lastChar = selectorName[strlen(selectorName) - 1];
-		
+
 		// If the selector's last character is a ':', it's a setter.
-		const BOOL isSetter = (lastChar == ':');
+		const BOOL isSetter = [NSStringFromSelector(selector) hasSuffix: @":"];
 	
 		unsigned int i, count;
 		objc_property_t *properties = class_copyPropertyList(self, &count);
@@ -167,17 +170,18 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 	}];
 	
 	return found;
-;}
+}
 
 + (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol
 {
 	[[self a2_protocols] addObject: protocol];
 	
-	NSMutableDictionary *map = objc_getAssociatedObject(self, &A2BlockDelegateMapKey);
+	static void *mapKey;
+	NSMutableDictionary *map = objc_getAssociatedObject(self, &mapKey);
 	if (!map)
 	{
 		map = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, &A2BlockDelegateMapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, &mapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSDictionary *protocolMap = [map objectForKey: NSStringFromProtocol(protocol)];
@@ -203,11 +207,12 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 + (NSMutableSet *) a2_protocols
 {
-	NSMutableSet *protocols = objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey);
+	static void *protocolsKey;
+	NSMutableSet *protocols = objc_getAssociatedObject(self, &protocolsKey);
 	if (!protocols)
 	{
 		protocols = [NSMutableSet set];
-		objc_setAssociatedObject(self, &A2BlockDelegateProtocolsKey, protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, &protocolsKey, protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return protocols;
@@ -257,11 +262,6 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 		char *copy = a2_property_copyAttributeValue(property, "C");
 		NSAlwaysAssert(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
 		free(copy);
-		
-		SEL selector = NSSelectorFromString(selectorName);
-		struct objc_method_description methodDescription = protocol_getMethodDescription(protocol, selector, YES, YES);
-		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(protocol, selector, NO, YES);
-		NSAlwaysAssert(methodDescription.name, @"Instance method %@ not found in protocol <%s>", selectorName, protocol_getName(protocol));
 	}];
 	
 	static void *didSwizzleKey;
@@ -287,7 +287,14 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 @end
 
-static void *a2_blockPropertyGetter(NSObject *self, SEL _cmd)
+@interface NSObject (A2BlockDelegateBlocksKitPrivate)
+
++ (NSMutableDictionary *) bk_accessorsMap;
+
+@end
+
+// Block Property Accessors
+static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
 {
 	Protocol *protocol;
 	SEL representedSelector;
@@ -304,6 +311,32 @@ static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 		return;
 	
 	[[self dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
+	
+	if ([self.class respondsToSelector: @selector(bk_accessorsMap)])
+	{
+		NSMutableDictionary *accessorsMap = [self.class bk_accessorsMap];
+		if (![accessorsMap count]) return;
+		
+		__block SEL delegateGetter = NULL;
+		__block SEL delegateSetter = NULL;
+		[[accessorsMap allKeysForObject: protocol] enumerateObjectsUsingBlock: ^(NSString *selectorName, NSUInteger idx, BOOL *stop) {
+			if ([selectorName hasSuffix: @":"] && !delegateSetter)
+				delegateSetter = NSSelectorFromString(selectorName);
+			else if (!delegateGetter)
+				delegateGetter = NSSelectorFromString(selectorName);
+			else
+				*stop = YES;
+		}];
+		
+		NSAssert1(delegateGetter && delegateSetter, @"Could not find both accessors for delegate of protocol <%@>", NSStringFromProtocol(protocol));
+		
+		if (![self performSelector: delegateGetter])
+		{
+			[self performSelector: delegateSetter withObject: self];
+		}
+		
+		NSAssert([[self performSelector: delegateGetter] isEqual: self], @"A block-backed object cannot be added when the delegate isn't self.");
+	}
 }
 
 /*
@@ -420,7 +453,7 @@ static BOOL a2_findOneAttribute(__unused unsigned int index, void *ctxa, void *c
 	
     return YES;
 }
-static char *a2_property_copyAttributeValue(objc_property_t property, const char *name)
+char *a2_property_copyAttributeValue(objc_property_t property, const char *name)
 {
 	if (&property_copyAttributeValue)
 	{

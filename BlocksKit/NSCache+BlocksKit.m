@@ -9,6 +9,7 @@
 #pragma mark Custom delegate
 
 @interface A2DynamicNSCacheDelegate : A2DynamicDelegate
+
 @end
 
 @implementation A2DynamicNSCacheDelegate
@@ -33,7 +34,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self swizzleDelegateProperty];
+		[self registerDynamicDelegate];
 		[self linkCategoryBlockProperty:@"willEvictBlock" withDelegateMethod:@selector(cache:willEvictObject:)];
 	}
 }
