@@ -23,7 +23,7 @@
          NSURLConnection *connection = [NSURLConnection connectionWithRequest:request];
          connection.delegate = self;
          connection.failureBlock = ^(NSURLConnection *connection, NSError *error){
-             [[UIAlertView alertWithTitle:@"Download error" message:[error localizedDescription]] show];
+             [[UIAlertView alertViewWithTitle:@"Download error" message:[error localizedDescription]] show];
              
              self.downloadButton.enabled = YES;
              self.progressView.progress = 0.0f;

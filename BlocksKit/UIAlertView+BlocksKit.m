@@ -114,8 +114,8 @@
 
 #pragma mark Convenience
 
-+ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonText handler:(BKBlock)block {
-	UIAlertView *alert = [UIAlertView alertWithTitle:title message:message];
++ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonText handler:(BKBlock)block {
+	UIAlertView *alert = [UIAlertView alertViewWithTitle:title message:message];
 	if (!buttonText || !buttonText.length)
 		buttonText = NSLocalizedString(@"Dismiss", nil);
 	[alert addButtonWithTitle:buttonText];
@@ -128,11 +128,11 @@
 
 #pragma mark Initializers
 
-+ (id)alertWithTitle:(NSString *)title {
-	return [self alertWithTitle:title message:nil];
++ (id)alertViewWithTitle:(NSString *)title {
+	return [self alertViewWithTitle:title message:nil];
 }
 
-+ (id)alertWithTitle:(NSString *)title message:(NSString *)message {
++ (id)alertViewWithTitle:(NSString *)title message:(NSString *)message {
 	return BK_AUTORELEASE([[UIAlertView alloc] initWithTitle:title message:message]);
 }
 

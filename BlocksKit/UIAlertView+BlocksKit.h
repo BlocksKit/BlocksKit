@@ -14,12 +14,12 @@
  addButtonWithTitle:handler: otherwise nothing will happen.
 
  A typical invocation will go like this:
-     UIAlertView *testView = [UIAlertView alertWithTitle:@"Application Alert" message:@"This app will explode in 42 seconds."];
+     UIAlertView *testView = [UIAlertView alertViewWithTitle:@"Application Alert" message:@"This app will explode in 42 seconds."];
      [testView setCancelButtonWithTitle:@"Oh No!" handler:^{ NSLog(@"Boom!"); }];
      [testView show];
 
  A more traditional, and more useful, modal dialog looks like so:
-    UIAlertView *testView = [UIAlertView alertWithTitle:@"Very important!" message:@"Do you like chocolate?"];
+    UIAlertView *testView = [UIAlertView alertViewWithTitle:@"Very important!" message:@"Do you like chocolate?"];
     [testView addButtonWithTitle:@"Yes" handler:^{ NSLog(@"Yay!"); }];
     [testView addButtonWithTitle:@"No" handler:^{ NSLog(@"We hate you."); }];
     [testView show];
@@ -45,14 +45,14 @@
  @param buttonText The text of the single button.  If empty or nil, defaults to a localized variant of "Dismiss".
  @param block A block of code to be fired on the dismissal of the 
  */
-+ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonText handler:(BKBlock)block;
++ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonText handler:(BKBlock)block;
 
 /** Creates and returns a new alert view with only a title and cancel button.
 
  @param title The title of the alert view.
  @return A newly created alert view.
  */
-+ (id)alertWithTitle:(NSString *)title;
++ (id)alertViewWithTitle:(NSString *)title;
 
 /** Creates and returns a new alert view with only a title, message, and cancel button.
 
@@ -60,7 +60,7 @@
  @param message The message content of the alert.
  @return A newly created alert view.
  */
-+ (id)alertWithTitle:(NSString *)title message:(NSString *)message;
++ (id)alertViewWithTitle:(NSString *)title message:(NSString *)message;
 
 /** Returns a configured alert view with only a title, message, and cancel button.
  
