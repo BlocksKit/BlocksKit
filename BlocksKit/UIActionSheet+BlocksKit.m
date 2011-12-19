@@ -114,7 +114,6 @@
 #pragma mark Actions
 
 - (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
-#warning TODO - copy-paste the dynamic delegate setter here
 	NSAssert(title.length, @"A button without a title cannot be added to an action sheet.");
 	NSInteger index = [self addButtonWithTitle:title];
 
@@ -160,8 +159,6 @@
 }
 
 - (void)setCancelBlock:(BKBlock)block {
-#warning TODO - copy-paste the dynamic delegate setter here
-
 	if (self.cancelButtonIndex == -1) {
 		[self setCancelButtonWithTitle:nil handler:block];
 	} else {
