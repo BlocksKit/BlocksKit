@@ -11,6 +11,6 @@
 @property (nonatomic, retain) NSCache *subject;
 
 - (void)testDelegate;
-- (void)testEvictionDelegate;
+//- (void)testEvictionDelegate;
 
 @end
