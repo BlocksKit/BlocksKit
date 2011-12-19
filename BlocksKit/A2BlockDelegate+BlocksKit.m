@@ -107,7 +107,7 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	
 	if (&imp_implementationWithBlock)
 	{
-		implementation = imp_implementationWithBlock((__bridge void *) ^(NSObject *self, SEL _cmd, id delegate) {
+		implementation = imp_implementationWithBlock((__bridge void *) ^(NSObject *self, id delegate) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 			
 			if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
