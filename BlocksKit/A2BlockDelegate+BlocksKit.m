@@ -23,6 +23,7 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 // Helpers
 static SEL bk_getterForProperty(Class cls, NSString *propertyName);
 static SEL bk_setterForProperty(Class cls, NSString *propertyName);
+static SEL bk_getterForSetter(SEL setter);
 
 @implementation A2DynamicDelegate (A2BlockDelegate)
 
@@ -110,6 +111,12 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 		implementation = imp_implementationWithBlock((__bridge void *) ^(NSObject *self, id delegate) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 			
+			if ([self respondsToSelector:a2_setter]) {
+				id originalDelegate = [self performSelector:getter];
+				if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
+					[self performSelector:a2_setter withObject:dynamicDelegate];
+			}
+				
 			if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
 			dynamicDelegate.realDelegate = delegate;
 		});
@@ -137,6 +144,15 @@ static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 	Protocol *protocol = [propertyMap objectForKey: NSStringFromSelector(_cmd)];
 	
 	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+	
+	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(_cmd)]);
+	SEL getter = bk_getterForSetter(_cmd);
+	
+	if ([self respondsToSelector:a2_setter]) {
+		id originalDelegate = [self performSelector:getter];
+		if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
+			[self performSelector:a2_setter withObject:dynamicDelegate];
+	}
 	
 	if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
 	dynamicDelegate.realDelegate = delegate;
@@ -181,4 +197,18 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName)
 	}
 	
 	return setter;
+}
+static SEL bk_getterForSetter(SEL setter)
+{
+	NSString *setterString = NSStringFromSelector(setter);
+	if ([setterString hasPrefix:@"a2_"])
+		setterString = [setterString substringFromIndex:2];
+	
+	// get rid of set, last colon
+	setterString = [setterString substringWithRange:NSMakeRange(2, setterString.length-4)];
+	
+	unichar firstChar = [setterString characterAtIndex: 0];
+	NSString *coda = [setterString substringFromIndex: 1];
+	
+	return NSSelectorFromString([NSString stringWithFormat:@"%c%@", tolower(firstChar), coda]);
 }
