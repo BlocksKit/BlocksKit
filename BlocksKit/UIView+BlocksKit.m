@@ -8,6 +8,10 @@
 #import "UIGestureRecognizer+BlocksKit.h"
 #import "NSArray+BlocksKit.h"
 
+static char kViewTouchDownBlockKey;
+static char kViewTouchMoveBlockKey;
+static char kViewTouchUpBlockKey;
+
 @implementation UIView (BlocksKit)
 
 - (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
@@ -69,10 +73,6 @@
 }
 
 #pragma mark Properties
-
-static char kViewTouchDownBlockKey;
-static char kViewTouchMoveBlockKey;
-static char kViewTouchUpBlockKey;
 
 - (void)setOnTouchDownBlock:(BKTouchBlock)block {
 	[self associateCopyOfValue:block withKey:&kViewTouchDownBlockKey];
