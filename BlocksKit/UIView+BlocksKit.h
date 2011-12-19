@@ -48,39 +48,38 @@
  */
 - (void)whenDoubleTapped:(BKBlock)block;
 
-/** Adds a block that gets called on a finger down.
+/** A convenience wrapper that non-recursively loops through the subviews of a view.
+ 
+ @param block A code block that interacts with a UIView sender.
+ */
+- (void)eachSubview:(BKViewBlock)block;
 
+/** The block that gets called on a finger down.
+ 
  Internally, this method overrides the touchesBegan:withEvent:
  selector of UIView and is mechanically similar to
  UIControlEventTouchDown.
-
- @param block The handler for the touch recognizer
  */
-- (void)whenTouchedDown:(BKTouchBlock)block;
+@property (nonatomic, copy) BKTouchBlock onTouchDownBlock;
+- (void)whenTouchedDown:(BKTouchBlock)block DEPRECATED_ATTRIBUTE;
 
-/** Adds a block that gets called on a finger drag.
+/** The block that gets called on a finger drag.
  
  Internally, this method overrides the touchesMoved:withEvent:
  selector of UIView.
  
  @param block The handler for the touch recognizer
  */
-- (void)whenTouchMove:(BKTouchBlock)block;
+@property (nonatomic, copy) BKTouchBlock onTouchMoveBlock;
+- (void)whenTouchMove:(BKTouchBlock)block DEPRECATED_ATTRIBUTE;
 
-/** Adds a block that gets called on a finger up.
+/** The block that gets called on a finger up.
  
  Internally, this method overrides the touchesBegan:withEvent:
  selector of UIView and is mechanically similar to
  UIControlEventTouchCancel.
- 
- @param block The handler for the touch recognizer
  */
-- (void)whenTouchedUp:(BKTouchBlock)block;
-
-/** A convenience wrapper that non-recursively loops through the subviews of a view.
- 
- @param block A code block that interacts with a UIView sender.
- */
-- (void)eachSubview:(BKViewBlock)block;
+@property (nonatomic, copy) BKTouchBlock onTouchUpBlock;
+- (void)whenTouchedUp:(BKTouchBlock)block DEPRECATED_ATTRIBUTE;
 
 @end
