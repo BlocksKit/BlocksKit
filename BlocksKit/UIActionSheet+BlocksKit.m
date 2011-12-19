@@ -86,6 +86,8 @@
 
 @implementation UIActionSheet (BlocksKit)
 
+@dynamic willShowBlock, didShowBlock, willDismissBlock, didDismissBlock;
+
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegate];
