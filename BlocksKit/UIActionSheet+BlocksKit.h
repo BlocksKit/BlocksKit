@@ -92,6 +92,13 @@
 /// @name Altering actions
 ///-----------------------------------
 
+/** The block that is to be fired when a button is pressed.
+ 
+ @param index The index of the button already added to the action sheet.
+ @return An instance of a code block, or nil if no block yet assigned.
+ */
+- (BKBlock)handlerForButtonAtIndex:(NSInteger)index;
+
 /** The block to be fired when the action sheet is dismissed with the cancel
  button and/or action.
 
@@ -100,18 +107,18 @@
  you can set this property multiple times and multiple cancel buttons will
  not be generated.
  */
-@property (nonatomic, copy) BKBlock cancelBlock;
+@property (copy) BKBlock cancelBlock;
 
 /** The block to be fired before the action sheet will show. */
-@property (nonatomic, copy) BKBlock willShowBlock;
+@property (copy) void (^willShowBlock)(UIActionSheet *);
 
 /** The block to be fired when the action sheet shows. */
-@property (nonatomic, copy) BKBlock didShowBlock;
+@property (copy) void (^didShowBlock)(UIActionSheet *);
 
 /** The block to be fired before the action sheet will dismiss. */
-@property (nonatomic, copy) BKIndexBlock willDismissBlock;
+@property (copy) void (^willDismissBlock)(UIActionSheet *, NSInteger);
 
 /** The block to be fired after the action sheet dismisses. */
-@property (nonatomic, copy) BKIndexBlock didDismissBlock;
+@property (copy) void (^didDismissBlock)(UIActionSheet *, NSInteger);
 
 @end

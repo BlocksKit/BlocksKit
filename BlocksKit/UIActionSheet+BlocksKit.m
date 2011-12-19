@@ -4,239 +4,172 @@
 //
 
 #import "UIActionSheet+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
+#import "A2BlockDelegate+BlocksKit.h"
 
-@interface UIActionSheet (BlocksKitPrivate)
-@property (nonatomic, readonly) NSMutableDictionary *handlers;
+#pragma mark Custom delegate
+
+@interface A2DynamicUIActionSheetDelegate : A2DynamicDelegate
+
 @end
+
+@implementation A2DynamicUIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	id realDelegate = self.realDelegate;
+	if ([realDelegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)])
+		[realDelegate actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
+	
+	if (buttonIndex == actionSheet.cancelButtonIndex)
+		return;
+	
+	id key = [NSNumber numberWithInteger:buttonIndex];
+	BKBlock block = [self.handlers objectForKey:key];
+	if (block)
+		block();
+}
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
+	id realDelegate = self.realDelegate;
+	if ([realDelegate respondsToSelector:@selector(willPresentActionSheet:)])
+		return [realDelegate willPresentActionSheet:actionSheet];
+
+	void (^block)(UIActionSheet *) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(actionSheet);
+}
+
+- (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
+	id realDelegate = self.realDelegate;
+	if ([realDelegate respondsToSelector:@selector(didPresentActionSheet:)])
+		return [realDelegate didPresentActionSheet:actionSheet];
+	
+	void (^block)(UIActionSheet *) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(actionSheet);
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
+	id realDelegate = self.realDelegate;
+	if ([realDelegate respondsToSelector:@selector(actionSheet:willDismissWithButtonIndex:)])
+		[realDelegate actionSheet:actionSheet willDismissWithButtonIndex:buttonIndex];
+	
+	void (^block)(UIActionSheet *, NSInteger) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(actionSheet, buttonIndex);
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	id realDelegate = self.realDelegate;
+	if ([realDelegate respondsToSelector:@selector(actionSheet:didDismissWithButtonIndex:)])
+		[realDelegate actionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
+
+	
+	void (^block)(UIActionSheet *, NSInteger) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(actionSheet, buttonIndex);
+}
+
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet {
+	id realDelegate = self.realDelegate;
+	if ([realDelegate respondsToSelector:@selector(actionSheetCancel:)])
+		return [realDelegate actionSheetCancel:actionSheet];
+	
+	id key = [NSNumber numberWithInteger:actionSheet.cancelButtonIndex];
+	BKBlock block = [self.handlers objectForKey:key];
+	if (block)
+		block();
+}
+
+@end
+
+#pragma mark - Category
 
 @implementation UIActionSheet (BlocksKit)
 
-static char *kActionSheetBlockDictionaryKey = "UIActionSheetBlockHandlers"; 
-static NSString *kActionSheetWillShowBlockKey = @"UIActionSheetWillShowBlock";
-static NSString *kActionSheetDidShowBlockKey = @"UIActionSheetDidShowBlock";
-static NSString *kActionSheetWillDismissBlockKey = @"UIActionSheetWillDismissBlock";
-static NSString *kActionSheetDidDismissBlockKey = @"UIActionSheetDidDismissBlock";
++ (void)load {
+	@autoreleasepool {
+		[self registerDynamicDelegate];
+		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:nil,
+								 @"willShowBlock", @"willPresentActionSheet:",
+								 @"didShowBlock", @"didPresentActionSheet:",
+								 @"willDismissBock", @"actionSheet:willDismissWithButtonIndex:",
+								 @"didDismissBlock", @"actionSheet:didDismissWithButtonIndex:",
+								 nil];
+		[self linkDelegateMethods:methods];
+	}
+}
 
 #pragma mark Initializers
 
 + (id)sheetWithTitle:(NSString *)title {
-    return BK_AUTORELEASE([[UIActionSheet alloc] initWithTitle:title]);
+	return BK_AUTORELEASE([[UIActionSheet alloc] initWithTitle:title]);
 }
 
 - (id)initWithTitle:(NSString *)title {
-    return [self initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+	return [self initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 }
 
-#pragma mark Public methods
+#pragma mark Actions
 
 - (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    NSAssert(title.length, @"A button without a title cannot be added to an action sheet.");
-    NSInteger index = [self addButtonWithTitle:title];
+#warning TODO - copy-paste the dynamic delegate setter here
+	NSAssert(title.length, @"A button without a title cannot be added to an action sheet.");
+	NSInteger index = [self addButtonWithTitle:title];
 
-    id key = [NSNumber numberWithInteger:index];
-    
-    if (block) {
-        block = BK_AUTORELEASE([block copy]);
-        [self.handlers setObject:block forKey:key];
-    } else
-        [self.handlers removeObjectForKey:key];
-    
-    return index;
+	id key = [NSNumber numberWithInteger:index];
+
+	if (block)
+		[[self.dynamicDelegate handlers] setObject:block forKey:key];
+	else
+		[[self.dynamicDelegate handlers] removeObjectForKey:key];
+
+	return index;
 }
 
-- (NSInteger)setDestructiveButtonWithTitle:(NSString *) title handler:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    NSAssert(title.length, @"A button without a title cannot be added to the action sheet.");
-    NSInteger index = [self addButtonWithTitle:title];
-    self.destructiveButtonIndex = index;
-    
-    id key = [NSNumber numberWithInteger:index];
-    
-    if (block) {
-        block = BK_AUTORELEASE([block copy]);
-        [self.handlers setObject:block forKey:key];
-    } else
-        [self.handlers removeObjectForKey:key];
-    
-    return index;
+- (NSInteger)setDestructiveButtonWithTitle:(NSString *)title handler:(BKBlock)block {
+	NSInteger index = [self addButtonWithTitle:title handler:block];
+	self.destructiveButtonIndex = index;
+	return index;
 }
-
+											
 - (NSInteger)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    NSInteger index = -1;
-    
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && !title)
-        title = NSLocalizedString(@"Cancel", nil);
-    
-    if (title)
-        index = [self addButtonWithTitle:title];
-    
-    self.cancelButtonIndex = index;
-    id key = [NSNumber numberWithInteger:index];
-    
-    if (block) {
-        block = BK_AUTORELEASE([block copy]);
-        [self.handlers setObject:block forKey:key];
-    } else
-        [self.handlers removeObjectForKey:key];
-    
-    return index;
+	NSInteger cancelButtonIndex = -1;
+
+	if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && !title)
+		title = NSLocalizedString(@"Cancel", nil);
+
+	if (title)
+		cancelButtonIndex = [self addButtonWithTitle:title];
+
+	self.cancelButtonIndex = cancelButtonIndex;
+	[self setCancelBlock:block];
+	return cancelButtonIndex;
 }
 
 #pragma mark Properties
 
-- (NSMutableDictionary *)handlers {
-    NSMutableDictionary *handlers = [self associatedValueForKey:kActionSheetBlockDictionaryKey];
-    if (!handlers) {
-        handlers = [NSMutableDictionary dictionary];
-        [self associateValue:handlers withKey:kActionSheetBlockDictionaryKey];
-    }
-    return handlers;
+- (BKBlock)handlerForButtonAtIndex:(NSInteger)index {
+	id key = [NSNumber numberWithInteger:index];
+	return [[self.dynamicDelegate handlers] objectForKey:key];
 }
 
 - (BKBlock)cancelBlock {
-    NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
-    BKBlock block = [self.handlers objectForKey:key];
-    return BK_AUTORELEASE([block copy]);
+	return [self handlerForButtonAtIndex:self.cancelButtonIndex];
 }
 
 - (void)setCancelBlock:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    if (self.cancelButtonIndex == -1) {
-        [self setCancelButtonWithTitle:nil handler:block];
-    } else {
-        NSNumber *key = [NSNumber numberWithInteger:self.cancelButtonIndex];
-        
-        if (!block) {
-            [self.handlers removeObjectForKey:key];
-            return;
-        }
-        
-        block = BK_AUTORELEASE([block copy]);
-        [self.handlers setObject:block forKey:key];
-    }
-}
+#warning TODO - copy-paste the dynamic delegate setter here
 
-- (BKBlock)willShowBlock {
-    BKBlock block = [self.handlers objectForKey:kActionSheetWillShowBlockKey]; 
-    return BK_AUTORELEASE([block copy]);   
-}
-
-- (void)setWillShowBlock:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    if (!block) {
-        [self.handlers removeObjectForKey:kActionSheetWillShowBlockKey];
-        return;
-    }
-    
-    block = BK_AUTORELEASE([block copy]);
-    [self.handlers setObject:block forKey:kActionSheetWillShowBlockKey];
-}
-
-- (BKBlock)didShowBlock {
-    BKBlock block = [self.handlers objectForKey:kActionSheetDidShowBlockKey];
-    return BK_AUTORELEASE([block copy]);
-}
-
-- (void)setDidShowBlock:(BKBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    if (!block) {
-        [self.handlers removeObjectForKey:kActionSheetDidShowBlockKey];
-        return;
-    }
-    
-    block = BK_AUTORELEASE([block copy]);
-    [self.handlers setObject:block forKey:kActionSheetDidShowBlockKey];
-}
-
-- (BKIndexBlock)willDismissBlock {
-    BKIndexBlock block = [self.handlers objectForKey:kActionSheetWillDismissBlockKey];
-    return BK_AUTORELEASE([block copy]);
-}
-
-- (void)setWillDismissBlock:(BKIndexBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-    
-    if (!block) {
-        [self.handlers removeObjectForKey:kActionSheetWillDismissBlockKey];
-        return;
-    }
-    
-    block = BK_AUTORELEASE([block copy]);
-    [self.handlers setObject:block forKey:kActionSheetWillDismissBlockKey];
-}
-
-- (BKIndexBlock)didDismissBlock {
-    BKIndexBlock block = [self.handlers objectForKey:kActionSheetDidDismissBlockKey];
-    return BK_AUTORELEASE([block copy]);
-}
-
-- (void)setDidDismissBlock:(BKIndexBlock)block {
-    if (!self.delegate)
-        self.delegate = self;
-    NSAssert([self.delegate isEqual:self], @"A block-backed button cannot be added when the delegate isn't self.");
-
-    if (!block) {
-        [self.handlers removeObjectForKey:kActionSheetDidDismissBlockKey];
-        return;
-    }
-    
-    block = BK_AUTORELEASE([block copy]);
-    [self.handlers setObject:block forKey:kActionSheetDidDismissBlockKey];
-}
-
-#pragma mark Delegates
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    BKBlock block = [self.handlers objectForKey:[NSNumber numberWithInteger:buttonIndex]];
-    if (block)
-        block();
-}
-
-- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
-    BKBlock block = [self.handlers objectForKey:kActionSheetWillShowBlockKey];
-    if (block)
-        block();
-}
-
-- (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
-    BKBlock block = [self.handlers objectForKey:kActionSheetDidShowBlockKey];
-    if (block)
-        block();
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BKIndexBlock block = [self.handlers objectForKey:kActionSheetWillDismissBlockKey];
-    if (block)
-        block(buttonIndex);
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BKIndexBlock block = [self.handlers objectForKey:kActionSheetDidDismissBlockKey];
-    if (block)
-        block(buttonIndex);
+	if (self.cancelButtonIndex == -1) {
+		[self setCancelButtonWithTitle:nil handler:block];
+	} else {
+		id key = [NSNumber numberWithInteger:self.cancelButtonIndex];
+		
+		if (block)
+			[[self.dynamicDelegate handlers] setObject:block forKey:key];
+		else
+			[[self.dynamicDelegate handlers] removeObjectForKey:key];
+	}
 }
 
 @end

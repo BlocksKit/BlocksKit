@@ -148,10 +148,10 @@
     NSInteger index = [self addButtonWithTitle:title];
     
     id key = [NSNumber numberWithInteger:index];
-    
-    if (block) {
+
+    if (block)
         [[self.dynamicDelegate handlers] setObject:block forKey:key];
-    } else
+    else
         [[self.dynamicDelegate handlers] removeObjectForKey:key];
     
     return index;
