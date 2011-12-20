@@ -19,26 +19,26 @@ static char kGestureRecognizerCancelKey;
 @implementation UIGestureRecognizer (BlocksKit)
 
 + (id)recognizerWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay {
-    return BK_AUTORELEASE([[[self class] alloc] initWithHandler:block delay:delay]);
+	return BK_AUTORELEASE([[[self class] alloc] initWithHandler:block delay:delay]);
 }
 
 - (id)initWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay {
-    self = [self init];
-    [self setHandler:block];
-    [self setDelay:delay];
-    return self;
+	self = [self init];
+	[self setHandler:block];
+	[self setDelay:delay];
+	return self;
 }
 
 + (id)recognizerWithHandler:(BKGestureRecognizerBlock)block {
-    return [self recognizerWithHandler:block delay:0.0];
+	return [self recognizerWithHandler:block delay:0.0];
 }
 
 - (id)initWithHandler:(BKGestureRecognizerBlock)block {
-    return [self initWithHandler:block delay:0.0];
+	return [self initWithHandler:block delay:0.0];
 }
 
 - (void)_handleAction:(id)recognizer {
-    BKGestureRecognizerBlock block = self.handler;
+	BKGestureRecognizerBlock block = self.handler;
 	if (!block)
 		return;
 	
@@ -47,7 +47,7 @@ static char kGestureRecognizerCancelKey;
 }
 
 - (void)_handleActionUsingDelay:(id)recognizer {
-    BKGestureRecognizerBlock block = self.handler;
+	BKGestureRecognizerBlock block = self.handler;
 	if (!block)
 		return;
 	
@@ -60,26 +60,26 @@ static char kGestureRecognizerCancelKey;
 }
 
 - (void)setHandler:(BKGestureRecognizerBlock)handler {
-    [self associateCopyOfValue:handler withKey:&kGestureRecognizerBlockKey];
+	[self associateCopyOfValue:handler withKey:&kGestureRecognizerBlockKey];
 }
 
 - (BKGestureRecognizerBlock)handler {
-    return [self associatedValueForKey:&kGestureRecognizerBlockKey];
+	return [self associatedValueForKey:&kGestureRecognizerBlockKey];
 }
 
 - (void)setDelay:(NSTimeInterval)delay {
-    [self removeTarget:self action:NULL];
+	[self removeTarget:self action:NULL];
 	[self addTarget:self action:delay ? @selector(_handleActionUsingDelay:) : @selector(_handleAction:)];
-    [self associateValue:[NSNumber numberWithDouble:delay] withKey:&kGestureRecognizerDelayKey];
+	[self associateValue:[NSNumber numberWithDouble:delay] withKey:&kGestureRecognizerDelayKey];
 }
 
 - (NSTimeInterval)delay {
-    NSNumber *delay = [self associatedValueForKey:&kGestureRecognizerDelayKey];
+	NSNumber *delay = [self associatedValueForKey:&kGestureRecognizerDelayKey];
 	return delay ? [delay doubleValue] : 0.0;
 }
 
 - (void)cancel {
-    [NSObject cancelBlock:[self associatedValueForKey:&kGestureRecognizerCancelKey]];
+	[NSObject cancelBlock:[self associatedValueForKey:&kGestureRecognizerCancelKey]];
 }
 
 @end

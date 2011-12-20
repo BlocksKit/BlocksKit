@@ -74,60 +74,60 @@ static char kResponseLengthKey;
 
 - (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
-        return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
+		return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
 	
 	NSString *authMethod = protectionSpace.authenticationMethod;
 	if (authMethod == NSURLAuthenticationMethodServerTrust || authMethod == NSURLAuthenticationMethodClientCertificate)
 		return NO;
-    return YES;
+	return YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didCancelAuthenticationChallenge:)])
-        [realDelegate connection:connection didCancelAuthenticationChallenge:challenge];
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didCancelAuthenticationChallenge:)])
+		[realDelegate connection:connection didCancelAuthenticationChallenge:challenge];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
-        [realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
+		[realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
 }
 
 - (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection {
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connectionShouldUseCredentialStorage:)])
-        return [realDelegate connectionShouldUseCredentialStorage:connection];
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connectionShouldUseCredentialStorage:)])
+		return [realDelegate connectionShouldUseCredentialStorage:connection];
 	
-    return YES;   
+	return YES;   
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willCacheResponse:)])
-        return [realDelegate connection:connection willCacheResponse:cachedResponse];
-    
-    return cachedResponse;
+		return [realDelegate connection:connection willCacheResponse:cachedResponse];
+	
+	return cachedResponse;
 }
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
-        return [realDelegate connection:connection willSendRequest:request redirectResponse:redirectResponse];
-    
-    return request;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
+		return [realDelegate connection:connection willSendRequest:request redirectResponse:redirectResponse];
+	
+	return request;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveResponse:)])
-        [realDelegate connection:connection didReceiveResponse:response];
-    
-    connection.bk_responseLength = 0;
-    [connection.bk_responseData setLength:0];
-    
-    connection.bk_response = response;
+		[realDelegate connection:connection didReceiveResponse:response];
+	
+	connection.bk_responseLength = 0;
+	[connection.bk_responseData setLength:0];
+	
+	connection.bk_response = response;
 	
 	void (^block)(NSURLConnection *, NSURLResponse *) = [self blockImplementationForMethod:_cmd];
 	if (block)
@@ -137,7 +137,7 @@ static char kResponseLengthKey;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didFailWithError:)])
-        [realDelegate connection:connection didFailWithError:error];
+		[realDelegate connection:connection didFailWithError:error];
 	
 	connection.bk_responseLength = 0;
 	[connection.bk_responseData setLength:0];
@@ -150,46 +150,46 @@ static char kResponseLengthKey;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connectionDidFinishLoading:)])
-        [realDelegate connectionDidFinishLoading:connection];
-    
-    if (!connection.bk_responseData.length)
-        connection.bk_responseData = nil;
-    
-    void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
-    if (block)
-        block(connection, connection.bk_response, connection.bk_responseData);
+		[realDelegate connectionDidFinishLoading:connection];
+	
+	if (!connection.bk_responseData.length)
+		connection.bk_responseData = nil;
+	
+	void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
+	if (block)
+		block(connection, connection.bk_response, connection.bk_responseData);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    connection.bk_responseLength += data.length;
-    
-    void (^block)(CGFloat) = connection.downloadBlock;
-    if (block && connection.bk_response && connection.bk_response.expectedContentLength != NSURLResponseUnknownLength)
-        block((CGFloat)connection.bk_responseLength / (CGFloat)connection.bk_response.expectedContentLength);
+	connection.bk_responseLength += data.length;
+	
+	void (^block)(CGFloat) = connection.downloadBlock;
+	if (block && connection.bk_response && connection.bk_response.expectedContentLength != NSURLResponseUnknownLength)
+		block((CGFloat)connection.bk_responseLength / (CGFloat)connection.bk_response.expectedContentLength);
 	
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveData:)]) {
-        [realDelegate connection:connection didReceiveData:data];
-        return;
-    }
-    
-    NSMutableData *responseData = connection.bk_responseData;
-    if (!responseData) {
-        responseData = [NSMutableData data];
-        connection.bk_responseData = responseData;
-    }
-    
-    [responseData appendData:data];
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveData:)]) {
+		[realDelegate connection:connection didReceiveData:data];
+		return;
+	}
+	
+	NSMutableData *responseData = connection.bk_responseData;
+	if (!responseData) {
+		responseData = [NSMutableData data];
+		connection.bk_responseData = responseData;
+	}
+	
+	[responseData appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)])
-        [realDelegate connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
-    
-    void (^block)(CGFloat) = connection.uploadBlock;
-    if (block)
-        block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)])
+		[realDelegate connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
+	
+	void (^block)(CGFloat) = connection.uploadBlock;
+	if (block)
+		block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
 }
 
 @end
@@ -209,7 +209,7 @@ static char kResponseLengthKey;
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willSendRequestForAuthenticationChallenge:)])
-        [realDelegate connection:connection willSendRequestForAuthenticationChallenge:challenge];
+		[realDelegate connection:connection willSendRequestForAuthenticationChallenge:challenge];
 	else
 		[challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
 }
@@ -217,30 +217,30 @@ static char kResponseLengthKey;
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willCacheResponse:)])
-        return [realDelegate connection:connection willCacheResponse:cachedResponse];
-    
-    return cachedResponse;
+		return [realDelegate connection:connection willCacheResponse:cachedResponse];
+	
+	return cachedResponse;
 }
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
-        return [realDelegate connection:connection willSendRequest:request redirectResponse:response];
-    
-    return request;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
+		return [realDelegate connection:connection willSendRequest:request redirectResponse:response];
+	
+	return request;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveResponse:)])
-        [realDelegate connection:connection didReceiveResponse:response];
-    
-    connection.bk_responseLength = 0;
-    
-    if (connection.bk_responseData)
-        [connection.bk_responseData setLength:0];
-    
-    connection.bk_response = response;
+		[realDelegate connection:connection didReceiveResponse:response];
+	
+	connection.bk_responseLength = 0;
+	
+	if (connection.bk_responseData)
+		[connection.bk_responseData setLength:0];
+	
+	connection.bk_response = response;
 	
 	void (^block)(NSURLConnection *, NSURLResponse *) = [self blockImplementationForMethod:_cmd];
 	if (block)
@@ -250,7 +250,7 @@ static char kResponseLengthKey;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didFailWithError:)])
-        [realDelegate connection:connection didFailWithError:error];
+		[realDelegate connection:connection didFailWithError:error];
 	
 	connection.bk_responseLength = 0;
 	[connection.bk_responseData setLength:0];
@@ -263,46 +263,46 @@ static char kResponseLengthKey;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connectionDidFinishLoading:)])
-        [realDelegate connectionDidFinishLoading:connection];
-    
-    if (!connection.bk_responseData.length)
-        connection.bk_responseData = nil;
-    
-    void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
-    if (block)
-        block(connection, connection.bk_response, connection.bk_responseData);
+		[realDelegate connectionDidFinishLoading:connection];
+	
+	if (!connection.bk_responseData.length)
+		connection.bk_responseData = nil;
+	
+	void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
+	if (block)
+		block(connection, connection.bk_response, connection.bk_responseData);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    connection.bk_responseLength += data.length;
-    
-    void (^block)(CGFloat) = connection.downloadBlock;
-    if (block && connection.bk_response && connection.bk_response.expectedContentLength != NSURLResponseUnknownLength)
-        block((CGFloat)connection.bk_responseLength / (CGFloat)connection.bk_response.expectedContentLength);
+	connection.bk_responseLength += data.length;
+	
+	void (^block)(CGFloat) = connection.downloadBlock;
+	if (block && connection.bk_response && connection.bk_response.expectedContentLength != NSURLResponseUnknownLength)
+		block((CGFloat)connection.bk_responseLength / (CGFloat)connection.bk_response.expectedContentLength);
 	
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveData:)]) {
-        [realDelegate connection:connection didReceiveData:data];
-        return;
-    }
-    
-    NSMutableData *responseData = connection.bk_responseData;
-    if (!responseData) {
-        responseData = [NSMutableData data];
-        connection.bk_responseData = responseData;
-    }
-    
-    [responseData appendData:data];
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveData:)]) {
+		[realDelegate connection:connection didReceiveData:data];
+		return;
+	}
+	
+	NSMutableData *responseData = connection.bk_responseData;
+	if (!responseData) {
+		responseData = [NSMutableData data];
+		connection.bk_responseData = responseData;
+	}
+	
+	[responseData appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 	id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)])
-        [realDelegate connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
-    
-    void (^block)(CGFloat) = connection.uploadBlock;
-    if (block)
-        block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)])
+		[realDelegate connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
+	
+	void (^block)(CGFloat) = connection.uploadBlock;
+	if (block)
+		block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
 }
 
 @end
@@ -328,33 +328,33 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 #pragma mark Initializers
 
 + (NSURLConnection*)connectionWithRequest:(NSURLRequest *)request {
-    return BK_AUTORELEASE([[[self class] alloc] initWithRequest:request]);
+	return BK_AUTORELEASE([[[self class] alloc] initWithRequest:request]);
 }
 
 + (NSURLConnection *)startConnectionWithRequest:(NSURLRequest *)request successHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))success failureHandler:(void(^)(NSURLConnection *, NSError *))failure {
-    NSURLConnection *connection = [[[self class] alloc] initWithRequest:request];
-    connection.successBlock = success;
-    connection.failureBlock = failure;
-    [connection start];
-    return BK_AUTORELEASE(connection);
+	NSURLConnection *connection = [[[self class] alloc] initWithRequest:request];
+	connection.successBlock = success;
+	connection.failureBlock = failure;
+	[connection start];
+	return BK_AUTORELEASE(connection);
 }
 
 - (id)initWithRequest:(NSURLRequest *)request {
-    return [self initWithRequest:request completionHandler:NULL];
+	return [self initWithRequest:request completionHandler:NULL];
 }
 
 - (id)initWithRequest:(NSURLRequest *)request completionHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block {
 	Protocol *delegateProtocol = objc_getProtocol("NSURLConnectionDelegate");
 	if (!delegateProtocol)
 		delegateProtocol = @protocol(BKURLConnectionInformalDelegate);
-    if ((self = [self initWithRequest:request delegate:[self dynamicDelegateForProtocol:delegateProtocol] startImmediately:NO]))
-        self.successBlock = block;
-    return self;
+	if ((self = [self initWithRequest:request delegate:[self dynamicDelegateForProtocol:delegateProtocol] startImmediately:NO]))
+		self.successBlock = block;
+	return self;
 }
 
 - (void)startWithCompletionBlock:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block {
-    self.successBlock = block;
-    [self start];
+	self.successBlock = block;
+	[self start];
 }
 
 #pragma mark Properties

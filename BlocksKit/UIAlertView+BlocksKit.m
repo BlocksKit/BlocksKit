@@ -86,8 +86,8 @@
 		return;
 	
 	id key = [NSNumber numberWithInteger:buttonIndex];
-    BKBlock buttonBlock = [self.handlers objectForKey: key];
-    if (buttonBlock)
+	BKBlock buttonBlock = [self.handlers objectForKey: key];
+	if (buttonBlock)
 		buttonBlock();
 }
 
@@ -143,21 +143,21 @@
 #pragma Actions
 
 - (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
-    NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
-    NSInteger index = [self addButtonWithTitle:title];
-    
-    id key = [NSNumber numberWithInteger:index];
+	NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
+	NSInteger index = [self addButtonWithTitle:title];
+	
+	id key = [NSNumber numberWithInteger:index];
 
-    if (block)
-        [[self.dynamicDelegate handlers] setObject:block forKey:key];
-    else
-        [[self.dynamicDelegate handlers] removeObjectForKey:key];
-    
-    return index;
+	if (block)
+		[[self.dynamicDelegate handlers] setObject:block forKey:key];
+	else
+		[[self.dynamicDelegate handlers] removeObjectForKey:key];
+	
+	return index;
 }
 
 - (NSInteger)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
-    if (!title) title = NSLocalizedString(@"Cancel", nil);
+	if (!title) title = NSLocalizedString(@"Cancel", nil);
 	NSInteger cancelButtonIndex = [self addButtonWithTitle:title];
 	self.cancelButtonIndex = cancelButtonIndex;
 	[self setCancelBlock:block];
@@ -167,7 +167,7 @@
 #pragma mark Properties
 
 - (BKBlock)handlerForButtonAtIndex:(NSInteger)index {
-    id key = [NSNumber numberWithInteger:index];
+	id key = [NSNumber numberWithInteger:index];
 	return [[self.dynamicDelegate handlers] objectForKey:key];
 }
 
@@ -176,16 +176,16 @@
 }
 
 - (void)setCancelBlock:(BKBlock)block {
-    if (self.cancelButtonIndex == -1) {
-        [self setCancelButtonWithTitle:nil handler:block];
-    } else {
-        id key = [NSNumber numberWithInteger:self.cancelButtonIndex];
+	if (self.cancelButtonIndex == -1) {
+		[self setCancelButtonWithTitle:nil handler:block];
+	} else {
+		id key = [NSNumber numberWithInteger:self.cancelButtonIndex];
 		
 		if (block)
 			[[self.dynamicDelegate handlers] setObject:block forKey:key];
 		else
 			[[self.dynamicDelegate handlers] removeObjectForKey:key];
-    }
+	}
 }
 
 @end

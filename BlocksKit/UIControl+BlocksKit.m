@@ -24,27 +24,27 @@ static char kControlHandlersKey;
 @synthesize handler, controlEvents;
 
 - (id)initWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents {
-    if ((self = [super init])) {
-        self.handler = aHandler;
-        self.controlEvents = someControlEvents;
-    }
-    return self;
+	if ((self = [super init])) {
+		self.handler = aHandler;
+		self.controlEvents = someControlEvents;
+	}
+	return self;
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    return [[BKControlWrapper alloc] initWithHandler:self.handler forControlEvents:self.controlEvents];
+	return [[BKControlWrapper alloc] initWithHandler:self.handler forControlEvents:self.controlEvents];
 }
 
 - (void)invoke:(id)sender {
-    BKSenderBlock block = self.handler;
-    if (block)
-        block(sender);
+	BKSenderBlock block = self.handler;
+	if (block)
+		block(sender);
 }
 
 #if BK_SHOULD_DEALLOC
 - (void)dealloc {
-    self.handler = nil;
-    [super dealloc];
+	self.handler = nil;
+	[super dealloc];
 }
 #endif
 
@@ -57,59 +57,59 @@ static char kControlHandlersKey;
 - (void)addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
 	NSParameterAssert(handler);
 	
-    NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
-    if (!events) {
-        events = [NSMutableDictionary dictionary];
-        [self associateValue:events withKey:&kControlHandlersKey];
-    }
-    
-    NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
-    NSMutableSet *handlers = [events objectForKey:key];
-    if (!handlers) {
-        handlers = [NSMutableSet set];
-        [events setObject:handlers forKey:key];
-    }
-    
-    BKControlWrapper *target = [[BKControlWrapper alloc] initWithHandler:handler forControlEvents:controlEvents];
-    [handlers addObject:target];
-    [self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
-    BK_RELEASE(target);
+	NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
+	if (!events) {
+		events = [NSMutableDictionary dictionary];
+		[self associateValue:events withKey:&kControlHandlersKey];
+	}
+	
+	NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
+	NSMutableSet *handlers = [events objectForKey:key];
+	if (!handlers) {
+		handlers = [NSMutableSet set];
+		[events setObject:handlers forKey:key];
+	}
+	
+	BKControlWrapper *target = [[BKControlWrapper alloc] initWithHandler:handler forControlEvents:controlEvents];
+	[handlers addObject:target];
+	[self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
+	BK_RELEASE(target);
 }
 
 - (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents {
-    NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
-    if (!events) {
-        events = [NSMutableDictionary dictionary];
-        [self associateValue:events withKey:&kControlHandlersKey];
-    }
-    
-    NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
-    NSSet *handlers = [events objectForKey:key];
+	NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
+	if (!events) {
+		events = [NSMutableDictionary dictionary];
+		[self associateValue:events withKey:&kControlHandlersKey];
+	}
+	
+	NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
+	NSSet *handlers = [events objectForKey:key];
 
-    if (!handlers)
-        return;
-    
-    [handlers each:^(id sender) {
-        [self removeTarget:sender action:NULL forControlEvents:controlEvents];
-    }];
-    
-    [events removeObjectForKey:key];
+	if (!handlers)
+		return;
+	
+	[handlers each:^(id sender) {
+		[self removeTarget:sender action:NULL forControlEvents:controlEvents];
+	}];
+	
+	[events removeObjectForKey:key];
 }
 
 - (BOOL)hasEventHandlersForControlEvents:(UIControlEvents)controlEvents {
-    NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
-    if (!events) {
-        events = [NSMutableDictionary dictionary];
-        [self associateValue:events withKey:&kControlHandlersKey];
-    }
-    
-    NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
-    NSSet *handlers = [events objectForKey:key];
-    
-    if (!handlers)
-        return NO;
-    
-    return handlers.count;
+	NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
+	if (!events) {
+		events = [NSMutableDictionary dictionary];
+		[self associateValue:events withKey:&kControlHandlersKey];
+	}
+	
+	NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
+	NSSet *handlers = [events objectForKey:key];
+	
+	if (!handlers)
+		return NO;
+	
+	return handlers.count;
 }
 
 @end

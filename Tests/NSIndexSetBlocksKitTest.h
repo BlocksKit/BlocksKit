@@ -7,8 +7,8 @@
 #import "BlocksKit/BlocksKit.h"
 
 @interface NSIndexSetBlocksKitTest : GHTestCase {
-    NSIndexSet *_subject;
-    NSMutableArray  *_target;
+	NSIndexSet *_subject;
+	NSMutableArray  *_target;
 }
 
 - (void)testEach;

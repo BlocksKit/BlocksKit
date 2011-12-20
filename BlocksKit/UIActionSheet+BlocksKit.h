@@ -14,19 +14,19 @@
  addButtonWithTitle:handler: to make sure nothing breaks.
 
  A typical invocation might go like this:
-     UIActionSheet *testSheet = [UIActionSheet actionSheetWithTitle:@"Please select one."];
-     [testSheet addButtonWithTitle:@"Zip" handler:^{ NSLog(@"Zip!"); }];
-     [testSheet addButtonWithTitle:@"Zap" handler:^{ NSLog(@"Zap!"); }];
-     [testSheet addButtonWithTitle:@"Zop" handler:^{ NSLog(@"Zop!"); }];
-     [testSheet setDestructiveButtonWithTitle:@"No!" handler:^{ NSLog(@"Fine!"); }];
-     [testSheet setCancelButtonWithTitle:nil handler:^{ NSLog(@"Never mind, then!"); }];
-     [testSheet showInView:self.view];
+	 UIActionSheet *testSheet = [UIActionSheet actionSheetWithTitle:@"Please select one."];
+	 [testSheet addButtonWithTitle:@"Zip" handler:^{ NSLog(@"Zip!"); }];
+	 [testSheet addButtonWithTitle:@"Zap" handler:^{ NSLog(@"Zap!"); }];
+	 [testSheet addButtonWithTitle:@"Zop" handler:^{ NSLog(@"Zop!"); }];
+	 [testSheet setDestructiveButtonWithTitle:@"No!" handler:^{ NSLog(@"Fine!"); }];
+	 [testSheet setCancelButtonWithTitle:nil handler:^{ NSLog(@"Never mind, then!"); }];
+	 [testSheet showInView:self.view];
 
  Includes code by the following:
 
  - Landon Fuller, "Using Blocks".  <http://landonf.bikemonkey.org>.
  - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
- - Zach Waldowski.    <https://github.com/zwaldowski>. 2011. MIT.
+ - Zach Waldowski.	<https://github.com/zwaldowski>. 2011. MIT.
 
  @warning UIActionSheet is only available on iOS or in a Mac app using Chameleon.
  */

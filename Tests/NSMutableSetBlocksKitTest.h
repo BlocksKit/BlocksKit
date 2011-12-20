@@ -7,8 +7,8 @@
 #import "BlocksKit/BlocksKit.h"
 
 @interface NSMutableSetBlocksKitTest : GHTestCase {
-    NSMutableSet *_subject;
-    NSInteger _total;
+	NSMutableSet *_subject;
+	NSInteger _total;
 }
 @property (nonatomic,retain) NSMutableSet *subject;
 

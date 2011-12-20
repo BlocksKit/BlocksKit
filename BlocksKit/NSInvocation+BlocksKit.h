@@ -8,9 +8,9 @@
 /** Blocks wrapper for NSInvocation.
 
  Usage example:
-     NSInvocation *invocation = [NSInvocation invocationWithTarget:myObject block:^(id myObject){
-       [myObject someMethodWithArg:42.0];
-     }];
+	 NSInvocation *invocation = [NSInvocation invocationWithTarget:myObject block:^(id myObject){
+	   [myObject someMethodWithArg:42.0];
+	 }];
  
  Created by Jonathan Rentzch as [NSInvocation-blocks](https://github.com/rentzsch/NSInvocation-blocks).
  Licensed under MIT.

@@ -7,7 +7,7 @@
 #import "BlocksKit/BlocksKit.h"
 
 @interface UIActionSheetBlocksKitTest : GHTestCase {
-    UIActionSheet *_subject;
+	UIActionSheet *_subject;
 }
 @property (nonatomic,retain) UIActionSheet *subject;
 

@@ -15,7 +15,7 @@
 }
 
 - (void)associateCopyOfValue:(id)value withKey:(const char *)key {
-    objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void)weaklyAssociateValue:(id)value withKey:(const char *)key {
@@ -33,7 +33,7 @@
 }
 
 + (void)associateCopyOfValue:(id)value withKey:(const char *)key {
-    objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 + (void)weaklyAssociateValue:(id)value withKey:(const char *)key {

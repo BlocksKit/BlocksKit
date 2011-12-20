@@ -13,7 +13,7 @@
 
  Includes code by the following:
 
-- Mirko Kiefer.   <https://github.com/mirkok>.     2011.
+- Mirko Kiefer.   <https://github.com/mirkok>.	 2011.
 - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
 
  @see NSArray(BlocksKit)

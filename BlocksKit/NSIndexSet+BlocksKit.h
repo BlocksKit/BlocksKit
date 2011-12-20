@@ -14,8 +14,8 @@
 
  Includes code by the following:
 
-- Robin Lu.       <https://github.com/robin>.      2009. MIT.
-- Michael Ash.    <https://github.com/mikeash>.    2010. BSD.
+- Robin Lu.	   <https://github.com/robin>.	  2009. MIT.
+- Michael Ash.	<https://github.com/mikeash>.	2010. BSD.
 - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
 
  @see NSArray(BlocksKit)

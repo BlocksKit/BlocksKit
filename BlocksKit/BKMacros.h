@@ -14,12 +14,12 @@
 #define __BKMacros_h__
 
 #define EACH_WRAPPER(...) (^{ __block CFMutableDictionaryRef MA_eachTable = nil; \
-        (void)MA_eachTable; \
-        __typeof__(__VA_ARGS__) MA_retval = __VA_ARGS__; \
-        if(MA_eachTable) \
-            CFRelease(MA_eachTable); \
-        return MA_retval; \
-    }())
+		(void)MA_eachTable; \
+		__typeof__(__VA_ARGS__) MA_retval = __VA_ARGS__; \
+		if(MA_eachTable) \
+			CFRelease(MA_eachTable); \
+		return MA_retval; \
+	}())
 
 #define EACH(collection, ...) EACH_WRAPPER([collection each:^(id obj) { __VA_ARGS__ }];
 #define MAP(collection, ...) EACH_WRAPPER([collection map: ^id (id obj) { return (__VA_ARGS__); }])

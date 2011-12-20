@@ -14,8 +14,8 @@
 
  Includes code by the following:
 
-- Robin Lu.       <https://github.com/robin>.      2009. MIT.
-- Michael Ash.    <https://github.com/mikeash>.    2010. BSD.
+- Robin Lu.	   <https://github.com/robin>.	  2009. MIT.
+- Michael Ash.	<https://github.com/mikeash>.	2010. BSD.
 - Aleks Nesterow. <https://github.com/nesterow>.   2010. BSD.
 - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
 
@@ -68,9 +68,9 @@
  This selector performs *literally* the exact same function as select: but in reverse.
  
  This is useful, as one may expect, for removing objects from an array.
-     NSArray *new = [computers reject:^BOOL(id obj) {
-       return ([obj isUgly]);
-     }];
+	 NSArray *new = [computers reject:^BOOL(id obj) {
+	   return ([obj isUgly]);
+	 }];
  
  @param block A single-argument, BOOL-returning code block.
  @return Returns an array of all objects not found, `nil` if all are excluded.
@@ -80,9 +80,9 @@
 /** Call the block once for each object and create an array of the return values.
  
  This is sometimes referred to as a transform, mutating one of each object:
-     NSArray *new = [stringArray map:^id(id obj) {
-       return [obj stringByAppendingString:@".png"]);
-     }];
+	 NSArray *new = [stringArray map:^id(id obj) {
+	   return [obj stringByAppendingString:@".png"]);
+	 }];
  
  @param block A single-argument, object-returning code block.
  @return Returns an array of the objects returned by the block.
@@ -95,15 +95,15 @@
  be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValue.
  
  For example, you can concentate the strings in an array:
-     NSString *concentrated = [stringArray reduce:@"" withBlock:^id(id sum, id obj) {
-       return [sum stringByAppendingString:obj];
-     }];
+	 NSString *concentrated = [stringArray reduce:@"" withBlock:^id(id sum, id obj) {
+	   return [sum stringByAppendingString:obj];
+	 }];
  
  You can also do something like summing the lengths of strings in an array:
-     NSNumber *sum = [stringArray reduce:nil withBlock:^id(id sum, id obj) {
-       return [NSNumber numberWithInteger: [sum integerValue] + obj.length];
-     }];
-     NSUInteger value = [sum integerValue];
+	 NSNumber *sum = [stringArray reduce:nil withBlock:^id(id sum, id obj) {
+	   return [NSNumber numberWithInteger: [sum integerValue] + obj.length];
+	 }];
+	 NSUInteger value = [sum integerValue];
 
  @param initial The value of the reduction at its start.
  @param block A block that takes the current sum and the next object to return the new sum.

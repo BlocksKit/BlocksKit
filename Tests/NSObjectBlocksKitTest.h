@@ -7,7 +7,7 @@
 #import "BlocksKit/BlocksKit.h"
 
 @interface NSObjectBlocksKitTest : GHAsyncTestCase {
-    NSMutableString *_subject;    
+	NSMutableString *_subject;	
 }
 @property (nonatomic,retain) NSMutableString *subject; //subject is not thread safe
 

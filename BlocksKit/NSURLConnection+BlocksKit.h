@@ -15,38 +15,38 @@
  download progress.
  
  Here is a small example:
-     - (void)downloadImage:(id)sender {
-         self.downloadButton.enabled = NO;
-         self.progressView.progress = 0.0f;
-         NSURL *imageURL = [NSURL URLWithString:@"http://icanhascheezburger.files.wordpress.com/2011/06/funny-pictures-nyan-cat-wannabe1.jpg"];
-         NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
-         NSURLConnection *connection = [NSURLConnection connectionWithRequest:request];
-         connection.delegate = self;
-         connection.failureBlock = ^(NSURLConnection *connection, NSError *error){
-             [[UIAlertView alertViewWithTitle:@"Download error" message:[error localizedDescription]] show];
-             
-             self.downloadButton.enabled = YES;
-             self.progressView.progress = 0.0f;
-         };
-         connection.successBlock = ^(NSURLConnection *connection, NSURLResponse *response, NSData *responseData){
-             self.imageView.image = [UIImage imageWithData:responseData];
-             self.downloadButton.enabled = YES;
-         };
-         connection.downloadBlock = ^(CGFloat progress){
-             self.progressView.progress = progress;
-         };
-         
-         [connection start];
-     }
-     
-     //these methods will be called too!
-     - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
-         NSLog(@"%s",__PRETTY_FUNCTION__);
-     }
-     
-     - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-         NSLog(@"%s",__PRETTY_FUNCTION__);
-     }
+	 - (void)downloadImage:(id)sender {
+		 self.downloadButton.enabled = NO;
+		 self.progressView.progress = 0.0f;
+		 NSURL *imageURL = [NSURL URLWithString:@"http://icanhascheezburger.files.wordpress.com/2011/06/funny-pictures-nyan-cat-wannabe1.jpg"];
+		 NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
+		 NSURLConnection *connection = [NSURLConnection connectionWithRequest:request];
+		 connection.delegate = self;
+		 connection.failureBlock = ^(NSURLConnection *connection, NSError *error){
+			 [[UIAlertView alertViewWithTitle:@"Download error" message:[error localizedDescription]] show];
+			 
+			 self.downloadButton.enabled = YES;
+			 self.progressView.progress = 0.0f;
+		 };
+		 connection.successBlock = ^(NSURLConnection *connection, NSURLResponse *response, NSData *responseData){
+			 self.imageView.image = [UIImage imageWithData:responseData];
+			 self.downloadButton.enabled = YES;
+		 };
+		 connection.downloadBlock = ^(CGFloat progress){
+			 self.progressView.progress = progress;
+		 };
+		 
+		 [connection start];
+	 }
+	 
+	 //these methods will be called too!
+	 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
+		 NSLog(@"%s",__PRETTY_FUNCTION__);
+	 }
+	 
+	 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+		 NSLog(@"%s",__PRETTY_FUNCTION__);
+	 }
 
  Created by Igor Evsukov as [IEURLConnection](https://github.com/evsukov89/IEURLConnection) and contributed to BlocksKit.
 */

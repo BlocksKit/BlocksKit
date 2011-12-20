@@ -49,15 +49,15 @@ int main(int argc, char *argv[]) {
    Then go in the "Arguments" tab. You can add the following environment variables:
    
    Default:   Set to:
-   NSDebugEnabled                        NO       "YES"
-   NSZombieEnabled                       NO       "YES"
-   NSDeallocateZombies                   NO       "YES"
-   NSHangOnUncaughtException             NO       "YES"
+   NSDebugEnabled						NO	   "YES"
+   NSZombieEnabled					   NO	   "YES"
+   NSDeallocateZombies				   NO	   "YES"
+   NSHangOnUncaughtException			 NO	   "YES"
    
-   NSEnableAutoreleasePool              YES       "NO"
-   NSAutoreleaseFreedObjectCheckEnabled  NO       "YES"
-   NSAutoreleaseHighWaterMark             0       non-negative integer
-   NSAutoreleaseHighWaterResolution       0       non-negative integer
+   NSEnableAutoreleasePool			  YES	   "NO"
+   NSAutoreleaseFreedObjectCheckEnabled  NO	   "YES"
+   NSAutoreleaseHighWaterMark			 0	   non-negative integer
+   NSAutoreleaseHighWaterResolution	   0	   non-negative integer
    
    For info on these varaiables see NSDebug.h; http://theshadow.uw.hu/iPhoneSDKdoc/Foundation.framework/NSDebug.h.html
    

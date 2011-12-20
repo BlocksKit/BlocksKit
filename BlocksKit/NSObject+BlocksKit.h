@@ -17,17 +17,17 @@
  Includes code by the following:
 
  - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
- - Zach Waldowski.    <https://github.com/zwaldowski>. 2011. MIT.
+ - Zach Waldowski.	<https://github.com/zwaldowski>. 2011. MIT.
 
  */
 @interface NSObject (BlocksKit)
 
 /** Executes a block after a given delay on the reciever.
 
-    [array performBlock:^(id obj){
-      [obj addObject:self];
-      [self release];
-    } afterDelay:0.5f];
+	[array performBlock:^(id obj){
+	  [obj addObject:self];
+	  [self release];
+	} afterDelay:0.5f];
  
  @warning *Important:* Use of the **self** reference in a block will
  reference the current implementation context.  The block argument,
@@ -47,9 +47,9 @@
 
  Block execution is very useful, particularly for small events that you would like delayed.
 
-    [object performBlock:^(){
-      [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    } afterDelay:0.5f];
+	[object performBlock:^(){
+	  [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+	} afterDelay:0.5f];
 
  @see performBlock:afterDelay:
  @param block A code block.

@@ -14,8 +14,8 @@
 
  Includes code by the following:
 
-- Michael Ash.    <https://github.com/mikeash>.    2010. BSD.
-- Corey Floyd.    <https://github.com/coreyfloyd>. 2010.
+- Michael Ash.	<https://github.com/mikeash>.	2010. BSD.
+- Corey Floyd.	<https://github.com/coreyfloyd>. 2010.
 - Aleks Nesterow. <https://github.com/nesterow>.   2010. BSD.
 - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
 
@@ -66,9 +66,9 @@
  This selector performs *literally* the exact same function as select, but in reverse.
 
  This is useful, as one may expect, for removing objects from a set:
-     NSSet *new = [reusableWebViews reject:^BOOL(id obj) {
-       return ([obj isLoading]);
-     }];
+	 NSSet *new = [reusableWebViews reject:^BOOL(id obj) {
+	   return ([obj isLoading]);
+	 }];
 
  @param block A single-argument, BOOL-returning code block.
  @return Returns an array of all objects not found, `nil` if all are excluded.
@@ -78,9 +78,9 @@
 /** Call the block once for each object and create a set of the return values.
  
  This is sometimes referred to as a transform, mutating one of each object:
-     NSSet *new = [mimeTypes map:^id(id obj) {
-       return [@"x-company-" stringByAppendingString:obj]);
-     }];
+	 NSSet *new = [mimeTypes map:^id(id obj) {
+	   return [@"x-company-" stringByAppendingString:obj]);
+	 }];
 
  @param block A single-argument, object-returning code block.
  @return Returns a set of the objects returned by the block.
@@ -93,10 +93,10 @@
  be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValue.
 
  You can also do something like summing the count of an item:
-     NSNumber *sum = [bodyList reduce:nil withBlock:^id(id sum, id obj) {
-       return [NSNumber numberWithInteger: [sum integerValue] + obj.numberOfAppendages];
-     }];
-     NSUInteger numberOfBodyParts = [sum integerValue];
+	 NSNumber *sum = [bodyList reduce:nil withBlock:^id(id sum, id obj) {
+	   return [NSNumber numberWithInteger: [sum integerValue] + obj.numberOfAppendages];
+	 }];
+	 NSUInteger numberOfBodyParts = [sum integerValue];
 
  @param initial The value of the reduction at its start.
  @param block A block that takes the current sum and the next object to return the new sum.

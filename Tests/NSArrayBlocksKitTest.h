@@ -7,8 +7,8 @@
 #import "BlocksKit/BlocksKit.h"
 
 @interface NSArrayBlocksKitTest : GHTestCase {
-    NSArray *_subject;
-    NSInteger _total;
+	NSArray *_subject;
+	NSInteger _total;
 }
 
 - (void)testEach;

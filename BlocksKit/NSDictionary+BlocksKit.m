@@ -10,9 +10,9 @@
 - (void)each:(BKKeyValueBlock)block {
 	NSParameterAssert(block != nil);
 	
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        block(key, obj);
-    }];
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		block(key, obj);
+	}];
 }
 
 - (void)apply:(BKKeyValueBlock)block {
@@ -26,49 +26,49 @@
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
-    
-    [self each:^(id key, id obj) {
-        if (block(key, obj))
-            [list setObject:obj forKey:key];
-    }];
-    
-    if (!list.count)
-        return nil;
-    
-    return list;
+	NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
+	
+	[self each:^(id key, id obj) {
+		if (block(key, obj))
+			[list setObject:obj forKey:key];
+	}];
+	
+	if (!list.count)
+		return nil;
+	
+	return list;
 }
 
 - (NSDictionary *)reject:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
-    
-    [self each:^(id key, id obj) {
-        if (!block(key, obj))
-            [list setObject:obj forKey:key];
-    }];
-    
-    if (!list.count)
-        return nil;
-    
-    return list;    
+	NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
+	
+	[self each:^(id key, id obj) {
+		if (!block(key, obj))
+			[list setObject:obj forKey:key];
+	}];
+	
+	if (!list.count)
+		return nil;
+	
+	return list;	
 }
 
 - (NSDictionary *)map:(BKKeyValueTransformBlock)block {
 	NSParameterAssert(block != nil);
 	
-    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
+	NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
 
-    [self each:^(id key, id obj) {
-        id value = block(key, obj);
-        if (!value)
-            value = [NSNull null];
-        
-        [result setObject:value forKey:key];
-    }];
-    
-    return result;
+	[self each:^(id key, id obj) {
+		id value = block(key, obj);
+		if (!value)
+			value = [NSNull null];
+		
+		[result setObject:value forKey:key];
+	}];
+	
+	return result;
 }
 
 @end

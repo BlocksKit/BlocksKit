@@ -7,7 +7,7 @@
 #import "BlocksKit/BlocksKit.h"
 
 @interface NSTimerBlocksKitTest : GHAsyncTestCase {
-    NSInteger _total;    
+	NSInteger _total;	
 }
 
 - (void)testScheduledTimer;

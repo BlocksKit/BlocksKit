@@ -10,9 +10,9 @@
 - (void)each:(BKIndexBlock)block {
 	NSParameterAssert(block != nil);
 	
-    [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        block(idx);
-    }];
+	[self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+		block(idx);
+	}];
 }
 
 - (void)apply:(BKIndexBlock)block {
@@ -26,50 +26,50 @@
 - (NSUInteger)match:(BKIndexValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    return [self indexPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-        return block(idx);
-    }];
+	return [self indexPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+		return block(idx);
+	}];
 }
 
 - (NSIndexSet *)select:(BKIndexValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-        return block(idx);
-    }];
-    
-    if (!list.count)
-        return nil;
-    
-    return list;
+	NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+		return block(idx);
+	}];
+	
+	if (!list.count)
+		return nil;
+	
+	return list;
 }
 
 - (NSIndexSet *)reject:(BKIndexValidationBlock)block {  
 	NSParameterAssert(block != nil);
 
-    NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-        return !block(idx);
-    }];
-    
-    if (!list.count)
-        return nil;
-    
-    return list;     
+	NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+		return !block(idx);
+	}];
+	
+	if (!list.count)
+		return nil;
+	
+	return list;	 
 }
 
 - (NSIndexSet *)map:(BKIndexTransformBlock)block {
 	NSParameterAssert(block != nil);
 	
-    NSMutableIndexSet *list = [NSMutableIndexSet indexSet];
-    
-    [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [list addIndex:block(idx)];
-    }];
-    
-    if (!list.count)
-        return nil;
-    
-    return list;
+	NSMutableIndexSet *list = [NSMutableIndexSet indexSet];
+	
+	[self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+		[list addIndex:block(idx)];
+	}];
+	
+	if (!list.count)
+		return nil;
+	
+	return list;
 }
 
 @end

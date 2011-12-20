@@ -7,8 +7,8 @@
 #import "BlocksKit/BlocksKit.h"
 
 @interface NSMutableDictionaryBlocksKitTest : GHTestCase {
-    NSMutableDictionary *_subject;
-    NSInteger _total;
+	NSMutableDictionary *_subject;
+	NSInteger _total;
 }
 @property (nonatomic,retain) NSMutableDictionary *subject;
 

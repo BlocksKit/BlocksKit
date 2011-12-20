@@ -10,9 +10,9 @@
 - (void)each:(BKSenderBlock)block {
 	NSParameterAssert(block != nil);
 	
-    [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        block(obj);
-    }];
+	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+		block(obj);
+	}];
 }
 
 - (void)apply:(BKSenderBlock)block {
@@ -26,68 +26,68 @@
 - (id)match:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    return [[self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-        if (block(obj)) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }] anyObject];
+	return [[self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+		if (block(obj)) {
+			*stop = YES;
+			return YES;
+		}
+		return NO;
+	}] anyObject];
 }
 
 - (NSSet *)select:(BKValidationBlock)block {  
 	NSParameterAssert(block != nil);
 	
-    NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-        return (block(obj));
-    }];
-    
-    if (!list.count)
-        return nil;
-    
-    return list;
+	NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+		return (block(obj));
+	}];
+	
+	if (!list.count)
+		return nil;
+	
+	return list;
 }
 
 - (NSSet *)reject:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-        return (!block(obj));
-    }];
-    
-    if (!list.count)
-        return nil;
-    
-    return list;
+	NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+		return (!block(obj));
+	}];
+	
+	if (!list.count)
+		return nil;
+	
+	return list;
 }
 
 - (NSSet *)map:(BKTransformBlock)block {
 	NSParameterAssert(block != nil);
 	
-    NSMutableSet *result = [[NSMutableSet alloc] initWithCapacity:self.count];
-    
-    [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        id value = block(obj);
-        if (!value)
-            value = [NSNull null];
-        
-        [result addObject:value];
-    }];
+	NSMutableSet *result = [[NSMutableSet alloc] initWithCapacity:self.count];
+	
+	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+		id value = block(obj);
+		if (!value)
+			value = [NSNull null];
+		
+		[result addObject:value];
+	}];
 
-    return BK_AUTORELEASE(result);
+	return BK_AUTORELEASE(result);
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    __block id result = nil;
-    BK_SET_RETAINED(result, initial);
-    
-    [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        BK_SET_RETAINED(result, block(result, obj));
-    }];
-    
-    return BK_AUTORELEASE(result);
+	__block id result = nil;
+	BK_SET_RETAINED(result, initial);
+	
+	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+		BK_SET_RETAINED(result, block(result, obj));
+	}];
+	
+	return BK_AUTORELEASE(result);
 }
 
 @end

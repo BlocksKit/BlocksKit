@@ -10,7 +10,7 @@
  Includes code by the following:
 
  - Kevin O'Neill.  <https://github.com/kevinoneill>. 2011. BSD.
- - Jake Marsh.     <https://github.com/jakemarsh>.   2011. 
+ - Jake Marsh.	 <https://github.com/jakemarsh>.   2011. 
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
 
  @warning UIView is only available on iOS or in a Mac app using Chameleon.

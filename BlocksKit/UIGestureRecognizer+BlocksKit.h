@@ -10,17 +10,17 @@
  Use of the delay property is pretty straightforward, although
  cancellation might be a little harder to swallow.  An example
  follows:
-     UITapGestureRecognizer *singleTap = [UITapGestureRecognizer recognizerWithHandler:^(id sender) {
-         NSLog(@"Single tap.");
-     } delay:0.18];
-     [self addGestureRecognizer:singleTap];
+	 UITapGestureRecognizer *singleTap = [UITapGestureRecognizer recognizerWithHandler:^(id sender) {
+		 NSLog(@"Single tap.");
+	 } delay:0.18];
+	 [self addGestureRecognizer:singleTap];
  
-     UITapGestureRecognizer *doubleTap = [UITapGestureRecognizer recognizerWithHandler:^(id sender) {
-        [singleTap cancel];
-        NSLog(@"Double tap.");
-     }];
-     doubleTap.numberOfTapsRequired = 2;
-     [self addGestureRecognizer:doubleTap];
+	 UITapGestureRecognizer *doubleTap = [UITapGestureRecognizer recognizerWithHandler:^(id sender) {
+		[singleTap cancel];
+		NSLog(@"Double tap.");
+	 }];
+	 doubleTap.numberOfTapsRequired = 2;
+	 [self addGestureRecognizer:doubleTap];
 
  Believe it or not, the above code is fully memory-safe and efficient.  Eagle-eyed coders
  will notice that this setup emulates UIGestureRecognizer's requireGestureRecognizerToFail:,

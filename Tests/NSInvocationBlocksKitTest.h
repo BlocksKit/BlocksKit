@@ -7,7 +7,7 @@
 #import "BlocksKit/BlocksKit.h"
 
 @interface NSInvocationBlocksKitTest : GHTestCase {
-    NSInteger _total;    
+	NSInteger _total;	
 }
 
 - (void)testBlockInvocation;

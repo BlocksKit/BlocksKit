@@ -7,8 +7,8 @@
 #import "BlocksKit/BlocksKit.h"
 
 @interface NSSetBlocksKitTest : GHTestCase {
-    NSSet *_subject;
-    NSInteger _total;
+	NSSet *_subject;
+	NSInteger _total;
 }
 
 - (void)testEach;

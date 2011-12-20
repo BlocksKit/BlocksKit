@@ -14,7 +14,7 @@
  
  Includes code by the following:
  
- - Martin Schürrer.  <https://github.com/MSch>.     2011. MIT.
+ - Martin Schürrer.  <https://github.com/MSch>.	 2011. MIT.
  - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
  
  @see NSSet(BlocksKit)
@@ -39,9 +39,9 @@
 /** Transform the objects in the set to the results of the block.
  
  This is sometimes referred to as a transform, mutating one of each object:
-    [controllers map:^id(id obj) {
-      return [obj view];
-    }];
+	[controllers map:^id(id obj) {
+	  return [obj view];
+	}];
  
  @param block A single-argument, object-returning code block.
  */

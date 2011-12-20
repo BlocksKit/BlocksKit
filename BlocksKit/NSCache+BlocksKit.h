@@ -25,15 +25,15 @@
  
  This mimics the cache behavior of Ruby on Rails.  The following code:
  
-     @products = Rails.cache.fetch('products') do
-       Product.all
-     end
+	 @products = Rails.cache.fetch('products') do
+	   Product.all
+	 end
  
  becomes:
  
-     NSMutableArray *products = [cache objectForKey:@"products" withGetter:^id{
-       return [Product all];
-     }];
+	 NSMutableArray *products = [cache objectForKey:@"products" withGetter:^id{
+	   return [Product all];
+	 }];
  
  @return The value associated with *key*, or the object returned
  by the block if no value is associated with *key*.

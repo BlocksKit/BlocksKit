@@ -42,16 +42,16 @@
 #pragma mark Methods
 
 - (id)objectForKey:(id)key withGetter:(BKReturnBlock)block {
-    id object = [self objectForKey:key];
-    if (object)
-        return object;
-    
-    if (block) {
-        object = block();
-        [self setObject:object forKey:key];
-    }
-    
-    return object;
+	id object = [self objectForKey:key];
+	if (object)
+		return object;
+	
+	if (block) {
+		object = block();
+		[self setObject:object forKey:key];
+	}
+	
+	return object;
 }
 
 @end
