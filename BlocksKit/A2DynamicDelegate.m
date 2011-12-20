@@ -300,10 +300,7 @@ static void *BlockGetImplementation(id block);
 + (void) setProtocol: (Protocol *) protocol
 {
 	Protocol *existing = objc_getAssociatedObject(self, &A2DynamicDelegateProtocolKey);
-	NSAlwaysAssert(!existing || !protocol, @"A2DynamicDelegate protocol may only be set once");
-	
-	if (!protocol)
-		return;
+	NSAlwaysAssert(!existing && protocol, @"A2DynamicDelegate protocol may only be set once");
 	
 	objc_setAssociatedObject(self, &A2DynamicDelegateProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
 	
