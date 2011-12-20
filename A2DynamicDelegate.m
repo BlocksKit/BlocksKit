@@ -23,7 +23,6 @@
 
 #define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "+-"[!!isClassMethod], sel_getName(selector)] : nil)
 
-static void *A2DynamicDelegateBlockMapKey;
 static void *A2DynamicDelegateProtocolKey;
 
 static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
@@ -181,11 +180,12 @@ static void *BlockGetImplementation(id block);
 
 + (NSMutableDictionary *) blockMap
 {
-	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
+	static void *blockMapKey;
+	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &blockMapKey);
 	if (!blockMap)
 	{
 		blockMap = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, &blockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return blockMap;

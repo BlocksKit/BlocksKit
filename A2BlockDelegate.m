@@ -23,8 +23,8 @@
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 
 // Block Property Accessors
-static id a2_blockPropertyGetter(id self, SEL _cmd);
-static void a2_blockPropertySetter(id self, SEL _cmd, id block);
+extern id a2_blockPropertyGetter(id self, SEL _cmd);
+extern void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 // Forward Declarations
 extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName);
@@ -288,7 +288,7 @@ extern IMP imp_implementationWithBlock(void *block);
 @end
 
 // Block Property Accessors
-static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
+id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
 {
 	Protocol *protocol;
 	SEL representedSelector;
@@ -297,7 +297,7 @@ static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
 
 	return [[self dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
 }
-static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
+void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 {
 	Protocol *protocol;
 	SEL representedSelector;
