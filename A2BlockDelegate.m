@@ -20,8 +20,8 @@
 		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, (desc)], ## __VA_ARGS__]; } } while(0)
 #endif
 
-static void *A2BlockDelegateProtocolsKey;
-static void *A2BlockDelegateMapKey;
+void *A2BlockDelegateProtocolsKey;
+void *A2BlockDelegateMapKey;
 
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 
