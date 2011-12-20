@@ -46,6 +46,8 @@
 		6C24280713C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */; };
 		6C24280813C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */; };
 		6C24280913C565660016A271 /* NSMutableDictionary+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */; };
+		6C29B63714A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C29B63614A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.m */; };
+		6C29B63B14A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C29B63A14A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.m */; };
 		6C386842149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C386843149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C386844149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -335,6 +337,10 @@
 		6C2427FB13C565530016A271 /* NSMutableSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableSet+BlocksKit.m"; sourceTree = "<group>"; };
 		6C24280213C565640016A271 /* NSMutableDictionary+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+BlocksKit.h"; sourceTree = "<group>"; };
 		6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+BlocksKit.m"; sourceTree = "<group>"; };
+		6C29B63514A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMailComposeViewControllerBlocksKitTest.h; sourceTree = "<group>"; };
+		6C29B63614A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMailComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		6C29B63914A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMessageComposeViewControllerBlocksKitTest.h; sourceTree = "<group>"; };
+		6C29B63A14A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMessageComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		6C386840149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "A2BlockDelegate+BlocksKit.h"; sourceTree = "<group>"; };
 		6C386841149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "A2BlockDelegate+BlocksKit.m"; sourceTree = "<group>"; };
 		6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlocksKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -491,6 +497,10 @@
 				600986FA13C2A2B700A8887E /* NSTimerBlocksKitTest.m */,
 				60698AF713C55EF700E58FD8 /* UIActionSheetBlocksKitTest.h */,
 				60698AF813C55EF700E58FD8 /* UIActionSheetBlocksKitTest.m */,
+				6C29B63514A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.h */,
+				6C29B63614A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.m */,
+				6C29B63914A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.h */,
+				6C29B63A14A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.m */,
 				60FF000F13C023CB004A1394 /* Supporting Files */,
 			);
 			path = Tests;
@@ -1034,6 +1044,8 @@
 				60EAE9D213C69D4B00415A3E /* NSMutableIndexSetBlocksKitTest.m in Sources */,
 				60EAE9D513C69D6E00415A3E /* NSMutableSetBlocksKitTest.m in Sources */,
 				6C50127A143D466C0038CE72 /* NSCacheBlocksKitTest.m in Sources */,
+				6C29B63714A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.m in Sources */,
+				6C29B63B14A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
