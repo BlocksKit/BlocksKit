@@ -77,47 +77,51 @@ extern IMP imp_implementationWithBlock(void *block);
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector
 {
-	Protocol *protocol;
-	SEL representedSelector;
-	
-	NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
-	if (argc <= 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
+	// Check for existence of `-a2_protocols` and `-a2_mapForProtocol:`, respectively
+	if (objc_getAssociatedObject(self, &A2BlockDelegateMapKey) && objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey))
 	{
-		IMP implementation;
-		const char *types;
+		Protocol *protocol;
+		SEL representedSelector;
 		
-		if (argc == 1)
+		NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
+		if (argc <= 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
 		{
-			if (&imp_implementationWithBlock)
+			IMP implementation;
+			const char *types;
+			
+			if (argc == 1)
 			{
-				implementation = imp_implementationWithBlock(^(NSObject *obj, id block) {
-					[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
-				});
+				if (&imp_implementationWithBlock)
+				{
+					implementation = imp_implementationWithBlock(^(NSObject *obj, id block) {
+						[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
+					});
+				}
+				else
+				{
+					implementation = (IMP) a2_blockPropertySetter;
+				}
+				
+				types = "v@:@?";
 			}
 			else
 			{
-				implementation = (IMP) a2_blockPropertySetter;
+				if (&imp_implementationWithBlock)
+				{
+					implementation = imp_implementationWithBlock(^id (NSObject *obj) {
+						return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
+					});
+				}
+				else
+				{
+					implementation = (IMP) a2_blockPropertyGetter;
+				}
+				
+				types = "@?@:";
 			}
 			
-			types = "v@:@?";
+			if (class_addMethod(self, selector, implementation, types)) return YES;
 		}
-		else
-		{
-			if (&imp_implementationWithBlock)
-			{
-				implementation = imp_implementationWithBlock(^id(NSObject *obj) {
-					return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
-				});
-			}
-			else
-			{
-				implementation = (IMP) a2_blockPropertyGetter;
-			}
-			
-			types = "@?@:";
-		}
-		
-		if (class_addMethod(self, selector, implementation, types)) return YES;
 	}
 	
 	return [self a2_resolveInstanceMethod: selector];
