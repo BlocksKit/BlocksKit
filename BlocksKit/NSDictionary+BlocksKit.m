@@ -8,18 +8,24 @@
 @implementation NSDictionary (BlocksKit)
 
 - (void)each:(BKKeyValueBlock)block {
+	NSParameterAssert(block);
+	
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         block(key, obj);
     }];
 }
 
 - (void)apply:(BKKeyValueBlock)block {
+	NSParameterAssert(block);
+	
 	[self enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
 		block(key, obj);
 	}];
 }
 
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {
+	NSParameterAssert(block);
+	
     NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
     
     [self each:^(id key, id obj) {
@@ -34,6 +40,8 @@
 }
 
 - (NSDictionary *)reject:(BKKeyValueValidationBlock)block {
+	NSParameterAssert(block);
+	
     NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
     
     [self each:^(id key, id obj) {
@@ -48,6 +56,8 @@
 }
 
 - (NSDictionary *)map:(BKKeyValueTransformBlock)block {
+	NSParameterAssert(block);
+	
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
 
     [self each:^(id key, id obj) {

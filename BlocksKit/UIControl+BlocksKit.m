@@ -55,6 +55,8 @@ static char kControlHandlersKey;
 @implementation UIControl (BlocksKit)
 
 - (void)addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
+	NSParameterAssert(handler);
+	
     NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
     if (!events) {
         events = [NSMutableDictionary dictionary];

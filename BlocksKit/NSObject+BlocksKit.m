@@ -6,21 +6,18 @@
 #import "NSObject+BlocksKit.h"
 #import <objc/runtime.h>
 
-typedef void(^BKInternalWrappingBlock)(BOOL cancel);
+typedef void(^BKInternalWrappingBlock)(BOOL);
 
-static inline dispatch_time_t BKTimeDelay(NSTimeInterval time) {
-    int64_t delta = (NSEC_PER_SEC * time);
-    return dispatch_time(DISPATCH_TIME_NOW, delta);
-}
+#define BKTimeDelay(t) dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * t)
 
 @implementation NSObject (BlocksKit)
 
 - (id)performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay {
-    if (!block) return nil;
+    NSParameterAssert(block);
     
     __block BOOL cancelled = NO;
-    
-    BKInternalWrappingBlock wrapper = ^(BOOL cancel) {
+	    
+    void(^wrapper)(BOOL) = ^(BOOL cancel) {
         if (cancel) {
             cancelled = YES;
             return;
@@ -36,11 +33,11 @@ static inline dispatch_time_t BKTimeDelay(NSTimeInterval time) {
 }
 
 + (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay {
-    if (!block) return nil;
+    NSParameterAssert(block);
     
     __block BOOL cancelled = NO;
     
-    BKInternalWrappingBlock wrapper = ^(BOOL cancel) {
+    void(^wrapper)(BOOL) = ^(BOOL cancel) {
         if (cancel) {
             cancelled = YES;
             return;
@@ -54,10 +51,9 @@ static inline dispatch_time_t BKTimeDelay(NSTimeInterval time) {
 }
 
 + (void)cancelBlock:(id)block {
-    if (!block)
-        return;
-    BKInternalWrappingBlock wrapper = block;
-    wrapper(YES);
+    NSParameterAssert(block);
+	void(^wrapper)(BOOL) = block;
+	wrapper(YES);
 }
 
 @end

@@ -8,6 +8,9 @@
 @implementation NSMutableIndexSet (BlocksKit)
 
 - (void)performSelect:(BKIndexValidationBlock)block {
+	NSParameterAssert(block);
+	
+    
     NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
         return !block(idx);
     }];
@@ -19,6 +22,9 @@
 }
 
 - (void)performReject:(BKIndexValidationBlock)block {
+	NSParameterAssert(block);
+	
+    
     NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
         return block(idx);
     }];
@@ -30,6 +36,9 @@
 }
 
 - (void)performMap:(BKIndexTransformBlock)block {
+	NSParameterAssert(block);
+	
+    
     NSMutableIndexSet *new = BK_AUTORELEASE([self mutableCopy]);
     
     [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {

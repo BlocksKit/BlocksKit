@@ -8,18 +8,24 @@
 @implementation NSSet (BlocksKit)
 
 - (void)each:(BKSenderBlock)block {
+	NSParameterAssert(block);
+	
     [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
         block(obj);
     }];
 }
 
 - (void)apply:(BKSenderBlock)block {
+	NSParameterAssert(block);
+	
 	[self enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, BOOL *stop) {
 		block(obj);
 	}];
 }
 
 - (id)match:(BKValidationBlock)block {
+	NSParameterAssert(block);
+	
     return [[self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
         if (block(obj)) {
             *stop = YES;
@@ -29,7 +35,9 @@
     }] anyObject];
 }
 
-- (NSSet *)select:(BKValidationBlock)block {    
+- (NSSet *)select:(BKValidationBlock)block {  
+	NSParameterAssert(block);
+	
     NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
         return (block(obj));
     }];
@@ -41,6 +49,8 @@
 }
 
 - (NSSet *)reject:(BKValidationBlock)block {
+	NSParameterAssert(block);
+	
     NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
         return (!block(obj));
     }];
@@ -52,6 +62,8 @@
 }
 
 - (NSSet *)map:(BKTransformBlock)block {
+	NSParameterAssert(block);
+	
     NSMutableSet *result = [[NSMutableSet alloc] initWithCapacity:self.count];
     
     [self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
@@ -66,6 +78,8 @@
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
+	NSParameterAssert(block);
+	
     __block id result = nil;
     BK_SET_RETAINED(result, initial);
     

@@ -47,6 +47,7 @@
 @implementation NSInvocation (BlocksKit)
 
 + (NSInvocation *)invocationWithTarget:(id)target block:(BKSenderBlock)block {
+	NSParameterAssert(block);
     BKInvocationGrabber *grabber = [BKInvocationGrabber grabberWithTarget:target];
     block(grabber);
     return grabber.invocation;

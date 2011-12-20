@@ -67,6 +67,10 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier task:(BKObservationBlock)task {
+	NSParameterAssert(keyPath);
+	NSParameterAssert(identifier);
+	NSParameterAssert(task);
+	
     __block BKObserver *newObserver = nil;
     
     dispatch_sync(BKObserverMutationQueue(), ^{
@@ -91,6 +95,10 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
+	NSParameterAssert(keyPath);
+	NSParameterAssert(identifier);
+	NSParameterAssert(task);
+	
     __block BKObserver *newObserver = nil;
     
     dispatch_sync(BKObserverMutationQueue(), ^{
@@ -109,6 +117,9 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 - (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier {
+	NSParameterAssert(keyPath);
+	NSParameterAssert(identifier);
+	
     dispatch_sync(BKObserverMutationQueue(), ^{
         NSString *token = [NSString stringWithFormat:@"%@_%@", keyPath, identifier];
         NSMutableDictionary *dict = [self associatedValueForKey:&kObserverBlocksKey];

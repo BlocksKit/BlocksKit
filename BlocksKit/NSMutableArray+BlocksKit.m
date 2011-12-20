@@ -8,6 +8,8 @@
 @implementation NSMutableArray (BlocksKit)
 
 - (void)performSelect:(BKValidationBlock)block {
+	NSParameterAssert(block);
+
     NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return !block(obj);
     }];
@@ -19,6 +21,8 @@
 }
 
 - (void)performReject:(BKValidationBlock)block {
+	NSParameterAssert(block);
+
     NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return block(obj);
     }];
@@ -30,6 +34,8 @@
 }
 
 - (void)performMap:(BKTransformBlock)block {
+	NSParameterAssert(block);
+
     NSMutableArray *new = BK_AUTORELEASE([self mutableCopy]);
     
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
