@@ -14,6 +14,11 @@
 
  In BlocksKit, associated objects allow us to emulate instance
  variables in the categories we use.
+ 
+ Class methods also exist for each association. These associations
+ are unique to each class, and exist for the lifetime of the
+ application unless set to `nil`. Each class is a unique meta-object;
+ the ultimate singleton.
 
  Created by Andy Matuschak as [AMAssociatedObjects](https://github.com/andymatuschak/NSObject-AssociatedObjects).
  Licensed in the public domain.
@@ -31,10 +36,17 @@
  `NSAutoreleasePool`.
 
  @param value Any object.
- @param key A unique key string.
+ @param key A unique key pointer.
+ */
+- (void)associateValue:(id)value withKey:(const char *)key;
+
+/** Strongly associates an object with the receiving class.
+ 
+ @see associateValue:withKey:
+ @param value Any object.
+ @param key A unique key pointer.
  */
 + (void)associateValue:(id)value withKey:(const char *)key;
-- (void)associateValue:(id)value withKey:(const char *)key;
 
 /** Associates a copy of an object with the reciever.
 
@@ -42,13 +54,20 @@
  synthesized with `nonatomic` and `copy`.
 
  Using copied association is recommended for a block or
- temporarily-allocated Objective-C instances like NSString.
+ otherwise `NSCopying`-compliant instances like NSString.
 
  @param value Any object, pointer, or value.
- @param key A unique key string.
+ @param key A unique key pointer.
+ */
+- (void)associateCopyOfValue:(id)value withKey:(const char *)key;
+
+/** Associates a copy of an object with the receiving class.
+ 
+ @see associateCopyOfValue:withKey:
+ @param value Any object, pointer, or value.
+ @param key A unique key pointer.
  */
 + (void)associateCopyOfValue:(id)value withKey:(const char *)key;
-- (void)associateCopyOfValue:(id)value withKey:(const char *)key;
 
 /** Weakly associates an object with the reciever.
 
@@ -57,21 +76,30 @@
  in other words, the associated object is not kept alive.
 
  @param value Any object.
- @param key A unique key string.
+ @param key A unique key pointer.
  */
-+ (void)weaklyAssociateValue:(id)value withKey:(const char *)key;
 - (void)weaklyAssociateValue:(id)value withKey:(const char *)key;
 
-/** Weakly associates an object with the reciever.
+/** Weakly associates an object with the receiving class.
+ 
+ @see weaklyAssociateValue:withKey:
+ @param value Any object.
+ @param key A unique key pointer.
+ */
++ (void)weaklyAssociateValue:(id)value withKey:(const char *)key;
 
- A weak association will cause the pointer to be set to zero
- or nil upon the disappearance of what it references;
- in other words, the associated object is not kept alive.
+/** Returns the associated value for a key on the reciever.
 
- @param key A unique key string.
- @return The value associated with the key, or `nil` if not found.
+ @param key A unique key pointer.
+ @return The object associated with the key, or `nil` if not found.
+ */
+- (id)associatedValueForKey:(const char *)key;
+
+/** Returns the associated value for a key on the receiving class.
+ 
+ @param key A unique key pointer.
+ @return The object associated with the key, or `nil` if not found.
  */
 + (id)associatedValueForKey:(const char *)key;
-- (id)associatedValueForKey:(const char *)key;
 
 @end
