@@ -20,6 +20,9 @@
 		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, (desc)], ## __VA_ARGS__]; } } while(0)
 #endif
 
+void *A2BlockDelegateProtocolsKey;
+void *A2BlockDelegateMapKey;
+
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 
 // Block Property Accessors
@@ -53,51 +56,72 @@ extern IMP imp_implementationWithBlock(void *block);
 
 @implementation NSObject (A2BlockDelegate)
 
++ (void) load
+{
+	Class class = [NSObject class];
+	Class metaClass = object_getClass(class);
+	
+	SEL origSel = @selector(resolveInstanceMethod:);
+	SEL newSel = @selector(a2_resolveInstanceMethod:);
+	
+	Method origMethod = class_getClassMethod(class, origSel);
+	Method newMethod = class_getClassMethod(class, newSel);
+	
+	if (class_addMethod(metaClass, origSel, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
+		class_replaceMethod(metaClass, newSel, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
+	else
+		method_exchangeImplementations(origMethod, newMethod);
+}
+
 #pragma mark - Helpers
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector
 {
-	Protocol *protocol;
-	SEL representedSelector;
-	
-	NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
-	if (argc <= 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
+	// Check for existence of `-a2_protocols` and `-a2_mapForProtocol:`, respectively
+	if (objc_getAssociatedObject(self, &A2BlockDelegateMapKey) && objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey))
 	{
-		IMP implementation;
-		const char *types;
+		Protocol *protocol;
+		SEL representedSelector;
 		
-		if (argc == 1)
+		NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
+		if (argc <= 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
 		{
-			if (&imp_implementationWithBlock)
+			IMP implementation;
+			const char *types;
+			
+			if (argc == 1)
 			{
-				implementation = imp_implementationWithBlock(^(NSObject *obj, id block) {
-					[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
-				});
+				if (&imp_implementationWithBlock)
+				{
+					implementation = imp_implementationWithBlock(^(NSObject *obj, id block) {
+						[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
+					});
+				}
+				else
+				{
+					implementation = (IMP) a2_blockPropertySetter;
+				}
+				
+				types = "v@:@?";
 			}
 			else
 			{
-				implementation = (IMP) a2_blockPropertySetter;
+				if (&imp_implementationWithBlock)
+				{
+					implementation = imp_implementationWithBlock(^id (NSObject *obj) {
+						return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
+					});
+				}
+				else
+				{
+					implementation = (IMP) a2_blockPropertyGetter;
+				}
+				
+				types = "@?@:";
 			}
 			
-			types = "v@:@?";
+			if (class_addMethod(self, selector, implementation, types)) return YES;
 		}
-		else
-		{
-			if (&imp_implementationWithBlock)
-			{
-				implementation = imp_implementationWithBlock(^id(NSObject *obj) {
-					return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
-				});
-			}
-			else
-			{
-				implementation = (IMP) a2_blockPropertyGetter;
-			}
-			
-			types = "@?@:";
-		}
-		
-		if (class_addMethod(self, selector, implementation, types)) return YES;
 	}
 	
 	return [self a2_resolveInstanceMethod: selector];
@@ -130,9 +154,10 @@ extern IMP imp_implementationWithBlock(void *block);
 	if (!class_getProperty(self, propertyName.UTF8String))
 	{
 		// It's not a simple -xBlock/setXBlock: pair
-
-		// If the selector's last character is a ':', it's a setter.
+		
+		// If selector ends in ':', it's a setter.
 		const BOOL isSetter = [NSStringFromSelector(selector) hasSuffix: @":"];
+		const char *key = (isSetter ? "S" : "G");
 	
 		unsigned int i, count;
 		objc_property_t *properties = class_copyPropertyList(self, &count);
@@ -141,7 +166,6 @@ extern IMP imp_implementationWithBlock(void *block);
 		{
 			objc_property_t property = properties[i];
 			
-			const char *key = (isSetter ? "S" : "G");
 			char *accessorName = a2_property_copyAttributeValue(property, key);
 			SEL accessor = sel_getUid(accessorName);
 			if (sel_isEqual(selector, accessor))
@@ -176,12 +200,11 @@ extern IMP imp_implementationWithBlock(void *block);
 {
 	[[self a2_protocols] addObject: protocol];
 	
-	static void *mapKey;
-	NSMutableDictionary *map = objc_getAssociatedObject(self, &mapKey);
+	NSMutableDictionary *map = objc_getAssociatedObject(self, &A2BlockDelegateMapKey);
 	if (!map)
 	{
 		map = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, &mapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, &A2BlockDelegateMapKey, map, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSDictionary *protocolMap = [map objectForKey: NSStringFromProtocol(protocol)];
@@ -207,12 +230,11 @@ extern IMP imp_implementationWithBlock(void *block);
 
 + (NSMutableSet *) a2_protocols
 {
-	static void *protocolsKey;
-	NSMutableSet *protocols = objc_getAssociatedObject(self, &protocolsKey);
+	NSMutableSet *protocols = objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey);
 	if (!protocols)
 	{
 		protocols = [NSMutableSet set];
-		objc_setAssociatedObject(self, &protocolsKey, protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, &A2BlockDelegateProtocolsKey, protocols, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return protocols;
@@ -264,32 +286,8 @@ extern IMP imp_implementationWithBlock(void *block);
 		free(copy);
 	}];
 	
-	static void *didSwizzleKey;
-	if (!objc_getAssociatedObject(self, &didSwizzleKey))
-	{
-		Class metaClass = object_getClass(self);
-		SEL origSel = @selector(resolveInstanceMethod:);
-		SEL newSel = @selector(a2_resolveInstanceMethod:);
-		
-		Method origMethod = class_getClassMethod(self, origSel);
-		Method newMethod = class_getClassMethod(self, newSel);
-		
-		if (class_addMethod(metaClass, origSel, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
-			class_replaceMethod(metaClass, newSel, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
-		else
-			method_exchangeImplementations(origMethod, newMethod);
-
-		objc_setAssociatedObject(self, &didSwizzleKey, (void *) kCFBooleanTrue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
-	
 	[[self a2_propertyMapForProtocol: protocol] addEntriesFromDictionary: dictionary];
 }
-
-@end
-
-@interface NSObject (A2BlockDelegateBlocksKitPrivate)
-
-+ (NSMutableDictionary *) bk_accessorsMap;
 
 @end
 
@@ -311,32 +309,6 @@ static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 		return;
 	
 	[[self dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
-	
-	if ([self.class respondsToSelector: @selector(bk_accessorsMap)])
-	{
-		NSMutableDictionary *accessorsMap = [self.class bk_accessorsMap];
-		if (![accessorsMap count]) return;
-		
-		__block SEL delegateGetter = NULL;
-		__block SEL delegateSetter = NULL;
-		[[accessorsMap allKeysForObject: protocol] enumerateObjectsUsingBlock: ^(NSString *selectorName, NSUInteger idx, BOOL *stop) {
-			if ([selectorName hasSuffix: @":"] && !delegateSetter)
-				delegateSetter = NSSelectorFromString(selectorName);
-			else if (!delegateGetter)
-				delegateGetter = NSSelectorFromString(selectorName);
-			else
-				*stop = YES;
-		}];
-		
-		NSAssert1(delegateGetter && delegateSetter, @"Could not find both accessors for delegate of protocol <%@>", NSStringFromProtocol(protocol));
-		
-		if (![self performSelector: delegateGetter])
-		{
-			[self performSelector: delegateSetter withObject: self];
-		}
-		
-		NSAssert([[self performSelector: delegateGetter] isEqual: self], @"A block-backed object cannot be added when the delegate isn't self.");
-	}
 }
 
 /*

@@ -23,8 +23,8 @@
 
 #define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "+-"[!!isClassMethod], sel_getName(selector)] : nil)
 
-static void *A2DynamicDelegateBlockMapKey;
-static void *A2DynamicDelegateProtocolKey;
+void *A2DynamicDelegateBlockMapKey;
+void *A2DynamicDelegateProtocolKey;
 
 static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
 static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value);
