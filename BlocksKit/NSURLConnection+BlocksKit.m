@@ -49,10 +49,10 @@ static char kResponseLengthKey;
 
 @end
 
-#pragma mark - BKURLConnectionInformalDelegate - iOS 4.3 support
+#pragma mark - BKURLConnectionInformalDelegate - iOS 4.3 & Snow Leopard support
 
 @protocol BKURLConnectionInformalDelegate <NSObject>
-@optional
+- (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request;
 - (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
 - (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
@@ -71,6 +71,13 @@ static char kResponseLengthKey;
 @end
 
 @implementation A2DynamicBKURLConnectionInformalDelegate
+
+- (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request {
+	id realDelegate = self.realDelegate;
+	if ([realDelegate respondsToSelector:@selector(connection:needNewBodyStream::)])
+		return [realDelegate connection:connection needNewBodyStream:request];
+	return nil;
+}
 
 - (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
 	id realDelegate = self.realDelegate;
@@ -194,7 +201,7 @@ static char kResponseLengthKey;
 
 @end
 
-#pragma mark - NSURLConnectionDelegate - iOS 5.0+ support
+#pragma mark - NSURLConnectionDelegate - iOS 5.0 & Lion support
 
 #ifdef NSURLConnectionDataDelegate
 @interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate <NSURLConnectionDataDelegate>
@@ -303,6 +310,36 @@ static char kResponseLengthKey;
 	void (^block)(CGFloat) = connection.uploadBlock;
 	if (block)
 		block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
+}
+
+- (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
+		return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
+	
+	NSString *authMethod = protectionSpace.authenticationMethod;
+	if (authMethod == NSURLAuthenticationMethodServerTrust || authMethod == NSURLAuthenticationMethodClientCertificate)
+		return NO;
+	return YES;
+}
+
+- (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didCancelAuthenticationChallenge:)])
+		[realDelegate connection:connection didCancelAuthenticationChallenge:challenge];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
+		[realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
+}
+
+- (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request {
+	id realDelegate = self.realDelegate;
+	if ([realDelegate respondsToSelector:@selector(connection:needNewBodyStream::)])
+		return [realDelegate connection:connection needNewBodyStream:request];
+	return nil;
 }
 
 @end
