@@ -81,10 +81,6 @@ static char kViewTouchUpBlockKey;
 	return [self associatedValueForKey:&kViewTouchDownBlockKey];
 }
 
-- (void)whenTouchedDown:(BKTouchBlock)block {
-    [self setOnTouchDownBlock:block];
-}
-
 - (void)setOnTouchMoveBlock:(BKTouchBlock)block {
 	[self associateCopyOfValue:block withKey:&kViewTouchMoveBlockKey];
 }
@@ -93,20 +89,12 @@ static char kViewTouchUpBlockKey;
 	return [self associatedValueForKey:&kViewTouchMoveBlockKey];
 }
 
-- (void)whenTouchMove:(BKTouchBlock)block {
-    [self setOnTouchMoveBlock:block];
-}	
-
 - (void)setOnTouchUpBlock:(BKTouchBlock)block {
 	[self associateCopyOfValue:block withKey:&kViewTouchUpBlockKey];
 }
 
 - (BKTouchBlock)onTouchUpBlock {
 	return [self associatedValueForKey:&kViewTouchUpBlockKey];
-}
-
-- (void)whenTouchedUp:(BKTouchBlock)block {
-    [self setOnTouchUpBlock:block];
 }
 
 @end

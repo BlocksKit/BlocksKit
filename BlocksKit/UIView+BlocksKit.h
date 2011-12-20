@@ -73,7 +73,6 @@
  UIControlEventTouchDown.
  */
 @property (nonatomic, copy) BKTouchBlock onTouchDownBlock;
-- (void)whenTouchedDown:(BKTouchBlock)block DEPRECATED_ATTRIBUTE;
 
 /** The block that gets called on a finger drag.
  
@@ -83,7 +82,6 @@
  @param block The handler for the touch recognizer
  */
 @property (nonatomic, copy) BKTouchBlock onTouchMoveBlock;
-- (void)whenTouchMove:(BKTouchBlock)block DEPRECATED_ATTRIBUTE;
 
 /** The block that gets called on a finger up.
  
@@ -92,6 +90,5 @@
  UIControlEventTouchCancel.
  */
 @property (nonatomic, copy) BKTouchBlock onTouchUpBlock;
-- (void)whenTouchedUp:(BKTouchBlock)block DEPRECATED_ATTRIBUTE;
 
 @end
