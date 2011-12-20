@@ -59,13 +59,6 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
 + (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
 
-+ (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol;
-
-+ (NSMutableDictionary *) a2_propertyMapForProtocol: (Protocol *) protocol;
-+ (NSMutableDictionary *) a2_selectorCacheForProtocol: (Protocol *) protocol;
-
-+ (NSMutableSet *) a2_protocols;
-
 @end
 
 @interface NSObject (A2BlockDelegateBlocksKitPrivate)
@@ -83,14 +76,12 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 	// Check for existence of `-a2_protocols` and `-a2_mapForProtocol:`, respectively
 	if (objc_getAssociatedObject(self, &A2BlockDelegateMapKey) && objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey))
 	{
-		NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
-		if (argc == 1)
-		{
-			Protocol *protocol;
-			SEL representedSelector;
+		Protocol *protocol;
+		SEL representedSelector;
 
-			[self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector];
-			
+		NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
+		if (argc == 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
+		{				
 			IMP implementation;
 			const char *types = "v@:@?";
 			
@@ -313,7 +304,7 @@ static void bk_lazySwizzle(void)
 	Class class = [NSObject class];
 	Class metaClass = object_getClass(class);
 	
-	SEL origSel = @selector(a2_resolveInstanceMethod:);
+	SEL origSel = @selector(resolveInstanceMethod:);
 	SEL newSel = @selector(bk_resolveInstanceMethod:);
 	
 	Method origMethod = class_getClassMethod(class, origSel);
