@@ -32,7 +32,7 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(webViewDidStartLoad:)])
 		[realDelegate webViewDidStartLoad:webView];
 
-	BOOL(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
+	void(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		block(webView);
 }
@@ -42,7 +42,7 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(webViewDidFinishLoad:)])
 		[realDelegate webViewDidFinishLoad:webView];
 
-	BOOL(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
+	void(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		block(webView);
 }
@@ -52,7 +52,7 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(webView:didFailLoadWithError:)])
 		[realDelegate webView:webView didFailLoadWithError:error];
 
-	BOOL(^block)(UIWebView *, NSError *) = [self blockImplementationForMethod:_cmd];
+	void(^block)(UIWebView *, NSError *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		block(webView, error);
 }

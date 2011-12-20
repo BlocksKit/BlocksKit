@@ -5,8 +5,6 @@
 
 #import "BKGlobals.h"
 
-typedef BOOL(^BKWebViewStartBlock)(NSURLRequest *request, UIWebViewNavigationType navigationType);
-
 /** Block callbacks for UIWebView.
 
  Includes code by the following:
@@ -26,12 +24,12 @@ typedef BOOL(^BKWebViewStartBlock)(NSURLRequest *request, UIWebViewNavigationTyp
 @property (nonatomic, copy) BOOL(^shouldStartLoadBlock)(UIWebView *, NSURLRequest *, UIWebViewNavigationType);
 
 /** The block that is fired when the web view starts loading. */
-@property (nonatomic, copy) BOOL(^didStartLoadBlock)(UIWebView *);
+@property (nonatomic, copy) void(^didStartLoadBlock)(UIWebView *);
 
 /** The block that is fired when the web view finishes loading. */
-@property (nonatomic, copy) BOOL(^didFinishLoadBlock)(UIWebView *);
+@property (nonatomic, copy) void(^didFinishLoadBlock)(UIWebView *);
 
 /** The block that is fired when the web view stops loading due to an error. */
-@property (nonatomic, copy) BOOL(^didFinishWithErrorBlock)(UIWebView *, NSError *);
+@property (nonatomic, copy) void(^didFinishWithErrorBlock)(UIWebView *, NSError *);
 
 @end
