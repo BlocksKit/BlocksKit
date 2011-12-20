@@ -30,6 +30,17 @@
  */
 - (void)each:(BKIndexBlock)block;
 
+/** Enumerates each index in an index set concurrently and executes the
+ given block once per index.
+ 
+ Enumeration will occur on appropriate background queues. 
+ Be aware that the block will not necessarily be executed
+ in order for each index.
+ 
+ @param block A single-argument, void-returning code block.
+ */
+- (void)apply:(BKIndexBlock)block;
+
 /** Loops through an array and returns the index matching the block.
  
  @param block A single-argument, `BOOL`-returning code block.

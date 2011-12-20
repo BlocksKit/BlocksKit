@@ -13,6 +13,12 @@
     }];
 }
 
+- (void)apply:(BKKeyValueBlock)block {
+	[self enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
+		block(key, obj);
+	}];
+}
+
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {
     NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
     

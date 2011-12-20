@@ -30,6 +30,20 @@
  */
 - (void)each:(BKSenderBlock)block;
 
+/** Enumerates through an array concurrently and executes
+ the given block once for each object.
+ 
+ Enumeration will occur on appropriate background queues. This
+ will have a noticeable speed increase, especially on dual-core
+ devices, but you *must* be aware of the thread safety of the
+ objects you message from within the block. Be aware that the
+ order of objects is not necessarily the order each block will
+ be called in.
+ 
+ @param block A single-argument, void-returning code block.
+ */
+- (void)apply:(BKSenderBlock)block;
+
 /** Loops through an array to find the object matching the block.
  
  match: is functionally identical to select:, but will stop and return

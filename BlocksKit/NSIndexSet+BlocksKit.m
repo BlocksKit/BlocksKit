@@ -13,6 +13,12 @@
     }];
 }
 
+- (void)apply:(BKIndexBlock)block {
+	[self enumerateIndexesWithOptions:NSEnumerationConcurrent usingBlock:^(NSUInteger idx, BOOL *stop) {
+		block(idx);
+	}];
+}
+
 - (NSUInteger)match:(BKIndexValidationBlock)block {
     return [self indexPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
         return block(idx);

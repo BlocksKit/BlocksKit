@@ -8,9 +8,15 @@
 @implementation NSArray (BlocksKit)
 
 - (void)each:(BKSenderBlock)block {
-    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         block(obj);
     }];
+}
+
+- (void)apply:(BKSenderBlock)block {
+	[self enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		block(obj);
+	}];
 }
 
 - (id)match:(BKValidationBlock)block {

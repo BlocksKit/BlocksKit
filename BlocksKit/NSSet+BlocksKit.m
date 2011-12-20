@@ -13,6 +13,12 @@
     }];
 }
 
+- (void)apply:(BKSenderBlock)block {
+	[self enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, BOOL *stop) {
+		block(obj);
+	}];
+}
+
 - (id)match:(BKValidationBlock)block {
     return [[self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
         if (block(obj)) {
