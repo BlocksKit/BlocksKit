@@ -5,32 +5,17 @@
 
 #import "UIActionSheetBlocksKitTest.h"
 
-
 @implementation UIActionSheetBlocksKitTest
-@synthesize subject=_subject;
 
-- (BOOL)shouldRunOnMainThread {
-  // By default NO, but if you have a UI test or test dependent on running on the main thread return YES
-  return NO;
-}
-
-- (void)setUpClass {
-	// Run at start of all tests in the class
-}
-
-- (void)tearDownClass {
-	// Run at end of all tests in the class
-}
+@synthesize subject;
 
 - (void)setUp {
-	// Run before each test method
 	self.subject = [UIActionSheet actionSheetWithTitle:@"Hello BlocksKit"];
 }
 
 - (void)tearDown {
-	// Run after each test method
+	self.subject = nil;
 }
-
 
 - (void)testInit {
 	GHAssertTrue([self.subject isKindOfClass:[UIActionSheet class]],@"subject is UIActionSheet");
@@ -40,12 +25,12 @@
 	GHAssertFalse(self.subject.isVisible,@"the action sheet is not visible");
 }
 
-//TODO trigger the block
 - (void)testAddButtonWithHandler {
-	BKBlock block = ^(void) {
-	};
-	NSInteger index1 = [self.subject addButtonWithTitle:@"Button 1" handler:block];
-	NSInteger index2 = [self.subject addButtonWithTitle:@"Button 2" handler:block];
+	__block NSUInteger total = 0;
+
+	NSInteger index1 = [self.subject addButtonWithTitle:@"Button 1" handler:^{ total++; }];
+	NSInteger index2 = [self.subject addButtonWithTitle:@"Button 2" handler:^{ total += 2; }];
+	
 	GHAssertEquals(self.subject.numberOfButtons,2,@"the action sheet has %d buttons",self.subject.numberOfButtons);
 
 	NSString *title = @"Button";
@@ -54,38 +39,55 @@
 
 	title = [self.subject buttonTitleAtIndex:index2];
 	GHAssertEqualStrings(title,@"Button 2",@"the UIActionSheet adds a button with title %@",title);
+	
+	[self.subject.delegate actionSheet:self.subject clickedButtonAtIndex:index1];
+	[self.subject.delegate actionSheet:self.subject clickedButtonAtIndex:index2];
+	
+	GHAssertEquals(total, 3, @"Not all block handlers were called.");
 }
  
-//TODO trigger the block
 - (void)testSetDestructiveButtonWithHandler {
-	BKBlock block = ^(void) {
-	};
-	NSInteger index = [self.subject setDestructiveButtonWithTitle:@"Delete" handler:block];
+	__block BOOL blockCalled = NO;
+	
+	NSInteger index = [self.subject setDestructiveButtonWithTitle:@"Delete" handler:^{ blockCalled = YES; }];
 	GHAssertEquals(self.subject.numberOfButtons,1,@"the action sheet has %d buttons",self.subject.numberOfButtons);
 	GHAssertEquals(self.subject.destructiveButtonIndex,index,@"the action sheet destructive button index is %d",self.subject.destructiveButtonIndex);
 
 	NSString *title = [self.subject buttonTitleAtIndex:index];
 	GHAssertEqualStrings(title,@"Delete",@"the UIActionSheet adds a button with title %@",title);
+	
+	[self.subject.delegate actionSheet:self.subject clickedButtonAtIndex:index];
+	
+	GHAssertTrue(blockCalled, @"Block handler was not called.");
 }
 
-//TODO trigger the block
 - (void)testSetCancelButtonWithHandler {
-	BKBlock block = ^(void) {
-	};
-	NSInteger index = [self.subject setCancelButtonWithTitle:@"Cancel" handler:block];
+	__block BOOL blockCalled = NO;
+	
+	NSInteger index = [self.subject setCancelButtonWithTitle:@"Cancel" handler:^{ blockCalled = YES; }];
 	GHAssertEquals(self.subject.numberOfButtons,1,@"the action sheet has %d buttons",self.subject.numberOfButtons);
 	GHAssertEquals(self.subject.cancelButtonIndex,index,@"the action sheet cancel button index is %d",self.subject.cancelButtonIndex);
 
 	NSString *title = [self.subject buttonTitleAtIndex:index];
 	GHAssertEqualStrings(title,@"Cancel",@"the UIActionSheet adds a button with title %@",title);
+	
+	[self.subject.delegate actionSheet:self.subject clickedButtonAtIndex:index];
+	
+	GHAssertTrue(blockCalled, @"Block handler was not called.");
 }
 
-//TODO trigger the block
 - (void)testDelegationBlocks {
-	self.subject.willShowBlock = ^(UIActionSheet *sheet) {
-	};
-	self.subject.didShowBlock = ^(UIActionSheet *sheet) {
-	};
+	__block BOOL willShow = NO;
+	__block BOOL didShow = NO;
+	
+	self.subject.willShowBlock = ^(UIActionSheet *sheet) { willShow = YES; };
+	self.subject.didShowBlock = ^(UIActionSheet *sheet) { didShow = YES; };
+	
+	[self.subject.delegate willPresentActionSheet:self.subject];
+	[self.subject.delegate didPresentActionSheet:self.subject];
+	
+	GHAssertTrue(willShow, @"willShowBlock not fired.");
+	GHAssertTrue(didShow, @"didShowblock not fired.");
 }
 
 @end
