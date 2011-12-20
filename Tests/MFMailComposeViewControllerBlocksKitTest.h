@@ -10,4 +10,6 @@
 
 @property (nonatomic, retain) MFMailComposeViewController *subject;
 
+- (void)testCompletionBlock;
+
 @end

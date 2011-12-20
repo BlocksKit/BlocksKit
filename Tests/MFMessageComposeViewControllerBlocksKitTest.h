@@ -10,4 +10,6 @@
 
 @property (nonatomic, retain) MFMessageComposeViewController *subject;
 
+- (void)testCompletionBlock;
+
 @end

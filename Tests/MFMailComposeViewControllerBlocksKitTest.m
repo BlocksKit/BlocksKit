@@ -19,7 +19,7 @@
 	self.subject = [[[MFMailComposeViewController alloc] init] autorelease];
 }
 
-- (void)tearDown {
+- (void)tearDownClass {
 	self.subject = nil;
 }
 
