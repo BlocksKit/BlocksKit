@@ -19,19 +19,12 @@
 
 @synthesize subject, total;
 
-- (void)setUpClass {
-    // Run at start of all tests in the class
+- (void)setUp {
     self.subject = [[[NSCache alloc] init] autorelease];
 }
 
-- (void)tearDownClass {
-    // Run at end of all tests in the class
-    self.subject = nil;
-}
-
-- (void)setUp {
-    self.total = 0;
-	self.subject.delegate = nil;
+- (void)tearDown {
+	self.subject = nil;
 }
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
