@@ -121,16 +121,32 @@
 
 #pragma mark Convenience
 
-+ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonText handler:(BKBlock)block {
-	UIAlertView *alert = [UIAlertView alertViewWithTitle:title message:message];
-	if (!buttonText || !buttonText.length)
-		buttonText = NSLocalizedString(@"Dismiss", nil);
-	[alert addButtonWithTitle:buttonText];
-	if (block)
-		alert.didDismissBlock = ^(UIAlertView *alertView, NSInteger index){
-			block();
-		};
-	[alert show];
++ (void) showAlertViewWithTitle: (NSString *) title message: (NSString *) message didDismissHandler: (void (^)(UIAlertView *, NSInteger)) block cancelButtonTitle: (NSString *) cancelButtonTitle otherButtonTitles: (NSString *) otherButtonTitles, ...
+{
+	UIAlertView *alertView = [UIAlertView alertViewWithTitle: title message: message];
+	
+	// If no buttons were specified, cancel button becomes "Dismiss"
+	if (!cancelButtonTitle.length && !otherButtonTitles)
+		cancelButtonTitle = NSLocalizedString(@"Dismiss", nil);
+	
+	// Set cancel button
+	alertView.cancelButtonIndex = [alertView addButtonWithTitle: cancelButtonTitle];
+	
+	// Set the rest of the buttons
+	va_list buttons;
+	va_start(buttons, otherButtonTitles);
+	NSString *button = otherButtonTitles;
+	do
+	{
+		[alertView addButtonWithTitle: button];
+	}
+	while ((button = va_arg(buttons, NSString *)));
+	
+	// Set `didDismissBlock`
+	if (block) alertView.didDismissBlock = block;
+	
+	// Show alert view
+	[alertView show];
 }
 
 #pragma mark Initializers
