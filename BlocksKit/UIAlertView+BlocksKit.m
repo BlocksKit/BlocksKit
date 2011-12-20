@@ -15,11 +15,17 @@
 @implementation A2DynamicUIAlertViewDelegate
 
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView {
+	BOOL should = YES;
+	
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(alertViewShouldEnableFirstOtherButton:)])
-		return [realDelegate alertViewShouldEnableFirstOtherButton:alertView];
-
-	return YES;
+		should &= [realDelegate alertViewShouldEnableFirstOtherButton:alertView];
+	
+	BOOL (^block)(UIAlertView *) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		should &= block(alertView);
+	
+	return should;
 }
 
 - (void)alertViewCancel:(UIAlertView *)alertView {
@@ -97,7 +103,7 @@
 
 @implementation UIAlertView (BlocksKit)
 
-@dynamic willShowBlock, didShowBlock, willDismissBlock, didDismissBlock;
+@dynamic willShowBlock, didShowBlock, willDismissBlock, didDismissBlock, shouldEnableFirstOtherButtonBlock;
 
 + (void)load {
 	@autoreleasepool {
@@ -107,6 +113,7 @@
 								 @"didPresentAlertView:", @"didShowBlock",
 								 @"alertView:willDismissWithButtonIndex:", @"willDismissBlock",
 								 @"alertView:didDismissWithButtonIndex:", @"didDismissBlock",
+								 @"alertViewShouldEnableFirstOtherButton:", @"shouldEnableFirstOtherButtonBlock",
 								 nil];
 		[self linkDelegateMethods:methods];
 	}

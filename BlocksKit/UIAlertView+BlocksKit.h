@@ -124,5 +124,7 @@
 /** The block to be fired after the alert view dismisses. */
 @property (nonatomic, copy) void (^didDismissBlock)(UIAlertView *, NSInteger);
 
+/** The block to be fired to determine whether the first non-cancel should be enabled */
+@property (nonatomic, copy) BOOL (^shouldEnableFirstOtherButtonBlock)(UIAlertView *) NS_AVAILABLE_IOS(5_0);
 
 @end
