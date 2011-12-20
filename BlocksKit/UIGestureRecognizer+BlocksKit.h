@@ -85,12 +85,12 @@
 /** Allows the block that will be fired by the gesture recognizer
  to be modified after the fact.
  */
-@property (copy) BKGestureRecognizerBlock handler;
+@property (nonatomic, copy) BKGestureRecognizerBlock handler;
 
 /** Allows the length of the delay after which the gesture
  recognizer will be fired to modify.
  */
-@property (assign) NSTimeInterval delay;
+@property (nonatomic) NSTimeInterval delay;
 
 /** If the recognizer happens to be fired, calling this method
  will stop it from firing, but only if a delay is set.

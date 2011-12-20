@@ -107,18 +107,18 @@
  you can set this property multiple times and multiple cancel buttons will
  not be generated.
  */
-@property (copy) BKBlock cancelBlock;
+@property (nonatomic, copy) BKBlock cancelBlock;
 
 /** The block to be fired before the action sheet will show. */
-@property (copy) void (^willShowBlock)(UIActionSheet *);
+@property (nonatomic, copy) void (^willShowBlock)(UIActionSheet *);
 
 /** The block to be fired when the action sheet shows. */
-@property (copy) void (^didShowBlock)(UIActionSheet *);
+@property (nonatomic, copy) void (^didShowBlock)(UIActionSheet *);
 
 /** The block to be fired before the action sheet will dismiss. */
-@property (copy) void (^willDismissBlock)(UIActionSheet *, NSInteger);
+@property (nonatomic, copy) void (^willDismissBlock)(UIActionSheet *, NSInteger);
 
 /** The block to be fired after the action sheet dismisses. */
-@property (copy) void (^didDismissBlock)(UIActionSheet *, NSInteger);
+@property (nonatomic, copy) void (^didDismissBlock)(UIActionSheet *, NSInteger);
 
 @end

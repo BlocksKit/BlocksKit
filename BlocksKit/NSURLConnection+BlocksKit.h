@@ -65,13 +65,13 @@
 
  This block corresponds to the connection:didReceiveResponse: method
  of NSURLConnectionDelegate. */
-@property (copy) void(^responseBlock)(NSURLConnection *, NSURLResponse *);
+@property (nonatomic, copy) void(^responseBlock)(NSURLConnection *, NSURLResponse *);
 
 /** The block fired upon the failure of the connection.
 
  This block corresponds to the connection:didFailWithError:
  method of NSURLConnectionDelegate. */
-@property (copy) void (^failureBlock)(NSURLConnection *, NSError *);
+@property (nonatomic, copy) void (^failureBlock)(NSURLConnection *, NSError *);
 
 /** The block that  upon the successful completion of the connection.
 
@@ -83,7 +83,7 @@
  the recieved data to an instance NSMutableData is left up to the user due
  to the behavior of frameworks that use NSURLConnection.
  */
-@property (copy) void (^successBlock)(NSURLConnection *, NSURLResponse *, NSData *);
+@property (nonatomic, copy) void (^successBlock)(NSURLConnection *, NSURLResponse *, NSData *);
 
 /** The block fired every time new data is sent to the server,
  representing the current percentage of completion.
@@ -92,7 +92,7 @@
  connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:
  method of NSURLConnectionDelegate.
  */
-@property (copy) void (^uploadBlock)(CGFloat);
+@property (nonatomic, copy) void (^uploadBlock)(CGFloat);
 
 /** The block fired every time new data is recieved from the server,
  representing the current percentage of completion.
@@ -100,7 +100,7 @@
  This block corresponds to the connection:didRecieveData:
  method of NSURLConnectionDelegate.
  */
-@property (copy) void (^downloadBlock)(CGFloat);
+@property (nonatomic, copy) void (^downloadBlock)(CGFloat);
 
 /** Creates and returns an initialized block-backed URL connection that does not begin to load the data for the URL request.
  

@@ -110,19 +110,19 @@
  you can set this property multiple times and multiple cancel buttons will
  not be generated.
  */
-@property (copy) BKBlock cancelBlock;
+@property (nonatomic, copy) BKBlock cancelBlock;
 
 /** The block to be fired before the alert view will show. */
-@property (copy) void (^willShowBlock)(UIAlertView *);
+@property (nonatomic, copy) void (^willShowBlock)(UIAlertView *);
 
 /** The block to be fired when the alert view shows. */
-@property (copy) void (^didShowBlock)(UIAlertView *);
+@property (nonatomic, copy) void (^didShowBlock)(UIAlertView *);
 
 /** The block to be fired before the alert view will dismiss. */
-@property (copy) void (^willDismissBlock)(UIAlertView *, NSInteger);
+@property (nonatomic, copy) void (^willDismissBlock)(UIAlertView *, NSInteger);
 
 /** The block to be fired after the alert view dismisses. */
-@property (copy) void (^didDismissBlock)(UIAlertView *, NSInteger);
+@property (nonatomic, copy) void (^didDismissBlock)(UIAlertView *, NSInteger);
 
 
 @end

@@ -48,6 +48,6 @@
  This block callback is an analog for the cache:willEviceObject:
  method of NSCacheDelegate.
  */
-@property (copy) void(^willEvictBlock)(NSCache *, id);
+@property (nonatomic, copy) void(^willEvictBlock)(NSCache *, id);
 
 @end

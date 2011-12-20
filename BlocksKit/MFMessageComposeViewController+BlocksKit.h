@@ -25,6 +25,6 @@
  messageComposeViewController:didFinishWithResult: method
  of MFMessageComposeViewControllerDelegate.
  */
-@property (copy) void(^completionBlock)(MFMessageComposeViewController *, MessageComposeResult);
+@property (nonatomic, copy) void(^completionBlock)(MFMessageComposeViewController *, MessageComposeResult);
 
 @end
