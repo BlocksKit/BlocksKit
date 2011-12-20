@@ -8,7 +8,7 @@
 @implementation NSArray (BlocksKit)
 
 - (void)each:(BKSenderBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
      [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         block(obj);
@@ -16,7 +16,7 @@
 }
 
 - (void)apply:(BKSenderBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
 	[self enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		block(obj);
@@ -24,7 +24,7 @@
 }
 
 - (id)match:(BKValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     NSUInteger index = [self indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return block(obj);
@@ -37,7 +37,7 @@
 }
 
 - (NSArray *)select:(BKValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     NSArray *result = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return block(obj);
@@ -50,7 +50,7 @@
 }
 
 - (NSArray *)reject:(BKValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     NSArray *result = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return !block(obj);
@@ -63,7 +63,7 @@
 }
 
 - (NSArray *)map:(BKTransformBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
     
@@ -79,7 +79,7 @@
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     __block id result = nil;
     BK_SET_RETAINED(result, initial);

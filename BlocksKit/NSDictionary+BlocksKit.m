@@ -8,7 +8,7 @@
 @implementation NSDictionary (BlocksKit)
 
 - (void)each:(BKKeyValueBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         block(key, obj);
@@ -16,7 +16,7 @@
 }
 
 - (void)apply:(BKKeyValueBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
 	[self enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
 		block(key, obj);
@@ -24,7 +24,7 @@
 }
 
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
     
@@ -40,7 +40,7 @@
 }
 
 - (NSDictionary *)reject:(BKKeyValueValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
     
@@ -56,7 +56,7 @@
 }
 
 - (NSDictionary *)map:(BKKeyValueTransformBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
 

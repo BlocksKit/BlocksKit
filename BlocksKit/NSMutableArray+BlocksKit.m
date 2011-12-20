@@ -8,7 +8,7 @@
 @implementation NSMutableArray (BlocksKit)
 
 - (void)performSelect:(BKValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 
     NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return !block(obj);
@@ -21,7 +21,7 @@
 }
 
 - (void)performReject:(BKValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 
     NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return block(obj);
@@ -34,7 +34,7 @@
 }
 
 - (void)performMap:(BKTransformBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 
     NSMutableArray *new = BK_AUTORELEASE([self mutableCopy]);
     

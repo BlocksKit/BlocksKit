@@ -8,7 +8,7 @@
 @implementation NSIndexSet (BlocksKit)
 
 - (void)each:(BKIndexBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         block(idx);
@@ -16,7 +16,7 @@
 }
 
 - (void)apply:(BKIndexBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
 	[self enumerateIndexesWithOptions:NSEnumerationConcurrent usingBlock:^(NSUInteger idx, BOOL *stop) {
 		block(idx);
@@ -24,7 +24,7 @@
 }
 
 - (NSUInteger)match:(BKIndexValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     return [self indexPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
         return block(idx);
@@ -32,7 +32,7 @@
 }
 
 - (NSIndexSet *)select:(BKIndexValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
         return block(idx);
@@ -45,7 +45,7 @@
 }
 
 - (NSIndexSet *)reject:(BKIndexValidationBlock)block {  
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 
     NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
         return !block(idx);
@@ -58,7 +58,7 @@
 }
 
 - (NSIndexSet *)map:(BKIndexTransformBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     NSMutableIndexSet *list = [NSMutableIndexSet indexSet];
     

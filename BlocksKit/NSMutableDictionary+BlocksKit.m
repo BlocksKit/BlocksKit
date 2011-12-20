@@ -8,7 +8,7 @@
 @implementation NSMutableDictionary (BlocksKit)
 
 - (void)performSelect:(BKKeyValueValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     
     NSMutableArray *keys = [NSMutableArray arrayWithCapacity:self.count];
@@ -22,7 +22,7 @@
 }
 
 - (void)performReject:(BKKeyValueValidationBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     
     NSMutableArray *keys = [NSMutableArray arrayWithCapacity:self.count];
@@ -36,7 +36,7 @@
 }
 
 - (void)performMap:(BKKeyValueTransformBlock)block {
-	NSParameterAssert(block);
+	NSParameterAssert(block != nil);
 	
     
     NSMutableDictionary *new = BK_AUTORELEASE([self mutableCopy]);
