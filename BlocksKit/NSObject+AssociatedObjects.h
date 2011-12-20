@@ -97,9 +97,18 @@
 
 /** Returns the associated value for a key on the receiving class.
  
+ @see associatedValueForKey:
  @param key A unique key pointer.
  @return The object associated with the key, or `nil` if not found.
  */
 + (id)associatedValueForKey:(const char *)key;
+
+/** Returns the reciever to a clean state by removing all
+ associated objects, releasing them if necessary. */
+- (void)removeAllAssociatedObjects;
+
+/** Returns the recieving class to a clean state by removing
+ all associated objects, releasing them if necessary. */
++ (void)removeAllAssociatedObjects;
 
 @end

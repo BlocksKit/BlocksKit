@@ -26,6 +26,10 @@
 	return objc_getAssociatedObject(self, key);
 }
 
+- (void)removeAllAssociatedObjects {
+	objc_removeAssociatedObjects(self);
+}
+
 #pragma mark - Class Methods
 
 + (void)associateValue:(id)value withKey:(const char *)key {
@@ -42,6 +46,10 @@
 
 + (id)associatedValueForKey:(const char *)key {
 	return objc_getAssociatedObject(self, key);
+}
+
++ (void)removeAllAssociatedObjects {
+	objc_removeAssociatedObjects(self);
 }
 
 @end
