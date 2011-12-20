@@ -56,6 +56,23 @@ extern IMP imp_implementationWithBlock(void *block);
 
 @implementation NSObject (A2BlockDelegate)
 
++ (void) load
+{
+	Class class = [NSObject class];
+	Class metaClass = object_getClass(class);
+	
+	SEL origSel = @selector(resolveInstanceMethod:);
+	SEL newSel = @selector(a2_resolveInstanceMethod:);
+	
+	Method origMethod = class_getClassMethod(class, origSel);
+	Method newMethod = class_getClassMethod(class, newSel);
+	
+	if (class_addMethod(metaClass, origSel, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
+		class_replaceMethod(metaClass, newSel, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
+	else
+		method_exchangeImplementations(origMethod, newMethod);
+}
+
 #pragma mark - Helpers
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector
@@ -264,24 +281,6 @@ extern IMP imp_implementationWithBlock(void *block);
 		NSAlwaysAssert(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
 		free(copy);
 	}];
-	
-	static void *didSwizzleKey;
-	if (!objc_getAssociatedObject(self, &didSwizzleKey))
-	{
-		Class metaClass = object_getClass(self);
-		SEL origSel = @selector(resolveInstanceMethod:);
-		SEL newSel = @selector(a2_resolveInstanceMethod:);
-		
-		Method origMethod = class_getClassMethod(self, origSel);
-		Method newMethod = class_getClassMethod(self, newSel);
-		
-		if (class_addMethod(metaClass, origSel, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
-			class_replaceMethod(metaClass, newSel, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
-		else
-			method_exchangeImplementations(origMethod, newMethod);
-
-		objc_setAssociatedObject(self, &didSwizzleKey, (void *) kCFBooleanTrue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
 	
 	[[self a2_propertyMapForProtocol: protocol] addEntriesFromDictionary: dictionary];
 }
