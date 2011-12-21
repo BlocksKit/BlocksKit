@@ -401,7 +401,11 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 }
 
 - (void)setSuccessBlock:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block {
-	[[self.dynamicDelegate handlers] setObject:block forKey:kSuccessBlockKey];
+	if (block)
+		[[self.dynamicDelegate handlers] setObject:block forKey:kSuccessBlockKey];
+	else
+		[[self.dynamicDelegate handlers] removeObjectForKey:kSuccessBlockKey];
+	
 }
 
 - (void(^)(CGFloat))uploadBlock {
@@ -409,7 +413,10 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 }
 
 - (void)setUploadBlock:(void(^)(CGFloat))block {
-	[[self.dynamicDelegate handlers] setObject:block forKey:kUploadBlockKey];
+	if (block)
+		[[self.dynamicDelegate handlers] setObject:block forKey:kUploadBlockKey];
+	else
+		[[self.dynamicDelegate handlers] removeObjectForKey:kUploadBlockKey];
 }
 
 - (void(^)(CGFloat))downloadBlock {
@@ -417,7 +424,10 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 }
 
 - (void)setDownloadBlock:(void(^)(CGFloat))block {
-	[[self.dynamicDelegate handlers] setObject:block forKey:kDownloadBlockKey];
+	if (block)
+		[[self.dynamicDelegate handlers] setObject:block forKey:kDownloadBlockKey];
+	else
+		[[self.dynamicDelegate handlers] removeObjectForKey:kDownloadBlockKey];
 }
 
 @end
