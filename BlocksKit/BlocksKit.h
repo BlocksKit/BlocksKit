@@ -24,20 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import <dispatch/dispatch.h>
-
 #import "BKGlobals.h"
-
-#if BK_HAS_UIKIT
-#import <UIKit/UIKit.h>
-#endif
-
-#if BK_HAS_APPKIT
-#import <Cocoa/Cocoa.h>
-#endif
-
-#import "BKMacros.h"
 
 #import "NSObject+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"

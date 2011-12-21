@@ -6,12 +6,10 @@
 //  Copyright (c) 2011 Dizzy Technology. All rights reserved.
 //
 
-#import <objc/message.h>
-#import <objc/runtime.h>
-
 #import "A2BlockDelegate+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
-#import "NSObject+BlocksKit.h"
+#import <objc/message.h>
+#import <objc/runtime.h>
 
 extern void *A2BlockDelegateProtocolsKey;
 extern void *A2BlockDelegateMapKey;

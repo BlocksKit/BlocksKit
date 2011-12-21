@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Dizzy Technology. All rights reserved.
 //
 
-#import "A2BlockDelegate.h"
+#import "BKGlobals.h"
 
 @interface NSObject (A2BlockDelegateBlocksKit)
 
