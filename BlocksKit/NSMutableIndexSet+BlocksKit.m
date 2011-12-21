@@ -38,15 +38,14 @@
 - (void)performMap:(BKIndexTransformBlock)block {
 	NSParameterAssert(block != nil);
 	
-	
-	NSMutableIndexSet *new = BK_AUTORELEASE([self mutableCopy]);
+	NSMutableIndexSet *new = [self mutableCopy];
 	
 	[self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
 		[new addIndex:block(idx)];
 	}];
 	
 	[self removeAllIndexes];
-	[self addIndexes:new];
+	[self addIndexes:[new autorelease]];
 }
 
 @end

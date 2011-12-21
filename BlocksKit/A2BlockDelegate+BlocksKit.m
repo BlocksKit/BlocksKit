@@ -215,7 +215,7 @@ static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 	NSMutableArray *keys = [[propertyMap allKeysForObject: protocol] mutableCopy];
 	[keys removeObject: NSStringFromSelector(_cmd)];
 	SEL getter = NSSelectorFromString([keys lastObject]);
-	BK_RELEASE(keys);
+	[keys release];
 	
 	if ([self respondsToSelector:a2_setter]) {
 		id originalDelegate = [self performSelector:getter];

@@ -36,7 +36,7 @@
 - (void)performMap:(BKTransformBlock)block {
 	NSParameterAssert(block != nil);
 
-	NSMutableArray *new = BK_AUTORELEASE([self mutableCopy]);
+	NSMutableArray *new = [self mutableCopy];
 	
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		id value = block(obj);
@@ -50,7 +50,7 @@
 		[new replaceObjectAtIndex:idx withObject:value];
 	}];
 	
-	[self setArray:new];
+	[self setArray:[new autorelease]];
 }
 
 @end

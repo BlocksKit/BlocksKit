@@ -29,22 +29,19 @@ static char kBlockObservationContext;
 	instance.observee = observee;
 	instance.keyPath = newKeyPath;
 	instance.task = newTask;
-	return BK_AUTORELEASE(instance);
+	return [instance autorelease];
 }
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	BKObservationBlock block = self.task;
-	if (self.task && context == &kBlockObservationContext)
-		block(object, change);
+	if (context == &kBlockObservationContext)
+		self.task(object, change);
 }
 
-#if BK_SHOULD_DEALLOC
 - (void)dealloc {
 	self.task = nil;
 	self.keyPath = nil;
 	[super dealloc];
 }
-#endif
 
 @end
 

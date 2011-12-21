@@ -34,7 +34,6 @@
 
 typedef void (^BKGestureRecognizerBlock)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location);
 typedef void (^BKTouchBlock)(NSSet* set, UIEvent* event);
-
 #endif
 
 typedef void (^BKBlock)(void); // compatible with dispatch_block_t
@@ -56,23 +55,3 @@ typedef id (^BKKeyValueTransformBlock)(id key, id obj);
 typedef id (^BKAccumulationBlock)(id sum, id obj);
 
 typedef NSUInteger (^BKIndexTransformBlock)(NSUInteger index);
-
-#ifndef __has_feature
-	#define __has_feature(x) 0
-#endif
-
-#if __has_feature(objc_arc)
-	#define BK_AUTORELEASE(o) o
-	#define BK_SHOULD_DEALLOC 0
-	#define BK_RELEASE(o)
-	#define BK_SET_RETAINED(var, val) var = val
-#else
-	#define BK_AUTORELEASE(o) [o autorelease]
-	#define BK_SHOULD_DEALLOC 1
-	#define BK_RELEASE(o) [o release]
-	#define BK_SET_RETAINED(var, val) \
-		do { \
-			[var autorelease]; \
-			var = [val retain]; \
-		} while (0)
-#endif

@@ -152,7 +152,7 @@
 }
 
 + (id)alertViewWithTitle:(NSString *)title message:(NSString *)message {
-	return BK_AUTORELEASE([[UIAlertView alloc] initWithTitle:title message:message]);
+	return [[[UIAlertView alloc] initWithTitle:title message:message] autorelease];
 }
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message {

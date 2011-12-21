@@ -36,17 +36,13 @@ static char kControlHandlersKey;
 }
 
 - (void)invoke:(id)sender {
-	BKSenderBlock block = self.handler;
-	if (block)
-		block(sender);
+	self.handler(sender);
 }
 
-#if BK_SHOULD_DEALLOC
 - (void)dealloc {
 	self.handler = nil;
 	[super dealloc];
 }
-#endif
 
 @end
 
@@ -73,7 +69,7 @@ static char kControlHandlersKey;
 	BKControlWrapper *target = [[BKControlWrapper alloc] initWithHandler:handler forControlEvents:controlEvents];
 	[handlers addObject:target];
 	[self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
-	BK_RELEASE(target);
+	[target release];
 }
 
 - (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents {

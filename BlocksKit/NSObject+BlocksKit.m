@@ -29,7 +29,7 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 		wrapper(NO);
 	});
 	
-	return BK_AUTORELEASE([wrapper copy]);
+	return [[wrapper copy] autorelease];
 }
 
 + (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay {
@@ -47,7 +47,7 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 	
 	dispatch_after(BKTimeDelay(delay), dispatch_get_main_queue(), ^{ wrapper(NO); });
 	
-	return BK_AUTORELEASE([wrapper copy]);
+	return [[wrapper copy] autorelease];
 }
 
 + (void)cancelBlock:(id)block {

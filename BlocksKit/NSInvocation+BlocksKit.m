@@ -21,7 +21,7 @@
 + (BKInvocationGrabber *)grabberWithTarget:(id)target {
 	BKInvocationGrabber *instance = [BKInvocationGrabber alloc];
 	instance.target = target;
-	return BK_AUTORELEASE(instance);
+	return [instance autorelease];
 }
 
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)selector_ {
@@ -33,13 +33,11 @@
 	self.invocation = invocation_;
 }
 
-#if BK_SHOULD_DEALLOC
 - (void)dealloc {
 	self.target = nil;
 	self.invocation = nil;
 	[super dealloc];
 }
-#endif
 
 @end
 

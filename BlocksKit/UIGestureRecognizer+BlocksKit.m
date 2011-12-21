@@ -19,7 +19,7 @@ static char kGestureRecognizerCancelKey;
 @implementation UIGestureRecognizer (BlocksKit)
 
 + (id)recognizerWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay {
-	return BK_AUTORELEASE([[[self class] alloc] initWithHandler:block delay:delay]);
+	return [[[[self class] alloc] initWithHandler:block delay:delay] autorelease];
 }
 
 - (id)initWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay {

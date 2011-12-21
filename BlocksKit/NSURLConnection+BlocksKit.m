@@ -365,7 +365,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 #pragma mark Initializers
 
 + (NSURLConnection*)connectionWithRequest:(NSURLRequest *)request {
-	return BK_AUTORELEASE([[[self class] alloc] initWithRequest:request]);
+	return [[[[self class] alloc] initWithRequest:request] autorelease];
 }
 
 + (NSURLConnection *)startConnectionWithRequest:(NSURLRequest *)request successHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))success failureHandler:(void(^)(NSURLConnection *, NSError *))failure {
@@ -373,7 +373,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	connection.successBlock = success;
 	connection.failureBlock = failure;
 	[connection start];
-	return BK_AUTORELEASE(connection);
+	return [connection autorelease];
 }
 
 - (id)initWithRequest:(NSURLRequest *)request {

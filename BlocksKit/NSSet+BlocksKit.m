@@ -74,20 +74,21 @@
 		[result addObject:value];
 	}];
 
-	return BK_AUTORELEASE(result);
+	return [result autorelease];
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	__block id result = nil;
-	BK_SET_RETAINED(result, initial);
+	__block id result = [initial retain];
 	
 	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-		BK_SET_RETAINED(result, block(result, obj));
+		id new = block(result, obj);
+		[result release];
+		result = [new retain];
 	}];
 	
-	return BK_AUTORELEASE(result);
+	return [result autorelease];
 }
 
 @end
