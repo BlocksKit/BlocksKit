@@ -26,7 +26,7 @@
 }
 
 - (void)testAddButtonWithHandler {
-	__block NSUInteger total = 0;
+	__block NSInteger total = 0;
 
 	NSInteger index1 = [_subject addButtonWithTitle:@"Button 1" handler:^{ total++; }];
 	NSInteger index2 = [_subject addButtonWithTitle:@"Button 2" handler:^{ total += 2; }];
@@ -71,7 +71,7 @@
 	NSString *title = [_subject buttonTitleAtIndex:index];
 	GHAssertEqualStrings(title,@"Cancel",@"the UIActionSheet adds a button with title %@",title);
 	
-	[_subject.delegate actionSheet:_subject clickedButtonAtIndex:index];
+	[_subject.delegate actionSheetCancel:_subject];
 	
 	GHAssertTrue(blockCalled, @"Block handler was not called.");
 }
