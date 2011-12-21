@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'BlocksKit'
-  s.version  = '0.9.5'
+  s.version  = '1.0'
   s.summary  = 'The Objective-C block utilities you always wish you had.'
   s.homepage = 'https://github.com/zwaldowski/BlocksKit'
   s.author   = { 'Zachary Waldowski' => 'zwaldowski@gmail.com' }
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.source_files = 'BlocksKit'
   s.dependency = 'A2DynamicDelegate'
   s.frameworks = 'MessageUI'
-  s.requires_arc = true
+  s.requires_arc = false
   s.clean_paths = 'BlocksKit.xcodeproj/', 'GHUnitIOS.framework/', 'Tests/', '.gitignore'
   def s.post_install(target)
     prefix_header = config.project_pods_root + target.prefix_header_filename
