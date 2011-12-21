@@ -8,7 +8,6 @@
 
 #import <objc/message.h>
 #import <objc/runtime.h>
-#import <pthread.h>
 
 #import "A2DynamicDelegate.h"
 
@@ -25,6 +24,8 @@
 
 void *A2DynamicDelegateBlockMapKey;
 void *A2DynamicDelegateProtocolKey;
+
+static dispatch_queue_t backgroundQueue = nil;
 
 static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
 static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value);
@@ -107,19 +108,11 @@ static void *BlockGetImplementation(id block);
 	// Get cluster name, e.g. "A2DynamicUIAlertViewDelegate"
 	NSString *clusterName = [NSString stringWithFormat: @"A2Dynamic%@", NSStringFromProtocol(protocol)];
 	
-	// Lock mutex
-	static pthread_mutex_t clusterMtx = PTHREAD_MUTEX_INITIALIZER;
-	pthread_mutex_lock(&clusterMtx);
-	
 	// Get cluster subclass
 	Class cluster = NSClassFromString(clusterName);
 	if (cluster)
 	{
 		NSAlwaysAssert(class_getSuperclass(cluster) == [A2DynamicDelegate class], @"Dynamic delegate cluster subclass %@ must be subclass of A2DynamicDelegate", clusterName);
-
-		// Unlock mutex
-		pthread_mutex_unlock(&clusterMtx);
-		
 		return cluster;
 	}
 	
@@ -129,9 +122,6 @@ static void *BlockGetImplementation(id block);
 	
 	// And register it
 	objc_registerClassPair(cluster);
-	
-	// Unlock mutex
-	pthread_mutex_unlock(&clusterMtx);
 	
 	return cluster;
 }
@@ -175,6 +165,10 @@ static void *BlockGetImplementation(id block);
 	
 	// Dispose of unique A2DynamicDelegate subclass.
 	objc_disposeClassPair(self.class);
+}
++ (void) load
+{
+	backgroundQueue = dispatch_queue_create("us.pandamonia.A2DynamicDelegate.backgroundQueue", DISPATCH_QUEUE_SERIAL);
 }
 
 #pragma mark - Block Map
@@ -299,9 +293,7 @@ static void *BlockGetImplementation(id block);
 }
 + (void) setProtocol: (Protocol *) protocol
 {
-	Protocol *existing = objc_getAssociatedObject(self, &A2DynamicDelegateProtocolKey);
-	if (protocol_isEqual(protocol, existing))
-		return;
+	Protocol *existing = [self protocol];
 	NSAlwaysAssert(!existing && protocol, @"A2DynamicDelegate protocol may only be set once");
 	
 	objc_setAssociatedObject(self, &A2DynamicDelegateProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
@@ -452,13 +444,17 @@ static void *BlockGetImplementation(id block);
 	 * delegate's lifetime is at least as long as that of the delegating object.
 	 **/
 	
-	id dynamicDelegate = objc_getAssociatedObject(self, protocol);
-
-	if (!dynamicDelegate)
-	{
-		dynamicDelegate = [A2DynamicDelegate dynamicDelegateForProtocol: protocol];
-		objc_setAssociatedObject(self, protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
+	__block id dynamicDelegate;
+	
+	dispatch_sync(backgroundQueue, ^{
+		dynamicDelegate = objc_getAssociatedObject(self, protocol);
+		
+		if (!dynamicDelegate)
+		{
+			dynamicDelegate = [A2DynamicDelegate dynamicDelegateForProtocol: protocol];
+			objc_setAssociatedObject(self, protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		}
+	});
 	
 	return dynamicDelegate;
 }
