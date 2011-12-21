@@ -6,35 +6,26 @@
 #import "NSDictionaryBlocksKitTest.h"
 
 
-@implementation NSDictionaryBlocksKitTest
-
-- (BOOL)shouldRunOnMainThread {
-  // By default NO, but if you have a UI test or test dependent on running on the main thread return YES
-  return NO;
+@implementation NSDictionaryBlocksKitTest {
+	NSDictionary *_subject;
+	NSInteger _total;
 }
 
 - (void)setUpClass {
-	// Run at start of all tests in the class
-	_subject = [NSDictionary dictionaryWithObjectsAndKeys:
+	_subject = [[NSDictionary alloc] initWithObjectsAndKeys:
 		[NSNumber numberWithInteger:1],@"1",
 		[NSNumber numberWithInteger:2],@"2",
 		[NSNumber numberWithInteger:3],@"3",
-		nil
-	];
+		nil];
 }
 
 - (void)tearDownClass {
-  // Run at end of all tests in the class
+	[_subject release];
 }
 
 - (void)setUp {
-  // Run before each test method
   _total = 0;
-}
-
-- (void)tearDown {
-  // Run after each test method
-}  
+} 
 
 - (void)testEach {
 	BKKeyValueBlock keyValueBlock = ^(id key,id value) {

@@ -6,8 +6,7 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface NSObjectAssociatedObjectTest : GHTestCase {
-}
+@interface NSObjectAssociatedObjectTest : GHTestCase
 
 - (void)testAssociatedRetainValue;
 - (void)testAssociatedCopyValue;

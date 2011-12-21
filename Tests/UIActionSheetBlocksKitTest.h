@@ -6,10 +6,7 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface UIActionSheetBlocksKitTest : GHTestCase {
-	UIActionSheet *_subject;
-}
-@property (nonatomic,retain) UIActionSheet *subject;
+@interface UIActionSheetBlocksKitTest : GHTestCase
 
 - (void)testInit;
 - (void)testAddButtonWithHandler;

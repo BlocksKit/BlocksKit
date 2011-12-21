@@ -5,35 +5,18 @@
 
 #import "NSMutableArrayBlocksKitTest.h"
 
-@implementation NSMutableArrayBlocksKitTest
-@synthesize subject=_subject;
-
-- (void)dealloc {
-	[_subject release];
-	[super dealloc];
-}
-
-- (BOOL)shouldRunOnMainThread {
-  // By default NO, but if you have a UI test or test dependent on running on the main thread return YES
-  return NO;
-}
-
-- (void)setUpClass {
-	// Run at start of all tests in the class
-}
-
-- (void)tearDownClass {
-  // Run at end of all tests in the class
+@implementation NSMutableArrayBlocksKitTest {
+	NSMutableArray *_subject;
+	NSInteger _total;
 }
 
 - (void)setUp {
-	// Run before each test method
-	_subject = [NSMutableArray arrayWithObjects:@"1",@"22",@"333",nil];
+	_subject = [[NSMutableArray alloc] initWithObjects:@"1",@"22",@"333",nil];
 	_total = 0;
 }
 
 - (void)tearDown {
-  // Run after each test method
+	[_subject release];
 }  
 
 - (void)testSelect {

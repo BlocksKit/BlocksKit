@@ -6,28 +6,12 @@
 #import "NSInvocationBlocksKitTest.h"
 
 
-@implementation NSInvocationBlocksKitTest
-
-- (BOOL)shouldRunOnMainThread {
-  // By default NO, but if you have a UI test or test dependent on running on the main thread return YES
-  return NO;
-}
-
-- (void)setUpClass {
-	// Run at start of all tests in the class
-}
-
-- (void)tearDownClass {
-	// Run at end of all tests in the class
+@implementation NSInvocationBlocksKitTest {
+	NSInteger _total;	
 }
 
 - (void)setUp {
-	// Run before each test method
 	_total = 0;
-}
-
-- (void)tearDown {
-	// Run after each test method
 }
 
 - (void)action {
@@ -35,8 +19,8 @@
 }
 
 - (void)testBlockInvocation {
-	BKSenderBlock senderBlock = ^(id sender) {
-		[(NSInvocationBlocksKitTest *)sender action];
+	BKSenderBlock senderBlock = ^(NSInvocationBlocksKitTest * sender) {
+		[sender action];
 	};
 	NSInvocation *invocation = [NSInvocation invocationWithTarget:self block:senderBlock];
 	GHAssertNotNil(invocation,@"invocation is nil");

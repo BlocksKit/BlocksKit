@@ -6,10 +6,7 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface NSDictionaryBlocksKitTest : GHTestCase {
-	NSDictionary *_subject;
-	NSInteger _total;
-}
+@interface NSDictionaryBlocksKitTest : GHTestCase
 
 - (void)testEach;
 - (void)testSelect;

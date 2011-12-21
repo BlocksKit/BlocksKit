@@ -6,9 +6,7 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface MFMailComposeViewControllerBlocksKitTest : GHTestCase
-
-@property (nonatomic, retain) MFMailComposeViewController *subject;
+@interface MFMailComposeViewControllerBlocksKitTest : GHTestCase <MFMailComposeViewControllerDelegate>
 
 - (void)testCompletionBlock;
 

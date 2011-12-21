@@ -11,49 +11,46 @@
 
 #define OBJECT_COUNT 300
 
-@interface NSCacheBlocksKitTest () <NSCacheDelegate>
-@property (nonatomic) NSInteger total;
-@end
-
-@implementation NSCacheBlocksKitTest
-
-@synthesize subject, total;
+@implementation NSCacheBlocksKitTest  {
+	NSCache *_subject;
+	NSInteger _total;
+}
 
 - (void)setUp {
-    self.subject = [[[NSCache alloc] init] autorelease];
+    _subject = [NSCache new];
 }
 
 - (void)tearDown {
-	self.subject = nil;
+	[_subject release];
 }
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
-	self.total--;
+	_total--;
 }
 
 - (void)testDelegate {
-	self.subject.delegate = self;
-	self.total = 2;
-	self.subject.willEvictBlock = ^(NSCache *cache, id obj){
-        self.total--;
+	_subject.delegate = self;
+	_total = 2;
+	_subject.willEvictBlock = ^(NSCache *cache, id obj){
+        _total--;
     };
-	[self.subject.delegate cache:self.subject willEvictObject:nil];
-	GHAssertEquals(self.total, 0, @"The delegates should have been called!");
+	[_subject.delegate cache:_subject willEvictObject:nil];
+	GHAssertEquals(_total, 0, @"The delegates should have been called!");
 }
 
 - (void)testEvictionDelegate {
-    self.subject.willEvictBlock = ^(NSCache *cache, id obj){
-        self.total--;
+    _subject.willEvictBlock = ^(NSCache *cache, id obj){
+        _total--;
     };
 	
-	self.total = OBJECT_COUNT;
+	_total = OBJECT_COUNT;
 	
 	@autoreleasepool {
 		for (NSInteger i = 0; i < OBJECT_COUNT; i++) {
 			NSString *string = [NSString stringWithFormat:@"%i", i];
 			NSPurgeableData *obj = [NSPurgeableData dataWithBytes:string.UTF8String length:string.length];
 			NSIndexPath *key = [NSIndexPath indexPathWithIndex:i];
-			[self.subject setObject:obj forKey:key];
+			[_subject setObject:obj forKey:key];
 		}
 	}
 	
@@ -71,12 +68,11 @@
 	NSInteger count = 0;
 	for (NSInteger i = 0; i < OBJECT_COUNT; i++) {
 		NSIndexPath *key = [NSIndexPath indexPathWithIndex:i];
-		if ([self.subject objectForKey: key]) count++;
+		if ([_subject objectForKey: key]) count++;
 	}
-	
-    GHAssertEquals(self.total, count, @"The cache should have been emptied!");
+    GHAssertEquals(_total, count, @"The cache should have been emptied!");
     [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testEvictionDelegate)];
-    self.subject.willEvictBlock = nil;
+    _subject.willEvictBlock = nil;
 }
 
 @end

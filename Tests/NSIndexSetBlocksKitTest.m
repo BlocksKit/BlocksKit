@@ -6,30 +6,21 @@
 #import "NSIndexSetBlocksKitTest.h"
 
 
-@implementation NSIndexSetBlocksKitTest
-
-- (BOOL)shouldRunOnMainThread {
-  // By default NO, but if you have a UI test or test dependent on running on the main thread return YES
-  return NO;
+@implementation NSIndexSetBlocksKitTest {
+	NSIndexSet *_subject;
+	NSMutableArray  *_target;
 }
 
 - (void)setUpClass {
-	// Run at start of all tests in the class
-	NSRange r = {1,3};//1,2,3
-	_subject = [NSIndexSet indexSetWithIndexesInRange:r];
+	_subject = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(1, 3)];
 }
 
 - (void)tearDownClass {
-  // Run at end of all tests in the class
+	[_target release];
 }
 
 - (void)setUp {
-	// Run before each test method
-	_target = [NSMutableArray arrayWithObjects:@"0",@"0",@"0",@"0",nil];
-}
-
-- (void)tearDown {
-  // Run after each test method
+	_target = [[NSMutableArray alloc] initWithObjects:@"0",@"0",@"0",@"0",nil];
 }
 
 - (void)testEach {

@@ -4,22 +4,21 @@
 
 #import "MFMessageComposeViewControllerBlocksKitTest.h"
 
-@interface MFMessageComposeViewControllerBlocksKitTest() <MFMessageComposeViewControllerDelegate> {
-	BOOL delegateWorked;
-}
+@interface MFMessageComposeViewControllerBlocksKitTest()  
 
 @end
 
-@implementation MFMessageComposeViewControllerBlocksKitTest
-
-@synthesize subject;
-
-- (void)setUp {
-	self.subject = [[[MFMessageComposeViewController alloc] init] autorelease];
+@implementation MFMessageComposeViewControllerBlocksKitTest {
+	MFMessageComposeViewController *_subject;
+	BOOL delegateWorked;
 }
 
-- (void)tearDownClass {
-	self.subject = nil;
+- (void)setUp {
+	_subject = [MFMessageComposeViewController new];
+}
+
+- (void)tearDown {
+	[_subject release];
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
@@ -32,11 +31,11 @@
 	
 	delegateWorked = NO;
 	__block BOOL blockWorked = NO;
-	self.subject.messageComposeDelegate = self;
-	[self.subject setCompletionBlock:^(MFMessageComposeViewController *controller, MessageComposeResult result){
+	_subject.messageComposeDelegate = self;
+	_subject.completionBlock = ^(MFMessageComposeViewController *controller, MessageComposeResult result){
 		blockWorked = YES;
-	}];
-	[self.subject.messageComposeDelegate messageComposeViewController:self.subject didFinishWithResult:MessageComposeResultSent];
+	};
+	[_subject.messageComposeDelegate messageComposeViewController:_subject didFinishWithResult:MessageComposeResultSent];
 	GHAssertTrue(delegateWorked, @"Delegate method not called.");
 	GHAssertTrue(blockWorked, @"Block handler not called.");
 }

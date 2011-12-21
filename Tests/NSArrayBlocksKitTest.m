@@ -5,30 +5,22 @@
 
 #import "NSArrayBlocksKitTest.h"
 
-@implementation NSArrayBlocksKitTest
-
-- (BOOL)shouldRunOnMainThread {
-  // By default NO, but if you have a UI test or test dependent on running on the main thread return YES
-  return NO;
+@implementation NSArrayBlocksKitTest {
+	NSArray *_subject;
+	NSInteger _total;
 }
 
 - (void)setUpClass {
-	// Run at start of all tests in the class
-	_subject = [NSArray arrayWithObjects:@"1",@"22",@"333",nil];
+	_subject = [[NSArray alloc] initWithObjects:@"1",@"22",@"333",nil];
 }
 
 - (void)tearDownClass {
-  // Run at end of all tests in the class
+	[_subject release];
 }
 
 - (void)setUp {
-  // Run before each test method
-  _total = 0;
+	_total = 0;
 }
-
-- (void)tearDown {
-  // Run after each test method
-}  
 
 - (void)testEach {
 	BKSenderBlock senderBlock = ^(id sender) {

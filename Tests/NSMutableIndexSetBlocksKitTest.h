@@ -6,11 +6,7 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface NSMutableIndexSetBlocksKitTest : GHTestCase {
-	NSMutableIndexSet *_subject;
-	NSMutableArray  *_target;
-}
-@property (nonatomic,retain) NSMutableIndexSet *subject;
+@interface NSMutableIndexSetBlocksKitTest : GHTestCase
 
 - (void)testSelect;
 - (void)testSelectedNone;

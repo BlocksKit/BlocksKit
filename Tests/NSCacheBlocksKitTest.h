@@ -6,9 +6,7 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface NSCacheBlocksKitTest : GHAsyncTestCase
-
-@property (nonatomic, retain) NSCache *subject;
+@interface NSCacheBlocksKitTest : GHAsyncTestCase <NSCacheDelegate>
 
 - (void)testDelegate;
 - (void)testEvictionDelegate;

@@ -5,30 +5,21 @@
 
 #import "NSSetBlocksKitTest.h"
 
-
-@implementation NSSetBlocksKitTest
-
-- (BOOL)shouldRunOnMainThread {
-  // By default NO, but if you have a UI test or test dependent on running on the main thread return YES
-  return NO;
+@implementation NSSetBlocksKitTest {
+	NSSet *_subject;
+	NSInteger _total;
 }
 
 - (void)setUpClass {
-	// Run at start of all tests in the class
-	_subject = [NSSet setWithObjects:@"1",@"22",@"333",nil];
+	_subject = [[NSSet alloc] initWithObjects:@"1",@"22",@"333",nil];
 }
 
 - (void)tearDownClass {
-  // Run at end of all tests in the class
+	[_subject release];
 }
 
 - (void)setUp {
-	// Run before each test method
 	_total = 0;
-}
-
-- (void)tearDown {
-  // Run after each test method
 }
 
 - (void)testEach {

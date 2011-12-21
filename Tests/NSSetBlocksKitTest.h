@@ -6,10 +6,7 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface NSSetBlocksKitTest : GHTestCase {
-	NSSet *_subject;
-	NSInteger _total;
-}
+@interface NSSetBlocksKitTest : GHTestCase
 
 - (void)testEach;
 - (void)testMatch;

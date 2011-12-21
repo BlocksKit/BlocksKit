@@ -6,12 +6,7 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@class SubjectKVCAndKVO;
-@interface NSObjectBlockObservationTest : GHTestCase {
-	SubjectKVCAndKVO *_subject; 
-	NSInteger _total;
-}
-@property (nonatomic,retain) SubjectKVCAndKVO *subject;
+@interface NSObjectBlockObservationTest : GHTestCase
 
 - (void)testBoolKeyValueObservation;
 - (void)testNSNumberKeyValueObservation;

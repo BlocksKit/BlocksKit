@@ -6,10 +6,7 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
-@interface NSIndexSetBlocksKitTest : GHTestCase {
-	NSIndexSet *_subject;
-	NSMutableArray  *_target;
-}
+@interface NSIndexSetBlocksKitTest : GHTestCase
 
 - (void)testEach;
 - (void)testMatch;

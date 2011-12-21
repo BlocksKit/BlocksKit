@@ -5,22 +5,17 @@
 
 #import "MFMailComposeViewControllerBlocksKitTest.h"
 
-@interface MFMailComposeViewControllerBlocksKitTest() <MFMailComposeViewControllerDelegate> {
+@implementation MFMailComposeViewControllerBlocksKitTest {
+	MFMailComposeViewController *_subject;
 	BOOL delegateWorked;
 }
 
-@end
-
-@implementation MFMailComposeViewControllerBlocksKitTest
-
-@synthesize subject;
-
 - (void)setUp {
-	self.subject = [[[MFMailComposeViewController alloc] init] autorelease];
+	_subject = [MFMailComposeViewController new];
 }
 
-- (void)tearDownClass {
-	self.subject = nil;
+- (void)tearDown {
+	[_subject release];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -30,11 +25,11 @@
 - (void)testCompletionBlock {
 	delegateWorked = NO;
 	__block BOOL blockWorked = NO;
-	self.subject.mailComposeDelegate = self;
-	self.subject.completionBlock = ^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *err){
+	_subject.mailComposeDelegate = self;
+	_subject.completionBlock = ^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *err){
 		blockWorked = YES;
 	};
-	[self.subject.mailComposeDelegate mailComposeController:self.subject didFinishWithResult:MFMailComposeResultSent error:nil];
+	[_subject.mailComposeDelegate mailComposeController:_subject didFinishWithResult:MFMailComposeResultSent error:nil];
 	GHAssertTrue(delegateWorked, @"Delegate method not called.");
 	GHAssertTrue(blockWorked, @"Block handler not called.");
 }
