@@ -3,6 +3,7 @@
 //  BlocksKit
 //
 
+#import "NSArray+BlocksKit.h"
 #import "UIAlertView+BlocksKit.h"
 #import "A2BlockDelegate+BlocksKit.h"
 
@@ -121,16 +122,27 @@
 
 #pragma mark Convenience
 
-+ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonText handler:(BKBlock)block {
-	UIAlertView *alert = [UIAlertView alertViewWithTitle:title message:message];
-	if (!buttonText || !buttonText.length)
-		buttonText = NSLocalizedString(@"Dismiss", nil);
-	[alert addButtonWithTitle:buttonText];
-	if (block)
-		alert.didDismissBlock = ^(UIAlertView *alertView, NSInteger index){
-			block();
-		};
-	[alert show];
++ (void) showAlertViewWithTitle: (NSString *) title message: (NSString *) message cancelButtonTitle: (NSString *) cancelButtonTitle otherButtonTitles: (NSArray *) otherButtonTitles handler: (void (^)(UIAlertView *, NSInteger)) block
+{
+	UIAlertView *alertView = [UIAlertView alertViewWithTitle: title message: message];
+	
+	// If no buttons were specified, cancel button becomes "Dismiss"
+	if (!cancelButtonTitle.length && !otherButtonTitles.count)
+		cancelButtonTitle = NSLocalizedString(@"Dismiss", nil);
+	
+	// Set cancel button
+	alertView.cancelButtonIndex = [alertView addButtonWithTitle: cancelButtonTitle];
+	
+	// Set other buttons
+	[otherButtonTitles each: ^(NSString *button) {
+		[alertView addButtonWithTitle: button];
+	}];
+	
+	// Set `didDismissBlock`
+	if (block) alertView.didDismissBlock = block;
+	
+	// Show alert view
+	[alertView show];
 }
 
 #pragma mark Initializers
