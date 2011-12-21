@@ -97,9 +97,6 @@ static void *BlockGetImplementation(id block);
 	// Register class
 	objc_registerClassPair(cls);
 	
-	// Set protocol and add properties
-	cls.protocol = protocol;
-	
 	return [[cls new] autorelease];
 }
 
@@ -113,6 +110,10 @@ static void *BlockGetImplementation(id block);
 	if (cluster)
 	{
 		NSAlwaysAssert(class_getSuperclass(cluster) == [A2DynamicDelegate class], @"Dynamic delegate cluster subclass %@ must be subclass of A2DynamicDelegate", clusterName);
+		
+		// Set protocol and add properties
+		cluster.protocol = protocol;
+		
 		return cluster;
 	}
 	
@@ -120,6 +121,9 @@ static void *BlockGetImplementation(id block);
 	cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
 	NSAlwaysAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
 	
+	// Set protocol and add properties
+	cluster.protocol = protocol;
+
 	// And register it
 	objc_registerClassPair(cluster);
 	
@@ -289,17 +293,29 @@ static void *BlockGetImplementation(id block);
 
 + (Protocol *) protocol
 {
-	return objc_getAssociatedObject(self, &A2DynamicDelegateProtocolKey);
+	Class class = self;
+	while (class.superclass != [A2DynamicDelegate class]) class = class.superclass;
+	if (!class) return nil;
+	
+	return objc_getAssociatedObject(class, &A2DynamicDelegateProtocolKey);
 }
 + (void) setProtocol: (Protocol *) protocol
 {
-	Protocol *existing = [self protocol];
-	NSAlwaysAssert(!existing && protocol, @"A2DynamicDelegate protocol may only be set once");
+	Class class = self;
+	while (class.superclass != [A2DynamicDelegate class]) class = class.superclass;
+	if (!class) return;
 	
-	objc_setAssociatedObject(self, &A2DynamicDelegateProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
+	// If protocol is already set, return
+	if ([self protocol]) return;
 	
-	BOOL success = class_addProtocol(self.class, protocol);
-	NSAlwaysAssert(success, @"Protocol <%s> could not be added to %@", protocol_getName(protocol), self);
+	objc_setAssociatedObject(class, &A2DynamicDelegateProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
+	
+	// Make class conform to protocol (if it doesn't already)
+	if (!class_conformsToProtocol(class, protocol))
+	{
+		BOOL success = class_addProtocol(class, protocol);
+		NSAlwaysAssert(success, @"Protocol <%s> could not be added to %@", protocol_getName(protocol), class);
+	}
 	
 	unsigned int i, count;
 	objc_property_t *properties = protocol_copyPropertyList(protocol, &count);
@@ -309,11 +325,22 @@ static void *BlockGetImplementation(id block);
 		objc_property_t property = properties[i];
 		
 		const char *name = property_getName(property);
+		
 		unsigned int attributeCount;
 		objc_property_attribute_t *attributes = property_copyAttributeList(property, &attributeCount);
 		
-		BOOL success = class_addProperty(self.class, name, attributes, attributeCount);
-		NSAlwaysAssert(success, @"Property \"%s\" could not be added to %@", name, self);
+		if (class_getProperty(class, name))
+		{
+			const char *attrStr = property_getAttributes(property);
+			const char *cAttrStr = property_getAttributes(class_getProperty(class, name));
+			
+			NSAlwaysAssert(strcmp(attrStr, cAttrStr) == 0, @"Property \"%s\" on class %s does not match declaration in protocol <%s>", name, class_getName(class), protocol_getName(protocol));
+		}
+		else
+		{
+			BOOL success = class_addProperty(class, name, attributes, attributeCount);
+			NSAlwaysAssert(success, @"Property \"%s\" could not be added to %@", name, class);
+		}
 		
 		free(attributes);
 	}
