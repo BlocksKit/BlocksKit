@@ -19,11 +19,11 @@ For the same reason that blocks are better than functions because they can take 
 
 ## Getting Started
 
-A2DynamicDelegate is made up of four files: _A2DynamicDelegate.h_, _A2DynamicDelegate.m_, _A2BlockDelegate.h_, and _A2BlockDelegate.m_.
+A2DynamicDelegate is made up of four files: _A2DynamicDelegate.{h,m}_ and _A2BlockDelegate.{h,m}_.
 
-For the sake of convenience, you can use `libA2DynamicDelegate.a` in place of the _.m_ files. This is useful for projects that use ARC because A2DynamicDelegate does not support it. (See below.)
+For the sake of convenience, you can build **iOS Library** target and use the `libA2DynamicDelegate.a` static library in place of the _.m_ source files. This is useful for projects that use ARC because A2DynamicDelegate does not support it. (See below.)
 
-1. Simply add them to your Xcode project.
+1. Copy the included files to your Xcode project.
 2. Implement protocol methods with blocks.
 3. (Optional) Look at how much simpler your code is.
 
