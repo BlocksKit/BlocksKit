@@ -6,12 +6,12 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/zwaldowski/BlocksKit'
   s.author   = { 'Zachary Waldowski' => 'zwaldowski@gmail.com',
                  'Alexsander Akers' => 'a2@pandamonia.us' }
-  s.source   = { :git => 'https://github.com/zwaldowski/BlocksKit.git', :tag => 'v0.9.5' }
-  s.source_files = 'BlocksKit'
+  s.source   = { :git => 'https://github.com/zwaldowski/BlocksKit.git', :tag => 'v1.0.0' }
+  s.source_files = 'BlocksKit/*.{h,m}'
   s.dependency = 'A2DynamicDelegate'
   s.frameworks = 'MessageUI'
   s.requires_arc = false
-  s.clean_paths = 'GHUnitIOS.framework/', 'Tests/'
+  s.clean_paths = 'GHUnitIOS.framework/', 'Tests/', 'BlocksKit.xcodeproj/', '.gitignore'
   def s.post_install(target)
     prefix_header = config.project_pods_root + target.prefix_header_filename
     prefix_header.open('a') do |file|
