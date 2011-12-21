@@ -4,13 +4,13 @@
 
 #import "MFMessageComposeViewControllerBlocksKitTest.h"
 
-@interface MFMessageComposeViewControllerBlocksKitTest()  
-
-@end
-
 @implementation MFMessageComposeViewControllerBlocksKitTest {
 	MFMessageComposeViewController *_subject;
 	BOOL delegateWorked;
+}
+
+- (BOOL)shouldRunOnMainThread {
+	return YES;
 }
 
 - (void)setUp {

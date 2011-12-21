@@ -10,6 +10,10 @@
 	BOOL delegateWorked;
 }
 
+- (BOOL)shouldRunOnMainThread {
+	return YES;
+}
+
 - (void)setUp {
 	_subject = [MFMailComposeViewController new];
 }

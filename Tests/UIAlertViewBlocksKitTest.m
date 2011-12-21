@@ -12,6 +12,10 @@
 	UIAlertView *_subject;
 }
 
+- (BOOL)shouldRunOnMainThread {
+	return YES;
+}
+
 - (void)setUp {
 	_subject = [[UIAlertView alloc] initWithTitle:@"Hello BlocksKit" message:@"This is a message."];
 }
