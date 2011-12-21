@@ -8,4 +8,8 @@
 
 @interface UIControlBlocksKitTest : GHTestCase
 
+- (void)testAddEventHandler;
+- (void)testHasEventHandler;
+- (void)testRemoveEventHandler;
+
 @end

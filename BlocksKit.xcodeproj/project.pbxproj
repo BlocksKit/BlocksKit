@@ -272,6 +272,7 @@
 		6CF5E05114A18F7700921C45 /* UIWebViewBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5E05014A18F7700921C45 /* UIWebViewBlocksKitTest.m */; };
 		6CF5E05514A1964F00921C45 /* UIViewBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5E05414A1964F00921C45 /* UIViewBlocksKitTest.m */; };
 		6CF5E05814A1986300921C45 /* UIControlBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5E05714A1986300921C45 /* UIControlBlocksKitTest.m */; };
+		6CF5E05B14A19AD900921C45 /* UIBarButtonItemBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5E05A14A19AD900921C45 /* UIBarButtonItemBlocksKitTest.m */; };
 		A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A92C9A6413F41E0A006DA96A /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
 		A97E4C9A13FD5AAB001BB376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9813FD5AAB001BB376 /* MessageUI.framework */; };
@@ -407,6 +408,8 @@
 		6CF5E05414A1964F00921C45 /* UIViewBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewBlocksKitTest.m; sourceTree = "<group>"; };
 		6CF5E05614A1986200921C45 /* UIControlBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIControlBlocksKitTest.h; sourceTree = "<group>"; };
 		6CF5E05714A1986300921C45 /* UIControlBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIControlBlocksKitTest.m; sourceTree = "<group>"; };
+		6CF5E05914A19AD900921C45 /* UIBarButtonItemBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBarButtonItemBlocksKitTest.h; sourceTree = "<group>"; };
+		6CF5E05A14A19AD900921C45 /* UIBarButtonItemBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBarButtonItemBlocksKitTest.m; sourceTree = "<group>"; };
 		A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
 		A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BlocksKit.m"; sourceTree = "<group>"; };
 		A97E4C9813FD5AAB001BB376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -507,20 +510,22 @@
 				6037A12813C1B2AE00CB847A /* NSSetBlocksKitTest.m */,
 				600986F913C2A2B700A8887E /* NSTimerBlocksKitTest.h */,
 				600986FA13C2A2B700A8887E /* NSTimerBlocksKitTest.m */,
+				6C29B63514A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.h */,
+				6C29B63614A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.m */,
+				6C29B63914A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.h */,
+				6C29B63A14A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.m */,
 				60698AF713C55EF700E58FD8 /* UIActionSheetBlocksKitTest.h */,
 				60698AF813C55EF700E58FD8 /* UIActionSheetBlocksKitTest.m */,
 				6C29B64014A150900050964D /* UIAlertViewBlocksKitTest.h */,
 				6C29B64114A150900050964D /* UIAlertViewBlocksKitTest.m */,
+				6CF5E05914A19AD900921C45 /* UIBarButtonItemBlocksKitTest.h */,
+				6CF5E05A14A19AD900921C45 /* UIBarButtonItemBlocksKitTest.m */,
 				6CF5E05614A1986200921C45 /* UIControlBlocksKitTest.h */,
 				6CF5E05714A1986300921C45 /* UIControlBlocksKitTest.m */,
 				6CF5E05314A1964F00921C45 /* UIViewBlocksKitTest.h */,
 				6CF5E05414A1964F00921C45 /* UIViewBlocksKitTest.m */,
 				6CF5E04F14A18F7700921C45 /* UIWebViewBlocksKitTest.h */,
 				6CF5E05014A18F7700921C45 /* UIWebViewBlocksKitTest.m */,
-				6C29B63514A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.h */,
-				6C29B63614A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.m */,
-				6C29B63914A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.h */,
-				6C29B63A14A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.m */,
 				60FF000F13C023CB004A1394 /* Supporting Files */,
 			);
 			path = Tests;
@@ -1070,6 +1075,7 @@
 				6CF5E05114A18F7700921C45 /* UIWebViewBlocksKitTest.m in Sources */,
 				6CF5E05514A1964F00921C45 /* UIViewBlocksKitTest.m in Sources */,
 				6CF5E05814A1986300921C45 /* UIControlBlocksKitTest.m in Sources */,
+				6CF5E05B14A19AD900921C45 /* UIBarButtonItemBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
