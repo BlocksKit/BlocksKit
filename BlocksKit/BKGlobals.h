@@ -3,8 +3,6 @@
 //  %PROJECT
 //
 
-#pragma once
-
 #import <dispatch/dispatch.h>
 #import <Foundation/Foundation.h>
 
