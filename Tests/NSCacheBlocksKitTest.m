@@ -59,9 +59,9 @@
     
     [self prepare];
     
-    [self performSelector:@selector(_succeed) withObject:nil afterDelay:4];
+    [self performSelector:@selector(_succeed) withObject:nil afterDelay:1];
     
-    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:10.0];
+    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:5];
 }
 
 - (void)_succeed {
@@ -70,6 +70,7 @@
 		NSIndexPath *key = [NSIndexPath indexPathWithIndex:i];
 		if ([_subject objectForKey: key]) count++;
 	}
+	GHAssertLessThan(_total, OBJECT_COUNT, @"The cache should have been emptied!");
     GHAssertEquals(_total, count, @"The cache should have been emptied!");
     [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testEvictionDelegate)];
     _subject.willEvictBlock = nil;
