@@ -10,7 +10,7 @@
 }
 
 - (void)setUp {
-	_subject = [UIActionSheet actionSheetWithTitle:@"Hello BlocksKit"];
+	_subject = [[UIActionSheet alloc] initWithTitle:@"Hello BlocksKit"];
 }
 
 - (void)tearDown {

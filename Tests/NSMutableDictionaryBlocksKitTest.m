@@ -12,7 +12,7 @@
 }
 
 - (void)setUp {
-	_subject = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+	_subject = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
 		[NSNumber numberWithInteger:1],@"1",
 		[NSNumber numberWithInteger:2],@"2",
 		[NSNumber numberWithInteger:3],@"3",

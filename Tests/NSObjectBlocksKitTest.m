@@ -10,7 +10,7 @@
 }
 
 - (void)setUp {
-	_subject = [NSMutableString stringWithString:@"Hello "];
+	_subject = [[NSMutableString alloc] initWithString:@"Hello "];
 }
 
 - (void)tearDown {
