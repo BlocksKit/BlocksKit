@@ -1297,11 +1297,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"ARCHS[sdk=iphoneos*]" = (
+				ARCHS = (
 					armv6,
 					armv7,
 				);
-				"ARCHS[sdk=iphonesimulator*]" = i386;
 				"ARCHS[sdk=macosx*]" = x86_64;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1327,11 +1326,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"ARCHS[sdk=iphoneos*]" = (
+				ARCHS = (
 					armv6,
 					armv7,
 				);
-				"ARCHS[sdk=iphonesimulator*]" = i386;
 				"ARCHS[sdk=macosx*]" = x86_64;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
