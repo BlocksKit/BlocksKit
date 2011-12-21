@@ -269,6 +269,7 @@
 		6CC56DFA1386A48900925FDC /* UIWebView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC56DFB1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
 		6CC56DFC1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
+		6CF5E05114A18F7700921C45 /* UIWebViewBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5E05014A18F7700921C45 /* UIWebViewBlocksKitTest.m */; };
 		A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A92C9A6413F41E0A006DA96A /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
 		A97E4C9A13FD5AAB001BB376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9813FD5AAB001BB376 /* MessageUI.framework */; };
@@ -398,6 +399,8 @@
 		6CC40AA71447BBCF00E47595 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+BlocksKit.h"; sourceTree = "<group>"; };
 		6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+BlocksKit.m"; sourceTree = "<group>"; };
+		6CF5E04F14A18F7700921C45 /* UIWebViewBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebViewBlocksKitTest.h; sourceTree = "<group>"; };
+		6CF5E05014A18F7700921C45 /* UIWebViewBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebViewBlocksKitTest.m; sourceTree = "<group>"; };
 		A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
 		A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BlocksKit.m"; sourceTree = "<group>"; };
 		A97E4C9813FD5AAB001BB376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -502,6 +505,8 @@
 				60698AF813C55EF700E58FD8 /* UIActionSheetBlocksKitTest.m */,
 				6C29B64014A150900050964D /* UIAlertViewBlocksKitTest.h */,
 				6C29B64114A150900050964D /* UIAlertViewBlocksKitTest.m */,
+				6CF5E04F14A18F7700921C45 /* UIWebViewBlocksKitTest.h */,
+				6CF5E05014A18F7700921C45 /* UIWebViewBlocksKitTest.m */,
 				6C29B63514A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.h */,
 				6C29B63614A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.m */,
 				6C29B63914A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.h */,
@@ -1052,6 +1057,7 @@
 				6C29B63714A14A830050964D /* MFMailComposeViewControllerBlocksKitTest.m in Sources */,
 				6C29B63B14A14D970050964D /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */,
 				6C29B64214A150900050964D /* UIAlertViewBlocksKitTest.m in Sources */,
+				6CF5E05114A18F7700921C45 /* UIWebViewBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
