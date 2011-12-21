@@ -10,6 +10,7 @@
 
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
+#import "A2BlockDelegate+BlocksKit.h"
 
 #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
 	#define BK_HAS_UIKIT 1
