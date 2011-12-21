@@ -8,7 +8,6 @@
 
 #import <objc/message.h>
 #import <objc/runtime.h>
-#import <pthread.h>
 
 #import "A2DynamicDelegate.h"
 
@@ -25,6 +24,8 @@
 
 void *A2DynamicDelegateBlockMapKey;
 void *A2DynamicDelegateProtocolKey;
+
+static dispatch_queue_t backgroundQueue = nil;
 
 static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
 static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value);
@@ -96,9 +97,6 @@ static void *BlockGetImplementation(id block);
 	// Register class
 	objc_registerClassPair(cls);
 	
-	// Set protocol and add properties
-	cls.protocol = protocol;
-	
 	return [[cls new] autorelease];
 }
 
@@ -107,18 +105,14 @@ static void *BlockGetImplementation(id block);
 	// Get cluster name, e.g. "A2DynamicUIAlertViewDelegate"
 	NSString *clusterName = [NSString stringWithFormat: @"A2Dynamic%@", NSStringFromProtocol(protocol)];
 	
-	// Lock mutex
-	static pthread_mutex_t clusterMtx = PTHREAD_MUTEX_INITIALIZER;
-	pthread_mutex_lock(&clusterMtx);
-	
 	// Get cluster subclass
 	Class cluster = NSClassFromString(clusterName);
 	if (cluster)
 	{
 		NSAlwaysAssert(class_getSuperclass(cluster) == [A2DynamicDelegate class], @"Dynamic delegate cluster subclass %@ must be subclass of A2DynamicDelegate", clusterName);
-
-		// Unlock mutex
-		pthread_mutex_unlock(&clusterMtx);
+		
+		// Set protocol and add properties
+		cluster.protocol = protocol;
 		
 		return cluster;
 	}
@@ -127,11 +121,11 @@ static void *BlockGetImplementation(id block);
 	cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
 	NSAlwaysAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
 	
+	// Set protocol and add properties
+	cluster.protocol = protocol;
+
 	// And register it
 	objc_registerClassPair(cluster);
-	
-	// Unlock mutex
-	pthread_mutex_unlock(&clusterMtx);
 	
 	return cluster;
 }
@@ -175,6 +169,10 @@ static void *BlockGetImplementation(id block);
 	
 	// Dispose of unique A2DynamicDelegate subclass.
 	objc_disposeClassPair(self.class);
+}
++ (void) load
+{
+	backgroundQueue = dispatch_queue_create("us.pandamonia.A2DynamicDelegate.backgroundQueue", DISPATCH_QUEUE_SERIAL);
 }
 
 #pragma mark - Block Map
@@ -295,19 +293,29 @@ static void *BlockGetImplementation(id block);
 
 + (Protocol *) protocol
 {
-	return objc_getAssociatedObject(self, &A2DynamicDelegateProtocolKey);
+	Class class = self;
+	while (class.superclass != [A2DynamicDelegate class]) class = class.superclass;
+	if (!class) return nil;
+	
+	return objc_getAssociatedObject(class, &A2DynamicDelegateProtocolKey);
 }
 + (void) setProtocol: (Protocol *) protocol
 {
-	Protocol *existing = objc_getAssociatedObject(self, &A2DynamicDelegateProtocolKey);
-	if (protocol_isEqual(protocol, existing))
-		return;
-	NSAlwaysAssert(!existing && protocol, @"A2DynamicDelegate protocol may only be set once");
+	Class class = self;
+	while (class.superclass != [A2DynamicDelegate class]) class = class.superclass;
+	if (!class) return;
 	
-	objc_setAssociatedObject(self, &A2DynamicDelegateProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
+	// If protocol is already set, return
+	if ([self protocol]) return;
 	
-	BOOL success = class_addProtocol(self.class, protocol);
-	NSAlwaysAssert(success, @"Protocol <%s> could not be added to %@", protocol_getName(protocol), self);
+	objc_setAssociatedObject(class, &A2DynamicDelegateProtocolKey, protocol, OBJC_ASSOCIATION_ASSIGN);
+	
+	// Make class conform to protocol (if it doesn't already)
+	if (!class_conformsToProtocol(class, protocol))
+	{
+		BOOL success = class_addProtocol(class, protocol);
+		NSAlwaysAssert(success, @"Protocol <%s> could not be added to %@", protocol_getName(protocol), class);
+	}
 	
 	unsigned int i, count;
 	objc_property_t *properties = protocol_copyPropertyList(protocol, &count);
@@ -317,11 +325,22 @@ static void *BlockGetImplementation(id block);
 		objc_property_t property = properties[i];
 		
 		const char *name = property_getName(property);
+		
 		unsigned int attributeCount;
 		objc_property_attribute_t *attributes = property_copyAttributeList(property, &attributeCount);
 		
-		BOOL success = class_addProperty(self.class, name, attributes, attributeCount);
-		NSAlwaysAssert(success, @"Property \"%s\" could not be added to %@", name, self);
+		if (class_getProperty(class, name))
+		{
+			const char *attrStr = property_getAttributes(property);
+			const char *cAttrStr = property_getAttributes(class_getProperty(class, name));
+			
+			NSAlwaysAssert(strcmp(attrStr, cAttrStr) == 0, @"Property \"%s\" on class %s does not match declaration in protocol <%s>", name, class_getName(class), protocol_getName(protocol));
+		}
+		else
+		{
+			BOOL success = class_addProperty(class, name, attributes, attributeCount);
+			NSAlwaysAssert(success, @"Property \"%s\" could not be added to %@", name, class);
+		}
 		
 		free(attributes);
 	}
@@ -452,13 +471,17 @@ static void *BlockGetImplementation(id block);
 	 * delegate's lifetime is at least as long as that of the delegating object.
 	 **/
 	
-	id dynamicDelegate = objc_getAssociatedObject(self, protocol);
-
-	if (!dynamicDelegate)
-	{
-		dynamicDelegate = [A2DynamicDelegate dynamicDelegateForProtocol: protocol];
-		objc_setAssociatedObject(self, protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
+	__block id dynamicDelegate;
+	
+	dispatch_sync(backgroundQueue, ^{
+		dynamicDelegate = objc_getAssociatedObject(self, protocol);
+		
+		if (!dynamicDelegate)
+		{
+			dynamicDelegate = [A2DynamicDelegate dynamicDelegateForProtocol: protocol];
+			objc_setAssociatedObject(self, protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		}
+	});
 	
 	return dynamicDelegate;
 }
