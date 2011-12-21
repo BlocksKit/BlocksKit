@@ -1,14 +1,16 @@
 //
 //  UIAlertViewBlocksKitTest.h
-//  BlocksKit
-//
-//  Created by Zachary Waldowski on 12/20/11.
-//  Copyright (c) 2011 Dizzy Technology. All rights reserved.
+//  BlocksKit Unit Tests
 //
 
 #import <GHUnitIOS/GHUnit.h>
 #import "BlocksKit/BlocksKit.h"
 
 @interface UIAlertViewBlocksKitTest : GHTestCase
+
+- (void)testInit;
+- (void)testAddButtonWithHandler;
+- (void)testSetCancelButtonWithHandler;
+- (void)testDelegationBlocks;
 
 @end
