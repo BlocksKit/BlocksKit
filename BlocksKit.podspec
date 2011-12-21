@@ -10,7 +10,6 @@ Pod::Spec.new do |s|
   s.source_files = 'BlocksKit/*.{h,m}'
   s.dependency = 'A2DynamicDelegate'
   s.frameworks = 'MessageUI'
-  s.requires_arc = false
   s.clean_paths = 'GHUnitIOS.framework/', 'Tests/', 'BlocksKit.xcodeproj/', '.gitignore'
   def s.post_install(target)
     prefix_header = config.project_pods_root + target.prefix_header_filename
