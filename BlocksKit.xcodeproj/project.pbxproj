@@ -244,21 +244,21 @@
 		6CC56DFA1386A48900925FDC /* UIWebView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC56DFB1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
 		6CC56DFC1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
-		6CE3825A14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; };
-		6CE3825B14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; };
-		6CE3825C14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; };
-		6CE3825D14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; };
-		6CE3825E14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; };
+		6CE3825A14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CE3825B14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CE3825C14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CE3825D14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CE3825E14A2653500921B80 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825614A2653500921B80 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CE3825F14A2653500921B80 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3825714A2653500921B80 /* A2BlockDelegate.m */; };
 		6CE3826014A2653500921B80 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3825714A2653500921B80 /* A2BlockDelegate.m */; };
 		6CE3826114A2653500921B80 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3825714A2653500921B80 /* A2BlockDelegate.m */; };
 		6CE3826214A2653500921B80 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3825714A2653500921B80 /* A2BlockDelegate.m */; };
 		6CE3826314A2653500921B80 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3825714A2653500921B80 /* A2BlockDelegate.m */; };
-		6CE3826414A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; };
-		6CE3826514A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; };
-		6CE3826614A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; };
-		6CE3826714A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; };
-		6CE3826814A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; };
+		6CE3826414A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CE3826514A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CE3826614A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CE3826714A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CE3826814A2653500921B80 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE3825814A2653500921B80 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CE3826914A2653500921B80 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3825914A2653500921B80 /* A2DynamicDelegate.m */; };
 		6CE3826A14A2653500921B80 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3825914A2653500921B80 /* A2DynamicDelegate.m */; };
 		6CE3826B14A2653500921B80 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE3825914A2653500921B80 /* A2DynamicDelegate.m */; };
@@ -1302,10 +1302,7 @@
 					armv7,
 				);
 				"ARCHS[sdk=iphonesimulator*]" = i386;
-				"ARCHS[sdk=macosx*]" = (
-					i386,
-					x86_64,
-				);
+				"ARCHS[sdk=macosx*]" = x86_64;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1335,10 +1332,7 @@
 					armv7,
 				);
 				"ARCHS[sdk=iphonesimulator*]" = i386;
-				"ARCHS[sdk=macosx*]" = (
-					i386,
-					x86_64,
-				);
+				"ARCHS[sdk=macosx*]" = x86_64;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
