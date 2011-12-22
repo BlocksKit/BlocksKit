@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
                  'Alexsander Akers' => 'a2@pandamonia.us' }
   s.source   = { :git => 'https://github.com/zwaldowski/BlocksKit.git', :tag => 'v1.0.0' }
   s.source_files = 'BlocksKit'
-  s.dependency = 'A2DynamicDelegate'
+  s.dependency 'A2DynamicDelegate'
   s.clean_paths = 'GHUnitIOS.framework/', 'Tests/', 'BlocksKit.xcodeproj/', '.gitignore'
   if config.ios?
     s.frameworks = 'MessageUI'
