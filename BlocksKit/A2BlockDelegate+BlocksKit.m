@@ -33,6 +33,13 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 
 @implementation A2DynamicDelegate (A2BlockDelegate)
 
+- (id) forwardingTargetForSelector: (SEL) aSelector
+{
+	if (![self blockImplementationForMethod: aSelector] && [self.realDelegate respondsToSelector: aSelector])
+		return self.realDelegate;
+	
+	return [super forwardingTargetForSelector: aSelector];
+}
 - (id) realDelegate
 {
 	return [self associatedValueForKey: &BKRealDelegateKey];
