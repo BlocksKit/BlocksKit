@@ -15,7 +15,7 @@
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
 	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(messageComposeViewController:didFinishWithResult:)])
+	if (realDelegate && [realDelegate respondsToSelector:@selector(messageComposeViewController:didFinishWithResult:)])
 		[realDelegate messageComposeViewController:controller didFinishWithResult:result];
 	else
 		[controller dismissModalViewControllerAnimated:YES];

@@ -22,7 +22,7 @@
 
 	BOOL (^block)(UIWebView *, NSURLRequest *, UIWebViewNavigationType) = [self blockImplementationForMethod:_cmd];
 	if (block)
-		ret = (ret && block(webView, request, navigationType));
+		ret &= block(webView, request, navigationType);
 
 	return ret;
 }

@@ -16,7 +16,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)])
+	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)])
 		[realDelegate actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
 	
 	if (buttonIndex == actionSheet.cancelButtonIndex)
@@ -30,7 +30,7 @@
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
 	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(willPresentActionSheet:)])
+	if (realDelegate && [realDelegate respondsToSelector:@selector(willPresentActionSheet:)])
 		return [realDelegate willPresentActionSheet:actionSheet];
 
 	void (^block)(UIActionSheet *) = [self blockImplementationForMethod:_cmd];
@@ -40,7 +40,7 @@
 
 - (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
 	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(didPresentActionSheet:)])
+	if (realDelegate && [realDelegate respondsToSelector:@selector(didPresentActionSheet:)])
 		return [realDelegate didPresentActionSheet:actionSheet];
 	
 	void (^block)(UIActionSheet *) = [self blockImplementationForMethod:_cmd];
@@ -50,7 +50,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
 	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(actionSheet:willDismissWithButtonIndex:)])
+	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheet:willDismissWithButtonIndex:)])
 		[realDelegate actionSheet:actionSheet willDismissWithButtonIndex:buttonIndex];
 	
 	void (^block)(UIActionSheet *, NSInteger) = [self blockImplementationForMethod:_cmd];
@@ -60,10 +60,9 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(actionSheet:didDismissWithButtonIndex:)])
+	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheet:didDismissWithButtonIndex:)])
 		[realDelegate actionSheet:actionSheet didDismissWithButtonIndex:buttonIndex];
 
-	
 	void (^block)(UIActionSheet *, NSInteger) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		block(actionSheet, buttonIndex);
@@ -71,7 +70,7 @@
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet {
 	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(actionSheetCancel:)])
+	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheetCancel:)])
 		return [realDelegate actionSheetCancel:actionSheet];
 	
 	id key = [NSNumber numberWithInteger:actionSheet.cancelButtonIndex];
