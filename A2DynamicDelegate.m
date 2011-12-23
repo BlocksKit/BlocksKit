@@ -121,11 +121,11 @@ static void *BlockGetImplementation(id block);
 	cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
 	NSAlwaysAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
 	
-	// Set protocol and add properties
-	cluster.protocol = protocol;
-
 	// And register it
 	objc_registerClassPair(cluster);
+	
+	// Set protocol and add properties
+	[cluster setProtocol: protocol];
 	
 	return cluster;
 }
