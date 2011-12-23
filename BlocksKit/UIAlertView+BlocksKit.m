@@ -131,7 +131,7 @@
 		cancelButtonTitle = NSLocalizedString(@"Dismiss", nil);
 	
 	// Set cancel button
-	alertView.cancelButtonIndex = [alertView addButtonWithTitle: cancelButtonTitle];
+	if (cancelButtonTitle) alertView.cancelButtonIndex = [alertView addButtonWithTitle: cancelButtonTitle];
 	
 	// Set other buttons
 	[otherButtonTitles each: ^(NSString *button) {
