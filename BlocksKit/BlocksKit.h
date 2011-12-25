@@ -26,6 +26,8 @@
 
 #import "BKGlobals.h"
 
+#import "BKMacros.h"
+
 #import "NSObject+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
 #import "NSObject+BlockObservation.h"
