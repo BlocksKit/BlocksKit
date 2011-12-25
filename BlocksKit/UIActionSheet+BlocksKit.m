@@ -19,9 +19,6 @@
 	if ([realDelegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)])
 		[realDelegate actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
 	
-	if (buttonIndex == actionSheet.cancelButtonIndex)
-		return;
-	
 	id key = [NSNumber numberWithInteger:buttonIndex];
 	BKBlock block = [self.handlers objectForKey:key];
 	if (block)
