@@ -83,10 +83,7 @@
 - (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock)block;
 
 /** Set the title and trigger of the cancel button.
-
- `block` can be set to `nil`, but this is generally useless as
- the cancel button is configured already to do nothing.
-
+ 
  @param title The text of the button.
  @param block A block of code.
  */
@@ -96,19 +93,25 @@
 /// @name Altering actions
 ///-----------------------------------
 
+/** Sets the block that is to be fired when a button is pressed.
+ 
+ @param block A code block, or nil to set no response.
+ @param index The index of a button already added to the action sheet.
+ */
+- (void)setHandler:(BKBlock)block forButtonAtIndex:(NSInteger)index;
+
 /** The block that is to be fired when a button is pressed.
  
  @param index The index of the button already added to the alert view.
- @return An instance of a code block, or nil if no block yet assigned.
+ @return A code block, or nil if no block yet assigned.
  */
 - (BKBlock)handlerForButtonAtIndex:(NSInteger)index;
 
 /** The block to be fired when the action sheet is dismissed with the cancel
  button.
 
- This property performs the same action as setCancelButtonWithTitle:handler:
- but with `title` set to nil.  Contrary to setCancelButtonWithTitle:handler:,
- you can set this property multiple times and multiple cancel buttons will
+ Contrary to setCancelButtonWithTitle:handler:, you can set this
+ property multiple times but multiple cancel buttons will
  not be generated.
  */
 @property (nonatomic, copy) BKBlock cancelBlock;

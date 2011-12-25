@@ -165,26 +165,29 @@
 - (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
 	NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
 	NSInteger index = [self addButtonWithTitle:title];
-	
-	id key = [NSNumber numberWithInteger:index];
-
-	if (block)
-		[[self.dynamicDelegate handlers] setObject:block forKey:key];
-	else
-		[[self.dynamicDelegate handlers] removeObjectForKey:key];
-	
+	[self setHandler:block forButtonAtIndex:index];
 	return index;
 }
 
 - (NSInteger)setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
-	if (!title) title = NSLocalizedString(@"Cancel", nil);
+	if (!title.length)
+		title = NSLocalizedString(@"Cancel", nil);
 	NSInteger cancelButtonIndex = [self addButtonWithTitle:title];
 	self.cancelButtonIndex = cancelButtonIndex;
-	[self setCancelBlock:block];
+	[self setHandler:block forButtonAtIndex:cancelButtonIndex];
 	return cancelButtonIndex;
 }
 
 #pragma mark Properties
+
+- (void)setHandler:(BKBlock)block forButtonAtIndex:(NSInteger)index {
+	id key = [NSNumber numberWithInteger:index];
+	
+	if (block)
+		[[self.dynamicDelegate handlers] setObject:block forKey:key];
+	else
+		[[self.dynamicDelegate handlers] removeObjectForKey:key];
+}
 
 - (BKBlock)handlerForButtonAtIndex:(NSInteger)index {
 	id key = [NSNumber numberWithInteger:index];
@@ -196,16 +199,12 @@
 }
 
 - (void)setCancelBlock:(BKBlock)block {
-	if (self.cancelButtonIndex == -1) {
+	if (block && self.cancelButtonIndex == -1) {
 		[self setCancelButtonWithTitle:nil handler:block];
-	} else {
-		id key = [NSNumber numberWithInteger:self.cancelButtonIndex];
-		
-		if (block)
-			[[self.dynamicDelegate handlers] setObject:block forKey:key];
-		else
-			[[self.dynamicDelegate handlers] removeObjectForKey:key];
+		return;
 	}
+	
+	[self setHandler:block forButtonAtIndex:self.cancelButtonIndex];
 }
 
 @end

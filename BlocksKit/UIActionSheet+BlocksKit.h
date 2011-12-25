@@ -62,10 +62,10 @@
 - (NSInteger)addButtonWithTitle:(NSString *)title handler:(BKBlock)block;
 
 /** Set the destructive (red) button with an associated code block.
-
- If setDestructiveButtonWithTitle:handler: is called multiple times, the
- previously added destructive buttons will become normal buttons and
- will remain.
+ 
+ @warning Because buttons cannot be removed from an action sheet,
+ be aware that the effects of calling this method are cumulative.
+ Previously added destructive buttons will become normal buttons.
 
  @param title The text of the button.
  @param block A block of code.
@@ -77,10 +77,7 @@
  `block` can be set to `nil`, but this is generally useless as
  the cancel button is configured already to do nothing.
  
- If you are running on iPad, passing `nil` for the title will allow you
- to hide the cancel button but continue to use the cancel block.
- 
- iPhone useers will have the button shown regardless; if the title is
+ iPhone users will have the button shown regardless; if the title is
  set to `nil`, it will automatically be localized.
  
  @param title The text of the button.
@@ -92,10 +89,17 @@
 /// @name Altering actions
 ///-----------------------------------
 
+/** Sets the block that is to be fired when a button is pressed.
+ 
+ @param block A code block, or nil to set no response.
+ @param index The index of a button already added to the action sheet.
+*/
+- (void)setHandler:(BKBlock)block forButtonAtIndex:(NSInteger)index;
+
 /** The block that is to be fired when a button is pressed.
  
- @param index The index of the button already added to the action sheet.
- @return An instance of a code block, or nil if no block yet assigned.
+ @param index The index of a button already added to the action sheet.
+ @return A code block, or nil if no block is assigned.
  */
 - (BKBlock)handlerForButtonAtIndex:(NSInteger)index;
 
