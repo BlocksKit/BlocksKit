@@ -15,7 +15,7 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
 	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(mailComposeController:didFinishWithResult:error:)])
+	if (realDelegate && [realDelegate respondsToSelector:@selector(mailComposeController:didFinishWithResult:error:)])
 		[realDelegate mailComposeController:controller didFinishWithResult:result error:error];
 	else
 		[controller dismissModalViewControllerAnimated:YES];

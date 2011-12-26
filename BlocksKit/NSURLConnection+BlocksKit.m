@@ -52,16 +52,9 @@ static char kResponseLengthKey;
 #pragma mark - BKURLConnectionInformalDelegate - iOS 4.3 & Snow Leopard support
 
 @protocol BKURLConnectionInformalDelegate <NSObject>
-- (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request;
-- (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
-- (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
-- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
-- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection;
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse;
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
 @end
@@ -71,60 +64,6 @@ static char kResponseLengthKey;
 @end
 
 @implementation A2DynamicBKURLConnectionInformalDelegate
-
-- (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request {
-	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(connection:needNewBodyStream::)])
-		return [realDelegate connection:connection needNewBodyStream:request];
-	return nil;
-}
-
-- (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
-		return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
-	
-	NSString *authMethod = protectionSpace.authenticationMethod;
-	if (authMethod == NSURLAuthenticationMethodServerTrust || authMethod == NSURLAuthenticationMethodClientCertificate)
-		return NO;
-	return YES;
-}
-
-- (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didCancelAuthenticationChallenge:)])
-		[realDelegate connection:connection didCancelAuthenticationChallenge:challenge];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
-		[realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
-}
-
-- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connectionShouldUseCredentialStorage:)])
-		return [realDelegate connectionShouldUseCredentialStorage:connection];
-	
-	return YES;   
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willCacheResponse:)])
-		return [realDelegate connection:connection willCacheResponse:cachedResponse];
-	
-	return cachedResponse;
-}
-
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
-		return [realDelegate connection:connection willSendRequest:request redirectResponse:redirectResponse];
-	
-	return request;
-}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	id realDelegate = self.realDelegate;
@@ -139,32 +78,6 @@ static char kResponseLengthKey;
 	void (^block)(NSURLConnection *, NSURLResponse *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		block(connection, response);
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didFailWithError:)])
-		[realDelegate connection:connection didFailWithError:error];
-	
-	connection.bk_responseLength = 0;
-	[connection.bk_responseData setLength:0];
-	
-	void (^block)(NSURLConnection *, NSError *) = [self blockImplementationForMethod:_cmd];
-	if (block)
-		block(connection, error);
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connectionDidFinishLoading:)])
-		[realDelegate connectionDidFinishLoading:connection];
-	
-	if (!connection.bk_responseData.length)
-		connection.bk_responseData = nil;
-	
-	void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
-	if (block)
-		block(connection, connection.bk_response, connection.bk_responseData);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -199,6 +112,32 @@ static char kResponseLengthKey;
 		block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
 }
 
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connectionDidFinishLoading:)])
+		[realDelegate connectionDidFinishLoading:connection];
+	
+	if (!connection.bk_responseData.length)
+		connection.bk_responseData = nil;
+	
+	void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
+	if (block)
+		block(connection, connection.bk_response, connection.bk_responseData);
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didFailWithError:)])
+		[realDelegate connection:connection didFailWithError:error];
+	
+	connection.bk_responseLength = 0;
+	[connection.bk_responseData setLength:0];
+	
+	void (^block)(NSURLConnection *, NSError *) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(connection, error);
+}
+
 @end
 
 #pragma mark - NSURLConnectionDelegate - iOS 5.0 & Lion support
@@ -212,30 +151,6 @@ static char kResponseLengthKey;
 @end
 
 @implementation A2DynamicNSURLConnectionDelegate
-
-- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willSendRequestForAuthenticationChallenge:)])
-		[realDelegate connection:connection willSendRequestForAuthenticationChallenge:challenge];
-	else
-		[challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willCacheResponse:)])
-		return [realDelegate connection:connection willCacheResponse:cachedResponse];
-	
-	return cachedResponse;
-}
-
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
-		return [realDelegate connection:connection willSendRequest:request redirectResponse:response];
-	
-	return request;
-}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	id realDelegate = self.realDelegate;
@@ -254,32 +169,6 @@ static char kResponseLengthKey;
 		block(connection, response);
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didFailWithError:)])
-		[realDelegate connection:connection didFailWithError:error];
-	
-	connection.bk_responseLength = 0;
-	[connection.bk_responseData setLength:0];
-	
-	void (^block)(NSURLConnection *, NSError *) = [self blockImplementationForMethod:_cmd];
-	if (block)
-		block(connection, error);
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connectionDidFinishLoading:)])
-		[realDelegate connectionDidFinishLoading:connection];
-	
-	if (!connection.bk_responseData.length)
-		connection.bk_responseData = nil;
-	
-	void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
-	if (block)
-		block(connection, connection.bk_response, connection.bk_responseData);
-}
-
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
 	connection.bk_responseLength += data.length;
 	
@@ -312,34 +201,30 @@ static char kResponseLengthKey;
 		block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
 }
 
-- (BOOL)connection:(NSURLConnection*)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
-		return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connectionDidFinishLoading:)])
+		[realDelegate connectionDidFinishLoading:connection];
 	
-	NSString *authMethod = protectionSpace.authenticationMethod;
-	if (authMethod == NSURLAuthenticationMethodServerTrust || authMethod == NSURLAuthenticationMethodClientCertificate)
-		return NO;
-	return YES;
+	if (!connection.bk_responseData.length)
+		connection.bk_responseData = nil;
+	
+	void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.successBlock;
+	if (block)
+		block(connection, connection.bk_response, connection.bk_responseData);
 }
 
-- (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didCancelAuthenticationChallenge:)])
-		[realDelegate connection:connection didCancelAuthenticationChallenge:challenge];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
-		[realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
-}
-
-- (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request {
-	id realDelegate = self.realDelegate;
-	if ([realDelegate respondsToSelector:@selector(connection:needNewBodyStream::)])
-		return [realDelegate connection:connection needNewBodyStream:request];
-	return nil;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didFailWithError:)])
+		[realDelegate connection:connection didFailWithError:error];
+	
+	connection.bk_responseLength = 0;
+	[connection.bk_responseData setLength:0];
+	
+	void (^block)(NSURLConnection *, NSError *) = [self blockImplementationForMethod:_cmd];
+	if (block)
+		block(connection, error);
 }
 
 @end
