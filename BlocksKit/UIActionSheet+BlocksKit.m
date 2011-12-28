@@ -28,7 +28,7 @@
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(willPresentActionSheet:)])
-		return [realDelegate willPresentActionSheet:actionSheet];
+		[realDelegate willPresentActionSheet:actionSheet];
 
 	void (^block)(UIActionSheet *) = [self blockImplementationForMethod:_cmd];
 	if (block)
@@ -38,7 +38,7 @@
 - (void)didPresentActionSheet:(UIActionSheet *)actionSheet {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(didPresentActionSheet:)])
-		return [realDelegate didPresentActionSheet:actionSheet];
+		[realDelegate didPresentActionSheet:actionSheet];
 	
 	void (^block)(UIActionSheet *) = [self blockImplementationForMethod:_cmd];
 	if (block)
@@ -68,7 +68,7 @@
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheetCancel:)])
-		return [realDelegate actionSheetCancel:actionSheet];
+		[realDelegate actionSheetCancel:actionSheet];
 	
 	BKBlock block = actionSheet.cancelBlock;
 	if (block)
