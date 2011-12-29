@@ -32,22 +32,23 @@ Installation
 
 BlocksKit can be added to a project using [CocoaPods](https://github.com/alloy/cocoapods).
 
-### Release/Framework Build
+### Framework
 
 * Download a release of BlocksKit.
 * Move BlocksKit.framework to your project's folder.  Drag it from there into your project.
-* In the build settings of your target or project, change "All Linker Flags" to `-ObjC`.
+* Add BlocksKit.framework to "Link Binary With Libraries" in your app's target. Make sure your app is linked with CoreGraphics, Foundation, MessageUI, and UIKit.
+* In the build settings of your target or project, change "Other Linker Flags" (`OTHER_LDFLAGS`) to `-ObjC -all_load`.
 * Insert `#import <BlocksKit/BlocksKit.h>` in your project's prefix header.
 * Make amazing software.
 
-### Testing/Library Build
+### Library
 
-* Clone the repository.
-* Check out the A2DynamicDelegate submodule using `git submodule update --init`.
-* Click-and-drag the BlocksKit project into a project or workspace.
-* In the build phases of a target, add libBlocksKit.a to the "Target Dependencies" and "Link Binary with Libraries".
-* In the build settings, change "All Linker Flags" to `-ObjC` and "Header Search Paths" to `$(BUILT_PRODUCTS_DIR)/../BlocksKit/**`.
-* In any header file, insert `#import "BlocksKit/BlocksKit.h"`.  It is not recommended to insert the import statement in your project prefix, as it could break Xcode 4's Code Sense.
+* Download a release of BlocksKit.
+* Move libBlocksKit.a and Headers to your project's folder, preferably a subfolder like "Vendor".
+* In "Build Phases", Drag libBlocksKit.a into your target's "Link Binary With Libraries" build phase. 
+* In the build settings of your target or project, change "Other Linker Flags" to `-ObjC -all_load`. Make sure your app is linked with CoreGraphics, Foundation, MessageUI, and UIKit.
+* Change (or add) to "Header Search Paths" the relative path to BlocksKit's headers, like `$(SRCROOT)/Vendor/Headers`.
+* Insert `#import <BlocksKit/BlocksKit.h>`` in your project's prefix header.
 
 Documentation
 =============
