@@ -47,8 +47,8 @@
 	title = [_subject buttonTitleAtIndex:index2];
 	GHAssertEqualStrings(title,@"Button 2",@"the UIActionSheet adds a button with title %@",title);
 	
-	[[_subject.dynamicDelegate realDelegate] alertView:_subject clickedButtonAtIndex:index1];
-	[[_subject.dynamicDelegate realDelegate] alertView:_subject clickedButtonAtIndex:index2];
+	[_subject.dynamicDelegate alertView:_subject clickedButtonAtIndex:index1];
+	[_subject.dynamicDelegate alertView:_subject clickedButtonAtIndex:index2];
 	
 	GHAssertEquals(total, 3, @"Not all block handlers were called.");
 }
@@ -63,7 +63,7 @@
 	NSString *title = [_subject buttonTitleAtIndex:index];
 	GHAssertEqualStrings(title,@"Cancel",@"the UIActionSheet adds a button with title %@",title);
 	
-	[[_subject.dynamicDelegate realDelegate] alertViewCancel:_subject];
+	[_subject.dynamicDelegate alertViewCancel:_subject];
 	
 	GHAssertTrue(blockCalled, @"Block handler was not called.");
 }
@@ -75,8 +75,8 @@
 	_subject.willShowBlock = ^(UIAlertView *view) { willShow = YES; };
 	_subject.didShowBlock = ^(UIAlertView *view) { didShow = YES; };
 	
-	[[_subject.dynamicDelegate realDelegate] willPresentAlertView:_subject];
-	[[_subject.dynamicDelegate realDelegate] didPresentAlertView:_subject];
+	[_subject.dynamicDelegate willPresentAlertView:_subject];
+	[_subject.dynamicDelegate didPresentAlertView:_subject];
 	
 	GHAssertTrue(willShow, @"willShowBlock not fired.");
 	GHAssertTrue(didShow, @"didShowblock not fired.");
