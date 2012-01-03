@@ -89,9 +89,6 @@
 	if (block)
 		block(alertView, buttonIndex);
 	
-	if (buttonIndex == alertView.cancelButtonIndex)
-		return;
-	
 	id key = [NSNumber numberWithInteger:buttonIndex];
 	BKBlock buttonBlock = [self.handlers objectForKey: key];
 	if (buttonBlock)
@@ -135,9 +132,16 @@
 		alertView.cancelButtonIndex = [alertView addButtonWithTitle: cancelButtonTitle];
 	
 	// Set other buttons
-	[otherButtonTitles each: ^(NSString *button) {
-		[alertView addButtonWithTitle: button];
-	}];
+	if (otherButtonTitles.count)
+	{
+		NSUInteger firstOtherButton = [alertView addButtonWithTitle: [otherButtonTitles objectAtIndex: 0]];
+		[alertView setValue: [NSNumber numberWithInteger: firstOtherButton] forKey: @"firstOtherButton"];
+		
+		otherButtonTitles = [otherButtonTitles subarrayWithRange: NSMakeRange(1, otherButtonTitles.count - 1)];
+		[otherButtonTitles each: ^(NSString *button) {
+			[alertView addButtonWithTitle: button];
+		}];
+	}
 	
 	// Set `didDismissBlock`
 	if (block) alertView.didDismissBlock = block;
