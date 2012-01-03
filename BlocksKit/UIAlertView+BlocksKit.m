@@ -32,7 +32,7 @@
 - (void)alertViewCancel:(UIAlertView *)alertView {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(alertViewCancel:)])
-		return [realDelegate alertViewCancel:alertView];
+		[realDelegate alertViewCancel:alertView];
 	
 	id key = [NSNumber numberWithInteger:alertView.cancelButtonIndex];
 	BKBlock cancelBlock = [self.handlers objectForKey:key];
@@ -43,7 +43,7 @@
 - (void)willPresentAlertView:(UIAlertView *)alertView {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(willPresentAlertView:)])
-		return [realDelegate willPresentAlertView:alertView];
+		[realDelegate willPresentAlertView:alertView];
 	
 	void (^block)(UIAlertView *) = [self blockImplementationForMethod:_cmd];
 	if (block)
@@ -53,7 +53,7 @@
 - (void)didPresentAlertView:(UIAlertView *)alertView {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(didPresentAlertView:)])
-		return [realDelegate didPresentAlertView:alertView];
+		[realDelegate didPresentAlertView:alertView];
 	
 	void (^block)(UIAlertView *) = [self blockImplementationForMethod:_cmd];
 	if (block)
