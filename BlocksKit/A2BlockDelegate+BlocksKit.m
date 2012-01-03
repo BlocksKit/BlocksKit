@@ -18,6 +18,7 @@ static char BKAccessorsMapKey;
 static char BKRealDelegateKey;
 
 static void bk_blockDelegateSetter(id self, SEL _cmd, id delegate);
+static id bk_blockDelegateGetter(id self, SEL _cmd);
 
 // Block Property Setter
 static void bk_blockPropertySetter(id self, SEL _cmd, id block);
@@ -107,9 +108,10 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 					}];
 					
 					SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
+					SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter)]);
 					
 					if ([obj respondsToSelector:a2_setter]) {
-						id originalDelegate = [obj performSelector:getter];
+						id originalDelegate = [obj performSelector:a2_getter];
 						if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
 							[obj performSelector:a2_setter withObject:dynamicDelegate];
 					}
@@ -171,38 +173,54 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 	
 	SEL getter = bk_getterForProperty(self, delegateName);
 	SEL setter = bk_setterForProperty(self, delegateName);
+	
 	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
+	SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter)]);
 
 	[accessorsMap setObject: protocol forKey: NSStringFromSelector(setter)];
 	[accessorsMap setObject: protocol forKey: NSStringFromSelector(getter)];
 	
-	IMP implementation;
+	IMP setterImplementation, getterImplementation;
 	
 	if (&imp_implementationWithBlock)
 	{
-		implementation = imp_implementationWithBlock((__bridge void *) ^(NSObject *self, id delegate) {
+		setterImplementation = imp_implementationWithBlock((__bridge void *) ^(NSObject *self, id delegate) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 			
 			if ([self respondsToSelector:a2_setter]) {
-				id originalDelegate = [self performSelector:getter];
+				id originalDelegate = [self performSelector:a2_getter];
 				if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
 					[self performSelector:a2_setter withObject:dynamicDelegate];
 			}
-				
+			
 			if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
 			dynamicDelegate.realDelegate = delegate;
+		});
+		
+		getterImplementation = imp_implementationWithBlock((__bridge void *) ^id(NSObject *self) {
+			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+			return dynamicDelegate.realDelegate;
 		});
 	}
 	else
 	{
-		implementation = (IMP) bk_blockDelegateSetter;
+		setterImplementation = (IMP) bk_blockDelegateSetter;
+		getterImplementation = (IMP) bk_blockDelegateGetter;
 	}
 	
-	const char *types = "v@:@";
-	if (!class_addMethod(self, setter, implementation, types)) {
-		class_addMethod(self, a2_setter, implementation, types);
+	const char *setterTypes = "v@:@";
+	if (!class_addMethod(self, setter, setterImplementation, setterTypes)) {
+		class_addMethod(self, a2_setter, setterImplementation, setterTypes);
 		Method method = class_getInstanceMethod(self, setter);
 		Method a2_method = class_getInstanceMethod(self, a2_setter);
+		method_exchangeImplementations(method, a2_method);
+	}
+	
+	const char *getterTypes = "@@:";
+	if (!class_addMethod(self, getter, getterImplementation, getterTypes)) {
+		class_addMethod(self, a2_getter, getterImplementation, getterTypes);
+		Method method = class_getInstanceMethod(self, getter);
+		Method a2_method = class_getInstanceMethod(self, a2_getter);
 		method_exchangeImplementations(method, a2_method);
 	}
 }
@@ -224,14 +242,25 @@ static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 	SEL getter = NSSelectorFromString([keys lastObject]);
 	[keys release];
 	
+	SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter)]);
+	
 	if ([self respondsToSelector:a2_setter]) {
-		id originalDelegate = [self performSelector:getter];
+		id originalDelegate = [self performSelector:a2_getter];
 		if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
 			[self performSelector:a2_setter withObject:dynamicDelegate];
 	}
 	
 	if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
 	dynamicDelegate.realDelegate = delegate;
+}
+
+// Block Delegate Getter (Swizzled)
+static id bk_blockDelegateGetter(NSObject *self, SEL _cmd)
+{
+	NSMutableDictionary *propertyMap = [self.class bk_accessorsMap];
+	Protocol *protocol = [propertyMap objectForKey: NSStringFromSelector(_cmd)];
+	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+	return dynamicDelegate.realDelegate;
 }
 
 // Block Property Setter
@@ -256,9 +285,10 @@ static void bk_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 	}];
 	
 	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
+	SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter)]);
 	
 	if ([self respondsToSelector:a2_setter]) {
-		id originalDelegate = [self performSelector:getter];
+		id originalDelegate = [self performSelector:a2_getter];
 		if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
 			[self performSelector:a2_setter withObject:dynamicDelegate];
 	}
