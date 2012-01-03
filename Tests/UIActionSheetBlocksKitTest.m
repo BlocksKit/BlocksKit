@@ -23,7 +23,7 @@
 
 - (void)testInit {
 	GHAssertTrue([_subject isKindOfClass:[UIActionSheet class]],@"subject is UIActionSheet");
-	GHAssertEqualObjects(_subject.delegate,_subject.dynamicDelegate,@"the delegate is the dynamice delegate");
+	GHAssertNotEqualObjects(_subject.delegate,_subject.dynamicDelegate,@"the delegate is not the dynamic delegate");
 	GHAssertEqualStrings(_subject.title,@"Hello BlocksKit",@"the UIActionSheet title is %@",_subject.title);
 	GHAssertEquals(_subject.numberOfButtons,0,@"the action sheet has %d buttons",_subject.numberOfButtons);
 	GHAssertFalse(_subject.isVisible,@"the action sheet is not visible");
@@ -44,8 +44,8 @@
 	title = [_subject buttonTitleAtIndex:index2];
 	GHAssertEqualStrings(title,@"Button 2",@"the UIActionSheet adds a button with title %@",title);
 	
-	[_subject.delegate actionSheet:_subject clickedButtonAtIndex:index1];
-	[_subject.delegate actionSheet:_subject clickedButtonAtIndex:index2];
+	[[_subject.dynamicDelegate realDelegate] actionSheet:_subject clickedButtonAtIndex:index1];
+	[[_subject.dynamicDelegate realDelegate] actionSheet:_subject clickedButtonAtIndex:index2];
 	
 	GHAssertEquals(total, 3, @"Not all block handlers were called.");
 }
@@ -60,7 +60,7 @@
 	NSString *title = [_subject buttonTitleAtIndex:index];
 	GHAssertEqualStrings(title,@"Delete",@"the UIActionSheet adds a button with title %@",title);
 	
-	[_subject.delegate actionSheet:_subject clickedButtonAtIndex:index];
+	[[_subject.dynamicDelegate realDelegate] actionSheet:_subject clickedButtonAtIndex:index];
 	
 	GHAssertTrue(blockCalled, @"Block handler was not called.");
 }
@@ -75,7 +75,7 @@
 	NSString *title = [_subject buttonTitleAtIndex:index];
 	GHAssertEqualStrings(title,@"Cancel",@"the UIActionSheet adds a button with title %@",title);
 	
-	[_subject.delegate actionSheetCancel:_subject];
+	[[_subject.dynamicDelegate realDelegate] actionSheetCancel:_subject];
 	
 	GHAssertTrue(blockCalled, @"Block handler was not called.");
 }
@@ -87,8 +87,8 @@
 	_subject.willShowBlock = ^(UIActionSheet *sheet) { willShow = YES; };
 	_subject.didShowBlock = ^(UIActionSheet *sheet) { didShow = YES; };
 	
-	[_subject.delegate willPresentActionSheet:_subject];
-	[_subject.delegate didPresentActionSheet:_subject];
+	[[_subject.dynamicDelegate realDelegate] willPresentActionSheet:_subject];
+	[[_subject.dynamicDelegate realDelegate] didPresentActionSheet:_subject];
 	
 	GHAssertTrue(willShow, @"willShowBlock not fired.");
 	GHAssertTrue(didShow, @"didShowblock not fired.");

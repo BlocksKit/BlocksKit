@@ -35,7 +35,7 @@
 	_subject.completionBlock = ^(MFMessageComposeViewController *controller, MessageComposeResult result){
 		blockWorked = YES;
 	};
-	[_subject.messageComposeDelegate messageComposeViewController:_subject didFinishWithResult:MessageComposeResultSent];
+	[[[_subject dynamicDelegateForProtocol:@protocol(MFMessageComposeViewControllerDelegate)] realDelegate] messageComposeViewController:_subject didFinishWithResult:MessageComposeResultSent];
 	GHAssertTrue(delegateWorked, @"Delegate method not called.");
 	GHAssertTrue(blockWorked, @"Block handler not called.");
 }

@@ -33,7 +33,7 @@
 	_subject.completionBlock = ^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *err){
 		blockWorked = YES;
 	};
-	[_subject.mailComposeDelegate mailComposeController:_subject didFinishWithResult:MFMailComposeResultSent error:nil];
+	[[[_subject dynamicDelegateForProtocol:@protocol(MFMailComposeViewControllerDelegate)] realDelegate] mailComposeController:_subject didFinishWithResult:MFMailComposeResultSent error:nil];
 	GHAssertTrue(delegateWorked, @"Delegate method not called.");
 	GHAssertTrue(blockWorked, @"Block handler not called.");
 }

@@ -48,7 +48,7 @@
 		return YES;
 	};
 	
-	BOOL shouldStartLoad = [_subject.delegate webView:_subject shouldStartLoadWithRequest:nil navigationType:UIWebViewNavigationTypeLinkClicked];
+	BOOL shouldStartLoad = [[_subject.dynamicDelegate realDelegate] webView:_subject shouldStartLoadWithRequest:nil navigationType:UIWebViewNavigationTypeLinkClicked];
 	
 	GHAssertTrue(shouldStartLoad, @"Web view is allowed to load");
 	GHAssertTrue(shouldStartLoadBlock, @"Block handler was called");
@@ -63,7 +63,7 @@
 		didStartLoadBlock = YES;
 	};
 	
-	[_subject.delegate webViewDidStartLoad:_subject];
+	[[_subject.dynamicDelegate realDelegate] webViewDidStartLoad:_subject];
 	
 	GHAssertTrue(didStartLoadBlock, @"Block handler was called");
 	GHAssertTrue(didStartLoadDelegate, @"Delegate was called");
@@ -77,7 +77,7 @@
 		didFinishLoadBlock = YES;
 	};
 	
-	[_subject.delegate webViewDidFinishLoad:_subject];
+	[[_subject.dynamicDelegate realDelegate] webViewDidFinishLoad:_subject];
 	
 	GHAssertTrue(didFinishLoadBlock, @"Block handler was called");
 	GHAssertTrue(didFinishLoadDelegate, @"Delegate was called");
@@ -91,7 +91,7 @@
 		didFinishWithErrorBlock = YES;
 	};
 	
-	[_subject.delegate webView:_subject didFailLoadWithError:nil];
+	[[_subject.dynamicDelegate realDelegate] webView:_subject didFailLoadWithError:nil];
 	
 	GHAssertTrue(didFinishWithErrorBlock, @"Block handler was called");
 	GHAssertTrue(didFinishWithErrorDelegate, @"Delegate was called");

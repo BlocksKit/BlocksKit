@@ -26,7 +26,7 @@
 
 - (void)testInit {
 	GHAssertTrue([_subject isKindOfClass:[UIAlertView class]],@"subject is UIAlertView");
-	GHAssertEqualObjects(_subject.delegate,_subject.dynamicDelegate,@"the delegate is dynamic");
+	GHAssertNotEqualObjects(_subject.delegate,_subject.dynamicDelegate,@"the delegate is not dynamic");
 	GHAssertEqualStrings(_subject.title,@"Hello BlocksKit",@"the UIAlertView title is %@",_subject.title);
 	GHAssertEquals(_subject.numberOfButtons,0,@"the action sheet has %d buttons",_subject.numberOfButtons);
 	GHAssertFalse(_subject.isVisible,@"the action sheet is not visible");
@@ -47,8 +47,8 @@
 	title = [_subject buttonTitleAtIndex:index2];
 	GHAssertEqualStrings(title,@"Button 2",@"the UIActionSheet adds a button with title %@",title);
 	
-	[_subject.delegate alertView:_subject clickedButtonAtIndex:index1];
-	[_subject.delegate alertView:_subject clickedButtonAtIndex:index2];
+	[[_subject.dynamicDelegate realDelegate] alertView:_subject clickedButtonAtIndex:index1];
+	[[_subject.dynamicDelegate realDelegate] alertView:_subject clickedButtonAtIndex:index2];
 	
 	GHAssertEquals(total, 3, @"Not all block handlers were called.");
 }
@@ -63,7 +63,7 @@
 	NSString *title = [_subject buttonTitleAtIndex:index];
 	GHAssertEqualStrings(title,@"Cancel",@"the UIActionSheet adds a button with title %@",title);
 	
-	[_subject.delegate alertViewCancel:_subject];
+	[[_subject.dynamicDelegate realDelegate] alertViewCancel:_subject];
 	
 	GHAssertTrue(blockCalled, @"Block handler was not called.");
 }
@@ -75,8 +75,8 @@
 	_subject.willShowBlock = ^(UIAlertView *view) { willShow = YES; };
 	_subject.didShowBlock = ^(UIAlertView *view) { didShow = YES; };
 	
-	[_subject.delegate willPresentAlertView:_subject];
-	[_subject.delegate didPresentAlertView:_subject];
+	[[_subject.dynamicDelegate realDelegate] willPresentAlertView:_subject];
+	[[_subject.dynamicDelegate realDelegate] didPresentAlertView:_subject];
 	
 	GHAssertTrue(willShow, @"willShowBlock not fired.");
 	GHAssertTrue(didShow, @"didShowblock not fired.");

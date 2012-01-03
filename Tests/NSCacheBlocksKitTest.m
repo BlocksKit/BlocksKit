@@ -34,7 +34,7 @@
 	_subject.willEvictBlock = ^(NSCache *cache, id obj){
         _total--;
     };
-	[_subject.delegate cache:_subject willEvictObject:nil];
+	[[_subject.dynamicDelegate realDelegate] cache:_subject willEvictObject:nil];
 	GHAssertEquals(_total, 0, @"The delegates should have been called!");
 }
 
