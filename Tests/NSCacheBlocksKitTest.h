@@ -9,6 +9,5 @@
 @interface NSCacheBlocksKitTest : GHAsyncTestCase <NSCacheDelegate>
 
 - (void)testDelegate;
-- (void)testEvictionDelegate;
 
 @end
