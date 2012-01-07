@@ -3,7 +3,7 @@ Overview
 
 Blocks in C and Objective-C are downright magical.  They make coding easier and potentially quicker, not to mention faster on the front end with multithreading and Grand Central Dispatch.  BlocksKit hopes to facilitate this kind of programming by removing some of the annoying - and, in some cases, impeding - limits on coding with blocks.
 
-BlocksKit is a framework andr static library for iOS 4.0+ and Mac OS X 10.6+.
+BlocksKit is a framework and static library for iOS 4.0+ and Mac OS X 10.6+.
 
 What's In The Box
 =================
