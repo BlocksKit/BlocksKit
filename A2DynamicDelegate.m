@@ -166,9 +166,6 @@ static void *BlockGetImplementation(id block);
 	self.handlers = nil;
 	
 	[super dealloc];
-	
-	// Dispose of unique A2DynamicDelegate subclass.
-	objc_disposeClassPair(self.class);
 }
 + (void) load
 {
