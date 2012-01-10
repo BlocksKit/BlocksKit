@@ -32,35 +32,10 @@ static SEL bk_getterForProperty(Class cls, NSString *propertyName);
 static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 static void bk_lazySwizzle(void) __attribute__((constructor));
 
-@implementation A2DynamicDelegate (A2BlockDelegate)
-
-- (id) forwardingTargetForSelector: (SEL) aSelector
-{
-	if (![self blockImplementationForMethod: aSelector] && [self.realDelegate respondsToSelector: aSelector])
-		return self.realDelegate;
-	
-	return [super forwardingTargetForSelector: aSelector];
-}
-- (id) realDelegate
-{
-	return [self associatedValueForKey: &BKRealDelegateKey];
-}
-
-- (void) setRealDelegate: (id) rd
-{
-	[self weaklyAssociateValue: rd withKey: &BKRealDelegateKey];
-}
-
-@end
-
-@interface NSObject (A2DelegateProtocols)
+@interface NSObject ()
 
 + (Protocol *) a2_dataSourceProtocol;
 + (Protocol *) a2_delegateProtocol;
-
-@end
-
-@interface NSObject (A2BlockDelegatePrivate)
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
 + (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
@@ -73,9 +48,59 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 
 + (NSMutableDictionary *) bk_accessorsMap;
 
+- (void)setDeallocHandler:(dispatch_block_t)handler;
+
 @end
 
-@implementation NSObject (A2BlockDelegateBlocksKit)
+@interface A2BlockDelegateDeallocHandler : NSObject
+
+@property (nonatomic, copy) dispatch_block_t block;
+
+#end
+
+@implementation A2DynamicDelegate (A2BlockDelegate)
+
+- (id) forwardingTargetForSelector: (SEL) aSelector
+{
+	if (![self blockImplementationForMethod: aSelector] && [self.realDelegate respondsToSelector: aSelector])
+		return self.realDelegate;
+	
+	return [super forwardingTargetForSelector: aSelector];
+}
+- (id) realDelegate
+{
+	return [[[self associatedValueForKey: &BKRealDelegateKey] retain] autorelease];
+}
+
+- (void) setRealDelegate: (id) rd
+{
+	id <NSObject> old = self.realDelegate;
+	if (old)
+		[old setDeallocHandler:NULL];
+	
+	if (rd)
+		[rd setDeallocHandler:^{
+			[self weaklyAssociateValue: nil withKey: &BKRealDelegateKey];
+		}];
+	
+	[self weaklyAssociateValue: rd withKey: &BKRealDelegateKey];
+}
+
+@end
+
+@implementation A2BlockDelegateDeallocHandler
+
+@synthesize block;
+
+- (void)dealloc {
+	block();
+	self.block = nil;
+	[super dealloc];
+}
+
+@end
+
+@implementation NSObject (A2BlockDelegateBlocksKitPrivate)
 
 + (BOOL) bk_resolveInstanceMethod: (SEL) selector
 {
@@ -84,7 +109,7 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 	{
 		Protocol *protocol;
 		SEL representedSelector;
-
+		
 		NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
 		if (argc == 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
 		{				
@@ -142,6 +167,22 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 	return accessorsMap;
 }
 
+- (void)setDeallocHandler:(dispatch_block_t)handler {
+	A2BlockDelegateDeallocHandler *obj = objc_getAssociatedObject(self, _cmd);
+	if (obj && !handler) {
+		[obj release];
+		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	} else if (!obj) {
+		obj = [[[A2BlockDelegateDeallocHandler alloc] init] autorelease];
+		objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	}
+	obj.block = handler;
+}
+
+@end
+
+@implementation NSObject (A2BlockDelegateBlocksKit)
+
 #pragma mark - Register Dynamic Delegate
 
 + (void) registerDynamicDataSource
@@ -165,7 +206,7 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 + (void) registerDynamicDelegateNamed: (NSString *) delegateName forProtocol: (Protocol *) protocol
 {
 	NSMutableDictionary *accessorsMap = [self bk_accessorsMap];
-
+	
 	NSString *key = [@"@" stringByAppendingString: delegateName];
 	if ([accessorsMap objectForKey: key]) return;
 	
@@ -176,7 +217,7 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 	
 	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
 	SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter)]);
-
+	
 	NSString *protocolName = NSStringFromProtocol(protocol);
 	[accessorsMap setObject: protocolName forKey: NSStringFromSelector(setter)];
 	[accessorsMap setObject: protocolName forKey: NSStringFromSelector(getter)];
@@ -276,7 +317,7 @@ static void bk_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 	[dynamicDelegate implementMethod: representedSelector withBlock: block];
 	
 	NSMutableDictionary *propertyMap = [self.class bk_accessorsMap];
-
+	
 	__block SEL getter, setter;
 	[[propertyMap allKeysForObject: NSStringFromProtocol(protocol)] enumerateObjectsUsingBlock: ^(NSString *selectorName, NSUInteger idx, BOOL *stop) {
 		if ([selectorName hasSuffix: @":"])
