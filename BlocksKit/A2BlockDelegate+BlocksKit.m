@@ -100,7 +100,7 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 					NSMutableDictionary *propertyMap = [obj.class bk_accessorsMap];
 					
 					__block SEL getter, setter;
-					[[propertyMap allKeysForObject: protocol] enumerateObjectsUsingBlock: ^(NSString *selectorName, NSUInteger idx, BOOL *stop) {
+					[[propertyMap allKeysForObject: NSStringFromProtocol(protocol)] enumerateObjectsUsingBlock: ^(NSString *selectorName, NSUInteger idx, BOOL *stop) {
 						if ([selectorName hasSuffix: @":"])
 							setter = NSSelectorFromString(selectorName);
 						else
@@ -177,8 +177,9 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
 	SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter)]);
 
-	[accessorsMap setObject: protocol forKey: NSStringFromSelector(setter)];
-	[accessorsMap setObject: protocol forKey: NSStringFromSelector(getter)];
+	NSString *protocolName = NSStringFromProtocol(protocol);
+	[accessorsMap setObject: protocolName forKey: NSStringFromSelector(setter)];
+	[accessorsMap setObject: protocolName forKey: NSStringFromSelector(getter)];
 	
 	IMP setterImplementation, getterImplementation;
 	
@@ -231,13 +232,13 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 {
 	NSMutableDictionary *propertyMap = [self.class bk_accessorsMap];
-	Protocol *protocol = [propertyMap objectForKey: NSStringFromSelector(_cmd)];
+	NSString *protocolName = [propertyMap objectForKey: NSStringFromSelector(_cmd)];
 	
-	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: NSProtocolFromString(protocolName)];
 	
 	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(_cmd)]);
 	
-	NSMutableArray *keys = [[propertyMap allKeysForObject: protocol] mutableCopy];
+	NSMutableArray *keys = [[propertyMap allKeysForObject: protocolName] mutableCopy];
 	[keys removeObject: NSStringFromSelector(_cmd)];
 	SEL getter = NSSelectorFromString([keys lastObject]);
 	[keys release];
@@ -258,8 +259,8 @@ static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 static id bk_blockDelegateGetter(NSObject *self, SEL _cmd)
 {
 	NSMutableDictionary *propertyMap = [self.class bk_accessorsMap];
-	Protocol *protocol = [propertyMap objectForKey: NSStringFromSelector(_cmd)];
-	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+	NSString *protocolName = [propertyMap objectForKey: NSStringFromSelector(_cmd)];
+	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: NSProtocolFromString(protocolName)];
 	return dynamicDelegate.realDelegate;
 }
 
@@ -277,7 +278,7 @@ static void bk_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 	NSMutableDictionary *propertyMap = [self.class bk_accessorsMap];
 
 	__block SEL getter, setter;
-	[[propertyMap allKeysForObject: protocol] enumerateObjectsUsingBlock: ^(NSString *selectorName, NSUInteger idx, BOOL *stop) {
+	[[propertyMap allKeysForObject: NSStringFromProtocol(protocol)] enumerateObjectsUsingBlock: ^(NSString *selectorName, NSUInteger idx, BOOL *stop) {
 		if ([selectorName hasSuffix: @":"])
 			setter = NSSelectorFromString(selectorName);
 		else
