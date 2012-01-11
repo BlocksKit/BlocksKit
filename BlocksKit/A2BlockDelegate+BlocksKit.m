@@ -93,7 +93,7 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 			
 			if (&imp_implementationWithBlock)
 			{
-				implementation = imp_implementationWithBlock(^(NSObject *obj, id block) {
+				implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
 					A2DynamicDelegate *dynamicDelegate = [obj dynamicDelegateForProtocol: protocol];
 					[dynamicDelegate implementMethod: representedSelector withBlock: block];
 					
@@ -115,7 +115,7 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 						if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
 							[obj performSelector:a2_setter withObject:dynamicDelegate];
 					}
-				});
+				} copy] autorelease]);
 			}
 			else
 			{
@@ -185,7 +185,7 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 	
 	if (&imp_implementationWithBlock)
 	{
-		setterImplementation = imp_implementationWithBlock((__bridge void *) ^(NSObject *self, id delegate) {
+		setterImplementation = imp_implementationWithBlock((__bridge void *) [[^(NSObject *self, id delegate) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 			
 			if ([self respondsToSelector:a2_setter]) {
@@ -196,12 +196,12 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 			
 			if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
 			dynamicDelegate.realDelegate = delegate;
-		});
+		} copy] autorelease]);
 		
-		getterImplementation = imp_implementationWithBlock((__bridge void *) ^id(NSObject *self) {
+		getterImplementation = imp_implementationWithBlock((__bridge void *) [[^id(NSObject *self) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 			return dynamicDelegate.realDelegate;
-		});
+		} copy] autorelease]);
 	}
 	else
 	{
