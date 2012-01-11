@@ -56,7 +56,7 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 
 @property (nonatomic, copy) dispatch_block_t block;
 
-#end
+@end
 
 @implementation A2DynamicDelegate (A2BlockDelegate)
 
@@ -74,7 +74,7 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 
 - (void) setRealDelegate: (id) rd
 {
-	id <NSObject> old = self.realDelegate;
+	NSObject *old = self.realDelegate;
 	if (old)
 		[old setDeallocHandler:NULL];
 	
