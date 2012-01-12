@@ -169,14 +169,14 @@ static void bk_lazySwizzle(void) __attribute__((constructor));
 
 - (void)setDeallocHandler:(dispatch_block_t)handler {
 	A2BlockDelegateDeallocHandler *obj = objc_getAssociatedObject(self, _cmd);
-	if (obj && !handler) {
-		[obj release];
-		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	} else if (!obj) {
+	if (!obj && handler) {
 		obj = [[[A2BlockDelegateDeallocHandler alloc] init] autorelease];
 		objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	obj.block = handler;
+	if (!handler && obj) {
+		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	} 
 }
 
 @end
