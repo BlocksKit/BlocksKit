@@ -165,10 +165,16 @@ static void *BlockGetImplementation(id block);
 {
 	self.handlers = nil;
 	
+	const char *className = object_getClassName(self);
+	
 	[super dealloc];
 	
-	// Dispose of unique A2DynamicDelegate subclass.
-	objc_disposeClassPair(self.class);
+	dispatch_async(backgroundQueue, ^{
+		Class cls = objc_getClass(className);
+		
+		// Dispose of unique A2DynamicDelegate subclass.
+		objc_disposeClassPair(cls);
+	});
 }
 + (void) load
 {
