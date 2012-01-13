@@ -266,9 +266,9 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			{
 				if (&imp_implementationWithBlock)
 				{
-					implementation = imp_implementationWithBlock(^(NSObject *obj, id block) {
+					implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
 						[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
-					});
+					} copy] autorelease]);
 				}
 				else
 				{
@@ -281,9 +281,9 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			{
 				if (&imp_implementationWithBlock)
 				{
-					implementation = imp_implementationWithBlock(^id (NSObject *obj) {
+					implementation = imp_implementationWithBlock([[^id (NSObject *obj) {
 						return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
-					});
+					} copy] autorelease]);
 				}
 				else
 				{
