@@ -23,19 +23,25 @@
 void *A2BlockDelegateProtocolsKey;
 void *A2BlockDelegateMapKey;
 
-extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
+static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector);
 
 // Block Property Accessors
 static id a2_blockPropertyGetter(id self, SEL _cmd);
 static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 
 // Forward Declarations
+extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName);
 extern IMP imp_implementationWithBlock(void *block);
 
-@interface NSObject (A2BlockDelegatePrivate)
+@interface NSObject ()
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
+
+@end
+
+@interface NSObject (A2BlockDelegatePrivate)
+
 + (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
 
 + (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol;
@@ -65,67 +71,16 @@ extern IMP imp_implementationWithBlock(void *block);
 	SEL newSel = @selector(a2_resolveInstanceMethod:);
 	
 	Method origMethod = class_getClassMethod(class, origSel);
-	Method newMethod = class_getClassMethod(class, newSel);
 	
-	if (class_addMethod(metaClass, origSel, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
-		class_replaceMethod(metaClass, newSel, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
-	else
-		method_exchangeImplementations(origMethod, newMethod);
+	class_addMethod(metaClass, newSel, (IMP)a2_resolveInstanceMethod, method_getTypeEncoding(origMethod));
+	
+	Method newMethod = class_getClassMethod(class, newSel);
+
+	method_exchangeImplementations(origMethod, newMethod);
 }
 
 #pragma mark - Helpers
 
-+ (BOOL) a2_resolveInstanceMethod: (SEL) selector
-{
-	// Check for existence of `-a2_protocols` and `-a2_mapForProtocol:`, respectively
-	if (objc_getAssociatedObject(self, &A2BlockDelegateMapKey) && objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey))
-	{
-		Protocol *protocol;
-		SEL representedSelector;
-		
-		NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
-		if (argc <= 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
-		{
-			IMP implementation;
-			const char *types;
-			
-			if (argc == 1)
-			{
-				if (&imp_implementationWithBlock)
-				{
-					implementation = imp_implementationWithBlock(^(NSObject *obj, id block) {
-						[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
-					});
-				}
-				else
-				{
-					implementation = (IMP) a2_blockPropertySetter;
-				}
-				
-				types = "v@:@?";
-			}
-			else
-			{
-				if (&imp_implementationWithBlock)
-				{
-					implementation = imp_implementationWithBlock(^id (NSObject *obj) {
-						return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
-					});
-				}
-				else
-				{
-					implementation = (IMP) a2_blockPropertyGetter;
-				}
-				
-				types = "@?@:";
-			}
-			
-			if (class_addMethod(self, selector, implementation, types)) return YES;
-		}
-	}
-	
-	return [self a2_resolveInstanceMethod: selector];
-}
 + (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector
 {
 	__block BOOL found = NO;
@@ -290,6 +245,60 @@ extern IMP imp_implementationWithBlock(void *block);
 }
 
 @end
+
+#pragma mark - Functions
+
+static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
+{
+	// Check for existence of `-a2_protocols` and `-a2_mapForProtocol:`, respectively
+	if (objc_getAssociatedObject(self, &A2BlockDelegateMapKey) && objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey))
+	{
+		Protocol *protocol;
+		SEL representedSelector;
+		
+		NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
+		if (argc <= 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
+		{
+			IMP implementation;
+			const char *types;
+			
+			if (argc == 1)
+			{
+				if (&imp_implementationWithBlock)
+				{
+					implementation = imp_implementationWithBlock(^(NSObject *obj, id block) {
+						[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
+					});
+				}
+				else
+				{
+					implementation = (IMP) a2_blockPropertySetter;
+				}
+				
+				types = "v@:@?";
+			}
+			else
+			{
+				if (&imp_implementationWithBlock)
+				{
+					implementation = imp_implementationWithBlock(^id (NSObject *obj) {
+						return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
+					});
+				}
+				else
+				{
+					implementation = (IMP) a2_blockPropertyGetter;
+				}
+				
+				types = "@?@:";
+			}
+			
+			if (class_addMethod(self, selector, implementation, types)) return YES;
+		}
+	}
+	
+	return [self a2_resolveInstanceMethod: selector];
+}
 
 // Block Property Accessors
 static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
