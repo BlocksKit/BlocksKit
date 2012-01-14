@@ -140,9 +140,12 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	
 	if (obj && !handler)
 	{
+		obj.block = nil;
 		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		return;
 	}
-	else if (!obj)
+	
+	if (!obj)
 	{
 		obj = [[A2BlockDelegateDeallocHandler new] autorelease];
 		objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
