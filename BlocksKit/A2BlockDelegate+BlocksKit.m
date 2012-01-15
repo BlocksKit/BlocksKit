@@ -45,8 +45,10 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 
 - (void) dealloc
 {
-	block();
-	self.block = nil;
+	if (block) {
+		block();
+		self.block = nil;
+	}
 	[super dealloc];
 }
 
