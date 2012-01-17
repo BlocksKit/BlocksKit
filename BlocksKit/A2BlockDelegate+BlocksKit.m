@@ -33,7 +33,9 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 static SEL bk_getterForProperty(Class cls, NSString *propertyName);
 static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 
-@interface A2BlockDelegateDeallocHandler : NSObject
+@interface A2BlockDelegateDeallocHandler : NSObject {
+	dispatch_block_t block;
+}
 
 @property (nonatomic, copy) dispatch_block_t block;
 

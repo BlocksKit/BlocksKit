@@ -5,7 +5,10 @@
 
 #import "NSInvocation+BlocksKit.h"
 
-@interface BKInvocationGrabber : NSProxy
+@interface BKInvocationGrabber : NSProxy {
+	id target;
+	NSInvocation *invocation;
+}
 
 + (BKInvocationGrabber *)grabberWithTarget:(id)target;
 
