@@ -7,7 +7,11 @@
 #import "NSObject+AssociatedObjects.h"
 #import "NSDictionary+BlocksKit.h"
 
-@interface BKObserver : NSObject
+@interface BKObserver : NSObject {
+	id observee;
+	NSString *keyPath;
+	BKObservationBlock task;
+}
 
 @property (nonatomic, assign) id observee;
 @property (nonatomic, copy) NSString *keyPath;
