@@ -26,7 +26,7 @@ static id bk_blockDelegateGetter(id self, SEL _cmd);
 static void bk_blockPropertySetter(id self, SEL _cmd, id block);
 
 // Forward Declarations
-extern IMP imp_implementationWithBlock(void *block);
+extern IMP imp_implementationWithBlock(void *block) __attribute__((weak_import));
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *name);
 
 // Helpers
