@@ -33,27 +33,6 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 static SEL bk_getterForProperty(Class cls, NSString *propertyName);
 static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 
-@interface A2BlockDelegateDeallocHandler : NSObject {
-	dispatch_block_t block;
-}
-
-@property (nonatomic, copy) dispatch_block_t block;
-
-@end
-
-@implementation A2BlockDelegateDeallocHandler
-
-@synthesize block;
-
-- (void) dealloc
-{
-	block();
-	self.block = nil;
-	[super dealloc];
-}
-
-@end
-
 @interface NSObject ()
 
 + (Protocol *) a2_dataSourceProtocol;
@@ -70,8 +49,6 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 
 + (NSMutableDictionary *) bk_accessorsMap;
 
-- (void)setDeallocHandler:(dispatch_block_t)handler;
-
 @end
 
 @implementation A2DynamicDelegate (A2BlockDelegate)
@@ -86,20 +63,11 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 
 - (id) realDelegate
 {
-	return [[[self associatedValueForKey: &BKRealDelegateKey] retain] autorelease];
+	return [self associatedValueForKey: &BKRealDelegateKey];
 }
 - (void) setRealDelegate: (id) rd
 {
-	NSObject *old = self.realDelegate;
-	if (old)
-		[old setDeallocHandler: NULL];
-	
-	if (rd)
-		[rd setDeallocHandler:^{
-			[self weaklyAssociateValue: nil withKey: &BKRealDelegateKey];
-		}];
-	
-	[self weaklyAssociateValue: rd withKey: &BKRealDelegateKey];
+	[self associateValue:rd withKey:&BKRealDelegateKey];
 }
 
 @end
@@ -134,23 +102,6 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	}
 	
 	return accessorsMap;
-}
-
-- (void) setDeallocHandler: (dispatch_block_t) handler
-{
-	A2BlockDelegateDeallocHandler *obj = objc_getAssociatedObject(self, _cmd);
-	
-	if (obj && !handler)
-	{
-		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
-	else if (!obj)
-	{
-		obj = [[A2BlockDelegateDeallocHandler new] autorelease];
-		objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
-	
-	obj.block = handler;
 }
 
 #pragma mark - Register Dynamic Delegate
