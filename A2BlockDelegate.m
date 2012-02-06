@@ -32,7 +32,10 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 // Forward Declarations
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName);
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_3
 extern IMP imp_implementationWithBlock(void *block) __attribute__((weak_import));
+#endif
 
 @interface NSObject ()
 
@@ -264,6 +267,7 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			
 			if (argc == 1)
 			{
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_3
 				if (imp_implementationWithBlock != NULL)
 				{
 					implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
@@ -271,6 +275,7 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 					} copy] autorelease]);
 				}
 				else
+#endif
 				{
 					implementation = (IMP) a2_blockPropertySetter;
 				}
@@ -279,6 +284,7 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			}
 			else
 			{
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_3
 				if (imp_implementationWithBlock != NULL)
 				{
 					implementation = imp_implementationWithBlock([[^id (NSObject *obj) {
@@ -286,6 +292,7 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 					} copy] autorelease]);
 				}
 				else
+#endif
 				{
 					implementation = (IMP) a2_blockPropertyGetter;
 				}
