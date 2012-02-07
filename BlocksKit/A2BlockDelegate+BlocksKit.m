@@ -26,11 +26,7 @@ static id bk_blockDelegateGetter(id self, SEL _cmd);
 static void bk_blockPropertySetter(id self, SEL _cmd, id block);
 
 // Forward Declarations
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_3
 extern IMP imp_implementationWithBlock(void *block) __attribute__((weak_import));
-#endif
-
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *name);
 
 // Helpers
@@ -149,7 +145,6 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	
 	IMP setterImplementation, getterImplementation;
 	
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_3
 	if (imp_implementationWithBlock != NULL)
 	{
 		setterImplementation = imp_implementationWithBlock((__bridge void *) [[^(NSObject *self, id delegate) {
@@ -171,7 +166,6 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 		} copy] autorelease]);
 	}
 	else
-#endif
 	{
 		setterImplementation = (IMP) bk_blockDelegateSetter;
 		getterImplementation = (IMP) bk_blockDelegateGetter;
@@ -212,7 +206,6 @@ static BOOL bk_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			IMP implementation;
 			const char *types = "v@:@?";
 			
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_4_3
 			if (imp_implementationWithBlock != NULL)
 			{
 				implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
@@ -240,7 +233,6 @@ static BOOL bk_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 				} copy] autorelease]);
 			}
 			else
-#endif
 			{
 				implementation = (IMP) bk_blockPropertySetter;
 			}
