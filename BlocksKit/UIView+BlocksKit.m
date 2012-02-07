@@ -15,10 +15,11 @@ static char kViewTouchUpBlockKey;
 @implementation UIView (BlocksKit)
 
 - (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
-	NSParameterAssert(block != nil);
+	if (!block)
+		return;
 	
 	UITapGestureRecognizer *gesture = [UITapGestureRecognizer recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
-		block();
+		if (state == UIGestureRecognizerStateRecognized) block();
 	}];
 	
 	[gesture setNumberOfTouchesRequired:numberOfTouches];

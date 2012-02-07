@@ -26,35 +26,12 @@ static id bk_blockDelegateGetter(id self, SEL _cmd);
 static void bk_blockPropertySetter(id self, SEL _cmd, id block);
 
 // Forward Declarations
-extern IMP imp_implementationWithBlock(void *block);
+extern IMP imp_implementationWithBlock(void *block) __attribute__((weak_import));
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *name);
 
 // Helpers
 static SEL bk_getterForProperty(Class cls, NSString *propertyName);
 static SEL bk_setterForProperty(Class cls, NSString *propertyName);
-
-@interface A2BlockDelegateDeallocHandler : NSObject {
-	dispatch_block_t block;
-}
-
-@property (nonatomic, copy) dispatch_block_t block;
-
-@end
-
-@implementation A2BlockDelegateDeallocHandler
-
-@synthesize block;
-
-- (void) dealloc
-{
-	if (block) {
-		block();
-		self.block = nil;
-	}
-	[super dealloc];
-}
-
-@end
 
 @interface NSObject ()
 
@@ -72,8 +49,6 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 
 + (NSMutableDictionary *) bk_accessorsMap;
 
-- (void)setDeallocHandler:(dispatch_block_t)handler;
-
 @end
 
 @implementation A2DynamicDelegate (A2BlockDelegate)
@@ -88,20 +63,11 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 
 - (id) realDelegate
 {
-	return [[[self associatedValueForKey: &BKRealDelegateKey] retain] autorelease];
+	return [self associatedValueForKey: &BKRealDelegateKey];
 }
 - (void) setRealDelegate: (id) rd
 {
-	NSObject *old = self.realDelegate;
-	if (old)
-		[old setDeallocHandler: NULL];
-	
-	if (rd)
-		[rd setDeallocHandler:^{
-			[self weaklyAssociateValue: nil withKey: &BKRealDelegateKey];
-		}];
-	
-	[self weaklyAssociateValue: rd withKey: &BKRealDelegateKey];
+	[self associateValue:rd withKey:&BKRealDelegateKey];
 }
 
 @end
@@ -136,26 +102,6 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	}
 	
 	return accessorsMap;
-}
-
-- (void) setDeallocHandler: (dispatch_block_t) handler
-{
-	A2BlockDelegateDeallocHandler *obj = objc_getAssociatedObject(self, _cmd);
-	
-	if (obj && !handler)
-	{
-		obj.block = nil;
-		objc_setAssociatedObject(self, _cmd, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-		return;
-	}
-	
-	if (!obj)
-	{
-		obj = [[A2BlockDelegateDeallocHandler new] autorelease];
-		objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
-	
-	obj.block = handler;
 }
 
 #pragma mark - Register Dynamic Delegate
@@ -199,7 +145,7 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	
 	IMP setterImplementation, getterImplementation;
 	
-	if (&imp_implementationWithBlock)
+	if (imp_implementationWithBlock != NULL)
 	{
 		setterImplementation = imp_implementationWithBlock((__bridge void *) [[^(NSObject *self, id delegate) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
@@ -260,7 +206,7 @@ static BOOL bk_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			IMP implementation;
 			const char *types = "v@:@?";
 			
-			if (&imp_implementationWithBlock)
+			if (imp_implementationWithBlock != NULL)
 			{
 				implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
 					A2DynamicDelegate *dynamicDelegate = [obj dynamicDelegateForProtocol: protocol];

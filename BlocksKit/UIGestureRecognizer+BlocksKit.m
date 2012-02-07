@@ -12,8 +12,7 @@ static char kGestureRecognizerDelayKey;
 static char kGestureRecognizerCancelKey;
 
 @interface UIGestureRecognizer (BlocksKitInternal)
-- (void)_handleAction:(id)recognizer;
-- (void)_handleActionUsingDelay:(id)recognizer;
+- (void)_handleAction:(UIGestureRecognizer *)recognizer;
 @end
 
 @implementation UIGestureRecognizer (BlocksKit)
@@ -24,9 +23,8 @@ static char kGestureRecognizerCancelKey;
 
 - (id)initWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay {
 	if ((self = [self initWithTarget:self action:@selector(_handleAction:)])) {
-		if (delay)
-			[self associateValue:[NSNumber numberWithDouble:delay] withKey:&kGestureRecognizerDelayKey];
 		self.handler = block;
+		self.handlerDelay = delay;
 	}
 	return self;
 }
@@ -44,19 +42,17 @@ static char kGestureRecognizerCancelKey;
 	if (!handler)
 		return;
 	
-	NSTimeInterval delay = self.delay;
+	NSTimeInterval delay = self.handlerDelay;
 	CGPoint location = [self locationInView:self.view];
 	BKBlock block = ^{
 		handler(self, self.state, location);
 	};
 	
-	if (!delay) {
+	if (!delay)
 		block();
-	}
-    else {
-        id cancel = [NSObject performBlock:block afterDelay:delay];
-        [self associateCopyOfValue:cancel withKey:&kGestureRecognizerCancelKey];
-    }
+	
+	id cancel = [NSObject performBlock:block afterDelay:delay];
+	[self associateCopyOfValue:cancel withKey:&kGestureRecognizerCancelKey];
 }
 
 - (void)setHandler:(BKGestureRecognizerBlock)handler {
@@ -67,14 +63,22 @@ static char kGestureRecognizerCancelKey;
 	return [self associatedValueForKey:&kGestureRecognizerBlockKey];
 }
 
-- (void)setDelay:(NSTimeInterval)delay {
+- (void)setHandlerDelay:(NSTimeInterval)delay {
 	NSNumber *delayValue = delay ? [NSNumber numberWithDouble:delay] : nil;
 	[self associateValue:delayValue withKey:&kGestureRecognizerDelayKey];
 }
 
-- (NSTimeInterval)delay {
+- (NSTimeInterval)handlerDelay {
 	NSNumber *delay = [self associatedValueForKey:&kGestureRecognizerDelayKey];
 	return delay ? [delay doubleValue] : 0.0;
+}
+
+- (void)setDelay:(NSTimeInterval)delay {
+	[self setHandlerDelay:delay];
+}
+
+- (NSTimeInterval)delay {
+	return [self handlerDelay];
 }
 
 - (void)cancel {

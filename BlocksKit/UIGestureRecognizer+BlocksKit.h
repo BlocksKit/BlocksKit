@@ -90,7 +90,8 @@
 /** Allows the length of the delay after which the gesture
  recognizer will be fired to modify.
  */
-@property (nonatomic) NSTimeInterval delay;
+@property (nonatomic) NSTimeInterval handlerDelay;
+@property (nonatomic) NSTimeInterval delay DEPRECATED_ATTRIBUTE;
 
 /** If the recognizer happens to be fired, calling this method
  will stop it from firing, but only if a delay is set.
