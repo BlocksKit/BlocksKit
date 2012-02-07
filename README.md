@@ -1,31 +1,9 @@
-Overview
-========
+[BlocksKit](http://zwaldowski.github.com/BlocksKit)
+===================================================
 
 Blocks in C and Objective-C are downright magical.  They make coding easier and potentially quicker, not to mention faster on the front end with multithreading and Grand Central Dispatch.  BlocksKit hopes to facilitate this kind of programming by removing some of the annoying - and, in some cases, impeding - limits on coding with blocks.
 
 BlocksKit is a framework and static library for iOS 4.0+ and Mac OS X 10.6+.
-
-What's In The Box
-=================
-
-* Performing blocks on an `NSObject`, with or without delay.
-* Key-value observation (`<NSKeyValueObserving>`) with block handlers.
-* Associated objects in an Obj-C API.  (Not directly block-related.)
-* `NSArray`, `NSSet`, `NSDictionary`, and `NSIndexSet` filtering and enumeration.
-* Filtering for mutable collections.
-* `NSInvocation` creation using a block.
-* `NSTimer` block execution.
-* Both delegation and block callbacks on `NSURLConnection`.
-* Delegate callback for `NSCache`.
-
-### UIKit Extensions
-
-* `UIAlertView`, `UIActionSheet` with block callbacks and convenience methods.
-* Block initializers for `UIControl` and `UIBarButtonItem`.
-* Block initializers for `UIGestureRecognizer`.
-* On-touch utilities for `UIView`.
-* Block callbacks for `MFMailComposeViewController` and `MFMessageComposeViewController`.
-* Delegate alternative for `UIWebView`.
 
 Installation
 ============
@@ -53,42 +31,13 @@ BlocksKit can be added to a project using [CocoaPods](https://github.com/alloy/c
 Documentation
 =============
 
-Documentation is exhaustive and done using [AppleDoc](https://github.com/tomaz/appledoc).  
-
-An Xcode 4 compatible documentation set is available [using this Atom link](http://www.dizzytechnology.com/data/com.dizzytech.BlocksKit.atom).  Add it to Xcode 4's preferences and it'll download automatically.
-
-You can also view the documentation online [at my website](http://dizzytechnology.com/data/BlocksKit).
+An Xcode 4 compatible documentation set is available [using this Atom link](http://zwaldowski.github.com/BlocksKit/com.dizzytechnology.BlocksKit.atom). You may also view the documentation [online](http://zwaldowski.github.com/BlocksKit/Documentation).
 
 License
 =======
 
-BlocksKit is created and maintained by Zachary Waldowski under the MIT license [(hello, nice to meet you)](https://github.com/zwaldowski).  All of the included code is licensed either under BSD, MIT, or is in the public domain.  **The project itself is free for use in any and all projects.**  You can use BlocksKit in any project, public or private, with or without attribution.
+BlocksKit is created and maintained by [Zachary Waldowski](https://github.com/zwaldowski) under the MIT license.  **The project itself is free for use in any and all projects.**  You can use BlocksKit in any project, public or private, with or without attribution.
 
-Unsure about your rights?  [Read more.](http://www.opensource.org/licenses/mit-license.php)
+Unsure about your rights?  [Read more.](http://zwaldowski.github.com/BlocksKit/index.html#license)
 
-Contributors
-============
-
-BlocksKit takes, repurposes, fiddles with, and groups together a variety of block-related code generally found here on GitHub.
-
-The following people (in alphabetical order) have their code lovingly enshrined in BlocksKit:
-
-* [Alexsander Akers](https://github.com/pandamonia).
-* [Michael Ash](https://github.com/mikeash).
-* [Jiva DeVoe](https://github.com/jivadevoe).
-* [Igor Evsukov](https://github.com/evsukov89).
-* [Corey Floyd](https://github.com/coreyfloyd).
-* [Landon Fuller](http://plausiblelabs.com).
-* [Mirko Kiefer](https://github.com/mirkok).
-* [Robin Lu](https://github.com/robin).
-* [Jake Marsh](https://github.com/jakemarsh).
-* [Andy Matuschak](https://github.com/andymatuschak).
-* [Aleks Nesterow](https://github.com/nesterow).
-* [Kevin O'Neill](https://github.com/kevinoneill).
-* [Jonathan Rentzch](https://github.com/rentzch).
-* [Peter Steinberger](https://github.com/steipete).
-* [Jon Sterling](https://github.com/jonsterling).
-* [Martin Schürrer](https://github.com/MSch).
-* [Jonathan Wight](https://github.com/schwa).
-
-Individual credits exist in the header files and documentation.
+All of the included code is licensed either under BSD, MIT, or is in the public domain. A full list of contributors exists on the [project page](http://zwaldowski.github.com/BlocksKit/index.html#contributors). Individual credits exist in the header files and documentation. We thank them for their contributions to the open source community.
