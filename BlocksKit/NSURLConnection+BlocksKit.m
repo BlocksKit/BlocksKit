@@ -15,9 +15,9 @@ static char kResponseKey;
 static char kResponseLengthKey;
 
 @interface NSURLConnection (BlocksKitPrivate)
-@property (nonatomic, retain) NSMutableData *bk_responseData;
-@property (nonatomic, retain) NSURLResponse *bk_response;
-@property (nonatomic) NSUInteger bk_responseLength;
+@property (nonatomic, retain, setter = bk_setResponseData:) NSMutableData *bk_responseData;
+@property (nonatomic, retain, setter = bk_setResponse:) NSURLResponse *bk_response;
+@property (nonatomic, setter = bk_setResponseLength:) NSUInteger bk_responseLength;
 @end
 
 @implementation NSURLConnection (BlocksKitPrivate)
@@ -26,7 +26,7 @@ static char kResponseLengthKey;
 	return [self associatedValueForKey:&kResponseDataKey];
 }
 
-- (void)setBk_responseData:(NSMutableData *)responseData {
+- (void)bk_setResponseData:(NSMutableData *)responseData {
 	[self associateValue:responseData withKey:&kResponseDataKey];
 }
 
@@ -34,7 +34,7 @@ static char kResponseLengthKey;
 	return [self associatedValueForKey:&kResponseKey];
 }
 
-- (void)setBk_response:(NSURLResponse *)response {
+- (void)bk_setResponse:(NSURLResponse *)response {
 	return [self associateValue:response withKey:&kResponseKey];
 }
 
@@ -42,7 +42,7 @@ static char kResponseLengthKey;
 	return [[self associatedValueForKey:&kResponseLengthKey] unsignedIntegerValue];
 }
 
-- (void)setBk_responseLength:(NSUInteger)responseLength {
+- (void)bk_setResponseLength:(NSUInteger)responseLength {
 	NSNumber *value = [NSNumber numberWithUnsignedInteger:responseLength];
 	return [self associateValue:value withKey:&kResponseLengthKey];
 }
