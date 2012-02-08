@@ -13,8 +13,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6CC40A291447B58600E47595"
-               BuildableName = "BlocksKit.framework"
+               BlueprintIdentifier = "6CFC4B5914E212E00036F8ED"
+               BuildableName = "iOS Framework"
                BlueprintName = "iOS Framework"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
