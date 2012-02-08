@@ -1,5 +1,5 @@
 //
-//  UIGestureRecognizer+BlocksKit.h
+//  UIPopoverController+BlocksKit.h
 //  %PROJECT
 //
 
