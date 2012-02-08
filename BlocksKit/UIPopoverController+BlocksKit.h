@@ -1,13 +1,14 @@
 //
-//  UIPopoverController+BlocksKit.h
-//  BlocksKit
-//
-//  Created by Alexsander Akers on 12/27/11.
-//  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
+//  UIGestureRecognizer+BlocksKit.h
+//  %PROJECT
 //
 
-#import <UIKit/UIKit.h>
-
+/** Block functionality for UIPopoverController.
+ 
+ Created by Alexsander Akers and contributed to BlocksKit. Copyright (c) 2011 Pandamonia LLC. All rights reserved.
+ 
+ @warning UIPopovercontroller is only available on iOS or in a Mac app using Chameleon.
+ */
 @interface UIPopoverController (BlocksKit)
 
 /** The block to be called when the popover controller will dismiss the popover. Return NO to prevent the dismissal of the view. */
