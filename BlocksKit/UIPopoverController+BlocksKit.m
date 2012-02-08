@@ -2,9 +2,6 @@
 //  UIPopoverController+BlocksKit.m
 //  BlocksKit
 //
-//  Created by Alexsander Akers on 12/27/11.
-//  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
-//
 
 #import "A2BlockDelegate+BlocksKit.h"
 #import "A2DynamicDelegate.h"
