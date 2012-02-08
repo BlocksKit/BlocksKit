@@ -21,6 +21,6 @@
 
 @interface A2DynamicDelegate (A2BlockDelegate)
 
-@property (nonatomic, assign) id realDelegate;
+@property (nonatomic, readonly) id realDelegate;
 
 @end

@@ -65,10 +65,6 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 {
 	return [self associatedValueForKey: &BKRealDelegateKey];
 }
-- (void) setRealDelegate: (id) rd
-{
-	[self associateValue:rd withKey:&BKRealDelegateKey];
-}
 
 @end
 
@@ -156,8 +152,13 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 					[self performSelector:a2_setter withObject:dynamicDelegate];
 			}
 			
-			if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
-			dynamicDelegate.realDelegate = delegate;
+			if ([delegate isEqual: self]) {
+				[dynamicDelegate weaklyAssociateValue: delegate withKey: &BKRealDelegateKey];
+				return;
+			}
+			
+			if ([delegate isEqual: dynamicDelegate]) delegate = nil;
+			[dynamicDelegate associateValue: delegate withKey: &BKRealDelegateKey];
 		} copy] autorelease]);
 		
 		getterImplementation = imp_implementationWithBlock((__bridge void *) [[^id(NSObject *self) {
@@ -267,8 +268,13 @@ static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 			[self performSelector:a2_setter withObject:dynamicDelegate];
 	}
 	
-	if ([delegate isEqual: self] || [delegate isEqual: dynamicDelegate]) delegate = nil;
-	dynamicDelegate.realDelegate = delegate;
+	if ([delegate isEqual: self]) {
+		[dynamicDelegate weaklyAssociateValue: delegate withKey: &BKRealDelegateKey];
+		return;
+	}
+	
+	if ([delegate isEqual: dynamicDelegate]) delegate = nil;
+	[dynamicDelegate associateValue: delegate withKey: &BKRealDelegateKey];
 }
 
 // Block Delegate Getter (Swizzled)
