@@ -33,9 +33,6 @@
 			[list setObject:obj forKey:key];
 	}];
 	
-	if (!list.count)
-		return nil;
-	
 	return list;
 }
 
@@ -48,9 +45,6 @@
 		if (!block(key, obj))
 			[list setObject:obj forKey:key];
 	}];
-	
-	if (!list.count)
-		return nil;
 	
 	return list;	
 }
