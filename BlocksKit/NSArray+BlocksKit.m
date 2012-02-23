@@ -39,27 +39,17 @@
 - (NSArray *)select:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	NSArray *result = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+	return [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		return block(obj);
 	}]];
-	
-	if (!result.count)
-		return nil;
-	
-	return result;
 }
 
 - (NSArray *)reject:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	NSArray *result = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+	return [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		return !block(obj);
 	}]];
-	
-	if (!result.count)
-		return nil;
-	
-	return result;
 }
 
 - (NSArray *)map:(BKTransformBlock)block {

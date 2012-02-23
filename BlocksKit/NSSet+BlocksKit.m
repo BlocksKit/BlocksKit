@@ -38,27 +38,17 @@
 - (NSSet *)select:(BKValidationBlock)block {  
 	NSParameterAssert(block != nil);
 	
-	NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+	return [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
 		return (block(obj));
 	}];
-	
-	if (!list.count)
-		return nil;
-	
-	return list;
 }
 
 - (NSSet *)reject:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+	return [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
 		return (!block(obj));
 	}];
-	
-	if (!list.count)
-		return nil;
-	
-	return list;
 }
 
 - (NSSet *)map:(BKTransformBlock)block {
