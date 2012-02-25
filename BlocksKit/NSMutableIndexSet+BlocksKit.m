@@ -22,17 +22,9 @@
 }
 
 - (void)performReject:(BKIndexValidationBlock)block {
-	NSParameterAssert(block != nil);
-	
-	
-	NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-		return block(idx);
+	return [self performSelect:^BOOL(NSUInteger idx) {
+		return !block(idx);
 	}];
-	
-	if (!list.count)
-		return;
-	
-	[self removeIndexes:list];	
 }
 
 - (void)performMap:(BKIndexTransformBlock)block {

@@ -21,16 +21,9 @@
 }
 
 - (void)performReject:(BKValidationBlock)block {
-	NSParameterAssert(block != nil);
-
-	NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-		return block(obj);
+	return [self performSelect:^BOOL(id obj) {
+		return !block(obj);
 	}];
-	
-	if (!list.count)
-		return;
-	
-	[self removeObjectsAtIndexes:list];
 }
 
 - (void)performMap:(BKTransformBlock)block {

@@ -10,7 +10,6 @@
 - (void)performSelect:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	
 	NSMutableArray *keys = [NSMutableArray arrayWithCapacity:self.count];
 	
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -22,17 +21,9 @@
 }
 
 - (void)performReject:(BKKeyValueValidationBlock)block {
-	NSParameterAssert(block != nil);
-	
-	
-	NSMutableArray *keys = [NSMutableArray arrayWithCapacity:self.count];
-	
-	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		if (block(key, obj))
-			[keys addObject:key];
+	[self performSelect:^BOOL(id key, id obj) {
+		return !block(key, obj);
 	}];
-	
-	[self removeObjectsForKeys:keys];	
 }
 
 - (void)performMap:(BKKeyValueTransformBlock)block {

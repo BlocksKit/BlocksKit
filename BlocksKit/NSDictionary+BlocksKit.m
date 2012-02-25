@@ -37,16 +37,9 @@
 }
 
 - (NSDictionary *)reject:(BKKeyValueValidationBlock)block {
-	NSParameterAssert(block != nil);
-	
-	NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
-	
-	[self each:^(id key, id obj) {
-		if (!block(key, obj))
-			[list setObject:obj forKey:key];
+	return [self select:^BOOL(id key, id obj) {
+		return !block(key, obj);
 	}];
-	
-	return list;	
 }
 
 - (NSDictionary *)map:(BKKeyValueTransformBlock)block {

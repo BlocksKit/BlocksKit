@@ -18,14 +18,9 @@
 }
 
 - (void)performReject:(BKValidationBlock)block {
-	NSParameterAssert(block != nil);
-	
-	
-	NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
+	[self performSelect:^BOOL(id obj) {
 		return !block(obj);
 	}];
-	
-	[self setSet:list];	
 }
 
 - (void)performMap:(BKTransformBlock)block {
