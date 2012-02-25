@@ -454,7 +454,7 @@
 				A97E4CA113FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h */,
 				A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */,
 			);
-			name = MessageUI;
+			path = MessageUI;
 			sourceTree = "<group>";
 		};
 		60FF000E13C023CB004A1394 /* Tests */ = {
@@ -627,7 +627,7 @@
 				6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */,
 				6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */,
 			);
-			name = UIKit;
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 		6CC08FD11385555D00DDEABB /* iOS */ = {
@@ -1473,6 +1473,7 @@
 				6CFC4B5C14E212E00036F8ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
