@@ -892,7 +892,7 @@
 		6C3DBF841382F1BA00E6C9AA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = "Dizzy Technology";
 			};
 			buildConfigurationList = 6C3DBF871382F1BA00E6C9AA /* Build configuration list for PBXProject "BlocksKit" */;
@@ -1158,6 +1158,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1181,6 +1182,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
@@ -1213,6 +1215,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1239,6 +1242,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1256,6 +1260,7 @@
 		6C3DBF981382F1BA00E6C9AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_THUMB_SUPPORT = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
@@ -1265,6 +1270,7 @@
 		6C3DBF991382F1BA00E6C9AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_THUMB_SUPPORT = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
@@ -1398,6 +1404,7 @@
 		6CFC4B5B14E212E00036F8ED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_THUMB_SUPPORT = NO;
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 			};
 			name = Debug;
@@ -1405,6 +1412,7 @@
 		6CFC4B5C14E212E00036F8ED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_THUMB_SUPPORT = NO;
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 			};
 			name = Release;
