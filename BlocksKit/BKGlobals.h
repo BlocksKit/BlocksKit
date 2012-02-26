@@ -23,6 +23,14 @@
 	#endif
 #endif
 
+#ifndef DEPRECATED_ATTRIBUTE_M
+#if __has_attribute(deprecated)
+#define DEPRECATED_ATTRIBUTE_M(...) __attribute__((deprecated(__VA_ARGS__)))
+#else
+#define DEPRECATED_ATTRIBUTE_M(...) DEPRECATED_ATTRIBUTE
+#endif
+#endif
+
 #if BK_HAS_APPKIT
 #import <Cocoa/Cocoa.h>
 #endif

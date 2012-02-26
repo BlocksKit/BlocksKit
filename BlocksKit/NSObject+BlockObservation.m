@@ -63,30 +63,12 @@ static dispatch_queue_t BKObserverMutationQueue() {
 
 - (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
-	[self addObserverForKeyPath:keyPath identifier:token task:task];
+	[self addObserverForKeyPath:keyPath identifier:token options:0 task:task];
 	return token;
 }
 
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier task:(BKObservationBlock)task {
-	NSParameterAssert(keyPath);
-	NSParameterAssert(identifier);
-	NSParameterAssert(task);
-	
-	__block BKObserver *newObserver = nil;
-	
-	dispatch_sync(BKObserverMutationQueue(), ^{
-		newObserver = [BKObserver observerForObject:self keyPath:keyPath task:task];
-		
-		NSMutableDictionary *dict = [self associatedValueForKey:&kObserverBlocksKey];
-		if (!dict) {
-			dict = [NSMutableDictionary dictionary];
-			[self associateValue:dict withKey:&kObserverBlocksKey];
-		}
-		
-		[dict setObject:newObserver forKey:[NSString stringWithFormat:@"%@_%@", keyPath, identifier]];
-	});
-	
-	[self addObserver:newObserver forKeyPath:keyPath options:0 context:&kBlockObservationContext];
+	[self addObserverForKeyPath:keyPath identifier:identifier options:0 task:task];
 }
 
 - (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {

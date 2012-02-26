@@ -41,6 +41,7 @@
  @param task A block responding to the reciever and the KVO change.
  @return Returns a globally unique process identifier for removing
  observation with removeObserverWithBlockToken:.
+ @see addObserverForKeyPath:identifier:options:task:
 */
 - (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task;
 
@@ -49,25 +50,33 @@
  Adds a block observer that notifies executes the block upon a
  state change.
  
+ @warning For simplicity, this method has been deprecated in favor of
+ -addObserverForKeyPath:identifier:options:task: starting in BlocksKit 1.0.6.
+ 
  @param keyPath A unique key identifying the observer to the reciever.
  @param token An identifier for observation block.
  @param task A block responding to the reciever and the KVO change.
  observation with removeObserverWithBlockToken:.
+ @see addObserverForKeyPath:identifier:options:task:
  */
-- (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token task:(BKObservationBlock)task;
+- (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token task:(BKObservationBlock)task DEPRECATED_ATTRIBUTE_M("Replaced with addObserverForKeyPath:identifier:options:task:");
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
- -
- - Adds a block observer that notifies executes the block upon a
- - state change.
- -
- - @param keyPath A unique key identifying the observer to the reciever.
- - @param options The NSKeyValueObservingOptions to use.
- - @param task A block responding to the reciever and the KVO change.
- - @return Returns a globally unique process identifier for removing
- - observation with removeObserverWithBlockToken:.
- - */
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task;
+
+ Adds a block observer that notifies executes the block upon a
+ state change.
+ 
+ @warning For simplicity, this method has been deprecated in favor of
+ -addObserverForKeyPath:task: starting in BlocksKit 1.0.6.
+
+ @param keyPath A unique key identifying the observer to the reciever.
+ @param options The NSKeyValueObservingOptions to use.
+ @param task A block responding to the reciever and the KVO change.
+ @return Returns a globally unique process identifier for removing
+ observation with removeObserverWithBlockToken:.
+ @see addObserverForKeyPath:task:
+*/
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task DEPRECATED_ATTRIBUTE_M("Use addObserverForKeyPath:task:");
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
@@ -79,6 +88,7 @@
  @param options The NSKeyValueObservingOptions to use.
  @param task A block responding to the reciever and the KVO change.
  observation with removeObserverWithBlockToken:.
+ @see addObserverForKeyPath:task:
  */
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task;
 
