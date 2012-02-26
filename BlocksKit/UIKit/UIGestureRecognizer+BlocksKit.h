@@ -88,10 +88,18 @@
 @property (nonatomic, copy) BKGestureRecognizerBlock handler;
 
 /** Allows the length of the delay after which the gesture
- recognizer will be fired to modify.
- */
+ recognizer will be fired to modify. */
 @property (nonatomic) NSTimeInterval handlerDelay;
-@property (nonatomic) NSTimeInterval delay DEPRECATED_ATTRIBUTE;
+
+/** Allows the length of the delay after which the gesture
+ recognizer will be fired to modify.
+ 
+ @warning Due to a collision with an internal method in
+ UILongPressGestureRecognizer, this method was replaced
+ with handlerDelay starting in BlocksKit 1.0.5.
+ 
+ */
+@property (nonatomic) NSTimeInterval delay DEPRECATED_ATTRIBUTE_M("Use handlerDelay");
 
 /** If the recognizer happens to be fired, calling this method
  will stop it from firing, but only if a delay is set.
