@@ -78,8 +78,6 @@
  
  Internally, this method overrides the touchesMoved:withEvent:
  selector of UIView.
- 
- @param block The handler for the touch recognizer
  */
 @property (nonatomic, copy) BKTouchBlock onTouchMoveBlock;
 
