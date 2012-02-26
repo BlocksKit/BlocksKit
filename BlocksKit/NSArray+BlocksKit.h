@@ -50,7 +50,7 @@
  on the first match.
  
  @param block A single-argument, `BOOL`-returning code block.
- @return Returns the object if found, `nil` otherwise.
+ @return Returns the object, if found, or `nil`.
  @see select:
  */
 - (id)match:(BKValidationBlock)block;
@@ -58,7 +58,7 @@
 /** Loops through an array to find the objects matching the block.
  
  @param block A single-argument, BOOL-returning code block.
- @return Returns an array of the objects found, `nil` otherwise.
+ @return Returns an array of the objects found.
  @see match:
  */
 - (NSArray *)select:(BKValidationBlock)block;
@@ -73,7 +73,7 @@
 	 }];
  
  @param block A single-argument, BOOL-returning code block.
- @return Returns an array of all objects not found, `nil` if all are excluded.
+ @return Returns an array of all objects not found.
  */
 - (NSArray *)reject:(BKValidationBlock)block;
 

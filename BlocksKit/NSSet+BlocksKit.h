@@ -56,7 +56,7 @@
 /** Loops through a set to find the objects matching the block.
 
  @param block A single-argument, BOOL-returning code block.
- @return Returns a set of the objects found, `nil` otherwise.
+ @return Returns a set of the objects found.
  @see match:
  */
 - (NSSet *)select:(BKValidationBlock)block;
@@ -71,7 +71,7 @@
 	 }];
 
  @param block A single-argument, BOOL-returning code block.
- @return Returns an array of all objects not found, `nil` if all are excluded.
+ @return Returns an array of all objects not found.
  */
 - (NSSet *)reject:(BKValidationBlock)block;
 

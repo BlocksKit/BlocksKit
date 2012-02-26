@@ -51,7 +51,7 @@
 	};
 	id found = [_subject match:validationBlock];
 
-	//@return Returns the object if found, `nil` otherwise.
+	// @return Returns the object if found, `nil` otherwise.
 	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
 	GHAssertNil(found,@"no matched object");
 }

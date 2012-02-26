@@ -52,7 +52,7 @@
 /** Loops through an index set and returns an all indexes matching the block.
  
  @param block A single-argument, BOOL-returning code block.
- @return Returns an index set of matching indexes found, `nil` otherwise.
+ @return Returns an index set of matching indexes found.
  @see match:
  */
 - (NSIndexSet *)select:(BKIndexValidationBlock)block;
@@ -62,7 +62,7 @@
  This selector performs *literally* the exact same function as select: but in reverse.
  
  @param block A single-argument, BOOL-returning code block.
- @return Returns an index set of all indexes but those matched, `nil` if all are excluded.
+ @return Returns an index set of all indexes but those matched.
  */
 - (NSIndexSet *)reject:(BKIndexValidationBlock)block;
 

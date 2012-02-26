@@ -43,7 +43,7 @@
 /** Loops through a dictionary to find the key/value pairs matching the block.
  
  @param block A BOOL-returning code block for a key/value pair.
- @return Returns a dictionary of the objects found, `nil` otherwise.
+ @return Returns a dictionary of the objects found.
  */
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block;
 
@@ -57,7 +57,7 @@
  }];
  
  @param block A BOOL-returning code block for a key/value pair.
- @return Returns a dictionary of all objects not found, `nil` if all are excluded.
+ @return Returns a dictionary of all objects not found.
  */
 - (NSDictionary *)reject:(BKKeyValueValidationBlock)block;
 
