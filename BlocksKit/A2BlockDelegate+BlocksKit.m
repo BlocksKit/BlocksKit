@@ -10,6 +10,7 @@
 #import "NSObject+AssociatedObjects.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#include <dlfcn.h>
 
 extern void *A2BlockDelegateProtocolsKey;
 extern void *A2BlockDelegateMapKey;
@@ -146,7 +147,7 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	
 	IMP setterImplementation, getterImplementation;
 	
-	if (imp_implementationWithBlock != NULL)
+	if (dlsym(RTLD_DEFAULT,"imp_implementationWithBlock"))
 	{
 		setterImplementation = imp_implementationWithBlock((__bridge void *) [[^(NSObject *self, id delegate) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
@@ -212,7 +213,7 @@ static BOOL bk_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			IMP implementation;
 			const char *types = "v@:@?";
 			
-			if (imp_implementationWithBlock != NULL)
+			if (dlsym(RTLD_DEFAULT,"imp_implementationWithBlock"))
 			{
 				implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
 					A2DynamicDelegate *dynamicDelegate = [obj dynamicDelegateForProtocol: protocol];
