@@ -11,6 +11,8 @@
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
 
+#import <dlfcn.h>
+
 #if __has_attribute(objc_arc)
 	#error "At present, 'A2BlockDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
 #endif
@@ -22,6 +24,9 @@
 
 void *A2BlockDelegateProtocolsKey;
 void *A2BlockDelegateMapKey;
+
+static BOOL a2_hasImplementationWithBlock(void);
+static BOOL a2_hasCopyAttributeValue(void);
 
 static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector);
 
@@ -253,6 +258,22 @@ extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_1
 
 #pragma mark - Functions
 
+static BOOL a2_hasImplementationWithBlock(void) {
+	static dispatch_once_t onceToken;
+	static BOOL hasImplementationWithBlock;
+	dispatch_once(&onceToken, ^{
+		hasImplementationWithBlock = dlsym(RTLD_DEFAULT, "imp_implementationWithBlock") ? YES : NO;
+	});
+}
+
+static BOOL a2_hasCopyAttributeValue(void) {
+	static dispatch_once_t onceToken;
+	static BOOL hasCopyAttributeValue;
+	dispatch_once(&onceToken, ^{
+		hasCopyAttributeValue = dlsym(RTLD_DEFAULT, "property_copyAttributeValue") ? YES : NO;
+	});
+}
+
 static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 {
 	// Check for existence of `-a2_protocols` and `-a2_mapForProtocol:`, respectively
@@ -269,7 +290,7 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			
 			if (argc == 1)
 			{
-				if (imp_implementationWithBlock != NULL)
+				if (a2_hasImplementationWithBlock())
 				{
 					implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
 						[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
@@ -284,7 +305,7 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			}
 			else
 			{
-				if (imp_implementationWithBlock != NULL)
+				if (a2_hasImplementationWithBlock())
 				{
 					implementation = imp_implementationWithBlock([[^id (NSObject *obj) {
 						return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
@@ -441,7 +462,7 @@ static BOOL a2_findOneAttribute(__unused unsigned int index, void *ctxa, void *c
 }
 char *a2_property_copyAttributeValue(objc_property_t property, const char *name)
 {
-	if (&property_copyAttributeValue)
+	if (a2_hasCopyAttributeValue())
 	{
 		return property_copyAttributeValue(property, name);
 	}
