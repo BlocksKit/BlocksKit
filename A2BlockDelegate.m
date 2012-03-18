@@ -264,6 +264,7 @@ static BOOL a2_hasImplementationWithBlock(void) {
 	dispatch_once(&onceToken, ^{
 		hasImplementationWithBlock = dlsym(RTLD_DEFAULT, "imp_implementationWithBlock") ? YES : NO;
 	});
+	return hasImplementationWithBlock;
 }
 
 static BOOL a2_hasCopyAttributeValue(void) {
@@ -272,6 +273,7 @@ static BOOL a2_hasCopyAttributeValue(void) {
 	dispatch_once(&onceToken, ^{
 		hasCopyAttributeValue = dlsym(RTLD_DEFAULT, "property_copyAttributeValue") ? YES : NO;
 	});
+	return hasCopyAttributeValue;
 }
 
 static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
