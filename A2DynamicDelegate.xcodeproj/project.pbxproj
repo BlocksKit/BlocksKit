@@ -423,8 +423,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1.0.5;
-				DYLIB_CURRENT_VERSION = 1.0.5;
+				DYLIB_COMPATIBILITY_VERSION = 1.0.7;
+				DYLIB_CURRENT_VERSION = 1.0.7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -452,8 +452,8 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1.0.5;
-				DYLIB_CURRENT_VERSION = 1.0.5;
+				DYLIB_COMPATIBILITY_VERSION = 1.0.7;
+				DYLIB_CURRENT_VERSION = 1.0.7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",

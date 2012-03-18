@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface A2DynamicDelegate : NSObject
+@interface A2DynamicDelegate : NSObject {
+	NSMutableDictionary *_handlers;
+}
 
 // Block objects *DO NOT* need to be copied before entering the dictionary.
 @property (nonatomic, retain, readonly) NSMutableDictionary *handlers;
