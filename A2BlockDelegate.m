@@ -38,7 +38,7 @@ static void a2_blockPropertySetter(id self, SEL _cmd, id block);
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName);
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_7
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_7
 extern IMP imp_implementationWithBlock(id block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 #else
 extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
