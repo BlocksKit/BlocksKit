@@ -160,3 +160,5 @@
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(UIActionSheet_BlocksKit)

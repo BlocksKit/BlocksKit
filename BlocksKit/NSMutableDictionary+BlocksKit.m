@@ -47,3 +47,5 @@
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(NSMutableDictionary_BlocksKit)

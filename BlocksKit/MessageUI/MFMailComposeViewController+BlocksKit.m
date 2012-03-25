@@ -41,3 +41,5 @@
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(MFMailComposeViewController_BlocksKit)

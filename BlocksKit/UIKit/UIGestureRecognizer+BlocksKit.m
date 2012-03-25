@@ -86,3 +86,5 @@ static char kGestureRecognizerCancelKey;
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(UIGestureRecognizer_BlocksKit)

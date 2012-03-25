@@ -82,3 +82,5 @@
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(NSSet_BlocksKit)

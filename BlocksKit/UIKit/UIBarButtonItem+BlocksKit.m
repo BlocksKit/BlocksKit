@@ -39,3 +39,5 @@ static char kBarButtonItemBlockKey;
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(UIBarButtonItem_BlocksKit)

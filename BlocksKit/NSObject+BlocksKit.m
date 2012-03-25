@@ -57,3 +57,5 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(NSObject_BlocksKit)

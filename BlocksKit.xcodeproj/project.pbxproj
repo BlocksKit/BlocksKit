@@ -591,9 +591,9 @@
 				6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */,
 				A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */,
 				A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */,
-				6C3DBF931382F1BA00E6C9AA /* Supporting Files */,
 				00D28ACB14AAC45800ECB62C /* MessageUI */,
 				6CC08FC91385553B00DDEABB /* UIKit */,
+				6C3DBF931382F1BA00E6C9AA /* Supporting Files */,
 			);
 			path = BlocksKit;
 			sourceTree = "<group>";

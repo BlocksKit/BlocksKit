@@ -31,6 +31,10 @@
 #endif
 #endif
 
+#ifndef BK_MAKE_CATEGORY_LOADABLE
+#define BK_MAKE_CATEGORY_LOADABLE(NAME) @interface FORCELOAD_##NAME @end @implementation FORCELOAD_##NAME @end
+#endif
+
 #if BK_HAS_APPKIT
 #import <Cocoa/Cocoa.h>
 #endif

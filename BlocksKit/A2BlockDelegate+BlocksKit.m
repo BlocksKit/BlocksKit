@@ -17,7 +17,7 @@ extern void *A2BlockDelegateMapKey;
 static char BKAccessorsMapKey;
 static char BKRealDelegateKey;
 
-static BOOL bk_resolveInstanceMethod(id self, SEL _cmd, SEL selector);
+static BOOL bk_resolveInstanceMethod(id self, SEL _cmd, SEL selector) __attribute__((used));
 
 static void bk_blockDelegateSetter(id self, SEL _cmd, id delegate);
 static id bk_blockDelegateGetter(id self, SEL _cmd);
@@ -362,3 +362,5 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName)
 	
 	return setter;
 }
+
+BK_MAKE_CATEGORY_LOADABLE(A2BlockDelegate_BlocksKit)

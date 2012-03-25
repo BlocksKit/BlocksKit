@@ -27,3 +27,5 @@
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(NSTimer_BlocksKit)

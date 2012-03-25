@@ -109,3 +109,5 @@ static char kControlHandlersKey;
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(UIControl_BlocksKit)
