@@ -36,53 +36,32 @@
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
- Adds a block observer that notifies executes the block upon a
- state change.
+ Adds a block observer that executes a block upon a state change.
  
  @param keyPath The property to observe, relative to the reciever.
  @param task A block responding to the reciever and the KVO change.
  @return Returns a globally unique process identifier for removing
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:identifier:options:task:
-*/
+ */
 - (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
- Adds a block observer that notifies executes the block upon a
- state change.
+ Adds a block observer that executes the same block upon
+ multiple state changes.
  
- @warning For simplicity, this method has been deprecated in favor of
- -addObserverForKeyPath:identifier:options:task: starting in BlocksKit 1.0.6.
- 
- @param keyPath The property to observe, relative to the reciever.
- @param token An identifier for the observation block.
- @param task A block responding to the reciever and the KVO change.
+ @param keyPaths An array of properties to observe, relative to the reciever.
+ @param task A block responding to the reciever, the key path, and the KVO change.
+ @return A unique identifier for removing
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:identifier:options:task:
  */
-- (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token task:(BKObservationBlock)task DEPRECATED_ATTRIBUTE_M("Replaced with addObserverForKeyPath:identifier:options:task:");
-
-/** Adds an observer to an object conforming to NSKeyValueObserving.
-
- Adds a block observer that notifies executes the block upon a
- state change.
- 
- @warning For simplicity, this method has been deprecated in favor of
- -addObserverForKeyPath:task: starting in BlocksKit 1.0.6.
-
- @param keyPath The property to observe, relative to the reciever.
- @param options The NSKeyValueObservingOptions to use.
- @param task A block responding to the reciever and the KVO change.
- @return Returns a globally unique process identifier for removing
- observation with removeObserverWithBlockToken:.
- @see addObserverForKeyPath:task:
-*/
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task DEPRECATED_ATTRIBUTE_M("Use addObserverForKeyPath:task:");
+- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths task:(BKMultipleObservationBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
- Adds a block observer that notifies executes the block upon a
+ Adds a block observer that executes the block upon a
  state change.
  
  @param keyPath The property to observe, relative to the reciever.
@@ -94,13 +73,38 @@
  */
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task;
 
+/** Adds an observer to an object conforming to NSKeyValueObserving.
+ 
+ Adds a block observer that executes the same block upon
+ multiple state changes.
+ 
+ @param keyPaths An array of properties to observe, relative to the reciever.
+ @param token An identifier for the observation block.
+ @param options The NSKeyValueObservingOptions to use.
+ @param task A block responding to the reciever, the key path, and the KVO change.
+ observation with removeObserversWithIdentifier:.
+ @see addObserverForKeyPath:task:
+ */
+- (void)addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)token options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task;
+
 /** Removes a block observer.
  
  @param keyPath The property to stop observing, relative to the reciever.
  @param token The unique key returned by addObserverForKeyPath:task:
  or the identifier given in addObserverForKeyPath:identifier:task:.
+ @see removeObserversWithIdentifier:
  */ 
 - (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token;
+
+/** Removes multiple block observers with a certain identifier.
+ 
+ @param token A unique key returned by addObserverForKeyPath:task:
+ and addObserverForKeyPaths:task: or the identifier given in
+ addObserverForKeyPath:identifier:task: and
+ addObserverForKeyPaths:identifier:task:.
+ @see removeObserverForKeyPath:identifier:
+ */ 
+- (void)removeObserversWithIdentifier:(NSString *)token;
 
 /** Remove all registered block observers. */
 - (void)removeAllBlockObservers;

@@ -49,12 +49,13 @@ typedef void (^BKTouchBlock)(NSSet* set, UIEvent* event);
 
 typedef void (^BKBlock)(void); // compatible with dispatch_block_t
 typedef void (^BKSenderBlock)(id sender);
+typedef void (^BKKeyValueBlock)(id key, id obj);
 typedef void (^BKIndexBlock)(NSUInteger index);
 typedef void (^BKTimerBlock)(NSTimeInterval time);
 typedef void (^BKResponseBlock)(NSURLResponse *response);
 
 typedef void (^BKObservationBlock)(id obj, NSDictionary *change);
-typedef void (^BKKeyValueBlock)(id key, id obj);
+typedef void (^BKMultipleObservationBlock)(id obj, NSString *keyPath, NSDictionary *change);
 
 typedef BOOL (^BKValidationBlock)(id obj);
 typedef BOOL (^BKKeyValueValidationBlock)(id key, id obj);
