@@ -21,4 +21,13 @@ Pod::Spec.new do |s|
       file.puts(%{#ifdef __OBJC__\n#import "BlocksKit.h"\n#endif})
     end
   end
+  s.documentation = {
+    :html => 'http://zwaldowski.github.com/BlocksKit/Documentation/index.html',
+    :appledoc => [
+      '--project-company', 'Dizzy Technology',
+      '--company-id', 'com.dizzytechnology',
+      '--no-repeat-first-par',
+      '--no-warn-invalid-crossref'
+    ]
+  }
 end
