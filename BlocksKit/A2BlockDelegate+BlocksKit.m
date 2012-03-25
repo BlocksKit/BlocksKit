@@ -26,7 +26,7 @@ static id bk_blockDelegateGetter(id self, SEL _cmd);
 static void bk_blockPropertySetter(id self, SEL _cmd, id block);
 
 // Forward Declarations
-#if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_7
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_7
 extern IMP imp_implementationWithBlock(id block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 #else
 extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
@@ -132,7 +132,7 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	NSString *key = [@"@" stringByAppendingString: delegateName];
 	if ([accessorsMap objectForKey: key]) return;
 	
-	[accessorsMap setObject: (__bridge id) kCFBooleanTrue forKey: key];
+	[accessorsMap setObject: (id) kCFBooleanTrue forKey: key];
 	
 	SEL getter = bk_getterForProperty(self, delegateName);
 	SEL setter = bk_setterForProperty(self, delegateName);
@@ -148,7 +148,7 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	
 	if (imp_implementationWithBlock != NULL)
 	{
-		setterImplementation = imp_implementationWithBlock((__bridge void *) [[^(NSObject *self, id delegate) {
+		setterImplementation = imp_implementationWithBlock((void *) [[^(NSObject *self, id delegate) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 			
 			if ([self respondsToSelector:a2_setter]) {
@@ -166,7 +166,7 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 			[dynamicDelegate associateValue: delegate withKey: &BKRealDelegateKey];
 		} copy] autorelease]);
 		
-		getterImplementation = imp_implementationWithBlock((__bridge void *) [[^id(NSObject *self) {
+		getterImplementation = imp_implementationWithBlock((void *) [[^id(NSObject *self) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 			return dynamicDelegate.realDelegate;
 		} copy] autorelease]);
