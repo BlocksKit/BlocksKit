@@ -221,14 +221,9 @@ static void *BlockGetImplementation(id block);
 		NSUInteger length;
 		NSGetSizeAndAlignment(argType, &length, NULL);
 		
-		void *argBufer = malloc(length);
-		[fwdInvocation getArgument: argBufer atIndex: i];
-		
-		// `argData` now owns the pointer and will free it upon its deallocation
-		NSData *argData = [NSData dataWithBytesNoCopy: argBufer length: length];
-		// `argumentsData` extends the lifetime of the pointer data past the block's invocation
-		[argumentsData addObject: argumentsData];
-		
+		NSMutableData *argData = [NSMutableData dataWithCapacity:length];
+		[fwdInvocation getArgument: argData.mutableBytes atIndex: i];
+		[argumentsData addObject: argData];
 		[invocation setArgument: (void *) argData.bytes atIndex: i - 1];
 	}
 	
@@ -237,10 +232,8 @@ static void *BlockGetImplementation(id block);
 	NSUInteger returnLength = fwdSig.methodReturnLength;
 	if (returnLength)
 	{
-		void *returnBuffer = malloc(returnLength);
-		[invocation getReturnValue: returnBuffer];
-		
-		NSData *returnData = [NSData dataWithBytesNoCopy: returnBuffer length: returnLength];
+		NSMutableData *returnData = [NSMutableData dataWithCapacity:returnLength];
+		[invocation getReturnValue: returnData.mutableBytes];
 		[fwdInvocation setReturnValue: (void *) returnData.bytes];
 		
 		// Extends the lifetime of `returnData` and by association, `returnBuffer`
