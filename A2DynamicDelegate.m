@@ -22,15 +22,18 @@
 
 #define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "+-"[!!isClassMethod], sel_getName(selector)] : nil)
 
-void *A2DynamicDelegateBlockMapKey;
-void *A2DynamicDelegateProtocolKey;
-
-static dispatch_queue_t backgroundQueue = nil;
-
+static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
 static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value);
 
-static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
+static Class a2_clusterSubclassForProtocol(Protocol *protocol);
+
+static void *A2DynamicDelegateBlockMapKey;
+static void *A2DynamicDelegateProtocolKey;
+
+static dispatch_queue_t backgroundQueue = nil;
+
+#pragma mark -
 
 @interface NSObject (A2DelegateProtocols)
 
@@ -39,22 +42,20 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 
 @end
 
+#pragma mark -
+
 @interface A2DynamicDelegate ()
 
-+ (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol; // Designated initializer
+// Block Map
++ (NSMutableDictionary *) blockMap;
 
-+ (Class) clusterSubclassForProtocol: (Protocol *) protocol;
-
-// Block Implementation Abstraction
+// Block Implementations
 + (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
 
 + (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block;
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
 
-// Block Map
-+ (NSMutableDictionary *) blockMap;
-
-// Forward Invocation Abstraction
+// Forward Invocation
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod;
 
 // Protocol
@@ -63,67 +64,17 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 
 @end
 
+#pragma mark -
+
 @implementation A2DynamicDelegate
 
 @synthesize handlers = _handlers;
 
-+ (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol
-{
-	// Get cluster subclass
-	Class cluster = [self clusterSubclassForProtocol: protocol];
-	
-	// Generate unique suffix
-	CFUUIDRef cfuuid = CFUUIDCreate(NULL);
-	NSString *uuid = (NSString *) CFUUIDCreateString(NULL, cfuuid);
-	CFRelease(cfuuid);
-	
-	// Get unique subclass name, i.e. "A2Dynamic ## ProtocolName ## / ## UUID"
-	NSString *subclassName = [NSString stringWithFormat: @"%@/%@", NSStringFromClass(cluster), uuid];
-	[uuid release];
-	
-	// Allocate subclass
-	Class cls = objc_allocateClassPair(cluster, subclassName.UTF8String, 0);
-	NSAlwaysAssert(cls, @"Could not allocate A2DynamicDelegate subclass for protocol <%s>", protocol_getName(protocol));
-	
-	// Register class
-	objc_registerClassPair(cls);
-	
-	return [[cls new] autorelease];
-}
-
-+ (Class) clusterSubclassForProtocol: (Protocol *) protocol
-{
-	// Get cluster name, e.g. "A2DynamicUIAlertViewDelegate"
-	NSString *clusterName = [NSString stringWithFormat: @"A2Dynamic%@", NSStringFromProtocol(protocol)];
-	
-	// Get cluster subclass
-	Class cluster = NSClassFromString(clusterName);
-	if (cluster)
-	{
-		NSAlwaysAssert(class_getSuperclass(cluster) == [A2DynamicDelegate class], @"Dynamic delegate cluster subclass %@ must be subclass of A2DynamicDelegate", clusterName);
-		
-		// Set protocol and add properties
-		cluster.protocol = protocol;
-		
-		return cluster;
-	}
-	
-	// If the cluster doesn't exist, allocate it
-	cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
-	NSAlwaysAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
-	
-	// And register it
-	objc_registerClassPair(cluster);
-	
-	// Set protocol and add properties
-	[cluster setProtocol: protocol];
-	
-	return cluster;
-}
+#pragma mark NSObject
 
 + (id) allocWithZone: (NSZone *) zone
 {
-	NSAlwaysAssert(self != [A2DynamicDelegate class] && self != [self clusterSubclassForProtocol: self.protocol], \
+	NSAlwaysAssert(self != [A2DynamicDelegate class] && self != a2_clusterSubclassForProtocol(self.protocol), \
 				   @"Tried to initialize instance of abstract dynamic delegate class %s", class_getName(self.class));
 	return [super allocWithZone: zone];
 }
@@ -166,47 +117,6 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 	backgroundQueue = dispatch_queue_create("us.pandamonia.A2DynamicDelegate.backgroundQueue", DISPATCH_QUEUE_SERIAL);
 }
 
-#pragma mark - Block Map
-
-+ (NSMutableDictionary *) blockMap
-{
-	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
-	if (!blockMap)
-	{
-		blockMap = A2BlockDictionaryCreate();
-		objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-		[blockMap release];
-	}
-	
-	return blockMap;
-}
-
-#pragma mark - Forward Invocation
-
-+ (void) forwardInvocation: (NSInvocation *) invocation fromClass: (BOOL) isClassMethod
-{
-	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(invocation.selector, NO)];
-	
-	NSAlwaysAssert(block, @"Block implementation not found for %s method %c%s", (isClassMethod) ? "class" : "instance", "+-"[!!isClassMethod], invocation.selector);
-	
-	NSMethodSignature *sig = invocation.methodSignature;
-	NSUInteger i, argc = sig.numberOfArguments;
-	
-	void *argData = NULL;
-	for (i = 2; i < argc; ++i)
-	{
-		const char *argType = [sig getArgumentTypeAtIndex: i];
-		NSUInteger length;
-		NSGetSizeAndAlignment(argType, &length, NULL);
-		
-		argData = realloc(argData, length);
-		[invocation getArgument: argData atIndex: i];
-		[invocation setArgument: argData atIndex: i - 1];
-	}
-	free(argData);
-	
-	[invocation invokeWithTarget: block];
-}
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation
 {
 	[self forwardInvocation: fwdInvocation fromClass: YES];
@@ -215,8 +125,6 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 {
 	[self.class forwardInvocation: fwdInvocation fromClass: NO];
 }
-
-#pragma mark - Method Signature
 
 + (NSMethodSignature *) instanceMethodSignatureForSelector: (SEL) selector
 {
@@ -251,7 +159,124 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 	return [super methodSignatureForSelector: selector] ?: [self.class instanceMethodSignatureForSelector: selector];
 }
 
-#pragma mark - Protocol
++ (BOOL) instancesRespondToSelector: (SEL) selector
+{
+	return [super instancesRespondToSelector: selector] || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+}
++ (BOOL) respondsToSelector: (SEL) selector
+{
+	return [super respondsToSelector: selector] || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
+}
+- (BOOL) respondsToSelector: (SEL) selector
+{
+	return [self.class instancesRespondToSelector: selector];
+}
+
+#pragma mark Block Class Method Implementations
+
+- (id) blockImplementationForClassMethod: (SEL) selector
+{
+	return [self.class blockImplementationForMethod: selector classMethod: YES];
+}
+
+- (void) implementClassMethod: (SEL) selector withBlock: (id) block
+{
+	[self.class implementMethod: selector classMethod: YES withBlock: block];
+}
+- (void) removeBlockImplementationForClassMethod: (SEL) selector
+{
+	[self.class removeBlockImplementationForMethod: selector classMethod: YES];
+}
+
+#pragma mark Block Instance Method Implementations
+
+- (id) blockImplementationForMethod: (SEL) selector
+{
+	return [self.class blockImplementationForMethod: selector classMethod: NO];
+}
+
+- (void) implementMethod: (SEL) selector withBlock: (id) block
+{
+	[self.class implementMethod: selector classMethod: NO withBlock: block];
+}
+- (void) removeBlockImplementationForMethod: (SEL) selector
+{
+	[self.class removeBlockImplementationForMethod: selector classMethod: NO];
+}
+
+#pragma mark - Block Map
+
++ (NSMutableDictionary *) blockMap
+{
+	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
+	if (!blockMap)
+	{
+		blockMap = A2BlockDictionaryCreate();
+		objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		[blockMap release];
+	}
+	
+	return blockMap;
+}
+
+#pragma mark Block Implementations
+
++ (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
+{
+	return [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
+}
+
++ (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block
+{
+	NSAlwaysAssert(selector, @"Attempt to implement NULL selector");
+	if (!block)
+	{
+		[self removeBlockImplementationForMethod: selector classMethod: isClassMethod];
+		return;
+	}
+	
+	NSMethodSignature *protoSig = isClassMethod ? [self methodSignatureForSelector:selector] : [self instanceMethodSignatureForSelector:selector];
+	
+	// If the protocol does not have a method signature for this selecor, return.
+	if (!protoSig) return;
+	
+	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
+}
++ (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
+{
+	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
+	
+	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
+}
+
+#pragma mark Forward Invocation
+
++ (void) forwardInvocation: (NSInvocation *) invocation fromClass: (BOOL) isClassMethod
+{
+	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(invocation.selector, NO)];
+	
+	NSAlwaysAssert(block, @"Block implementation not found for %s method %c%s", (isClassMethod) ? "class" : "instance", "+-"[!!isClassMethod], invocation.selector);
+	
+	NSMethodSignature *sig = invocation.methodSignature;
+	NSUInteger i, argc = sig.numberOfArguments;
+	
+	void *argData = NULL;
+	for (i = 2; i < argc; ++i)
+	{
+		const char *argType = [sig getArgumentTypeAtIndex: i];
+		NSUInteger length;
+		NSGetSizeAndAlignment(argType, &length, NULL);
+		
+		argData = realloc(argData, length);
+		[invocation getArgument: argData atIndex: i];
+		[invocation setArgument: argData atIndex: i - 1];
+	}
+	free(argData);
+	
+	[invocation invokeWithTarget: block];
+}
+
+#pragma mark Protocol
 
 + (Protocol *) protocol
 {
@@ -310,84 +335,40 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 	free(properties);
 }
 
-#pragma mark - Protocol Methods
+@end
 
-+ (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
-{
-	return [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
-}
+#pragma mark - Internal functions
 
-+ (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block
-{
-	NSAlwaysAssert(selector, @"Attempt to implement NULL selector");
-	if (!block)
+static Class a2_clusterSubclassForProtocol(Protocol *protocol) {
+	// Get cluster name, e.g. "A2DynamicUIAlertViewDelegate"
+	NSString *clusterName = [NSString stringWithFormat: @"A2Dynamic%@", NSStringFromProtocol(protocol)];
+	
+	// Get cluster subclass
+	Class cluster = NSClassFromString(clusterName);
+	if (cluster)
 	{
-		[self removeBlockImplementationForMethod: selector classMethod: isClassMethod];
-		return;
+		NSAlwaysAssert(class_getSuperclass(cluster) == [A2DynamicDelegate class], @"Dynamic delegate cluster subclass %@ must be subclass of A2DynamicDelegate", clusterName);
+		
+		// Set protocol and add properties
+		[cluster setProtocol: protocol];
+		
+		return cluster;
 	}
 	
-	NSMethodSignature *protoSig = isClassMethod ? [self methodSignatureForSelector:selector] : [self instanceMethodSignatureForSelector:selector];
+	// If the cluster doesn't exist, allocate it
+	cluster = objc_allocateClassPair([A2DynamicDelegate class], clusterName.UTF8String, 0);
+	NSAlwaysAssert(cluster, @"Could not allocate A2DynamicDelegate cluster subclass for protocol <%s>", protocol_getName(protocol));
 	
-	// If the protocol does not have a method signature for this selecor, return.
-	if (!protoSig) return;
+	// And register it
+	objc_registerClassPair(cluster);
 	
-	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
-}
-+ (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
-{
-	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
+	// Set protocol and add properties
+	[cluster setProtocol: protocol];
 	
-	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
+	return cluster;
 }
 
-#pragma mark - Protocol Class Methods
-
-- (id) blockImplementationForClassMethod: (SEL) selector
-{
-	return [self.class blockImplementationForMethod: selector classMethod: YES];
-}
-
-- (void) implementClassMethod: (SEL) selector withBlock: (id) block
-{
-	[self.class implementMethod: selector classMethod: YES withBlock: block];
-}
-- (void) removeBlockImplementationForClassMethod: (SEL) selector
-{
-	[self.class removeBlockImplementationForMethod: selector classMethod: YES];
-}
-
-#pragma mark - Protocol Instance Methods
-
-- (id) blockImplementationForMethod: (SEL) selector
-{
-	return [self.class blockImplementationForMethod: selector classMethod: NO];
-}
-
-- (void) implementMethod: (SEL) selector withBlock: (id) block
-{
-	[self.class implementMethod: selector classMethod: NO withBlock: block];
-}
-- (void) removeBlockImplementationForMethod: (SEL) selector
-{
-	[self.class removeBlockImplementationForMethod: selector classMethod: NO];
-}
-
-#pragma mark - Responds To Selector
-
-+ (BOOL) instancesRespondToSelector: (SEL) selector
-{
-	return [super instancesRespondToSelector: selector] || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
-}
-+ (BOOL) respondsToSelector: (SEL) selector
-{
-	return [super respondsToSelector: selector] || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
-}
-- (BOOL) respondsToSelector: (SEL) selector
-{
-	return [self.class instancesRespondToSelector: selector];
-}
-
-@end
+#pragma mark - NSObject categories
 
 @implementation NSObject (A2DynamicDelegate)
 
@@ -420,8 +401,29 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 		
 		if (!dynamicDelegate)
 		{
-			dynamicDelegate = [A2DynamicDelegate dynamicDelegateForProtocol: protocol];
+			// Get cluster subclass
+			Class cluster = a2_clusterSubclassForProtocol(protocol);
+			
+			// Generate unique suffix
+			CFUUIDRef cfuuid = CFUUIDCreate(NULL);
+			NSString *uuid = (NSString *) CFUUIDCreateString(NULL, cfuuid);
+			CFRelease(cfuuid);
+			
+			// Get unique subclass name, i.e. "A2Dynamic ## ProtocolName ## / ## UUID"
+			NSString *subclassName = [NSString stringWithFormat: @"%@/%@", NSStringFromClass(cluster), uuid];
+			[uuid release];
+			
+			// Allocate subclass
+			Class cls = objc_allocateClassPair(cluster, subclassName.UTF8String, 0);
+			NSAlwaysAssert(cls, @"Could not allocate A2DynamicDelegate subclass for protocol <%s>", protocol_getName(protocol));
+			
+			// Register class
+			objc_registerClassPair(cls);
+			
+			// Create and associate an instance
+			dynamicDelegate = [cls new];
 			objc_setAssociatedObject(self, protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+			[dynamicDelegate release];
 		}
 	});
 	
@@ -434,7 +436,7 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 
 + (Protocol *) a2_dataSourceProtocol
 {
-	NSString *className = NSStringFromClass(self.class);
+	NSString *className = NSStringFromClass([self class]);
 	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	
@@ -443,7 +445,7 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 }
 + (Protocol *) a2_delegateProtocol
 {
-	NSString *className = NSStringFromClass(self.class);
+	NSString *className = NSStringFromClass([self class]);
 	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	
@@ -453,6 +455,16 @@ static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 
 @end
 
+#pragma mark - Block dictionary
+
+static NSMutableDictionary *A2BlockDictionaryCreate(void) {
+	CFDictionaryValueCallBacks valueCallBacks = kCFTypeDictionaryValueCallBacks;
+	valueCallBacks.retain = A2BlockDictionaryRetain;
+	valueCallBacks.release = A2BlockDictionaryRelease;
+	
+	return (NSMutableDictionary *)CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &valueCallBacks);
+}
+
 static const void *A2BlockDictionaryRetain(__unused CFAllocatorRef allocator, const void *value)
 {
 	return Block_copy(value);
@@ -461,12 +473,4 @@ static const void *A2BlockDictionaryRetain(__unused CFAllocatorRef allocator, co
 static void A2BlockDictionaryRelease(__unused CFAllocatorRef allocator, const void *value)
 {
 	Block_release(value);
-}
-
-static NSMutableDictionary *A2BlockDictionaryCreate(void) {
-	CFDictionaryValueCallBacks valueCallBacks = kCFTypeDictionaryValueCallBacks;
-	valueCallBacks.retain = A2BlockDictionaryRetain;
-	valueCallBacks.release = A2BlockDictionaryRelease;
-	
-	return (NSMutableDictionary *)CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &valueCallBacks);
 }

@@ -15,14 +15,14 @@
 // Block objects *DO NOT* need to be copied before entering the dictionary.
 @property (nonatomic, retain, readonly) NSMutableDictionary *handlers;
 
-#pragma mark - Protocol Instance Methods
+#pragma mark - Block Class Method Implementations
 
 - (id) blockImplementationForMethod: (SEL) selector;
 
 - (void) implementMethod: (SEL) selector withBlock: (id) block;
 - (void) removeBlockImplementationForMethod: (SEL) selector;
 
-#pragma mark - Protocol Class Methods
+#pragma mark - Block Instance Method Implementations
 
 - (id) blockImplementationForClassMethod: (SEL) selector;
 

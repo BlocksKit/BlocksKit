@@ -6,11 +6,9 @@
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
 //
 
-#import <objc/runtime.h>
-
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
-
+#import <objc/runtime.h>
 #import <dlfcn.h>
 
 #if __has_attribute(objc_arc)
@@ -44,6 +42,8 @@ extern IMP imp_implementationWithBlock(id block) AVAILABLE_MAC_OS_X_VERSION_10_6
 extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 #endif
 
+#pragma mark -
+
 @interface NSObject ()
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
@@ -52,7 +52,7 @@ extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_1
 
 @interface NSObject (A2BlockDelegatePrivate)
 
-+ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
++ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute__((nonnull));
 
 + (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol;
 
@@ -69,6 +69,8 @@ extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_1
 + (Protocol *) a2_delegateProtocol;
 
 @end
+
+#pragma mark -
 
 @implementation NSObject (A2BlockDelegate)
 
@@ -89,7 +91,7 @@ extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_1
 	method_exchangeImplementations(origMethod, newMethod);
 }
 
-#pragma mark - Helpers
+#pragma mark Helpers
 
 + (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector
 {
@@ -205,7 +207,7 @@ extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_1
 	return protocols;
 }
 
-#pragma mark - Data Source
+#pragma mark Data Source
 
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDataSourceMethod: (SEL) selector
 {
@@ -217,7 +219,7 @@ extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_1
 	[self linkProtocol: [self a2_dataSourceProtocol] methods: dictionary];
 }
 
-#pragma mark - Delegate
+#pragma mark Delegate
 
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDelegateMethod: (SEL) selector
 {
@@ -229,7 +231,7 @@ extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_1
 	[self linkProtocol: [self a2_delegateProtocol] methods: dictionary];
 }
 
-#pragma mark - Other Protocol
+#pragma mark Other Protocol
 
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withProtocol: (Protocol *) protocol method: (SEL) selector
 {
