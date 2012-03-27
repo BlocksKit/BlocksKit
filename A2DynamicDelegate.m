@@ -30,14 +30,6 @@ static dispatch_queue_t backgroundQueue = nil;
 static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
 static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value);
 
-static const char *BlockGetSignature(id block);
-static void *BlockGetImplementation(id block);
-
-@interface NSInvocation ()
-
-- (void) invokeUsingIMP: (IMP)imp;
-
-@end
 
 @interface NSObject (A2DelegateProtocols)
 
@@ -47,8 +39,6 @@ static void *BlockGetImplementation(id block);
 @end
 
 @interface A2DynamicDelegate ()
-
-@property (nonatomic, retain, readwrite) NSMutableDictionary *handlers;
 
 + (A2DynamicDelegate *) dynamicDelegateForProtocol: (Protocol *) protocol; // Designated initializer
 
@@ -145,8 +135,7 @@ static void *BlockGetImplementation(id block);
 		valueCallBacks.release = A2BlockDictionaryRelease;
 		
 		CFMutableDictionaryRef handlers = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &valueCallBacks);
-		self.handlers = (NSMutableDictionary *) handlers;
-		CFRelease(handlers);
+		_handlers = (NSMutableDictionary *) handlers;
 	}
 	
 	return self;
@@ -163,7 +152,7 @@ static void *BlockGetImplementation(id block);
 
 - (void) dealloc
 {
-	self.handlers = nil;
+	[_handlers release];
 	
 	const char *className = object_getClassName(self);
 	
@@ -197,52 +186,29 @@ static void *BlockGetImplementation(id block);
 
 #pragma mark - Forward Invocation
 
-+ (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod
++ (void) forwardInvocation: (NSInvocation *) invocation fromClass: (BOOL) isClassMethod
 {
-	SEL selector = fwdInvocation.selector;
-	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(invocation.selector, NO)];
 	
-	NSAlwaysAssert(block, @"Block implementation not found for %s method %c%s", (isClassMethod) ? "class" : "instance", "+-"[!!isClassMethod], fwdInvocation.selector);
+	NSAlwaysAssert(block, @"Block implementation not found for %s method %c%s", (isClassMethod) ? "class" : "instance", "+-"[!!isClassMethod], invocation.selector);
 	
-	const char *types = BlockGetSignature(block);
-	NSMethodSignature *sig = [NSMethodSignature signatureWithObjCTypes: types];
+	NSMethodSignature *sig = invocation.methodSignature;
+	NSUInteger i, argc = sig.numberOfArguments;
 	
-	NSInvocation *invocation = [NSInvocation invocationWithMethodSignature: sig];
-	[invocation setTarget: block];
-	
-	NSMethodSignature *fwdSig = fwdInvocation.methodSignature;
-	NSUInteger i, argc = fwdSig.numberOfArguments;
-	
-	NSMutableArray *argumentsData = [NSMutableArray arrayWithCapacity: argc - 2];
-	
+	void *argData = NULL;
 	for (i = 2; i < argc; ++i)
 	{
-		const char *argType = [fwdSig getArgumentTypeAtIndex: i];
+		const char *argType = [sig getArgumentTypeAtIndex: i];
 		NSUInteger length;
 		NSGetSizeAndAlignment(argType, &length, NULL);
 		
-		NSMutableData *argData = [NSMutableData dataWithCapacity:length];
-		[fwdInvocation getArgument: argData.mutableBytes atIndex: i];
-		[argumentsData addObject: argData];
-		[invocation setArgument: (void *) argData.bytes atIndex: i - 1];
+		argData = realloc(argData, length);
+		[invocation getArgument: argData atIndex: i];
+		[invocation setArgument: argData atIndex: i - 1];
 	}
+	free(argData);
 	
-	[invocation invokeUsingIMP: BlockGetImplementation(block)];
-	
-	NSUInteger returnLength = fwdSig.methodReturnLength;
-	if (returnLength)
-	{
-		NSMutableData *returnData = [NSMutableData dataWithCapacity:returnLength];
-		[invocation getReturnValue: returnData.mutableBytes];
-		[fwdInvocation setReturnValue: (void *) returnData.bytes];
-		
-		// Extends the lifetime of `returnData` and by association, `returnBuffer`
-		static void *returnDataKey;
-		objc_setAssociatedObject(fwdInvocation, &returnDataKey, returnData, OBJC_ASSOCIATION_RETAIN);
-	}
-	
-	// Deallocates all data objects and in turn frees their pointers
-	[argumentsData removeAllObjects];
+	[invocation invokeWithTarget: block];
 }
 + (void) forwardInvocation: (NSInvocation *) fwdInvocation
 {
@@ -363,29 +329,10 @@ static void *BlockGetImplementation(id block);
 		return;
 	}
 	
-	SEL methodSignatureSelector = (isClassMethod) ? @selector(methodSignatureForSelector:) : @selector(instanceMethodSignatureForSelector:);
-	NSMethodSignature *protoSig = ((NSMethodSignature *(*)(id, SEL, SEL)) objc_msgSend)(self, methodSignatureSelector, selector);
+	NSMethodSignature *protoSig = isClassMethod ? [self methodSignatureForSelector:selector] : [self instanceMethodSignatureForSelector:selector];
 	
 	// If the protocol does not have a method signature for this selecor, return.
 	if (!protoSig) return;
-	
-	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: BlockGetSignature(block)];
-	
-	BOOL blockIsCompatible = (strcmp(protoSig.methodReturnType, blockSig.methodReturnType) == 0);
-	NSUInteger i, argc = blockSig.numberOfArguments;
-	
-	// Start at `i = 1` because the block type ("@?") and target object type ("@") will appear to be incompatible
-	for (i = 1; i < argc && blockIsCompatible; ++i)
-	{
-		// `i + 1` because the protocol method sig has an extra ":" (selector) argument
-		const char *protoArgType = [protoSig getArgumentTypeAtIndex: i + 1];
-		const char *blockArgType = [blockSig getArgumentTypeAtIndex: i];
-		
-		if (strcmp(protoArgType, blockArgType))
-			blockIsCompatible = NO;
-	}
-	
-	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "+-"[!!isClassMethod], sel_getName(selector));
 	
 	block = [[block copy] autorelease];
 	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
@@ -520,45 +467,4 @@ static void A2BlockDictionaryRelease(__unused CFAllocatorRef allocator, const vo
 	Block_release(value);
 }
 
-struct BlockDescriptor
-{
-	unsigned long reserved;
-	unsigned long size;
-	void *rest[1];
-};
-
-struct Block
-{
-	void *isa;
-	int flags;
-	int reserved;
-	void *invoke;
-	struct BlockDescriptor *descriptor;
-};
-
-enum {
-	BLOCK_HAS_COPY_DISPOSE = (1 << 25),
-	BLOCK_HAS_CXX_OBJ =		 (1 << 26), // Helpers have C++ code
-	BLOCK_IS_GLOBAL =		 (1 << 28),
-	BLOCK_HAS_STRET =		 (1 << 29), // IFF BLOCK_HAS_SIGNATURE
-	BLOCK_HAS_SIGNATURE =	 (1 << 30), 
-};
-
-static const char *BlockGetSignature(id _block)
-{
-	struct Block *block = (void *) _block;
-	struct BlockDescriptor *descriptor = block->descriptor;
 	
-	assert(block->flags & BLOCK_HAS_SIGNATURE);
-	
-	int index = 0;
-	if(block->flags & BLOCK_HAS_COPY_DISPOSE)
-		index += 2;
-	
-	return descriptor->rest[index];
-}
-
-static void *BlockGetImplementation(id block)
-{
-	return ((struct Block *) block)->invoke;
-}
