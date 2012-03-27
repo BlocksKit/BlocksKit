@@ -30,6 +30,7 @@ static dispatch_queue_t backgroundQueue = nil;
 static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
 static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value);
 
+static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
 
 @interface NSObject (A2DelegateProtocols)
 
@@ -72,8 +73,8 @@ static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value
 	Class cluster = [self clusterSubclassForProtocol: protocol];
 	
 	// Generate unique suffix
-	CFUUIDRef cfuuid = CFUUIDCreate(kCFAllocatorDefault);
-	NSString *uuid = (NSString *) CFUUIDCreateString(kCFAllocatorDefault, cfuuid);
+	CFUUIDRef cfuuid = CFUUIDCreate(NULL);
+	NSString *uuid = (NSString *) CFUUIDCreateString(NULL, cfuuid);
 	CFRelease(cfuuid);
 	
 	// Get unique subclass name, i.e. "A2Dynamic ## ProtocolName ## / ## UUID"
@@ -130,12 +131,7 @@ static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value
 {
 	if ((self = [super init]))
 	{
-		CFDictionaryValueCallBacks valueCallBacks = kCFTypeDictionaryValueCallBacks;
-		valueCallBacks.retain = A2BlockDictionaryRetain;
-		valueCallBacks.release = A2BlockDictionaryRelease;
-		
-		CFMutableDictionaryRef handlers = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &valueCallBacks);
-		_handlers = (NSMutableDictionary *) handlers;
+		_handlers = A2BlockDictionaryCreate();
 	}
 	
 	return self;
@@ -177,8 +173,9 @@ static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value
 	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
 	if (!blockMap)
 	{
-		blockMap = [NSMutableDictionary dictionary];
+		blockMap = A2BlockDictionaryCreate();
 		objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		[blockMap release];
 	}
 	
 	return blockMap;
@@ -334,7 +331,6 @@ static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value
 	// If the protocol does not have a method signature for this selecor, return.
 	if (!protoSig) return;
 	
-	block = [[block copy] autorelease];
 	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
 }
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
@@ -467,4 +463,10 @@ static void A2BlockDictionaryRelease(__unused CFAllocatorRef allocator, const vo
 	Block_release(value);
 }
 
+static NSMutableDictionary *A2BlockDictionaryCreate(void) {
+	CFDictionaryValueCallBacks valueCallBacks = kCFTypeDictionaryValueCallBacks;
+	valueCallBacks.retain = A2BlockDictionaryRetain;
+	valueCallBacks.release = A2BlockDictionaryRelease;
 	
+	return (NSMutableDictionary *)CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &valueCallBacks);
+}
