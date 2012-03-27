@@ -25,8 +25,8 @@
 void *A2BlockDelegateProtocolsKey;
 void *A2BlockDelegateMapKey;
 
-static BOOL a2_hasImplementationWithBlock(void);
-static BOOL a2_hasCopyAttributeValue(void);
+BOOL a2_hasImplementationWithBlock(void);
+BOOL a2_hasCopyAttributeValue(void);
 
 static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector);
 
@@ -258,7 +258,7 @@ extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_1
 
 #pragma mark - Functions
 
-static BOOL a2_hasImplementationWithBlock(void) {
+BOOL a2_hasImplementationWithBlock(void) {
 	static dispatch_once_t onceToken;
 	static BOOL hasImplementationWithBlock;
 	dispatch_once(&onceToken, ^{
@@ -267,7 +267,7 @@ static BOOL a2_hasImplementationWithBlock(void) {
 	return hasImplementationWithBlock;
 }
 
-static BOOL a2_hasCopyAttributeValue(void) {
+BOOL a2_hasCopyAttributeValue(void) {
 	static dispatch_once_t onceToken;
 	static BOOL hasCopyAttributeValue;
 	dispatch_once(&onceToken, ^{
