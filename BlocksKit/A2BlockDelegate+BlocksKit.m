@@ -10,6 +10,9 @@
 #import "NSObject+AssociatedObjects.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <dlfcn.h>
+
+static BOOL bk_hasImplementationWithBlock(void);
 
 extern void *A2BlockDelegateProtocolsKey;
 extern void *A2BlockDelegateMapKey;
@@ -146,7 +149,7 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	
 	IMP setterImplementation, getterImplementation;
 	
-	if (imp_implementationWithBlock != NULL)
+	if (bk_hasImplementationWithBlock())
 	{
 		setterImplementation = imp_implementationWithBlock((void *) [[^(NSObject *self, id delegate) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
@@ -212,7 +215,7 @@ static BOOL bk_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			IMP implementation;
 			const char *types = "v@:@?";
 			
-			if (imp_implementationWithBlock != NULL)
+			if (bk_hasImplementationWithBlock())
 			{
 				implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
 					A2DynamicDelegate *dynamicDelegate = [obj dynamicDelegateForProtocol: protocol];
@@ -361,6 +364,15 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName)
 	}
 	
 	return setter;
+}
+
+static BOOL bk_hasImplementationWithBlock(void) {
+	static dispatch_once_t onceToken;
+	static BOOL hasImplementationWithBlock;
+	dispatch_once(&onceToken, ^{
+		hasImplementationWithBlock = dlsym(RTLD_DEFAULT, "imp_implementationWithBlock") ? YES : NO;
+	});
+	return hasImplementationWithBlock;
 }
 
 BK_MAKE_CATEGORY_LOADABLE(A2BlockDelegate_BlocksKit)
