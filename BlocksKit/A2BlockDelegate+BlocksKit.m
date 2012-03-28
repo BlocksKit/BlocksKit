@@ -12,7 +12,7 @@
 #import <objc/runtime.h>
 #import <dlfcn.h>
 
-static BOOL bk_hasImplementationWithBlock(void);
+extern BOOL a2_hasImplementationWithBlock(void);
 
 extern void *A2BlockDelegateProtocolsKey;
 extern void *A2BlockDelegateMapKey;
@@ -41,13 +41,15 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 static SEL bk_getterForProperty(Class cls, NSString *propertyName);
 static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 
+#pragma mark -
+
 @interface NSObject ()
 
 + (Protocol *) a2_dataSourceProtocol;
 + (Protocol *) a2_delegateProtocol;
 
 + (BOOL) a2_resolveInstanceMethod: (SEL) selector;
-+ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute((nonnull));
++ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute__((nonnull));
 
 + (BOOL) bk_resolveInstanceMethod: (SEL) selector;
 
@@ -58,6 +60,8 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 + (NSMutableDictionary *) bk_accessorsMap;
 
 @end
+
+#pragma mark -
 
 @implementation A2DynamicDelegate (A2BlockDelegate)
 
@@ -75,6 +79,8 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 }
 
 @end
+
+#pragma mark -
 
 @implementation NSObject (A2BlockDelegateBlocksKitPrivate)
 
@@ -108,7 +114,7 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	return accessorsMap;
 }
 
-#pragma mark - Register Dynamic Delegate
+#pragma mark Register Dynamic Delegate
 
 + (void) registerDynamicDataSource
 {
@@ -149,18 +155,18 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 	
 	IMP setterImplementation, getterImplementation;
 	
-	if (bk_hasImplementationWithBlock())
+	if (a2_hasImplementationWithBlock())
 	{
-		setterImplementation = imp_implementationWithBlock((void *) [[^(NSObject *self, id delegate) {
-			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+		setterImplementation = imp_implementationWithBlock((void *) [[^(NSObject *obj, id delegate) {
+			A2DynamicDelegate *dynamicDelegate = [obj dynamicDelegateForProtocol: protocol];
 			
-			if ([self respondsToSelector:a2_setter]) {
-				id originalDelegate = [self performSelector:a2_getter];
+			if ([obj respondsToSelector:a2_setter]) {
+				id originalDelegate = [obj performSelector:a2_getter];
 				if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
-					[self performSelector:a2_setter withObject:dynamicDelegate];
+					[obj performSelector:a2_setter withObject:dynamicDelegate];
 			}
 			
-			if ([delegate isEqual: self]) {
+			if ([delegate isEqual: obj]) {
 				[dynamicDelegate weaklyAssociateValue: delegate withKey: &BKRealDelegateKey];
 				return;
 			}
@@ -169,8 +175,8 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName);
 			[dynamicDelegate associateValue: delegate withKey: &BKRealDelegateKey];
 		} copy] autorelease]);
 		
-		getterImplementation = imp_implementationWithBlock((void *) [[^id(NSObject *self) {
-			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+		getterImplementation = imp_implementationWithBlock((void *) [[^id(NSObject *obj) {
+			A2DynamicDelegate *dynamicDelegate = [obj dynamicDelegateForProtocol: protocol];
 			return dynamicDelegate.realDelegate;
 		} copy] autorelease]);
 	}
@@ -215,7 +221,7 @@ static BOOL bk_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			IMP implementation;
 			const char *types = "v@:@?";
 			
-			if (bk_hasImplementationWithBlock())
+			if (a2_hasImplementationWithBlock())
 			{
 				implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
 					A2DynamicDelegate *dynamicDelegate = [obj dynamicDelegateForProtocol: protocol];
@@ -325,7 +331,8 @@ static void bk_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 	}
 }
 
-// Helpers
+#pragma mark Helpers 
+
 static SEL bk_getterForProperty(Class cls, NSString *propertyName)
 {
 	SEL getter = NULL;
@@ -366,13 +373,4 @@ static SEL bk_setterForProperty(Class cls, NSString *propertyName)
 	return setter;
 }
 
-static BOOL bk_hasImplementationWithBlock(void) {
-	static dispatch_once_t onceToken;
-	static BOOL hasImplementationWithBlock;
-	dispatch_once(&onceToken, ^{
-		hasImplementationWithBlock = dlsym(RTLD_DEFAULT, "imp_implementationWithBlock") ? YES : NO;
-	});
-	return hasImplementationWithBlock;
-}
-
-BK_MAKE_CATEGORY_LOADABLE(A2BlockDelegate_BlocksKit)
+BK_MAKE_CATEGORY_LOADABLE(NSObject_A2BlockDelegateBlocksKit)
