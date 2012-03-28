@@ -211,9 +211,8 @@ static dispatch_queue_t backgroundQueue = nil;
 	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
 	if (!blockMap)
 	{
-		blockMap = A2BlockDictionaryCreate();
+		blockMap = [A2BlockDictionaryCreate() autorelease];
 		objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-		[blockMap release];
 	}
 	
 	return blockMap;
@@ -421,9 +420,8 @@ static Class a2_clusterSubclassForProtocol(Protocol *protocol) {
 			objc_registerClassPair(cls);
 			
 			// Create and associate an instance
-			dynamicDelegate = [cls new];
+			dynamicDelegate = [[cls new] autorelease];
 			objc_setAssociatedObject(self, protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-			[dynamicDelegate release];
 		}
 	});
 	
