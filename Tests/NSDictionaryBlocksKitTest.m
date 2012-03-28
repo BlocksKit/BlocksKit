@@ -60,7 +60,7 @@
 	};
 	NSDictionary *selected = [_subject select:validationBlock];
 	GHAssertEquals(_total,12,@"2*(1+2+3) = %d",_total);
-	GHAssertNil(selected,@"none item is selected");
+	GHAssertFalse(selected.count, @"none item is selected");
 }
 
 - (void)testReject {
@@ -86,7 +86,7 @@
 	};
 	NSDictionary *rejected = [_subject reject:validationBlock];
 	GHAssertEquals(_total,12,@"2*(1+2+3) = %d",_total);
-	GHAssertNil(rejected,@"all items are selected");
+	GHAssertFalse(rejected.count, @"all items are selected");
 }
 
 - (void)testMap {

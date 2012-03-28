@@ -78,7 +78,7 @@
 	NSSet *found = [_subject select:validationBlock];
 
 	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertNil(found,@"no item is selected");
+	GHAssertFalse(found.count,@"no item is selected");
 }
 
 - (void)testReject {
@@ -103,7 +103,7 @@
 	NSSet *left = [_subject reject:validationBlock];
 
 	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertNil(left,@"all items are rejected");
+	GHAssertFalse(left.count,@"all items are rejected");
 }
 
 - (void)testMap {
