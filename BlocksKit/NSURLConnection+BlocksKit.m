@@ -142,7 +142,8 @@ static char kResponseLengthKey;
 
 #pragma mark - NSURLConnectionDelegate - iOS 5.0 & Lion support
 
-#ifdef NSURLConnectionDataDelegate
+
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_4_3) || (MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_6)
 @interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate <NSURLConnectionDataDelegate>
 #else
 @interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate <NSURLConnectionDelegate>
