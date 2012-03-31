@@ -23,6 +23,22 @@
 		0071BC5614A2C88700D7F4F8 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0039561B148EE28600FA51A8 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0071BC5714A2C88900D7F4F8 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00F6D21B149968E70003DEAE /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
+		6C966C4F1527653500697B39 /* blockimp.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C966C471527653500697B39 /* blockimp.h */; };
+		6C966C501527653500697B39 /* blockimp.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C966C471527653500697B39 /* blockimp.h */; };
+		6C966C511527653500697B39 /* blockimp.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C481527653500697B39 /* blockimp.m */; };
+		6C966C521527653500697B39 /* blockimp.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C481527653500697B39 /* blockimp.m */; };
+		6C966C531527653500697B39 /* blockimp_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C491527653500697B39 /* blockimp_private.c */; };
+		6C966C541527653500697B39 /* blockimp_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C491527653500697B39 /* blockimp_private.c */; };
+		6C966C551527653500697B39 /* blockimp_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C966C4A1527653500697B39 /* blockimp_private.h */; };
+		6C966C561527653500697B39 /* blockimp_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C966C4A1527653500697B39 /* blockimp_private.h */; };
+		6C966C571527653500697B39 /* blockimp_trampoline_dispatch.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C4B1527653500697B39 /* blockimp_trampoline_dispatch.c */; };
+		6C966C581527653500697B39 /* blockimp_trampoline_dispatch.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C4B1527653500697B39 /* blockimp_trampoline_dispatch.c */; };
+		6C966C591527653500697B39 /* blockimp_trampoline_dispatch_stret.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C4C1527653500697B39 /* blockimp_trampoline_dispatch_stret.c */; };
+		6C966C5A1527653500697B39 /* blockimp_trampoline_dispatch_stret.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C4C1527653500697B39 /* blockimp_trampoline_dispatch_stret.c */; };
+		6C966C5B1527653500697B39 /* blockimp_trampoline_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C4D1527653500697B39 /* blockimp_trampoline_table.c */; };
+		6C966C5C1527653500697B39 /* blockimp_trampoline_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C966C4D1527653500697B39 /* blockimp_trampoline_table.c */; };
+		6C966C5D1527653500697B39 /* blockimp_trampoline_table.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C966C4E1527653500697B39 /* blockimp_trampoline_table.h */; };
+		6C966C5E1527653500697B39 /* blockimp_trampoline_table.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C966C4E1527653500697B39 /* blockimp_trampoline_table.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +70,14 @@
 		0051A0531481BE160089CC41 /* DDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
 		0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = A2DynamicDelegate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0071BC5114A2C7A200D7F4F8 /* OS X Framework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OS X Framework-Prefix.pch"; sourceTree = "<group>"; };
+		6C966C471527653500697B39 /* blockimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blockimp.h; sourceTree = "<group>"; };
+		6C966C481527653500697B39 /* blockimp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = blockimp.m; sourceTree = "<group>"; };
+		6C966C491527653500697B39 /* blockimp_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blockimp_private.c; sourceTree = "<group>"; };
+		6C966C4A1527653500697B39 /* blockimp_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blockimp_private.h; sourceTree = "<group>"; };
+		6C966C4B1527653500697B39 /* blockimp_trampoline_dispatch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blockimp_trampoline_dispatch.c; sourceTree = "<group>"; };
+		6C966C4C1527653500697B39 /* blockimp_trampoline_dispatch_stret.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blockimp_trampoline_dispatch_stret.c; sourceTree = "<group>"; };
+		6C966C4D1527653500697B39 /* blockimp_trampoline_table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blockimp_trampoline_table.c; sourceTree = "<group>"; };
+		6C966C4E1527653500697B39 /* blockimp_trampoline_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blockimp_trampoline_table.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +144,7 @@
 		0051A0491481BE160089CC41 /* A2DynamicDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				6C966C461527653500697B39 /* blockimp */,
 				0039561B148EE28600FA51A8 /* A2BlockDelegate.h */,
 				0039561C148EE28600FA51A8 /* A2BlockDelegate.m */,
 				0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */,
@@ -145,6 +170,21 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
+		6C966C461527653500697B39 /* blockimp */ = {
+			isa = PBXGroup;
+			children = (
+				6C966C471527653500697B39 /* blockimp.h */,
+				6C966C481527653500697B39 /* blockimp.m */,
+				6C966C491527653500697B39 /* blockimp_private.c */,
+				6C966C4A1527653500697B39 /* blockimp_private.h */,
+				6C966C4B1527653500697B39 /* blockimp_trampoline_dispatch.c */,
+				6C966C4C1527653500697B39 /* blockimp_trampoline_dispatch_stret.c */,
+				6C966C4D1527653500697B39 /* blockimp_trampoline_table.c */,
+				6C966C4E1527653500697B39 /* blockimp_trampoline_table.h */,
+			);
+			path = blockimp;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -154,6 +194,9 @@
 			files = (
 				001ED6591491B14A006EE0B2 /* A2DynamicDelegate.h in Headers */,
 				001ED6581491B148006EE0B2 /* A2BlockDelegate.h in Headers */,
+				6C966C4F1527653500697B39 /* blockimp.h in Headers */,
+				6C966C551527653500697B39 /* blockimp_private.h in Headers */,
+				6C966C5D1527653500697B39 /* blockimp_trampoline_table.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +206,9 @@
 			files = (
 				0071BC5614A2C88700D7F4F8 /* A2BlockDelegate.h in Headers */,
 				0071BC5714A2C88900D7F4F8 /* A2DynamicDelegate.h in Headers */,
+				6C966C501527653500697B39 /* blockimp.h in Headers */,
+				6C966C561527653500697B39 /* blockimp_private.h in Headers */,
+				6C966C5E1527653500697B39 /* blockimp_trampoline_table.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +320,11 @@
 			files = (
 				001ED6551491B143006EE0B2 /* A2BlockDelegate.m in Sources */,
 				001ED6571491B146006EE0B2 /* A2DynamicDelegate.m in Sources */,
+				6C966C511527653500697B39 /* blockimp.m in Sources */,
+				6C966C531527653500697B39 /* blockimp_private.c in Sources */,
+				6C966C571527653500697B39 /* blockimp_trampoline_dispatch.c in Sources */,
+				6C966C591527653500697B39 /* blockimp_trampoline_dispatch_stret.c in Sources */,
+				6C966C5B1527653500697B39 /* blockimp_trampoline_table.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +343,11 @@
 			files = (
 				0071BC5314A2C87200D7F4F8 /* A2BlockDelegate.m in Sources */,
 				0071BC5414A2C87300D7F4F8 /* A2DynamicDelegate.m in Sources */,
+				6C966C521527653500697B39 /* blockimp.m in Sources */,
+				6C966C541527653500697B39 /* blockimp_private.c in Sources */,
+				6C966C581527653500697B39 /* blockimp_trampoline_dispatch.c in Sources */,
+				6C966C5A1527653500697B39 /* blockimp_trampoline_dispatch_stret.c in Sources */,
+				6C966C5C1527653500697B39 /* blockimp_trampoline_table.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
