@@ -6,10 +6,10 @@
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
 //
 
+#import "A2DynamicDelegate.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
-
-#import "A2DynamicDelegate.h"
+#import "blockimp.h"
 
 #if __has_attribute(objc_arc)
 	#error "At present, 'A2DynamicDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
@@ -29,6 +29,7 @@ static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value
 static Class a2_clusterSubclassForProtocol(Protocol *protocol);
 
 static void *A2DynamicDelegateBlockMapKey;
+static void *A2DynamicDelegateImplementationsKey;
 static void *A2DynamicDelegateProtocolKey;
 
 static dispatch_queue_t backgroundQueue = nil;
@@ -48,15 +49,13 @@ static dispatch_queue_t backgroundQueue = nil;
 
 // Block Map
 + (NSMutableDictionary *) blockMap;
++ (NSMutableDictionary *) implementationMap;
 
 // Block Implementations
 + (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
 
 + (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block;
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
-
-// Forward Invocation
-+ (void) forwardInvocation: (NSInvocation *) fwdInvocation fromClass: (BOOL) isClassMethod;
 
 // Protocol
 + (Protocol *) protocol;
@@ -71,6 +70,11 @@ static dispatch_queue_t backgroundQueue = nil;
 @synthesize handlers = _handlers;
 
 #pragma mark NSObject
+
++ (void) load
+{
+	backgroundQueue = dispatch_queue_create("us.pandamonia.A2DynamicDelegate.backgroundQueue", DISPATCH_QUEUE_SERIAL);
+}
 
 + (id) allocWithZone: (NSZone *) zone
 {
@@ -94,7 +98,7 @@ static dispatch_queue_t backgroundQueue = nil;
 }
 - (NSString *) description
 {
-	return [NSString stringWithFormat: @"<%@ %p>", [self.class description], self];
+	return [NSString stringWithFormat: @"<%@d %p>", [self.class description], self];
 }
 
 - (void) dealloc
@@ -108,64 +112,31 @@ static dispatch_queue_t backgroundQueue = nil;
 	dispatch_async(backgroundQueue, ^{
 		Class cls = objc_getClass(className);
 		
+		// Get all of the NSValues containing IMPs
+		NSArray *implementations = [[[cls implementationMap] allValues] copy];
+		
 		// Dispose of unique A2DynamicDelegate subclass.
 		objc_disposeClassPair(cls);
+		
+		// Dispose of the blocks backing the IMPs.
+		[implementations enumerateObjectsUsingBlock:^(NSValue *obj, NSUInteger idx, BOOL *stop) {
+			IMP imp = [obj pointerValue];
+			pl_imp_removeBlock(imp);
+		}];
+		
+		[implementations release];
 	});
-}
-+ (void) load
-{
-	backgroundQueue = dispatch_queue_create("us.pandamonia.A2DynamicDelegate.backgroundQueue", DISPATCH_QUEUE_SERIAL);
-}
-
-+ (void) forwardInvocation: (NSInvocation *) fwdInvocation
-{
-	[self forwardInvocation: fwdInvocation fromClass: YES];
-}
-- (void) forwardInvocation: (NSInvocation *) fwdInvocation
-{
-	[self.class forwardInvocation: fwdInvocation fromClass: NO];
-}
-
-+ (NSMethodSignature *) instanceMethodSignatureForSelector: (SEL) selector
-{
-	NSMethodSignature *sig = [super instanceMethodSignatureForSelector: selector];
-	if (!sig)
-	{
-		struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, NO);
-		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, NO);
-		
-		const char *types = methodDescription.types;
-		if (types) sig = [NSMethodSignature signatureWithObjCTypes: types];
-	}
-	
-	return sig;
-}
-+ (NSMethodSignature *) methodSignatureForSelector: (SEL) selector
-{
-	NSMethodSignature *sig = [super methodSignatureForSelector: selector];
-	if (!sig)
-	{
-		struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, YES);
-		if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, YES);
-		
-		const char *types = methodDescription.types;
-		if (types) sig = [NSMethodSignature signatureWithObjCTypes: types];
-	}
-	
-	return sig;
-}
-- (NSMethodSignature *) methodSignatureForSelector: (SEL) selector
-{
-	return [super methodSignatureForSelector: selector] ?: [self.class instanceMethodSignatureForSelector: selector];
 }
 
 + (BOOL) instancesRespondToSelector: (SEL) selector
 {
-	return [super instancesRespondToSelector: selector] || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	IMP imp = class_getMethodImplementation(self.class, selector);
+	return ([super instancesRespondToSelector: selector] && imp != _objc_msgForward) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 + (BOOL) respondsToSelector: (SEL) selector
 {
-	return [super respondsToSelector: selector] || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
+	IMP imp = class_getMethodImplementation(object_getClass(self.class), selector);
+	return ([super respondsToSelector: selector] && imp != _objc_msgForward) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 - (BOOL) respondsToSelector: (SEL) selector
 {
@@ -218,11 +189,23 @@ static dispatch_queue_t backgroundQueue = nil;
 	return blockMap;
 }
 
++ (NSMutableDictionary *) implementationMap
+{
+	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateImplementationsKey);
+	if (!blockMap)
+	{
+		blockMap = [NSMutableDictionary dictionary];
+		objc_setAssociatedObject(self, &A2DynamicDelegateImplementationsKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	}
+	return blockMap;
+}
+
 #pragma mark Block Implementations
 
 + (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
 {
-	return [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
+	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
+	return [self.blockMap objectForKey: key] ?: [self.implementationMap objectForKey: key];
 }
 
 + (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block
@@ -234,45 +217,33 @@ static dispatch_queue_t backgroundQueue = nil;
 		return;
 	}
 	
-	NSMethodSignature *protoSig = isClassMethod ? [self methodSignatureForSelector:selector] : [self instanceMethodSignatureForSelector:selector];
+	// If the protocol does not have a method description for this selecor, return.
+	struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, !isClassMethod);
+	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
+	if (!methodDescription.name) return;
 	
-	// If the protocol does not have a method signature for this selecor, return.
-	if (!protoSig) return;
-	
-	[self.blockMap setObject: block forKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
+	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
+	if (isClassMethod ? [[self superclass] respondsToSelector:selector] : [[self superclass] instancesRespondToSelector:selector]) {
+		[self.blockMap setObject: block forKey: key];
+	} else {
+		Class cls = isClassMethod ? object_getClass(self) : self;
+		IMP imp = pl_imp_implementationWithBlock(block);
+		class_replaceMethod(cls, selector, imp, methodDescription.types);
+		[self.implementationMap setObject: [NSValue valueWithPointer:imp] forKey: key];
+	}
 }
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
 {
 	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
-	
-	[self.blockMap removeObjectForKey: BLOCK_MAP_DICT_KEY(selector, isClassMethod)];
-}
-
-#pragma mark Forward Invocation
-
-+ (void) forwardInvocation: (NSInvocation *) invocation fromClass: (BOOL) isClassMethod
-{
-	id block = [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(invocation.selector, NO)];
-	
-	NSAlwaysAssert(block, @"Block implementation not found for %s method %c%s", (isClassMethod) ? "class" : "instance", "+-"[!!isClassMethod], invocation.selector);
-	
-	NSMethodSignature *sig = invocation.methodSignature;
-	NSUInteger i, argc = sig.numberOfArguments;
-	
-	void *argData = NULL;
-	for (i = 2; i < argc; ++i)
-	{
-		const char *argType = [sig getArgumentTypeAtIndex: i];
-		NSUInteger length;
-		NSGetSizeAndAlignment(argType, &length, NULL);
-		
-		argData = realloc(argData, length);
-		[invocation getArgument: argData atIndex: i];
-		[invocation setArgument: argData atIndex: i - 1];
+	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
+	if ([self.blockMap objectForKey:key]) {
+		[self.blockMap removeObjectForKey: key];
+	} else if ([self.implementationMap objectForKey: key]) {
+		Class cls = isClassMethod ? object_getClass(self) : self;
+		IMP imp = class_replaceMethod(cls, selector, _objc_msgForward, NULL);
+		pl_imp_removeBlock(imp);
+		[self.implementationMap removeObjectForKey: key];
 	}
-	free(argData);
-	
-	[invocation invokeWithTarget: block];
 }
 
 #pragma mark Protocol
