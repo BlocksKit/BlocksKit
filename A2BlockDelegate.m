@@ -10,6 +10,7 @@
 #import "A2DynamicDelegate.h"
 #import <objc/runtime.h>
 #import <dlfcn.h>
+#import "blockimp.h"
 
 #if __has_attribute(objc_arc)
 	#error "At present, 'A2BlockDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
@@ -23,24 +24,13 @@
 void *A2BlockDelegateProtocolsKey;
 void *A2BlockDelegateMapKey;
 
-BOOL a2_hasImplementationWithBlock(void);
 BOOL a2_hasCopyAttributeValue(void);
 
 static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector);
 
-// Block Property Accessors
-static id a2_blockPropertyGetter(id self, SEL _cmd);
-static void a2_blockPropertySetter(id self, SEL _cmd, id block);
-
 // Forward Declarations
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName);
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_7
-extern IMP imp_implementationWithBlock(id block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-#else
-extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-#endif
 
 #pragma mark -
 
@@ -260,15 +250,6 @@ extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_1
 
 #pragma mark - Functions
 
-BOOL a2_hasImplementationWithBlock(void) {
-	static dispatch_once_t onceToken;
-	static BOOL hasImplementationWithBlock;
-	dispatch_once(&onceToken, ^{
-		hasImplementationWithBlock = dlsym(RTLD_DEFAULT, "imp_implementationWithBlock") ? YES : NO;
-	});
-	return hasImplementationWithBlock;
-}
-
 BOOL a2_hasCopyAttributeValue(void) {
 	static dispatch_once_t onceToken;
 	static BOOL hasCopyAttributeValue;
@@ -294,32 +275,16 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 			
 			if (argc == 1)
 			{
-				if (a2_hasImplementationWithBlock())
-				{
-					implementation = imp_implementationWithBlock([[^(NSObject *obj, id block) {
-						[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
-					} copy] autorelease]);
-				}
-				else
-				{
-					implementation = (IMP) a2_blockPropertySetter;
-				}
-				
+				implementation = pl_imp_implementationWithBlock(^(NSObject *obj, id block) {
+					[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
+				});
 				types = "v@:@?";
 			}
 			else
-			{
-				if (a2_hasImplementationWithBlock())
-				{
-					implementation = imp_implementationWithBlock([[^id (NSObject *obj) {
-						return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
-					} copy] autorelease]);
-				}
-				else
-				{
-					implementation = (IMP) a2_blockPropertyGetter;
-				}
-				
+			{	
+				implementation = pl_imp_implementationWithBlock(^id (NSObject *obj) {
+					return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
+				});
 				types = "@?@:";
 			}
 			
@@ -328,26 +293,6 @@ static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 	}
 	
 	return [self a2_resolveInstanceMethod: selector];
-}
-
-// Block Property Accessors
-static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
-{
-	Protocol *protocol;
-	SEL representedSelector;
-	if (![self.class a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: _cmd])
-		return nil;
-
-	return [[self dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
-}
-static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
-{
-	Protocol *protocol;
-	SEL representedSelector;
-	if (![self.class a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: _cmd])
-		return;
-	
-	[[self dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
 }
 
 /*
