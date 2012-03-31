@@ -131,12 +131,12 @@ static dispatch_queue_t backgroundQueue = nil;
 + (BOOL) instancesRespondToSelector: (SEL) selector
 {
 	IMP imp = class_getMethodImplementation(self.class, selector);
-	return ([super instancesRespondToSelector: selector] && imp != _objc_msgForward) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	return ([super instancesRespondToSelector: selector] && imp != _objc_msgForward && imp != (IMP)_objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 + (BOOL) respondsToSelector: (SEL) selector
 {
 	IMP imp = class_getMethodImplementation(object_getClass(self.class), selector);
-	return ([super respondsToSelector: selector] && imp != _objc_msgForward) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
+	return ([super respondsToSelector: selector] && imp != _objc_msgForward && imp != (IMP)_objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 - (BOOL) respondsToSelector: (SEL) selector
 {
@@ -240,7 +240,13 @@ static dispatch_queue_t backgroundQueue = nil;
 		[self.blockMap removeObjectForKey: key];
 	} else if ([self.implementationMap objectForKey: key]) {
 		Class cls = isClassMethod ? object_getClass(self) : self;
-		IMP imp = class_replaceMethod(cls, selector, _objc_msgForward, NULL);
+		
+		Method thisMethod = class_getInstanceMethod(cls, selector);
+		char *returnType = method_copyReturnType(thisMethod);
+		BOOL isStruct = (returnType[0] == '{') ? YES : NO;
+		free(returnType);
+
+		IMP imp = class_replaceMethod(cls, selector, (isStruct ? (IMP)_objc_msgForward_stret : _objc_msgForward), NULL);
 		pl_imp_removeBlock(imp);
 		[self.implementationMap removeObjectForKey: key];
 	}
