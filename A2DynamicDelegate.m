@@ -22,14 +22,10 @@
 
 #define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "+-"[!!isClassMethod], sel_getName(selector)] : nil)
 
-static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
-static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
-static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value);
-
 static Class a2_clusterSubclassForProtocol(Protocol *protocol);
 
 static void *A2DynamicDelegateBlockMapKey;
-static void *A2DynamicDelegateImplementationsKey;
+static void *A2DynamicDelegateImplementationsMapKey;
 static void *A2DynamicDelegateProtocolKey;
 
 static dispatch_queue_t backgroundQueue = nil;
@@ -86,7 +82,7 @@ static dispatch_queue_t backgroundQueue = nil;
 {
 	if ((self = [super init]))
 	{
-		_handlers = A2BlockDictionaryCreate();
+		_handlers = [[NSMutableDictionary alloc] init];
 	}
 	
 	return self;
@@ -131,12 +127,12 @@ static dispatch_queue_t backgroundQueue = nil;
 + (BOOL) instancesRespondToSelector: (SEL) selector
 {
 	IMP imp = class_getMethodImplementation(self.class, selector);
-	return ([super instancesRespondToSelector: selector] && imp != _objc_msgForward && imp != (IMP)_objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	return ([super instancesRespondToSelector: selector] && imp != (IMP) _objc_msgForward && imp != (IMP) _objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 + (BOOL) respondsToSelector: (SEL) selector
 {
 	IMP imp = class_getMethodImplementation(object_getClass(self.class), selector);
-	return ([super respondsToSelector: selector] && imp != _objc_msgForward && imp != (IMP)_objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
+	return ([super respondsToSelector: selector] && imp != (IMP) _objc_msgForward && imp != (IMP) _objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 - (BOOL) respondsToSelector: (SEL) selector
 {
@@ -182,7 +178,7 @@ static dispatch_queue_t backgroundQueue = nil;
 	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
 	if (!blockMap)
 	{
-		blockMap = [A2BlockDictionaryCreate() autorelease];
+		blockMap = [NSMutableDictionary dictionary];
 		objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
@@ -191,13 +187,14 @@ static dispatch_queue_t backgroundQueue = nil;
 
 + (NSMutableDictionary *) implementationMap
 {
-	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateImplementationsKey);
-	if (!blockMap)
+	NSMutableDictionary *impsMap = objc_getAssociatedObject(self, &A2DynamicDelegateImplementationsMapKey);
+	if (!impsMap)
 	{
-		blockMap = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, &A2DynamicDelegateImplementationsKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		impsMap = [NSMutableDictionary dictionary];
+		objc_setAssociatedObject(self, &A2DynamicDelegateImplementationsMapKey, impsMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
-	return blockMap;
+	
+	return impsMap;
 }
 
 #pragma mark Block Implementations
@@ -217,28 +214,34 @@ static dispatch_queue_t backgroundQueue = nil;
 		return;
 	}
 	
-	// If the protocol does not have a method description for this selecor, return.
+	// If the protocol does not have a method description for this selector, return.
 	struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, !isClassMethod);
 	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
 	if (!methodDescription.name) return;
 	
 	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
-	if (isClassMethod ? [[self superclass] respondsToSelector:selector] : [[self superclass] instancesRespondToSelector:selector]) {
+	if (isClassMethod ? [[self superclass] respondsToSelector: selector] : [[self superclass] instancesRespondToSelector: selector])
+	{
 		[self.blockMap setObject: block forKey: key];
-	} else {
+	}
+	else
+	{
 		Class cls = isClassMethod ? object_getClass(self) : self;
 		IMP imp = pl_imp_implementationWithBlock(block);
 		class_replaceMethod(cls, selector, imp, methodDescription.types);
-		[self.implementationMap setObject: [NSValue valueWithPointer:imp] forKey: key];
+		[self.implementationMap setObject: [NSValue valueWithPointer: imp] forKey: key];
 	}
 }
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
 {
 	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
 	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
-	if ([self.blockMap objectForKey:key]) {
+	if ([self.blockMap objectForKey: key])
+	{
 		[self.blockMap removeObjectForKey: key];
-	} else if ([self.implementationMap objectForKey: key]) {
+	}
+	else if ([self.implementationMap objectForKey: key])
+	{
 		Class cls = isClassMethod ? object_getClass(self) : self;
 		
 		Method thisMethod = class_getInstanceMethod(cls, selector);
@@ -429,23 +432,3 @@ static Class a2_clusterSubclassForProtocol(Protocol *protocol) {
 }
 
 @end
-
-#pragma mark - Block dictionary
-
-static NSMutableDictionary *A2BlockDictionaryCreate(void) {
-	CFDictionaryValueCallBacks valueCallBacks = kCFTypeDictionaryValueCallBacks;
-	valueCallBacks.retain = A2BlockDictionaryRetain;
-	valueCallBacks.release = A2BlockDictionaryRelease;
-	
-	return (NSMutableDictionary *)CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &valueCallBacks);
-}
-
-static const void *A2BlockDictionaryRetain(__unused CFAllocatorRef allocator, const void *value)
-{
-	return Block_copy(value);
-}
-
-static void A2BlockDictionaryRelease(__unused CFAllocatorRef allocator, const void *value)
-{
-	Block_release(value);
-}
