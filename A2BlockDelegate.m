@@ -23,19 +23,13 @@
 void *A2BlockDelegateProtocolsKey;
 void *A2BlockDelegateMapKey;
 
-static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector);
-
-// Forward Declarations
+// Function Declarations
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
 extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName) WEAK_IMPORT_ATTRIBUTE;
+extern SEL a2_getterForProperty(Class cls, NSString *propertyName);
+extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 
 #pragma mark -
-
-@interface NSObject ()
-
-+ (BOOL) a2_resolveInstanceMethod: (SEL) selector;
-
-@end
 
 @interface NSObject (A2BlockDelegatePrivate)
 
@@ -60,23 +54,6 @@ extern char *property_copyAttributeValue(objc_property_t property, const char *a
 #pragma mark -
 
 @implementation NSObject (A2BlockDelegate)
-
-+ (void) load
-{
-	Class class = [NSObject class];
-	Class metaClass = object_getClass(class);
-	
-	SEL origSel = @selector(resolveInstanceMethod:);
-	SEL newSel = @selector(a2_resolveInstanceMethod:);
-	
-	Method origMethod = class_getClassMethod(class, origSel);
-	
-	class_addMethod(metaClass, newSel, (IMP)a2_resolveInstanceMethod, method_getTypeEncoding(origMethod));
-	
-	Method newMethod = class_getClassMethod(class, newSel);
-
-	method_exchangeImplementations(origMethod, newMethod);
-}
 
 #pragma mark Helpers
 
@@ -227,10 +204,12 @@ extern char *property_copyAttributeValue(objc_property_t property, const char *a
 }
 + (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) dictionary
 {
+	NSMutableDictionary *propertyMap = [self a2_propertyMapForProtocol: protocol];
+	
 	[dictionary enumerateKeysAndObjectsUsingBlock: ^(NSString *propertyName, NSString *selectorName, __unused BOOL *stop) {
 		objc_property_t property = class_getProperty(self, propertyName.UTF8String);
 		NSAlwaysAssert(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
-		
+
 		char *dynamic = a2_property_copyAttributeValue(property, "D");
 		NSAlwaysAssert(dynamic, @"Property \"%@\" on class %s must be backed with \"@dynamic\"", propertyName, class_getName(self));
 		free(dynamic);
@@ -238,49 +217,73 @@ extern char *property_copyAttributeValue(objc_property_t property, const char *a
 		char *copy = a2_property_copyAttributeValue(property, "C");
 		NSAlwaysAssert(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
 		free(copy);
+		
+		NSAlwaysAssert(![propertyMap objectForKey:propertyMap], @"Class \"%s\" already implements a \"%@\" property.", class_getName(self), propertyName);
+		
+		SEL representedSelector = NSSelectorFromString(selectorName);
+		
+		SEL getter = a2_getterForProperty(self, propertyName);
+		IMP getterImplementation = pl_imp_implementationWithBlock(^id (NSObject *obj) {
+			return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
+		});
+		const char *getterTypes = "@@:";
+		BOOL success = class_addMethod(self, getter, getterImplementation, getterTypes);
+		NSAlwaysAssert(success, @"Could not implement getter for \"%@\" property.", propertyName);
+		
+		SEL setter = a2_setterForProperty(self, propertyName);
+		IMP setterImplementation = pl_imp_implementationWithBlock(^(NSObject *obj, id block) {
+			[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
+		});
+		const char *setterTypes = "v@:@";
+		success = class_addMethod(self, setter, setterImplementation, setterTypes);
+		NSAlwaysAssert(success, @"Could not implement setter for \"%@\" property.", propertyName);
 	}];
 	
-	[[self a2_propertyMapForProtocol: protocol] addEntriesFromDictionary: dictionary];
+	[propertyMap addEntriesFromDictionary: dictionary];
 }
 
 @end
 
 #pragma mark - Functions
 
-static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
+SEL a2_getterForProperty(Class cls, NSString *propertyName)
 {
-	// Check for existence of `-a2_protocols` and `-a2_mapForProtocol:`, respectively
-	if (objc_getAssociatedObject(self, &A2BlockDelegateMapKey) && objc_getAssociatedObject(self, &A2BlockDelegateProtocolsKey))
+	SEL getter = NULL;
+	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
+	if (property)
 	{
-		Protocol *protocol;
-		SEL representedSelector;
-		
-		NSUInteger argc = [[NSStringFromSelector(selector) componentsSeparatedByString: @":"] count] - 1;
-		if (argc <= 1 && [self a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: selector])
-		{
-			IMP implementation;
-			const char *types;
-			
-			if (argc == 1)
-			{
-				implementation = pl_imp_implementationWithBlock(^(NSObject *obj, id block) {
-					[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
-				});
-				types = "v@:@?";
-			}
-			else
-			{	
-				implementation = pl_imp_implementationWithBlock(^id (NSObject *obj) {
-					return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
-				});
-				types = "@?@:";
-			}
-			
-			if (class_addMethod(self, selector, implementation, types)) return YES;
-		}
+		char *getterName = a2_property_copyAttributeValue(property, "G");
+		if (getterName) getter = sel_getUid(getterName);
+		free(getterName);
 	}
 	
-	return [self a2_resolveInstanceMethod: selector];
+	if (!getter)
+	{
+		getter = NSSelectorFromString(propertyName);
+	}
+	
+	return getter;
+}
+SEL a2_setterForProperty(Class cls, NSString *propertyName)
+{
+	SEL setter = NULL;
+	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
+	if (property)
+	{
+		char *setterName = a2_property_copyAttributeValue(property, "S");
+		if (setterName) setter = sel_getUid(setterName);
+		free(setterName);
+	}
+	
+	if (!setter)
+	{
+		unichar firstChar = [propertyName characterAtIndex: 0];
+		NSString *coda = [propertyName substringFromIndex: 1];
+		
+		setter = NSSelectorFromString([NSString stringWithFormat: @"set%c%@:", toupper(firstChar), coda]);
+	}
+	
+	return setter;
 }
 
 /*
