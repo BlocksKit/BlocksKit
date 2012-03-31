@@ -25,7 +25,7 @@
 static Class a2_clusterSubclassForProtocol(Protocol *protocol);
 
 static void *A2DynamicDelegateBlockMapKey;
-static void *A2DynamicDelegateImplementationsKey;
+static void *A2DynamicDelegateImplementationsMapKey;
 static void *A2DynamicDelegateProtocolKey;
 
 static dispatch_queue_t backgroundQueue = nil;
@@ -187,13 +187,14 @@ static dispatch_queue_t backgroundQueue = nil;
 
 + (NSMutableDictionary *) implementationMap
 {
-	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateImplementationsKey);
-	if (!blockMap)
+	NSMutableDictionary *impsMap = objc_getAssociatedObject(self, &A2DynamicDelegateImplementationsMapKey);
+	if (!impsMap)
 	{
-		blockMap = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, &A2DynamicDelegateImplementationsKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		impsMap = [NSMutableDictionary dictionary];
+		objc_setAssociatedObject(self, &A2DynamicDelegateImplementationsMapKey, impsMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
-	return blockMap;
+	
+	return impsMap;
 }
 
 #pragma mark Block Implementations
@@ -213,28 +214,34 @@ static dispatch_queue_t backgroundQueue = nil;
 		return;
 	}
 	
-	// If the protocol does not have a method description for this selecor, return.
+	// If the protocol does not have a method description for this selector, return.
 	struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, !isClassMethod);
 	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
 	if (!methodDescription.name) return;
 	
 	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
-	if (isClassMethod ? [[self superclass] respondsToSelector:selector] : [[self superclass] instancesRespondToSelector:selector]) {
+	if (isClassMethod ? [[self superclass] respondsToSelector: selector] : [[self superclass] instancesRespondToSelector: selector])
+	{
 		[self.blockMap setObject: block forKey: key];
-	} else {
+	}
+	else
+	{
 		Class cls = isClassMethod ? object_getClass(self) : self;
 		IMP imp = pl_imp_implementationWithBlock(block);
 		class_replaceMethod(cls, selector, imp, methodDescription.types);
-		[self.implementationMap setObject: [NSValue valueWithPointer:imp] forKey: key];
+		[self.implementationMap setObject: [NSValue valueWithPointer: imp] forKey: key];
 	}
 }
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
 {
 	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
 	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
-	if ([self.blockMap objectForKey:key]) {
+	if ([self.blockMap objectForKey: key])
+	{
 		[self.blockMap removeObjectForKey: key];
-	} else if ([self.implementationMap objectForKey: key]) {
+	}
+	else if ([self.implementationMap objectForKey: key])
+	{
 		Class cls = isClassMethod ? object_getClass(self) : self;
 		IMP imp = class_replaceMethod(cls, selector, _objc_msgForward, NULL);
 		pl_imp_removeBlock(imp);
