@@ -127,12 +127,12 @@ static dispatch_queue_t backgroundQueue = nil;
 + (BOOL) instancesRespondToSelector: (SEL) selector
 {
 	IMP imp = class_getMethodImplementation(self.class, selector);
-	return ([super instancesRespondToSelector: selector] && imp != _objc_msgForward) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
+	return ([super instancesRespondToSelector: selector] && imp != (IMP) _objc_msgForward && imp != (IMP) _objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
 }
 + (BOOL) respondsToSelector: (SEL) selector
 {
 	IMP imp = class_getMethodImplementation(object_getClass(self.class), selector);
-	return ([super respondsToSelector: selector] && imp != _objc_msgForward) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
+	return ([super respondsToSelector: selector] && imp != (IMP) _objc_msgForward && imp != (IMP) _objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
 }
 - (BOOL) respondsToSelector: (SEL) selector
 {
