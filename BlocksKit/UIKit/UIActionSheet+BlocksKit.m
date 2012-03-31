@@ -141,7 +141,7 @@
 	id key = [NSNumber numberWithInteger:index];
 	
 	if (block)
-		[[self.dynamicDelegate handlers] setObject:block forKey:key];
+		[[self.dynamicDelegate handlers] setObject:[[block copy] autorelease] forKey:key];
 	else
 		[[self.dynamicDelegate handlers] removeObjectForKey:key];
 }
