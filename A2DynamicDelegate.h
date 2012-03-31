@@ -59,9 +59,7 @@
 
 /** A dictionary of custom handlers to be used by custom responders
  in a A2Dynamic(Protocol Name) subclass of A2DynamicDelegate, like
- `A2DynamicUIAlertViewDelegate`. Block objects stored will be
- automatically copied, and therefore *DO NOT* need to be copied
- by the user.
+ `A2DynamicUIAlertViewDelegate`.
  */
 @property (nonatomic, retain, readonly) NSMutableDictionary *handlers;
 

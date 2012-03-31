@@ -22,10 +22,6 @@
 
 #define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "+-"[!!isClassMethod], sel_getName(selector)] : nil)
 
-static NSMutableDictionary *A2BlockDictionaryCreate(void) NS_RETURNS_RETAINED;
-static const void *A2BlockDictionaryRetain(CFAllocatorRef allocator, const void *value);
-static void A2BlockDictionaryRelease(CFAllocatorRef allocator, const void *value);
-
 static Class a2_clusterSubclassForProtocol(Protocol *protocol);
 
 static void *A2DynamicDelegateBlockMapKey;
@@ -86,7 +82,7 @@ static dispatch_queue_t backgroundQueue = nil;
 {
 	if ((self = [super init]))
 	{
-		_handlers = A2BlockDictionaryCreate();
+		_handlers = [[NSMutableDictionary alloc] init];
 	}
 	
 	return self;
@@ -182,7 +178,7 @@ static dispatch_queue_t backgroundQueue = nil;
 	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
 	if (!blockMap)
 	{
-		blockMap = [A2BlockDictionaryCreate() autorelease];
+		blockMap = [NSMutableDictionary dictionary];
 		objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
@@ -423,23 +419,3 @@ static Class a2_clusterSubclassForProtocol(Protocol *protocol) {
 }
 
 @end
-
-#pragma mark - Block dictionary
-
-static NSMutableDictionary *A2BlockDictionaryCreate(void) {
-	CFDictionaryValueCallBacks valueCallBacks = kCFTypeDictionaryValueCallBacks;
-	valueCallBacks.retain = A2BlockDictionaryRetain;
-	valueCallBacks.release = A2BlockDictionaryRelease;
-	
-	return (NSMutableDictionary *)CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &valueCallBacks);
-}
-
-static const void *A2BlockDictionaryRetain(__unused CFAllocatorRef allocator, const void *value)
-{
-	return Block_copy(value);
-}
-
-static void A2BlockDictionaryRelease(__unused CFAllocatorRef allocator, const void *value)
-{
-	Block_release(value);
-}
