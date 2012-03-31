@@ -9,7 +9,6 @@
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
 #import <objc/runtime.h>
-#import <dlfcn.h>
 #import "blockimp.h"
 
 #if __has_attribute(objc_arc)
@@ -24,13 +23,11 @@
 void *A2BlockDelegateProtocolsKey;
 void *A2BlockDelegateMapKey;
 
-BOOL a2_hasCopyAttributeValue(void);
-
 static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector);
 
 // Forward Declarations
 extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
-extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName);
+extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName) WEAK_IMPORT_ATTRIBUTE;
 
 #pragma mark -
 
@@ -250,15 +247,6 @@ extern char *property_copyAttributeValue(objc_property_t property, const char *a
 
 #pragma mark - Functions
 
-BOOL a2_hasCopyAttributeValue(void) {
-	static dispatch_once_t onceToken;
-	static BOOL hasCopyAttributeValue;
-	dispatch_once(&onceToken, ^{
-		hasCopyAttributeValue = dlsym(RTLD_DEFAULT, "property_copyAttributeValue") ? YES : NO;
-	});
-	return hasCopyAttributeValue;
-}
-
 static BOOL a2_resolveInstanceMethod(id self, SEL _cmd, SEL selector)
 {
 	// Check for existence of `-a2_protocols` and `-a2_mapForProtocol:`, respectively
@@ -411,10 +399,8 @@ static BOOL a2_findOneAttribute(__unused unsigned int index, void *ctxa, void *c
 }
 char *a2_property_copyAttributeValue(objc_property_t property, const char *name)
 {
-	if (a2_hasCopyAttributeValue())
-	{
+	if (&property_copyAttributeValue != NULL)
 		return property_copyAttributeValue(property, name);
-	}
 	
 	if (!property || !name || *name == '\0') return NULL;
 	
