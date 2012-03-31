@@ -33,7 +33,7 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 
 @interface NSObject (A2BlockDelegatePrivate)
 
-+ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector __attribute__((nonnull));
+- (void) a2_checkRegisteredProtocol:(Protocol *)protocol;
 
 + (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol;
 
@@ -56,76 +56,6 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 @implementation NSObject (A2BlockDelegate)
 
 #pragma mark Helpers
-
-+ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector
-{
-	__block BOOL found = NO;
-	
-	[[self a2_protocols] enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
-		NSString *representedName = [[self a2_selectorCacheForProtocol: protocol] objectForKey: NSStringFromSelector(selector)];
-		
-		if (representedName)
-		{
-			*_representedSelector = NSSelectorFromString(representedName);
-			*_protocol = protocol;
-			found = *stop = YES;
-		}
-	}];
-	
-	if (found) return YES;
-	
-	NSString *propertyName = NSStringFromSelector(selector);
-	if ([propertyName hasPrefix: @"set"])
-	{
-		unichar firstChar = [propertyName characterAtIndex: 3];
-		NSString *coda = [propertyName substringWithRange: NSMakeRange(4, propertyName.length - 5)]; // -5 to remove trailing ':'
-		propertyName = [NSString stringWithFormat: @"%c%@", tolower(firstChar), coda];
-	}
-	
-	if (!class_getProperty(self, propertyName.UTF8String))
-	{
-		// It's not a simple -xBlock/setXBlock: pair
-		
-		// If selector ends in ':', it's a setter.
-		const BOOL isSetter = [NSStringFromSelector(selector) hasSuffix: @":"];
-		const char *key = (isSetter ? "S" : "G");
-	
-		unsigned int i, count;
-		objc_property_t *properties = class_copyPropertyList(self, &count);
-		
-		for (i = 0; i < count; ++i)
-		{
-			objc_property_t property = properties[i];
-			
-			char *accessorName = a2_property_copyAttributeValue(property, key);
-			SEL accessor = sel_getUid(accessorName);
-			if (sel_isEqual(selector, accessor))
-			{
-				propertyName = [NSString stringWithUTF8String: property_getName(property)];
-				break; // from for-loop
-			}
-			
-			free(accessorName);
-		}
-		
-		free(properties);
-	}
-	
-	if (!propertyName) return NO;
-
-	[[self a2_protocols] enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
-		NSString *selectorName = [[self a2_propertyMapForProtocol: protocol] objectForKey: propertyName];
-		if (!selectorName) return;
-		
-		[[self a2_selectorCacheForProtocol: protocol] setObject: selectorName forKey: NSStringFromSelector(selector)];
-		
-		*_representedSelector = NSSelectorFromString(selectorName);
-		*_protocol = protocol;
-		found = *stop = YES;
-	}];
-	
-	return found;
-}
 
 + (NSDictionary *) a2_mapForProtocol: (Protocol *) protocol
 {
@@ -232,6 +162,8 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 		
 		SEL setter = a2_setterForProperty(self, propertyName);
 		IMP setterImplementation = pl_imp_implementationWithBlock(^(NSObject *obj, id block) {
+			if ([obj respondsToSelector:@selector(a2_checkRegisteredProtocol:)])
+				[obj performSelector:@selector(a2_checkRegisteredProtocol:) withObject:protocol];
 			[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
 		});
 		const char *setterTypes = "v@:@";
