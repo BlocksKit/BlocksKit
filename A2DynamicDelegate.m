@@ -7,9 +7,8 @@
 //
 
 #import "A2DynamicDelegate.h"
+#import "A2BlockImplementation.h"
 #import <objc/message.h>
-#import <objc/runtime.h>
-#import "blockimp.h"
 
 #if __has_attribute(objc_arc)
 	#error "At present, 'A2DynamicDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
@@ -117,7 +116,7 @@ static dispatch_queue_t backgroundQueue = nil;
 		// Dispose of the blocks backing the IMPs.
 		[implementations enumerateObjectsUsingBlock:^(NSValue *obj, NSUInteger idx, BOOL *stop) {
 			IMP imp = [obj pointerValue];
-			pl_imp_removeBlock(imp);
+			a2_imp_removeBlock(imp);
 		}];
 		
 		[implementations release];
@@ -227,7 +226,7 @@ static dispatch_queue_t backgroundQueue = nil;
 	else
 	{
 		Class cls = isClassMethod ? object_getClass(self) : self;
-		IMP imp = pl_imp_implementationWithBlock(block);
+		IMP imp = a2_imp_implementationWithArgumentsOnlyBlock(block);
 		class_replaceMethod(cls, selector, imp, methodDescription.types);
 		[self.implementationMap setObject: [NSValue valueWithPointer: imp] forKey: key];
 	}
@@ -250,7 +249,7 @@ static dispatch_queue_t backgroundQueue = nil;
 		free(returnType);
 
 		IMP imp = class_replaceMethod(cls, selector, (isStruct ? (IMP)_objc_msgForward_stret : _objc_msgForward), NULL);
-		pl_imp_removeBlock(imp);
+		a2_imp_removeBlock(imp);
 		[self.implementationMap removeObjectForKey: key];
 	}
 }

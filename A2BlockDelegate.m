@@ -8,8 +8,7 @@
 
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
-#import <objc/runtime.h>
-#import "blockimp.h"
+#import "A2BlockImplementation.h"
 
 #if __has_attribute(objc_arc)
 	#error "At present, 'A2BlockDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
@@ -153,7 +152,7 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 		SEL representedSelector = NSSelectorFromString(selectorName);
 		
 		SEL getter = a2_getterForProperty(self, propertyName);
-		IMP getterImplementation = pl_imp_implementationWithBlock(^id (NSObject *obj) {
+		IMP getterImplementation = a2_imp_implementationWithBlock(^id (NSObject *obj) {
 			return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
 		});
 		const char *getterTypes = "@@:";
@@ -161,7 +160,7 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 		NSAlwaysAssert(success, @"Could not implement getter for \"%@\" property.", propertyName);
 		
 		SEL setter = a2_setterForProperty(self, propertyName);
-		IMP setterImplementation = pl_imp_implementationWithBlock(^(NSObject *obj, id block) {
+		IMP setterImplementation = a2_imp_implementationWithBlock(^(NSObject *obj, id block) {
 			if ([obj respondsToSelector:@selector(a2_checkRegisteredProtocol:)])
 				[obj performSelector:@selector(a2_checkRegisteredProtocol:) withObject:protocol];
 			[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];

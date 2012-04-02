@@ -1,0 +1,1684 @@
+/*
+ * Copyright (c) 1999-2007 Apple Inc.  All Rights Reserved.
+ * 
+ * @APPLE_LICENSE_HEADER_START@
+ * 
+ * This file contains Original Code and/or Modifications of Original Code
+ * as defined in and that are subject to the Apple Public Source License
+ * Version 2.0 (the 'License'). You may not use this file except in
+ * compliance with the License. Please obtain a copy of the License at
+ * http://www.opensource.apple.com/apsl/ and read it before using this
+ * file.
+ * 
+ * The Original Code and all software distributed under the License are
+ * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ * Please see the License for the specific language governing rights and
+ * limitations under the License.
+ * 
+ * @APPLE_LICENSE_HEADER_END@
+ */
+
+#if defined(__i386__)
+
+.text
+    .private_extern __a2a3_tramphead
+    .private_extern __a2a3_firsttramp
+    .private_extern __a2a3_nexttramp
+    .private_extern __a2a3_trampend
+
+.align 12
+__a2a3_tramphead:
+    popl %eax
+    andl $0xFFFFFFF8, %eax
+    subl $0x1000, %eax
+    movl 8(%esp), %ecx // self -> ecx
+    movl %ecx, 12(%esp) // ecx -> _cmd
+    movl (%eax), %ecx // blockPtr -> ecx
+    movl %ecx, 8(%esp) // ecx -> self
+    jmp  *12(%ecx) // tail to block->invoke
+
+.macro TrampolineEntry
+    call __a2a3_tramphead
+    nop
+    nop
+    nop
+.endmacro
+
+.align 5
+__a2a3_firsttramp:
+    TrampolineEntry
+__a2a3_nexttramp:
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+    TrampolineEntry
+
+__a2a3_trampend:
+
+#elif defined(__x86_64__)
+
+.text
+.private_extern __a2a3_tramphead
+.private_extern __a2a3_firsttramp
+.private_extern __a2a3_nexttramp
+.private_extern __a2a3_trampend
+
+.align 12
+__a2a3_tramphead:
+popq %r10
+andq $0xFFFFFFFFFFFFFFF8, %r10
+subq $0x1000, %r10
+// %rdi -- first arg -- is address of return value's space. Don't mess with it.
+movq %rsi, %rdx // arg2 -> arg3
+movq (%r10), %rsi // block -> arg2
+jmp  *16(%rsi)
+
+.macro TrampolineEntry
+callq __a2a3_tramphead
+nop
+nop
+nop
+.endmacro
+
+.align 5
+__a2a3_firsttramp:
+TrampolineEntry
+__a2a3_nexttramp:
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+
+__a2a3_trampend:
+
+#elif defined(__arm__)
+
+#include <arm/arch.h>
+
+.syntax unified
+
+.text
+
+#ifdef _ARM_ARCH_7
+.thumb
+.thumb_func __a2a3_tramphead
+.thumb_func __a2a3_firsttramp
+.thumb_func __a2a3_nexttramp
+.thumb_func __a2a3_trampend
+#else
+// don't use Thumb-1
+.arm
+#endif
+
+.align 12
+.private_extern __a2a3_tramphead
+__a2a3_tramphead:
+/*
+ r0 == stret
+ r1 == self
+ r2 == pc of trampoline's first instruction + 4
+ lr == original return address
+ */
+
+// calculate the trampoline's index (512 entries, 8 bytes each)
+#ifdef _ARM_ARCH_7
+// PC bias is only 4, no need to correct with 8-byte trampolines
+ubfx r2, r2, #3, #9
+#else
+sub  r2, r2, #8               // correct PC bias
+lsl  r2, r2, #20
+lsr  r2, r2, #23
+#endif
+
+// load block pointer from trampoline's data
+adr  r12, __a2a3_tramphead    // text page
+sub  r12, r12, #4096          // data page precedes text page
+ldr  r12, [r12, r2, LSL #3]   // load block pointer from data + index*8
+
+// shuffle parameters
+mov  r2, r1                   // _cmd = self
+mov  r1, r12                  // self = block pointer
+
+// tail call block->invoke
+ldr  pc, [r12, #12]
+// not reached
+
+// Make v6 and v7 match so they have the same number of TrampolineEntry
+// below. Debug asserts in objc-block-trampoline.m check this.
+#ifdef _ARM_ARCH_7
+.space 16
+#endif
+
+.macro TrampolineEntry
+mov r2, pc
+b __a2a3_tramphead
+.align 3
+.endmacro
+
+.align 3
+.private_extern __a2a3_firsttramp
+__a2a3_firsttramp:
+TrampolineEntry
+
+.private_extern __a2a3_nexttramp
+__a2a3_nexttramp:
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+TrampolineEntry
+
+.private_extern __a2a3_trampend
+__a2a3_trampend:
+
+#endif
