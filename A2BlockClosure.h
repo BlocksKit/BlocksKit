@@ -24,8 +24,7 @@
     NSMutableArray *_allocations;
     ffi_cif _closureCIF;
     ffi_cif _innerCIF;
-    int _closureArgCount;
-	int _innerArgCount;
+    NSUInteger _innerArgCount;
     ffi_closure *_closure;
     void *_closureFptr;
     id _block;
