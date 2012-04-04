@@ -8,6 +8,7 @@
 
 #import "A2DynamicDelegate.h"
 #import "A2BlockImplementation.h"
+#import "A2BlockClosure.h"
 #import <objc/message.h>
 
 #if __has_attribute(objc_arc)
@@ -107,19 +108,10 @@ static dispatch_queue_t backgroundQueue = nil;
 	dispatch_async(backgroundQueue, ^{
 		Class cls = objc_getClass(className);
 		
-		// Get all of the NSValues containing IMPs
-		NSArray *implementations = [[[cls implementationMap] allValues] copy];
+		[[cls implementationMap] removeAllObjects];
 		
 		// Dispose of unique A2DynamicDelegate subclass.
 		objc_disposeClassPair(cls);
-		
-		// Dispose of the blocks backing the IMPs.
-		[implementations enumerateObjectsUsingBlock:^(NSValue *obj, NSUInteger idx, BOOL *stop) {
-			IMP imp = [obj pointerValue];
-			a2_imp_removeBlock(imp);
-		}];
-		
-		[implementations release];
 	});
 }
 
@@ -201,7 +193,7 @@ static dispatch_queue_t backgroundQueue = nil;
 + (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
 {
 	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
-	return [self.blockMap objectForKey: key] ?: [self.implementationMap objectForKey: key];
+	return [self.blockMap objectForKey: key] ?: [[self.implementationMap objectForKey: key] block];
 }
 
 + (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block
@@ -226,9 +218,10 @@ static dispatch_queue_t backgroundQueue = nil;
 	else
 	{
 		Class cls = isClassMethod ? object_getClass(self) : self;
-		IMP imp = a2_imp_implementationWithArgumentsOnlyBlock(block);
-		class_replaceMethod(cls, selector, imp, methodDescription.types);
-		[self.implementationMap setObject: [NSValue valueWithPointer: imp] forKey: key];
+		A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock:block];
+		class_replaceMethod(cls, selector, closure.functionPtr, methodDescription.types);
+		[self.implementationMap setObject: closure forKey: key];
+		[closure release];
 	}
 }
 + (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
@@ -248,8 +241,7 @@ static dispatch_queue_t backgroundQueue = nil;
 		BOOL isStruct = (returnType[0] == '{') ? YES : NO;
 		free(returnType);
 
-		IMP imp = class_replaceMethod(cls, selector, (isStruct ? (IMP)_objc_msgForward_stret : _objc_msgForward), NULL);
-		a2_imp_removeBlock(imp);
+		class_replaceMethod(cls, selector, (isStruct ? (IMP)_objc_msgForward_stret : _objc_msgForward), NULL);
 		[self.implementationMap removeObjectForKey: key];
 	}
 }
