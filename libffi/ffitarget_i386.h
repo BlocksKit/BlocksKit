@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------*-C-*-
-   ffitarget.h - Copyright (c) 1996-2003, 2010  Red Hat, Inc.
+   ffitarget.h - Copyright (c) 2012  Anthony Green
+                 Copyright (c) 1996-2003, 2010  Red Hat, Inc.
                  Copyright (C) 2008  Free Software Foundation, Inc.
-                 Copyright (c) 2010 CodeSourcery
 
-   Target configuration macros for x86, x86-64, and ARM.
+   Target configuration macros for x86 and x86-64.
 
    Permission is hereby granted, free of charge, to any person obtaining
    a copy of this software and associated documentation files (the
@@ -30,42 +30,13 @@
 #ifndef LIBFFI_TARGET_H
 #define LIBFFI_TARGET_H
 
-#ifdef __arm__
-
-#ifndef LIBFFI_ASM
-typedef unsigned long          ffi_arg;
-typedef signed long            ffi_sarg;
-
-typedef enum ffi_abi {
-	FFI_FIRST_ABI = 0,
-	FFI_SYSV,
-	FFI_VFP,
-	FFI_LAST_ABI,
-#ifdef __ARM_PCS_VFP
-	FFI_DEFAULT_ABI = FFI_VFP,
-#else
-	FFI_DEFAULT_ABI = FFI_SYSV,
-#endif
-} ffi_abi;
+#ifndef LIBFFI_H
+#error "Please do not include ffitarget.h directly into your source.  Use ffi.h instead."
 #endif
 
-#define FFI_EXTRA_CIF_FIELDS			\
-int vfp_used;					\
-short vfp_reg_free, vfp_nargs;		\
-signed char vfp_args[16]			\
+/* ---- System specific configurations ----------------------------------- */
 
-/* Internally used. */
-#define FFI_TYPE_STRUCT_VFP_FLOAT  (FFI_TYPE_LAST + 1)
-#define FFI_TYPE_STRUCT_VFP_DOUBLE (FFI_TYPE_LAST + 2)
-
-/* ---- Definitions for closures ----------------------------------------- */
-
-#define FFI_CLOSURES 1
-#define FFI_TRAMPOLINE_SIZE 20
-#define FFI_NATIVE_RAW_API 0
-
-#else
-
+/* For code common to all platforms on x86 and x86_64. */
 #define X86_ANY
 
 #if defined (X86_64) && defined (__i386__)
@@ -90,8 +61,14 @@ typedef unsigned long long     ffi_arg;
 typedef long long              ffi_sarg;
 #endif
 #else
+#if defined __x86_64__ && !defined __LP64__
+#define FFI_SIZEOF_ARG 8
+typedef unsigned long long     ffi_arg;
+typedef long long              ffi_sarg;
+#else
 typedef unsigned long          ffi_arg;
 typedef signed long            ffi_sarg;
+#endif
 #endif
 
 typedef enum ffi_abi {
@@ -101,9 +78,15 @@ typedef enum ffi_abi {
 #ifdef X86_WIN32
   FFI_SYSV,
   FFI_STDCALL,
+  FFI_THISCALL,
+  FFI_FASTCALL,
+  FFI_MS_CDECL,
   FFI_LAST_ABI,
-  /* TODO: Add fastcall support for the sake of completeness */
+#ifdef _MSC_VER
+  FFI_DEFAULT_ABI = FFI_MS_CDECL
+#else
   FFI_DEFAULT_ABI = FFI_SYSV
+#endif
 
 #elif defined(X86_WIN64)
   FFI_WIN64,
@@ -130,13 +113,14 @@ typedef enum ffi_abi {
 #define FFI_TYPE_SMALL_STRUCT_1B (FFI_TYPE_LAST + 1)
 #define FFI_TYPE_SMALL_STRUCT_2B (FFI_TYPE_LAST + 2)
 #define FFI_TYPE_SMALL_STRUCT_4B (FFI_TYPE_LAST + 3)
+#define FFI_TYPE_MS_STRUCT       (FFI_TYPE_LAST + 4)
 
 #if defined (X86_64) || (defined (__x86_64__) && defined (X86_DARWIN))
 #define FFI_TRAMPOLINE_SIZE 24
 #define FFI_NATIVE_RAW_API 0
 #else
 #ifdef X86_WIN32
-#define FFI_TRAMPOLINE_SIZE 13
+#define FFI_TRAMPOLINE_SIZE 52
 #else
 #ifdef X86_WIN64
 #define FFI_TRAMPOLINE_SIZE 29
@@ -153,4 +137,3 @@ typedef enum ffi_abi {
 
 #endif
 
-#endif
