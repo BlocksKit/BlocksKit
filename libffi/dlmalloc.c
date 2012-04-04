@@ -649,7 +649,7 @@ extern "C" {
 
 /* ------------------- Declarations of public routines ------------------- */
 
-#if !USE_DL_PREFIX
+#if 0
 #define dlcalloc               calloc
 #define dlfree                 free
 #define dlmalloc               malloc

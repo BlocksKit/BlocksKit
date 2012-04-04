@@ -66,7 +66,7 @@ static void a2_executeBlockClosure(ffi_cif *cif, void *ret, void **args, void *u
 
 @implementation A2BlockClosure
 
-@synthesize functionPointer = _functionPointer, numberOfArguments = _numberOfArguments;
+@synthesize block = _block, functionPointer = _functionPointer, numberOfArguments = _numberOfArguments;
 
 - (ffi_cif *)callInterface {
 	return &_innerCIF;
