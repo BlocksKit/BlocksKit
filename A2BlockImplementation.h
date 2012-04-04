@@ -27,10 +27,10 @@
 
 #include <objc/runtime.h>
 
-extern const char *a2_block_signature(id block);
-extern BOOL a2_block_has_signature(id block);
-extern BOOL a2_block_has_stret(id block);
-extern void *a2_block_get_implementation(id block);
+extern BOOL a2_blockHasSignature(id block);
+extern BOOL a2_blockHasStret(id block);
+extern const char *a2_blockGetSignature(id block);
+extern void *a2_blockGetImplementation(id block);
 
 extern IMP pl_imp_implementationWithBlock(id block);
 extern id pl_imp_getBlock(IMP anImp);

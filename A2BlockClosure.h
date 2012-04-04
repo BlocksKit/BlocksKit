@@ -17,23 +17,21 @@
 //      derived from this software without specific prior written permission.
 //
 
-#import <Foundation/Foundation.h>
 #import "ffi.h"
 
 @interface A2BlockClosure : NSObject {
     NSMutableArray *_allocations;
     ffi_cif _closureCIF;
     ffi_cif _innerCIF;
-    int _closureArgCount;
-	int _innerArgCount;
+	NSUInteger _numberOfArguments;
     ffi_closure *_closure;
-    void *_closureFptr;
+    void *_functionPointer;
     id _block;
 }
 
-- (id)initWithBlock:(id)block;
+- (id)initWithBlock: (id) block;
 
 @property (nonatomic, readonly) id block;
-@property (nonatomic, readonly) void *functionPtr;
+@property (nonatomic, readonly) void *functionPointer;
 
 @end

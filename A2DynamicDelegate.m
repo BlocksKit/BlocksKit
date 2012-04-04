@@ -211,7 +211,7 @@ static dispatch_queue_t backgroundQueue = nil;
 	if (!methodDescription.name) return;
 	
 	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes: methodDescription.types];
-	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: a2_block_signature(block)];
+	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: a2_blockGetSignature(block)];
 	BOOL blockIsCompatible = (strcmp(protoSig.methodReturnType, blockSig.methodReturnType) == 0);
 	NSUInteger i, argc = blockSig.numberOfArguments;
 	for (i = 1; i < argc && blockIsCompatible; ++i)
@@ -234,7 +234,7 @@ static dispatch_queue_t backgroundQueue = nil;
 	{
 		Class cls = isClassMethod ? object_getClass(self) : self;
 		A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock:block];
-		class_replaceMethod(cls, selector, closure.functionPtr, methodDescription.types);
+		class_replaceMethod(cls, selector, closure.functionPointer, methodDescription.types);
 		[self.implementationMap setObject: closure forKey: key];
 		[closure release];
 	}

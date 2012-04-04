@@ -28,6 +28,7 @@
 #include "A2BlockImplementation.h"
 #include <Foundation/Foundation.h>
 #include <mach/mach.h>
+#include <pthread.h>
 
 #pragma mark - Block Internals
 
@@ -80,14 +81,26 @@ struct Block {
 
 typedef struct Block *BlockRef;
 
-const char * a2_block_signature(id block)
-{
-	BlockRef aBlock = (BlockRef)block;
-	if (!(aBlock->flags & BLOCK_HAS_SIGNATURE))
+BOOL a2_blockHasSignature(id block) {
+	return a2_blockGetSignature(block) ? YES : NO;
+}
+
+BOOL a2_blockHasStret(id block) {
+    BlockRef layout = (BlockRef)block;
+    int requiredFlags = BLOCK_HAS_SIGNATURE | BLOCK_USE_STRET;
+    return (layout->flags & requiredFlags) == requiredFlags;
+}
+
+const char *a2_blockGetSignature(id block) {
+	BlockRef layout = (BlockRef)block;
+	
+	int requiredFlags = BLOCK_HAS_SIGNATURE;
+    if ((layout->flags & requiredFlags) != requiredFlags)
 		return NULL;
-    uint8_t *desc = (uint8_t *)aBlock->descriptor;
+	
+    uint8_t *desc = (uint8_t *)layout->descriptor;
     desc += sizeof(struct Block_descriptor_1);
-    if (aBlock->flags & BLOCK_HAS_COPY_DISPOSE)
+    if (layout->flags & BLOCK_HAS_COPY_DISPOSE)
         desc += sizeof(struct Block_descriptor_2);
 	struct Block_descriptor_3 *desc3 = (struct Block_descriptor_3 *)desc;
     if (!desc3)
@@ -95,19 +108,9 @@ const char * a2_block_signature(id block)
     return desc3->signature;
 }
 
-// Checks for a valid signature, not merely the BLOCK_HAS_SIGNATURE bit.
-BOOL a2_block_has_signature(id block) {
-    return a2_block_signature(block) ? YES : NO;
-}
-
-BOOL a2_block_has_stret(id block) {
-    BlockRef layout = (BlockRef)block;
-    int requiredFlags = BLOCK_HAS_SIGNATURE | BLOCK_USE_STRET;
-    return (layout->flags & requiredFlags) == requiredFlags;
-}
-
-void *a2_block_get_implementation(id block) {
-    return ((BlockRef)block)->invoke;
+void *a2_blockGetImplementation(id block) {
+	BlockRef aBlock = (BlockRef)block;
+    return aBlock->invoke;
 }
 
 #pragma mark - Structure declarations
@@ -421,7 +424,7 @@ IMP pl_imp_implementationWithBlock (id block) {
 	
     /* Allocate the appropriate trampoline type. */
     pl_trampoline *tramp;
-	if (a2_block_has_stret(block)) {
+	if (a2_blockHasStret(block)) {
 		tramp = pl_trampoline_alloc(&pl_blockimp_table_stret_page_config, &blockimp_lock, &blockimp_table_stret);
 	} else {
 		tramp = pl_trampoline_alloc(&pl_blockimp_table_page_config, &blockimp_lock, &blockimp_table);
@@ -461,7 +464,7 @@ BOOL pl_imp_removeBlock(IMP anImp) {
     pl_trampoline *tramp = config[1];
 	
 	/* Drop the trampoline allocation */
-	if (a2_block_has_stret(block)) {
+	if (a2_blockHasStret(block)) {
 		pl_trampoline_free(&blockimp_lock, &blockimp_table_stret, tramp);
 	} else {
 		pl_trampoline_free(&blockimp_lock, &blockimp_table, tramp);
@@ -470,6 +473,5 @@ BOOL pl_imp_removeBlock(IMP anImp) {
     /* Release the block */
     Block_release(block);
 	
-    // TODO - what does this return value mean?
     return YES;
 }

@@ -40,10 +40,11 @@
 {
 	@autoreleasepool
 	{
-		[self linkCategoryBlockProperty: @"shouldEnableFirstOtherButtonBlock"
-					 withDelegateMethod: @selector(alertViewShouldEnableFirstOtherButton:)];
-		[self linkCategoryBlockProperty: @"willDismissBlock"
-					 withDelegateMethod: @selector(alertView:willDismissWithButtonIndex:)];
+		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
+								 @"alertViewShouldEnableFirstOtherButton:", @"shouldEnableFirstOtherButtonBlock",
+								 @"actionSheet:willDismissWithButtonIndex:", @"willDismissBlock",
+								 nil];
+		[self linkDelegateMethods:methods];
 	}
 }
 
