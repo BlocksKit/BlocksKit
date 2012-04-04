@@ -1,26 +1,36 @@
+
 #import "A2BlockClosure.h"
 #import "A2BlockImplementation.h"
+
+#import <assert.h>
+#import <objc/runtime.h>
+#import <sys/mman.h>
 
 #if TARGET_OS_IPHONE
 #import <CoreGraphics/CoreGraphics.h>
 #endif
 
-@interface A2BlockClosure ()
+@implementation A2BlockClosure
 
-@property (nonatomic, readonly) ffi_cif *callInterface;
-@property (nonatomic, readonly) NSUInteger numberOfArguments;
+@synthesize functionPtr = _closureFptr;
 
-@end
-
-static void A2BlockClosureExecute(ffi_cif *cif, void *ret, void **args, void *userdata)
+static void BlockClosure(ffi_cif *cif, void *ret, void **args, void *userdata)
 {
-	A2BlockClosure *self = userdata;
-    int count = self.numberOfArguments;
-    void **innerArgs = malloc((count + 1) * sizeof(*innerArgs));
-    innerArgs[0] = self.block;
-    memcpy(innerArgs + 1, args + 2, count * sizeof(*args)); // copy arguments after self and _cmd to after the block
-    ffi_call(self.callInterface, a2_block_get_implementation(self.block), ret, innerArgs);
+    A2BlockClosure *self = userdata;
+    
+    int count = self->_closureArgCount;
+    void **innerArgs = malloc(count * sizeof(*innerArgs));
+    innerArgs[0] = &self->_block;
+    memcpy(innerArgs + 1, args + 2, (count - 1) * sizeof(*args));
+    ffi_call(&self->_innerCIF, a2_block_get_implementation(self->_block), ret, innerArgs);
     free(innerArgs);
+}
+
+- (void *)a2_allocate: (size_t)howmuch
+{
+    NSMutableData *data = [NSMutableData dataWithLength: howmuch];
+    [_allocations addObject: data];
+    return [data mutableBytes];
 }
 
 static const char *A2GetSizeAndAlignment(const char *str, NSUInteger *sizep, NSUInteger *alignp, int *len)
@@ -33,7 +43,7 @@ static const char *A2GetSizeAndAlignment(const char *str, NSUInteger *sizep, NSU
     return out;
 }
 
-static int A2GetArgumentsCount(const char *str)
+static int ArgCount(const char *str)
 {
     int argcount = -2; // return type is the first one
     while(str && *str)
@@ -44,22 +54,7 @@ static int A2GetArgumentsCount(const char *str)
     return argcount;
 }
 
-@implementation A2BlockClosure
-
-@synthesize functionPtr = _closureFptr, numberOfArguments = _innerArgCount;
-
-- (ffi_cif *)callInterface {
-	return &_innerCIF;
-}
-
-- (void *)a2_allocate: (size_t)howmuch
-{
-    NSMutableData *data = [NSMutableData dataWithLength: howmuch];
-    [_allocations addObject: data];
-    return [data mutableBytes];
-}
-
-- (ffi_type *)a2_argumentForEncoding: (const char *)str
+- (ffi_type *)_ffiArgForEncode: (const char *)str
 {
     #define SINT(type) do { \
     	if(str[0] == @encode(type)[0]) \
@@ -163,58 +158,72 @@ static int A2GetArgumentsCount(const char *str)
     abort();
 }
 
-- (ffi_cif)a2_prepareCIFWithEncoding:(const char *)str forMethod: (BOOL)isMethod arguments: (NSUInteger *) count {
-	int argCount = A2GetArgumentsCount(str) + (isMethod ? 2 : 1);
+- (int)_prepCIF: (ffi_cif *)cif withEncodeString: (const char *)str forBlock: (BOOL)isBlock
+{
+    int argCount = ArgCount(str) + (isBlock ? 1 : 2);
     ffi_type **argTypes = [self a2_allocate: argCount * sizeof(*argTypes)];
 	
-	argTypes[0] = [self a2_argumentForEncoding:@encode(id)];
+	argTypes[0] = [self _ffiArgForEncode:@encode(id)];
 	
-	if (isMethod)
-		argTypes[1] = [self a2_argumentForEncoding:@encode(SEL)];
+	if (!isBlock)
+		argTypes[1] = [self _ffiArgForEncode:@encode(SEL)];
 	
-	ffi_type *rtype = [self a2_argumentForEncoding: A2GetSizeAndAlignment(str, NULL, NULL, NULL)];
+	ffi_type *rtype;
     
-    int i = -2, j = isMethod ? 2 : 1;
+    int i = -2, j = isBlock ? 1 : 2;
     while(str && *str)
     {
         const char *next = A2GetSizeAndAlignment(str, NULL, NULL, NULL);
-        if (i >= 0) {
-            argTypes[j] = [self a2_argumentForEncoding: str];
+        if(i >= 0) {
+            argTypes[j] = [self _ffiArgForEncode: str];
 			j++;
+		} else if (i == -2) {
+			rtype = [self _ffiArgForEncode: str];
 		}
         i++;
         str = next;
     }
     
-	ffi_cif cif;
-    ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argCount, rtype, argTypes);
-    if (status != FFI_OK)
+    ffi_status status = ffi_prep_cif(cif, FFI_DEFAULT_ABI, argCount, rtype, argTypes);
+    if(status != FFI_OK)
     {
         NSLog(@"Got result %ld from ffi_prep_cif", (long)status);
         abort();
     }
-	
-	if (count)
-		*count = argCount;
-	
-	return cif;
+    
+    return argCount;
+}
+
+- (void)_prepClosureCIF
+{
+    _closureArgCount = [self _prepCIF: &_closureCIF withEncodeString: a2_block_signature(_block) forBlock: NO];
+}
+
+- (void)_prepInnerCIF
+{
+    _innerArgCount = [self _prepCIF: &_innerCIF withEncodeString: a2_block_signature(_block) forBlock: YES];
+}
+
+- (void)_prepClosure
+{
+    ffi_status status = ffi_prep_closure_loc(_closure, &_closureCIF, BlockClosure, self, _closureFptr);
+    if(status != FFI_OK)
+    {
+        NSLog(@"ffi_prep_closure returned %d", (int)status);
+        abort();
+    }
 }
 
 - (id)initWithBlock: (id)block
 {
-    if((self = [super init]))
+    if((self = [self init]))
     {
         _allocations = [NSMutableArray new];
         _block = block;
 		_closure = ffi_closure_alloc(sizeof(ffi_closure), &_closureFptr);
-		const char *signature = a2_block_signature(_block);
-		_closureCIF = [self a2_prepareCIFWithEncoding: signature forMethod: YES arguments: NULL];
-		_innerCIF = [self a2_prepareCIFWithEncoding: signature forMethod: NO arguments: &_innerArgCount];
-        ffi_status status = ffi_prep_closure_loc(_closure, &_closureCIF, A2BlockClosureExecute, self, _closureFptr);
-		if(status != FFI_OK) {
-			[self release];
-			return nil;
-		}
+        [self _prepClosureCIF];
+        [self _prepInnerCIF];
+        [self _prepClosure];
     }
     return self;
 }
