@@ -183,43 +183,45 @@ static void a2_executeBlockClosure(ffi_cif *cif, void *ret, void **args, void *u
     abort();
 }
 
-- (ffi_cif)a2_prepareCIFWithEncoding:(const char *)str forBlock: (BOOL)isBlock arguments:(NSUInteger *)count {
-	int argCount = a2_getArgumentsCount(str) + (isBlock ? 1 : 2);
-    ffi_type **argTypes = [self a2_allocate: argCount * sizeof(*argTypes)];
+- (void)a2_prepareCIF {
+	const char *signature = a2_blockGetSignature(self.block);
+	int argCount = a2_getArgumentsCount(signature);
+	int blockArgCount = argCount + 1, methodArgCount = argCount + 2;
 	
-	argTypes[0] = [self a2_argumentForEncoding: @encode(id)];
-	
-	if (!isBlock)
-		argTypes[1] = [self a2_argumentForEncoding: @encode(SEL)];
+	ffi_type **blockArgs = [self a2_allocate: blockArgCount * sizeof(*blockArgs)];
+	ffi_type **methodArgs = [self a2_allocate: methodArgCount * sizeof(*methodArgs)];
+
+	blockArgs[0] = methodArgs[0] = [self a2_argumentForEncoding: @encode(id)];
+	methodArgs[1] = [self a2_argumentForEncoding: @encode(SEL)];
 	
 	ffi_type *rtype;
     
-    int i = -2, j = isBlock ? 1 : 2;
-    while(str && *str)
-    {
-        const char *next = a2_getSizeAndAlignment(str);
-        if(i >= 0) {
-            argTypes[j] = [self a2_argumentForEncoding: str];
-			j++;
-		} else if (i == -2) {
-			rtype = [self a2_argumentForEncoding: str];
+    int argc = -2, bargc = 1, margc = 2;
+    while (signature && *signature) {
+        const char *next = a2_getSizeAndAlignment(signature);
+        if (argc >= 0) {
+            blockArgs[bargc] = methodArgs[margc] = [self a2_argumentForEncoding: signature];
+			bargc++;
+			margc++;
+		} else if (argc == -2) {
+			rtype = [self a2_argumentForEncoding: signature];
 		}
-        i++;
-        str = next;
-    }
-    
-	ffi_cif cif;
-    ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argCount, rtype, argTypes);
-    if(status != FFI_OK)
-    {
-        NSLog(@"Got result %ld from ffi_prep_cif", (long)status);
-        abort();
+        argc++;
+        signature = next;
     }
 	
-	if (count)
-		*count = argCount;
+	ffi_cif blockCif;
+    ffi_status blockStatus = ffi_prep_cif(&blockCif, FFI_DEFAULT_ABI, blockArgCount, rtype, blockArgs);
 	
-	return cif;
+	ffi_cif methodCif;
+	ffi_status methodStatus = ffi_prep_cif(&methodCif, FFI_DEFAULT_ABI, methodArgCount, rtype, methodArgs);
+	
+	NSAssert(blockStatus == FFI_OK, @"Unable to create function interface for block. %@ %@", [self class], self.block);
+	NSAssert(methodStatus == FFI_OK, @"Unable to create function interface for method. %@ %@", [self class], self.block);
+	
+	_closureCIF = methodCif;
+	_innerCIF = blockCif;
+	_numberOfArguments = blockArgCount;
 }
 
 - (id)initWithBlock: (id)block
@@ -229,8 +231,7 @@ static void a2_executeBlockClosure(ffi_cif *cif, void *ret, void **args, void *u
         _allocations = [NSMutableArray new];
         _block = block;
 		_closure = ffi_closure_alloc(sizeof(ffi_closure), &_functionPointer);
-        _closureCIF = [self a2_prepareCIFWithEncoding: a2_blockGetSignature(_block) forBlock: NO arguments: NULL];
-        _innerCIF = [self a2_prepareCIFWithEncoding: a2_blockGetSignature(_block) forBlock: YES arguments: &_numberOfArguments];
+		[self a2_prepareCIF];
         if (ffi_prep_closure_loc(_closure, &_closureCIF, a2_executeBlockClosure, self, _functionPointer) != FFI_OK) {
 			[self release];
 			return nil;
