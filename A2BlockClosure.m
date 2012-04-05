@@ -194,7 +194,7 @@ static void a2_executeBlockClosure(ffi_cif *cif, void *ret, void **args, void *u
 	blockArgs[0] = methodArgs[0] = [self a2_argumentForEncoding: @encode(id)];
 	methodArgs[1] = [self a2_argumentForEncoding: @encode(SEL)];
 	
-	ffi_type *rtype;
+	ffi_type *rtype = NULL;
     
     int argc = -2, bargc = 1, margc = 2;
     while (signature && *signature) {
