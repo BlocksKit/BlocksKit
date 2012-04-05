@@ -411,7 +411,7 @@ static pl_trampoline_table *blockimp_table = NULL;
 /**
  * 
  */
-IMP pl_imp_implementationWithBlock (id block) {
+IMP a2_imp_implementationWithBlock (id block) {
     /* Prefer Apple's implementation */
 	if (&imp_implementationWithBlock != NULL) {
 		block = [[block copy] autorelease];
@@ -439,7 +439,7 @@ IMP pl_imp_implementationWithBlock (id block) {
     return (IMP) tramp->trampoline;
 }
 
-id pl_imp_getBlock(IMP anImp) {
+id a2_imp_getBlock(IMP anImp) {
     /* Prefer Apple's implementation */
     if (&imp_getBlock != NULL) {
         return (id)imp_getBlock(anImp);
@@ -450,7 +450,7 @@ id pl_imp_getBlock(IMP anImp) {
     return config[0];
 }
 
-BOOL pl_imp_removeBlock(IMP anImp) {
+BOOL a2_imp_removeBlock(IMP anImp) {
     /* Prefer Apple's implementation */
     if (&imp_removeBlock != NULL)
         return imp_removeBlock(anImp);
