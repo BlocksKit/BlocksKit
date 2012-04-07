@@ -8,10 +8,10 @@
 
 #import "A2BlockDelegate+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
+#import "A2BlockImplementation.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <dlfcn.h>
-#import "blockimp.h"
 #import "NSArray+BlocksKit.h"
 
 extern void *A2BlockDelegateProtocolsKey;
@@ -151,7 +151,7 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 	
 	SEL getter = a2_getterForProperty(self, delegateName);
 	SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter)]);
-	IMP getterImplementation = pl_imp_implementationWithBlock(^id(NSObject *obj) {
+	IMP getterImplementation = a2_imp_implementationWithBlock(^id(NSObject *obj) {
 		return [[obj dynamicDelegateForProtocol: protocol] realDelegate];
 	});
 	const char *getterTypes = "@@:";
@@ -165,7 +165,7 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 
 	SEL setter = a2_setterForProperty(self, delegateName);
 	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
-	IMP setterImplementation = pl_imp_implementationWithBlock(^(NSObject *obj, id delegate) {
+	IMP setterImplementation = a2_imp_implementationWithBlock(^(NSObject *obj, id delegate) {
 		A2DynamicDelegate *dynamicDelegate = [obj dynamicDelegateForProtocol: protocol];
 		
 		if ([obj respondsToSelector:a2_setter]) {
