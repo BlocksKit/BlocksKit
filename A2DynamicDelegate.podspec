@@ -10,7 +10,8 @@ Pod::Spec.new do |s|
   s.source_files = 'A2DynamicDelegate.{h,m}', 'A2BlockDelegate.{h,m}', 'A2BlockClosure.{h,m}', 'blockimp/*.{h,m,s}', 'libffi/*.h'
   s.clean_paths  = 'Demo/', 'A2DynamicDelegate.xcodeproj/', '.gitignore'
   s.xcconfig     = { 'LIBRARY_SEARCH_PATHS' => "$(SRCROOT)/Pods/A2DynamicDelegate/libffi/",
-                     'HEADER_SEARCH_PATHS' => "$(SRCROOT)/Pods/A2DynamicDelegate/libffi/" }
+                     'HEADER_SEARCH_PATHS' => "$(SRCROOT)/Pods/A2DynamicDelegate/libffi/",
+                     'OTHER_LDFLAGS' => "-Wl,-no_compact_unwind" }
   if config.ios?
     s.library    = 'ffi_ios'
   else
