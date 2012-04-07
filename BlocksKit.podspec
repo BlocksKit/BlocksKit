@@ -21,6 +21,7 @@ Pod::Spec.new do |s|
       file.puts(%{#ifdef __OBJC__\n#import "BlocksKit.h"\n#endif})
     end
   end
+=begin
   s.documentation = {
     :html => 'http://zwaldowski.github.com/BlocksKit/Documentation/index.html',
     :appledoc => [
@@ -30,4 +31,5 @@ Pod::Spec.new do |s|
       '--no-warn-invalid-crossref'
     ]
   }
+=end
 end
