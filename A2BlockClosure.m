@@ -100,7 +100,7 @@ static const char *a2_skip_type_qualifiers(const char *types)
 }
 
 - (ffi_type *)a2_typeForEncoding: (const char *)typePtr advance:(const char **)advance {
-	const char *type;
+	const char *type = NULL;
 	ffi_type *ftype = NULL;
 	
 	typePtr = a2_skip_type_qualifiers(typePtr);
@@ -220,7 +220,7 @@ static const char *a2_skip_type_qualifiers(const char *types)
 			}
 			
 			types = 0;
-			maxtypes = 2;
+			maxtypes = 4;
 			size = sizeof(ffi_type);
 			if (size % align != 0)
 			{
@@ -228,7 +228,7 @@ static const char *a2_skip_type_qualifiers(const char *types)
 			}
 			
 			NSMutableData *data = [NSMutableData dataWithLength:size + (maxtypes+1)*sizeof(ffi_type)];
-			ftype = (void *)data.mutableBytes;
+			ftype = data.mutableBytes;
 			ftype->size = 0;
 			ftype->alignment = 0;
 			ftype->type = FFI_TYPE_STRUCT;
@@ -324,17 +324,15 @@ static const char *a2_skip_type_qualifiers(const char *types)
 
 	blockArgs[0] = methodArgs[0] = methodArgs[1] = &ffi_type_pointer;
 	
-	ffi_type *rtype = NULL;
+	ffi_type *rtype = [self a2_typeForEncoding:signature advance:&signature];
     
     int argc = -2, bargc = 1, margc = 2;
     while (signature && *signature) {
         const char *next = a2_getSizeAndAlignment(signature);
-        if (argc >= 0) {
+        if (argc) {
             blockArgs[bargc] = methodArgs[margc] = [self a2_typeForEncoding: signature advance: NULL];
 			bargc++;
 			margc++;
-		} else if (argc == -2) {
-			rtype = [self a2_typeForEncoding: signature advance: NULL];
 		}
         argc++;
         signature = next;
