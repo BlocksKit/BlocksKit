@@ -20,7 +20,7 @@
 		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
 #endif
 
-#define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "+-"[!!isClassMethod], sel_getName(selector)] : nil)
+#define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "-+"[!!isClassMethod], sel_getName(selector)] : nil)
 
 static Class a2_clusterSubclassForProtocol(Protocol *protocol);
 
@@ -223,7 +223,7 @@ static dispatch_queue_t backgroundQueue = nil;
 		if (strcmp(protoArgType, blockArgType))
 			blockIsCompatible = NO;
 	}
-	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "+-"[!!isClassMethod], sel_getName(selector));
+	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
 	
 	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
 	if (isClassMethod ? [[self superclass] respondsToSelector: selector] : [[self superclass] instancesRespondToSelector: selector])
