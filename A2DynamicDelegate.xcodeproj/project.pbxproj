@@ -23,14 +23,14 @@
 		0071BC5614A2C88700D7F4F8 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0039561B148EE28600FA51A8 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0071BC5714A2C88900D7F4F8 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00F6D21B149968E70003DEAE /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
-		6C0C3957152D0CD5004632F1 /* A2BlockImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C0C3958152D0CD5004632F1 /* A2BlockImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C0C3957152D0CD5004632F1 /* A2BlockImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */; settings = {ATTRIBUTES = (); }; };
+		6C0C3958152D0CD5004632F1 /* A2BlockImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */; settings = {ATTRIBUTES = (); }; };
 		6C0C3959152D0CD5004632F1 /* A2BlockImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3956152D0CD5004632F1 /* A2BlockImplementation.m */; };
 		6C0C395A152D0CD5004632F1 /* A2BlockImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3956152D0CD5004632F1 /* A2BlockImplementation.m */; };
 		6C0C3973152D0CE1004632F1 /* libffi_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0C3963152D0CE1004632F1 /* libffi_ios.a */; };
-		6C0C3976152D0CE1004632F1 /* libffi_mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0C3964152D0CE1004632F1 /* libffi_mac.a */; };
-		6CC1B787152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6CC1B788152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C4E2232153762AF001829B8 /* libffi_osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C4E2231153762AF001829B8 /* libffi_osx.a */; };
+		6CC1B787152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (); }; };
+		6CC1B788152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (); }; };
 		6CC1B789152BE50500D35A92 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B786152BE50500D35A92 /* A2BlockClosure.m */; };
 		6CC1B78A152BE50500D35A92 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B786152BE50500D35A92 /* A2BlockClosure.m */; };
 		6CC1B794152BE51900D35A92 /* blockimp.s in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B792152BE51900D35A92 /* blockimp.s */; };
@@ -71,12 +71,12 @@
 		6C0C395C152D0CE1004632F1 /* ffi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi.h; sourceTree = "<group>"; };
 		6C0C395D152D0CE1004632F1 /* ffi_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_arm.h; sourceTree = "<group>"; };
 		6C0C395E152D0CE1004632F1 /* ffi_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_i386.h; sourceTree = "<group>"; };
-		6C0C395F152D0CE1004632F1 /* ffi_x86-64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ffi_x86-64.h"; sourceTree = "<group>"; };
 		6C0C3960152D0CE1004632F1 /* ffitarget_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_arm.h; sourceTree = "<group>"; };
 		6C0C3961152D0CE1004632F1 /* ffitarget_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_i386.h; sourceTree = "<group>"; };
-		6C0C3962152D0CE1004632F1 /* ffitarget_x86-64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ffitarget_x86-64.h"; sourceTree = "<group>"; };
 		6C0C3963152D0CE1004632F1 /* libffi_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffi_ios.a; sourceTree = "<group>"; };
-		6C0C3964152D0CE1004632F1 /* libffi_mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffi_mac.a; sourceTree = "<group>"; };
+		6C4E2231153762AF001829B8 /* libffi_osx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffi_osx.a; sourceTree = "<group>"; };
+		6C4E2234153762B8001829B8 /* ffi_x86_64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_x86_64.h; sourceTree = "<group>"; };
+		6C4E2236153762C1001829B8 /* ffitarget_x86_64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_x86_64.h; sourceTree = "<group>"; };
 		6CC1B785152BE50500D35A92 /* A2BlockClosure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockClosure.h; sourceTree = SOURCE_ROOT; };
 		6CC1B786152BE50500D35A92 /* A2BlockClosure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockClosure.m; sourceTree = SOURCE_ROOT; };
 		6CC1B792152BE51900D35A92 /* blockimp.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = blockimp.s; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0071BC5514A2C88300D7F4F8 /* Foundation.framework in Frameworks */,
-				6C0C3976152D0CE1004632F1 /* libffi_mac.a in Frameworks */,
+				6C4E2232153762AF001829B8 /* libffi_osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,12 +182,12 @@
 				6C0C395C152D0CE1004632F1 /* ffi.h */,
 				6C0C395D152D0CE1004632F1 /* ffi_arm.h */,
 				6C0C395E152D0CE1004632F1 /* ffi_i386.h */,
-				6C0C395F152D0CE1004632F1 /* ffi_x86-64.h */,
+				6C4E2234153762B8001829B8 /* ffi_x86_64.h */,
 				6C0C3960152D0CE1004632F1 /* ffitarget_arm.h */,
 				6C0C3961152D0CE1004632F1 /* ffitarget_i386.h */,
-				6C0C3962152D0CE1004632F1 /* ffitarget_x86-64.h */,
+				6C4E2236153762C1001829B8 /* ffitarget_x86_64.h */,
 				6C0C3963152D0CE1004632F1 /* libffi_ios.a */,
-				6C0C3964152D0CE1004632F1 /* libffi_mac.a */,
+				6C4E2231153762AF001829B8 /* libffi_osx.a */,
 			);
 			path = libffi;
 			sourceTree = SOURCE_ROOT;
@@ -212,8 +212,8 @@
 			files = (
 				001ED6591491B14A006EE0B2 /* A2DynamicDelegate.h in Headers */,
 				001ED6581491B148006EE0B2 /* A2BlockDelegate.h in Headers */,
-				6CC1B787152BE50500D35A92 /* A2BlockClosure.h in Headers */,
 				6C0C3957152D0CD5004632F1 /* A2BlockImplementation.h in Headers */,
+				6CC1B787152BE50500D35A92 /* A2BlockClosure.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,8 +223,8 @@
 			files = (
 				0071BC5614A2C88700D7F4F8 /* A2BlockDelegate.h in Headers */,
 				0071BC5714A2C88900D7F4F8 /* A2DynamicDelegate.h in Headers */,
-				6CC1B788152BE50500D35A92 /* A2BlockClosure.h in Headers */,
 				6C0C3958152D0CD5004632F1 /* A2BlockImplementation.h in Headers */,
+				6CC1B788152BE50500D35A92 /* A2BlockClosure.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

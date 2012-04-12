@@ -1,3 +1,5 @@
+#if !defined(__arm__) && !defined(__i386__) && defined(__x86_64__)
+
 /* -----------------------------------------------------------------*-C-*-
    ffitarget.h - Copyright (c) 2012  Anthony Green
                  Copyright (c) 1996-2003, 2010  Red Hat, Inc.
@@ -137,3 +139,6 @@ typedef enum ffi_abi {
 
 #endif
 
+
+
+#endif

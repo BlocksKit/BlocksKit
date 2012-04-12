@@ -1,3 +1,5 @@
+#if defined(__arm__) && !defined(__i386__) && !defined(__x86_64__)
+
 /* -----------------------------------------------------------------*-C-*-
    ffitarget.h - Copyright (c) 2012  Anthony Green
                  Copyright (c) 2010  CodeSourcery
@@ -67,5 +69,8 @@ typedef enum ffi_abi {
 #define FFI_CLOSURES 1
 #define FFI_TRAMPOLINE_SIZE 20
 #define FFI_NATIVE_RAW_API 0
+
+#endif
+
 
 #endif

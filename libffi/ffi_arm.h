@@ -1,5 +1,7 @@
+#if defined(__arm__) && !defined(__i386__) && !defined(__x86_64__)
+
 /* -----------------------------------------------------------------*-C-*-
-   libffi 3.0.11-rc2 - Copyright (c) 2011 Anthony Green
+   libffi 3.0.11 - Copyright (c) 2011 Anthony Green
                     - Copyright (c) 1996-2003, 2007, 2008 Red Hat, Inc.
 
    Permission is hereby granted, free of charge, to any person
@@ -64,7 +66,7 @@ extern "C" {
 
 /* ---- System configuration information --------------------------------- */
 
-#include "ffitarget_arm.h"
+#include "ffitarget.h"
 
 #ifndef LIBFFI_ASM
 
@@ -467,5 +469,8 @@ void ffi_call(ffi_cif *cif,
 #ifdef __cplusplus
 }
 #endif
+
+#endif
+
 
 #endif
