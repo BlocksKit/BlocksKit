@@ -2,13 +2,14 @@
 //  A2BlockDelegate.m
 //  A2DynamicDelegate
 //
-//  Created by Alexsander Akers on 12/6//11.
+//  Created by Alexsander Akers on 11/30/11.
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
 //
 
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
 #import "A2BlockImplementation.h"
+#import <objc/runtime.h>
 
 #if __has_attribute(objc_arc)
 	#error "At present, 'A2BlockDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"

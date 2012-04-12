@@ -4,26 +4,15 @@
 //
 //  Created by Michael Ash on 9/17/10.
 //  Copyright (c) 2010 Michael Ash. All rights reserved.
+//  Licensed under BSD.
 //
-//  Redistribution and use in source and binary forms, with or without
-//  modification, are permitted provided that the following conditions are met:
-//    * Redistributions of source code must retain the above copyright
-//      notice, this list of conditions and the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright
-//      notice, this list of conditions and the following disclaimer in the
-//      documentation and/or other materials provided with the distribution.
-//    * Neither the name of the  nor the
-//      names of its contributors may be used to endorse or promote products
-//      derived from this software without specific prior written permission.
-//
-
 
 #import "A2BlockClosure.h"
 #import "A2BlockImplementation.h"
-
 #if TARGET_OS_IPHONE
 #import <CoreGraphics/CoreGraphics.h>
 #endif
+#import <objc/runtime.h>
 
 #ifndef NSAlwaysAssert
 #define NSAlwaysAssert(condition, desc, ...) \
@@ -62,7 +51,7 @@ static void a2_executeBlockClosure(ffi_cif *cif, void *ret, void **args, void *u
 	
     innerArgs[0] = self.block;
     memcpy(innerArgs + 1, args + 2, (count - 1) * sizeof(*args));
-    ffi_call(self.callInterface, a2_blockGetImplementation(self.block), ret, innerArgs);
+    a2_ffi_call_block(self.callInterface, self.block, ret, innerArgs);
 	
     free(innerArgs);
 }

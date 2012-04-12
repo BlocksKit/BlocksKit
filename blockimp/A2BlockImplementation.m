@@ -2,27 +2,9 @@
 //  A2BlockImplementation.m
 //  A2DynamicDelegate
 //
-//  Created by Landon Fuller <landonf@plausible.coop>.
-//  Copyright (c) 2010-2011 Plausible Labs Cooperative, Inc. All rights reserved.
-//
-//  Permission is hereby granted, free of charge,
-//  to any person obtaining a copy of this software and associated documentation
-//  files (the "Software"), to deal in the Software without restriction,
-//  including without limitation the rights to use, copy, modify, merge, publish,
-//  distribute, sublicense, and/or sell copies of the Software, and to permit
-//  persons to whom the Software is furnished to do so, subject to the following
-//  conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-// 
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//  SOFTWARE.
+//  Created by Landon Fuller on 4/14/11.
+//  Copyright (c) 2011 Plausible Labs Cooperative, Inc. All rights reserved.
+//  Licensed under MIT.
 //
 
 #include "A2BlockImplementation.h"
@@ -45,7 +27,6 @@ typedef enum {
 } block_flags_t;
 
 typedef enum {
-    // see function implementation for a more complete description of these fields and combinations
     BLOCK_FIELD_IS_OBJECT   =  3,  // id, NSObject, __attribute__((NSObject)), block, ...
     BLOCK_FIELD_IS_BLOCK    =  7,  // a block variable
     BLOCK_FIELD_IS_BYREF    =  8,  // the on stack structure holding the __block variable
@@ -59,13 +40,13 @@ struct Block_descriptor_1 {
 };
 
 struct Block_descriptor_2 {
-// requires BLOCK_HAS_COPY_DISPOSE
+	// requires BLOCK_HAS_COPY_DISPOSE
 	void (*copy)(void *dst, const void *src);
 	void (*dispose)(const void *);
 };
 
 struct Block_descriptor_3 {
-// requires BLOCK_HAS_SIGNATURE
+	// requires BLOCK_HAS_SIGNATURE
 	const char *signature;
 	const char *layout;
 };
@@ -81,17 +62,13 @@ struct Block {
 
 typedef struct Block *BlockRef;
 
-BOOL a2_blockHasSignature(id block) {
-	return a2_blockGetSignature(block) ? YES : NO;
-}
-
-BOOL a2_blockHasStret(id block) {
+static inline BOOL a2_blockHasStret(id block) {
     BlockRef layout = (BlockRef)block;
     int requiredFlags = BLOCK_HAS_SIGNATURE | BLOCK_USE_STRET;
     return (layout->flags & requiredFlags) == requiredFlags;
 }
 
-const char *a2_blockGetSignature(id block) {
+static inline const char *a2_blockGetSignature(id block) {
 	BlockRef layout = (BlockRef)block;
 	
 	int requiredFlags = BLOCK_HAS_SIGNATURE;
@@ -108,12 +85,12 @@ const char *a2_blockGetSignature(id block) {
     return desc3->signature;
 }
 
-void *a2_blockGetImplementation(id block) {
-	BlockRef aBlock = (BlockRef)block;
-    return aBlock->invoke;
-}
-
 #pragma mark - Block/method compatibility
+
+void a2_ffi_call_block(ffi_cif *cif, void (^fn)(void), void *rvalue, void **avalue) {
+	BlockRef aBlock = (BlockRef)fn;
+    ffi_call(cif, (void *)aBlock->invoke, rvalue, avalue);
+}
 
 BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature) {
     NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: a2_blockGetSignature(block)];
@@ -133,48 +110,31 @@ BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature) {
 
 #pragma mark - Structure declarations
 
-/*
- * Trampoline table configuration
- */
+// Trampoline table configuration
 typedef struct _pl_trampoline_table_config {
-uint32_t trampoline_size;
-uint32_t page_offset;
-uint32_t trampoline_count;
-void *template_page;
+	uint32_t trampoline_size;
+	uint32_t page_offset;
+	uint32_t trampoline_count;
+	void *template_page;
 } pl_trampoline_table_config;
 
-/*
- * A linked list of trampoline table entries.
- */
+// A linked list of trampoline table entries.
 typedef struct _pl_trampoline {
-/* The actual trampoline. */
-void *(*trampoline)();
-
-/** The table in which the entry is allocated. */
-struct _pl_trampoline_table *table;
-
-/* Next entry in the trampoline list. */
-struct _pl_trampoline *next;
+	void *(*trampoline)();              // The actual trampoline.
+	struct _pl_trampoline_table *table; // The table in which the entry is allocated.
+	struct _pl_trampoline *next;        // Next entry in the trampoline list.
 } pl_trampoline;
 
-/*
- * A double-linked list of trampoline table entries.
- */
+// A double-linked list of trampoline table entries.
 typedef struct _pl_trampoline_table {
-/* Table configuration */
-pl_trampoline_table_config *config;
-
-/* Contigious writable and executable pages */
-vm_address_t data_page;
-vm_address_t trampoline_page;
-
-/* free list tracking */
-uint16_t free_count;
-pl_trampoline *free_list;
-pl_trampoline *free_list_pool;
-
-struct _pl_trampoline_table *prev;
-struct _pl_trampoline_table *next;
+	pl_trampoline_table_config *config; // Table configuration
+	vm_address_t data_page;             // Contiguous writable and executable pages
+	vm_address_t trampoline_page;
+	uint16_t free_count;                // free list tracking
+	pl_trampoline *free_list;
+	pl_trampoline *free_list_pool;
+	struct _pl_trampoline_table *prev;
+	struct _pl_trampoline_table *next;
 } pl_trampoline_table;
 
 #pragma mark - Function declarations
