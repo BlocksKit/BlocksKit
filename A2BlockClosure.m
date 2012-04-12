@@ -37,24 +37,22 @@ do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException fo
 
 @end
 
-static const char *a2_getSizeAndAlignment(const char *str)
-{
-    const char *out = NSGetSizeAndAlignment(str, NULL, NULL);
-    while(isdigit(*out))
-        out++;
-    return out;
-}
+const ffi_type *_ffi_type_elements_nsrange[] = { &ffi_type_ulong, &ffi_type_ulong, NULL };
+ffi_type ffi_type_nsrange = { 0, 0, FFI_TYPE_STRUCT, (ffi_type **)_ffi_type_elements_nsrange };
 
-static int a2_getArgumentsCount(const char *str)
-{
-    int argcount = -2; // return type is the first one
-    while(str && *str)
-    {
-        str = a2_getSizeAndAlignment(str);
-        argcount++;
-    }
-    return argcount;
-}
+#if CGFLOAT_IS_DOUBLE
+const ffi_type *_ffi_type_elements_cgpoint[] = { &ffi_type_double, &ffi_type_double, NULL };
+const ffi_type *_ffi_type_elements_cgsize[] = { &ffi_type_double, &ffi_type_double, NULL };
+#else
+const ffi_type *_ffi_type_elements_cgpoint[] = { &ffi_type_float, &ffi_type_float, NULL };
+const ffi_type *_ffi_type_elements_cgsize[] = { &ffi_type_float, &ffi_type_float, NULL };
+#endif
+
+ffi_type ffi_type_cgpoint = { 0, 0, FFI_TYPE_STRUCT, (ffi_type **)_ffi_type_elements_cgpoint };
+ffi_type ffi_type_cgsize = { 0, 0, FFI_TYPE_STRUCT, (ffi_type **)_ffi_type_elements_cgsize };
+
+const ffi_type *_ffi_type_elements_cgrect[] = { &ffi_type_cgpoint, &ffi_type_cgsize, NULL };
+ffi_type ffi_type_cgrect = { 0, 0, FFI_TYPE_STRUCT, (ffi_type **)_ffi_type_elements_cgrect };
 
 static void a2_executeBlockClosure(ffi_cif *cif, void *ret, void **args, void *userdata)
 {
@@ -69,24 +67,17 @@ static void a2_executeBlockClosure(ffi_cif *cif, void *ret, void **args, void *u
     free(innerArgs);
 }
 
-static const char *a2_skip_type_qualifiers(const char *types)
-{
-	while (*types == '+'
-		   || *types == '-'
-		   || *types == 'r'
-		   || *types == 'n'
-		   || *types == 'N'
-		   || *types == 'o'
-		   || *types == 'O'
-		   || *types == 'R'
-		   || *types == 'V'
-		   || *types == '!'
-		   || isdigit ((unsigned char) *types))
-    {
-		types++;
+static inline size_t a2_getStructSize(const char *encodingType) {
+    if (*encodingType != _C_STRUCT_B) return -1;
+    while (*encodingType != _C_STRUCT_E && *encodingType++ != '='); // skip "<name>="
+    
+    size_t ret = 0;
+    while (*encodingType != _C_STRUCT_E) {
+        encodingType = NSGetSizeAndAlignment(encodingType, NULL, NULL);
+        ret++;
     }
-	
-	return types;
+    
+    return ret;
 }
 
 @implementation A2BlockClosure
@@ -104,257 +95,109 @@ static const char *a2_skip_type_qualifiers(const char *types)
     return [data mutableBytes];
 }
 
-- (ffi_type *)a2_typeForEncoding: (const char *)typePtr advance:(const char **)advance {
-	const char *type = NULL;
-	ffi_type *ftype = NULL;
-	
-	typePtr = a2_skip_type_qualifiers(typePtr);
-	type = typePtr;
-	
-	/*
-	 *	Scan for size and alignment information.
-	 */
-	switch (*typePtr++)
-    {
-		case _C_ID:
-		case _C_CLASS:
-		case _C_SEL:
-		case _C_ATOM:
-		case _C_CHARPTR:
-			ftype = &ffi_type_pointer;
-			break;
-		case _C_CHR: ftype = &ffi_type_schar;
-			break;
-		case _C_BOOL:
-		case _C_UCHR: ftype = &ffi_type_uchar;
-			break;
-		case _C_SHT: ftype = &ffi_type_sshort;
-			break;
-		case _C_USHT: ftype = &ffi_type_ushort;
-			break;
-		case _C_INT: ftype = &ffi_type_sint;
-			break;
-		case _C_UINT: ftype = &ffi_type_uint;
-			break;
-		case _C_LNG: ftype = sizeof(int) == sizeof(long) ? &ffi_type_sint : &ffi_type_slong;
-			break;
-		case _C_ULNG: ftype = sizeof(unsigned int) == sizeof(unsigned long) ? &ffi_type_uint : &ffi_type_ulong;
-			break;
-#ifdef	_C_LNG_LNG
-		case _C_LNG_LNG: ftype = &ffi_type_sint64;
-			break;
-#endif
-#ifdef _C_ULNG_LNG
-		case _C_ULNG_LNG: ftype = &ffi_type_uint64;
-			break;
-#endif
-		case _C_FLT: ftype = &ffi_type_float;
-			break;
-		case _C_DBL: ftype = &ffi_type_double;
-			break;
-		case _C_BFLD:
-		{
-			NSUInteger size, i;
-			NSGetSizeAndAlignment(type, &size, 0);
-			
-			if (size > 0) {
-				if (size == 1)
-					ftype = &ffi_type_uchar;
-				else if (size == 2)
-					ftype = &ffi_type_ushort;
-				else if (size <= 4)
-					ftype = &ffi_type_uint; 
-				else {
-					
-					ftype = (ffi_type *)[self a2_allocate:sizeof(ffi_type)];
-					ftype->size = size;
-					ftype->alignment = 0;
-					ftype->type = FFI_TYPE_STRUCT;
-					ftype->elements = [self a2_allocate:size * sizeof(ffi_type *)];
-					for (i = 0; i < size; i++)
-						ftype->elements[i] = &ffi_type_uchar;
-				}
-			}
-		}
-			break;
-		case _C_PTR:
-			ftype = &ffi_type_pointer;
-			if (*typePtr == '?')
-			{
-				typePtr++;
-			}
-			else
-			{
-				const char *adv;
-				[self a2_typeForEncoding:typePtr advance:&adv];
-				typePtr = adv;
-			}
-			break;
-			
-		case _C_ARY_B:
-		{
-			const char *adv;
-			ftype = &ffi_type_pointer;
-			
-			while (isdigit(*typePtr))
-			{
-				typePtr++;
-			}
-			[self a2_typeForEncoding:typePtr advance:&adv];
-			typePtr = adv;
-			typePtr++;	/* Skip end-of-array	*/
-		}
-			break;
-			
-		case _C_STRUCT_B:
-		{
-			int types, maxtypes, size;
-			ffi_type *local;
-			const char *adv;
-			unsigned   align = __alignof(double);
-			
-			/*
-			 *	Skip "<name>=" stuff.
-			 */
-			while (*typePtr != _C_STRUCT_E)
-			{
-				if (*typePtr++ == '=')
-				{
-					break;
-				}
-			}
-			
-			types = 0;
-			maxtypes = 4;
-			size = sizeof(ffi_type);
-			if (size % align != 0)
-			{
-				size += (align - (size % align));
-			}
-			
-			NSMutableData *data = [NSMutableData dataWithLength:size + (maxtypes+1)*sizeof(ffi_type)];
-			ftype = data.mutableBytes;
-			ftype->size = 0;
-			ftype->alignment = 0;
-			ftype->type = FFI_TYPE_STRUCT;
-			ftype->elements = (void*)ftype + size;
-			/*
-			 *	Continue accumulating structure size.
-			 */
-			while (*typePtr != _C_STRUCT_E)
-			{
-				local = [self a2_typeForEncoding:typePtr advance:&adv];
-				typePtr = adv;
-				NSCAssert(typePtr, @"End of signature while parsing");
-				ftype->elements[types++] = local;
-				if (types >= maxtypes)
-				{
-					[data setLength:size + (types+1)*sizeof(ffi_type)];
-					ftype = (void *)data.mutableBytes;
-					ftype->elements = (void*)ftype + size;
-				}
-			}
-			ftype->elements[types] = NULL;
-			typePtr++;	/* Skip end-of-struct	*/
-			[_allocations addObject:data];
-		}
-			break;
-			
-		case _C_UNION_B:
-		{
-			const char *adv;
-			int	max_align = 0;
-			
-			/*
-			 *	Skip "<name>=" stuff.
-			 */
-			while (*typePtr != _C_UNION_E)
-			{
-				if (*typePtr++ == '=')
-				{
-					break;
-				}
-			}
-			ftype = NULL;
-			while (*typePtr != _C_UNION_E)
-			{
-				ffi_type *local;
-				NSUInteger align;
-				NSGetSizeAndAlignment(typePtr, NULL, &align);
-				local = [self a2_typeForEncoding:typePtr advance:&adv];
-				typePtr = adv;
-				NSCAssert(typePtr, @"End of signature while parsing");
-				if (align > max_align)
-				{
-					if (ftype && ftype->type == FFI_TYPE_STRUCT)
-						free(ftype);
-					ftype = local;
-					max_align = align;
-				}
-			}
-			typePtr++;	/* Skip end-of-union	*/
-		}
-			break;
-			
-		case _C_VOID: ftype = &ffi_type_void;
-			break;
-		default:
-			ftype = &ffi_type_void;
-			NSCAssert(0, @"Unknown type in sig");
-    }
-	
-	/* Skip past any offset information, if there is any */
-	if (*type != _C_PTR || *type == '?')
-    {
-		if (*typePtr == '+')
-			typePtr++;
-		if (*typePtr == '-')
-			typePtr++;
-		while (isdigit(*typePtr))
-			typePtr++;
-    }
-	if (advance)
-		*advance = typePtr;
-	
-	return ftype;
-}
-
-- (void)a2_prepareCIF {
-	const char *signature = a2_blockGetSignature(self.block);
-	int argCount = a2_getArgumentsCount(signature);
-	int blockArgCount = argCount + 1, methodArgCount = argCount + 2;
-	
-	ffi_type **blockArgs = [self a2_allocate: blockArgCount * sizeof(ffi_type *)];
-	ffi_type **methodArgs = [self a2_allocate: methodArgCount * sizeof(ffi_type *)];
-
-	blockArgs[0] = methodArgs[0] = methodArgs[1] = &ffi_type_pointer;
-	
-	ffi_type *rtype = [self a2_typeForEncoding:signature advance:&signature];
+- (ffi_type *) a2_typeForSignature:(const char *)argumentType {
     
-    int argc = -2, bargc = 1, margc = 2;
-    while (signature && *signature) {
-        const char *next = a2_getSizeAndAlignment(signature);
-        if (argc) {
-            blockArgs[bargc] = methodArgs[margc] = [self a2_typeForEncoding: signature advance: NULL];
-			bargc++;
-			margc++;
-		}
-        argc++;
-        signature = next;
+    ffi_type *type = NULL;
+    
+    switch (*argumentType) {
+        case _C_ID:
+        case _C_CLASS:
+        case _C_SEL:
+        case _C_ATOM:
+        case _C_CHARPTR:
+        case _C_PTR:
+            type = &ffi_type_pointer; break;
+		case _C_BOOL:
+		case _C_UCHR:
+            type = &ffi_type_uchar; break;
+        case _C_CHR: type = &ffi_type_schar; break;
+		case _C_SHT: type = &ffi_type_sshort; break;
+		case _C_USHT: type = &ffi_type_ushort; break;
+		case _C_INT: type = &ffi_type_sint; break;
+		case _C_UINT: type = &ffi_type_uint; break;
+		case _C_LNG: type = sizeof(int) == sizeof(long) ? &ffi_type_sint : &ffi_type_slong; break;
+		case _C_ULNG: type = sizeof(unsigned int) == sizeof(unsigned long) ? &ffi_type_uint : &ffi_type_ulong; break;
+		case _C_LNG_LNG: type = &ffi_type_sint64; break;
+		case _C_ULNG_LNG: type = &ffi_type_uint64; break;
+		case _C_FLT: type = &ffi_type_float; break;
+		case _C_DBL: type = &ffi_type_double; break;
+		case _C_VOID: type = &ffi_type_void; break;
+        case _C_BFLD:
+        case _C_ARY_B:
+        {
+            NSUInteger size, align;
+            
+            NSGetSizeAndAlignment(argumentType, &size, &align);
+            
+            if (size > 0) {
+                if (size == 1)
+                    type = &ffi_type_uchar;
+                else if (size == 2)
+                    type = &ffi_type_ushort;
+                else if (size <= 4)
+                    type = &ffi_type_uint; 
+                else {
+                    type = [self a2_allocate: sizeof(ffi_type)];
+                    type->size = size;
+                    type->alignment = align;
+                    type->type = FFI_TYPE_STRUCT;
+                    type->elements = [self a2_allocate: (size + 1) * sizeof(ffi_type *)];
+                    for (NSUInteger i = 0; i < size; i++)
+                        type->elements[i] = &ffi_type_uchar;
+                    type->elements[size] = NULL;
+                }
+                break;
+            }
+        }
+        case _C_STRUCT_B:
+        {
+            if (!strcmp(argumentType, @encode(NSRange))) {
+                type = &ffi_type_nsrange; break;
+            } else if (!strcmp(argumentType, @encode(CGSize))) {
+                type = &ffi_type_cgsize; break;
+            } else if (!strcmp(argumentType, @encode(CGPoint))) {
+                type = &ffi_type_cgpoint; break;
+            } else if (!strcmp(argumentType, @encode(CGRect))) {
+                type = &ffi_type_cgrect; break;
+            }
+#if !TARGET_OS_MAC
+            else if (!strcmp(argumentType, @encode(NSSize))) {
+                type = &ffi_type_cgsize; break;
+            } else if (!strcmp(argumentType, @encode(NSPoint))) {
+                type = &ffi_type_cgpoint; break;
+            } else if (!strcmp(argumentType, @encode(NSRect))) {
+                type = &ffi_type_cgrect; break;
+            }
+#endif
+                        
+            type = [self a2_allocate: sizeof(ffi_type)];
+            type->size = 0;
+            type->alignment = 0;
+            type->type = FFI_TYPE_STRUCT;
+            type->elements = [self a2_allocate: (a2_getStructSize(argumentType) + 1) * sizeof(ffi_type *)];
+            
+            size_t index = 0;
+            while (*argumentType != _C_STRUCT_E && *argumentType != '=') argumentType++;
+            if (*argumentType == '=') {
+                argumentType++;
+                while (*argumentType != _C_STRUCT_E) {
+                    type->elements[index] = [self a2_typeForSignature:argumentType];
+                    argumentType = NSGetSizeAndAlignment(argumentType, NULL, NULL);
+                    index++;
+                }
+            }
+            type->elements[index] = NULL;
+
+            break;
+        }
+        default:
+        {
+            type = &ffi_type_void;
+			NSCAssert(0, @"Unknown type in sig");
+            break;
+        }
     }
-	
-	ffi_cif blockCif;
-    ffi_status blockStatus = ffi_prep_cif(&blockCif, FFI_DEFAULT_ABI, blockArgCount, rtype, blockArgs);
-	
-	ffi_cif methodCif;
-	ffi_status methodStatus = ffi_prep_cif(&methodCif, FFI_DEFAULT_ABI, methodArgCount, rtype, methodArgs);
-	
-	NSAssert(blockStatus == FFI_OK, @"Unable to create function interface for block. %@ %@", [self class], self.block);
-	NSAssert(methodStatus == FFI_OK, @"Unable to create function interface for method. %@ %@", [self class], self.block);
-	
-	_closureCIF = methodCif;
-	_innerCIF = blockCif;
-	_numberOfArguments = blockArgCount;
+    return type;
 }
 
 - (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature
