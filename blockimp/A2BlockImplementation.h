@@ -8,12 +8,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ffi.h"
 
 extern IMP a2_imp_implementationWithBlock(id block);
 extern id a2_imp_getBlock(IMP anImp);
 extern BOOL a2_imp_removeBlock(IMP anImp);
 
 extern BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature);
-
-void a2_ffi_call_block(ffi_cif *cif, void (^fn)(void), void *rvalue, void **avalue);

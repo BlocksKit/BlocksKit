@@ -8,16 +8,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ffi.h"
 
 @interface A2BlockClosure : NSObject {
     NSMutableArray *_allocations;
-    ffi_cif _methodCIF;
-    ffi_cif _blockCIF;
-	NSUInteger _numberOfArguments;
-    ffi_closure *_closure;
-    void *_functionPointer;
     id _block;
+    void *_methodCIF;
+    void *_blockCIF;
+    void *_closure;
+    void *_functionPointer;
+	NSUInteger _numberOfArguments;
 }
 
 - (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature;

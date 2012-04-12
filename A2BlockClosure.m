@@ -13,11 +13,14 @@
 #import <CoreGraphics/CoreGraphics.h>
 #endif
 #import <objc/runtime.h>
+#import "ffi.h"
 
 #ifndef NSAlwaysAssert
 #define NSAlwaysAssert(condition, desc, ...) \
 do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
 #endif
+
+extern void a2_ffi_call_block(ffi_cif *cif, void (^fn)(void), void *rvalue, void **avalue);
 
 @interface A2BlockClosure ()
 
@@ -74,7 +77,7 @@ static inline size_t a2_getStructSize(const char *encodingType) {
 @synthesize block = _block, functionPointer = _functionPointer, numberOfArguments = _numberOfArguments;
 
 - (ffi_cif *)callInterface {
-	return &_blockCIF;
+    return (ffi_cif *)_blockCIF;
 }
 
 - (void *)a2_allocate: (size_t)howmuch
@@ -218,11 +221,15 @@ static inline size_t a2_getStructSize(const char *encodingType) {
         NSAlwaysAssert(blockStatus == FFI_OK, @"Unable to create function interface for block. %@ %@", [self class], self.block);
         NSAlwaysAssert(methodStatus == FFI_OK, @"Unable to create function interface for method. %@ %@", [self class], self.block);
         
-        _methodCIF = methodCif;
-        _blockCIF = blockCif;
+        _methodCIF = malloc(sizeof(ffi_cif));
+        _blockCIF =  malloc(sizeof(ffi_cif));
+        
+        *(ffi_cif *)_methodCIF = methodCif;
+        *(ffi_cif *)_blockCIF = blockCif;
+        
         _numberOfArguments = blockArgCount;
         
-        if (ffi_prep_closure_loc(_closure, &_methodCIF, a2_executeBlockClosure, self, _functionPointer) != FFI_OK) {
+        if (ffi_prep_closure_loc(_closure, _methodCIF, a2_executeBlockClosure, self, _functionPointer) != FFI_OK) {
             [self release];
             return nil;
         }
@@ -234,6 +241,10 @@ static inline size_t a2_getStructSize(const char *encodingType) {
 {
     if(_closure)
         ffi_closure_free(_closure); _closure = NULL;
+    if (_blockCIF)
+        free(_blockCIF); _blockCIF = NULL;
+    if (_methodCIF)
+        free(_methodCIF); _methodCIF = NULL;
 	[_block release];
     [_allocations release];
     [super dealloc];

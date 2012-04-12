@@ -7,10 +7,11 @@
 //  Licensed under MIT.
 //
 
-#include "A2BlockImplementation.h"
-#include <Foundation/Foundation.h>
-#include <mach/mach.h>
-#include <pthread.h>
+#import "A2BlockImplementation.h"
+#import "ffi.h"
+#import <Foundation/Foundation.h>
+#import <mach/mach.h>
+#import <pthread.h>
 
 #pragma mark - Block Internals
 
@@ -86,6 +87,8 @@ static inline const char *a2_blockGetSignature(id block) {
 }
 
 #pragma mark - Block/method compatibility
+
+void a2_ffi_call_block(ffi_cif *cif, void (^fn)(void), void *rvalue, void **avalue);
 
 void a2_ffi_call_block(ffi_cif *cif, void (^fn)(void), void *rvalue, void **avalue) {
 	BlockRef aBlock = (BlockRef)fn;
