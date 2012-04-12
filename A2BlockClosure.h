@@ -16,6 +16,7 @@
     void *_blockCIF;
     void *_closure;
     void *_functionPointer;
+	NSUInteger _numberOfArguments;
 }
 
 - (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature;
