@@ -27,8 +27,27 @@
 		6C0C3958152D0CD5004632F1 /* A2BlockImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C0C3959152D0CD5004632F1 /* A2BlockImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3956152D0CD5004632F1 /* A2BlockImplementation.m */; };
 		6C0C395A152D0CD5004632F1 /* A2BlockImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3956152D0CD5004632F1 /* A2BlockImplementation.m */; };
-		6C0C3973152D0CE1004632F1 /* libffi_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0C3963152D0CE1004632F1 /* libffi_ios.a */; };
-		6C0C3976152D0CE1004632F1 /* libffi_mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0C3964152D0CE1004632F1 /* libffi_mac.a */; };
+		6CC0711F1537918D00BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0710F1537918D00BF5468 /* ffi.c */; };
+		6CC071201537918D00BF5468 /* sysv.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071101537918D00BF5468 /* sysv.S */; };
+		6CC071211537918D00BF5468 /* trampoline.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071111537918D00BF5468 /* trampoline.S */; };
+		6CC071221537918D00BF5468 /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071131537918D00BF5468 /* darwin.S */; };
+		6CC071231537918D00BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071141537918D00BF5468 /* ffi.c */; };
+		6CC071401537919500BF5468 /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071321537919500BF5468 /* darwin.S */; };
+		6CC071411537919500BF5468 /* darwin64.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071331537919500BF5468 /* darwin64.S */; };
+		6CC071421537919500BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071341537919500BF5468 /* ffi.c */; };
+		6CC071431537919500BF5468 /* ffi64.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071351537919500BF5468 /* ffi64.c */; };
+		6CC0714C153791A000BF5468 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07145153791A000BF5468 /* closures.c */; };
+		6CC0714D153791A000BF5468 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07145153791A000BF5468 /* closures.c */; };
+		6CC0714E153791A000BF5468 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07146153791A000BF5468 /* debug.c */; };
+		6CC0714F153791A000BF5468 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07146153791A000BF5468 /* debug.c */; };
+		6CC07152153791A000BF5468 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07148153791A000BF5468 /* java_raw_api.c */; };
+		6CC07153153791A000BF5468 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07148153791A000BF5468 /* java_raw_api.c */; };
+		6CC07154153791A000BF5468 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07149153791A000BF5468 /* prep_cif.c */; };
+		6CC07155153791A000BF5468 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07149153791A000BF5468 /* prep_cif.c */; };
+		6CC07156153791A000BF5468 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714A153791A000BF5468 /* raw_api.c */; };
+		6CC07157153791A000BF5468 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714A153791A000BF5468 /* raw_api.c */; };
+		6CC07158153791A000BF5468 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714B153791A000BF5468 /* types.c */; };
+		6CC07159153791A000BF5468 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714B153791A000BF5468 /* types.c */; };
 		6CC1B787152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC1B788152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC1B789152BE50500D35A92 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B786152BE50500D35A92 /* A2BlockClosure.m */; };
@@ -68,15 +87,21 @@
 		0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = A2DynamicDelegate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockImplementation.h; sourceTree = "<group>"; };
 		6C0C3956152D0CD5004632F1 /* A2BlockImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockImplementation.m; sourceTree = "<group>"; };
-		6C0C395C152D0CE1004632F1 /* ffi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi.h; sourceTree = "<group>"; };
-		6C0C395D152D0CE1004632F1 /* ffi_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_arm.h; sourceTree = "<group>"; };
-		6C0C395E152D0CE1004632F1 /* ffi_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_i386.h; sourceTree = "<group>"; };
-		6C0C395F152D0CE1004632F1 /* ffi_x86-64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ffi_x86-64.h"; sourceTree = "<group>"; };
-		6C0C3960152D0CE1004632F1 /* ffitarget_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_arm.h; sourceTree = "<group>"; };
-		6C0C3961152D0CE1004632F1 /* ffitarget_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_i386.h; sourceTree = "<group>"; };
-		6C0C3962152D0CE1004632F1 /* ffitarget_x86-64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ffitarget_x86-64.h"; sourceTree = "<group>"; };
-		6C0C3963152D0CE1004632F1 /* libffi_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffi_ios.a; sourceTree = "<group>"; };
-		6C0C3964152D0CE1004632F1 /* libffi_mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffi_mac.a; sourceTree = "<group>"; };
+		6CC0710F1537918D00BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
+		6CC071101537918D00BF5468 /* sysv.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = sysv.S; sourceTree = "<group>"; };
+		6CC071111537918D00BF5468 /* trampoline.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = trampoline.S; sourceTree = "<group>"; };
+		6CC071131537918D00BF5468 /* darwin.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin.S; sourceTree = "<group>"; };
+		6CC071141537918D00BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
+		6CC071321537919500BF5468 /* darwin.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin.S; sourceTree = "<group>"; };
+		6CC071331537919500BF5468 /* darwin64.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin64.S; sourceTree = "<group>"; };
+		6CC071341537919500BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
+		6CC071351537919500BF5468 /* ffi64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi64.c; sourceTree = "<group>"; };
+		6CC07145153791A000BF5468 /* closures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = closures.c; sourceTree = "<group>"; };
+		6CC07146153791A000BF5468 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
+		6CC07148153791A000BF5468 /* java_raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = java_raw_api.c; sourceTree = "<group>"; };
+		6CC07149153791A000BF5468 /* prep_cif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prep_cif.c; sourceTree = "<group>"; };
+		6CC0714A153791A000BF5468 /* raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_api.c; sourceTree = "<group>"; };
+		6CC0714B153791A000BF5468 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
 		6CC1B785152BE50500D35A92 /* A2BlockClosure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockClosure.h; sourceTree = SOURCE_ROOT; };
 		6CC1B786152BE50500D35A92 /* A2BlockClosure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockClosure.m; sourceTree = SOURCE_ROOT; };
 		6CC1B792152BE51900D35A92 /* blockimp.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = blockimp.s; sourceTree = "<group>"; };
@@ -89,7 +114,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0008844A1491AE4900552AB0 /* Foundation.framework in Frameworks */,
-				6C0C3973152D0CE1004632F1 /* libffi_ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +133,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0071BC5514A2C88300D7F4F8 /* Foundation.framework in Frameworks */,
-				6C0C3976152D0CE1004632F1 /* libffi_mac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,8 +172,8 @@
 		0051A0491481BE160089CC41 /* A2DynamicDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				6CC071001537918100BF5468 /* libffi */,
 				6CC1B791152BE51900D35A92 /* blockimp */,
-				6C0C395B152D0CE1004632F1 /* libffi */,
 				0039561B148EE28600FA51A8 /* A2BlockDelegate.h */,
 				0039561C148EE28600FA51A8 /* A2BlockDelegate.m */,
 				0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */,
@@ -176,20 +199,80 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
-		6C0C395B152D0CE1004632F1 /* libffi */ = {
+		6CC071001537918100BF5468 /* libffi */ = {
 			isa = PBXGroup;
 			children = (
-				6C0C395C152D0CE1004632F1 /* ffi.h */,
-				6C0C395D152D0CE1004632F1 /* ffi_arm.h */,
-				6C0C395E152D0CE1004632F1 /* ffi_i386.h */,
-				6C0C395F152D0CE1004632F1 /* ffi_x86-64.h */,
-				6C0C3960152D0CE1004632F1 /* ffitarget_arm.h */,
-				6C0C3961152D0CE1004632F1 /* ffitarget_i386.h */,
-				6C0C3962152D0CE1004632F1 /* ffitarget_x86-64.h */,
-				6C0C3963152D0CE1004632F1 /* libffi_ios.a */,
-				6C0C3964152D0CE1004632F1 /* libffi_mac.a */,
+				6CC07144153791A000BF5468 /* src */,
+				6CC071011537918D00BF5468 /* ios */,
+				6CC071241537919500BF5468 /* osx */,
 			);
-			path = libffi;
+			name = libffi;
+			sourceTree = "<group>";
+		};
+		6CC071011537918D00BF5468 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				6CC0710E1537918D00BF5468 /* arm */,
+				6CC071121537918D00BF5468 /* x86 */,
+			);
+			name = ios;
+			path = libffi/ios;
+			sourceTree = SOURCE_ROOT;
+		};
+		6CC0710E1537918D00BF5468 /* arm */ = {
+			isa = PBXGroup;
+			children = (
+				6CC0710F1537918D00BF5468 /* ffi.c */,
+				6CC071101537918D00BF5468 /* sysv.S */,
+				6CC071111537918D00BF5468 /* trampoline.S */,
+			);
+			name = arm;
+			path = src/arm;
+			sourceTree = "<group>";
+		};
+		6CC071121537918D00BF5468 /* x86 */ = {
+			isa = PBXGroup;
+			children = (
+				6CC071131537918D00BF5468 /* darwin.S */,
+				6CC071141537918D00BF5468 /* ffi.c */,
+			);
+			name = x86;
+			path = src/x86;
+			sourceTree = "<group>";
+		};
+		6CC071241537919500BF5468 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				6CC071311537919500BF5468 /* x86 */,
+			);
+			name = osx;
+			path = libffi/osx;
+			sourceTree = SOURCE_ROOT;
+		};
+		6CC071311537919500BF5468 /* x86 */ = {
+			isa = PBXGroup;
+			children = (
+				6CC071321537919500BF5468 /* darwin.S */,
+				6CC071331537919500BF5468 /* darwin64.S */,
+				6CC071341537919500BF5468 /* ffi.c */,
+				6CC071351537919500BF5468 /* ffi64.c */,
+			);
+			name = x86;
+			path = src/x86;
+			sourceTree = "<group>";
+		};
+		6CC07144153791A000BF5468 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6CC07145153791A000BF5468 /* closures.c */,
+				6CC07146153791A000BF5468 /* debug.c */,
+				6CC07148153791A000BF5468 /* java_raw_api.c */,
+				6CC07149153791A000BF5468 /* prep_cif.c */,
+				6CC0714A153791A000BF5468 /* raw_api.c */,
+				6CC0714B153791A000BF5468 /* types.c */,
+			);
+			name = src;
+			path = libffi/src;
 			sourceTree = SOURCE_ROOT;
 		};
 		6CC1B791152BE51900D35A92 /* blockimp */ = {
@@ -340,6 +423,17 @@
 				6CC1B794152BE51900D35A92 /* blockimp.s in Sources */,
 				6CC1B796152BE51900D35A92 /* blockimp_stret.s in Sources */,
 				6C0C3959152D0CD5004632F1 /* A2BlockImplementation.m in Sources */,
+				6CC0711F1537918D00BF5468 /* ffi.c in Sources */,
+				6CC071201537918D00BF5468 /* sysv.S in Sources */,
+				6CC071211537918D00BF5468 /* trampoline.S in Sources */,
+				6CC071221537918D00BF5468 /* darwin.S in Sources */,
+				6CC071231537918D00BF5468 /* ffi.c in Sources */,
+				6CC0714C153791A000BF5468 /* closures.c in Sources */,
+				6CC0714E153791A000BF5468 /* debug.c in Sources */,
+				6CC07152153791A000BF5468 /* java_raw_api.c in Sources */,
+				6CC07154153791A000BF5468 /* prep_cif.c in Sources */,
+				6CC07156153791A000BF5468 /* raw_api.c in Sources */,
+				6CC07158153791A000BF5468 /* types.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +456,16 @@
 				6CC1B795152BE51900D35A92 /* blockimp.s in Sources */,
 				6CC1B797152BE51900D35A92 /* blockimp_stret.s in Sources */,
 				6C0C395A152D0CD5004632F1 /* A2BlockImplementation.m in Sources */,
+				6CC071401537919500BF5468 /* darwin.S in Sources */,
+				6CC071411537919500BF5468 /* darwin64.S in Sources */,
+				6CC071421537919500BF5468 /* ffi.c in Sources */,
+				6CC071431537919500BF5468 /* ffi64.c in Sources */,
+				6CC0714D153791A000BF5468 /* closures.c in Sources */,
+				6CC0714F153791A000BF5468 /* debug.c in Sources */,
+				6CC07153153791A000BF5468 /* java_raw_api.c in Sources */,
+				6CC07155153791A000BF5468 /* prep_cif.c in Sources */,
+				6CC07157153791A000BF5468 /* raw_api.c in Sources */,
+				6CC07159153791A000BF5468 /* types.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,9 +490,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				LIBRARY_SEARCH_PATHS = (
+				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/libffi\"",
+					"\"$(SRCROOT)/libffi/ios/include\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = A2DynamicDelegate;
@@ -407,9 +511,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				LIBRARY_SEARCH_PATHS = (
+				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/libffi\"",
+					"\"$(SRCROOT)/libffi/ios/include\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = A2DynamicDelegate;
@@ -505,11 +609,12 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				INFOPLIST_FILE = "Demo/OS X Framework-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
+				GCC_WARN_UNUSED_VALUE = NO;
+				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/libffi\"",
+					"\"$(SRCROOT)/libffi/osx/include\"",
 				);
+				INFOPLIST_FILE = "Demo/OS X Framework-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-Wl,-no_compact_unwind";
@@ -534,11 +639,12 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				INFOPLIST_FILE = "Demo/OS X Framework-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
+				GCC_WARN_UNUSED_VALUE = NO;
+				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/libffi\"",
+					"\"$(SRCROOT)/libffi/osx/include\"",
 				);
+				INFOPLIST_FILE = "Demo/OS X Framework-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-Wl,-no_compact_unwind";
 				PRODUCT_NAME = A2DynamicDelegate;
