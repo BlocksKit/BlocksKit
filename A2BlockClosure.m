@@ -60,10 +60,10 @@ static void a2_executeBlockClosure(ffi_cif *cif, void *ret, void **args, void *u
 {
     A2BlockClosure *self = userdata;
     int count = self.numberOfArguments;
-    void **innerArgs = malloc((count + 1) * sizeof(*innerArgs));
+    void **innerArgs = malloc(count * sizeof(*innerArgs));
 	
     innerArgs[0] = self.block;
-    memcpy(innerArgs + 1, args + 2, count * sizeof(*args));
+    memcpy(innerArgs + 1, args + 2, (count - 1) * sizeof(*args));
     ffi_call(self.callInterface, a2_blockGetImplementation(self.block), ret, innerArgs);
 	
     free(innerArgs);
