@@ -22,12 +22,7 @@ do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException fo
 
 extern void a2_ffi_call_block(ffi_cif *cif, void (^fn)(void), void *rvalue, void **avalue);
 
-@interface A2BlockClosure ()
-
-@property (nonatomic, readonly) ffi_cif *callInterface;
-@property (nonatomic, readonly) NSUInteger numberOfArguments;
-
-@end
+static void *A2BlockClosureCallInterfaceKey;
 
 const ffi_type *_ffi_type_elements_nsrange[] = { &ffi_type_ulong, &ffi_type_ulong, NULL };
 ffi_type ffi_type_nsrange = { 0, 0, FFI_TYPE_STRUCT, (ffi_type **)_ffi_type_elements_nsrange };
@@ -48,15 +43,10 @@ ffi_type ffi_type_cgrect = { 0, 0, FFI_TYPE_STRUCT, (ffi_type **)_ffi_type_eleme
 
 static void a2_executeBlockClosure(ffi_cif *cif, void *ret, void **args, void *userdata)
 {
-    A2BlockClosure *self = userdata;
-    int count = self.numberOfArguments;
-    void **innerArgs = malloc(count * sizeof(*innerArgs));
-	
-    innerArgs[0] = self.block;
-    memcpy(innerArgs + 1, args + 2, (count - 1) * sizeof(*args));
-    a2_ffi_call_block(self.callInterface, self.block, ret, innerArgs);
-	
-    free(innerArgs);
+    void **innerArgs = args + 1;
+	innerArgs[0] = userdata;
+    ffi_cif *callInterface = [objc_getAssociatedObject(userdata, &A2BlockClosureCallInterfaceKey) pointerValue];
+    a2_ffi_call_block(callInterface, userdata, ret, innerArgs);
 }
 
 static inline size_t a2_getStructSize(const char *encodingType) {
@@ -74,11 +64,7 @@ static inline size_t a2_getStructSize(const char *encodingType) {
 
 @implementation A2BlockClosure
 
-@synthesize block = _block, functionPointer = _functionPointer, numberOfArguments = _numberOfArguments;
-
-- (ffi_cif *)callInterface {
-    return (ffi_cif *)_blockCIF;
-}
+@synthesize block = _block, functionPointer = _functionPointer;
 
 - (void *)a2_allocate: (size_t)howmuch
 {
@@ -227,9 +213,9 @@ static inline size_t a2_getStructSize(const char *encodingType) {
         *(ffi_cif *)_methodCIF = methodCif;
         *(ffi_cif *)_blockCIF = blockCif;
         
-        _numberOfArguments = blockArgCount;
+        objc_setAssociatedObject(_block, &A2BlockClosureCallInterfaceKey, [NSValue valueWithPointer:_blockCIF], OBJC_ASSOCIATION_ASSIGN);
         
-        if (ffi_prep_closure_loc(_closure, _methodCIF, a2_executeBlockClosure, self, _functionPointer) != FFI_OK) {
+        if (ffi_prep_closure_loc(_closure, _methodCIF, a2_executeBlockClosure, _block, _functionPointer) != FFI_OK) {
             [self release];
             return nil;
         }
