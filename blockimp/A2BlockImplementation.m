@@ -113,6 +113,24 @@ void *a2_blockGetImplementation(id block) {
     return aBlock->invoke;
 }
 
+#pragma mark - Block/method compatibility
+
+BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature) {
+    NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: a2_blockGetSignature(block)];
+    BOOL isCompatible = (strcmp(blockSig.methodReturnType, signature.methodReturnType) == 0);
+    NSUInteger i, argc = blockSig.numberOfArguments;
+    for (i = 1; i < argc && isCompatible; ++i)
+    {
+        // `i + 1` because the protocol method sig has an extra ":" (selector) argument
+        const char *firstArgType = [blockSig getArgumentTypeAtIndex: i];
+        const char *secondArgType = [signature getArgumentTypeAtIndex: i + 1];
+        
+        if (strcmp(secondArgType, firstArgType))
+            isCompatible = NO;
+    }
+    return isCompatible;
+}
+
 #pragma mark - Structure declarations
 
 /*

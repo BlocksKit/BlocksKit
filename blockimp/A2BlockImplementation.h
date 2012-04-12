@@ -32,6 +32,8 @@ extern BOOL a2_blockHasStret(id block);
 extern const char *a2_blockGetSignature(id block);
 extern void *a2_blockGetImplementation(id block);
 
+extern BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature);
+
 extern IMP a2_imp_implementationWithBlock(id block);
 extern id a2_imp_getBlock(IMP anImp);
 extern BOOL a2_imp_removeBlock(IMP anImp);

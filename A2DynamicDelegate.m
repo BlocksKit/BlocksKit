@@ -209,25 +209,12 @@ static dispatch_queue_t backgroundQueue = nil;
 	struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, !isClassMethod);
 	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
 	if (!methodDescription.name) return;
-	
 	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes: methodDescription.types];
-	NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: a2_blockGetSignature(block)];
-	BOOL blockIsCompatible = (strcmp(protoSig.methodReturnType, blockSig.methodReturnType) == 0);
-	NSUInteger i, argc = blockSig.numberOfArguments;
-	for (i = 1; i < argc && blockIsCompatible; ++i)
-	{
-		// `i + 1` because the protocol method sig has an extra ":" (selector) argument
-		const char *protoArgType = [protoSig getArgumentTypeAtIndex: i + 1];
-		const char *blockArgType = [blockSig getArgumentTypeAtIndex: i];
-		
-		if (strcmp(protoArgType, blockArgType))
-			blockIsCompatible = NO;
-	}
-	NSAlwaysAssert(blockIsCompatible, @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
 	
 	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
 	if (isClassMethod ? [[self superclass] respondsToSelector: selector] : [[self superclass] instancesRespondToSelector: selector])
 	{
+        NSAlwaysAssert(a2_blockIsCompatible(block, protoSig), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
 		[self.blockMap setObject: block forKey: key];
 	}
 	else
