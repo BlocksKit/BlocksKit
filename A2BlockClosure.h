@@ -21,15 +21,15 @@
 
 @interface A2BlockClosure : NSObject {
     NSMutableArray *_allocations;
-    ffi_cif _closureCIF;
-    ffi_cif _innerCIF;
+    ffi_cif _methodCIF;
+    ffi_cif _blockCIF;
 	NSUInteger _numberOfArguments;
     ffi_closure *_closure;
     void *_functionPointer;
     id _block;
 }
 
-- (id)initWithBlock: (id) block;
+- (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature;
 
 @property (nonatomic, readonly) id block;
 @property (nonatomic, readonly) void *functionPointer;

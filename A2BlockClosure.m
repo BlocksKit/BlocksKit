@@ -25,6 +25,11 @@
 #import <CoreGraphics/CoreGraphics.h>
 #endif
 
+#ifndef NSAlwaysAssert
+#define NSAlwaysAssert(condition, desc, ...) \
+do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
+#endif
+
 @interface A2BlockClosure ()
 
 @property (nonatomic, readonly) ffi_cif *callInterface;
@@ -89,7 +94,7 @@ static const char *a2_skip_type_qualifiers(const char *types)
 @synthesize block = _block, functionPointer = _functionPointer, numberOfArguments = _numberOfArguments;
 
 - (ffi_cif *)callInterface {
-	return &_innerCIF;
+	return &_blockCIF;
 }
 
 - (void *)a2_allocate: (size_t)howmuch
@@ -352,18 +357,43 @@ static const char *a2_skip_type_qualifiers(const char *types)
 	_numberOfArguments = blockArgCount;
 }
 
-- (id)initWithBlock: (id)block
+- (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature
 {
-    if((self = [self init]))
+    if ((self = [self init]))
     {
+        NSAlwaysAssert(a2_blockIsCompatible(block, signature), @"Attempt to implement a method with incompatible block");
+        
         _allocations = [NSMutableArray new];
         _block = [block copy];
 		_closure = ffi_closure_alloc(sizeof(ffi_closure), &_functionPointer);
-		[self a2_prepareCIF];
-        if (ffi_prep_closure_loc(_closure, &_closureCIF, a2_executeBlockClosure, self, _functionPointer) != FFI_OK) {
-			[self release];
-			return nil;
-		}
+        
+        NSUInteger blockArgCount = signature.numberOfArguments - 1, methodArgCount = signature.numberOfArguments;
+        ffi_cif blockCif, methodCif;
+        
+        ffi_type **blockArgs = [self a2_allocate: blockArgCount * sizeof(ffi_type *)];
+        ffi_type **methodArgs = [self a2_allocate: methodArgCount * sizeof(ffi_type *)];
+        ffi_type *returnType = [self a2_typeForSignature: signature.methodReturnType];
+        
+        blockArgs[0] = methodArgs[0] = methodArgs[1] = &ffi_type_pointer;
+        
+        for (NSUInteger i = 2; i < signature.numberOfArguments; i++) {
+            blockArgs[i-1] = methodArgs[i] = [self a2_typeForSignature: [signature getArgumentTypeAtIndex: i]];
+        }
+        
+        ffi_status blockStatus = ffi_prep_cif(&blockCif, FFI_DEFAULT_ABI, blockArgCount, returnType, blockArgs);
+        ffi_status methodStatus = ffi_prep_cif(&methodCif, FFI_DEFAULT_ABI, methodArgCount, returnType, methodArgs);
+        
+        NSAssert(blockStatus == FFI_OK, @"Unable to create function interface for block. %@ %@", [self class], self.block);
+        NSAssert(methodStatus == FFI_OK, @"Unable to create function interface for method. %@ %@", [self class], self.block);
+        
+        _methodCIF = methodCif;
+        _blockCIF = blockCif;
+        _numberOfArguments = blockArgCount;
+        
+        if (ffi_prep_closure_loc(_closure, &_methodCIF, a2_executeBlockClosure, self, _functionPointer) != FFI_OK) {
+            [self release];
+            return nil;
+        }
     }
     return self;
 }

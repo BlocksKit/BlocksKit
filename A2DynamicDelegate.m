@@ -220,7 +220,7 @@ static dispatch_queue_t backgroundQueue = nil;
 	else
 	{
 		Class cls = isClassMethod ? object_getClass(self) : self;
-		A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock:block];
+		A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock: block methodSignature: protoSig];
 		class_replaceMethod(cls, selector, closure.functionPointer, methodDescription.types);
 		[self.implementationMap setObject: closure forKey: key];
 		[closure release];
