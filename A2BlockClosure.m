@@ -102,8 +102,8 @@ static inline size_t a2_getStructSize(const char *encodingType) {
 		case _C_USHT: type = &ffi_type_ushort; break;
 		case _C_INT: type = &ffi_type_sint; break;
 		case _C_UINT: type = &ffi_type_uint; break;
-		case _C_LNG: type = sizeof(int) == sizeof(long) ? &ffi_type_sint : &ffi_type_slong; break;
-		case _C_ULNG: type = sizeof(unsigned int) == sizeof(unsigned long) ? &ffi_type_uint : &ffi_type_ulong; break;
+		case _C_LNG: type = &ffi_type_slong; break;
+		case _C_ULNG: type = &ffi_type_ulong; break;
 		case _C_LNG_LNG: type = &ffi_type_sint64; break;
 		case _C_ULNG_LNG: type = &ffi_type_uint64; break;
 		case _C_FLT: type = &ffi_type_float; break;
