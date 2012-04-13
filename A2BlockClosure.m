@@ -141,17 +141,6 @@ static inline const char *a2_skipStructName(const char *type) {
     return type;
 }
 
-#pragma mark - FFI closure functions
-
-static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, void *userdata) {
-    A2BlockClosure *self = userdata;
-    BlockRef block = (void *)(self->_block);
-    
-    void **innerArgs = args + 1;
-    innerArgs[0] = block;
-    ffi_call(self->_blockCIF, block->invoke, ret, innerArgs);
-}
-
 static inline size_t a2_getStructSize(const char *encodingType) {
     if (*encodingType != _C_STRUCT_B) return -1;
     while (*encodingType != _C_STRUCT_E && *encodingType++ != '='); // skip "<name>="
@@ -163,6 +152,17 @@ static inline size_t a2_getStructSize(const char *encodingType) {
     }
     
     return ret;
+}
+
+#pragma mark - FFI closure function
+
+static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, void *userdata) {
+    A2BlockClosure *self = userdata;
+    BlockRef block = (void *)(self->_block);
+    
+    void **innerArgs = args + 1;
+    innerArgs[0] = block;
+    ffi_call(self->_blockCIF, block->invoke, ret, innerArgs);
 }
 
 #pragma mark -
@@ -280,7 +280,6 @@ static inline size_t a2_getStructSize(const char *encodingType) {
 
 - (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature
 {
-    NSAlwaysAssert(a2_blockIsCompatible(block, signature), @"Attempt to implement a method with incompatible block");
     if ((self = [super init]))
     {
         _allocations = [NSMutableArray new];

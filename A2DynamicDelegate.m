@@ -23,23 +23,12 @@
 
 extern BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature);
 
-static Class a2_clusterSubclassForProtocol(Protocol *protocol);
-
-static void *A2DynamicDelegateProtocolKey;
-
-static dispatch_queue_t backgroundQueue = nil;
-
 Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
 
-
-#pragma mark -
-
-@interface NSObject (A2DelegateProtocols)
-
-+ (Protocol *) a2_delegateProtocol;
-
-@end
+static Class a2_clusterSubclassForProtocol(Protocol *protocol);
+static void *A2DynamicDelegateProtocolKey;
+static dispatch_queue_t backgroundQueue = nil;
 
 #pragma mark -
 
@@ -51,9 +40,7 @@ Protocol *a2_delegateProtocol(Class cls);
 
 // Block Implementations
 + (id) blockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
-
 + (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block;
-+ (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod;
 
 // Protocol
 + (Protocol *) protocol;
@@ -145,7 +132,7 @@ Protocol *a2_delegateProtocol(Class cls);
 }
 - (void) removeBlockImplementationForClassMethod: (SEL) selector
 {
-	[self.class removeBlockImplementationForMethod: selector classMethod: YES];
+    [self.class implementMethod: selector classMethod: YES withBlock: NULL];
 }
 
 #pragma mark Block Instance Method Implementations
@@ -161,7 +148,7 @@ Protocol *a2_delegateProtocol(Class cls);
 }
 - (void) removeBlockImplementationForMethod: (SEL) selector
 {
-	[self.class removeBlockImplementationForMethod: selector classMethod: NO];
+    [self.class implementMethod: selector classMethod: NO withBlock: NULL];
 }
 
 #pragma mark - Block Map
@@ -200,10 +187,27 @@ Protocol *a2_delegateProtocol(Class cls);
 
 + (void) implementMethod: (SEL) selector classMethod: (BOOL) isClassMethod withBlock: (id) block
 {
-	NSAlwaysAssert(selector, @"Attempt to implement NULL selector");
+	NSAlwaysAssert(selector, @"Attempt to implement/remove NULL selector");
+    
+    NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
+    
 	if (!block)
 	{
-		[self removeBlockImplementationForMethod: selector classMethod: isClassMethod];
+		if ([self.blockMap objectForKey: key])
+        {
+            [self.blockMap removeObjectForKey: key];
+        }
+        else if ([self.implementationMap objectForKey: key])
+        {
+            Class cls = isClassMethod ? object_getClass(self) : self;
+            
+            Method thisMethod = class_getInstanceMethod(cls, selector);
+            const char *typeSignature = method_getTypeEncoding(thisMethod);
+            BOOL isStruct = (*typeSignature == '{') ? YES : NO;
+            
+            class_replaceMethod(cls, selector, isStruct ? (IMP)_objc_msgForward_stret : _objc_msgForward, NULL);
+            [self.implementationMap removeObjectForKey: key];
+        }
 		return;
 	}
 	
@@ -212,11 +216,11 @@ Protocol *a2_delegateProtocol(Class cls);
 	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
 	if (!methodDescription.name) return;
 	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes: methodDescription.types];
+    
+    NSAlwaysAssert(a2_blockIsCompatible(block, protoSig), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
 	
-	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
 	if (isClassMethod ? [[self superclass] respondsToSelector: selector] : [[self superclass] instancesRespondToSelector: selector])
 	{
-        NSAlwaysAssert(a2_blockIsCompatible(block, protoSig), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
 		[self.blockMap setObject: block forKey: key];
 	}
 	else
@@ -224,29 +228,8 @@ Protocol *a2_delegateProtocol(Class cls);
 		Class cls = isClassMethod ? object_getClass(self) : self;
 		A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock: block methodSignature: protoSig];
 		[self.implementationMap setObject: closure forKey: key];
-		class_replaceMethod(cls, selector, closure.functionPointer, methodDescription.types);
 		[closure release];
-	}
-}
-+ (void) removeBlockImplementationForMethod: (SEL) selector classMethod: (BOOL) isClassMethod
-{
-	NSAlwaysAssert(selector, @"Attempt to remove NULL selector");
-	NSString *key = BLOCK_MAP_DICT_KEY(selector, isClassMethod);
-	if ([self.blockMap objectForKey: key])
-	{
-		[self.blockMap removeObjectForKey: key];
-	}
-	else if ([self.implementationMap objectForKey: key])
-	{
-		Class cls = isClassMethod ? object_getClass(self) : self;
-		
-		Method thisMethod = class_getInstanceMethod(cls, selector);
-		char *returnType = method_copyReturnType(thisMethod);
-		BOOL isStruct = (returnType[0] == '{') ? YES : NO;
-		free(returnType);
-
-		class_replaceMethod(cls, selector, (isStruct ? (IMP)_objc_msgForward_stret : _objc_msgForward), NULL);
-		[self.implementationMap removeObjectForKey: key];
+		class_replaceMethod(cls, selector, closure.functionPointer, methodDescription.types);
 	}
 }
 
