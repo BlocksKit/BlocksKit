@@ -8,34 +8,30 @@
 
 #import "A2BlockDelegate+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
-#import "A2BlockImplementation.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
-#import <dlfcn.h>
 #import "NSArray+BlocksKit.h"
 
-extern void *A2BlockDelegateProtocolsKey;
-extern void *A2BlockDelegateMapKey;
-
-static char BKAccessorsMapKey;
-
+// Function Declarations
 extern SEL a2_getterForProperty(Class cls, NSString *propertyName);
 extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
+extern NSString *a2_nameForPropertyAccessor(Class cls, SEL selector);
+extern Protocol *a2_dataSourceProtocol(Class cls);
+extern Protocol *a2_delegateProtocol(Class cls);
+
+static inline SEL a2_selector(SEL selector) {
+    return NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(selector)]);
+}
+
+// Delegate replacement selectors
+static void bk_blockDelegateSetter(id self, SEL _cmd, id delegate);
+static id bk_blockDelegateGetter(id self, SEL _cmd);
 
 #pragma mark -
 
-@interface NSObject ()
-
-+ (Protocol *) a2_dataSourceProtocol;
-+ (Protocol *) a2_delegateProtocol;
-
-@end
-
 @interface NSObject (A2BlockDelegateBlocksKitPrivate)
 
-+ (NSMutableDictionary *) bk_accessorsMap;
-
-- (void) a2_checkRegisteredProtocol:(Protocol *)protocol;
++ (NSMutableDictionary *) bk_propertyMap;
 
 @end
 
@@ -52,11 +48,10 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 }
 
 - (NSMutableDictionary *)bk_realDelegates {
-	static char BKRealDelegatesKey;
-	NSMutableDictionary *dict = [self associatedValueForKey:&BKRealDelegatesKey];
+	NSMutableDictionary *dict = objc_getAssociatedObject(self, _cmd);
 	if (!dict) {
 		dict = [NSMutableDictionary dictionary];
-		[self associateValue:dict withKey:&BKRealDelegatesKey];
+        objc_setAssociatedObject(self, _cmd, dict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	return dict;
 }
@@ -75,7 +70,7 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 {
 	id object = [[self bk_realDelegates] objectForKey: delegateName];
 	if ([object isKindOfClass:[NSValue class]])
-		object = [object nonretainedObjectValue];
+		return [object nonretainedObjectValue];
 	return object;
 }
 
@@ -85,33 +80,24 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 
 @implementation NSObject (A2BlockDelegateBlocksKitPrivate)
 
-+ (NSMutableDictionary *) bk_accessorsMap
++ (NSMutableDictionary *) bk_propertyMap
 {
-	NSMutableDictionary *accessorsMap = [self associatedValueForKey: &BKAccessorsMapKey];
+	NSMutableDictionary *propertyMap = objc_getAssociatedObject(self, _cmd);
 	
-	if (!accessorsMap)
+	if (!propertyMap)
 	{
-		accessorsMap = [NSMutableDictionary dictionary];
-		[self associateValue: accessorsMap withKey: &BKAccessorsMapKey];
+		propertyMap = [NSMutableDictionary dictionary];
+        objc_setAssociatedObject(self, _cmd, propertyMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
-	return accessorsMap;
+	return propertyMap;
 }
 
 - (void) a2_checkRegisteredProtocol:(Protocol *)protocol {
-	__block SEL getter = NULL, setter = NULL;
-	[[[[self class] bk_accessorsMap] allKeysForObject: NSStringFromProtocol(protocol)] each:^(NSString *selectorName) {
-		if ([selectorName hasSuffix: @":"])
-			setter = NSSelectorFromString(selectorName);
-		else
-			getter = NSSelectorFromString(selectorName);
-	}];
-	
-	if (!getter || !setter)
-		return;
-	
-	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter) ?: @""]);
-	SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter) ?: @""]);
+    NSString *propertyName = [[self.class.bk_propertyMap allKeysForObject: NSStringFromProtocol(protocol)] lastObject];
+    
+	SEL a2_setter = a2_selector(a2_setterForProperty(self.class, propertyName));
+	SEL a2_getter = a2_selector(a2_getterForProperty(self.class, propertyName));
 	
 	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 	if ([self respondsToSelector:a2_setter]) {
@@ -125,35 +111,32 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 
 + (void) registerDynamicDataSource
 {
-	[self registerDynamicDelegateNamed: @"dataSource" forProtocol: [self a2_dataSourceProtocol]];
+	[self registerDynamicDelegateNamed: @"dataSource" forProtocol: a2_dataSourceProtocol(self)];
 }
 + (void) registerDynamicDelegate
 {
-	[self registerDynamicDelegateNamed: @"delegate" forProtocol: [self a2_delegateProtocol]];
+	[self registerDynamicDelegateNamed: @"delegate" forProtocol: a2_delegateProtocol(self)];
 }
 
 + (void) registerDynamicDataSourceNamed: (NSString *) dataSourceName
 {
-	[self registerDynamicDelegateNamed: dataSourceName forProtocol: [self a2_dataSourceProtocol]];
+	[self registerDynamicDelegateNamed: dataSourceName forProtocol: a2_dataSourceProtocol(self)];
 }
 + (void) registerDynamicDelegateNamed: (NSString *) delegateName
 {
-	[self registerDynamicDelegateNamed: delegateName forProtocol: [self a2_delegateProtocol]];
+	[self registerDynamicDelegateNamed: delegateName forProtocol: a2_delegateProtocol(self)];
 }
 
 + (void) registerDynamicDelegateNamed: (NSString *) delegateName forProtocol: (Protocol *) protocol
 {
-	NSMutableDictionary *accessorsMap = [self bk_accessorsMap];
-
-	NSString *key = [@"@" stringByAppendingString: delegateName];
-	if ([accessorsMap objectForKey: key]) return;
-	[accessorsMap setObject: (id) kCFBooleanTrue forKey: key];
+	NSMutableDictionary *propertyMap = [self bk_propertyMap];
+	if ([propertyMap objectForKey: delegateName])
+        return;
+	[propertyMap setObject: NSStringFromProtocol(protocol) forKey: delegateName];
 	
 	SEL getter = a2_getterForProperty(self, delegateName);
-	SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter)]);
-	IMP getterImplementation = a2_imp_implementationWithBlock(^id(NSObject *obj) {
-		return [[obj dynamicDelegateForProtocol: protocol] realDelegate];
-	});
+	SEL a2_getter = a2_selector(getter);
+    IMP getterImplementation = (IMP)bk_blockDelegateGetter;
 	const char *getterTypes = "@@:";
 	
 	if (!class_addMethod(self, getter, getterImplementation, getterTypes)) {
@@ -164,24 +147,8 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 	}
 
 	SEL setter = a2_setterForProperty(self, delegateName);
-	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(setter)]);
-	IMP setterImplementation = a2_imp_implementationWithBlock(^(NSObject *obj, id delegate) {
-		A2DynamicDelegate *dynamicDelegate = [obj dynamicDelegateForProtocol: protocol];
-		
-		if ([obj respondsToSelector:a2_setter]) {
-			id originalDelegate = [obj performSelector:a2_getter];
-			if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
-				[obj performSelector:a2_setter withObject:dynamicDelegate];
-		}
-		
-		if ([delegate isEqual: obj]) {
-			[[dynamicDelegate bk_realDelegates] setObject: [NSValue valueWithNonretainedObject: delegate] forKey: delegateName];
-			return;
-		}
-		
-		if ([delegate isEqual: dynamicDelegate]) delegate = nil;
-		[[dynamicDelegate bk_realDelegates] setObject: delegate forKey: delegateName];
-	});
+	SEL a2_setter = a2_selector(setter);
+    IMP setterImplementation = (IMP)bk_blockDelegateSetter;
 	const char *setterTypes = "v@:@";
 	
 	if (!class_addMethod(self, setter, setterImplementation, setterTypes)) {
@@ -190,12 +157,43 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 		Method a2_method = class_getInstanceMethod(self, a2_setter);
 		method_exchangeImplementations(method, a2_method);
 	}
-	
-	NSString *protocolName = NSStringFromProtocol(protocol);
-	[accessorsMap setObject: protocolName forKey: NSStringFromSelector(setter)];
-	[accessorsMap setObject: protocolName forKey: NSStringFromSelector(getter)];
 }
 
 @end
+
+#pragma mark - Functions
+
+static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
+{
+    NSString *delegateName = a2_nameForPropertyAccessor(self.class, _cmd);
+	NSString *protocolName = [[self.class bk_propertyMap] objectForKey: delegateName];
+	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: NSProtocolFromString(protocolName)];
+    
+	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(_cmd)]);
+    SEL getter = a2_getterForProperty(self.class, delegateName);
+	SEL a2_getter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(getter)]);
+    
+    if ([self respondsToSelector:a2_setter]) {
+		id originalDelegate = [self performSelector:a2_getter];
+		if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
+			[self performSelector:a2_setter withObject:dynamicDelegate];
+	}
+	
+	if ([delegate isEqual: dynamicDelegate])
+        [[dynamicDelegate bk_realDelegates] removeObjectForKey: delegateName];
+    else if ([delegate isEqual:self])
+        [[dynamicDelegate bk_realDelegates] setObject: [NSValue valueWithNonretainedObject: delegate] forKey: delegateName];
+    else
+        [[dynamicDelegate bk_realDelegates] setObject: delegate forKey: delegateName];
+}
+
+static id bk_blockDelegateGetter(NSObject *self, SEL _cmd)
+{
+    NSString *delegateName = a2_nameForPropertyAccessor(self.class, _cmd);
+	NSString *protocolName = [[self.class bk_propertyMap] objectForKey: delegateName];
+	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: NSProtocolFromString(protocolName)];
+    
+	return [dynamicDelegate realDelegateNamed: delegateName];
+}
 
 BK_MAKE_CATEGORY_LOADABLE(NSObject_A2BlockDelegateBlocksKit)
