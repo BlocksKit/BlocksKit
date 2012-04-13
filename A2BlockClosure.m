@@ -120,6 +120,8 @@ static inline const char *a2_blockGetSignature(id block) {
     return desc3->signature;
 }
 
+BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature);
+
 BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature) {
     NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: a2_blockGetSignature(block)];
     BOOL isCompatible = (strcmp(blockSig.methodReturnType, signature.methodReturnType) == 0);
@@ -136,6 +138,21 @@ BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature) {
     return isCompatible;
 }
 
+static inline const char *a2_skipStructName(const char *type) {
+    if (*type == _C_UNDEF) {
+        type++;
+    } else if (isalpha(*type) || *type == '_') {
+        while (isalnum(*type) || *type == '_') {
+            type++;
+        }
+    } else {
+        return type;
+    }
+    
+    if (*type == '=') type++;
+    
+    return type;
+}
 
 #pragma mark - FFI closure functions
 
@@ -271,14 +288,11 @@ static inline size_t a2_getStructSize(const char *encodingType) {
             type->elements = [self a2_allocate: (a2_getStructSize(argumentType) + 1) * sizeof(ffi_type *)];
             
             size_t index = 0;
-            while (*argumentType != _C_STRUCT_E && *argumentType != '=') argumentType++;
-            if (*argumentType == '=') {
-                argumentType++;
-                while (*argumentType != _C_STRUCT_E) {
-                    type->elements[index] = [self a2_typeForSignature:argumentType];
-                    argumentType = NSGetSizeAndAlignment(argumentType, NULL, NULL);
-                    index++;
-                }
+            argumentType = a2_skipStructName(argumentType);
+            while (*argumentType != _C_STRUCT_E) {
+                type->elements[index] = [self a2_typeForSignature:argumentType];
+                argumentType = NSGetSizeAndAlignment(argumentType, NULL, NULL);
+                index++;
             }
             type->elements[index] = NULL;
             
