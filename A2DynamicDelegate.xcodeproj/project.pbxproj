@@ -34,10 +34,6 @@
 		6CC071431537919500BF5468 /* ffi64.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071351537919500BF5468 /* ffi64.c */; };
 		6CC0714C153791A000BF5468 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07145153791A000BF5468 /* closures.c */; };
 		6CC0714D153791A000BF5468 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07145153791A000BF5468 /* closures.c */; };
-		6CC0714E153791A000BF5468 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07146153791A000BF5468 /* debug.c */; };
-		6CC0714F153791A000BF5468 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07146153791A000BF5468 /* debug.c */; };
-		6CC07152153791A000BF5468 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07148153791A000BF5468 /* java_raw_api.c */; };
-		6CC07153153791A000BF5468 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07148153791A000BF5468 /* java_raw_api.c */; };
 		6CC07154153791A000BF5468 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07149153791A000BF5468 /* prep_cif.c */; };
 		6CC07155153791A000BF5468 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07149153791A000BF5468 /* prep_cif.c */; };
 		6CC07156153791A000BF5468 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714A153791A000BF5468 /* raw_api.c */; };
@@ -87,8 +83,6 @@
 		6CC071341537919500BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
 		6CC071351537919500BF5468 /* ffi64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi64.c; sourceTree = "<group>"; };
 		6CC07145153791A000BF5468 /* closures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = closures.c; sourceTree = "<group>"; };
-		6CC07146153791A000BF5468 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
-		6CC07148153791A000BF5468 /* java_raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = java_raw_api.c; sourceTree = "<group>"; };
 		6CC07149153791A000BF5468 /* prep_cif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prep_cif.c; sourceTree = "<group>"; };
 		6CC0714A153791A000BF5468 /* raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_api.c; sourceTree = "<group>"; };
 		6CC0714B153791A000BF5468 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
@@ -252,8 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				6CC07145153791A000BF5468 /* closures.c */,
-				6CC07146153791A000BF5468 /* debug.c */,
-				6CC07148153791A000BF5468 /* java_raw_api.c */,
 				6CC07149153791A000BF5468 /* prep_cif.c */,
 				6CC0714A153791A000BF5468 /* raw_api.c */,
 				6CC0714B153791A000BF5468 /* types.c */,
@@ -400,8 +392,6 @@
 				6CC071221537918D00BF5468 /* darwin.S in Sources */,
 				6CC071231537918D00BF5468 /* ffi.c in Sources */,
 				6CC0714C153791A000BF5468 /* closures.c in Sources */,
-				6CC0714E153791A000BF5468 /* debug.c in Sources */,
-				6CC07152153791A000BF5468 /* java_raw_api.c in Sources */,
 				6CC07154153791A000BF5468 /* prep_cif.c in Sources */,
 				6CC07156153791A000BF5468 /* raw_api.c in Sources */,
 				6CC07158153791A000BF5468 /* types.c in Sources */,
@@ -429,8 +419,6 @@
 				6CC071421537919500BF5468 /* ffi.c in Sources */,
 				6CC071431537919500BF5468 /* ffi64.c in Sources */,
 				6CC0714D153791A000BF5468 /* closures.c in Sources */,
-				6CC0714F153791A000BF5468 /* debug.c in Sources */,
-				6CC07153153791A000BF5468 /* java_raw_api.c in Sources */,
 				6CC07155153791A000BF5468 /* prep_cif.c in Sources */,
 				6CC07157153791A000BF5468 /* raw_api.c in Sources */,
 				6CC07159153791A000BF5468 /* types.c in Sources */,
