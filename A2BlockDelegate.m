@@ -197,7 +197,7 @@ SEL a2_getterForProperty(Class cls, NSString *propertyName)
 	
 	return getter;
 }
-SEL a2_setterForProperty(Class cls, NSString *propertyName)
+static SEL a2_setterForProperty(Class cls, NSString *propertyName)
 {
 	SEL setter = NULL;
 	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
@@ -247,7 +247,7 @@ SEL a2_setterForProperty(Class cls, NSString *propertyName)
  * - 12/7/11 - Wrote wrapper for `property_copyAttributeValue` if it is not defined (Alexsander Akers)
  */
 
-static unsigned int a2_iteratePropertyAttributes(const char *attrs, BOOL (*fn)(unsigned int index, void *ctx1, void *ctx2, const char *name, size_t nlen, const char *value, size_t vlen), void *ctx1, void *ctx2)
+static inline void a2_iteratePropertyAttributes(const char *attrs, BOOL (^fn)(const char *name, size_t nlen, const char *value, size_t vlen))
 {
 	/*
 	 Property attribute string format:
@@ -259,10 +259,9 @@ static unsigned int a2_iteratePropertyAttributes(const char *attrs, BOOL (*fn)(u
 	 - OR Name is double-quoted string of 2+ chars, value follows
 	 */
 	
-    if (!attrs) return 0;
+    if (!attrs) return;
 	
     const char *attrsend = attrs + strlen(attrs);
-    unsigned int attrcount = 0;
 	
     while (*attrs) {
         // Find the next comma-separated attribute
@@ -309,39 +308,29 @@ static unsigned int a2_iteratePropertyAttributes(const char *attrs, BOOL (*fn)(u
         valueStart = start;
         valueEnd = end;
 		
-        BOOL more = (*fn)(attrcount, ctx1, ctx2, 
-                          nameStart, nameEnd-nameStart, 
-                          valueStart, valueEnd-valueStart);
-        attrcount++;
+        BOOL more = fn(nameStart, nameEnd-nameStart, valueStart, valueEnd-valueStart);
         if (!more) break;
     }
-	
-    return attrcount;
 }
-static BOOL a2_findOneAttribute(__unused unsigned int index, void *ctxa, void *ctxs, const char *name, size_t nlen, const char *value, size_t vlen)
-{
-	const char *query = (char *)ctxa;
-    char **resultp = (char **)ctxs;
-	
-    if (strlen(query) == nlen  &&  0 == strncmp(name, query, nlen)) {
-        char *result = calloc(vlen+1, 1);
-        memcpy(result, value, vlen);
-        result[vlen] = '\0';
-        *resultp = result;
-        return NO;
-    }
-	
-    return YES;
-}
-char *a2_property_copyAttributeValue(objc_property_t property, const char *name)
+
+static char *a2_property_copyAttributeValue(objc_property_t property, const char *query)
 {
 	if (&property_copyAttributeValue != NULL)
-		return property_copyAttributeValue(property, name);
+		return property_copyAttributeValue(property, query);
 	
-	if (!property || !name || *name == '\0') return NULL;
+	if (!property || !query || *query == '\0') return NULL;
 	
-    char *result = NULL;
+    __block char *result = NULL;
 	const char *attributes = property_getAttributes(property);
-	a2_iteratePropertyAttributes(attributes, &a2_findOneAttribute, (void *) name, &result);
+    a2_iteratePropertyAttributes(attributes, ^BOOL(const char *name, size_t nlen, const char *value, size_t vlen) {
+        if (strlen(query) == nlen  &&  0 == strncmp(name, query, nlen)) {
+            result = calloc(vlen+1, 1);
+            memcpy(result, value, vlen);
+            result[vlen] = '\0';
+            return NO;
+        }
+        
+        return YES;
+    });
     return result;
 }
