@@ -29,11 +29,14 @@ static void *A2DynamicDelegateProtocolKey;
 
 static dispatch_queue_t backgroundQueue = nil;
 
+Protocol *a2_dataSourceProtocol(Class cls);
+Protocol *a2_delegateProtocol(Class cls);
+
+
 #pragma mark -
 
 @interface NSObject (A2DelegateProtocols)
 
-+ (Protocol *) a2_dataSourceProtocol;
 + (Protocol *) a2_delegateProtocol;
 
 @end
@@ -345,12 +348,12 @@ static Class a2_clusterSubclassForProtocol(Protocol *protocol) {
 
 - (id) dynamicDataSource
 {
-	Protocol *protocol = [self.class a2_dataSourceProtocol];
+	Protocol *protocol = a2_dataSourceProtocol([self class]);
 	return [self dynamicDelegateForProtocol: protocol];
 }
 - (id) dynamicDelegate
 {
-	Protocol *protocol = [self.class a2_delegateProtocol];
+	Protocol *protocol = a2_delegateProtocol([self class]);
 	return [self dynamicDelegateForProtocol: protocol];
 }
 - (id) dynamicDelegateForProtocol: (Protocol *) protocol
@@ -402,25 +405,22 @@ static Class a2_clusterSubclassForProtocol(Protocol *protocol) {
 
 @end
 
-@implementation NSObject (A2DelegateProtocols)
+#pragma mark - Functions
 
-+ (Protocol *) a2_dataSourceProtocol
-{
-	NSString *className = NSStringFromClass([self class]);
+Protocol *a2_dataSourceProtocol(Class cls) {
+    NSString *className = NSStringFromClass(cls);
 	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	
 	NSAlwaysAssert(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
-+ (Protocol *) a2_delegateProtocol
-{
-	NSString *className = NSStringFromClass([self class]);
+
+Protocol *a2_delegateProtocol(Class cls) {
+    NSString *className = NSStringFromClass(cls);
 	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	
 	NSAlwaysAssert(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
-
-@end
