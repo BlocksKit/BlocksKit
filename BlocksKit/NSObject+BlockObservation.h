@@ -26,9 +26,9 @@
  - Jonathan Wight. <https://github.com/schwa>. 2011. BSD.
 
  @warning *Important:* Due to a design flaw in some recent versions of the
- Objective-C runtime, you must call either removeObserverWithBlockToken:
- or removeAllBlockObservers: in the dealloc method of any object making
- use of block-based KVO. This has been fixed in the OS X 10.7 and iOS 5.0
+ Objective-C runtime, you must call either a block overserver removal 
+ method in the dealloc method of any object making use of block-backed
+ key-value observing. This has been fixed in the OS X 10.7 and iOS 5.0
  runtime.
  */
 
