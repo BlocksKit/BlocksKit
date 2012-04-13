@@ -23,10 +23,6 @@
 		0071BC5614A2C88700D7F4F8 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0039561B148EE28600FA51A8 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0071BC5714A2C88900D7F4F8 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00F6D21B149968E70003DEAE /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
-		6C0C3957152D0CD5004632F1 /* A2BlockImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C0C3958152D0CD5004632F1 /* A2BlockImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C0C3959152D0CD5004632F1 /* A2BlockImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3956152D0CD5004632F1 /* A2BlockImplementation.m */; };
-		6C0C395A152D0CD5004632F1 /* A2BlockImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C3956152D0CD5004632F1 /* A2BlockImplementation.m */; };
 		6CC0711F1537918D00BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0710F1537918D00BF5468 /* ffi.c */; };
 		6CC071201537918D00BF5468 /* sysv.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071101537918D00BF5468 /* sysv.S */; };
 		6CC071211537918D00BF5468 /* trampoline.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071111537918D00BF5468 /* trampoline.S */; };
@@ -48,14 +44,10 @@
 		6CC07157153791A000BF5468 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714A153791A000BF5468 /* raw_api.c */; };
 		6CC07158153791A000BF5468 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714B153791A000BF5468 /* types.c */; };
 		6CC07159153791A000BF5468 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714B153791A000BF5468 /* types.c */; };
-		6CC1B787152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6CC1B788152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CC1B787152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6CC1B788152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6CC1B789152BE50500D35A92 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B786152BE50500D35A92 /* A2BlockClosure.m */; };
 		6CC1B78A152BE50500D35A92 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B786152BE50500D35A92 /* A2BlockClosure.m */; };
-		6CC1B794152BE51900D35A92 /* blockimp.s in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B792152BE51900D35A92 /* blockimp.s */; };
-		6CC1B795152BE51900D35A92 /* blockimp.s in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B792152BE51900D35A92 /* blockimp.s */; };
-		6CC1B796152BE51900D35A92 /* blockimp_stret.s in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B793152BE51900D35A92 /* blockimp_stret.s */; };
-		6CC1B797152BE51900D35A92 /* blockimp_stret.s in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B793152BE51900D35A92 /* blockimp_stret.s */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,8 +77,6 @@
 		0051A0521481BE160089CC41 /* DDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
 		0051A0531481BE160089CC41 /* DDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
 		0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = A2DynamicDelegate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockImplementation.h; sourceTree = "<group>"; };
-		6C0C3956152D0CD5004632F1 /* A2BlockImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockImplementation.m; sourceTree = "<group>"; };
 		6CC0710F1537918D00BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
 		6CC071101537918D00BF5468 /* sysv.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = sysv.S; sourceTree = "<group>"; };
 		6CC071111537918D00BF5468 /* trampoline.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = trampoline.S; sourceTree = "<group>"; };
@@ -104,8 +94,6 @@
 		6CC0714B153791A000BF5468 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
 		6CC1B785152BE50500D35A92 /* A2BlockClosure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockClosure.h; sourceTree = SOURCE_ROOT; };
 		6CC1B786152BE50500D35A92 /* A2BlockClosure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockClosure.m; sourceTree = SOURCE_ROOT; };
-		6CC1B792152BE51900D35A92 /* blockimp.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = blockimp.s; sourceTree = "<group>"; };
-		6CC1B793152BE51900D35A92 /* blockimp_stret.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = blockimp_stret.s; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,14 +160,13 @@
 		0051A0491481BE160089CC41 /* A2DynamicDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				6CC071001537918100BF5468 /* libffi */,
-				6CC1B791152BE51900D35A92 /* blockimp */,
 				0039561B148EE28600FA51A8 /* A2BlockDelegate.h */,
 				0039561C148EE28600FA51A8 /* A2BlockDelegate.m */,
 				0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */,
 				0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */,
 				6CC1B785152BE50500D35A92 /* A2BlockClosure.h */,
 				6CC1B786152BE50500D35A92 /* A2BlockClosure.m */,
+				6CC071001537918100BF5468 /* libffi */,
 			);
 			name = A2DynamicDelegate;
 			path = Demo;
@@ -275,17 +262,6 @@
 			path = libffi/src;
 			sourceTree = SOURCE_ROOT;
 		};
-		6CC1B791152BE51900D35A92 /* blockimp */ = {
-			isa = PBXGroup;
-			children = (
-				6C0C3955152D0CD5004632F1 /* A2BlockImplementation.h */,
-				6C0C3956152D0CD5004632F1 /* A2BlockImplementation.m */,
-				6CC1B792152BE51900D35A92 /* blockimp.s */,
-				6CC1B793152BE51900D35A92 /* blockimp_stret.s */,
-			);
-			path = blockimp;
-			sourceTree = SOURCE_ROOT;
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -296,7 +272,6 @@
 				001ED6591491B14A006EE0B2 /* A2DynamicDelegate.h in Headers */,
 				001ED6581491B148006EE0B2 /* A2BlockDelegate.h in Headers */,
 				6CC1B787152BE50500D35A92 /* A2BlockClosure.h in Headers */,
-				6C0C3957152D0CD5004632F1 /* A2BlockImplementation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +282,6 @@
 				0071BC5614A2C88700D7F4F8 /* A2BlockDelegate.h in Headers */,
 				0071BC5714A2C88900D7F4F8 /* A2DynamicDelegate.h in Headers */,
 				6CC1B788152BE50500D35A92 /* A2BlockClosure.h in Headers */,
-				6C0C3958152D0CD5004632F1 /* A2BlockImplementation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,9 +394,6 @@
 				001ED6551491B143006EE0B2 /* A2BlockDelegate.m in Sources */,
 				001ED6571491B146006EE0B2 /* A2DynamicDelegate.m in Sources */,
 				6CC1B789152BE50500D35A92 /* A2BlockClosure.m in Sources */,
-				6CC1B794152BE51900D35A92 /* blockimp.s in Sources */,
-				6CC1B796152BE51900D35A92 /* blockimp_stret.s in Sources */,
-				6C0C3959152D0CD5004632F1 /* A2BlockImplementation.m in Sources */,
 				6CC0711F1537918D00BF5468 /* ffi.c in Sources */,
 				6CC071201537918D00BF5468 /* sysv.S in Sources */,
 				6CC071211537918D00BF5468 /* trampoline.S in Sources */,
@@ -453,9 +424,6 @@
 				0071BC5314A2C87200D7F4F8 /* A2BlockDelegate.m in Sources */,
 				0071BC5414A2C87300D7F4F8 /* A2DynamicDelegate.m in Sources */,
 				6CC1B78A152BE50500D35A92 /* A2BlockClosure.m in Sources */,
-				6CC1B795152BE51900D35A92 /* blockimp.s in Sources */,
-				6CC1B797152BE51900D35A92 /* blockimp_stret.s in Sources */,
-				6C0C395A152D0CD5004632F1 /* A2BlockImplementation.m in Sources */,
 				6CC071401537919500BF5468 /* darwin.S in Sources */,
 				6CC071411537919500BF5468 /* darwin64.S in Sources */,
 				6CC071421537919500BF5468 /* ffi.c in Sources */,
@@ -489,6 +457,7 @@
 				);
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -510,6 +479,7 @@
 				);
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

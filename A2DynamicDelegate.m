@@ -7,7 +7,6 @@
 //
 
 #import "A2DynamicDelegate.h"
-#import "A2BlockImplementation.h"
 #import "A2BlockClosure.h"
 #import <objc/message.h>
 
@@ -22,10 +21,10 @@
 
 #define BLOCK_MAP_DICT_KEY(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "-+"[!!isClassMethod], sel_getName(selector)] : nil)
 
+extern BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature);
+
 static Class a2_clusterSubclassForProtocol(Protocol *protocol);
 
-static void *A2DynamicDelegateBlockMapKey;
-static void *A2DynamicDelegateImplementationsMapKey;
 static void *A2DynamicDelegateProtocolKey;
 
 static dispatch_queue_t backgroundQueue = nil;
@@ -166,11 +165,11 @@ static dispatch_queue_t backgroundQueue = nil;
 
 + (NSMutableDictionary *) blockMap
 {
-	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, &A2DynamicDelegateBlockMapKey);
+	NSMutableDictionary *blockMap = objc_getAssociatedObject(self, _cmd);
 	if (!blockMap)
 	{
 		blockMap = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, &A2DynamicDelegateBlockMapKey, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, _cmd, blockMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return blockMap;
@@ -178,11 +177,11 @@ static dispatch_queue_t backgroundQueue = nil;
 
 + (NSMutableDictionary *) implementationMap
 {
-	NSMutableDictionary *impsMap = objc_getAssociatedObject(self, &A2DynamicDelegateImplementationsMapKey);
+	NSMutableDictionary *impsMap = objc_getAssociatedObject(self, _cmd);
 	if (!impsMap)
 	{
 		impsMap = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, &A2DynamicDelegateImplementationsMapKey, impsMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, _cmd, impsMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	return impsMap;
@@ -220,7 +219,7 @@ static dispatch_queue_t backgroundQueue = nil;
 	else
 	{
 		Class cls = isClassMethod ? object_getClass(self) : self;
-		A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock: block methodSignature: protoSig];
+		A2BlockClosure *closure = [[A2ArgumentsOnlyBlockClosure alloc] initWithBlock: block methodSignature: protoSig];
 		class_replaceMethod(cls, selector, closure.functionPointer, methodDescription.types);
 		[self.implementationMap setObject: closure forKey: key];
 		[closure release];

@@ -8,7 +8,6 @@
 
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
-#import "A2BlockImplementation.h"
 #import <objc/runtime.h>
 
 #if __has_attribute(objc_arc)
@@ -28,6 +27,8 @@ extern char *a2_property_copyAttributeValue(objc_property_t property, const char
 extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName) WEAK_IMPORT_ATTRIBUTE;
 extern SEL a2_getterForProperty(Class cls, NSString *propertyName);
 extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
+
+extern IMP a2_imp_implementationWithBlock (id block, const char *types);
 
 #pragma mark -
 
@@ -153,20 +154,20 @@ extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
 		SEL representedSelector = NSSelectorFromString(selectorName);
 		
 		SEL getter = a2_getterForProperty(self, propertyName);
+		const char *getterTypes = "@@:";
 		IMP getterImplementation = a2_imp_implementationWithBlock(^id (NSObject *obj) {
 			return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
-		});
-		const char *getterTypes = "@@:";
+		}, getterTypes);
 		BOOL success = class_addMethod(self, getter, getterImplementation, getterTypes);
 		NSAlwaysAssert(success, @"Could not implement getter for \"%@\" property.", propertyName);
 		
 		SEL setter = a2_setterForProperty(self, propertyName);
+		const char *setterTypes = "v@:@";
 		IMP setterImplementation = a2_imp_implementationWithBlock(^(NSObject *obj, id block) {
 			if ([obj respondsToSelector:@selector(a2_checkRegisteredProtocol:)])
 				[obj performSelector:@selector(a2_checkRegisteredProtocol:) withObject:protocol];
 			[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
-		});
-		const char *setterTypes = "v@:@";
+		}, setterTypes);
 		success = class_addMethod(self, setter, setterImplementation, setterTypes);
 		NSAlwaysAssert(success, @"Could not implement setter for \"%@\" property.", propertyName);
 	}];
