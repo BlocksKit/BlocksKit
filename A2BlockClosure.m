@@ -9,7 +9,6 @@
 #endif
 #import <objc/runtime.h>
 #import <ffi.h>
-#import <pthread.h>
 
 #pragma mark - Block Internals
 
@@ -67,18 +66,6 @@ typedef struct Block *BlockRef;
 #define NSAlwaysAssert(condition, desc, ...) \
 do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
 #endif
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_7
-extern IMP imp_implementationWithBlock(id block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-#else
-extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-#endif
-extern void *imp_getBlock(IMP anImp) WEAK_IMPORT_ATTRIBUTE;
-extern BOOL imp_removeBlock(IMP anImp) WEAK_IMPORT_ATTRIBUTE;
-
-IMP a2_imp_implementationWithBlock (id block, const char *types);
-id a2_imp_getBlock(IMP anImp);
-void a2_imp_removeBlock(IMP anImp);
 
 #pragma mark - Core Graphics FFI types
 
@@ -156,28 +143,13 @@ static inline const char *a2_skipStructName(const char *type) {
 
 #pragma mark - FFI closure functions
 
-@interface A2BlockClosure ()
-
-+ (void (*)(ffi_cif*, void*, void**, void*))invocationFunction;
-
-@property (nonatomic, readonly) ffi_cif *callInterface;
-
-@end
-
-static void a2_executeBlockImplementation(ffi_cif *cif, void *ret, void **args, void *userdata) {
-    A2BlockClosure *self = userdata;
-    BlockRef block = (void *)self.block;
-    args[1] = self.block;
-    ffi_call(self.callInterface, block->invoke, ret, args);
-}
-
 static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, void *userdata) {
     A2BlockClosure *self = userdata;
-    BlockRef block = (void *)self.block;
+    BlockRef block = (void *)(self->_block);
     
     void **innerArgs = args + 1;
-    innerArgs[0] = self.block;
-    ffi_call(self.callInterface, block->invoke, ret, innerArgs);
+    innerArgs[0] = block;
+    ffi_call(self->_blockCIF, block->invoke, ret, innerArgs);
 }
 
 static inline size_t a2_getStructSize(const char *encodingType) {
@@ -207,9 +179,6 @@ static inline size_t a2_getStructSize(const char *encodingType) {
 }
 
 - (ffi_type *) a2_typeForSignature:(const char *)argumentType {
-    
-    ffi_type *type = NULL;
-    
     switch (*argumentType) {
         case _C_ID:
         case _C_CLASS:
@@ -217,22 +186,22 @@ static inline size_t a2_getStructSize(const char *encodingType) {
         case _C_ATOM:
         case _C_CHARPTR:
         case _C_PTR:
-            type = &ffi_type_pointer; break;
+            return &ffi_type_pointer; break;
 		case _C_BOOL:
 		case _C_UCHR:
-            type = &ffi_type_uchar; break;
-        case _C_CHR: type = &ffi_type_schar; break;
-		case _C_SHT: type = &ffi_type_sshort; break;
-		case _C_USHT: type = &ffi_type_ushort; break;
-		case _C_INT: type = &ffi_type_sint; break;
-		case _C_UINT: type = &ffi_type_uint; break;
-		case _C_LNG: type = &ffi_type_slong; break;
-		case _C_ULNG: type = &ffi_type_ulong; break;
-		case _C_LNG_LNG: type = &ffi_type_sint64; break;
-		case _C_ULNG_LNG: type = &ffi_type_uint64; break;
-		case _C_FLT: type = &ffi_type_float; break;
-		case _C_DBL: type = &ffi_type_double; break;
-		case _C_VOID: type = &ffi_type_void; break;
+            return &ffi_type_uchar; break;
+        case _C_CHR: return &ffi_type_schar; break;
+		case _C_SHT: return &ffi_type_sshort; break;
+		case _C_USHT: return &ffi_type_ushort; break;
+		case _C_INT: return &ffi_type_sint; break;
+		case _C_UINT: return &ffi_type_uint; break;
+		case _C_LNG: return &ffi_type_slong; break;
+		case _C_ULNG: return &ffi_type_ulong; break;
+		case _C_LNG_LNG: return &ffi_type_sint64; break;
+		case _C_ULNG_LNG: return &ffi_type_uint64; break;
+		case _C_FLT: return &ffi_type_float; break;
+		case _C_DBL: return &ffi_type_double; break;
+		case _C_VOID: return &ffi_type_void; break;
         case _C_BFLD:
         case _C_ARY_B:
         {
@@ -242,13 +211,13 @@ static inline size_t a2_getStructSize(const char *encodingType) {
             
             if (size > 0) {
                 if (size == 1)
-                    type = &ffi_type_uchar;
+                    return &ffi_type_uchar;
                 else if (size == 2)
-                    type = &ffi_type_ushort;
+                    return &ffi_type_ushort;
                 else if (size <= 4)
-                    type = &ffi_type_uint; 
+                    return &ffi_type_uint; 
                 else {
-                    type = [self a2_allocate: sizeof(ffi_type)];
+                    ffi_type *type = [self a2_allocate: sizeof(ffi_type)];
                     type->size = size;
                     type->alignment = align;
                     type->type = FFI_TYPE_STRUCT;
@@ -256,6 +225,7 @@ static inline size_t a2_getStructSize(const char *encodingType) {
                     for (NSUInteger i = 0; i < size; i++)
                         type->elements[i] = &ffi_type_uchar;
                     type->elements[size] = NULL;
+                    return type;
                 }
                 break;
             }
@@ -263,25 +233,25 @@ static inline size_t a2_getStructSize(const char *encodingType) {
         case _C_STRUCT_B:
         {
             if (!strcmp(argumentType, @encode(NSRange))) {
-                type = &ffi_type_nsrange; break;
+                return &ffi_type_nsrange; break;
             } else if (!strcmp(argumentType, @encode(CGSize))) {
-                type = &ffi_type_cgsize; break;
+                return &ffi_type_cgsize; break;
             } else if (!strcmp(argumentType, @encode(CGPoint))) {
-                type = &ffi_type_cgpoint; break;
+                return &ffi_type_cgpoint; break;
             } else if (!strcmp(argumentType, @encode(CGRect))) {
-                type = &ffi_type_cgrect; break;
+                return &ffi_type_cgrect; break;
             }
 #if !TARGET_OS_MAC
-            else if (!strcmp(argumentType, @encode(NSSize))) {
-                type = &ffi_type_cgsize; break;
+            if (!strcmp(argumentType, @encode(NSSize))) {
+                return &ffi_type_cgsize; break;
             } else if (!strcmp(argumentType, @encode(NSPoint))) {
-                type = &ffi_type_cgpoint; break;
+                return &ffi_type_cgpoint; break;
             } else if (!strcmp(argumentType, @encode(NSRect))) {
-                type = &ffi_type_cgrect; break;
+                return &ffi_type_cgrect; break;
             }
 #endif
             
-            type = [self a2_allocate: sizeof(ffi_type)];
+            ffi_type *type = [self a2_allocate: sizeof(ffi_type)];
             type->size = 0;
             type->alignment = 0;
             type->type = FFI_TYPE_STRUCT;
@@ -294,38 +264,31 @@ static inline size_t a2_getStructSize(const char *encodingType) {
                 argumentType = NSGetSizeAndAlignment(argumentType, NULL, NULL);
                 index++;
             }
-            type->elements[index] = NULL;
+            
+            return type;
             
             break;
         }
         default:
         {
-            type = &ffi_type_void;
 			NSCAssert(0, @"Unknown type in sig");
+            return &ffi_type_void;
             break;
         }
     }
-    return type;
-}
-
-- (ffi_cif *)callInterface {
-    return _methodCIF;
-}
-
-+ (void (*)(ffi_cif*, void*, void**, void*))invocationFunction {
-    return a2_executeBlockImplementation;
 }
 
 - (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature
 {
+    NSAlwaysAssert(a2_blockIsCompatible(block, signature), @"Attempt to implement a method with incompatible block");
     if ((self = [super init]))
     {
         _allocations = [NSMutableArray new];
         _block = [block copy];
 		_closure = ffi_closure_alloc(sizeof(ffi_closure), &_functionPointer);
         
-        NSUInteger methodArgCount = signature.numberOfArguments;
-        ffi_cif methodCif;
+        NSUInteger methodArgCount = signature.numberOfArguments, blockArgCount = signature.numberOfArguments - 1;
+        ffi_cif methodCif, blockCif;
         
         ffi_type **methodArgs = [self a2_allocate: methodArgCount * sizeof(ffi_type *)];
         ffi_type *returnType = [self a2_typeForSignature: signature.methodReturnType];
@@ -336,14 +299,21 @@ static inline size_t a2_getStructSize(const char *encodingType) {
             methodArgs[i] = [self a2_typeForSignature: [signature getArgumentTypeAtIndex: i]];
         }
         
-        ffi_status status = ffi_prep_cif(&methodCif, FFI_DEFAULT_ABI, methodArgCount, returnType, methodArgs);
+        ffi_type **blockArgs = methodArgs + 1;
         
-        NSAlwaysAssert(status == FFI_OK, @"Unable to create function interface for block. %@ %@", [self class], self.block);
+        ffi_status methodStatus = ffi_prep_cif(&methodCif, FFI_DEFAULT_ABI, methodArgCount, returnType, methodArgs);
+        ffi_status blockStatus = ffi_prep_cif(&blockCif, FFI_DEFAULT_ABI, blockArgCount, returnType, blockArgs);
+        
+        NSAlwaysAssert(methodStatus == FFI_OK, @"Unable to create function interface for method. %@ %@", [self class], self.block);
+        NSAlwaysAssert(blockStatus == FFI_OK, @"Unable to create function interface for block. %@ %@", [self class], self.block);
         
         _methodCIF = malloc(sizeof(ffi_cif));
         *(ffi_cif *)_methodCIF = methodCif;
         
-        status = ffi_prep_closure_loc(_closure, _methodCIF, [[self class] invocationFunction], self, _functionPointer);
+        _blockCIF =  malloc(sizeof(ffi_cif));
+        *(ffi_cif *)_blockCIF = blockCif;
+        
+        ffi_status status = ffi_prep_closure_loc(_closure, _methodCIF, a2_executeArgumentsOnlyBlock, self, _functionPointer);
         
         NSAlwaysAssert(status == FFI_OK, @"Unable to create function closure for block. %@ %@", [self class], self.block);
     }
@@ -356,127 +326,11 @@ static inline size_t a2_getStructSize(const char *encodingType) {
         ffi_closure_free(_closure);
     if (_methodCIF)
         free(_methodCIF);
-    if (_allocations)
-        [_allocations release];
+    if (_blockCIF)
+        free(_blockCIF);
+    [_allocations release];
 	[_block release];
     [super dealloc];
 }
 
 @end
-
-@implementation A2ArgumentsOnlyBlockClosure
-
-- (ffi_cif *)callInterface {
-    return _blockCIF;
-}
-
-+ (void (*)(ffi_cif*, void*, void**, void*))invocationFunction {
-    return a2_executeArgumentsOnlyBlock;
-}
-
-- (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature
-{
-    NSAlwaysAssert(a2_blockIsCompatible(block, signature), @"Attempt to implement a method with incompatible block");
-    if ((self = [super initWithBlock: block methodSignature: signature]))
-    {
-        ffi_cif blockCif;
-        NSUInteger blockArgCount = signature.numberOfArguments - 1;
-        ffi_type *returnType = (((ffi_cif *)_methodCIF)->rtype);
-        ffi_type **blockArgs = (((ffi_cif *)_methodCIF)->arg_types) + 1;
-        
-        ffi_status status = ffi_prep_cif(&blockCif, FFI_DEFAULT_ABI, blockArgCount, returnType, blockArgs);
-        NSAlwaysAssert(status == FFI_OK, @"Unable to create function interface for block. %@ %@", [self class], self.block);
-        
-        _blockCIF =  malloc(sizeof(ffi_cif));
-        *(ffi_cif *)_blockCIF = blockCif;
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    free(_blockCIF);
-    [super dealloc];
-}
-
-@end
-
-#pragma mark - imp_implementationWithBlock wrapper
-
-static pthread_mutex_t _blockImplementationLock = PTHREAD_MUTEX_INITIALIZER;
-static NSMutableDictionary *_blockImplementations = nil;
-
-IMP a2_imp_implementationWithBlock (id block, const char *types) {
-    // Prefer Apple's implementation
-	if (&imp_implementationWithBlock != NULL) {
-		block = [[block copy] autorelease];
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_7
-		return imp_implementationWithBlock( block );
-#else
-		return imp_implementationWithBlock( (void *) block );
-#endif
-	}
-	
-	if (!block || !types)
-		return NULL;
-	
-    IMP implementation = NULL;
-    
-    pthread_mutex_lock(&_blockImplementationLock);
-    
-    if (!_blockImplementations)
-        _blockImplementations = [NSMutableDictionary new];
-    
-    NSMethodSignature *signature = [NSMethodSignature signatureWithObjCTypes: types];
-    A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock: block methodSignature: signature];
-    implementation = closure.functionPointer;
-    [_blockImplementations setObject: closure forKey: [NSValue valueWithPointer: implementation]];
-    [closure release];
-    
-    pthread_mutex_unlock(&_blockImplementationLock);
-    
-    return implementation;
-}
-
-id a2_imp_getBlock(IMP anImp) {
-    // Prefer Apple's implementation
-    if (&imp_getBlock != NULL) {
-        return (id)imp_getBlock(anImp);
-    }
-	
-	if (!anImp)
-		return nil;
-	
-    id block = nil;
-    
-    pthread_mutex_lock(&_blockImplementationLock);
-    
-    if (_blockImplementations) {
-        A2BlockClosure *closure = [_blockImplementations objectForKey: [NSValue valueWithPointer: anImp]];
-        block = closure.block;
-    }
-    
-    pthread_mutex_unlock(&_blockImplementationLock);
-    
-    return block;
-}
-
-void a2_imp_removeBlock(IMP anImp) {
-    // Prefer Apple's implementation
-    if (&imp_removeBlock != NULL) {
-        imp_removeBlock(anImp);
-    }
-	
-	if (!anImp)
-		return;
-    
-    pthread_mutex_lock(&_blockImplementationLock);
-    
-    if (_blockImplementations) {
-        [_blockImplementations removeObjectForKey: [NSValue valueWithPointer: anImp]];
-    }
-    
-    pthread_mutex_unlock(&_blockImplementationLock);
-    
-    
-}

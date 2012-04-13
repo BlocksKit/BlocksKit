@@ -22,13 +22,21 @@
 void *A2BlockDelegateProtocolsKey;
 void *A2BlockDelegateMapKey;
 
-// Function Declarations
-extern char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
-extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName) WEAK_IMPORT_ATTRIBUTE;
-extern SEL a2_getterForProperty(Class cls, NSString *propertyName);
-extern SEL a2_setterForProperty(Class cls, NSString *propertyName);
+// Block Property Accessors
+static id a2_blockPropertyGetter(NSObject *self, SEL _cmd);
+static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block);
 
-extern IMP a2_imp_implementationWithBlock (id block, const char *types);
+// Function Declarations
+static char *a2_property_copyAttributeValue(objc_property_t property, const char *attributeName);
+extern char *property_copyAttributeValue(objc_property_t property, const char *attributeName) WEAK_IMPORT_ATTRIBUTE;
+static SEL a2_getterForProperty(Class cls, NSString *propertyName);
+static SEL a2_setterForProperty(Class cls, NSString *propertyName);
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_7
+extern IMP imp_implementationWithBlock(id block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+#else
+extern IMP imp_implementationWithBlock(void *block) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+#endif
 
 #pragma mark -
 
@@ -42,6 +50,8 @@ extern IMP a2_imp_implementationWithBlock (id block, const char *types);
 + (NSMutableDictionary *) a2_selectorCacheForProtocol: (Protocol *) protocol;
 
 + (NSMutableSet *) a2_protocols;
+
++ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector;
 
 @end
 
@@ -102,6 +112,76 @@ extern IMP a2_imp_implementationWithBlock (id block, const char *types);
 	return protocols;
 }
 
++ (BOOL) a2_getProtocol: (Protocol **) _protocol representedSelector: (SEL *) _representedSelector forPropertyAccessor: (SEL) selector
+{
+    __block BOOL found = NO;
+    
+    [[self a2_protocols] enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
+        NSString *representedName = [[self a2_selectorCacheForProtocol: protocol] objectForKey: NSStringFromSelector(selector)];
+        
+        if (representedName)
+        {
+            *_representedSelector = NSSelectorFromString(representedName);
+            *_protocol = protocol;
+            found = *stop = YES;
+        }
+    }];
+    
+    if (found) return YES;
+    
+    NSString *propertyName = NSStringFromSelector(selector);
+    if ([propertyName hasPrefix: @"set"])
+    {
+        unichar firstChar = [propertyName characterAtIndex: 3];
+        NSString *coda = [propertyName substringWithRange: NSMakeRange(4, propertyName.length - 5)]; // -5 to remove trailing ':'
+        propertyName = [NSString stringWithFormat: @"%c%@", tolower(firstChar), coda];
+    }
+    
+    if (!class_getProperty(self, propertyName.UTF8String))
+    {
+        // It's not a simple -xBlock/setXBlock: pair
+        
+        // If selector ends in ':', it's a setter.
+        const BOOL isSetter = [NSStringFromSelector(selector) hasSuffix: @":"];
+        const char *key = (isSetter ? "S" : "G");
+        
+        unsigned int i, count;
+        objc_property_t *properties = class_copyPropertyList(self, &count);
+        
+        for (i = 0; i < count; ++i)
+        {
+            objc_property_t property = properties[i];
+            
+            char *accessorName = a2_property_copyAttributeValue(property, key);
+            SEL accessor = sel_getUid(accessorName);
+            if (sel_isEqual(selector, accessor))
+            {
+                propertyName = [NSString stringWithUTF8String: property_getName(property)];
+                break; // from for-loop
+            }
+            
+            free(accessorName);
+        }
+        
+        free(properties);
+    }
+    
+    if (!propertyName) return NO;
+    
+    [[self a2_protocols] enumerateObjectsUsingBlock: ^(Protocol *protocol, BOOL *stop) {
+        NSString *selectorName = [[self a2_propertyMapForProtocol: protocol] objectForKey: propertyName];
+        if (!selectorName) return;
+        
+        [[self a2_selectorCacheForProtocol: protocol] setObject: selectorName forKey: NSStringFromSelector(selector)];
+        
+        *_representedSelector = NSSelectorFromString(selectorName);
+        *_protocol = protocol;
+        found = *stop = YES;
+    }];
+    
+    return found;
+}
+
 #pragma mark Data Source
 
 + (void) linkCategoryBlockProperty: (NSString *) propertyName withDataSourceMethod: (SEL) selector
@@ -154,20 +234,30 @@ extern IMP a2_imp_implementationWithBlock (id block, const char *types);
 		SEL representedSelector = NSSelectorFromString(selectorName);
 		
 		SEL getter = a2_getterForProperty(self, propertyName);
+        IMP getterImplementation = NULL;
+        if (&imp_implementationWithBlock != NULL) {
+            getterImplementation = imp_implementationWithBlock( (void *) [[^id (NSObject *obj) {
+                return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
+            } copy] autorelease]);
+        } else {
+            getterImplementation = (IMP) a2_blockPropertyGetter;
+        }
 		const char *getterTypes = "@@:";
-		IMP getterImplementation = a2_imp_implementationWithBlock(^id (NSObject *obj) {
-			return [[obj dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
-		}, getterTypes);
 		BOOL success = class_addMethod(self, getter, getterImplementation, getterTypes);
 		NSAlwaysAssert(success, @"Could not implement getter for \"%@\" property.", propertyName);
 		
 		SEL setter = a2_setterForProperty(self, propertyName);
+        IMP setterImplementation = NULL;
+        if (&imp_implementationWithBlock != NULL) {
+            setterImplementation = imp_implementationWithBlock( (void *) [[^(NSObject *obj, id block) {
+                if ([obj respondsToSelector:@selector(a2_checkRegisteredProtocol:)])
+                    [obj performSelector:@selector(a2_checkRegisteredProtocol:) withObject:protocol];
+                [[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
+            } copy] autorelease]);
+        } else {
+            setterImplementation = (IMP) a2_blockPropertySetter;
+        }
 		const char *setterTypes = "v@:@";
-		IMP setterImplementation = a2_imp_implementationWithBlock(^(NSObject *obj, id block) {
-			if ([obj respondsToSelector:@selector(a2_checkRegisteredProtocol:)])
-				[obj performSelector:@selector(a2_checkRegisteredProtocol:) withObject:protocol];
-			[[obj dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
-		}, setterTypes);
 		success = class_addMethod(self, setter, setterImplementation, setterTypes);
 		NSAlwaysAssert(success, @"Could not implement setter for \"%@\" property.", propertyName);
 	}];
@@ -179,7 +269,7 @@ extern IMP a2_imp_implementationWithBlock (id block, const char *types);
 
 #pragma mark - Functions
 
-SEL a2_getterForProperty(Class cls, NSString *propertyName)
+static SEL a2_getterForProperty(Class cls, NSString *propertyName)
 {
 	SEL getter = NULL;
 	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
@@ -333,4 +423,24 @@ static char *a2_property_copyAttributeValue(objc_property_t property, const char
         return YES;
     });
     return result;
+}
+
+static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
+{
+    Protocol *protocol;
+	SEL representedSelector;
+	if (![self.class a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: _cmd])
+		return nil;
+    
+	return [[self dynamicDelegateForProtocol: protocol] blockImplementationForMethod: representedSelector];
+}
+static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
+{
+    Protocol *protocol;
+	SEL representedSelector;
+	if (![self.class a2_getProtocol: &protocol representedSelector: &representedSelector forPropertyAccessor: _cmd])
+		return;
+    
+	[[self dynamicDelegateForProtocol: protocol] implementMethod: representedSelector withBlock: block];
+
 }

@@ -10,6 +10,7 @@
     NSMutableArray *_allocations;
     id _block;
     void *_methodCIF;
+    void *_blockCIF;
     void *_closure;
     void *_functionPointer;
 }
@@ -18,11 +19,5 @@
 
 @property (nonatomic, readonly) id block;
 @property (nonatomic, readonly) void *functionPointer;
-
-@end
-
-@interface A2ArgumentsOnlyBlockClosure : A2BlockClosure {
-    void *_blockCIF;
-}
 
 @end
