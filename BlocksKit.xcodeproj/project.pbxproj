@@ -77,10 +77,6 @@
 		6C18DEC515386C1C00BE7F47 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF115386C1C00BE7F47 /* closures.c */; };
 		6C18DEC615386C1C00BE7F47 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF115386C1C00BE7F47 /* closures.c */; };
 		6C18DEC715386C1C00BE7F47 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF115386C1C00BE7F47 /* closures.c */; };
-		6C18DED015386C1C00BE7F47 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF415386C1C00BE7F47 /* java_raw_api.c */; };
-		6C18DED115386C1C00BE7F47 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF415386C1C00BE7F47 /* java_raw_api.c */; };
-		6C18DED215386C1C00BE7F47 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF415386C1C00BE7F47 /* java_raw_api.c */; };
-		6C18DED315386C1C00BE7F47 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF415386C1C00BE7F47 /* java_raw_api.c */; };
 		6C18DED415386C1C00BE7F47 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF515386C1C00BE7F47 /* prep_cif.c */; };
 		6C18DED515386C1C00BE7F47 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF515386C1C00BE7F47 /* prep_cif.c */; };
 		6C18DED615386C1C00BE7F47 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF515386C1C00BE7F47 /* prep_cif.c */; };
@@ -366,7 +362,6 @@
 		6C18DD9C15386C1C00BE7F47 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
 		6C18DD9D15386C1C00BE7F47 /* ffi64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi64.c; sourceTree = "<group>"; };
 		6C18DDF115386C1C00BE7F47 /* closures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = closures.c; sourceTree = "<group>"; };
-		6C18DDF415386C1C00BE7F47 /* java_raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = java_raw_api.c; sourceTree = "<group>"; };
 		6C18DDF515386C1C00BE7F47 /* prep_cif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prep_cif.c; sourceTree = "<group>"; };
 		6C18DDF615386C1C00BE7F47 /* raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_api.c; sourceTree = "<group>"; };
 		6C18DDF715386C1C00BE7F47 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
@@ -648,7 +643,6 @@
 			isa = PBXGroup;
 			children = (
 				6C18DDF115386C1C00BE7F47 /* closures.c */,
-				6C18DDF415386C1C00BE7F47 /* java_raw_api.c */,
 				6C18DDF515386C1C00BE7F47 /* prep_cif.c */,
 				6C18DDF615386C1C00BE7F47 /* raw_api.c */,
 				6C18DDF715386C1C00BE7F47 /* types.c */,
@@ -1178,7 +1172,6 @@
 				6C18DE3115386C1C00BE7F47 /* darwin.S in Sources */,
 				6C18DE3515386C1C00BE7F47 /* ffi.c in Sources */,
 				6C18DEC415386C1C00BE7F47 /* closures.c in Sources */,
-				6C18DED015386C1C00BE7F47 /* java_raw_api.c in Sources */,
 				6C18DED415386C1C00BE7F47 /* prep_cif.c in Sources */,
 				6C18DED815386C1C00BE7F47 /* raw_api.c in Sources */,
 				6C18DEDC15386C1C00BE7F47 /* types.c in Sources */,
@@ -1213,7 +1206,6 @@
 				6C18DE6D15386C1C00BE7F47 /* ffi.c in Sources */,
 				6C18DE7115386C1C00BE7F47 /* ffi64.c in Sources */,
 				6C18DEC615386C1C00BE7F47 /* closures.c in Sources */,
-				6C18DED215386C1C00BE7F47 /* java_raw_api.c in Sources */,
 				6C18DED615386C1C00BE7F47 /* prep_cif.c in Sources */,
 				6C18DEDA15386C1C00BE7F47 /* raw_api.c in Sources */,
 				6C18DEDE15386C1C00BE7F47 /* types.c in Sources */,
@@ -1256,7 +1248,6 @@
 				6C18DE6E15386C1C00BE7F47 /* ffi.c in Sources */,
 				6C18DE7215386C1C00BE7F47 /* ffi64.c in Sources */,
 				6C18DEC715386C1C00BE7F47 /* closures.c in Sources */,
-				6C18DED315386C1C00BE7F47 /* java_raw_api.c in Sources */,
 				6C18DED715386C1C00BE7F47 /* prep_cif.c in Sources */,
 				6C18DEDB15386C1C00BE7F47 /* raw_api.c in Sources */,
 				6C18DEDF15386C1C00BE7F47 /* types.c in Sources */,
@@ -1291,7 +1282,6 @@
 				6C18DE6C15386C1C00BE7F47 /* ffi.c in Sources */,
 				6C18DE7015386C1C00BE7F47 /* ffi64.c in Sources */,
 				6C18DEC515386C1C00BE7F47 /* closures.c in Sources */,
-				6C18DED115386C1C00BE7F47 /* java_raw_api.c in Sources */,
 				6C18DED515386C1C00BE7F47 /* prep_cif.c in Sources */,
 				6C18DED915386C1C00BE7F47 /* raw_api.c in Sources */,
 				6C18DEDD15386C1C00BE7F47 /* types.c in Sources */,
