@@ -48,6 +48,51 @@
 		60FF002513C02863004A1394 /* NSArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */; };
 		60FF002913C03199004A1394 /* libBlocksKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */; };
 		6C145417138497D50067A56E /* BKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C18DD6715386C0E00BE7F47 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C18DD6515386C0E00BE7F47 /* A2BlockClosure.h */; };
+		6C18DD6815386C0E00BE7F47 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C18DD6515386C0E00BE7F47 /* A2BlockClosure.h */; };
+		6C18DD6915386C0E00BE7F47 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C18DD6515386C0E00BE7F47 /* A2BlockClosure.h */; };
+		6C18DD6A15386C0E00BE7F47 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C18DD6515386C0E00BE7F47 /* A2BlockClosure.h */; };
+		6C18DD6B15386C0E00BE7F47 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD6615386C0E00BE7F47 /* A2BlockClosure.m */; };
+		6C18DD6C15386C0E00BE7F47 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD6615386C0E00BE7F47 /* A2BlockClosure.m */; };
+		6C18DD6D15386C0E00BE7F47 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD6615386C0E00BE7F47 /* A2BlockClosure.m */; };
+		6C18DD6E15386C0E00BE7F47 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD6615386C0E00BE7F47 /* A2BlockClosure.m */; };
+		6C18DE2515386C1C00BE7F47 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD8115386C1C00BE7F47 /* ffi.c */; };
+		6C18DE2915386C1C00BE7F47 /* sysv.S in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD8215386C1C00BE7F47 /* sysv.S */; };
+		6C18DE2D15386C1C00BE7F47 /* trampoline.S in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD8315386C1C00BE7F47 /* trampoline.S */; };
+		6C18DE3115386C1C00BE7F47 /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD8515386C1C00BE7F47 /* darwin.S */; };
+		6C18DE3515386C1C00BE7F47 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD8615386C1C00BE7F47 /* ffi.c */; };
+		6C18DE6415386C1C00BE7F47 /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9A15386C1C00BE7F47 /* darwin.S */; };
+		6C18DE6515386C1C00BE7F47 /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9A15386C1C00BE7F47 /* darwin.S */; };
+		6C18DE6615386C1C00BE7F47 /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9A15386C1C00BE7F47 /* darwin.S */; };
+		6C18DE6815386C1C00BE7F47 /* darwin64.S in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9B15386C1C00BE7F47 /* darwin64.S */; };
+		6C18DE6915386C1C00BE7F47 /* darwin64.S in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9B15386C1C00BE7F47 /* darwin64.S */; };
+		6C18DE6A15386C1C00BE7F47 /* darwin64.S in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9B15386C1C00BE7F47 /* darwin64.S */; };
+		6C18DE6C15386C1C00BE7F47 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9C15386C1C00BE7F47 /* ffi.c */; };
+		6C18DE6D15386C1C00BE7F47 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9C15386C1C00BE7F47 /* ffi.c */; };
+		6C18DE6E15386C1C00BE7F47 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9C15386C1C00BE7F47 /* ffi.c */; };
+		6C18DE7015386C1C00BE7F47 /* ffi64.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9D15386C1C00BE7F47 /* ffi64.c */; };
+		6C18DE7115386C1C00BE7F47 /* ffi64.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9D15386C1C00BE7F47 /* ffi64.c */; };
+		6C18DE7215386C1C00BE7F47 /* ffi64.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DD9D15386C1C00BE7F47 /* ffi64.c */; };
+		6C18DEC415386C1C00BE7F47 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF115386C1C00BE7F47 /* closures.c */; };
+		6C18DEC515386C1C00BE7F47 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF115386C1C00BE7F47 /* closures.c */; };
+		6C18DEC615386C1C00BE7F47 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF115386C1C00BE7F47 /* closures.c */; };
+		6C18DEC715386C1C00BE7F47 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF115386C1C00BE7F47 /* closures.c */; };
+		6C18DED015386C1C00BE7F47 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF415386C1C00BE7F47 /* java_raw_api.c */; };
+		6C18DED115386C1C00BE7F47 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF415386C1C00BE7F47 /* java_raw_api.c */; };
+		6C18DED215386C1C00BE7F47 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF415386C1C00BE7F47 /* java_raw_api.c */; };
+		6C18DED315386C1C00BE7F47 /* java_raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF415386C1C00BE7F47 /* java_raw_api.c */; };
+		6C18DED415386C1C00BE7F47 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF515386C1C00BE7F47 /* prep_cif.c */; };
+		6C18DED515386C1C00BE7F47 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF515386C1C00BE7F47 /* prep_cif.c */; };
+		6C18DED615386C1C00BE7F47 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF515386C1C00BE7F47 /* prep_cif.c */; };
+		6C18DED715386C1C00BE7F47 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF515386C1C00BE7F47 /* prep_cif.c */; };
+		6C18DED815386C1C00BE7F47 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF615386C1C00BE7F47 /* raw_api.c */; };
+		6C18DED915386C1C00BE7F47 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF615386C1C00BE7F47 /* raw_api.c */; };
+		6C18DEDA15386C1C00BE7F47 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF615386C1C00BE7F47 /* raw_api.c */; };
+		6C18DEDB15386C1C00BE7F47 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF615386C1C00BE7F47 /* raw_api.c */; };
+		6C18DEDC15386C1C00BE7F47 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF715386C1C00BE7F47 /* types.c */; };
+		6C18DEDD15386C1C00BE7F47 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF715386C1C00BE7F47 /* types.c */; };
+		6C18DEDE15386C1C00BE7F47 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF715386C1C00BE7F47 /* types.c */; };
+		6C18DEDF15386C1C00BE7F47 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C18DDF715386C1C00BE7F47 /* types.c */; };
 		6C2427F313C5653E0016A271 /* NSMutableArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C2427F413C5653E0016A271 /* NSMutableArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C2427F513C5653E0016A271 /* NSMutableArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -309,6 +354,22 @@
 		60FF002313C02863004A1394 /* NSArrayBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSArrayBlocksKitTest.h; sourceTree = "<group>"; };
 		60FF002413C02863004A1394 /* NSArrayBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayBlocksKitTest.m; sourceTree = "<group>"; };
 		6C145416138497D40067A56E /* BKGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKGlobals.h; sourceTree = "<group>"; };
+		6C18DD6515386C0E00BE7F47 /* A2BlockClosure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = A2BlockClosure.h; path = A2DynamicDelegate/A2BlockClosure.h; sourceTree = SOURCE_ROOT; };
+		6C18DD6615386C0E00BE7F47 /* A2BlockClosure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = A2BlockClosure.m; path = A2DynamicDelegate/A2BlockClosure.m; sourceTree = SOURCE_ROOT; };
+		6C18DD8115386C1C00BE7F47 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
+		6C18DD8215386C1C00BE7F47 /* sysv.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = sysv.S; sourceTree = "<group>"; };
+		6C18DD8315386C1C00BE7F47 /* trampoline.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = trampoline.S; sourceTree = "<group>"; };
+		6C18DD8515386C1C00BE7F47 /* darwin.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin.S; sourceTree = "<group>"; };
+		6C18DD8615386C1C00BE7F47 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
+		6C18DD9A15386C1C00BE7F47 /* darwin.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin.S; sourceTree = "<group>"; };
+		6C18DD9B15386C1C00BE7F47 /* darwin64.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin64.S; sourceTree = "<group>"; };
+		6C18DD9C15386C1C00BE7F47 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
+		6C18DD9D15386C1C00BE7F47 /* ffi64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi64.c; sourceTree = "<group>"; };
+		6C18DDF115386C1C00BE7F47 /* closures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = closures.c; sourceTree = "<group>"; };
+		6C18DDF415386C1C00BE7F47 /* java_raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = java_raw_api.c; sourceTree = "<group>"; };
+		6C18DDF515386C1C00BE7F47 /* prep_cif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prep_cif.c; sourceTree = "<group>"; };
+		6C18DDF615386C1C00BE7F47 /* raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_api.c; sourceTree = "<group>"; };
+		6C18DDF715386C1C00BE7F47 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
 		6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+BlocksKit.h"; sourceTree = "<group>"; };
 		6C2427F213C5653E0016A271 /* NSMutableArray+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+BlocksKit.m"; sourceTree = "<group>"; };
 		6C2427FA13C565530016A271 /* NSMutableSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableSet+BlocksKit.h"; sourceTree = "<group>"; };
@@ -522,6 +583,79 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6C18DD7015386C1C00BE7F47 /* libffi */ = {
+			isa = PBXGroup;
+			children = (
+				6C18DD7315386C1C00BE7F47 /* ios */,
+				6C18DD8C15386C1C00BE7F47 /* osx */,
+				6C18DDF015386C1C00BE7F47 /* src */,
+			);
+			name = libffi;
+			path = A2DynamicDelegate/libffi;
+			sourceTree = SOURCE_ROOT;
+		};
+		6C18DD7315386C1C00BE7F47 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				6C18DD8015386C1C00BE7F47 /* arm */,
+				6C18DD8415386C1C00BE7F47 /* x86 */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		6C18DD8015386C1C00BE7F47 /* arm */ = {
+			isa = PBXGroup;
+			children = (
+				6C18DD8115386C1C00BE7F47 /* ffi.c */,
+				6C18DD8215386C1C00BE7F47 /* sysv.S */,
+				6C18DD8315386C1C00BE7F47 /* trampoline.S */,
+			);
+			name = arm;
+			path = src/arm;
+			sourceTree = "<group>";
+		};
+		6C18DD8415386C1C00BE7F47 /* x86 */ = {
+			isa = PBXGroup;
+			children = (
+				6C18DD8515386C1C00BE7F47 /* darwin.S */,
+				6C18DD8615386C1C00BE7F47 /* ffi.c */,
+			);
+			name = x86;
+			path = src/x86;
+			sourceTree = "<group>";
+		};
+		6C18DD8C15386C1C00BE7F47 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				6C18DD9915386C1C00BE7F47 /* x86 */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		6C18DD9915386C1C00BE7F47 /* x86 */ = {
+			isa = PBXGroup;
+			children = (
+				6C18DD9A15386C1C00BE7F47 /* darwin.S */,
+				6C18DD9B15386C1C00BE7F47 /* darwin64.S */,
+				6C18DD9C15386C1C00BE7F47 /* ffi.c */,
+				6C18DD9D15386C1C00BE7F47 /* ffi64.c */,
+			);
+			name = x86;
+			path = src/x86;
+			sourceTree = "<group>";
+		};
+		6C18DDF015386C1C00BE7F47 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6C18DDF115386C1C00BE7F47 /* closures.c */,
+				6C18DDF415386C1C00BE7F47 /* java_raw_api.c */,
+				6C18DDF515386C1C00BE7F47 /* prep_cif.c */,
+				6C18DDF615386C1C00BE7F47 /* raw_api.c */,
+				6C18DDF715386C1C00BE7F47 /* types.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		6C3DBF821382F1BA00E6C9AA = {
 			isa = PBXGroup;
 			children = (
@@ -655,6 +789,9 @@
 		6CE3825514A2652300921B80 /* A2DynamicDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				6C18DD7015386C1C00BE7F47 /* libffi */,
+				6C18DD6515386C0E00BE7F47 /* A2BlockClosure.h */,
+				6C18DD6615386C0E00BE7F47 /* A2BlockClosure.m */,
 				6CE3825614A2653500921B80 /* A2BlockDelegate.h */,
 				6CE3825714A2653500921B80 /* A2BlockDelegate.m */,
 				6CE3825814A2653500921B80 /* A2DynamicDelegate.h */,
@@ -701,6 +838,7 @@
 				6CE3825C14A2653500921B80 /* A2BlockDelegate.h in Headers */,
 				6CE3826614A2653500921B80 /* A2DynamicDelegate.h in Headers */,
 				00D28ACC14AAC47800ECB62C /* UIPopoverController+BlocksKit.h in Headers */,
+				6C18DD6715386C0E00BE7F47 /* A2BlockClosure.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +867,7 @@
 				6C386845149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
 				6CE3825D14A2653500921B80 /* A2BlockDelegate.h in Headers */,
 				6CE3826714A2653500921B80 /* A2DynamicDelegate.h in Headers */,
+				6C18DD6915386C0E00BE7F47 /* A2BlockClosure.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -765,6 +904,7 @@
 				6CE3825E14A2653500921B80 /* A2BlockDelegate.h in Headers */,
 				6CE3826814A2653500921B80 /* A2DynamicDelegate.h in Headers */,
 				00D28ACD14AAC47800ECB62C /* UIPopoverController+BlocksKit.h in Headers */,
+				6C18DD6A15386C0E00BE7F47 /* A2BlockClosure.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,6 +933,7 @@
 				6C386843149D8F3600BD716C /* A2BlockDelegate+BlocksKit.h in Headers */,
 				6CE3825B14A2653500921B80 /* A2BlockDelegate.h in Headers */,
 				6CE3826514A2653500921B80 /* A2DynamicDelegate.h in Headers */,
+				6C18DD6815386C0E00BE7F47 /* A2BlockClosure.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1030,6 +1171,17 @@
 				6CE3826114A2653500921B80 /* A2BlockDelegate.m in Sources */,
 				6CE3826B14A2653500921B80 /* A2DynamicDelegate.m in Sources */,
 				00D28ACE14AAC48600ECB62C /* UIPopoverController+BlocksKit.m in Sources */,
+				6C18DD6B15386C0E00BE7F47 /* A2BlockClosure.m in Sources */,
+				6C18DE2515386C1C00BE7F47 /* ffi.c in Sources */,
+				6C18DE2915386C1C00BE7F47 /* sysv.S in Sources */,
+				6C18DE2D15386C1C00BE7F47 /* trampoline.S in Sources */,
+				6C18DE3115386C1C00BE7F47 /* darwin.S in Sources */,
+				6C18DE3515386C1C00BE7F47 /* ffi.c in Sources */,
+				6C18DEC415386C1C00BE7F47 /* closures.c in Sources */,
+				6C18DED015386C1C00BE7F47 /* java_raw_api.c in Sources */,
+				6C18DED415386C1C00BE7F47 /* prep_cif.c in Sources */,
+				6C18DED815386C1C00BE7F47 /* raw_api.c in Sources */,
+				6C18DEDC15386C1C00BE7F47 /* types.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,6 +1207,16 @@
 				6C38684A149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
 				6CE3826214A2653500921B80 /* A2BlockDelegate.m in Sources */,
 				6CE3826C14A2653500921B80 /* A2DynamicDelegate.m in Sources */,
+				6C18DD6D15386C0E00BE7F47 /* A2BlockClosure.m in Sources */,
+				6C18DE6515386C1C00BE7F47 /* darwin.S in Sources */,
+				6C18DE6915386C1C00BE7F47 /* darwin64.S in Sources */,
+				6C18DE6D15386C1C00BE7F47 /* ffi.c in Sources */,
+				6C18DE7115386C1C00BE7F47 /* ffi64.c in Sources */,
+				6C18DEC615386C1C00BE7F47 /* closures.c in Sources */,
+				6C18DED215386C1C00BE7F47 /* java_raw_api.c in Sources */,
+				6C18DED615386C1C00BE7F47 /* prep_cif.c in Sources */,
+				6C18DEDA15386C1C00BE7F47 /* raw_api.c in Sources */,
+				6C18DEDE15386C1C00BE7F47 /* types.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,6 +1250,16 @@
 				6CE3826314A2653500921B80 /* A2BlockDelegate.m in Sources */,
 				6CE3826D14A2653500921B80 /* A2DynamicDelegate.m in Sources */,
 				00D28ACF14AAC48700ECB62C /* UIPopoverController+BlocksKit.m in Sources */,
+				6C18DD6E15386C0E00BE7F47 /* A2BlockClosure.m in Sources */,
+				6C18DE6615386C1C00BE7F47 /* darwin.S in Sources */,
+				6C18DE6A15386C1C00BE7F47 /* darwin64.S in Sources */,
+				6C18DE6E15386C1C00BE7F47 /* ffi.c in Sources */,
+				6C18DE7215386C1C00BE7F47 /* ffi64.c in Sources */,
+				6C18DEC715386C1C00BE7F47 /* closures.c in Sources */,
+				6C18DED315386C1C00BE7F47 /* java_raw_api.c in Sources */,
+				6C18DED715386C1C00BE7F47 /* prep_cif.c in Sources */,
+				6C18DEDB15386C1C00BE7F47 /* raw_api.c in Sources */,
+				6C18DEDF15386C1C00BE7F47 /* types.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1113,6 +1285,16 @@
 				6C386848149D8F3600BD716C /* A2BlockDelegate+BlocksKit.m in Sources */,
 				6CE3826014A2653500921B80 /* A2BlockDelegate.m in Sources */,
 				6CE3826A14A2653500921B80 /* A2DynamicDelegate.m in Sources */,
+				6C18DD6C15386C0E00BE7F47 /* A2BlockClosure.m in Sources */,
+				6C18DE6415386C1C00BE7F47 /* darwin.S in Sources */,
+				6C18DE6815386C1C00BE7F47 /* darwin64.S in Sources */,
+				6C18DE6C15386C1C00BE7F47 /* ffi.c in Sources */,
+				6C18DE7015386C1C00BE7F47 /* ffi64.c in Sources */,
+				6C18DEC515386C1C00BE7F47 /* closures.c in Sources */,
+				6C18DED115386C1C00BE7F47 /* java_raw_api.c in Sources */,
+				6C18DED515386C1C00BE7F47 /* prep_cif.c in Sources */,
+				6C18DED915386C1C00BE7F47 /* raw_api.c in Sources */,
+				6C18DEDD15386C1C00BE7F47 /* types.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1163,6 +1345,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
+					"-Wl,-no_compact_unwind",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1188,6 +1371,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
+					"-Wl,-no_compact_unwind",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
@@ -1219,6 +1403,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -1246,6 +1431,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -1261,6 +1447,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_THUMB_SUPPORT = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/A2DynamicDelegate/libffi/ios/include",
+				);
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
@@ -1271,6 +1461,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_THUMB_SUPPORT = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/A2DynamicDelegate/libffi/ios/include",
+				);
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
@@ -1289,6 +1483,10 @@
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/A2DynamicDelegate/libffi/osx/include",
+				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
@@ -1311,6 +1509,10 @@
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/A2DynamicDelegate/libffi/osx/include",
+				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
@@ -1333,6 +1535,10 @@
 					"DEBUG=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/A2DynamicDelegate/libffi/osx/include",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				PRODUCT_NAME = BlocksKit_Chameleon;
@@ -1354,6 +1560,10 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = CHAMELEON;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/A2DynamicDelegate/libffi/osx/include",
+				);
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				PRODUCT_NAME = BlocksKit_Chameleon;
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
@@ -1373,6 +1583,10 @@
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/A2DynamicDelegate/libffi/osx/include",
+				);
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1394,6 +1608,10 @@
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/A2DynamicDelegate/libffi/osx/include",
+				);
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				SDKROOT = macosx;
