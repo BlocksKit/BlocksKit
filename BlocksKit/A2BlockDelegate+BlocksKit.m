@@ -27,6 +27,8 @@ static inline SEL a2_selector(SEL selector) {
 static void bk_blockDelegateSetter(id self, SEL _cmd, id delegate);
 static id bk_blockDelegateGetter(id self, SEL _cmd);
 
+static void *BKRealDelegateKey;
+
 #pragma mark -
 
 @interface NSObject (A2BlockDelegateBlocksKitPrivate)
@@ -47,31 +49,9 @@ static id bk_blockDelegateGetter(id self, SEL _cmd);
 	return [super forwardingTargetForSelector: aSelector];
 }
 
-- (NSMutableDictionary *)bk_realDelegates {
-	NSMutableDictionary *dict = objc_getAssociatedObject(self, _cmd);
-	if (!dict) {
-		dict = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, _cmd, dict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
-	return dict;
-}
-
 - (id) realDelegate
 {
-	return [self realDelegateNamed: @"delegate"];
-}
-
-- (id) realDataSource
-{
-	return [self realDelegateNamed: @"dataSource"];
-}
-
-- (id)realDelegateNamed: (NSString *) delegateName
-{
-	id object = [[self bk_realDelegates] objectForKey: delegateName];
-	if ([object isKindOfClass:[NSValue class]])
-		return [object nonretainedObjectValue];
-	return object;
+    return objc_getAssociatedObject(self, &BKRealDelegateKey);
 }
 
 @end
@@ -180,11 +160,11 @@ static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 	}
 	
 	if ([delegate isEqual: dynamicDelegate])
-        [[dynamicDelegate bk_realDelegates] removeObjectForKey: delegateName];
+        objc_setAssociatedObject(dynamicDelegate, &BKRealDelegateKey, nil, OBJC_ASSOCIATION_ASSIGN);
     else if ([delegate isEqual:self])
-        [[dynamicDelegate bk_realDelegates] setObject: [NSValue valueWithNonretainedObject: delegate] forKey: delegateName];
+        objc_setAssociatedObject(dynamicDelegate, &BKRealDelegateKey, delegate, OBJC_ASSOCIATION_ASSIGN);
     else
-        [[dynamicDelegate bk_realDelegates] setObject: delegate forKey: delegateName];
+        objc_setAssociatedObject(dynamicDelegate, &BKRealDelegateKey, delegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 static id bk_blockDelegateGetter(NSObject *self, SEL _cmd)
@@ -193,7 +173,7 @@ static id bk_blockDelegateGetter(NSObject *self, SEL _cmd)
 	NSString *protocolName = [[self.class bk_propertyMap] objectForKey: delegateName];
 	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: NSProtocolFromString(protocolName)];
     
-	return [dynamicDelegate realDelegateNamed: delegateName];
+	return dynamicDelegate.realDelegate;
 }
 
 BK_MAKE_CATEGORY_LOADABLE(NSObject_A2BlockDelegateBlocksKit)

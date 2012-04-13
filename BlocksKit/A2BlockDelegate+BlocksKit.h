@@ -78,19 +78,7 @@
  BlocksKit category, to access the original delegate. */
 @interface A2DynamicDelegate (A2BlockDelegate)
 
-/* A delegating object's original delegate. */
+/* A delegating object's original delegate, be it a delegate, dataSource, etc. */
 @property (nonatomic, readonly) id realDelegate;
-
-/* A delegating object's original data source. */
-@property (nonatomic, readonly) id realDataSource;
-
-/* A delegating object's original delegate,
- as determined by the name given.
- 
- @param delegateName The name of the class' delegation
- protocol property, such as `safeDelegate`. Must not be nil.
- @returns The original delegate. 
- */
-- (id)realDelegateNamed: (NSString *) delegateName;
 
 @end
