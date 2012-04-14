@@ -57,6 +57,9 @@ static char kResponseLengthKey;
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
+- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
+}
 @end
 
 @interface A2DynamicBKURLConnectionInformalDelegate : A2DynamicDelegate <BKURLConnectionInformalDelegate>
@@ -64,6 +67,19 @@ static char kResponseLengthKey;
 @end
 
 @implementation A2DynamicBKURLConnectionInformalDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    id realDelegate = self.realDelegate;
+    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
+        [realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
+}
+- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+    id realDelegate = self.realDelegate;
+    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
+        return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
+    
+    return NO;
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	id realDelegate = self.realDelegate;
@@ -151,6 +167,19 @@ static char kResponseLengthKey;
 @end
 
 @implementation A2DynamicNSURLConnectionDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    id realDelegate = self.realDelegate;
+    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
+        [realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
+}
+- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+    id realDelegate = self.realDelegate;
+    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
+        return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
+    
+    return NO;
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	id realDelegate = self.realDelegate;
