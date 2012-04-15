@@ -119,6 +119,10 @@ static dispatch_queue_t backgroundQueue = nil;
 	return [self.class instancesRespondToSelector: selector];
 }
 
++ (BOOL)conformsToProtocol:(Protocol *)protocol {
+    return (protocol_isEqual(protocol, self.protocol) || [super conformsToProtocol: protocol]);
+}
+
 #pragma mark Block Class Method Implementations
 
 - (id) blockImplementationForClassMethod: (SEL) selector
