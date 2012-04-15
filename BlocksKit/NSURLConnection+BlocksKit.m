@@ -59,7 +59,7 @@ static char kResponseLengthKey;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
 @end
 
-@interface A2DynamicBKURLConnectionInformalDelegate : A2DynamicDelegate <BKURLConnectionInformalDelegate>
+@interface A2DynamicBKURLConnectionInformalDelegate : A2DynamicDelegate
 
 @end
 
@@ -142,12 +142,7 @@ static char kResponseLengthKey;
 
 #pragma mark - NSURLConnectionDelegate - iOS 5.0 & Lion support
 
-
-#if (__IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_4_3) || (MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_6)
-@interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate <NSURLConnectionDataDelegate>
-#else
-@interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate <NSURLConnectionDelegate>
-#endif
+@interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate
 
 @end
 
@@ -270,7 +265,8 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	Protocol *delegateProtocol = objc_getProtocol("NSURLConnectionDelegate");
 	if (!delegateProtocol)
 		delegateProtocol = @protocol(BKURLConnectionInformalDelegate);
-	if ((self = [self initWithRequest:request delegate:[self dynamicDelegateForProtocol:delegateProtocol] startImmediately:NO]))
+    id dd = [self dynamicDelegateForProtocol:delegateProtocol];
+	if ((self = [self initWithRequest:request delegate:dd startImmediately:NO]))
 		self.successBlock = block;
 	return self;
 }

@@ -9,7 +9,7 @@
 
 #pragma mark Delegate
 
-@interface A2DynamicUIAlertViewDelegate : A2DynamicDelegate <UIAlertViewDelegate>
+@interface A2DynamicUIAlertViewDelegate : A2DynamicDelegate
 
 @end
 
