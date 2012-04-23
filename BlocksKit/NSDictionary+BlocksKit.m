@@ -23,17 +23,30 @@
 	}];
 }
 
+- (id)match:(BKKeyValueValidationBlock)block {
+	NSParameterAssert(block != nil);
+
+	id key = [[self keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
+		if (block(key, obj)) {
+			*stop = YES;
+			return YES;
+		}
+		return NO;
+	}] anyObject];
+	
+	return [self objectForKey:key];
+}
+
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	NSMutableDictionary *list = [NSMutableDictionary dictionaryWithCapacity:self.count];
+	NSArray *keys = [[self keysOfEntriesWithOptions:NSEnumerationConcurrent passingTest:^(id key, id obj, BOOL *stop) {
+		return block(key, obj);
+	}] allObjects];
 	
-	[self each:^(id key, id obj) {
-		if (block(key, obj))
-			[list setObject:obj forKey:key];
-	}];
+	NSArray *objects = [self objectsForKeys:keys notFoundMarker:[NSNull null]];
 	
-	return list;
+	return [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 }
 
 - (NSDictionary *)reject:(BKKeyValueValidationBlock)block {

@@ -10,13 +10,10 @@
 - (void)performSelect:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	NSMutableArray *keys = [NSMutableArray arrayWithCapacity:self.count];
+	NSArray *keys = [[self keysOfEntriesWithOptions:NSEnumerationConcurrent passingTest:^BOOL(id key, id obj, BOOL *stop) {
+		return !block(key, obj);
+	}] allObjects];
 	
-	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		if (!block(key, obj))
-			[keys addObject:key];
-	}];
-
 	[self removeObjectsForKeys:keys];
 }
 

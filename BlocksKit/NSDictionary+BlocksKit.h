@@ -40,6 +40,16 @@
  */
 - (void)apply:(BKKeyValueBlock)block;
 
+/** Loops through a dictionary to find the first key/value pair matching the block.
+ 
+ match: is functionally identical to select:, but will stop and return
+ the value on the first match.
+ 
+ @param block A BOOL-returning code block for a key/value pair.
+ @return The value of the first pair found;
+ */
+- (id)match:(BKKeyValueValidationBlock)block;
+
 /** Loops through a dictionary to find the key/value pairs matching the block.
  
  @param block A BOOL-returning code block for a key/value pair.
