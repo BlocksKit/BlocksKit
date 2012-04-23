@@ -393,18 +393,18 @@ static BOOL a2_informationForBlockProperty(Class cls, SEL selector, Protocol **o
 
 static id a2_blockPropertyGetter(NSObject *self, SEL _cmd)
 {
-    Protocol *protocol;
-	SEL selector;
-    if (!a2_informationForBlockProperty(self.class, _cmd, &protocol, &selector))
+	Protocol *protocol = NULL;
+	SEL selector = NULL;
+	if (!a2_informationForBlockProperty(self.class, _cmd, &protocol, &selector))
         return nil;
     
 	return [[self dynamicDelegateForProtocol: protocol] blockImplementationForMethod: selector];
 }
 static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 {
-    Protocol *protocol;
-	SEL selector;
-    if (!a2_informationForBlockProperty(self.class, _cmd, &protocol, &selector))
+	Protocol *protocol = NULL;
+	SEL selector = NULL;
+	if (!a2_informationForBlockProperty(self.class, _cmd, &protocol, &selector))
         return;
     
 	[[self dynamicDelegateForProtocol: protocol] implementMethod: selector withBlock: block];
