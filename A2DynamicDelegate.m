@@ -225,7 +225,7 @@ static dispatch_queue_t backgroundQueue = nil;
 	
 	if (isClassMethod ? [[self superclass] respondsToSelector: selector] : [[self superclass] instancesRespondToSelector: selector])
 	{
-		[self.blockMap setObject: block forKey: key];
+		[self.blockMap setObject: [[block copy] autorelease] forKey: key];
 	}
 	else
 	{
