@@ -406,6 +406,9 @@ static void a2_blockPropertySetter(NSObject *self, SEL _cmd, id block)
 	SEL selector = NULL;
 	if (!a2_informationForBlockProperty(self.class, _cmd, &protocol, &selector))
         return;
+	
+	if ([self respondsToSelector:@selector(a2_checkRegisteredProtocol:)])
+		[self performSelector:@selector(a2_checkRegisteredProtocol:) withObject:protocol];
     
 	[[self dynamicDelegateForProtocol: protocol] implementMethod: selector withBlock: block];
 }
