@@ -15,14 +15,17 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
 	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(mailComposeController:didFinishWithResult:error:)])
+	BOOL shouldDismiss = (realDelegate && [realDelegate respondsToSelector:@selector(mailComposeController:didFinishWithResult:error:)]);
+	
+	if (shouldDismiss)
 		[realDelegate mailComposeController:controller didFinishWithResult:result error:error];
-	else
-		[controller dismissModalViewControllerAnimated:YES];
 
 	void(^block)(MFMailComposeViewController *, MFMailComposeResult, NSError *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		block(controller, result, error);
+	
+	if (!shouldDismiss)
+		[controller dismissModalViewControllerAnimated:YES];
 }
 
 @end

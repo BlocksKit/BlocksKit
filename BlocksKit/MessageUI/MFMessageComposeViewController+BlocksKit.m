@@ -15,14 +15,16 @@
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
 	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(messageComposeViewController:didFinishWithResult:)])
+	BOOL shouldDismiss = (realDelegate && [realDelegate respondsToSelector:@selector(messageComposeViewController:didFinishWithResult:)]);
+	if (shouldDismiss)
 		[realDelegate messageComposeViewController:controller didFinishWithResult:result];
-	else
-		[controller dismissModalViewControllerAnimated:YES];
-
+	
 	void(^block)(MFMessageComposeViewController *, MessageComposeResult) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		block(controller, result);
+	
+	if (!shouldDismiss)
+		[controller dismissModalViewControllerAnimated:YES];
 }
 
 @end
