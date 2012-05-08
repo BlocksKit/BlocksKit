@@ -49,6 +49,7 @@ typedef void (^BKTouchBlock)(NSSet* set, UIEvent* event);
 
 typedef void (^BKBlock)(void); // compatible with dispatch_block_t
 typedef void (^BKSenderBlock)(id sender);
+typedef void (^BKSenderKeyPathBlock)(id obj, NSString *keyPath);
 typedef void (^BKKeyValueBlock)(id key, id obj);
 typedef void (^BKIndexBlock)(NSUInteger index);
 typedef void (^BKTimerBlock)(NSTimeInterval time);

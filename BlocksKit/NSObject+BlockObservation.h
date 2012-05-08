@@ -39,12 +39,12 @@
  Adds a block observer that executes a block upon a state change.
  
  @param keyPath The property to observe, relative to the reciever.
- @param task A block responding to the reciever and the KVO change.
+ @param task A block with no return argument, and a single parameter: the reciever.
  @return Returns a globally unique process identifier for removing
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:identifier:options:task:
  */
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task;
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKSenderBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
@@ -52,12 +52,44 @@
  multiple state changes.
  
  @param keyPaths An array of properties to observe, relative to the reciever.
+ @param task A block with no return argument and two parameters: the
+ reciever and the key path of the value change.
+ @return A unique identifier for removing
+ observation with removeObserverWithBlockToken:.
+ @see addObserverForKeyPath:identifier:options:task:
+ */
+- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths task:(BKSenderKeyPathBlock)task;
+
+/** Adds an observer to an object conforming to NSKeyValueObserving.
+ 
+ Adds a block observer that executes a block upon a state change
+ with specific options.
+ 
+ @param keyPath The property to observe, relative to the reciever.
+ @param options The NSKeyValueObservingOptions to use.
+ @param task A block with no return argument and two parameters: the
+ reciever and the change dictionary.
+ @return Returns a globally unique process identifier for removing
+ observation with removeObserverWithBlockToken:.
+ @see addObserverForKeyPath:identifier:options:task:
+ */
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task;
+
+/** Adds an observer to an object conforming to NSKeyValueObserving.
+ 
+ Adds a block observer that executes the same block upon
+ multiple state changes with specific options.
+ 
+ @param keyPaths An array of properties to observe, relative to the reciever.
+ @param options The NSKeyValueObservingOptions to use.
+ @param task A block with no return argument and three parameters: the
+ reciever, the key path of the value change, and the change dictionary.
  @param task A block responding to the reciever, the key path, and the KVO change.
  @return A unique identifier for removing
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:identifier:options:task:
  */
-- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths task:(BKMultipleObservationBlock)task;
+- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  

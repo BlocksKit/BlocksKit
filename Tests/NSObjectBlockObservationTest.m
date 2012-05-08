@@ -82,7 +82,7 @@
 }
 
 - (void)testBoolKeyValueObservation {
-	BKObservationBlock observeBlock = ^(id obj, NSDictionary *change) {
+	BKSenderBlock observeBlock = ^(id obj) {
 		[(NSObjectBlockObservationTest *)obj action];
 	};
 	NSString *token = [self addObserverForKeyPath:@"subject.kvc" task:observeBlock];
@@ -94,7 +94,7 @@
 }
 
 - (void)testNSNumberKeyValueObservation {
-	BKObservationBlock observeBlock = ^(id obj, NSDictionary *change) {
+	BKSenderBlock observeBlock = ^(id obj) {
 		[(NSObjectBlockObservationTest *)obj action];
 	};
 	NSString *token = [self addObserverForKeyPath:@"subject.number" task:observeBlock];
@@ -108,7 +108,7 @@
 }
 
 - (void)testNSArrayKeyValueObservation {
-	BKObservationBlock observeBlock = ^(id obj, NSDictionary *change) {
+	BKSenderBlock observeBlock = ^(id obj) {
 		[(NSObjectBlockObservationTest *)obj action];
 	};
 	NSString *token = [self addObserverForKeyPath:@"subject.names" task:observeBlock];
@@ -124,7 +124,7 @@
 }
 
 - (void)testNSSetKeyValueObservation {
-	BKObservationBlock observeBlock = ^(id obj, NSDictionary *change) {
+	BKSenderBlock observeBlock = ^(id obj) {
 		[(NSObjectBlockObservationTest *)obj action];
 	};
 	NSString *token = [self addObserverForKeyPath:@"subject.members" task:observeBlock];

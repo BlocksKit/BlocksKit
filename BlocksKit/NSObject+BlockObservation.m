@@ -23,6 +23,8 @@
 @end
 
 static char kObserverBlocksKey;
+static char kBlockObservationNoChangeContext;
+static char kMultipleBlockObservationNoChangeContext;
 static char kBlockObservationContext;
 static char kMultipleBlockObservationContext;
 
@@ -39,9 +41,15 @@ static char kMultipleBlockObservationContext;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (context == &kBlockObservationContext) {
+	if (context == &kBlockObservationNoChangeContext) {
+		BKSenderBlock task = self.task;
+		task(object);
+	} else if (context == &kBlockObservationContext) {
 		BKObservationBlock task = self.task;
 		task(object, change);
+	} else if (context == &kMultipleBlockObservationNoChangeContext) {
+		BKSenderKeyPathBlock task = self.task;
+		task(object, keyPath);
 	} else if (context == &kMultipleBlockObservationContext) {
 		BKMultipleObservationBlock task = self.task;
 		task(object, keyPath, change);
@@ -56,7 +64,6 @@ static char kMultipleBlockObservationContext;
 
 @end
 
-
 static dispatch_queue_t BKObserverMutationQueue() {
 	static dispatch_queue_t queue = nil;
 	static dispatch_once_t token = 0;
@@ -68,25 +75,33 @@ static dispatch_queue_t BKObserverMutationQueue() {
 
 @implementation NSObject (BlockObservation)
 
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKObservationBlock)task {
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKSenderBlock)task {
+	return [self addObserverForKeyPath: keyPath options: 0 task: (id)task];
+}
+
+- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths task:(BKSenderKeyPathBlock)task {
+	return [self addObserverForKeyPaths: keyPaths options: 0 task: (id)task];
+}
+
+- (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
-	[self addObserverForKeyPath:keyPath identifier:token options:0 task:task];
+	[self addObserverForKeyPaths: [NSArray arrayWithObject:keyPath] identifier: token options: options task: (id)task];
 	return token;
 }
 
-- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths task:(BKMultipleObservationBlock)task {
+- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
-	[self addObserverForKeyPaths:keyPaths identifier:token options:0 task:task];
+	[self addObserverForKeyPaths: keyPaths identifier: token options: options task: task];
 	return token;
 }
 
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
-	[self addObserverForKeyPaths:[NSArray arrayWithObject:keyPath] identifier:identifier options:options task:(id)task];
+	[self addObserverForKeyPaths: [NSArray arrayWithObject:keyPath] identifier: identifier options: options task: (id)task];
 }
 
 - (void)addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task {
-	NSParameterAssert(keyPaths);
-	NSParameterAssert(identifier);
+	NSParameterAssert(keyPaths.count);
+	NSParameterAssert(identifier.length);
 	NSParameterAssert(task);
 	
 	__block BKObserver *newObserver = nil;
@@ -105,15 +120,15 @@ static dispatch_queue_t BKObserverMutationQueue() {
 		}];
 	});
 	
-	void *context = keyPaths.count ? &kBlockObservationContext : &kMultipleBlockObservationContext;
+	void *context = (options == 0) ? ((keyPaths.count == 1) ? &kBlockObservationNoChangeContext : &kMultipleBlockObservationNoChangeContext) : ((keyPaths.count == 1) ? &kBlockObservationContext : &kMultipleBlockObservationContext);
 	[keyPaths each:^(NSString *keyPath) {
 		[self addObserver:newObserver forKeyPath:keyPath options:options context:context];
 	}];
 }
 
 - (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier {
-	NSParameterAssert(keyPath);
-	NSParameterAssert(identifier);
+	NSParameterAssert(keyPath.length);
+	NSParameterAssert(identifier.length);
 	
 	dispatch_sync(BKObserverMutationQueue(), ^{
 		NSString *token = [NSString stringWithFormat:@"%@_%@", keyPath, identifier];
