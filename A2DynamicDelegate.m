@@ -34,6 +34,8 @@ static dispatch_queue_t backgroundQueue = nil;
 
 @interface A2DynamicDelegate ()
 
+@property (nonatomic, readwrite, assign) id delegatingObject;
+
 // Block Map
 + (NSMutableDictionary *) blockMap;
 + (NSMutableDictionary *) implementationMap;
@@ -52,7 +54,7 @@ static dispatch_queue_t backgroundQueue = nil;
 
 @implementation A2DynamicDelegate
 
-@synthesize handlers = _handlers;
+@synthesize handlers = _handlers, delegatingObject = _delegatingObject;
 
 #pragma mark NSObject
 
@@ -355,7 +357,7 @@ static Class a2_clusterSubclassForProtocol(Protocol *protocol) {
 	 * delegate's lifetime is at least as long as that of the delegating object.
 	 **/
 	
-	__block id dynamicDelegate;
+	__block A2DynamicDelegate *dynamicDelegate;
 	
 	dispatch_sync(backgroundQueue, ^{
 		dynamicDelegate = objc_getAssociatedObject(self, protocol);
@@ -383,6 +385,7 @@ static Class a2_clusterSubclassForProtocol(Protocol *protocol) {
 			
 			// Create and associate an instance
 			dynamicDelegate = [[cls new] autorelease];
+			dynamicDelegate.delegatingObject = self;
 			objc_setAssociatedObject(self, protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		}
 	});

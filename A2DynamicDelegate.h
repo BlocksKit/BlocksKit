@@ -54,6 +54,7 @@
  delegate would be deallocated immediately after its declaring scope ends.
  */
 @interface A2DynamicDelegate : NSObject {
+	id _delegatingObject;
 	NSMutableDictionary *_handlers;
 }
 
@@ -186,5 +187,8 @@
  @see blockImplementationForMethod:
  */
 - (id) dynamicDelegateForProtocol: (Protocol *) protocol;
+
+/** The object that the dynamic delegate implements methods for. */
+@property (nonatomic, assign, readonly) id delegatingObject;
 
 @end
