@@ -51,7 +51,10 @@ static void *BKRealDelegateKey;
 
 - (id) realDelegate
 {
-    return objc_getAssociatedObject(self, &BKRealDelegateKey);
+	id obj = objc_getAssociatedObject(self, &BKRealDelegateKey);
+	if ([obj isKindOfClass: [NSValue class]])
+		obj = [obj nonretainedObjectValue];
+    return obj;
 }
 
 @end
@@ -160,11 +163,11 @@ static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 	}
 	
 	if ([delegate isEqual: dynamicDelegate])
-        objc_setAssociatedObject(dynamicDelegate, &BKRealDelegateKey, nil, OBJC_ASSOCIATION_ASSIGN);
-    else if ([delegate isEqual:self])
-        objc_setAssociatedObject(dynamicDelegate, &BKRealDelegateKey, delegate, OBJC_ASSOCIATION_ASSIGN);
-    else
-        objc_setAssociatedObject(dynamicDelegate, &BKRealDelegateKey, delegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        delegate = nil;
+    else if ([delegate isEqual:self] || [self isEqual:dynamicDelegate.delegatingObject])
+        delegate = [NSValue valueWithNonretainedObject: delegate];
+	
+	objc_setAssociatedObject(dynamicDelegate, &BKRealDelegateKey, delegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 static id bk_blockDelegateGetter(NSObject *self, SEL _cmd)
