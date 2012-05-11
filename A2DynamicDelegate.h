@@ -64,6 +64,9 @@
  */
 @property (nonatomic, retain, readonly) NSMutableDictionary *handlers;
 
+/** The object that the dynamic delegate implements methods for. */
+@property (nonatomic, assign, readonly) id delegatingObject;
+
 /** @name Block Class Method Implementations */
 
 /** The block that is to be fired when the specified
@@ -187,8 +190,5 @@
  @see blockImplementationForMethod:
  */
 - (id) dynamicDelegateForProtocol: (Protocol *) protocol;
-
-/** The object that the dynamic delegate implements methods for. */
-@property (nonatomic, assign, readonly) id delegatingObject;
 
 @end
