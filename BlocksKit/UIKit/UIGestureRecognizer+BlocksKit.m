@@ -48,8 +48,10 @@ static char kGestureRecognizerCancelKey;
 		handler(self, self.state, location);
 	};
 	
-	if (!delay)
+	if (!delay) {
 		block();
+		return;
+	}
 	
 	id cancel = [NSObject performBlock:block afterDelay:delay];
 	[self associateCopyOfValue:cancel withKey:&kGestureRecognizerCancelKey];
