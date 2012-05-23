@@ -81,4 +81,21 @@
 	GHAssertEqualObjects(_subject,target,@"transformed items are %@",_subject);
 }
 
+- (void)testExists {
+    // Check if array has element with prefix 1
+    BKValidationBlock existsBlockTrue = ^BOOL(id obj) {
+        return [obj hasPrefix: @"1"];
+    };
+    
+    BKValidationBlock existsBlockFalse = ^BOOL(id obj) {
+        return [obj hasPrefix: @"4"];
+    };
+    
+    BOOL letterExists = [_subject exists: existsBlockTrue];
+    GHAssertTrue(letterExists, @"letter is not in array");
+    
+    BOOL letterDoesNotExist = [_subject exists: existsBlockFalse];
+    GHAssertFalse(letterDoesNotExist, @"letter is in array");
+}
+
 @end

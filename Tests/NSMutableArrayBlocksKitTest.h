@@ -13,5 +13,6 @@
 - (void)testReject;
 - (void)testRejectedAll;
 - (void)testMap;
+- (void)testExists;
 
 @end

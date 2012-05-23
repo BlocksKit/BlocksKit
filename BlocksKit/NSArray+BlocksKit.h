@@ -111,4 +111,19 @@
  */
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block;
 
+/** Loops through an array to find if an object exists matching the block.
+ 
+ Similar to Scala list exists.
+ 
+ For example, finding if a string in an array starts with a certain letter.
+ NSString *letter = @"A";
+ BOOL containsLetter = [stringArray exists: ^(id obj) {
+ return [obj hasPrefix: letter];
+ }];
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return Returns a BOOL, true if block holds for some elements of the array; false otherwise.
+ */
+- (BOOL) exists:(BKValidationBlock)block;
+
 @end

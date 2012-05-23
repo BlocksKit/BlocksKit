@@ -80,6 +80,14 @@
 	return [result autorelease];
 }
 
+- (BOOL) exists:(BKValidationBlock)block {
+	NSParameterAssert(block != nil);
+	
+    BOOL result = [self match: block] != nil;
+    
+    return result;
+}
+
 @end
 
 BK_MAKE_CATEGORY_LOADABLE(NSArray_BlocksKit)

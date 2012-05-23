@@ -17,5 +17,5 @@
 - (void)testRejectedAll;
 - (void)testMap;
 - (void)testReduceWithBlock;
-
+- (void)testExists;
 @end
