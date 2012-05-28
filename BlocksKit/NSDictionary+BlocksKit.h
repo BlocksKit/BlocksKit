@@ -82,7 +82,7 @@
 /** Loops through a dictionary to find whether any key/value pair matches the block.
  
  This method is similar to the Scala list `exists`. It is functionally
- identifical to match: but returns a `BOOL` instead. It is not recommended
+ identical to match: but returns a `BOOL` instead. It is not recommended
  to use any: as a check condition before executing match:, since it would
  require two loops through the dictionary.
  

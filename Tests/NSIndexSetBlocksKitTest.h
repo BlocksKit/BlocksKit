@@ -15,5 +15,6 @@
 - (void)testSelectedNone;
 - (void)testReject;
 - (void)testRejectedNone;
+- (void)testAny;
 
 @end

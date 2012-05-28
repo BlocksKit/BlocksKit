@@ -65,6 +65,10 @@
 	return list;
 }
 
+- (BOOL)any:(BKIndexValidationBlock)block {
+	return [self match: block] != NSNotFound;
+}
+
 @end
 
 BK_MAKE_CATEGORY_LOADABLE(NSIndexSet_BlocksKit)

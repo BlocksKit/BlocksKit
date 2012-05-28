@@ -113,4 +113,20 @@
 	GHAssertEqualObjects(found,_subject,@"all indexes that are not rejected %@",found);
 }
 
+- (void)testAny {
+	__block NSMutableString *order = [NSMutableString string];
+	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
+		[order appendFormat:@"%d",index];
+		BOOL match = NO;
+		if (index%2 == 0 ) {
+			[_target replaceObjectAtIndex:index withObject:[NSString stringWithFormat:@"%d",index]];
+			match = YES;
+		}
+		return match;
+	};
+	BOOL didFind = [_subject any: indexValidationBlock];
+	GHAssertEqualStrings(order,@"12",@"the index loop order is %@",order);
+	GHAssertTrue(didFind, @"result found in target array");
+}
+
 @end
