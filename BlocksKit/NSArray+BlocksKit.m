@@ -84,6 +84,37 @@
 	return [self match: block] != nil;
 }
 
+- (BOOL) all:(BKValidationBlock)block {
+	NSParameterAssert(block != nil);
+	
+    __block BOOL result = NO;
+    
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		result = block(obj);
+        *stop = !result;
+	}];
+    
+    return result;
+}
+
+- (BOOL) corresponds: (NSArray *) list withBlock: (BKKeyValueValidationBlock) block {
+	NSParameterAssert(block != nil);
+ 
+    __block BOOL result = NO;
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (idx < [list count]) {
+            id obj2 = [list objectAtIndex: idx];
+            result = block(obj, obj2);
+        }
+        else {
+            result = NO;
+        }
+        *stop = !result;
+	}]; 
+    
+    return result;
+}
+
 @end
 
 BK_MAKE_CATEGORY_LOADABLE(NSArray_BlocksKit)

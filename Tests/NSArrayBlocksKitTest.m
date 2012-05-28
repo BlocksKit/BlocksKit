@@ -142,4 +142,31 @@
     BOOL letterDoesNotExist = [_subject any: existsBlockFalse];
     GHAssertFalse(letterDoesNotExist, @"letter is in array");
 }
+
+- (void)testAll {
+    NSArray *names = [NSArray arrayWithObjects: @"John", @"Joe", @"Jon", @"Jester", nil];
+    NSArray *names2 = [NSArray arrayWithObjects: @"John", @"Joe", @"Jon", @"Mary", nil];
+    
+    // Check if array has element with prefix 1
+    BKValidationBlock nameStartsWithJ = ^BOOL(id obj) {
+        return [obj hasPrefix: @"J"];
+    };
+
+    BOOL allNamesStartWithJ = [names all: nameStartsWithJ];
+    GHAssertTrue(allNamesStartWithJ, @"all names do not start with J in array");
+    
+    BOOL allNamesDoNotStartWithJ = [names2 all: nameStartsWithJ];
+    GHAssertFalse(allNamesDoNotStartWithJ, @"all names do start with J in array");  
+}
+
+- (void)testCorresponds {
+    NSArray *numbers = [NSArray arrayWithObjects: [NSNumber numberWithInt: 1], [NSNumber numberWithInt: 2], [NSNumber numberWithInt: 3], nil];
+    NSArray *letters = [NSArray arrayWithObjects: @"1", @"2", @"3", nil];
+    BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
+        return [[number stringValue] isEqualToString: letter];
+    }];
+    GHAssertTrue(doesCorrespond, @"1,2,3 does not correspond to \"1\",\"2\",\"3\"");
+    
+}
+
 @end

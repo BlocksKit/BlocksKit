@@ -130,4 +130,29 @@
  */
 - (BOOL)any:(BKValidationBlock)block;
 
+/** Loops through an array to find if all objects match the block.
+ 
+ For example, finding if all strings in an array start with a given letter.
+ NSString *letter = @"A";
+ BOOL allContainsLetter = [stringArray all: ^(id obj) {
+ return [obj hasPrefix: letter];
+ }];
+ 
+ */
+- (BOOL) all: (BKValidationBlock)block;
+
+/** Tests whether every element of this array relates to the corresponding element of another array according to match by block.
+ 
+ For example, finding if a list of numbers corresponds to their sequenced string values;
+ NSArray *numbers = [NSArray arrayWithObjects: [NSNumber numberWithInt: 1], [NSNumber numberWithInt: 2], [NSNumber numberWithInt: 3], nil];
+ NSArray *letters = [NSArray arrayWithObjects: @"1", @"2", @"3", nil];
+ BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
+    return [[number stringValue] isEqualToString: letter];
+ }];
+ 
+ @param block A two-argument, BOOL-returning code block.
+ @return Returns a BOOL, true if every element of array relates to corresponding element in another array.
+ */
+- (BOOL) corresponds: (NSArray *) list withBlock: (BKKeyValueValidationBlock) block;
+
 @end
