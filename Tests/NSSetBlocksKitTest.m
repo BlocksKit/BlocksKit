@@ -126,4 +126,17 @@
 	GHAssertEqualStrings(concatenated,@"122333",@"concatenated string is %@",concatenated);
 }
 
+- (void)testAny {
+	BKValidationBlock validationBlock = ^(id obj) {
+		_total += [obj length];
+		BOOL match = ([obj intValue] == 22) ? YES : NO;
+		return match;
+	};
+	BOOL wasFound = [_subject any:validationBlock];
+	
+	// any: is functionally identical to select:, but will stop and return YES on the first match
+	GHAssertEquals(_total,3,@"total length of \"122\" is %d",_total);
+	GHAssertTrue(wasFound,@"matched object was found");
+}
+
 @end

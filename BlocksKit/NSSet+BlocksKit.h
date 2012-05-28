@@ -104,4 +104,16 @@
  */
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block;
 
+/** Loops through a set to find whether any object matches the block.
+ 
+ This method is similar to the Scala list `exists`. It is functionally
+ identical to match: but returns a `BOOL` instead. It is not recommended
+ to use any: as a check condition before executing match:, since it would
+ require two loops through the array.
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return YES for the first time the block returns YES for an object, NO otherwise.
+ */
+- (BOOL)any:(BKValidationBlock)block;
+
 @end

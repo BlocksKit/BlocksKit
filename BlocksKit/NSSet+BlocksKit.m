@@ -81,6 +81,10 @@
 	return [result autorelease];
 }
 
+- (BOOL)any:(BKValidationBlock)block {
+	return [self match: block] != nil;
+}
+
 @end
 
 BK_MAKE_CATEGORY_LOADABLE(NSSet_BlocksKit)
