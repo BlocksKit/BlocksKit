@@ -130,16 +130,21 @@
  */
 - (BOOL)any:(BKValidationBlock)block;
 
-/** Loops through an array to find if all objects match the block.
+/** Loops through an array to find whether all objects match the block.
  
- For example, finding if all strings in an array start with a given letter.
- NSString *letter = @"A";
- BOOL allContainsLetter = [stringArray all: ^(id obj) {
- return [obj hasPrefix: letter];
- }];
- 
+ @param block A single-argument, BOOL-returning code block.
+ @return YES if the block returns YES for all objects in the array, NO otherwise.
  */
 - (BOOL) all: (BKValidationBlock)block;
+
+/** Loops through an array to find whether no objects match the block.
+ 
+ This selector performs *literally* the exact same function as all: but in reverse.
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return YES if the block returns NO for all objects in the array, NO otherwise.
+ */
+- (BOOL)none:(BKValidationBlock)block;
 
 /** Tests whether every element of this array relates to the corresponding element of another array according to match by block.
  

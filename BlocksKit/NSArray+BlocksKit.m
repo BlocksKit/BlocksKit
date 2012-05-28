@@ -84,14 +84,31 @@
 	return [self match: block] != nil;
 }
 
-- (BOOL) all:(BKValidationBlock)block {
+- (BOOL)all:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    __block BOOL result = NO;
+    __block BOOL result = YES;
     
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		result = block(obj);
-        *stop = !result;
+		if (!block(obj)) {
+			result = NO;
+			*stop = YES;
+		}
+	}];
+    
+    return result;
+}
+
+- (BOOL)none:(BKValidationBlock)block {
+	NSParameterAssert(block != nil);
+	
+    __block BOOL result = YES;
+    
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if (block(obj)) {
+			result = NO;
+			*stop = YES;
+		}
 	}];
     
     return result;
@@ -101,12 +118,12 @@
 	NSParameterAssert(block != nil);
  
     __block BOOL result = NO;
+	
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if (idx < [list count]) {
             id obj2 = [list objectAtIndex: idx];
             result = block(obj, obj2);
-        }
-        else {
+        } else {
             result = NO;
         }
         *stop = !result;

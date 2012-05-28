@@ -159,6 +159,22 @@
     GHAssertFalse(allNamesDoNotStartWithJ, @"all names do start with J in array");  
 }
 
+- (void)testNone {
+    NSArray *names = [NSArray arrayWithObjects: @"John", @"Joe", @"Jon", @"Jester", nil];
+    NSArray *names2 = [NSArray arrayWithObjects: @"John", @"Joe", @"Jon", @"Mary", nil];
+    
+    // Check if array has element with prefix 1
+    BKValidationBlock nameStartsWithM = ^BOOL(id obj) {
+        return [obj hasPrefix: @"M"];
+    };
+	
+	BOOL noNamesStartWithM = [names none: nameStartsWithM];
+	GHAssertTrue(noNamesStartWithM, @"some names start with M in array");
+	
+	BOOL someNamesStartWithM = [names2 none: nameStartsWithM];
+	GHAssertFalse(someNamesStartWithM, @"no names start with M in array");
+}
+
 - (void)testCorresponds {
     NSArray *numbers = [NSArray arrayWithObjects: [NSNumber numberWithInt: 1], [NSNumber numberWithInt: 2], [NSNumber numberWithInt: 3], nil];
     NSArray *letters = [NSArray arrayWithObjects: @"1", @"2", @"3", nil];

@@ -19,6 +19,7 @@
 - (void)testReduceWithBlock;
 - (void)testAny;
 - (void)testAll;
+- (void)testNone;
 - (void)testCorresponds;
 
 @end
