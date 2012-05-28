@@ -85,4 +85,20 @@
  */
 - (BOOL)any:(BKIndexValidationBlock)block;
 
+/** Loops through an index set to find whether all objects match the block.
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return YES if the block returns YES for all indexes in the array, NO otherwise.
+ */
+- (BOOL)all:(BKIndexValidationBlock)block;
+
+/** Loops through an index set to find whether no objects match the block.
+ 
+ This selector performs *literally* the exact same function as all: but in reverse.
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return YES if the block returns NO for all indexes in the array, NO otherwise.
+ */
+- (BOOL)none:(BKIndexValidationBlock)block;
+
 @end
