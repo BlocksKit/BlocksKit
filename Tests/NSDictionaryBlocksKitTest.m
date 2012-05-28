@@ -127,4 +127,26 @@
 	GHAssertEquals(isSelected, YES, @"found selected value is %i", isSelected);	
 }
 
+- (void)testAll {
+	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
+		_total += [value intValue] + [key intValue];
+		BOOL select = [value intValue] < 4 ? YES : NO;
+		return select;
+	};
+	BOOL allSelected = [_subject all:validationBlock];
+	GHAssertEquals(_total,12,@"2*(1+2+3) = %d",_total);
+	GHAssertTrue(allSelected,@"all values matched test");
+}
+
+- (void)testNone {
+	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
+		_total += [value intValue] + [key intValue];
+		BOOL select = [value intValue] < 2 ? YES : NO;
+		return select;
+	};
+	BOOL noneSelected = [_subject all:validationBlock];
+	GHAssertEquals(_total,6,@"2*(1+2) = %d",_total);
+	GHAssertFalse(noneSelected,@"not all values matched test");
+}
+
 @end

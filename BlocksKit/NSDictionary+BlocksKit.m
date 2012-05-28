@@ -75,6 +75,36 @@
 	return [self match: block] != nil;
 }
 
+- (BOOL)all:(BKKeyValueValidationBlock)block {
+	NSParameterAssert(block != nil);
+	
+    __block BOOL result = YES;
+    
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		if (!block(key, obj)) {
+			result = NO;
+			*stop = YES;
+		}
+	}];
+	
+	return result;
+}
+
+- (BOOL)none:(BKKeyValueValidationBlock)block {
+	NSParameterAssert(block != nil);
+	
+    __block BOOL result = YES;
+    
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		if (block(key, obj)) {
+			result = NO;
+			*stop = YES;
+		}
+	}];
+	
+	return result;
+}
+
 @end
 
 BK_MAKE_CATEGORY_LOADABLE(NSDictionary_BlocksKit)

@@ -16,5 +16,7 @@
 - (void)testRejectedAll;
 - (void)testMap;
 - (void)testAny;
+- (void)testAll;
+- (void)testNone;
 
 @end
