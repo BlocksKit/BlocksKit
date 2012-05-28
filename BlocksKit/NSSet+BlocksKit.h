@@ -116,4 +116,20 @@
  */
 - (BOOL)any:(BKValidationBlock)block;
 
+/** Loops through a set to find whether no objects match the block.
+ 
+ This selector performs *literally* the exact same function as all: but in reverse.
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return YES if the block returns NO for all objects in the set, NO otherwise.
+ */
+- (BOOL)none:(BKValidationBlock)block;
+
+/** Loops through a set to find whether all objects match the block.
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return YES if the block returns YES for all objects in the set, NO otherwise.
+ */
+- (BOOL)all:(BKValidationBlock)block;
+
 @end

@@ -139,4 +139,28 @@
 	GHAssertTrue(wasFound,@"matched object was found");
 }
 
+- (void)testAll {
+	BKValidationBlock validationBlock = ^(id obj) {
+		_total += [obj length];
+		BOOL match = ([obj intValue] < 444) ? YES : NO;
+		return match;
+	};
+	
+	BOOL allMatched = [_subject all: validationBlock];
+	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	GHAssertTrue(allMatched, @"Not all values matched");
+}
+
+- (void)testNone {
+	BKValidationBlock validationBlock = ^(id obj) {
+		_total += [obj length];
+		BOOL match = ([obj intValue] < 1) ? YES : NO;
+		return match;
+	};
+	
+	BOOL noneMatched = [_subject none: validationBlock];
+	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	GHAssertTrue(noneMatched, @"Some values matched");
+}
+
 @end
