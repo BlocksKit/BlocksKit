@@ -126,7 +126,7 @@
 	GHAssertEqualStrings(concatenated,@"122333",@"concatenated string is %@",concatenated);
 }
 
-- (void)testExists {
+- (void)testAny {
     // Check if array has element with prefix 1
     BKValidationBlock existsBlockTrue = ^BOOL(id obj) {
         return [obj hasPrefix: @"1"];
@@ -136,10 +136,10 @@
         return [obj hasPrefix: @"4"];
     };
     
-    BOOL letterExists = [_subject exists: existsBlockTrue];
+    BOOL letterExists = [_subject any: existsBlockTrue];
     GHAssertTrue(letterExists, @"letter is not in array");
     
-    BOOL letterDoesNotExist = [_subject exists: existsBlockFalse];
+    BOOL letterDoesNotExist = [_subject any: existsBlockFalse];
     GHAssertFalse(letterDoesNotExist, @"letter is in array");
 }
 @end

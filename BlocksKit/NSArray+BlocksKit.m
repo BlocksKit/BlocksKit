@@ -80,12 +80,8 @@
 	return [result autorelease];
 }
 
-- (BOOL) exists:(BKValidationBlock)block {
-	NSParameterAssert(block != nil);
-	
-    BOOL result = [self match: block] != nil;
-    
-    return result;
+- (BOOL)any:(BKValidationBlock)block {
+	return [self match: block] != nil;
 }
 
 @end

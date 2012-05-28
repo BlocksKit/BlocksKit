@@ -111,19 +111,23 @@
  */
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block;
 
-/** Loops through an array to find if an object exists matching the block.
+/** Loops through an array to find whether any object matches the block.
  
- Similar to Scala list exists.
+ This method is similar to the Scala list `exists`. It is functionally
+ identifical to match: but returns a `BOOL` instead. It is not recommended
+ to use any: as a check condition before executing match:, since it would
+ require two loops through the array.
  
- For example, finding if a string in an array starts with a certain letter.
- NSString *letter = @"A";
- BOOL containsLetter = [stringArray exists: ^(id obj) {
- return [obj hasPrefix: letter];
- }];
- 
+ For example, you can find if a string in an array starts with a certain letter:
+
+	 NSString *letter = @"A";
+	 BOOL containsLetter = [stringArray any: ^(id obj) {
+	   return [obj hasPrefix: @"A"];
+	 }];
+
  @param block A single-argument, BOOL-returning code block.
- @return Returns a BOOL, true if block holds for some elements of the array; false otherwise.
+ @return YES for the first time the block returns YES for an object, NO otherwise.
  */
-- (BOOL) exists:(BKValidationBlock)block;
+- (BOOL)any:(BKValidationBlock)block;
 
 @end
