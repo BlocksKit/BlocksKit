@@ -84,6 +84,10 @@
 	return [self match: block] != nil;
 }
 
+- (BOOL)none:(BKValidationBlock)block {
+	return [self match: block] == nil;
+}
+
 - (BOOL)all:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
@@ -91,21 +95,6 @@
     
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if (!block(obj)) {
-			result = NO;
-			*stop = YES;
-		}
-	}];
-    
-    return result;
-}
-
-- (BOOL)none:(BKValidationBlock)block {
-	NSParameterAssert(block != nil);
-	
-    __block BOOL result = YES;
-    
-	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		if (block(obj)) {
 			result = NO;
 			*stop = YES;
 		}

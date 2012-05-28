@@ -91,13 +91,6 @@
  */
 - (BOOL)any:(BKKeyValueValidationBlock)block;
 
-/** Loops through a dictionary to find whether all key/value pairs match the block.
- 
- @param block A two-argument, BOOL-returning code block.
- @return YES if the block returns YES for all key/value pairs in the dictionary, NO otherwise.
- */
-- (BOOL)all:(BKKeyValueValidationBlock)block;
-
 /** Loops through a dictionary to find whether no key/value pairs match the block.
  
  This selector performs *literally* the exact same function as all: but in reverse.
@@ -106,5 +99,12 @@
  @return YES if the block returns NO for all key/value pairs in the dictionary, NO otherwise.
  */
 - (BOOL)none:(BKKeyValueValidationBlock)block;
+
+/** Loops through a dictionary to find whether all key/value pairs match the block.
+ 
+ @param block A two-argument, BOOL-returning code block.
+ @return YES if the block returns YES for all key/value pairs in the dictionary, NO otherwise.
+ */
+- (BOOL)all:(BKKeyValueValidationBlock)block;
 
 @end

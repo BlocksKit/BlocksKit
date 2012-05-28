@@ -130,13 +130,6 @@
  */
 - (BOOL)any:(BKValidationBlock)block;
 
-/** Loops through an array to find whether all objects match the block.
- 
- @param block A single-argument, BOOL-returning code block.
- @return YES if the block returns YES for all objects in the array, NO otherwise.
- */
-- (BOOL) all: (BKValidationBlock)block;
-
 /** Loops through an array to find whether no objects match the block.
  
  This selector performs *literally* the exact same function as all: but in reverse.
@@ -145,6 +138,13 @@
  @return YES if the block returns NO for all objects in the array, NO otherwise.
  */
 - (BOOL)none:(BKValidationBlock)block;
+
+/** Loops through an array to find whether all objects match the block.
+ 
+ @param block A single-argument, BOOL-returning code block.
+ @return YES if the block returns YES for all objects in the array, NO otherwise.
+ */
+- (BOOL) all: (BKValidationBlock)block;
 
 /** Tests whether every element of this array relates to the corresponding element of another array according to match by block.
  
