@@ -71,6 +71,10 @@
 	return result;
 }
 
+- (BOOL)any:(BKKeyValueValidationBlock)block {
+	return [self match: block] != nil;
+}
+
 @end
 
 BK_MAKE_CATEGORY_LOADABLE(NSDictionary_BlocksKit)

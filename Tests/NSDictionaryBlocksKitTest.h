@@ -9,10 +9,12 @@
 @interface NSDictionaryBlocksKitTest : GHTestCase
 
 - (void)testEach;
+- (void)testMatch;
 - (void)testSelect;
 - (void)testSelectedNone;
 - (void)testReject;
 - (void)testRejectedAll;
 - (void)testMap;
+- (void)testAny;
 
 @end

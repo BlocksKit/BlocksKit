@@ -36,6 +36,17 @@
 	GHAssertEquals(_total,12,@"2*(1+2+3) = %d",_total);
 }
 
+- (void)testMatch {
+	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
+		_total += [value intValue] + [key intValue];
+		BOOL select = [value intValue] < 3 ? YES : NO;
+		return select;
+	};
+	NSDictionary *selected = [_subject match:validationBlock];
+	GHAssertEquals(_total,2,@"2*1 = %d",_total);
+	GHAssertEqualObjects(selected,[NSNumber numberWithInteger:1],@"selected value is %@",selected);
+}
+
 - (void)testSelect {
 	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
 		_total += [value intValue] + [key intValue];
@@ -103,6 +114,17 @@
 		nil
 	];
 	GHAssertEqualObjects(transformed,target,@"transformed dictionary is %@",transformed);
+}
+
+- (void)testAny {
+	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
+		_total += [value intValue] + [key intValue];
+		BOOL select = [value intValue] < 3 ? YES : NO;
+		return select;
+	};
+	BOOL isSelected = [_subject any: validationBlock];
+	GHAssertEquals(_total,2,@"2*1 = %d",_total);
+	GHAssertEquals(isSelected, YES, @"found selected value is %i", isSelected);	
 }
 
 @end
