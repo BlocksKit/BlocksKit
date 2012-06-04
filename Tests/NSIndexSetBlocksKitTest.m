@@ -16,11 +16,16 @@
 }
 
 - (void)tearDownClass {
-	[_target release];
+	[_subject release];
 }
 
 - (void)setUp {
 	_target = [[NSMutableArray alloc] initWithObjects:@"0",@"0",@"0",@"0",nil];
+}
+
+- (void)tearDown
+{
+	[_target release];
 }
 
 - (void)testEach {
