@@ -126,6 +126,8 @@ BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature) {
 }
 
 static inline const char *a2_skipStructName(const char *type) {
+    if (*type == _C_STRUCT_B) type++;
+	
     if (*type == _C_UNDEF) {
         type++;
     } else if (isalpha(*type) || *type == '_') {
