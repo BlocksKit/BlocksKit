@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'A2DD iOS Tests' target in the 'A2DD iOS Tests' project
+//
+
+#ifdef __OBJC__
+	#import <UIKit/UIKit.h>
+	#import <Foundation/Foundation.h>
+#endif

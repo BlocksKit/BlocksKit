@@ -22,7 +22,20 @@
 		0071BC5514A2C88300D7F4F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0451481BE160089CC41 /* Foundation.framework */; };
 		0071BC5614A2C88700D7F4F8 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0039561B148EE28600FA51A8 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0071BC5714A2C88900D7F4F8 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		00F6D21B149968E70003DEAE /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
+		6C104271157E7158001AF708 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0431481BE160089CC41 /* UIKit.framework */; };
+		6C104272157E7158001AF708 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0451481BE160089CC41 /* Foundation.framework */; };
+		6C104284157E7283001AF708 /* A2BlockClosureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C104283157E7283001AF708 /* A2BlockClosureTests.m */; };
+		6C104289157E7344001AF708 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C104288157E7344001AF708 /* SenTestingKit.framework */; };
+		6C104290157E747E001AF708 /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C10428F157E747E001AF708 /* A2DynamicDelegateTests.m */; };
+		6C104291157E76CC001AF708 /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
+		6C10429E157E7DC8001AF708 /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
+		6C1042A9157E8F4A001AF708 /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */; };
+		6C1042B0157E8F6B001AF708 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C104288157E7344001AF708 /* SenTestingKit.framework */; };
+		6C1042B2157E8F6B001AF708 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C1042B1157E8F6B001AF708 /* Cocoa.framework */; };
+		6C1042C6157E8F8C001AF708 /* A2DynamicDelegate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */; };
+		6C1042C8157E8FA0001AF708 /* A2BlockClosureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C104283157E7283001AF708 /* A2BlockClosureTests.m */; };
+		6C1042CA157E8FA0001AF708 /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C10428F157E747E001AF708 /* A2DynamicDelegateTests.m */; };
+		6C1042CC157E8FA0001AF708 /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */; };
 		6CC0711F1537918D00BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0710F1537918D00BF5468 /* ffi.c */; };
 		6CC071201537918D00BF5468 /* sysv.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071101537918D00BF5468 /* sysv.S */; };
 		6CC071211537918D00BF5468 /* trampoline.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071111537918D00BF5468 /* trampoline.S */; };
@@ -54,6 +67,20 @@
 			remoteGlobalIDString = 000884481491AE4900552AB0;
 			remoteInfo = "iOS Library";
 		};
+		6C104285157E72BF001AF708 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0051A0361481BE160089CC41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000884481491AE4900552AB0;
+			remoteInfo = "iOS Library";
+		};
+		6C1042C4157E8F7E001AF708 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0051A0361481BE160089CC41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0071BC4114A2C74D00D7F4F8;
+			remoteInfo = "OS X Framework";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +100,23 @@
 		0051A0521481BE160089CC41 /* DDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
 		0051A0531481BE160089CC41 /* DDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
 		0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = A2DynamicDelegate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C10426E157E7158001AF708 /* A2DD iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "A2DD iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C104275157E7158001AF708 /* iOS Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iOS Tests-Info.plist"; path = "../Tests/iOS Tests-Info.plist"; sourceTree = "<group>"; };
+		6C104281157E720D001AF708 /* iOS Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "iOS Tests-Prefix.pch"; path = "Tests/iOS Tests-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		6C104282157E7283001AF708 /* A2BlockClosureTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = A2BlockClosureTests.h; path = Tests/A2BlockClosureTests.h; sourceTree = SOURCE_ROOT; };
+		6C104283157E7283001AF708 /* A2BlockClosureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = A2BlockClosureTests.m; path = Tests/A2BlockClosureTests.m; sourceTree = SOURCE_ROOT; };
+		6C104288157E7344001AF708 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		6C10428E157E747E001AF708 /* A2DynamicDelegateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = A2DynamicDelegateTests.h; path = Tests/A2DynamicDelegateTests.h; sourceTree = SOURCE_ROOT; };
+		6C10428F157E747E001AF708 /* A2DynamicDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = A2DynamicDelegateTests.m; path = Tests/A2DynamicDelegateTests.m; sourceTree = SOURCE_ROOT; };
+		6C1042A7157E8F4A001AF708 /* A2BlockDelegateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = A2BlockDelegateTests.h; path = Tests/A2BlockDelegateTests.h; sourceTree = SOURCE_ROOT; };
+		6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = A2BlockDelegateTests.m; path = Tests/A2BlockDelegateTests.m; sourceTree = SOURCE_ROOT; };
+		6C1042AF157E8F6B001AF708 /* A2DD OS X Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "A2DD OS X Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C1042B1157E8F6B001AF708 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		6C1042B4157E8F6B001AF708 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		6C1042B5157E8F6B001AF708 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6C1042B6157E8F6B001AF708 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6C1042B9157E8F6C001AF708 /* OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OS X Tests-Info.plist"; path = "../Tests/OS X Tests-Info.plist"; sourceTree = "<group>"; };
+		6C1042C0157E8F6C001AF708 /* OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OS X Tests-Prefix.pch"; path = "../Tests/OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6CC0710F1537918D00BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
 		6CC071101537918D00BF5468 /* sysv.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = sysv.S; sourceTree = "<group>"; };
 		6CC071111537918D00BF5468 /* trampoline.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = trampoline.S; sourceTree = "<group>"; };
@@ -103,10 +147,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C10429E157E7DC8001AF708 /* libA2DynamicDelegate.a in Frameworks */,
 				0051A0481481BE160089CC41 /* CoreGraphics.framework in Frameworks */,
 				0051A0461481BE160089CC41 /* Foundation.framework in Frameworks */,
 				0051A0441481BE160089CC41 /* UIKit.framework in Frameworks */,
-				00F6D21B149968E70003DEAE /* libA2DynamicDelegate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +162,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6C10426A157E7158001AF708 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C104291157E76CC001AF708 /* libA2DynamicDelegate.a in Frameworks */,
+				6C104271157E7158001AF708 /* UIKit.framework in Frameworks */,
+				6C104272157E7158001AF708 /* Foundation.framework in Frameworks */,
+				6C104289157E7344001AF708 /* SenTestingKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C1042AB157E8F6B001AF708 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C1042C6157E8F8C001AF708 /* A2DynamicDelegate.framework in Frameworks */,
+				6C1042B0157E8F6B001AF708 /* SenTestingKit.framework in Frameworks */,
+				6C1042B2157E8F6B001AF708 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -125,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				0051A0491481BE160089CC41 /* A2DynamicDelegate */,
+				6C104273157E7158001AF708 /* Tests */,
 				0051A04A1481BE160089CC41 /* Supporting Files */,
 				0051A0421481BE160089CC41 /* Frameworks */,
 				0051A0401481BE160089CC41 /* Products */,
@@ -137,6 +203,8 @@
 				0051A03F1481BE160089CC41 /* A2DD Demo.app */,
 				000884491491AE4900552AB0 /* libA2DynamicDelegate.a */,
 				0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */,
+				6C10426E157E7158001AF708 /* A2DD iOS Tests.octest */,
+				6C1042AF157E8F6B001AF708 /* A2DD OS X Tests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,9 +212,12 @@
 		0051A0421481BE160089CC41 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6C104288157E7344001AF708 /* SenTestingKit.framework */,
 				0051A0471481BE160089CC41 /* CoreGraphics.framework */,
 				0051A0451481BE160089CC41 /* Foundation.framework */,
 				0051A0431481BE160089CC41 /* UIKit.framework */,
+				6C1042B1157E8F6B001AF708 /* Cocoa.framework */,
+				6C1042B3157E8F6B001AF708 /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,9 +246,37 @@
 				0051A04F1481BE160089CC41 /* Demo-main.m */,
 				0051A0511481BE160089CC41 /* Demo-Prefix.pch */,
 				00328C2814A2C97A00F4A1F6 /* OS X Framework-Info.plist */,
+				6C104281157E720D001AF708 /* iOS Tests-Prefix.pch */,
+				6C104275157E7158001AF708 /* iOS Tests-Info.plist */,
+				6C1042C0157E8F6C001AF708 /* OS X Tests-Prefix.pch */,
+				6C1042B9157E8F6C001AF708 /* OS X Tests-Info.plist */,
 			);
 			name = "Supporting Files";
 			path = Demo;
+			sourceTree = "<group>";
+		};
+		6C104273157E7158001AF708 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6C104282157E7283001AF708 /* A2BlockClosureTests.h */,
+				6C104283157E7283001AF708 /* A2BlockClosureTests.m */,
+				6C10428E157E747E001AF708 /* A2DynamicDelegateTests.h */,
+				6C10428F157E747E001AF708 /* A2DynamicDelegateTests.m */,
+				6C1042A7157E8F4A001AF708 /* A2BlockDelegateTests.h */,
+				6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */,
+			);
+			name = Tests;
+			path = "A2DD iOS Tests";
+			sourceTree = "<group>";
+		};
+		6C1042B3157E8F6B001AF708 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C1042B4157E8F6B001AF708 /* AppKit.framework */,
+				6C1042B5157E8F6B001AF708 /* CoreData.framework */,
+				6C1042B6157E8F6B001AF708 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		6CC071001537918100BF5468 /* libffi */ = {
@@ -333,6 +432,44 @@
 			productReference = 0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		6C10426D157E7158001AF708 /* iOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C10427F157E7158001AF708 /* Build configuration list for PBXNativeTarget "iOS Tests" */;
+			buildPhases = (
+				6C104269157E7158001AF708 /* Sources */,
+				6C10426A157E7158001AF708 /* Frameworks */,
+				6C10426B157E7158001AF708 /* Resources */,
+				6C10426C157E7158001AF708 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6C104286157E72BF001AF708 /* PBXTargetDependency */,
+			);
+			name = "iOS Tests";
+			productName = "A2DD iOS Tests";
+			productReference = 6C10426E157E7158001AF708 /* A2DD iOS Tests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		6C1042AE157E8F6B001AF708 /* OS X Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C1042C1157E8F6C001AF708 /* Build configuration list for PBXNativeTarget "OS X Tests" */;
+			buildPhases = (
+				6C1042AA157E8F6B001AF708 /* Sources */,
+				6C1042AB157E8F6B001AF708 /* Frameworks */,
+				6C1042AC157E8F6B001AF708 /* Resources */,
+				6C1042AD157E8F6B001AF708 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6C1042C5157E8F7E001AF708 /* PBXTargetDependency */,
+			);
+			name = "OS X Tests";
+			productName = "OS X Tests";
+			productReference = 6C1042AF157E8F6B001AF708 /* A2DD OS X Tests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -357,6 +494,8 @@
 				0051A03E1481BE160089CC41 /* A2DD Demo */,
 				000884481491AE4900552AB0 /* iOS Library */,
 				0071BC4114A2C74D00D7F4F8 /* OS X Framework */,
+				6C10426D157E7158001AF708 /* iOS Tests */,
+				6C1042AE157E8F6B001AF708 /* OS X Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -376,7 +515,50 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6C10426B157E7158001AF708 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C1042AC157E8F6B001AF708 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6C10426C157E7158001AF708 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		6C1042AD157E8F6B001AF708 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		000884451491AE4900552AB0 /* Sources */ = {
@@ -425,6 +607,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6C104269157E7158001AF708 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C104284157E7283001AF708 /* A2BlockClosureTests.m in Sources */,
+				6C104290157E747E001AF708 /* A2DynamicDelegateTests.m in Sources */,
+				6C1042A9157E8F4A001AF708 /* A2BlockDelegateTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C1042AA157E8F6B001AF708 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C1042C8157E8FA0001AF708 /* A2BlockClosureTests.m in Sources */,
+				6C1042CA157E8FA0001AF708 /* A2DynamicDelegateTests.m in Sources */,
+				6C1042CC157E8FA0001AF708 /* A2BlockDelegateTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -432,6 +634,16 @@
 			isa = PBXTargetDependency;
 			target = 000884481491AE4900552AB0 /* iOS Library */;
 			targetProxy = 00F6D21814995D3C0003DEAE /* PBXContainerItemProxy */;
+		};
+		6C104286157E72BF001AF708 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000884481491AE4900552AB0 /* iOS Library */;
+			targetProxy = 6C104285157E72BF001AF708 /* PBXContainerItemProxy */;
+		};
+		6C1042C5157E8F7E001AF708 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0071BC4114A2C74D00D7F4F8 /* OS X Framework */;
+			targetProxy = 6C1042C4157E8F7E001AF708 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -524,6 +736,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = libffi/ios/include;
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -542,6 +755,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = libffi/ios/include;
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -609,6 +823,102 @@
 			};
 			name = Release;
 		};
+		6C10427D157E7158001AF708 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/iOS Tests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/iOS Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "A2DD iOS Tests";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		6C10427E157E7158001AF708 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/iOS Tests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/iOS Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "A2DD iOS Tests";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+		6C1042C2157E8F6C001AF708 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/OS X Tests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/OS X Tests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "A2DD OS X Tests";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		6C1042C3157E8F6C001AF708 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/OS X Tests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/OS X Tests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "A2DD OS X Tests";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -647,6 +957,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		6C10427F157E7158001AF708 /* Build configuration list for PBXNativeTarget "iOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C10427D157E7158001AF708 /* Debug */,
+				6C10427E157E7158001AF708 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6C1042C1157E8F6C001AF708 /* Build configuration list for PBXNativeTarget "OS X Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C1042C2157E8F6C001AF708 /* Debug */,
+				6C1042C3157E8F6C001AF708 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
