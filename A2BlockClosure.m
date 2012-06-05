@@ -288,7 +288,7 @@ static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, v
         _block = [block copy];
 		_closure = ffi_closure_alloc(sizeof(ffi_closure), &_functionPointer);
         
-        NSUInteger methodArgCount = signature.numberOfArguments, blockArgCount = signature.numberOfArguments - 1;
+        unsigned int methodArgCount = (unsigned int)signature.numberOfArguments, blockArgCount = (unsigned int)signature.numberOfArguments - 1;
         ffi_cif methodCif, blockCif;
         
         ffi_type **methodArgs = [self a2_allocate: methodArgCount * sizeof(ffi_type *)];
@@ -296,7 +296,7 @@ static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, v
         
         methodArgs[0] = methodArgs[1] = &ffi_type_pointer;
         
-        for (NSUInteger i = 2; i < signature.numberOfArguments; i++) {
+        for (unsigned int i = 2; i < signature.numberOfArguments; i++) {
             methodArgs[i] = [self a2_typeForSignature: [signature getArgumentTypeAtIndex: i]];
         }
         
