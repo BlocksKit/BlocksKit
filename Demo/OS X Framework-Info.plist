@@ -15,12 +15,12 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>2.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>A2DD</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2011 Pandamonia LLC. All rights reserved.</string>
+	<string>Copyright © 2011-2012 Pandamonia LLC. All rights reserved.</string>
 </dict>
 </plist>

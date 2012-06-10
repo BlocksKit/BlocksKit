@@ -19,9 +19,9 @@ For the same reason that blocks are better than functions because they can take 
 
 ## Getting Started
 
-A2DynamicDelegate is made up of four files: _A2DynamicDelegate.{h,m}_ and _A2BlockDelegate.{h,m}_.
+A2DynamicDelegate is made up of six files: _A2DynamicDelegate.{h,m}_, _A2BlockDelegate.{h,m}_, and _A2BlockClosure.{h,m}_. It also depends on [_libffi_](https://github.com/atgreen/libffi), a copy of which is included in the binary releases.
 
-For the sake of convenience, you can build **iOS Library** target and use the `libA2DynamicDelegate.a` static library in place of the _.m_ source files. This is useful for projects that use ARC because A2DynamicDelegate does not support it. (See below.)
+For the sake of convenience, you can either build the **iOS Library** target or download a binary release and use the `libA2DynamicDelegate.a` static library in place of the _.m_ source files. This is useful for projects that use ARC because A2DynamicDelegate does not support it. (See below.)
 
 1. Copy the included files to your Xcode project.
 2. Implement protocol methods with blocks.
@@ -250,7 +250,7 @@ Or, alternatively, do it using a dictionary:
 
 **What is ARC?** Automatic Reference Counting (or ARC) for Objective-C makes memory management the job of the compiler.
 
-**A2DynamicDelegate does not support ARC.** As a precaution, there is a `#error` compiler directive in each _.m_ file if it compiled with ARC. Without these precautions, the implementations will build without errors, your application will crash at runtime if A2DynamicDelegate is used.
+**A2DynamicDelegate does not support ARC.**  As a precaution, there is a `#error` compiler directive in each _.m_ file if it compiled with ARC. Without these precautions, the implementations will build without errors, your application will crash at runtime if A2DynamicDelegate is used.
 
 **This is limitation of the Objective-C runtime library.** The `objc_allocateClassPair` function used by A2DynamicDelegate crashes with an `EXC_BAD_ACCESS` exception if called under ARC.
 
