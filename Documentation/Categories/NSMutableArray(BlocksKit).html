@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>NSMutableSet(BlocksKit) Category Reference</title>
+		<title>NSMutableArray(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 774)" />
+		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">NSMutableSet(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">NSMutableArray(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -91,7 +91,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="NSMutableSet(BlocksKit) Category Reference" name="top"></a>
+				<a title="NSMutableArray(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -100,7 +100,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">NSMutableSet(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">NSMutableArray(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -108,7 +108,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">NSMutableSet+BlocksKit.h</td>
+	<td class="specification-value">NSMutableArray+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -118,7 +118,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Block extensions for NSMutableSet.</p>
+						<p>Block extensions for NSMutableArray.</p>
 
 <p>These utilities expound upon the BlocksKit additions
 to the immutable superclass by allowing certain utilities
@@ -150,14 +150,14 @@ by not creating an immutable copy of the results.</p>
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/performSelect:">&ndash;&nbsp;performSelect:</a></code>
-		<span class="tooltip"><p>Filters a mutable set to the objects matching the block.</p></span>
+		<span class="tooltip"><p>Filters a mutable array to the objects matching the block.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/performReject:">&ndash;&nbsp;performReject:</a></code>
-		<span class="tooltip"><p>Filters a mutable set to all objects but the ones matching the block,
+		<span class="tooltip"><p>Filters a mutable array to all objects but the ones matching the block,
 the logical inverse to select:.</p></span>
 	</span>
 	
@@ -165,7 +165,7 @@ the logical inverse to select:.</p></span>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/performMap:">&ndash;&nbsp;performMap:</a></code>
-		<span class="tooltip"><p>Transform the objects in the set to the results of the block.</p></span>
+		<span class="tooltip"><p>Transform the objects in the array to the results of the block.</p></span>
 	</span>
 	
 	
@@ -193,7 +193,7 @@ the logical inverse to select:.</p></span>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Transform the objects in the set to the results of the block.</p>
+		<p>Transform the objects in the array to the results of the block.</p>
 	</div>		
 	
 	
@@ -220,8 +220,8 @@ the logical inverse to select:.</p></span>
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>This is sometimes referred to as a transform, mutating one of each object:</p>
 
-<pre><code>[controllers map:^id(id obj) {
-  return [obj view];
+<pre><code>[foo map:^id(id obj) {
+  return [dateTransformer dateFromString:obj];
 }];
 </code></pre>
 	</div>
@@ -234,7 +234,7 @@ the logical inverse to select:.</p></span>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableSet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSMutableArray+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -247,7 +247,7 @@ the logical inverse to select:.</p></span>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Filters a mutable set to all objects but the ones matching the block,
+		<p>Filters a mutable array to all objects but the ones matching the block,
 the logical inverse to select:.</p>
 	</div>		
 	
@@ -279,7 +279,7 @@ the logical inverse to select:.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableSet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSMutableArray+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -292,7 +292,7 @@ the logical inverse to select:.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Filters a mutable set to the objects matching the block.</p>
+		<p>Filters a mutable array to the objects matching the block.</p>
 	</div>		
 	
 	
@@ -323,7 +323,7 @@ the logical inverse to select:.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableSet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSMutableArray+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -342,9 +342,9 @@ the logical inverse to select:.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-02-26)</span><br />
+						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 774)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
 						
 					</div>
 				</div>

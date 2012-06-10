@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>UIActionSheet(BlocksKit) Category Reference</title>
+		<title>UIAlertView(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 774)" />
+		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">UIActionSheet(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">UIAlertView(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -46,6 +46,8 @@
 	
 	<option value="//api/name/didShowBlock">&nbsp;&nbsp;&nbsp;&nbsp;didShowBlock</option>
 	
+	<option value="//api/name/shouldEnableFirstOtherButtonBlock">&nbsp;&nbsp;&nbsp;&nbsp;shouldEnableFirstOtherButtonBlock</option>
+	
 	<option value="//api/name/willDismissBlock">&nbsp;&nbsp;&nbsp;&nbsp;willDismissBlock</option>
 	
 	<option value="//api/name/willShowBlock">&nbsp;&nbsp;&nbsp;&nbsp;willShowBlock</option>
@@ -55,7 +57,11 @@
 	
 	<option value="class_methods">Class Methods</option>
 	
-	<option value="//api/name/actionSheetWithTitle:">&nbsp;&nbsp;&nbsp;&nbsp;+ actionSheetWithTitle:</option>
+	<option value="//api/name/alertViewWithTitle:">&nbsp;&nbsp;&nbsp;&nbsp;+ alertViewWithTitle:</option>
+	
+	<option value="//api/name/alertViewWithTitle:message:">&nbsp;&nbsp;&nbsp;&nbsp;+ alertViewWithTitle:message:</option>
+	
+	<option value="//api/name/showAlertViewWithTitle:message:cancelButtonTitle:otherButtonTitles:handler:">&nbsp;&nbsp;&nbsp;&nbsp;+ showAlertViewWithTitle:message:cancelButtonTitle:otherButtonTitles:handler:</option>
 	
 	
 	
@@ -66,11 +72,9 @@
 	
 	<option value="//api/name/handlerForButtonAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- handlerForButtonAtIndex:</option>
 	
-	<option value="//api/name/initWithTitle:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithTitle:</option>
+	<option value="//api/name/initWithTitle:message:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithTitle:message:</option>
 	
 	<option value="//api/name/setCancelButtonWithTitle:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- setCancelButtonWithTitle:handler:</option>
-	
-	<option value="//api/name/setDestructiveButtonWithTitle:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- setDestructiveButtonWithTitle:handler:</option>
 	
 	<option value="//api/name/setHandler:forButtonAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- setHandler:forButtonAtIndex:</option>
 	
@@ -90,7 +94,7 @@
 
 <li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Creating action sheets">Creating action sheets</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Creating alert views">Creating alert views</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Adding buttons">Adding buttons</a></span></li>
 	
@@ -110,6 +114,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didShowBlock">didShowBlock</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shouldEnableFirstOtherButtonBlock">shouldEnableFirstOtherButtonBlock</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willDismissBlock">willDismissBlock</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willShowBlock">willShowBlock</a></span></li>
@@ -120,7 +126,11 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/actionSheetWithTitle:">actionSheetWithTitle:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/alertViewWithTitle:">alertViewWithTitle:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/alertViewWithTitle:message:">alertViewWithTitle:message:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showAlertViewWithTitle:message:cancelButtonTitle:otherButtonTitles:handler:">showAlertViewWithTitle:message:cancelButtonTitle:otherButtonTitles:handler:</a></span></li>
 	
 </ul></li>
 
@@ -132,11 +142,9 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handlerForButtonAtIndex:">handlerForButtonAtIndex:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithTitle:">initWithTitle:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithTitle:message:">initWithTitle:message:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setDestructiveButtonWithTitle:handler:">setDestructiveButtonWithTitle:handler:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setHandler:forButtonAtIndex:">setHandler:forButtonAtIndex:</a></span></li>
 	
@@ -147,7 +155,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="UIActionSheet(BlocksKit) Category Reference" name="top"></a>
+				<a title="UIAlertView(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -156,18 +164,15 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">UIActionSheet(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">UIAlertView(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
-	<td class="specification-title">Conforms to</td>
-	<td class="specification-value">UIActionSheetDelegate</td>
-</tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">UIActionSheet+BlocksKit.h</td>
+	<td class="specification-value">UIAlertView+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -177,23 +182,27 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>UIActionSheet without delegates!</p>
+						<p>UIAlertView without delegates!</p>
 
 <p>This set of extensions and convenience classes allows
 for an instance of UIAlertView without the implementation
 of a delegate.  Any time you instantiate a UIAlertView
 using the methods here, you must add buttons using
-addButtonWithTitle:handler: to make sure nothing breaks.</p>
+<a href="#//api/name/addButtonWithTitle:handler:">addButtonWithTitle:handler:</a> otherwise nothing will happen.</p>
 
-<p>A typical invocation might go like this:</p>
+<p>A typical invocation will go like this:</p>
 
-<pre><code> UIActionSheet *testSheet = [UIActionSheet actionSheetWithTitle:@"Please select one."];
- [testSheet addButtonWithTitle:@"Zip" handler:^{ NSLog(@"Zip!"); }];
- [testSheet addButtonWithTitle:@"Zap" handler:^{ NSLog(@"Zap!"); }];
- [testSheet addButtonWithTitle:@"Zop" handler:^{ NSLog(@"Zop!"); }];
- [testSheet setDestructiveButtonWithTitle:@"No!" handler:^{ NSLog(@"Fine!"); }];
- [testSheet setCancelButtonWithTitle:nil handler:^{ NSLog(@"Never mind, then!"); }];
- [testSheet showInView:self.view];
+<pre><code> UIAlertView *testView = [UIAlertView alertViewWithTitle:@"Application Alert" message:@"This app will explode in 42 seconds."];
+ [testView setCancelButtonWithTitle:@"Oh No!" handler:^{ NSLog(@"Boom!"); }];
+ [testView show];
+</code></pre>
+
+<p>A more traditional, and more useful, modal dialog looks like so:</p>
+
+<pre><code>UIAlertView *testView = [UIAlertView alertViewWithTitle:@"Very important!" message:@"Do you like chocolate?"];
+[testView addButtonWithTitle:@"Yes" handler:^{ NSLog(@"Yay!"); }];
+[testView addButtonWithTitle:@"No" handler:^{ NSLog(@"We hate you."); }];
+[testView show];
 </code></pre>
 
 <p>Includes code by the following:</p>
@@ -203,7 +212,7 @@ addButtonWithTitle:handler: to make sure nothing breaks.</p>
 <li>Peter Steinberger. <a href="https://github.com/steipete">https://github.com/steipete</a>.   2011. MIT.</li>
 <li>Zach Waldowski.   <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
 </ul>
-<div class="warning"><p>UIActionSheet is only available on iOS or in a Mac app using Chameleon.</p></div>
+<div class="warning"><p>UIAlertView is only available on iOS or in a Mac app using Chameleon.</p></div>
 					</div>
 					
 					
@@ -215,21 +224,35 @@ addButtonWithTitle:handler: to make sure nothing breaks.</p>
 						<h2 class="subtitle subtitle-tasks">Tasks</h2>
 						
 						
-						<a title="Creating action sheets" name="task_Creating action sheets"></a>
-						<h3 class="subsubtitle task-title">Creating action sheets</h3>
+						<a title="Creating alert views" name="task_Creating alert views"></a>
+						<h3 class="subsubtitle task-title">Creating alert views</h3>
 
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/actionSheetWithTitle:">+&nbsp;actionSheetWithTitle:</a></code>
-		<span class="tooltip"><p>Creates and returns a new action sheet with only a title and cancel button.</p></span>
+		<code><a href="#//api/name/showAlertViewWithTitle:message:cancelButtonTitle:otherButtonTitles:handler:">+&nbsp;showAlertViewWithTitle:message:cancelButtonTitle:otherButtonTitles:handler:</a></code>
+		<span class="tooltip"><p>Creates and shows a new alert view with only a title, message, and cancel button.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/initWithTitle:">&ndash;&nbsp;initWithTitle:</a></code>
-		<span class="tooltip"><p>Returns a configured action sheet with only a title and cancel button.</p></span>
+		<code><a href="#//api/name/alertViewWithTitle:">+&nbsp;alertViewWithTitle:</a></code>
+		<span class="tooltip"><p>Creates and returns a new alert view with only a title and cancel button.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/alertViewWithTitle:message:">+&nbsp;alertViewWithTitle:message:</a></code>
+		<span class="tooltip"><p>Creates and returns a new alert view with only a title, message, and cancel button.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithTitle:message:">&ndash;&nbsp;initWithTitle:message:</a></code>
+		<span class="tooltip"><p>Returns a configured alert view with only a title, message, and cancel button.</p></span>
 	</span>
 	
 	
@@ -245,13 +268,6 @@ addButtonWithTitle:handler: to make sure nothing breaks.</p>
 	<span class="tooltip">
 		<code><a href="#//api/name/addButtonWithTitle:handler:">&ndash;&nbsp;addButtonWithTitle:handler:</a></code>
 		<span class="tooltip"><p>Add a new button with an associated code block.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/setDestructiveButtonWithTitle:handler:">&ndash;&nbsp;setDestructiveButtonWithTitle:handler:</a></code>
-		<span class="tooltip"><p>Set the destructive (red) button with an associated code block.</p></span>
 	</span>
 	
 	
@@ -288,35 +304,42 @@ addButtonWithTitle:handler: to make sure nothing breaks.</p>
 	<span class="tooltip">
 		<code><a href="#//api/name/cancelBlock">&nbsp;&nbsp;cancelBlock</a></code>
 		<span class="tooltip"><p>The block to be fired when the action sheet is dismissed with the cancel
-button and/or action.</p></span>
+button.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/willShowBlock">&nbsp;&nbsp;willShowBlock</a></code>
-		<span class="tooltip"><p>The block to be fired before the action sheet will show.</p></span>
+		<span class="tooltip"><p>The block to be fired before the alert view will show.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/didShowBlock">&nbsp;&nbsp;didShowBlock</a></code>
-		<span class="tooltip"><p>The block to be fired when the action sheet shows.</p></span>
+		<span class="tooltip"><p>The block to be fired when the alert view shows.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/willDismissBlock">&nbsp;&nbsp;willDismissBlock</a></code>
-		<span class="tooltip"><p>The block to be fired before the action sheet will dismiss.</p></span>
+		<span class="tooltip"><p>The block to be fired before the alert view will dismiss.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/didDismissBlock">&nbsp;&nbsp;didDismissBlock</a></code>
-		<span class="tooltip"><p>The block to be fired after the action sheet dismisses.</p></span>
+		<span class="tooltip"><p>The block to be fired after the alert view dismisses.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/shouldEnableFirstOtherButtonBlock">&nbsp;&nbsp;shouldEnableFirstOtherButtonBlock</a></code>
+		<span class="tooltip"><p>The block to be fired to determine whether the first non-cancel should be enabled</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -341,7 +364,7 @@ button and/or action.</p></span>
 	
 	<div class="method-subsection brief-description">
 		<p>The block to be fired when the action sheet is dismissed with the cancel
-button and/or action.</p>
+button.</p>
 	</div>		
 	
 	
@@ -356,9 +379,8 @@ button and/or action.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This property performs the same action as <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>
-but with <code>title</code> set to nil.  Contrary to <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>,
-you can set this property multiple times and multiple cancel buttons will
+		<p>Contrary to <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>, you can set this
+property multiple times but multiple cancel buttons will
 not be generated.</p>
 	</div>
 	
@@ -370,7 +392,7 @@ not be generated.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -383,11 +405,11 @@ not be generated.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The block to be fired after the action sheet dismisses.</p>
+		<p>The block to be fired after the alert view dismisses.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *, NSInteger ) didDismissBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIAlertView *, NSInteger ) didDismissBlock</code></div>
 	
 	
 	
@@ -404,7 +426,7 @@ not be generated.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -417,11 +439,11 @@ not be generated.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The block to be fired when the action sheet shows.</p>
+		<p>The block to be fired when the alert view shows.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *) didShowBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIAlertView *) didShowBlock</code></div>
 	
 	
 	
@@ -438,7 +460,41 @@ not be generated.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shouldEnableFirstOtherButtonBlock" title="shouldEnableFirstOtherButtonBlock"></a>
+	<h3 class="subsubtitle method-title">shouldEnableFirstOtherButtonBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block to be fired to determine whether the first non-cancel should be enabled</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BOOL ( ^ ) ( UIAlertView *) ( 5 _0 ) shouldEnableFirstOtherButtonBlock</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -451,11 +507,11 @@ not be generated.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The block to be fired before the action sheet will dismiss.</p>
+		<p>The block to be fired before the alert view will dismiss.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *, NSInteger ) willDismissBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIAlertView *, NSInteger ) willDismissBlock</code></div>
 	
 	
 	
@@ -472,7 +528,7 @@ not be generated.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -485,11 +541,11 @@ not be generated.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The block to be fired before the action sheet will show.</p>
+		<p>The block to be fired before the alert view will show.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *) willShowBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIAlertView *) willShowBlock</code></div>
 	
 	
 	
@@ -506,7 +562,7 @@ not be generated.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -521,17 +577,17 @@ not be generated.</p>
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/actionSheetWithTitle:" title="actionSheetWithTitle:"></a>
-	<h3 class="subsubtitle method-title">actionSheetWithTitle:</h3>
+	<a name="//api/name/alertViewWithTitle:" title="alertViewWithTitle:"></a>
+	<h3 class="subsubtitle method-title">alertViewWithTitle:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Creates and returns a new action sheet with only a title and cancel button.</p>
+		<p>Creates and returns a new alert view with only a title and cancel button.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>+ (id)actionSheetWithTitle:(NSString *)<em>title</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (id)alertViewWithTitle:(NSString *)<em>title</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
@@ -539,7 +595,7 @@ not be generated.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>title</em></dt>
-			<dd><p>The header of the action sheet.</p></dd>
+			<dd><p>The title of the alert view.</p></dd>
 		</dl>
 		
 	</div>
@@ -548,7 +604,7 @@ not be generated.</p>
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>A newly created action sheet.</p>
+		<p>A newly created alert view.</p>
 	</div>
 	
 	
@@ -563,7 +619,125 @@ not be generated.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/alertViewWithTitle:message:" title="alertViewWithTitle:message:"></a>
+	<h3 class="subsubtitle method-title">alertViewWithTitle:message:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates and returns a new alert view with only a title, message, and cancel button.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (id)alertViewWithTitle:(NSString *)<em>title</em> message:(NSString *)<em>message</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>title</em></dt>
+			<dd><p>The title of the alert view.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>message</em></dt>
+			<dd><p>The message content of the alert.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A newly created alert view.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showAlertViewWithTitle:message:cancelButtonTitle:otherButtonTitles:handler:" title="showAlertViewWithTitle:message:cancelButtonTitle:otherButtonTitles:handler:"></a>
+	<h3 class="subsubtitle method-title">showAlertViewWithTitle:message:cancelButtonTitle:otherButtonTitles:handler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates and shows a new alert view with only a title, message, and cancel button.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (void)showAlertViewWithTitle:(NSString *)<em>title</em> message:(NSString *)<em>message</em> cancelButtonTitle:(NSString *)<em>cancelButtonTitle</em> otherButtonTitles:(NSArray *)<em>otherButtonTitles</em> handler:(void ( ^ ) ( UIAlertView *, NSInteger ))<em>block</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>title</em></dt>
+			<dd><p>The title of the alert view.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>message</em></dt>
+			<dd><p>The message content of the alert.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>cancelButtonTitle</em></dt>
+			<dd><p>The title of the cancel button. If both cancelButtonTitle and otherButtonTitles are empty or nil, defaults to a</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>otherButtonTitles</em></dt>
+			<dd><p>Titles of additional buttons to add to the receiver.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block of code to be fired on the dismissal of the alert view.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -620,7 +794,7 @@ not be generated.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -645,7 +819,7 @@ not be generated.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>index</em></dt>
-			<dd><p>The index of a button already added to the action sheet.</p></dd>
+			<dd><p>The index of the button already added to the alert view.</p></dd>
 		</dl>
 		
 	</div>
@@ -654,7 +828,7 @@ not be generated.</p>
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>A code block, or nil if no block is assigned.</p>
+		<p>A code block, or nil if no block yet assigned.</p>
 	</div>
 	
 	
@@ -669,24 +843,24 @@ not be generated.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/initWithTitle:" title="initWithTitle:"></a>
-	<h3 class="subsubtitle method-title">initWithTitle:</h3>
+	<a name="//api/name/initWithTitle:message:" title="initWithTitle:message:"></a>
+	<h3 class="subsubtitle method-title">initWithTitle:message:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Returns a configured action sheet with only a title and cancel button.</p>
+		<p>Returns a configured alert view with only a title, message, and cancel button.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (id)initWithTitle:(NSString *)<em>title</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (id)initWithTitle:(NSString *)<em>title</em> message:(NSString *)<em>message</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
@@ -694,7 +868,12 @@ not be generated.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>title</em></dt>
-			<dd><p>The header of the action sheet.</p></dd>
+			<dd><p>The title of the alert view.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>message</em></dt>
+			<dd><p>The message content of the alert.</p></dd>
 		</dl>
 		
 	</div>
@@ -703,7 +882,7 @@ not be generated.</p>
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>An instantiated actionSheet.</p>
+		<p>An instantiated alert view.</p>
 	</div>
 	
 	
@@ -718,7 +897,7 @@ not be generated.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -759,15 +938,6 @@ not be generated.</p>
 	
 	
 	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p><code>block</code> can be set to <code>nil</code>, but this is generally useless as
-the cancel button is configured already to do nothing.</p>
-
-<p>iPhone users will have the button shown regardless; if the title is
-set to <code>nil</code>, it will automatically be localized.</p>
-	</div>
-	
 	
 	
 	
@@ -776,63 +946,7 @@ set to <code>nil</code>, it will automatically be localized.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/setDestructiveButtonWithTitle:handler:" title="setDestructiveButtonWithTitle:handler:"></a>
-	<h3 class="subsubtitle method-title">setDestructiveButtonWithTitle:handler:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Set the destructive (red) button with an associated code block.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>- (NSInteger)setDestructiveButtonWithTitle:(NSString *)<em>title</em> handler:(BKBlock)<em>block</em></code></div>
-	
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>title</em></dt>
-			<dd><p>The text of the button.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A block of code.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p>Because buttons cannot be removed from an action sheet,
-be aware that the effects of calling this method are cumulative.
-Previously added destructive buttons will become normal buttons.</p></div>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -881,7 +995,7 @@ Previously added destructive buttons will become normal buttons.</p></div>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIAlertView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -900,9 +1014,9 @@ Previously added destructive buttons will become normal buttons.</p></div>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-02-26)</span><br />
+						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 774)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
 						
 					</div>
 				</div>

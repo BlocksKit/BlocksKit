@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>UIWebView(BlocksKit) Category Reference</title>
+		<title>NSCache(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 774)" />
+		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">UIWebView(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">NSCache(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -40,17 +40,16 @@
 	
 	<option value="properties">Properties</option>
 	
-	<option value="//api/name/didFinishLoadBlock">&nbsp;&nbsp;&nbsp;&nbsp;didFinishLoadBlock</option>
-	
-	<option value="//api/name/didFinishWithErrorBlock">&nbsp;&nbsp;&nbsp;&nbsp;didFinishWithErrorBlock</option>
-	
-	<option value="//api/name/didStartLoadBlock">&nbsp;&nbsp;&nbsp;&nbsp;didStartLoadBlock</option>
-	
-	<option value="//api/name/shouldStartLoadBlock">&nbsp;&nbsp;&nbsp;&nbsp;shouldStartLoadBlock</option>
+	<option value="//api/name/willEvictBlock">&nbsp;&nbsp;&nbsp;&nbsp;willEvictBlock</option>
 	
 	
 	
 	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/objectForKey:withGetter:">&nbsp;&nbsp;&nbsp;&nbsp;- objectForKey:withGetter:</option>
 	
 	
 	
@@ -76,13 +75,7 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didFinishLoadBlock">didFinishLoadBlock</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didFinishWithErrorBlock">didFinishWithErrorBlock</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didStartLoadBlock">didStartLoadBlock</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shouldStartLoadBlock">shouldStartLoadBlock</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willEvictBlock">willEvictBlock</a></span></li>
 	
 </ul></li>
 
@@ -90,12 +83,18 @@
 
 
 
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/objectForKey:withGetter:">objectForKey:withGetter:</a></span></li>
+	
+</ul></li>
+
 
 			</ul>
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="UIWebView(BlocksKit) Category Reference" name="top"></a>
+				<a title="NSCache(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -104,7 +103,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">UIWebView(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">NSCache(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -112,7 +111,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">UIWebView+BlocksKit.h</td>
+	<td class="specification-value">NSCache+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -122,14 +121,16 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Block callbacks for UIWebView.</p>
+						<p>NSCache with block adding of objects</p>
 
-<p>Includes code by the following:</p>
+<p>This category allows you to conditionally add objects to
+an instance of NSCache using blocks.  Both the normal
+delegation pattern and a block callback for NSCache&rsquo;s one
+delegate method are allowed.</p>
 
-<ul>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>.  2011. MIT.</li>
-</ul>
-<div class="warning"><p>UIWebView is only available on iOS or in a Mac app using Chameleon.</p></div>
+<p>These methods emulate Rails caching behavior.</p>
+
+<p>Created by Igor Evsukov and contributed to BlocksKit.</p>
 					</div>
 					
 					
@@ -147,29 +148,17 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/shouldStartLoadBlock">&nbsp;&nbsp;shouldStartLoadBlock</a></code>
-		<span class="tooltip"><p>The block to be decide whether a URL will be loaded.</p></span>
+		<code><a href="#//api/name/objectForKey:withGetter:">&ndash;&nbsp;objectForKey:withGetter:</a></code>
+		<span class="tooltip"><p>Returns the value associated with a given key. If there is no
+object for that key, it uses the result of the block, saves
+that to the cache, and returns it.</p></span>
 	</span>
-	<span class="task-item-suffix">property</span>
+	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/didStartLoadBlock">&nbsp;&nbsp;didStartLoadBlock</a></code>
-		<span class="tooltip"><p>The block that is fired when the web view starts loading.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/didFinishLoadBlock">&nbsp;&nbsp;didFinishLoadBlock</a></code>
-		<span class="tooltip"><p>The block that is fired when the web view finishes loading.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/didFinishWithErrorBlock">&nbsp;&nbsp;didFinishWithErrorBlock</a></code>
-		<span class="tooltip"><p>The block that is fired when the web view stops loading due to an error.</p></span>
+		<code><a href="#//api/name/willEvictBlock">&nbsp;&nbsp;willEvictBlock</a></code>
+		<span class="tooltip"><p>Called when an object is about to be evicted from the cache.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -187,119 +176,17 @@
 						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/didFinishLoadBlock" title="didFinishLoadBlock"></a>
-	<h3 class="subsubtitle method-title">didFinishLoadBlock</h3>
+	<a name="//api/name/willEvictBlock" title="willEvictBlock"></a>
+	<h3 class="subsubtitle method-title">willEvictBlock</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The block that is fired when the web view finishes loading.</p>
+		<p>Called when an object is about to be evicted from the cache.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIWebView *) didFinishLoadBlock</code></div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIWebView+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/didFinishWithErrorBlock" title="didFinishWithErrorBlock"></a>
-	<h3 class="subsubtitle method-title">didFinishWithErrorBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>The block that is fired when the web view stops loading due to an error.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIWebView *, NSError *) didFinishWithErrorBlock</code></div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIWebView+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/didStartLoadBlock" title="didStartLoadBlock"></a>
-	<h3 class="subsubtitle method-title">didStartLoadBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>The block that is fired when the web view starts loading.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIWebView *) didStartLoadBlock</code></div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIWebView+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/shouldStartLoadBlock" title="shouldStartLoadBlock"></a>
-	<h3 class="subsubtitle method-title">shouldStartLoadBlock</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>The block to be decide whether a URL will be loaded.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BOOL ( ^ ) ( UIWebView *, NSURLRequest *, UIWebViewNavigationType ) shouldStartLoadBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( NSCache *, id ) willEvictBlock</code></div>
 	
 	
 	
@@ -310,8 +197,8 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p>If the delegate implements webView:shouldStartLoadWithRequest:navigationType:,
-the return values of both the delegate method and the block will be considered.</p></div>
+		<p>This block callback is an analog for the cache:willEviceObject:
+method of NSCacheDelegate.</p>
 	</div>
 	
 	
@@ -322,7 +209,7 @@ the return values of both the delegate method and the block will be considered.<
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIWebView+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSCache+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -333,6 +220,87 @@ the return values of both the delegate method and the block will be considered.<
 					
 					
 					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/objectForKey:withGetter:" title="objectForKey:withGetter:"></a>
+	<h3 class="subsubtitle method-title">objectForKey:withGetter:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the value associated with a given key. If there is no
+object for that key, it uses the result of the block, saves
+that to the cache, and returns it.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)objectForKey:(id)<em>key</em> withGetter:(BKReturnBlock)<em>getterBlock</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>key</em></dt>
+			<dd><p>An object identifying the value.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>getterBlock</em></dt>
+			<dd><p>A block used to get an object if there is no
+value in the cache.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The value associated with <em>key</em>, or the object returned
+by the block if no value is associated with <em>key</em>.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This mimics the cache behavior of Ruby on Rails.  The following code:</p>
+
+<pre><code> @products = Rails.cache.fetch('products') do
+   Product.all
+ end
+</code></pre>
+
+<p>becomes:</p>
+
+<pre><code> NSMutableArray *products = [cache objectForKey:@"products" withGetter:^id{
+   return [Product all];
+ }];
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSCache+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
 					
 					
 				</div>
@@ -345,9 +313,9 @@ the return values of both the delegate method and the block will be considered.<
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-02-26)</span><br />
+						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 774)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
 						
 					</div>
 				</div>

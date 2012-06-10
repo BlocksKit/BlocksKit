@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>MFMailComposeViewController(BlocksKit) Category Reference</title>
+		<title>UIWebView(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 774)" />
+		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">MFMailComposeViewController(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">UIWebView(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -40,7 +40,13 @@
 	
 	<option value="properties">Properties</option>
 	
-	<option value="//api/name/completionBlock">&nbsp;&nbsp;&nbsp;&nbsp;completionBlock</option>
+	<option value="//api/name/didFinishLoadBlock">&nbsp;&nbsp;&nbsp;&nbsp;didFinishLoadBlock</option>
+	
+	<option value="//api/name/didFinishWithErrorBlock">&nbsp;&nbsp;&nbsp;&nbsp;didFinishWithErrorBlock</option>
+	
+	<option value="//api/name/didStartLoadBlock">&nbsp;&nbsp;&nbsp;&nbsp;didStartLoadBlock</option>
+	
+	<option value="//api/name/shouldStartLoadBlock">&nbsp;&nbsp;&nbsp;&nbsp;shouldStartLoadBlock</option>
 	
 	
 	
@@ -70,7 +76,13 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/completionBlock">completionBlock</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didFinishLoadBlock">didFinishLoadBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didFinishWithErrorBlock">didFinishWithErrorBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didStartLoadBlock">didStartLoadBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shouldStartLoadBlock">shouldStartLoadBlock</a></span></li>
 	
 </ul></li>
 
@@ -83,7 +95,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="MFMailComposeViewController(BlocksKit) Category Reference" name="top"></a>
+				<a title="UIWebView(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -92,7 +104,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">MFMailComposeViewController(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">UIWebView(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -100,7 +112,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">MFMailComposeViewController+BlocksKit.h</td>
+	<td class="specification-value">UIWebView+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -110,15 +122,14 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>MFMailComposeViewController with block callbacks.</p>
+						<p>Block callbacks for UIWebView.</p>
 
-<p>If you provide a completion handler to an instance of
-MFMailComposeViewController but do not implement a delegate
-callback for mailComposeController:didFinishWithResult:error:,
-the mail compose view controller will automatically be
-dismissed if it was launched modally.</p>
+<p>Includes code by the following:</p>
 
-<p>Created by Igor Evsukov and contributed to BlocksKit.</p><div class="warning"><p>UIWebView is only available on iOS or in a Mac app using Chameleon.</p></div>
+<ul>
+<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>.  2011. MIT.</li>
+</ul>
+<div class="warning"><p>UIWebView is only available on iOS or in a Mac app using Chameleon.</p></div>
 					</div>
 					
 					
@@ -136,8 +147,29 @@ dismissed if it was launched modally.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/completionBlock">&nbsp;&nbsp;completionBlock</a></code>
-		<span class="tooltip"><p>  The block fired on the dismissal of the mail composition interface.</p></span>
+		<code><a href="#//api/name/shouldStartLoadBlock">&nbsp;&nbsp;shouldStartLoadBlock</a></code>
+		<span class="tooltip"><p>The block to be decide whether a URL will be loaded.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didStartLoadBlock">&nbsp;&nbsp;didStartLoadBlock</a></code>
+		<span class="tooltip"><p>The block that is fired when the web view starts loading.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didFinishLoadBlock">&nbsp;&nbsp;didFinishLoadBlock</a></code>
+		<span class="tooltip"><p>The block that is fired when the web view finishes loading.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didFinishWithErrorBlock">&nbsp;&nbsp;didFinishWithErrorBlock</a></code>
+		<span class="tooltip"><p>The block that is fired when the web view stops loading due to an error.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -155,17 +187,119 @@ dismissed if it was launched modally.</p>
 						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/completionBlock" title="completionBlock"></a>
-	<h3 class="subsubtitle method-title">completionBlock</h3>
+	<a name="//api/name/didFinishLoadBlock" title="didFinishLoadBlock"></a>
+	<h3 class="subsubtitle method-title">didFinishLoadBlock</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>  The block fired on the dismissal of the mail composition interface.</p>
+		<p>The block that is fired when the web view finishes loading.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( MFMailComposeViewController *, MFMailComposeResult , NSError *) completionBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIWebView *) didFinishLoadBlock</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIWebView+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didFinishWithErrorBlock" title="didFinishWithErrorBlock"></a>
+	<h3 class="subsubtitle method-title">didFinishWithErrorBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block that is fired when the web view stops loading due to an error.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIWebView *, NSError *) didFinishWithErrorBlock</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIWebView+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didStartLoadBlock" title="didStartLoadBlock"></a>
+	<h3 class="subsubtitle method-title">didStartLoadBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block that is fired when the web view starts loading.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIWebView *) didStartLoadBlock</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIWebView+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/shouldStartLoadBlock" title="shouldStartLoadBlock"></a>
+	<h3 class="subsubtitle method-title">shouldStartLoadBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block to be decide whether a URL will be loaded.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BOOL ( ^ ) ( UIWebView *, NSURLRequest *, UIWebViewNavigationType ) shouldStartLoadBlock</code></div>
 	
 	
 	
@@ -176,9 +310,8 @@ dismissed if it was launched modally.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This block callback is an analog for the
-mailComposeController:didFinishWithResult:error: method
-of MFMailComposeViewControllerDelegate.</p>
+		<div class="warning"><p>If the delegate implements webView:shouldStartLoadWithRequest:navigationType:,
+the return values of both the delegate method and the block will be considered.</p></div>
 	</div>
 	
 	
@@ -189,7 +322,7 @@ of MFMailComposeViewControllerDelegate.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">MFMailComposeViewController+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIWebView+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -212,9 +345,9 @@ of MFMailComposeViewControllerDelegate.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-02-26)</span><br />
+						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 774)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
 						
 					</div>
 				</div>

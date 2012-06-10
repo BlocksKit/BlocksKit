@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>NSMutableArray(BlocksKit) Category Reference</title>
+		<title>NSInvocation(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 774)" />
+		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">NSMutableArray(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">NSInvocation(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -40,15 +40,11 @@
 	
 	
 	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/invocationWithTarget:block:">&nbsp;&nbsp;&nbsp;&nbsp;+ invocationWithTarget:block:</option>
 	
 	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/performMap:">&nbsp;&nbsp;&nbsp;&nbsp;- performMap:</option>
-	
-	<option value="//api/name/performReject:">&nbsp;&nbsp;&nbsp;&nbsp;- performReject:</option>
-	
-	<option value="//api/name/performSelect:">&nbsp;&nbsp;&nbsp;&nbsp;- performSelect:</option>
 	
 	
 	
@@ -74,24 +70,20 @@
 
 
 
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performMap:">performMap:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performReject:">performReject:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performSelect:">performSelect:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/invocationWithTarget:block:">invocationWithTarget:block:</a></span></li>
 	
 </ul></li>
+
+
 
 
 			</ul>
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="NSMutableArray(BlocksKit) Category Reference" name="top"></a>
+				<a title="NSInvocation(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -100,7 +92,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">NSMutableArray(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">NSInvocation(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -108,7 +100,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">NSMutableArray+BlocksKit.h</td>
+	<td class="specification-value">NSInvocation+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -118,20 +110,17 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Block extensions for NSMutableArray.</p>
+						<p>Blocks wrapper for NSInvocation.</p>
 
-<p>These utilities expound upon the BlocksKit additions
-to the immutable superclass by allowing certain utilities
-to work on an instance of the mutable class, saving memory
-by not creating an immutable copy of the results.</p>
+<p>Usage example:</p>
 
-<p>Includes code by the following:</p>
+<pre><code> NSInvocation *invocation = [NSInvocation invocationWithTarget:myObject block:^(id myObject){
+   [myObject someMethodWithArg:42.0];
+ }];
+</code></pre>
 
-<ul>
-<li>Martin Schürrer.  <a href="https://github.com/MSch">https://github.com/MSch</a>.   2011. MIT.</li>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
-</ul>
-
+<p>Created by Jonathan Rentzch as <a href="https://github.com/rentzsch/NSInvocation-blocks">NSInvocation-blocks</a>.
+Licensed under MIT.</p>
 					</div>
 					
 					
@@ -149,23 +138,8 @@ by not creating an immutable copy of the results.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/performSelect:">&ndash;&nbsp;performSelect:</a></code>
-		<span class="tooltip"><p>Filters a mutable array to the objects matching the block.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/performReject:">&ndash;&nbsp;performReject:</a></code>
-		<span class="tooltip"><p>Filters a mutable array to all objects but the ones matching the block,
-the logical inverse to select:.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/performMap:">&ndash;&nbsp;performMap:</a></code>
-		<span class="tooltip"><p>Transform the objects in the array to the results of the block.</p></span>
+		<code><a href="#//api/name/invocationWithTarget:block:">+&nbsp;invocationWithTarget:block:</a></code>
+		<span class="tooltip"><p>Generates an <code>NSInvocation</code> object for a given block.</p></span>
 	</span>
 	
 	
@@ -180,92 +154,45 @@ the logical inverse to select:.</p></span>
 					
 					
 					
-					
-					
 					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/performMap:" title="performMap:"></a>
-	<h3 class="subsubtitle method-title">performMap:</h3>
+	<a name="//api/name/invocationWithTarget:block:" title="invocationWithTarget:block:"></a>
+	<h3 class="subsubtitle method-title">invocationWithTarget:block:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Transform the objects in the array to the results of the block.</p>
+		<p>Generates an <code>NSInvocation</code> object for a given block.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (void)performMap:(BKTransformBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (NSInvocation *)invocationWithTarget:(id)<em>target</em> block:(BKSenderBlock)<em>block</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A single-argument, object-returning code block.</p></dd>
+			<dt><em>target</em></dt>
+			<dd><p>The object to &ldquo;grab&rdquo; the block invocation from.</p></dd>
 		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>This is sometimes referred to as a transform, mutating one of each object:</p>
-
-<pre><code>[foo map:^id(id obj) {
-  return [dateTransformer dateFromString:obj];
-}];
-</code></pre>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableArray+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/performReject:" title="performReject:"></a>
-	<h3 class="subsubtitle method-title">performReject:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Filters a mutable array to all objects but the ones matching the block,
-the logical inverse to select:.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>- (void)performReject:(BKValidationBlock)<em>block</em></code></div>
-	
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>block</em></dt>
-			<dd><p>A single-argument, BOOL-returning code block.</p></dd>
+			<dd><p>A code block.</p></dd>
 		</dl>
 		
 	</div>
 	
 	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A fully-prepared instance of NSInvocation ready to be invoked</p>
+	</div>
 	
 	
 	
@@ -279,57 +206,15 @@ the logical inverse to select:.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableArray+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/performSelect:" title="performSelect:"></a>
-	<h3 class="subsubtitle method-title">performSelect:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Filters a mutable array to the objects matching the block.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>- (void)performSelect:(BKValidationBlock)<em>block</em></code></div>
-	
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A single-argument, BOOL-returning code block.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableArray+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSInvocation+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 					</div>
+					
+					
 					
 					
 				</div>
@@ -342,9 +227,9 @@ the logical inverse to select:.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-02-26)</span><br />
+						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 774)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
 						
 					</div>
 				</div>

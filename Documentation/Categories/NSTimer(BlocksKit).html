@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>UIBarButtonItem(BlocksKit) Category Reference</title>
+		<title>NSTimer(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 774)" />
+		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">UIBarButtonItem(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">NSTimer(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -40,15 +40,13 @@
 	
 	
 	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/scheduledTimerWithTimeInterval:block:repeats:">&nbsp;&nbsp;&nbsp;&nbsp;+ scheduledTimerWithTimeInterval:block:repeats:</option>
+	
+	<option value="//api/name/timerWithTimeInterval:block:repeats:">&nbsp;&nbsp;&nbsp;&nbsp;+ timerWithTimeInterval:block:repeats:</option>
 	
 	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/initWithBarButtonSystemItem:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithBarButtonSystemItem:handler:</option>
-	
-	<option value="//api/name/initWithImage:style:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithImage:style:handler:</option>
-	
-	<option value="//api/name/initWithTitle:style:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithTitle:style:handler:</option>
 	
 	
 	
@@ -74,24 +72,22 @@
 
 
 
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithBarButtonSystemItem:handler:">initWithBarButtonSystemItem:handler:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/scheduledTimerWithTimeInterval:block:repeats:">scheduledTimerWithTimeInterval:block:repeats:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithImage:style:handler:">initWithImage:style:handler:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithTitle:style:handler:">initWithTitle:style:handler:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/timerWithTimeInterval:block:repeats:">timerWithTimeInterval:block:repeats:</a></span></li>
 	
 </ul></li>
+
+
 
 
 			</ul>
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="UIBarButtonItem(BlocksKit) Category Reference" name="top"></a>
+				<a title="NSTimer(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -100,7 +96,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">UIBarButtonItem(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">NSTimer(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -108,7 +104,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">UIBarButtonItem+BlocksKit.h</td>
+	<td class="specification-value">NSTimer+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -118,19 +114,10 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Block event initialization for UIBarButtonItem.</p>
+						<p>Simple category on NSTimer to give it blocks capability.</p>
 
-<p>This set of extensions has near-drop-in replacements
-for the standard set of UIBarButton item initializations,
-using a block handler instead of a target/selector.</p>
-
-<p>Includes code by the following:</p>
-
-<ul>
-<li>Kevin O'Neill.  <a href="https://github.com/kevinoneill">https://github.com/kevinoneill</a>. 2011. BSD.</li>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>.  2011. MIT.</li>
-</ul>
-<div class="warning"><p>UIBarButtonItem is only available on iOS or in a Mac app using Chameleon.</p></div>
+<p>Created by Jiva DeVoe as <a href="https://github.com/jivadevoe/NSTimer-Blocks">NSTimer-Blocks</a>.
+Licensed under MIT.</p>
 					</div>
 					
 					
@@ -148,22 +135,15 @@ using a block handler instead of a target/selector.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/initWithBarButtonSystemItem:handler:">&ndash;&nbsp;initWithBarButtonSystemItem:handler:</a></code>
-		<span class="tooltip"><p>Creates and returns a configured item containing the specified system item.</p></span>
+		<code><a href="#//api/name/scheduledTimerWithTimeInterval:block:repeats:">+&nbsp;scheduledTimerWithTimeInterval:block:repeats:</a></code>
+		<span class="tooltip"><p>Creates and returns a block-based NSTimer object and schedules it on the current run loop.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/initWithImage:style:handler:">&ndash;&nbsp;initWithImage:style:handler:</a></code>
-		<span class="tooltip"><p>Creates and returns a configured item using the specified image and style.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/initWithTitle:style:handler:">&ndash;&nbsp;initWithTitle:style:handler:</a></code>
-		<span class="tooltip"><p>Creates and returns a configured item using the specified text and style.</p></span>
+		<code><a href="#//api/name/timerWithTimeInterval:block:repeats:">+&nbsp;timerWithTimeInterval:block:repeats:</a></code>
+		<span class="tooltip"><p>Creates and returns a block-based NSTimer initialized with the specified block.</p></span>
 	</span>
 	
 	
@@ -178,37 +158,40 @@ using a block handler instead of a target/selector.</p>
 					
 					
 					
-					
-					
 					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/initWithBarButtonSystemItem:handler:" title="initWithBarButtonSystemItem:handler:"></a>
-	<h3 class="subsubtitle method-title">initWithBarButtonSystemItem:handler:</h3>
+	<a name="//api/name/scheduledTimerWithTimeInterval:block:repeats:" title="scheduledTimerWithTimeInterval:block:repeats:"></a>
+	<h3 class="subsubtitle method-title">scheduledTimerWithTimeInterval:block:repeats:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Creates and returns a configured item containing the specified system item.</p>
+		<p>Creates and returns a block-based NSTimer object and schedules it on the current run loop.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (id)initWithBarButtonSystemItem:(UIBarButtonSystemItem)<em>systemItem</em> handler:(BKSenderBlock)<em>action</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)<em>inTimeInterval</em> block:(BKTimerBlock)<em>inBlock</em> repeats:(BOOL)<em>inRepeats</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>systemItem</em></dt>
-			<dd><p>The system item to use as the item representation. One of the constants defined in UIBarButtonSystemItem.</p></dd>
+			<dt><em>inTimeInterval</em></dt>
+			<dd><p>The number of seconds between firings of the timer.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>action</em></dt>
-			<dd><p>The block that gets fired on the button press.</p></dd>
+			<dt><em>inBlock</em></dt>
+			<dd><p>The block that the NSTimer fires.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>inRepeats</em></dt>
+			<dd><p>If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.</p></dd>
 		</dl>
 		
 	</div>
@@ -217,7 +200,7 @@ using a block handler instead of a target/selector.</p>
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Newly initialized item with the specified properties.</p>
+		<p>A new NSTimer object, configured according to the specified parameters.</p>
 	</div>
 	
 	
@@ -232,44 +215,42 @@ using a block handler instead of a target/selector.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIBarButtonItem+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSTimer+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/initWithImage:style:handler:" title="initWithImage:style:handler:"></a>
-	<h3 class="subsubtitle method-title">initWithImage:style:handler:</h3>
+	<a name="//api/name/timerWithTimeInterval:block:repeats:" title="timerWithTimeInterval:block:repeats:"></a>
+	<h3 class="subsubtitle method-title">timerWithTimeInterval:block:repeats:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Creates and returns a configured item using the specified image and style.</p>
+		<p>Creates and returns a block-based NSTimer initialized with the specified block.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (id)initWithImage:(UIImage *)<em>image</em> style:(UIBarButtonItemStyle)<em>style</em> handler:(BKSenderBlock)<em>action</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)<em>inTimeInterval</em> block:(BKTimerBlock)<em>inBlock</em> repeats:(BOOL)<em>inRepeats</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>image</em></dt>
-			<dd><p>The item’s image. If nil an image is not displayed.
-If this image is too large to fit on the bar, it is scaled to fit
-The size of a toolbar and navigation bar image is 20 x 20 points.</p></dd>
+			<dt><em>inTimeInterval</em></dt>
+			<dd><p>The number of seconds between firings of the timer.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>style</em></dt>
-			<dd><p>The style of the item. One of the constants defined in UIBarButtonItemStyle.</p></dd>
+			<dt><em>inBlock</em></dt>
+			<dd><p>The block that the NSTimer fires.</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>action</em></dt>
-			<dd><p>The block that gets fired on the button press.</p></dd>
+			<dt><em>inRepeats</em></dt>
+			<dd><p>If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.</p></dd>
 		</dl>
 		
 	</div>
@@ -278,12 +259,19 @@ The size of a toolbar and navigation bar image is 20 x 20 points.</p></dd>
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Newly initialized item with the specified properties.</p>
+		<p>A new NSTimer object, configured according to the specified parameters.</p>
 	</div>
 	
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>You must add the new timer to a run loop, using <code>-addTimer:forMode:</code>. Then,
+after seconds seconds have elapsed, the timer fires the block.  If the timer
+is configured to repeat, there is no need to subsequently re-add the timer.</p>
+	</div>
 	
 	
 	
@@ -293,72 +281,15 @@ The size of a toolbar and navigation bar image is 20 x 20 points.</p></dd>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIBarButtonItem+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/initWithTitle:style:handler:" title="initWithTitle:style:handler:"></a>
-	<h3 class="subsubtitle method-title">initWithTitle:style:handler:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Creates and returns a configured item using the specified text and style.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>- (id)initWithTitle:(NSString *)<em>title</em> style:(UIBarButtonItemStyle)<em>style</em> handler:(BKSenderBlock)<em>action</em></code></div>
-	
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>title</em></dt>
-			<dd><p>The text displayed on the button item.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>style</em></dt>
-			<dd><p>The style of the item. One of the constants defined in UIBarButtonItemStyle.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>action</em></dt>
-			<dd><p>The block that gets fired on the button press.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Newly initialized item with the specified properties.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">UIBarButtonItem+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSTimer+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 					</div>
+					
+					
 					
 					
 				</div>
@@ -371,9 +302,9 @@ The size of a toolbar and navigation bar image is 20 x 20 points.</p></dd>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-02-26)</span><br />
+						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 774)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
 						
 					</div>
 				</div>

@@ -2,12 +2,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>NSArray(BlocksKit) Category Reference</title>
+		<title>NSIndexSet(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 774)" />
+		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">NSArray(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">NSIndexSet(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -44,6 +44,10 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
+	<option value="//api/name/all:">&nbsp;&nbsp;&nbsp;&nbsp;- all:</option>
+	
+	<option value="//api/name/any:">&nbsp;&nbsp;&nbsp;&nbsp;- any:</option>
+	
 	<option value="//api/name/apply:">&nbsp;&nbsp;&nbsp;&nbsp;- apply:</option>
 	
 	<option value="//api/name/each:">&nbsp;&nbsp;&nbsp;&nbsp;- each:</option>
@@ -52,7 +56,7 @@
 	
 	<option value="//api/name/match:">&nbsp;&nbsp;&nbsp;&nbsp;- match:</option>
 	
-	<option value="//api/name/reduce:withBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- reduce:withBlock:</option>
+	<option value="//api/name/none:">&nbsp;&nbsp;&nbsp;&nbsp;- none:</option>
 	
 	<option value="//api/name/reject:">&nbsp;&nbsp;&nbsp;&nbsp;- reject:</option>
 	
@@ -86,6 +90,10 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/all:">all:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/any:">any:</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/apply:">apply:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/each:">each:</a></span></li>
@@ -94,7 +102,7 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/match:">match:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reduce:withBlock:">reduce:withBlock:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/none:">none:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reject:">reject:</a></span></li>
 	
@@ -107,7 +115,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="NSArray(BlocksKit) Category Reference" name="top"></a>
+				<a title="NSIndexSet(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -116,7 +124,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">NSArray(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">NSIndexSet(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -124,7 +132,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">NSArray+BlocksKit.h</td>
+	<td class="specification-value">NSIndexSet+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -134,7 +142,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Block extensions for NSArray.</p>
+						<p>Block extensions for NSIndexSet.</p>
 
 <p>Both inspired by and resembling Smalltalk syntax, these utilities
 allows for iteration of an array in a concise way that
@@ -146,7 +154,6 @@ objects or an object.</p>
 <ul>
 <li>Robin Lu.    <a href="https://github.com/robin">https://github.com/robin</a>.    2009. MIT.</li>
 <li>Michael Ash.  <a href="https://github.com/mikeash">https://github.com/mikeash</a>. 2010. BSD.</li>
-<li>Aleks Nesterow. <a href="https://github.com/nesterow">https://github.com/nesterow</a>.   2010. BSD.</li>
 <li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
 </ul>
 
@@ -168,50 +175,64 @@ objects or an object.</p>
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/each:">&ndash;&nbsp;each:</a></code>
-		<span class="tooltip"><p>Loops through an array and executes the given block with each object.</p></span>
+		<span class="tooltip"><p>Loops through an index set and executes the given block at each index.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/apply:">&ndash;&nbsp;apply:</a></code>
-		<span class="tooltip"><p>Enumerates through an array concurrently and executes
-the given block once for each object.</p></span>
+		<span class="tooltip"><p>Enumerates each index in an index set concurrently and executes the
+given block once per index.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/match:">&ndash;&nbsp;match:</a></code>
-		<span class="tooltip"><p>Loops through an array to find the object matching the block.</p></span>
+		<span class="tooltip"><p>Loops through an array and returns the index matching the block.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/select:">&ndash;&nbsp;select:</a></code>
-		<span class="tooltip"><p>Loops through an array to find the objects matching the block.</p></span>
+		<span class="tooltip"><p>Loops through an index set and returns an all indexes matching the block.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/reject:">&ndash;&nbsp;reject:</a></code>
-		<span class="tooltip"><p>Loops through an array to find the objects not matching the block.</p></span>
+		<span class="tooltip"><p>Loops through an index set and returns an all indexes but the ones matching the block.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/map:">&ndash;&nbsp;map:</a></code>
-		<span class="tooltip"><p>Call the block once for each object and create an array of the return values.</p></span>
+		<span class="tooltip"><p>Call the block once for each index and create an index set with the new values.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/reduce:withBlock:">&ndash;&nbsp;reduce:withBlock:</a></code>
-		<span class="tooltip"><p>Arbitrarily accumulate objects using a block.</p></span>
+		<code><a href="#//api/name/any:">&ndash;&nbsp;any:</a></code>
+		<span class="tooltip"><p>Loops through an index set to find whether any of the indexes matche the block.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/all:">&ndash;&nbsp;all:</a></code>
+		<span class="tooltip"><p>Loops through an index set to find whether all objects match the block.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/none:">&ndash;&nbsp;none:</a></code>
+		<span class="tooltip"><p>Loops through an index set to find whether no objects match the block.</p></span>
 	</span>
 	
 	
@@ -233,18 +254,124 @@ the given block once for each object.</p></span>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
+	<a name="//api/name/all:" title="all:"></a>
+	<h3 class="subsubtitle method-title">all:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Loops through an index set to find whether all objects match the block.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)all:(BKIndexValidationBlock)<em>block</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A single-argument, BOOL-returning code block.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the block returns YES for all indexes in the array, NO otherwise.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSIndexSet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/any:" title="any:"></a>
+	<h3 class="subsubtitle method-title">any:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Loops through an index set to find whether any of the indexes matche the block.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (BOOL)any:(BKIndexValidationBlock)<em>block</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A single-argument, BOOL-returning code block.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES for the first time the block returns YES for an index, NO otherwise.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method is similar to the Scala list <code>exists</code>. It is functionally
+identical to <a href="#//api/name/match:">match:</a> but returns a <code>BOOL</code> instead. It is not recommended
+to use <a href="#//api/name/any:">any:</a> as a check condition before executing <a href="#//api/name/match:">match:</a>, since it would
+require two loops through the index set.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSIndexSet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/apply:" title="apply:"></a>
 	<h3 class="subsubtitle method-title">apply:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Enumerates through an array concurrently and executes
-the given block once for each object.</p>
+		<p>Enumerates each index in an index set concurrently and executes the
+given block once per index.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (void)apply:(BKSenderBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)apply:(BKIndexBlock)<em>block</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
@@ -265,12 +392,9 @@ the given block once for each object.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Enumeration will occur on appropriate background queues. This
-will have a noticeable speed increase, especially on dual-core
-devices, but you <em>must</em> be aware of the thread safety of the
-objects you message from within the block. Be aware that the
-order of objects is not necessarily the order each block will
-be called in.</p>
+		<p>Enumeration will occur on appropriate background queues.
+Be aware that the block will not necessarily be executed
+in order for each index.</p>
 	</div>
 	
 	
@@ -281,7 +405,7 @@ be called in.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSArray+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSIndexSet+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -294,11 +418,11 @@ be called in.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Loops through an array and executes the given block with each object.</p>
+		<p>Loops through an index set and executes the given block at each index.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (void)each:(BKSenderBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)each:(BKIndexBlock)<em>block</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
@@ -325,7 +449,7 @@ be called in.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSArray+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSIndexSet+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -338,11 +462,11 @@ be called in.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Call the block once for each object and create an array of the return values.</p>
+		<p>Call the block once for each index and create an index set with the new values.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (NSArray *)map:(BKTransformBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (NSIndexSet *)map:(BKIndexTransformBlock)<em>block</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
@@ -350,7 +474,7 @@ be called in.</p>
 		
 		<dl class="argument-def parameter-def">
 			<dt><em>block</em></dt>
-			<dd><p>A single-argument, object-returning code block.</p></dd>
+			<dd><p>A block that returns a new index for an index.</p></dd>
 		</dl>
 		
 	</div>
@@ -359,22 +483,12 @@ be called in.</p>
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Returns an array of the objects returned by the block.</p>
+		<p>An index set of the indexes returned by the block.</p>
 	</div>
 	
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>This is sometimes referred to as a transform, mutating one of each object:</p>
-
-<pre><code> NSArray *new = [stringArray map:^id(id obj) {
-   return [obj stringByAppendingString:@".png"]);
- }];
-</code></pre>
-	</div>
 	
 	
 	
@@ -384,7 +498,7 @@ be called in.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSArray+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSIndexSet+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -397,11 +511,11 @@ be called in.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Loops through an array to find the object matching the block.</p>
+		<p>Loops through an array and returns the index matching the block.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (id)match:(BKValidationBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (NSUInteger)match:(BKIndexValidationBlock)<em>block</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
@@ -418,18 +532,12 @@ be called in.</p>
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Returns the object, if found, or <code>nil</code>.</p>
+		<p>Returns the index if found, <code>NSNotFound</code> otherwise.</p>
 	</div>
 	
 	
 	
 	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>match: is functionally identical to <a href="#//api/name/select:">select:</a>, but will stop and return
-on the first match.</p>
-	</div>
 	
 	
 	
@@ -448,37 +556,32 @@ on the first match.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSArray+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSIndexSet+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/reduce:withBlock:" title="reduce:withBlock:"></a>
-	<h3 class="subsubtitle method-title">reduce:withBlock:</h3>
+	<a name="//api/name/none:" title="none:"></a>
+	<h3 class="subsubtitle method-title">none:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Arbitrarily accumulate objects using a block.</p>
+		<p>Loops through an index set to find whether no objects match the block.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (id)reduce:(id)<em>initial</em> withBlock:(BKAccumulationBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (BOOL)none:(BKIndexValidationBlock)<em>block</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>initial</em></dt>
-			<dd><p>The value of the reduction at its start.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
 			<dt><em>block</em></dt>
-			<dd><p>A block that takes the current sum and the next object to return the new sum.</p></dd>
+			<dd><p>A single-argument, BOOL-returning code block.</p></dd>
 		</dl>
 		
 	</div>
@@ -487,7 +590,7 @@ on the first match.</p>
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>An accumulated value.</p>
+		<p>YES if the block returns NO for all indexes in the array, NO otherwise.</p>
 	</div>
 	
 	
@@ -496,23 +599,7 @@ on the first match.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>The concept of this selector is difficult to illustrate in words. The sum can
-be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValue.</p>
-
-<p>For example, you can concentate the strings in an array:</p>
-
-<pre><code> NSString *concentrated = [stringArray reduce:@"" withBlock:^id(id sum, id obj) {
-   return [sum stringByAppendingString:obj];
- }];
-</code></pre>
-
-<p>You can also do something like summing the lengths of strings in an array:</p>
-
-<pre><code> NSNumber *sum = [stringArray reduce:nil withBlock:^id(id sum, id obj) {
-   return [NSNumber numberWithInteger: [sum integerValue] + obj.length];
- }];
- NSUInteger value = [sum integerValue];
-</code></pre>
+		<p>This selector performs <em>literally</em> the exact same function as <a href="#//api/name/all:">all:</a> but in reverse.</p>
 	</div>
 	
 	
@@ -523,7 +610,7 @@ be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValu
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSArray+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSIndexSet+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -536,11 +623,11 @@ be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValu
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Loops through an array to find the objects not matching the block.</p>
+		<p>Loops through an index set and returns an all indexes but the ones matching the block.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (NSArray *)reject:(BKValidationBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (NSIndexSet *)reject:(BKIndexValidationBlock)<em>block</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
@@ -557,7 +644,7 @@ be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValu
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Returns an array of all objects not found.</p>
+		<p>Returns an index set of all indexes but those matched.</p>
 	</div>
 	
 	
@@ -566,14 +653,7 @@ be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValu
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This selector performs <em>literally</em> the exact same function as select: but in reverse.</p>
-
-<p>This is useful, as one may expect, for removing objects from an array.</p>
-
-<pre><code> NSArray *new = [computers reject:^BOOL(id obj) {
-   return ([obj isUgly]);
- }];
-</code></pre>
+		<p>This selector performs <em>literally</em> the exact same function as <a href="#//api/name/select:">select:</a> but in reverse.</p>
 	</div>
 	
 	
@@ -584,7 +664,7 @@ be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValu
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSArray+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSIndexSet+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -597,11 +677,11 @@ be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValu
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Loops through an array to find the objects matching the block.</p>
+		<p>Loops through an index set and returns an all indexes matching the block.</p>
 	</div>		
 	
 	
-	<div class="method-subsection method-declaration"><code>- (NSArray *)select:(BKValidationBlock)<em>block</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (NSIndexSet *)select:(BKIndexValidationBlock)<em>block</em></code></div>
 	
 	
 	<div class="method-subsection arguments-section parameters">
@@ -618,7 +698,7 @@ be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValu
 	
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>Returns an array of the objects found.</p>
+		<p>Returns an index set of matching indexes found.</p>
 	</div>
 	
 	
@@ -642,7 +722,7 @@ be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValu
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSArray+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSIndexSet+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -661,9 +741,9 @@ be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValu
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-02-26)</span><br />
+						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 774)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
 						
 					</div>
 				</div>
