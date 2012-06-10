@@ -1,0 +1,780 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>UIGestureRecognizer(BlocksKit) Category Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.0.5 (build 774)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
+				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">UIGestureRecognizer(BlocksKit) Category Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/)">&nbsp;&nbsp;&nbsp;&nbsp;)</option>
+	
+	<option value="//api/name/handler">&nbsp;&nbsp;&nbsp;&nbsp;handler</option>
+	
+	<option value="//api/name/handlerDelay">&nbsp;&nbsp;&nbsp;&nbsp;handlerDelay</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/recognizerWithHandler:">&nbsp;&nbsp;&nbsp;&nbsp;+ recognizerWithHandler:</option>
+	
+	<option value="//api/name/recognizerWithHandler:delay:">&nbsp;&nbsp;&nbsp;&nbsp;+ recognizerWithHandler:delay:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/cancel">&nbsp;&nbsp;&nbsp;&nbsp;- cancel</option>
+	
+	<option value="//api/name/initWithHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithHandler:</option>
+	
+	<option value="//api/name/initWithHandler:delay:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithHandler:delay:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/)">)</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handler">handler</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handlerDelay">handlerDelay</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/recognizerWithHandler:">recognizerWithHandler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/recognizerWithHandler:delay:">recognizerWithHandler:delay:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cancel">cancel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithHandler:">initWithHandler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithHandler:delay:">initWithHandler:delay:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="UIGestureRecognizer(BlocksKit) Category Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">UIGestureRecognizer(BlocksKit) Category Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">UIGestureRecognizer+BlocksKit.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Block functionality for UIGestureRecognizer.</p>
+
+<p>Use of the delay property is pretty straightforward, although
+cancellation might be a little harder to swallow.  An example
+follows:</p>
+
+<pre><code> UITapGestureRecognizer *singleTap = [UITapGestureRecognizer recognizerWithHandler:^(id sender) {
+     NSLog(@"Single tap.");
+ } delay:0.18];
+ [self addGestureRecognizer:singleTap];
+
+ UITapGestureRecognizer *doubleTap = [UITapGestureRecognizer recognizerWithHandler:^(id sender) {
+    [singleTap cancel];
+    NSLog(@"Double tap.");
+ }];
+ doubleTap.numberOfTapsRequired = 2;
+ [self addGestureRecognizer:doubleTap];
+</code></pre>
+
+<p>Believe it or not, the above code is fully memory-safe and efficient.  Eagle-eyed coders
+will notice that this setup emulates UIGestureRecognizer&rsquo;s requireGestureRecognizerToFail:,
+and, yes, it totally apes it.  Not only is this setup much faster on the user&rsquo;s end of
+things, it is more flexible and allows for much more complicated setups.</p>
+
+<p>Includes code by the following:</p>
+
+<ul>
+<li>Kevin O'Neill.  <a href="https://github.com/kevinoneill">https://github.com/kevinoneill</a>. 2011. BSD.</li>
+<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>.  2011. MIT.</li>
+</ul>
+<div class="warning"><p>UIGestureRecognizer is only available on iOS or in a Mac app using Chameleon.</p></div><div class="warning"><p>It is not recommended to use the Apple-supplied locationInView and state
+methods on a <em>delayed</em> block-backed gesture recognizer, as these properties are
+likely to have been cleared by the time by the block fires.  It is instead recommended
+to use the arguments provided to the block in BlocksKit builds after 15 Jun. 2011.</p></div>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/recognizerWithHandler:delay:">+&nbsp;recognizerWithHandler:delay:</a></code>
+		<span class="tooltip"><p>An autoreleased gesture recognizer that will, on firing, call
+the given block asynchronously after a number of seconds.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithHandler:delay:">&ndash;&nbsp;initWithHandler:delay:</a></code>
+		<span class="tooltip"><p>Initializes an allocated gesture recognizer that will call the given block
+after a given delay.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/recognizerWithHandler:">+&nbsp;recognizerWithHandler:</a></code>
+		<span class="tooltip"><p>An autoreleased gesture recognizer that will call the given block.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithHandler:">&ndash;&nbsp;initWithHandler:</a></code>
+		<span class="tooltip"><p>Initializes an allocated gesture recognizer that will call the given block.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/handler">&nbsp;&nbsp;handler</a></code>
+		<span class="tooltip"><p>Allows the block that will be fired by the gesture recognizer
+to be modified after the fact.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/handlerDelay">&nbsp;&nbsp;handlerDelay</a></code>
+		<span class="tooltip"><p>Allows the length of the delay after which the gesture
+recognizer will be fired to modify.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/)">&nbsp;&nbsp;)</a></code>
+		<span class="tooltip"><p>Allows the length of the delay after which the gesture
+recognizer will be fired to modify.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/cancel">&ndash;&nbsp;cancel</a></code>
+		<span class="tooltip"><p>If the recognizer happens to be fired, calling this method
+will stop it from firing, but only if a delay is set.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/)" title=")"></a>
+	<h3 class="subsubtitle method-title">)</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Allows the length of the delay after which the gesture
+recognizer will be fired to modify.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic) NSTimeInterval delay DEPRECATED_ATTRIBUTE_M ( &quot;Use handlerDelay&quot; )</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p>Due to a collision with an internal method in
+UILongPressGestureRecognizer, this method was replaced
+with <a href="#//api/name/handlerDelay">handlerDelay</a> starting in BlocksKit 1.0.5.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIGestureRecognizer+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/handler" title="handler"></a>
+	<h3 class="subsubtitle method-title">handler</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Allows the block that will be fired by the gesture recognizer
+to be modified after the fact.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BKGestureRecognizerBlock handler</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIGestureRecognizer+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/handlerDelay" title="handlerDelay"></a>
+	<h3 class="subsubtitle method-title">handlerDelay</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Allows the length of the delay after which the gesture
+recognizer will be fired to modify.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>@property (nonatomic) NSTimeInterval handlerDelay</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIGestureRecognizer+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/recognizerWithHandler:" title="recognizerWithHandler:"></a>
+	<h3 class="subsubtitle method-title">recognizerWithHandler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>An autoreleased gesture recognizer that will call the given block.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (id)recognizerWithHandler:(BKGestureRecognizerBlock)<em>block</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>The block which handles an executed gesture.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An initialized and autoreleased instance of a concrete UIGestureRecognizer
+subclass, or <code>nil</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>For convenience and compatibility reasons, this method is indentical
+to using <a href="#//api/name/recognizerWithHandler:delay:">recognizerWithHandler:delay:</a> with a delay of 0.0.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIGestureRecognizer+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/recognizerWithHandler:delay:" title="recognizerWithHandler:delay:"></a>
+	<h3 class="subsubtitle method-title">recognizerWithHandler:delay:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>An autoreleased gesture recognizer that will, on firing, call
+the given block asynchronously after a number of seconds.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>+ (id)recognizerWithHandler:(BKGestureRecognizerBlock)<em>block</em> delay:(NSTimeInterval)<em>delay</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>The block which handles an executed gesture.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>delay</em></dt>
+			<dd><p>A number of seconds after which the block will fire.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An autoreleased instance of a concrete UIGestureRecognizer subclass, or <code>nil</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIGestureRecognizer+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/cancel" title="cancel"></a>
+	<h3 class="subsubtitle method-title">cancel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>If the recognizer happens to be fired, calling this method
+will stop it from firing, but only if a delay is set.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (void)cancel</code></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p>This method is not for arbitrarily canceling the
+firing of a recognizer, but will only function for a block
+<a href="#//api/name/handler">handler</a> <em>after the recognizer has already been fired</em>.  Be
+sure to make your delay times accomodate this likelihood.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIGestureRecognizer+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithHandler:" title="initWithHandler:"></a>
+	<h3 class="subsubtitle method-title">initWithHandler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Initializes an allocated gesture recognizer that will call the given block.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)initWithHandler:(BKGestureRecognizerBlock)<em>block</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>The block which handles an executed gesture.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An initialized instance of a concrete UIGestureRecognizer subclass or <code>nil</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method is indentical to calling <a href="#//api/name/initWithHandler:delay:">initWithHandler:delay:</a> with a delay of 0.0.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIGestureRecognizer+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithHandler:delay:" title="initWithHandler:delay:"></a>
+	<h3 class="subsubtitle method-title">initWithHandler:delay:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Initializes an allocated gesture recognizer that will call the given block
+after a given delay.</p>
+	</div>		
+	
+	
+	<div class="method-subsection method-declaration"><code>- (id)initWithHandler:(BKGestureRecognizerBlock)<em>block</em> delay:(NSTimeInterval)<em>delay</em></code></div>
+	
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>The block which handles an executed gesture.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>delay</em></dt>
+			<dd><p>A number of seconds after which the block will fire.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An initialized instance of a concrete UIGestureRecognizer subclass or <code>nil</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>An alternative to the designated initializer.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIGestureRecognizer+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-02-26)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 774)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+		</script>
+	</body>
+</html>
