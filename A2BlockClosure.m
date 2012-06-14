@@ -167,7 +167,7 @@ static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, v
     BlockRef block = (void *)(self->_block);
     
     void **innerArgs = args + 1;
-    innerArgs[0] = block;
+    innerArgs[0] = &block;
     ffi_call(self->_blockCIF, block->invoke, ret, innerArgs);
 }
 
