@@ -77,7 +77,12 @@ static void *BKRealDelegateKey;
 }
 
 - (void) a2_checkRegisteredProtocol:(Protocol *)protocol {
-    NSString *propertyName = [[self.class.bk_propertyMap allKeysForObject: NSStringFromProtocol(protocol)] lastObject];
+	NSString *propertyName = nil;
+	Class cls = [self class];
+	while (!propertyName.length && cls != [NSObject class]) {
+		propertyName = [[[cls bk_propertyMap] allKeysForObject: NSStringFromProtocol(protocol)] lastObject];
+		cls = [cls superclass];
+	}
     
 	SEL a2_setter = a2_selector(a2_setterForProperty(self.class, propertyName));
 	SEL a2_getter = a2_selector(a2_getterForProperty(self.class, propertyName));
@@ -149,7 +154,13 @@ static void *BKRealDelegateKey;
 static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 {
     NSString *delegateName = a2_nameForPropertyAccessor(self.class, _cmd);
-	NSString *protocolName = [[self.class bk_propertyMap] objectForKey: delegateName];
+	NSString *protocolName = nil;
+	Class cls = [self class];
+	while (!protocolName.length && cls != [NSObject class]) {
+		protocolName = [[cls bk_propertyMap] objectForKey: delegateName];
+		cls = [cls superclass];
+	}
+	
 	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: NSProtocolFromString(protocolName)];
     
 	SEL a2_setter = NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(_cmd)]);
@@ -173,7 +184,12 @@ static void bk_blockDelegateSetter(NSObject *self, SEL _cmd, id delegate)
 static id bk_blockDelegateGetter(NSObject *self, SEL _cmd)
 {
     NSString *delegateName = a2_nameForPropertyAccessor(self.class, _cmd);
-	NSString *protocolName = [[self.class bk_propertyMap] objectForKey: delegateName];
+	NSString *protocolName = nil;
+	Class cls = [self class];
+	while (!protocolName.length && cls != [NSObject class]) {
+		protocolName = [[cls bk_propertyMap] objectForKey: delegateName];
+		cls = [cls superclass];
+	}
 	A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: NSProtocolFromString(protocolName)];
     
 	return dynamicDelegate.realDelegate;
