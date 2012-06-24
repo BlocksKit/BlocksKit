@@ -41,12 +41,14 @@ static void *BKRealDelegateKey;
 
 @implementation A2DynamicDelegate (A2BlockDelegate)
 
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+	return [self.class instancesRespondToSelector: aSelector] || [self.realDelegate respondsToSelector: aSelector];
+}
+
 - (id) forwardingTargetForSelector: (SEL) aSelector
 {
-	if (![self blockImplementationForMethod: aSelector] && [self.realDelegate respondsToSelector: aSelector])
-		return self.realDelegate;
-	
-	return [super forwardingTargetForSelector: aSelector];
+	return self.realDelegate;
 }
 
 - (id) realDelegate
