@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author   = { 'Zachary Waldowski' => 'zwaldowski@gmail.com',
                  'Alexsander Akers' => 'a2@pandamonia.us' }
   s.source   = { :git => 'https://github.com/zwaldowski/BlocksKit.git', :tag => 'v1.5.0' }
-  s.dependency 'A2DynamicDelegate'
+  s.dependency 'A2DynamicDelegate', '>= 2.0.1'
   s.osx.source_files = 'BlocksKit/*.{h,m}'
   s.ios.frameworks   = 'MessageUI'
   s.ios.source_files = 'BlocksKit/*.{h,m}', 'BlocksKit/UIKit/*.{h,m}', 'BlocksKit/MessageUI/*.{h,m}'
