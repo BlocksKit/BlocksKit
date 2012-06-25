@@ -41,9 +41,17 @@ static void *BKRealDelegateKey;
 
 @implementation A2DynamicDelegate (A2BlockDelegate)
 
-- (BOOL)respondsToSelector:(SEL)aSelector
++ (void)load {
+	@autoreleasepool {
+		Method oldMethod = class_getInstanceMethod(self, @selector(respondsToSelector:));
+		Method newMethod = class_getInstanceMethod(self, @selector(bk_respondsToSelector:));
+		method_exchangeImplementations(oldMethod, newMethod);
+	}
+}
+
+- (BOOL)bk_respondsToSelector:(SEL)aSelector
 {
-	return [self.class instancesRespondToSelector: aSelector] || [self.realDelegate respondsToSelector: aSelector];
+	return [self bk_respondsToSelector: aSelector] || [self.realDelegate respondsToSelector: aSelector];
 }
 
 - (id) forwardingTargetForSelector: (SEL) aSelector
