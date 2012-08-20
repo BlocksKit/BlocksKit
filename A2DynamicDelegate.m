@@ -250,7 +250,7 @@ static void *A2DynamicDelegateProtocolKey;
 + (Protocol *) protocol
 {
 	Class class = self;
-	while (class.superclass != [A2DynamicDelegate class]) class = class.superclass;
+	while (class && class.superclass != [A2DynamicDelegate class]) class = class.superclass;
 	if (!class) return nil;
 	
 	return objc_getAssociatedObject(class, &A2DynamicDelegateProtocolKey);
