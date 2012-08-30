@@ -258,7 +258,7 @@ static void *A2DynamicDelegateProtocolKey;
 + (void) setProtocol: (Protocol *) protocol
 {
 	Class class = self;
-	while (class.superclass != [A2DynamicDelegate class]) class = class.superclass;
+	while (class && class.superclass != [A2DynamicDelegate class]) class = class.superclass;
 	if (!class) return;
 	
 	// If protocol is already set, return
