@@ -162,7 +162,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 			[self associateValue:nil withKey:&kObserverBlocksKey];
 		
 		[withIdentifier each:^(NSString *key, BKObserver *trampoline) {
-			NSString *keyPath = [key substringToIndex:key.length - token.length - 2];
+			NSString *keyPath = [key substringToIndex:key.length - token.length - 1];
 			
 			if (!trampoline || ![trampoline.keyPaths containsObject:keyPath])
 				return;
