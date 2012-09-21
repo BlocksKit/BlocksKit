@@ -36,16 +36,6 @@ extern void (*a2_blockGetInvocation(id block))(void);
 
 @end
 
-@interface A2DynamicDelegateClassProxy : A2DynamicDelegate {
-	Class _proxiedClass;
-}
-
-- (id) blockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
-- (void) implementClassMethod: (SEL) selector withBlock: (id) block NS_UNAVAILABLE;
-- (void) removeBlockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
-
-@end
-
 @implementation A2DynamicDelegate
 
 - (id)init {
@@ -100,9 +90,11 @@ extern void (*a2_blockGetInvocation(id block))(void);
 	return [super class];
 }
 
-- (A2DynamicDelegateClassProxy *)classProxy {
+- (A2DynamicClassDelegate *)classProxy {
 	if (!_classProxy) {
-		_classProxy = [[A2DynamicDelegateClassProxy alloc] init];
+		Class cls = NSClassFromString([@"A2DynamicClass" stringByAppendingString: NSStringFromProtocol(self.protocol)]) ?: [A2DynamicClassDelegate class];
+		_classProxy = [[cls alloc] init];
+		[_classProxy setDelegatingObject: self];
 		[_classProxy setProtocol: self.protocol];
 	}
 	return _classProxy;
@@ -193,7 +185,7 @@ extern void (*a2_blockGetInvocation(id block))(void);
 
 #pragma mark -
 
-@implementation A2DynamicDelegateClassProxy
+@implementation A2DynamicClassDelegate
 
 - (id)init {
 	if ((self = [super init])) {

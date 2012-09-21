@@ -196,3 +196,18 @@
 - (id) dynamicDelegateForProtocol: (Protocol *) protocol;
 
 @end
+
+/** A2DynamicDelegate proxies the class of an instance's delegate. Subclass it
+ with the format `A2DynamicClassFooBarDelegate` for it to be used instead of
+ a basic proxy.
+ */
+@interface A2DynamicClassDelegate : A2DynamicDelegate {
+@private
+	Class _proxiedClass;
+}
+
+- (id) blockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
+- (void) implementClassMethod: (SEL) selector withBlock: (id) block NS_UNAVAILABLE;
+- (void) removeBlockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
+
+@end
