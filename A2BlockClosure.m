@@ -275,7 +275,7 @@ static inline size_t a2_getStructSize(const char *encodingType) {
 		self.methodSignature = signature;
 		_allocations = [NSMutableArray new];
 
-		NSUInteger blockArgCount = signature.numberOfArguments - 1;
+		unsigned int blockArgCount = (unsigned int)signature.numberOfArguments - 1;
 		ffi_cif blockCif;
 
 		ffi_type **methodArgs = [self a2_allocate: blockArgCount * sizeof(ffi_type *)];
