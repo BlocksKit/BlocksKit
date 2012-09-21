@@ -10,10 +10,6 @@
 #import "A2DynamicDelegate.h"
 #import <objc/runtime.h>
 
-#if __has_attribute(objc_arc)
-	#error "At present, 'A2BlockDelegate.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
-#endif
-
 #ifndef NSAlwaysAssert
 	#define NSAlwaysAssert(condition, desc, ...) \
 		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, (desc)], ## __VA_ARGS__]; } } while(0)
