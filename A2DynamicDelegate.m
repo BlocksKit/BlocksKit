@@ -307,7 +307,8 @@ extern void (*a2_blockGetInvocation(id block))(void);
 		
 		if (!dynamicDelegate)
 		{
-			dynamicDelegate = [[A2DynamicDelegate alloc] init];
+			Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString: NSStringFromProtocol(protocol)]) ?: [A2DynamicDelegate class];
+			dynamicDelegate = [[cls alloc] init];
 			dynamicDelegate.delegatingObject = self;
 			dynamicDelegate.protocol = protocol;
 			objc_setAssociatedObject(self, (__bridge const void *)protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
