@@ -17,8 +17,6 @@
 		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
 #endif
 
-#define A2BlockMapKey(selector, isClassMethod) (selector ? [NSString stringWithFormat: @"%c%s", "-+"[!!isClassMethod], sel_getName(selector)] : nil)
-
 Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
 extern BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature);
@@ -77,9 +75,9 @@ extern void (*a2_blockGetInvocation(id block))(void);
 
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)aSelector {
 	id ret = nil;
-	NSString *key = A2BlockMapKey(aSelector, self.isClassProxy);
-	if ([self.blockMap objectForKey: key]) {
-		ret = [[self.blockMap objectForKey: key] methodSignature];
+	NSString *key = NSStringFromSelector(aSelector);
+	if (self.blockMap[key]) {
+		ret = [self.blockMap[key] methodSignature];
 	} else if ([NSStringFromSelector(aSelector) isEqualToString:@"testClassMethod"]) {
 		ret = [NSMethodSignature signatureWithObjCTypes:"@@:"];
 	}
@@ -89,7 +87,7 @@ extern void (*a2_blockGetInvocation(id block))(void);
 }
 
 - (void)forwardInvocation:(NSInvocation *)invoc {
-	A2BlockClosure *closure = self.blockMap[A2BlockMapKey(invoc.selector, self.isClassProxy)];
+	A2BlockClosure *closure = self.blockMap[NSStringFromSelector(invoc.selector)];
 	if (closure) {
 		[closure callWithInvocation: invoc];
 	}
@@ -140,7 +138,7 @@ extern void (*a2_blockGetInvocation(id block))(void);
 
 - (BOOL) respondsToSelector: (SEL) selector
 {
-	return self.blockMap[A2BlockMapKey(selector, NO)] || [super respondsToSelector: selector];
+	return self.blockMap[NSStringFromSelector(selector)] || [super respondsToSelector: selector];
 }
 
 - (void)doesNotRecognizeSelector:(SEL)aSelector {
@@ -150,13 +148,13 @@ extern void (*a2_blockGetInvocation(id block))(void);
 #pragma mark -
 
 - (id) blockImplementationForMethod: (SEL) selector {
-	return [[self.blockMap objectForKey: A2BlockMapKey(selector, self.isClassProxy)] block];
+	return [self.blockMap[NSStringFromSelector(selector)] block];
 }
 
 - (void) implementMethod: (SEL) selector withBlock: (id) block {
 	NSAlwaysAssert(selector, @"Attempt to implement/remove NULL selector");
 	BOOL isClassMethod = self.isClassProxy;
-    NSString *key = A2BlockMapKey(selector, isClassMethod);
+    NSString *key = NSStringFromSelector(selector);
 
 	if (!block)
 	{
@@ -209,7 +207,7 @@ extern void (*a2_blockGetInvocation(id block))(void);
 }
 
 - (void)forwardInvocation:(NSInvocation *)invoc {
-	if (self.blockMap[A2BlockMapKey(invoc.selector, YES)]) {
+	if (self.blockMap[NSStringFromSelector(invoc.selector)]) {
 		[super forwardInvocation:invoc];
 	} else {
 		[invoc invokeWithTarget: _proxiedClass];
@@ -221,7 +219,7 @@ extern void (*a2_blockGetInvocation(id block))(void);
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
-	return self.blockMap[A2BlockMapKey(aSelector, YES)] || [_proxiedClass respondsToSelector: aSelector];
+	return self.blockMap[NSStringFromSelector(aSelector)] || [_proxiedClass respondsToSelector: aSelector];
 }
 
 - (BOOL)isClassProxy {
