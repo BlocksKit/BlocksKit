@@ -112,6 +112,9 @@ BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature);
 
 BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature) {
     NSMethodSignature *blockSig = a2_blockGetSignature(block);
+	if (!blockSig)
+		return NO;
+	
     BOOL isCompatible = (strcmp(blockSig.methodReturnType, signature.methodReturnType) == 0);
     NSUInteger i, argc = blockSig.numberOfArguments;
     for (i = 1; i < argc && isCompatible; ++i)
