@@ -1,5 +1,5 @@
 //
-//  A2BlockClosureTests.h
+//  A2BlockClosure.h
 //  A2DynamicDelegate
 //
 //  Created by Zachary Waldowski on 6/5/12.
@@ -12,7 +12,6 @@
 
 - (void)testBlock;
 - (void)testBlockWithArguments;
-- (void)testFunctionInterface;
-- (void)testFunctionInterfaceWithArguments;
+- (void)testFunctionInterfaceWithInvocation;
 
 @end

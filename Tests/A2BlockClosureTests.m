@@ -39,7 +39,7 @@
 	STAssertTrue(result, @"Block not run");
 }
 
-- (void)testFunctionInterface
+- (void)testFunction
 {
 	BOOL(^block)(void) = ^BOOL{
 		return YES;
@@ -47,13 +47,13 @@
 	NSMethodSignature *signature = [NSMethodSignature signatureWithObjCTypes:"c@:"];
 	A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock: block methodSignature: signature];
 	STAssertNotNil(closure, @"Could not init closure");
-	STAssertNotNil(closure.functionPointer, @"Closure couldn't get function interface");
-	IMP interface = closure.functionPointer;
-	BOOL result = (BOOL)interface(self, NULL);
+	STAssertTrue(closure.function != nil, @"Closure couldn't get function.");
+	BOOL (*properFunction)(void) = (BOOL(*)(void))closure.function;
+	BOOL result = properFunction();
 	STAssertTrue(result, @"Block not run");
 }
 
-- (void)testFunctionInterfaceWithArguments
+- (void)testFunctionInterfaceWithInvocation
 {
 	BOOL(^block)(int, NSString *) = ^BOOL(int val, NSString *str){
 		return (val == 42 && [str isEqualToString:@"Test"]);
@@ -61,10 +61,15 @@
 	NSMethodSignature *signature = [NSMethodSignature signatureWithObjCTypes:"c@:i@"];
 	A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock: block methodSignature: signature];
 	STAssertNotNil(closure, @"Could not init closure");
-	STAssertNotNil(closure.functionPointer, @"Closure couldn't get function interface");
-	IMP interface = closure.functionPointer;
-	BOOL result = (BOOL)interface(self, NULL, 42, @"Test");
-	STAssertTrue(result, @"Block not run");
+
+	NSInvocation *inv = [NSInvocation invocationWithMethodSignature: signature];
+	STAssertNotNil(inv, @"Could not init invocation");
+	int firstArgument = 42;
+	NSString *secondArgument = @"Test";
+	[inv setArgument: &firstArgument atIndex: 2];
+	[inv setArgument: &secondArgument atIndex: 3];
+	
+	[closure callWithInvocation: inv];
 }
 
 @end

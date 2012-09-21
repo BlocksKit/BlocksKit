@@ -287,6 +287,22 @@ typedef struct _MyStruct {
 
 #pragma mark -
 
+@protocol TestClassMethodProtocol <NSObject>
+
++ (BOOL)testWithObject:(NSString *)obj;
+
+@end
+
+@interface TestClassMethod : NSObject
+
+- (BOOL)test;
+
+@property (nonatomic, assign) id <TestClassMethodProtocol> delegate;
+
+@end
+
+#pragma mark -
+
 @interface A2DynamicDelegateTests : SenTestCase
 
 - (void)testReturnObject;
@@ -306,5 +322,6 @@ typedef struct _MyStruct {
 - (void)testPassDouble;
 - (void)testPassArray;
 - (void)testPassStruct;
+- (void)testClassMethod;
 
 @end

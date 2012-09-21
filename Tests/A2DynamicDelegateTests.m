@@ -220,6 +220,18 @@
 
 #pragma mark -
 
+@implementation TestClassMethod
+
+- (BOOL)test {
+	return [[self.delegate class] testWithObject: @"Test"];
+}
+
+@synthesize delegate = _delegate;
+
+@end
+
+#pragma mark -
+
 @implementation A2DynamicDelegateTests
 
 - (void)testReturnObject {
@@ -441,6 +453,19 @@
 		return stret.first && stret.second;
 	}];
 	STAssertNotNil(dd, [dd blockImplementationForMethod:@selector(testPassStruct:)]);
+	obj.delegate = dd;
+	BOOL result = [obj test];
+	STAssertTrue(result, @"Test object didn't return true");
+}
+
+- (void)testClassMethod {
+	TestClassMethod *obj = [TestClassMethod new];
+	A2DynamicDelegate <TestClassMethodProtocol> *dd = [obj dynamicDelegateForProtocol:@protocol(TestClassMethodProtocol)];
+	STAssertNotNil(dd, @"Dynamic delegate not set");
+	[dd implementClassMethod:@selector(testWithObject:) withBlock:^BOOL(NSString *str){
+		return !!str.length;
+	}];
+	STAssertNotNil(dd, [dd blockImplementationForClassMethod:@selector(testWithObject:)]);
 	obj.delegate = dd;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
