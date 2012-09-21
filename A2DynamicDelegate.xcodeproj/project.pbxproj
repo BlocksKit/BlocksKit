@@ -41,22 +41,15 @@
 		6CC071211537918D00BF5468 /* trampoline.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071111537918D00BF5468 /* trampoline.S */; };
 		6CC071221537918D00BF5468 /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071131537918D00BF5468 /* darwin.S */; };
 		6CC071231537918D00BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071141537918D00BF5468 /* ffi.c */; };
-		6CC071401537919500BF5468 /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071321537919500BF5468 /* darwin.S */; };
-		6CC071411537919500BF5468 /* darwin64.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071331537919500BF5468 /* darwin64.S */; };
-		6CC071421537919500BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071341537919500BF5468 /* ffi.c */; };
-		6CC071431537919500BF5468 /* ffi64.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071351537919500BF5468 /* ffi64.c */; };
 		6CC0714C153791A000BF5468 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07145153791A000BF5468 /* closures.c */; };
-		6CC0714D153791A000BF5468 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07145153791A000BF5468 /* closures.c */; };
 		6CC07154153791A000BF5468 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07149153791A000BF5468 /* prep_cif.c */; };
-		6CC07155153791A000BF5468 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07149153791A000BF5468 /* prep_cif.c */; };
 		6CC07156153791A000BF5468 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714A153791A000BF5468 /* raw_api.c */; };
-		6CC07157153791A000BF5468 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714A153791A000BF5468 /* raw_api.c */; };
 		6CC07158153791A000BF5468 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714B153791A000BF5468 /* types.c */; };
-		6CC07159153791A000BF5468 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714B153791A000BF5468 /* types.c */; };
 		6CC1B787152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6CC1B788152BE50500D35A92 /* A2BlockClosure.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC1B785152BE50500D35A92 /* A2BlockClosure.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		6CC1B789152BE50500D35A92 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B786152BE50500D35A92 /* A2BlockClosure.m */; };
 		6CC1B78A152BE50500D35A92 /* A2BlockClosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1B786152BE50500D35A92 /* A2BlockClosure.m */; };
+		6CF426F3160CED4800780CA2 /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CF426F2160CED4800780CA2 /* libffi.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +122,7 @@
 		6CC0714B153791A000BF5468 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
 		6CC1B785152BE50500D35A92 /* A2BlockClosure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockClosure.h; sourceTree = SOURCE_ROOT; };
 		6CC1B786152BE50500D35A92 /* A2BlockClosure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockClosure.m; sourceTree = SOURCE_ROOT; };
+		6CF426F2160CED4800780CA2 /* libffi.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libffi.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libffi.dylib; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CF426F3160CED4800780CA2 /* libffi.dylib in Frameworks */,
 				0071BC5514A2C88300D7F4F8 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,6 +203,7 @@
 		0051A0421481BE160089CC41 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6CF426F2160CED4800780CA2 /* libffi.dylib */,
 				6C104288157E7344001AF708 /* SenTestingKit.framework */,
 				0051A0471481BE160089CC41 /* CoreGraphics.framework */,
 				0051A0451481BE160089CC41 /* Foundation.framework */,
@@ -582,14 +578,6 @@
 				0071BC5314A2C87200D7F4F8 /* A2BlockDelegate.m in Sources */,
 				0071BC5414A2C87300D7F4F8 /* A2DynamicDelegate.m in Sources */,
 				6CC1B78A152BE50500D35A92 /* A2BlockClosure.m in Sources */,
-				6CC071401537919500BF5468 /* darwin.S in Sources */,
-				6CC071411537919500BF5468 /* darwin64.S in Sources */,
-				6CC071421537919500BF5468 /* ffi.c in Sources */,
-				6CC071431537919500BF5468 /* ffi64.c in Sources */,
-				6CC0714D153791A000BF5468 /* closures.c in Sources */,
-				6CC07155153791A000BF5468 /* prep_cif.c in Sources */,
-				6CC07157153791A000BF5468 /* raw_api.c in Sources */,
-				6CC07159153791A000BF5468 /* types.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,7 +744,7 @@
 		0071BC4F14A2C74E00D7F4F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0;
@@ -784,7 +772,7 @@
 		0071BC5014A2C74E00D7F4F8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -860,7 +848,7 @@
 		6C1042C2157E8F6C001AF708 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -882,7 +870,7 @@
 		6C1042C3157E8F6C001AF708 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
