@@ -15,9 +15,9 @@
 @dynamic testReturnObjectBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testReturnObjectBlock" withDelegateMethod:@selector(testReturnObject)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testReturnObjectBlock" withDelegateMethod:@selector(testReturnObject)];
+	}
 }
 
 @end
@@ -29,9 +29,9 @@
 @dynamic testReturnStructBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testReturnStructBlock" withDelegateMethod:@selector(testReturnStruct)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testReturnStructBlock" withDelegateMethod:@selector(testReturnStruct)];
+	}
 }
 
 @end
@@ -43,9 +43,9 @@
 @dynamic testWithObjectBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithObjectBlock" withDelegateMethod:@selector(testWithObject:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithObjectBlock" withDelegateMethod:@selector(testWithObject:)];
+	}
 }
 
 @end
@@ -57,9 +57,9 @@
 @dynamic testWithCharBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithCharBlock" withDelegateMethod:@selector(testWithChar:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithCharBlock" withDelegateMethod:@selector(testWithChar:)];
+	}
 }
 
 @end
@@ -71,9 +71,9 @@
 @dynamic testWithUCharBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithUCharBlock" withDelegateMethod:@selector(testWithUChar:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithUCharBlock" withDelegateMethod:@selector(testWithUChar:)];
+	}
 }
 
 @end
@@ -85,9 +85,9 @@
 @dynamic testWithShortBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithShortBlock" withDelegateMethod:@selector(testWithShort:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithShortBlock" withDelegateMethod:@selector(testWithShort:)];
+	}
 }
 
 @end
@@ -99,9 +99,9 @@
 @dynamic testWithUShortBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithUShortBlock" withDelegateMethod:@selector(testWithUShort:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithUShortBlock" withDelegateMethod:@selector(testWithUShort:)];
+	}
 }
 
 @end
@@ -113,9 +113,9 @@
 @dynamic testWithIntBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithIntBlock" withDelegateMethod:@selector(testWithInt:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithIntBlock" withDelegateMethod:@selector(testWithInt:)];
+	}
 }
 
 @end
@@ -127,9 +127,9 @@
 @dynamic testWithUIntBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithUIntBlock" withDelegateMethod:@selector(testWithUInt:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithUIntBlock" withDelegateMethod:@selector(testWithUInt:)];
+	}
 }
 
 @end
@@ -141,9 +141,9 @@
 @dynamic testWithLongBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithLongBlock" withDelegateMethod:@selector(testWithLong:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithLongBlock" withDelegateMethod:@selector(testWithLong:)];
+	}
 }
 
 @end
@@ -155,9 +155,9 @@
 @dynamic testWithULongBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithULongBlock" withDelegateMethod:@selector(testWithULong:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithULongBlock" withDelegateMethod:@selector(testWithULong:)];
+	}
 }
 
 @end
@@ -169,9 +169,9 @@
 @dynamic testWithLongLongBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithLongLongBlock" withDelegateMethod:@selector(testWithLongLong:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithLongLongBlock" withDelegateMethod:@selector(testWithLongLong:)];
+	}
 }
 
 @end
@@ -183,9 +183,9 @@
 @dynamic testWithULongLongBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithULongLongBlock" withDelegateMethod:@selector(testWithULongLong:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithULongLongBlock" withDelegateMethod:@selector(testWithULongLong:)];
+	}
 }
 
 @end
@@ -197,9 +197,9 @@
 @dynamic testWithFloatBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithFloatBlock" withDelegateMethod:@selector(testWithFloat:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithFloatBlock" withDelegateMethod:@selector(testWithFloat:)];
+	}
 }
 
 @end
@@ -211,9 +211,9 @@
 @dynamic testWithDoubleBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithDoubleBlock" withDelegateMethod:@selector(testWithDouble:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithDoubleBlock" withDelegateMethod:@selector(testWithDouble:)];
+	}
 }
 
 @end
@@ -225,9 +225,9 @@
 @dynamic testWithArrayBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithArrayBlock" withDelegateMethod:@selector(testWithArray:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithArrayBlock" withDelegateMethod:@selector(testWithArray:)];
+	}
 }
 
 @end
@@ -239,9 +239,9 @@
 @dynamic testWithStructBlock;
 
 + (void)load {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	[self linkCategoryBlockProperty:@"testWithStructBlock" withDelegateMethod:@selector(testPassStruct:)];
-	[pool release];
+	@autoreleasepool {
+		[self linkCategoryBlockProperty:@"testWithStructBlock" withDelegateMethod:@selector(testPassStruct:)];
+	}
 }
 
 @end
