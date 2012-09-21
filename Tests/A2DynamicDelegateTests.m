@@ -471,4 +471,17 @@
 	STAssertTrue(result, @"Test object didn't return true");
 }
 
+- (void)testClassInterfacing {
+	TestClassMethod *obj = [TestClassMethod new];
+	A2DynamicDelegate <TestClassMethodProtocol> *dd = [obj dynamicDelegateForProtocol:@protocol(TestClassMethodProtocol)];
+	STAssertNotNil(dd, @"Dynamic delegate not set");
+	Class interposed = [dd class];
+	Class original = [A2DynamicDelegate class];
+	
+	STAssertTrue([[interposed description] isEqualToString: [original description]], @"Descriptions not the same");
+	STAssertEquals([interposed class], [original class], @"Classes not the same");
+	STAssertEquals([interposed hash], [original hash], @"Hashes not the same");
+	STAssertEquals([interposed superclass], [original superclass], @"Superclasses not the same");
+}
+
 @end

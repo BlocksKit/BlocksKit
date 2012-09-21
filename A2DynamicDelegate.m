@@ -58,7 +58,7 @@ extern void (*a2_blockGetInvocation(id block))(void);
 }
 
 - (NSString *) description {
-	return [NSString stringWithFormat: @"<A2DynamicDelegate %@>", nil]; // NSStringFromProtocol(self.protocol)
+	return [NSString stringWithFormat: @"<A2DynamicDelegate %@>", NSStringFromProtocol(self.protocol)];
 }
 
 + (NSString *)description {
@@ -137,17 +137,6 @@ extern void (*a2_blockGetInvocation(id block))(void);
 - (BOOL)conformsToProtocol:(Protocol *)aProtocol {
 	return (protocol_isEqual(aProtocol, self.protocol) || [super conformsToProtocol: aProtocol]);
 }
-
-/*+ (BOOL) instancesRespondToSelector: (SEL) selector
- {
- IMP imp = class_getMethodImplementation(self.class, selector);
- return ([super instancesRespondToSelector: selector] && imp != (IMP) _objc_msgForward && imp != (IMP) _objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, NO)];
- }
- + (BOOL) respondsToSelector: (SEL) selector
- {
- IMP imp = class_getMethodImplementation(object_getClass(self.class), selector);
- return ([super respondsToSelector: selector] && imp != (IMP) _objc_msgForward && imp != (IMP) _objc_msgForward_stret) || [self.blockMap objectForKey: BLOCK_MAP_DICT_KEY(selector, YES)];
- }*/
 
 - (BOOL) respondsToSelector: (SEL) selector
 {
@@ -231,20 +220,12 @@ extern void (*a2_blockGetInvocation(id block))(void);
 	return [_proxiedClass description];
 }
 
-+ (NSString *)description {
-	return @"A2DynamicDelegateClassProxy";
-}
-
 - (BOOL)respondsToSelector:(SEL)aSelector {
 	return self.blockMap[A2BlockMapKey(aSelector, YES)] || [_proxiedClass respondsToSelector: aSelector];
 }
 
 - (BOOL)isClassProxy {
 	return YES;
-}
-
-- (Class)superclass {
-	return [_proxiedClass superclass];
 }
 
 - (Class)class {
