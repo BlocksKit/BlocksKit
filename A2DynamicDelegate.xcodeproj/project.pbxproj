@@ -31,11 +31,11 @@
 		6C10429E157E7DC8001AF708 /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
 		6C1042A9157E8F4A001AF708 /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */; };
 		6C1042B0157E8F6B001AF708 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C104288157E7344001AF708 /* SenTestingKit.framework */; };
-		6C1042B2157E8F6B001AF708 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C1042B1157E8F6B001AF708 /* Cocoa.framework */; };
 		6C1042C6157E8F8C001AF708 /* A2DynamicDelegate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */; };
 		6C1042C8157E8FA0001AF708 /* A2BlockClosureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C104283157E7283001AF708 /* A2BlockClosureTests.m */; };
 		6C1042CA157E8FA0001AF708 /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C10428F157E747E001AF708 /* A2DynamicDelegateTests.m */; };
 		6C1042CC157E8FA0001AF708 /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */; };
+		6CAF1CA01609F42C001AAADC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CAF1C9F1609F42C001AAADC /* Default-568h@2x.png */; };
 		6CC0711F1537918D00BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0710F1537918D00BF5468 /* ffi.c */; };
 		6CC071201537918D00BF5468 /* sysv.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071101537918D00BF5468 /* sysv.S */; };
 		6CC071211537918D00BF5468 /* trampoline.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071111537918D00BF5468 /* trampoline.S */; };
@@ -111,12 +111,9 @@
 		6C1042A7157E8F4A001AF708 /* A2BlockDelegateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = A2BlockDelegateTests.h; path = Tests/A2BlockDelegateTests.h; sourceTree = SOURCE_ROOT; };
 		6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = A2BlockDelegateTests.m; path = Tests/A2BlockDelegateTests.m; sourceTree = SOURCE_ROOT; };
 		6C1042AF157E8F6B001AF708 /* A2DD OS X Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "A2DD OS X Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C1042B1157E8F6B001AF708 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		6C1042B4157E8F6B001AF708 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		6C1042B5157E8F6B001AF708 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		6C1042B6157E8F6B001AF708 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6C1042B9157E8F6C001AF708 /* OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OS X Tests-Info.plist"; path = "../Tests/OS X Tests-Info.plist"; sourceTree = "<group>"; };
 		6C1042C0157E8F6C001AF708 /* OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OS X Tests-Prefix.pch"; path = "../Tests/OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
+		6CAF1C9F1609F42C001AAADC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		6CC0710F1537918D00BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
 		6CC071101537918D00BF5468 /* sysv.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = sysv.S; sourceTree = "<group>"; };
 		6CC071111537918D00BF5468 /* trampoline.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = trampoline.S; sourceTree = "<group>"; };
@@ -179,7 +176,6 @@
 			files = (
 				6C1042C6157E8F8C001AF708 /* A2DynamicDelegate.framework in Frameworks */,
 				6C1042B0157E8F6B001AF708 /* SenTestingKit.framework in Frameworks */,
-				6C1042B2157E8F6B001AF708 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,8 +212,6 @@
 				0051A0471481BE160089CC41 /* CoreGraphics.framework */,
 				0051A0451481BE160089CC41 /* Foundation.framework */,
 				0051A0431481BE160089CC41 /* UIKit.framework */,
-				6C1042B1157E8F6B001AF708 /* Cocoa.framework */,
-				6C1042B3157E8F6B001AF708 /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -240,6 +234,7 @@
 		0051A04A1481BE160089CC41 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6CAF1C9F1609F42C001AAADC /* Default-568h@2x.png */,
 				0051A0521481BE160089CC41 /* DDAppDelegate.h */,
 				0051A0531481BE160089CC41 /* DDAppDelegate.m */,
 				0051A04B1481BE160089CC41 /* Demo-Info.plist */,
@@ -267,16 +262,6 @@
 			);
 			name = Tests;
 			path = "A2DD iOS Tests";
-			sourceTree = "<group>";
-		};
-		6C1042B3157E8F6B001AF708 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6C1042B4157E8F6B001AF708 /* AppKit.framework */,
-				6C1042B5157E8F6B001AF708 /* CoreData.framework */,
-				6C1042B6157E8F6B001AF708 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		6CC071001537918100BF5468 /* libffi */ = {
@@ -476,7 +461,7 @@
 		0051A0361481BE160089CC41 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Pandamonia LLC";
 			};
 			buildConfigurationList = 0051A0391481BE160089CC41 /* Build configuration list for PBXProject "A2DynamicDelegate" */;
@@ -505,6 +490,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CAF1CA01609F42C001AAADC /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,7 +637,7 @@
 		000884511491AE4900552AB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0;
 				DYLIB_CURRENT_VERSION = 2.0.2;
@@ -669,7 +655,7 @@
 		000884521491AE4900552AB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0;
 				DYLIB_CURRENT_VERSION = 2.0.2;
@@ -688,6 +674,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -710,6 +697,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -726,6 +714,7 @@
 		0051A0581481BE160089CC41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
@@ -738,6 +727,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -745,6 +735,7 @@
 		0051A0591481BE160089CC41 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
@@ -757,6 +748,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -765,6 +757,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0;
 				DYLIB_CURRENT_VERSION = 2.0.2;
@@ -792,6 +785,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 2.0;
@@ -818,7 +812,6 @@
 		6C10427D157E7158001AF708 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -843,7 +836,6 @@
 		6C10427E157E7158001AF708 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -871,6 +863,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -892,6 +885,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
