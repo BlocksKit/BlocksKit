@@ -112,10 +112,6 @@
 		6CC071111537918D00BF5468 /* trampoline.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = trampoline.S; sourceTree = "<group>"; };
 		6CC071131537918D00BF5468 /* darwin.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin.S; sourceTree = "<group>"; };
 		6CC071141537918D00BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
-		6CC071321537919500BF5468 /* darwin.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin.S; sourceTree = "<group>"; };
-		6CC071331537919500BF5468 /* darwin64.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin64.S; sourceTree = "<group>"; };
-		6CC071341537919500BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
-		6CC071351537919500BF5468 /* ffi64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi64.c; sourceTree = "<group>"; };
 		6CC07145153791A000BF5468 /* closures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = closures.c; sourceTree = "<group>"; };
 		6CC07149153791A000BF5468 /* prep_cif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prep_cif.c; sourceTree = "<group>"; };
 		6CC0714A153791A000BF5468 /* raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_api.c; sourceTree = "<group>"; };
@@ -265,7 +261,6 @@
 			children = (
 				6CC07144153791A000BF5468 /* src */,
 				6CC071011537918D00BF5468 /* ios */,
-				6CC071241537919500BF5468 /* osx */,
 			);
 			name = libffi;
 			sourceTree = "<group>";
@@ -296,27 +291,6 @@
 			children = (
 				6CC071131537918D00BF5468 /* darwin.S */,
 				6CC071141537918D00BF5468 /* ffi.c */,
-			);
-			name = x86;
-			path = src/x86;
-			sourceTree = "<group>";
-		};
-		6CC071241537919500BF5468 /* osx */ = {
-			isa = PBXGroup;
-			children = (
-				6CC071311537919500BF5468 /* x86 */,
-			);
-			name = osx;
-			path = libffi/osx;
-			sourceTree = SOURCE_ROOT;
-		};
-		6CC071311537919500BF5468 /* x86 */ = {
-			isa = PBXGroup;
-			children = (
-				6CC071321537919500BF5468 /* darwin.S */,
-				6CC071331537919500BF5468 /* darwin64.S */,
-				6CC071341537919500BF5468 /* ffi.c */,
-				6CC071351537919500BF5468 /* ffi64.c */,
 			);
 			name = x86;
 			path = src/x86;
