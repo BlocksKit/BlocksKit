@@ -10,10 +10,6 @@
 #import <objc/runtime.h>
 #import <ffi.h>
 
-#if __has_attribute(objc_arc)
-#error "At present, 'A2BlockClosure.m' may not be compiled with ARC. This is a limitation of the Obj-C runtime library. See here: http://j.mp/tJsoOV"
-#endif
-
 #pragma mark - Block Internals
 
 typedef enum {
@@ -92,12 +88,12 @@ ffi_type ffi_type_cgrect = { 0, 0, FFI_TYPE_STRUCT, (ffi_type **)_ffi_type_eleme
 
 #pragma mark - Helper functions
 
-static inline const char *a2_blockGetSignature(id block) {
-	BlockRef layout = (void *)block;
+static NSMethodSignature *a2_blockGetSignature(id block) {
+	BlockRef layout = (__bridge void *)block;
 	
 	int requiredFlags = BLOCK_HAS_SIGNATURE;
     if ((layout->flags & requiredFlags) != requiredFlags)
-		return NULL;
+		return nil;
 	
     uint8_t *desc = (uint8_t *)layout->descriptor;
     desc += sizeof(struct Block_descriptor_1);
@@ -106,15 +102,16 @@ static inline const char *a2_blockGetSignature(id block) {
     
 	struct Block_descriptor_3 *desc3 = (struct Block_descriptor_3 *)desc;
     if (!desc3)
-		return NULL;
-    
-    return desc3->signature;
+		return nil;
+
+	const char *signature = desc3->signature;
+	return [NSMethodSignature signatureWithObjCTypes: signature];
 }
 
 BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature);
 
 BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature) {
-    NSMethodSignature *blockSig = [NSMethodSignature signatureWithObjCTypes: a2_blockGetSignature(block)];
+    NSMethodSignature *blockSig = a2_blockGetSignature(block);
     BOOL isCompatible = (strcmp(blockSig.methodReturnType, signature.methodReturnType) == 0);
     NSUInteger i, argc = blockSig.numberOfArguments;
     for (i = 1; i < argc && isCompatible; ++i)
@@ -160,22 +157,9 @@ static inline size_t a2_getStructSize(const char *encodingType) {
     return ret;
 }
 
-#pragma mark - FFI closure function
-
-static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, void *userdata) {
-    A2BlockClosure *self = userdata;
-    BlockRef block = (void *)(self->_block);
-    
-    void **innerArgs = args + 1;
-    innerArgs[0] = &block;
-    ffi_call(self->_blockCIF, block->invoke, ret, innerArgs);
-}
-
 #pragma mark -
 
 @implementation A2BlockClosure
-
-@synthesize block = _block, functionPointer = _functionPointer;
 
 - (void *)a2_allocate: (size_t)howmuch
 {
@@ -212,16 +196,16 @@ static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, v
         case _C_ARY_B:
         {
             NSUInteger size, align;
-            
+
             NSGetSizeAndAlignment(argumentType, &size, &align);
-            
+
             if (size > 0) {
                 if (size == 1)
                     return &ffi_type_uchar;
                 else if (size == 2)
                     return &ffi_type_ushort;
                 else if (size <= 4)
-                    return &ffi_type_uint; 
+                    return &ffi_type_uint;
                 else {
                     ffi_type *type = [self a2_allocate: sizeof(ffi_type)];
                     type->size = size;
@@ -256,13 +240,14 @@ static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, v
                 return &ffi_type_cgrect; break;
             }
 #endif
-            
+
             ffi_type *type = [self a2_allocate: sizeof(ffi_type)];
             type->size = 0;
             type->alignment = 0;
             type->type = FFI_TYPE_STRUCT;
+			
             type->elements = [self a2_allocate: (a2_getStructSize(argumentType) + 1) * sizeof(ffi_type *)];
-            
+
             size_t index = 0;
             argumentType = a2_skipStructName(argumentType);
             while (*argumentType != _C_STRUCT_E) {
@@ -270,9 +255,9 @@ static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, v
                 argumentType = NSGetSizeAndAlignment(argumentType, NULL, NULL);
                 index++;
             }
-            
+
             return type;
-            
+
             break;
         }
         default:
@@ -284,58 +269,74 @@ static void a2_executeArgumentsOnlyBlock(ffi_cif *cif, void *ret, void **args, v
     }
 }
 
-- (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature
-{
-    if ((self = [super init]))
-    {
-        _allocations = [NSMutableArray new];
-        _block = [block copy];
-		_closure = ffi_closure_alloc(sizeof(ffi_closure), &_functionPointer);
-        
-        unsigned int methodArgCount = (unsigned int)signature.numberOfArguments, blockArgCount = (unsigned int)signature.numberOfArguments - 1;
-        ffi_cif methodCif, blockCif;
-        
-        ffi_type **methodArgs = [self a2_allocate: methodArgCount * sizeof(ffi_type *)];
-        ffi_type *returnType = [self a2_typeForSignature: signature.methodReturnType];
-        
-        methodArgs[0] = methodArgs[1] = &ffi_type_pointer;
-        
-        for (unsigned int i = 2; i < signature.numberOfArguments; i++) {
-            methodArgs[i] = [self a2_typeForSignature: [signature getArgumentTypeAtIndex: i]];
-        }
-        
-        ffi_type **blockArgs = methodArgs + 1;
-        
-        ffi_status methodStatus = ffi_prep_cif(&methodCif, FFI_DEFAULT_ABI, methodArgCount, returnType, methodArgs);
-        ffi_status blockStatus = ffi_prep_cif(&blockCif, FFI_DEFAULT_ABI, blockArgCount, returnType, blockArgs);
-        
-        NSAlwaysAssert(methodStatus == FFI_OK, @"Unable to create function interface for method. %@ %@", [self class], self.block);
-        NSAlwaysAssert(blockStatus == FFI_OK, @"Unable to create function interface for block. %@ %@", [self class], self.block);
-        
-        _methodCIF = malloc(sizeof(ffi_cif));
-        *(ffi_cif *)_methodCIF = methodCif;
-        
-        _blockCIF =  malloc(sizeof(ffi_cif));
-        *(ffi_cif *)_blockCIF = blockCif;
-        
-        ffi_status status = ffi_prep_closure_loc(_closure, _methodCIF, a2_executeArgumentsOnlyBlock, self, _functionPointer);
-        
-        NSAlwaysAssert(status == FFI_OK, @"Unable to create function closure for block. %@ %@", [self class], self.block);
-    }
-    return self;
+- (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature {
+	if ((self = [super init])) {
+		self.block = [block copy];
+		self.methodSignature = signature;
+		_allocations = [NSMutableArray new];
+
+		NSUInteger blockArgCount = signature.numberOfArguments - 1;
+		ffi_cif blockCif;
+
+		ffi_type **methodArgs = [self a2_allocate: blockArgCount * sizeof(ffi_type *)];
+		ffi_type *returnType = [self a2_typeForSignature: signature.methodReturnType];
+		methodArgs[0] = &ffi_type_pointer;
+
+		for (unsigned int i = 2; i < signature.numberOfArguments; i++) {
+			methodArgs[i - 1] = [self a2_typeForSignature: [signature getArgumentTypeAtIndex: i]];
+		}
+
+		ffi_status status = ffi_prep_cif(&blockCif, FFI_DEFAULT_ABI, blockArgCount, returnType, methodArgs);
+
+		NSAlwaysAssert(status == FFI_OK, @"Unable to create function interface for block. %@ %@", [self class], self.block);
+
+		_functionInterface = malloc(sizeof(ffi_cif));
+		*(ffi_cif *)_functionInterface = blockCif;
+	}
+	return self;
 }
 
 - (void)dealloc
 {
-    if(_closure)
-        ffi_closure_free(_closure);
-    if (_methodCIF)
-        free(_methodCIF);
-    if (_blockCIF)
-        free(_blockCIF);
-    [_allocations release];
-	[_block release];
-    [super dealloc];
+    if (_functionInterface)
+        free(_functionInterface);
+}
+
+- (void)a2_callWithArguments:(void **)args return:(void **)retVal
+{
+	ffi_cif *cif = _functionInterface;
+	void (*blockInvocation)(void) = self.function;
+	void *ret = NULL;
+	ffi_call(cif, blockInvocation, &ret, args);
+	*retVal = ret;
+}
+
+- (void)callWithInvocation:(NSInvocation *)invoc
+{
+	NSAlwaysAssert([_methodSignature isEqual: invoc.methodSignature], @"Invocation isn't compatible with block: %s", invoc.selector);
+
+	ffi_cif *cif = _functionInterface;
+
+	[invoc retainArguments];
+	void **arguments = calloc(cif->nargs, sizeof(void *));
+
+	arguments[0] = &_block;
+	for (int i = 1; i < cif->nargs; i++) {
+		NSMutableData *argData = [NSMutableData dataWithCapacity: cif->arg_types[i]->size];
+		[invoc getArgument: argData.mutableBytes atIndex: i + 1];
+		arguments[i] = argData.mutableBytes;
+	}
+
+	void *result = NULL;
+	[self a2_callWithArguments: arguments return: &result];
+	if (invoc.methodSignature.methodReturnLength)
+		[invoc setReturnValue: &result];
+	free(arguments);
+}
+
+- (void(*)(void))function {
+	BlockRef layout = (__bridge void *)_block;
+	return layout->invoke;
 }
 
 @end

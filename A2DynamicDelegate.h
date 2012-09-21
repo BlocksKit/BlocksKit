@@ -53,19 +53,23 @@
  are usually weak references on the part of the delegating object, a dynamic
  delegate would be deallocated immediately after its declaring scope ends.
  */
-@interface A2DynamicDelegate : NSObject {
-	id _delegatingObject;
+@interface A2DynamicDelegate : NSProxy {
+@private
+	Protocol *_protocol;
+	__unsafe_unretained id _delegatingObject;
+	id _classProxy;
 	NSMutableDictionary *_handlers;
+	NSMutableDictionary *_blockMap;
 }
 
 /** A dictionary of custom handlers to be used by custom responders
  in a A2Dynamic(Protocol Name) subclass of A2DynamicDelegate, like
  `A2DynamicUIAlertViewDelegate`.
  */
-@property (nonatomic, retain, readonly) NSMutableDictionary *handlers;
+@property (nonatomic, strong, readonly) NSMutableDictionary *handlers;
 
 /** The object that the dynamic delegate implements methods for. */
-@property (nonatomic, assign, readonly) id delegatingObject;
+@property (nonatomic, unsafe_unretained, readonly) id delegatingObject;
 
 /** @name Block Class Method Implementations */
 

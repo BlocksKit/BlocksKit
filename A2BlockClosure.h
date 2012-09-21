@@ -6,18 +6,20 @@
 #import <Foundation/Foundation.h>
 
 @interface A2BlockClosure : NSObject {
-@package
+@private
     NSMutableArray *_allocations;
-    id _block;
-    void *_methodCIF;
-    void *_blockCIF;
-    void *_closure;
-    void *_functionPointer;
+	id _block;
+	id _methodSignature;
+	void *_functionInterface;
 }
+
+@property (nonatomic, copy) id block;
+@property (nonatomic, strong) NSMethodSignature *methodSignature;
+@property (nonatomic, readonly) void *functionInterface;
+@property (nonatomic, readonly) void(*function)(void);
 
 - (id)initWithBlock: (id) block methodSignature: (NSMethodSignature *) signature;
 
-@property (nonatomic, readonly) id block;
-@property (nonatomic, readonly) void *functionPointer;
+- (void)callWithInvocation:(NSInvocation *)invoc;
 
 @end
