@@ -84,7 +84,8 @@ extern void (*a2_blockGetInvocation(id block))(void);
 }
 
 - (Class)class {
-	if ([[A2DynamicDelegate class] isEqual: object_getClass(self)]) {
+	Class myClass = object_getClass(self);
+	if (myClass == [A2DynamicDelegate class] || [myClass superclass] == [A2DynamicDelegate class]) {
 		return (Class)self.classProxy;
 	}
 	return [super class];
@@ -93,7 +94,7 @@ extern void (*a2_blockGetInvocation(id block))(void);
 - (A2DynamicClassDelegate *)classProxy {
 	if (!_classProxy) {
 		Class cls = NSClassFromString([@"A2DynamicClass" stringByAppendingString: NSStringFromProtocol(self.protocol)]) ?: [A2DynamicClassDelegate class];
-		_classProxy = [[cls alloc] init];
+		_classProxy = [[cls alloc] initWithClass: object_getClass(self)];
 		[_classProxy setDelegatingObject: self];
 		[_classProxy setProtocol: self.protocol];
 	}
@@ -187,11 +188,16 @@ extern void (*a2_blockGetInvocation(id block))(void);
 
 @implementation A2DynamicClassDelegate
 
-- (id)init {
+- (id) initWithClass:(Class)proxy {
 	if ((self = [super init])) {
-		_proxiedClass = [A2DynamicDelegate class];
+		_proxiedClass = proxy;
 	}
 	return self;
+}
+
+- (id)init {
+	[self doesNotRecognizeSelector: _cmd];
+	return nil;
 }
 
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)aSelector {

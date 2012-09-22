@@ -206,6 +206,9 @@
 	Class _proxiedClass;
 }
 
+- (id) init NS_UNAVAILABLE;
+- (id) initWithClass:(Class)proxy;
+
 - (id) blockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
 - (void) implementClassMethod: (SEL) selector withBlock: (id) block NS_UNAVAILABLE;
 - (void) removeBlockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
