@@ -31,7 +31,7 @@ extern Protocol *a2_delegateProtocol(Class cls);
 
 #pragma mark - Functions
 
-static SEL a2_getterForProperty(Class cls, NSString *propertyName)
+static SEL getterForProperty(Class cls, NSString *propertyName)
 {
 	SEL getter = NULL;
 
@@ -51,7 +51,7 @@ static SEL a2_getterForProperty(Class cls, NSString *propertyName)
 	return getter;
 }
 
-static SEL a2_setterForProperty(Class cls, NSString *propertyName)
+static SEL setterForProperty(Class cls, NSString *propertyName)
 {
 	SEL setter = NULL;
 
@@ -74,7 +74,7 @@ static SEL a2_setterForProperty(Class cls, NSString *propertyName)
 	return setter;
 }
 
-static SEL a2_selector(SEL selector) {
+static inline SEL prefixedSelector(SEL selector) {
     return NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(selector)]);
 }
 
@@ -140,8 +140,8 @@ static SEL a2_selector(SEL selector) {
 		free(copy);
 
 		SEL selector = NSSelectorFromString(selectorName);
-		SEL getter = a2_getterForProperty(self, propertyName);
-		SEL setter = a2_setterForProperty(self, propertyName);
+		SEL getter = getterForProperty(self, propertyName);
+		SEL setter = setterForProperty(self, propertyName);
 
 		if (class_respondsToSelector(self, setter) || class_respondsToSelector(self, getter))
 			return;
@@ -160,8 +160,8 @@ static SEL a2_selector(SEL selector) {
 			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
 
 			if (delegateProperty.length) {
-				SEL a2_setter = a2_selector(a2_setterForProperty(self.class, delegateProperty));
-				SEL a2_getter = a2_selector(a2_getterForProperty(self.class, delegateProperty));
+				SEL a2_setter = prefixedSelector(setterForProperty(self.class, delegateProperty));
+				SEL a2_getter = prefixedSelector(getterForProperty(self.class, delegateProperty));
 
 				if ([self respondsToSelector:a2_setter]) {
 					id originalDelegate = objc_msgSend(self, a2_getter);
@@ -211,10 +211,10 @@ static SEL a2_selector(SEL selector) {
 	if (propertyMap[protocolName])
         return;
 
-	SEL getter = a2_getterForProperty(self, delegateName);
-	SEL a2_getter = a2_selector(getter);
-	SEL setter = a2_setterForProperty(self, delegateName);
-	SEL a2_setter = a2_selector(setter);
+	SEL getter = getterForProperty(self, delegateName);
+	SEL a2_getter = prefixedSelector(getter);
+	SEL setter = setterForProperty(self, delegateName);
+	SEL a2_setter = prefixedSelector(setter);
 
 	IMP getterImplementation = imp_implementationWithBlock(^id(NSObject *self){
 		return [[self dynamicDelegateForProtocol: protocol] realDelegate];
