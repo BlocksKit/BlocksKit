@@ -183,6 +183,15 @@
 		6CF22D23161F219D002FD317 /* NSURLConnectionBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D0B161F219B002FD317 /* NSURLConnectionBlocksKitTest.m */; };
 		6CF22D26161F2298002FD317 /* BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D25161F2298002FD317 /* BKAsyncTestCase.m */; };
 		6CF22D27161F2298002FD317 /* BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D25161F2298002FD317 /* BKAsyncTestCase.m */; };
+		6CF22D34161F32A9002FD317 /* UIActionSheetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D29161F329D002FD317 /* UIActionSheetBlocksKitTest.m */; };
+		6CF22D35161F32A9002FD317 /* UIAlertViewBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D2B161F329E002FD317 /* UIAlertViewBlocksKitTest.m */; };
+		6CF22D37161F32A9002FD317 /* UIControlBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D2F161F32A2002FD317 /* UIControlBlocksKitTest.m */; };
+		6CF22D38161F32A9002FD317 /* UIViewBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D31161F32A3002FD317 /* UIViewBlocksKitTest.m */; };
+		6CF22D39161F32A9002FD317 /* UIWebViewBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D33161F32A9002FD317 /* UIWebViewBlocksKitTest.m */; };
+		6CF22D3F161F32C5002FD317 /* MFMailComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D3C161F32C4002FD317 /* MFMailComposeViewControllerBlocksKitTest.m */; };
+		6CF22D40161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D3E161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m */; };
+		6CF22D42161F3500002FD317 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9913FD5AAB001BB376 /* UIKit.framework */; };
+		6CF22D43161F3503002FD317 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9813FD5AAB001BB376 /* MessageUI.framework */; };
 		A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A92C9A6413F41E0A006DA96A /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
 		A97E4C9A13FD5AAB001BB376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97E4C9813FD5AAB001BB376 /* MessageUI.framework */; };
@@ -349,6 +358,20 @@
 		6CF22D0B161F219B002FD317 /* NSURLConnectionBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLConnectionBlocksKitTest.m; sourceTree = "<group>"; };
 		6CF22D24161F2298002FD317 /* BKAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKAsyncTestCase.h; sourceTree = "<group>"; };
 		6CF22D25161F2298002FD317 /* BKAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKAsyncTestCase.m; sourceTree = "<group>"; };
+		6CF22D28161F329C002FD317 /* UIActionSheetBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIActionSheetBlocksKitTest.h; sourceTree = "<group>"; };
+		6CF22D29161F329D002FD317 /* UIActionSheetBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIActionSheetBlocksKitTest.m; sourceTree = "<group>"; };
+		6CF22D2A161F329E002FD317 /* UIAlertViewBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlertViewBlocksKitTest.h; sourceTree = "<group>"; };
+		6CF22D2B161F329E002FD317 /* UIAlertViewBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertViewBlocksKitTest.m; sourceTree = "<group>"; };
+		6CF22D2E161F32A1002FD317 /* UIControlBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIControlBlocksKitTest.h; sourceTree = "<group>"; };
+		6CF22D2F161F32A2002FD317 /* UIControlBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIControlBlocksKitTest.m; sourceTree = "<group>"; };
+		6CF22D30161F32A3002FD317 /* UIViewBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewBlocksKitTest.h; sourceTree = "<group>"; };
+		6CF22D31161F32A3002FD317 /* UIViewBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewBlocksKitTest.m; sourceTree = "<group>"; };
+		6CF22D32161F32A4002FD317 /* UIWebViewBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebViewBlocksKitTest.h; sourceTree = "<group>"; };
+		6CF22D33161F32A9002FD317 /* UIWebViewBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebViewBlocksKitTest.m; sourceTree = "<group>"; };
+		6CF22D3B161F32C3002FD317 /* MFMailComposeViewControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMailComposeViewControllerBlocksKitTest.h; sourceTree = "<group>"; };
+		6CF22D3C161F32C4002FD317 /* MFMailComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMailComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		6CF22D3D161F32C4002FD317 /* MFMessageComposeViewControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMessageComposeViewControllerBlocksKitTest.h; sourceTree = "<group>"; };
+		6CF22D3E161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMessageComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
 		A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BlocksKit.m"; sourceTree = "<group>"; };
 		A97E4C9813FD5AAB001BB376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -395,6 +418,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CF22D43161F3503002FD317 /* MessageUI.framework in Frameworks */,
+				6CF22D42161F3500002FD317 /* UIKit.framework in Frameworks */,
 				6CF22CDB161EB19C002FD317 /* libBlocksKit.a in Frameworks */,
 				6CF22CC5161EB05E002FD317 /* Foundation.framework in Frameworks */,
 				6CF22CB2161EB048002FD317 /* SenTestingKit.framework in Frameworks */,
@@ -685,6 +710,8 @@
 				6CF22D09161F219B002FD317 /* NSTimerBlocksKitTest.m */,
 				6CF22D0A161F219B002FD317 /* NSURLConnectionBlocksKitTest.h */,
 				6CF22D0B161F219B002FD317 /* NSURLConnectionBlocksKitTest.m */,
+				6CF22D41161F32CA002FD317 /* MessageUI */,
+				6CF22D3A161F32AF002FD317 /* UIKit */,
 				6CF22C9F161EAFB8002FD317 /* Supporting Files */,
 			);
 			path = Tests;
@@ -699,6 +726,34 @@
 				6CF22CA7161EAFB8002FD317 /* OS X Tests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6CF22D3A161F32AF002FD317 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				6CF22D28161F329C002FD317 /* UIActionSheetBlocksKitTest.h */,
+				6CF22D29161F329D002FD317 /* UIActionSheetBlocksKitTest.m */,
+				6CF22D2A161F329E002FD317 /* UIAlertViewBlocksKitTest.h */,
+				6CF22D2B161F329E002FD317 /* UIAlertViewBlocksKitTest.m */,
+				6CF22D2E161F32A1002FD317 /* UIControlBlocksKitTest.h */,
+				6CF22D2F161F32A2002FD317 /* UIControlBlocksKitTest.m */,
+				6CF22D30161F32A3002FD317 /* UIViewBlocksKitTest.h */,
+				6CF22D31161F32A3002FD317 /* UIViewBlocksKitTest.m */,
+				6CF22D32161F32A4002FD317 /* UIWebViewBlocksKitTest.h */,
+				6CF22D33161F32A9002FD317 /* UIWebViewBlocksKitTest.m */,
+			);
+			name = UIKit;
+			sourceTree = "<group>";
+		};
+		6CF22D41161F32CA002FD317 /* MessageUI */ = {
+			isa = PBXGroup;
+			children = (
+				6CF22D3B161F32C3002FD317 /* MFMailComposeViewControllerBlocksKitTest.h */,
+				6CF22D3C161F32C4002FD317 /* MFMailComposeViewControllerBlocksKitTest.m */,
+				6CF22D3D161F32C4002FD317 /* MFMessageComposeViewControllerBlocksKitTest.h */,
+				6CF22D3E161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m */,
+			);
+			name = MessageUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1090,6 +1145,13 @@
 				6CF22D20161F219D002FD317 /* NSTimerBlocksKitTest.m in Sources */,
 				6CF22D22161F219D002FD317 /* NSURLConnectionBlocksKitTest.m in Sources */,
 				6CF22D26161F2298002FD317 /* BKAsyncTestCase.m in Sources */,
+				6CF22D34161F32A9002FD317 /* UIActionSheetBlocksKitTest.m in Sources */,
+				6CF22D35161F32A9002FD317 /* UIAlertViewBlocksKitTest.m in Sources */,
+				6CF22D37161F32A9002FD317 /* UIControlBlocksKitTest.m in Sources */,
+				6CF22D38161F32A9002FD317 /* UIViewBlocksKitTest.m in Sources */,
+				6CF22D39161F32A9002FD317 /* UIWebViewBlocksKitTest.m in Sources */,
+				6CF22D3F161F32C5002FD317 /* MFMailComposeViewControllerBlocksKitTest.m in Sources */,
+				6CF22D40161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1315,6 +1377,7 @@
 				INFOPLIST_FILE = "Tests/iOS Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-Wl,-no_compact_unwind";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1338,6 +1401,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Tests/iOS Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-Wl,-no_compact_unwind";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
