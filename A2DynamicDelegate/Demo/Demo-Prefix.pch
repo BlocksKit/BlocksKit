@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'A2DD Demo' target in the 'A2DynamicDelegate' project
+//
+
+#ifdef __OBJC__
+	#import <UIKit/UIKit.h>
+	#import <Foundation/Foundation.h>
+#endif

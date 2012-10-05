@@ -1,0 +1,940 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0008844A1491AE4900552AB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0451481BE160089CC41 /* Foundation.framework */; };
+		001ED6551491B143006EE0B2 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039561C148EE28600FA51A8 /* A2BlockDelegate.m */; };
+		001ED6571491B146006EE0B2 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */; };
+		001ED6581491B148006EE0B2 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0039561B148EE28600FA51A8 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		001ED6591491B14A006EE0B2 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0051A0441481BE160089CC41 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0431481BE160089CC41 /* UIKit.framework */; };
+		0051A0461481BE160089CC41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0451481BE160089CC41 /* Foundation.framework */; };
+		0051A0481481BE160089CC41 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0471481BE160089CC41 /* CoreGraphics.framework */; };
+		0051A0501481BE160089CC41 /* Demo-main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0051A04F1481BE160089CC41 /* Demo-main.m */; };
+		0051A0541481BE160089CC41 /* DDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0051A0531481BE160089CC41 /* DDAppDelegate.m */; };
+		0071BC5314A2C87200D7F4F8 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039561C148EE28600FA51A8 /* A2BlockDelegate.m */; };
+		0071BC5414A2C87300D7F4F8 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */; };
+		0071BC5514A2C88300D7F4F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0451481BE160089CC41 /* Foundation.framework */; };
+		0071BC5614A2C88700D7F4F8 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0039561B148EE28600FA51A8 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0071BC5714A2C88900D7F4F8 /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C104271157E7158001AF708 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0431481BE160089CC41 /* UIKit.framework */; };
+		6C104272157E7158001AF708 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0051A0451481BE160089CC41 /* Foundation.framework */; };
+		6C104284157E7283001AF708 /* A2BlockInvocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C104283157E7283001AF708 /* A2BlockInvocationTests.m */; };
+		6C104289157E7344001AF708 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C104288157E7344001AF708 /* SenTestingKit.framework */; };
+		6C104290157E747E001AF708 /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C10428F157E747E001AF708 /* A2DynamicDelegateTests.m */; };
+		6C104291157E76CC001AF708 /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
+		6C10429E157E7DC8001AF708 /* libA2DynamicDelegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */; };
+		6C1042A9157E8F4A001AF708 /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */; };
+		6C1042B0157E8F6B001AF708 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C104288157E7344001AF708 /* SenTestingKit.framework */; };
+		6C1042C6157E8F8C001AF708 /* A2DynamicDelegate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */; };
+		6C1042C8157E8FA0001AF708 /* A2BlockInvocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C104283157E7283001AF708 /* A2BlockInvocationTests.m */; };
+		6C1042CA157E8FA0001AF708 /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C10428F157E747E001AF708 /* A2DynamicDelegateTests.m */; };
+		6C1042CC157E8FA0001AF708 /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */; };
+		6CAF1CA01609F42C001AAADC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CAF1C9F1609F42C001AAADC /* Default-568h@2x.png */; };
+		6CB62413161C83210054A28B /* A2BlockInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CB62411161C83210054A28B /* A2BlockInvocation.h */; };
+		6CB62414161C83210054A28B /* A2BlockInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CB62411161C83210054A28B /* A2BlockInvocation.h */; };
+		6CB62416161C83210054A28B /* A2BlockInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB62412161C83210054A28B /* A2BlockInvocation.m */; };
+		6CB62417161C83210054A28B /* A2BlockInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB62412161C83210054A28B /* A2BlockInvocation.m */; };
+		6CC0711F1537918D00BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0710F1537918D00BF5468 /* ffi.c */; };
+		6CC071201537918D00BF5468 /* sysv.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071101537918D00BF5468 /* sysv.S */; };
+		6CC071211537918D00BF5468 /* trampoline.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071111537918D00BF5468 /* trampoline.S */; };
+		6CC071221537918D00BF5468 /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071131537918D00BF5468 /* darwin.S */; };
+		6CC071231537918D00BF5468 /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC071141537918D00BF5468 /* ffi.c */; };
+		6CC0714C153791A000BF5468 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07145153791A000BF5468 /* closures.c */; };
+		6CC07154153791A000BF5468 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC07149153791A000BF5468 /* prep_cif.c */; };
+		6CC07156153791A000BF5468 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714A153791A000BF5468 /* raw_api.c */; };
+		6CC07158153791A000BF5468 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0714B153791A000BF5468 /* types.c */; };
+		6CF426F3160CED4800780CA2 /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CF426F2160CED4800780CA2 /* libffi.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00F6D21814995D3C0003DEAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0051A0361481BE160089CC41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000884481491AE4900552AB0;
+			remoteInfo = "iOS Library";
+		};
+		6C104285157E72BF001AF708 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0051A0361481BE160089CC41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000884481491AE4900552AB0;
+			remoteInfo = "iOS Library";
+		};
+		6C1042C4157E8F7E001AF708 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0051A0361481BE160089CC41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0071BC4114A2C74D00D7F4F8;
+			remoteInfo = "OS X Framework";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		000884491491AE4900552AB0 /* libA2DynamicDelegate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libA2DynamicDelegate.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		00328C2814A2C97A00F4A1F6 /* OS X Framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OS X Framework-Info.plist"; sourceTree = "<group>"; };
+		0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicDelegate.h; sourceTree = SOURCE_ROOT; };
+		0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegate.m; sourceTree = SOURCE_ROOT; };
+		0039561B148EE28600FA51A8 /* A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockDelegate.h; sourceTree = SOURCE_ROOT; };
+		0039561C148EE28600FA51A8 /* A2BlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockDelegate.m; sourceTree = SOURCE_ROOT; };
+		0051A03F1481BE160089CC41 /* A2DD Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A2DD Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0051A0431481BE160089CC41 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0051A0451481BE160089CC41 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0051A0471481BE160089CC41 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0051A04B1481BE160089CC41 /* Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-Info.plist"; sourceTree = "<group>"; };
+		0051A04F1481BE160089CC41 /* Demo-main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Demo-main.m"; sourceTree = "<group>"; };
+		0051A0511481BE160089CC41 /* Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-Prefix.pch"; sourceTree = "<group>"; };
+		0051A0521481BE160089CC41 /* DDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
+		0051A0531481BE160089CC41 /* DDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
+		0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = A2DynamicDelegate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C10426E157E7158001AF708 /* A2DD iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "A2DD iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C104275157E7158001AF708 /* iOS Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iOS Tests-Info.plist"; path = "../Tests/iOS Tests-Info.plist"; sourceTree = "<group>"; };
+		6C104281157E720D001AF708 /* iOS Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "iOS Tests-Prefix.pch"; path = "Tests/iOS Tests-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		6C104282157E7283001AF708 /* A2BlockInvocationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = A2BlockInvocationTests.h; path = Tests/A2BlockInvocationTests.h; sourceTree = SOURCE_ROOT; };
+		6C104283157E7283001AF708 /* A2BlockInvocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = A2BlockInvocationTests.m; path = Tests/A2BlockInvocationTests.m; sourceTree = SOURCE_ROOT; };
+		6C104288157E7344001AF708 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		6C10428E157E747E001AF708 /* A2DynamicDelegateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = A2DynamicDelegateTests.h; path = Tests/A2DynamicDelegateTests.h; sourceTree = SOURCE_ROOT; };
+		6C10428F157E747E001AF708 /* A2DynamicDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = A2DynamicDelegateTests.m; path = Tests/A2DynamicDelegateTests.m; sourceTree = SOURCE_ROOT; };
+		6C1042A7157E8F4A001AF708 /* A2BlockDelegateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = A2BlockDelegateTests.h; path = Tests/A2BlockDelegateTests.h; sourceTree = SOURCE_ROOT; };
+		6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = A2BlockDelegateTests.m; path = Tests/A2BlockDelegateTests.m; sourceTree = SOURCE_ROOT; };
+		6C1042AF157E8F6B001AF708 /* A2DD OS X Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "A2DD OS X Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C1042B9157E8F6C001AF708 /* OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OS X Tests-Info.plist"; path = "../Tests/OS X Tests-Info.plist"; sourceTree = "<group>"; };
+		6C1042C0157E8F6C001AF708 /* OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OS X Tests-Prefix.pch"; path = "../Tests/OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
+		6CAF1C9F1609F42C001AAADC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		6CB62411161C83210054A28B /* A2BlockInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockInvocation.h; sourceTree = SOURCE_ROOT; };
+		6CB62412161C83210054A28B /* A2BlockInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockInvocation.m; sourceTree = SOURCE_ROOT; };
+		6CC0710F1537918D00BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
+		6CC071101537918D00BF5468 /* sysv.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = sysv.S; sourceTree = "<group>"; };
+		6CC071111537918D00BF5468 /* trampoline.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = trampoline.S; sourceTree = "<group>"; };
+		6CC071131537918D00BF5468 /* darwin.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin.S; sourceTree = "<group>"; };
+		6CC071141537918D00BF5468 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
+		6CC07145153791A000BF5468 /* closures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = closures.c; sourceTree = "<group>"; };
+		6CC07149153791A000BF5468 /* prep_cif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prep_cif.c; sourceTree = "<group>"; };
+		6CC0714A153791A000BF5468 /* raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_api.c; sourceTree = "<group>"; };
+		6CC0714B153791A000BF5468 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
+		6CF426F2160CED4800780CA2 /* libffi.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libffi.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libffi.dylib; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		000884461491AE4900552AB0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0008844A1491AE4900552AB0 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0051A03C1481BE160089CC41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C10429E157E7DC8001AF708 /* libA2DynamicDelegate.a in Frameworks */,
+				0051A0481481BE160089CC41 /* CoreGraphics.framework in Frameworks */,
+				0051A0461481BE160089CC41 /* Foundation.framework in Frameworks */,
+				0051A0441481BE160089CC41 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0071BC3E14A2C74D00D7F4F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CF426F3160CED4800780CA2 /* libffi.dylib in Frameworks */,
+				0071BC5514A2C88300D7F4F8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C10426A157E7158001AF708 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C104291157E76CC001AF708 /* libA2DynamicDelegate.a in Frameworks */,
+				6C104271157E7158001AF708 /* UIKit.framework in Frameworks */,
+				6C104272157E7158001AF708 /* Foundation.framework in Frameworks */,
+				6C104289157E7344001AF708 /* SenTestingKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C1042AB157E8F6B001AF708 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C1042C6157E8F8C001AF708 /* A2DynamicDelegate.framework in Frameworks */,
+				6C1042B0157E8F6B001AF708 /* SenTestingKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0051A0341481BE160089CC41 = {
+			isa = PBXGroup;
+			children = (
+				0051A0491481BE160089CC41 /* A2DynamicDelegate */,
+				6C104273157E7158001AF708 /* Tests */,
+				0051A04A1481BE160089CC41 /* Supporting Files */,
+				0051A0421481BE160089CC41 /* Frameworks */,
+				0051A0401481BE160089CC41 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0051A0401481BE160089CC41 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0051A03F1481BE160089CC41 /* A2DD Demo.app */,
+				000884491491AE4900552AB0 /* libA2DynamicDelegate.a */,
+				0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */,
+				6C10426E157E7158001AF708 /* A2DD iOS Tests.octest */,
+				6C1042AF157E8F6B001AF708 /* A2DD OS X Tests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0051A0421481BE160089CC41 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6CF426F2160CED4800780CA2 /* libffi.dylib */,
+				6C104288157E7344001AF708 /* SenTestingKit.framework */,
+				0051A0471481BE160089CC41 /* CoreGraphics.framework */,
+				0051A0451481BE160089CC41 /* Foundation.framework */,
+				0051A0431481BE160089CC41 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0051A0491481BE160089CC41 /* A2DynamicDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				0039561B148EE28600FA51A8 /* A2BlockDelegate.h */,
+				0039561C148EE28600FA51A8 /* A2BlockDelegate.m */,
+				0038F6DB1481CDD500532784 /* A2DynamicDelegate.h */,
+				0038F6DC1481CDD500532784 /* A2DynamicDelegate.m */,
+				6CB62411161C83210054A28B /* A2BlockInvocation.h */,
+				6CB62412161C83210054A28B /* A2BlockInvocation.m */,
+				6CC071001537918100BF5468 /* libffi */,
+			);
+			name = A2DynamicDelegate;
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		0051A04A1481BE160089CC41 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6CAF1C9F1609F42C001AAADC /* Default-568h@2x.png */,
+				0051A0521481BE160089CC41 /* DDAppDelegate.h */,
+				0051A0531481BE160089CC41 /* DDAppDelegate.m */,
+				0051A04B1481BE160089CC41 /* Demo-Info.plist */,
+				0051A04F1481BE160089CC41 /* Demo-main.m */,
+				0051A0511481BE160089CC41 /* Demo-Prefix.pch */,
+				00328C2814A2C97A00F4A1F6 /* OS X Framework-Info.plist */,
+				6C104281157E720D001AF708 /* iOS Tests-Prefix.pch */,
+				6C104275157E7158001AF708 /* iOS Tests-Info.plist */,
+				6C1042C0157E8F6C001AF708 /* OS X Tests-Prefix.pch */,
+				6C1042B9157E8F6C001AF708 /* OS X Tests-Info.plist */,
+			);
+			name = "Supporting Files";
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		6C104273157E7158001AF708 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6C104282157E7283001AF708 /* A2BlockInvocationTests.h */,
+				6C104283157E7283001AF708 /* A2BlockInvocationTests.m */,
+				6C10428E157E747E001AF708 /* A2DynamicDelegateTests.h */,
+				6C10428F157E747E001AF708 /* A2DynamicDelegateTests.m */,
+				6C1042A7157E8F4A001AF708 /* A2BlockDelegateTests.h */,
+				6C1042A8157E8F4A001AF708 /* A2BlockDelegateTests.m */,
+			);
+			name = Tests;
+			path = "A2DD iOS Tests";
+			sourceTree = "<group>";
+		};
+		6CC071001537918100BF5468 /* libffi */ = {
+			isa = PBXGroup;
+			children = (
+				6CC07144153791A000BF5468 /* src */,
+				6CC071011537918D00BF5468 /* ios */,
+			);
+			name = libffi;
+			sourceTree = "<group>";
+		};
+		6CC071011537918D00BF5468 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				6CC0710E1537918D00BF5468 /* arm */,
+				6CC071121537918D00BF5468 /* x86 */,
+			);
+			name = ios;
+			path = libffi/ios;
+			sourceTree = SOURCE_ROOT;
+		};
+		6CC0710E1537918D00BF5468 /* arm */ = {
+			isa = PBXGroup;
+			children = (
+				6CC0710F1537918D00BF5468 /* ffi.c */,
+				6CC071101537918D00BF5468 /* sysv.S */,
+				6CC071111537918D00BF5468 /* trampoline.S */,
+			);
+			name = arm;
+			path = src/arm;
+			sourceTree = "<group>";
+		};
+		6CC071121537918D00BF5468 /* x86 */ = {
+			isa = PBXGroup;
+			children = (
+				6CC071131537918D00BF5468 /* darwin.S */,
+				6CC071141537918D00BF5468 /* ffi.c */,
+			);
+			name = x86;
+			path = src/x86;
+			sourceTree = "<group>";
+		};
+		6CC07144153791A000BF5468 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6CC07145153791A000BF5468 /* closures.c */,
+				6CC07149153791A000BF5468 /* prep_cif.c */,
+				6CC0714A153791A000BF5468 /* raw_api.c */,
+				6CC0714B153791A000BF5468 /* types.c */,
+			);
+			name = src;
+			path = libffi/src;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		000884471491AE4900552AB0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				001ED6591491B14A006EE0B2 /* A2DynamicDelegate.h in Headers */,
+				001ED6581491B148006EE0B2 /* A2BlockDelegate.h in Headers */,
+				6CB62413161C83210054A28B /* A2BlockInvocation.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0071BC3F14A2C74D00D7F4F8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0071BC5614A2C88700D7F4F8 /* A2BlockDelegate.h in Headers */,
+				0071BC5714A2C88900D7F4F8 /* A2DynamicDelegate.h in Headers */,
+				6CB62414161C83210054A28B /* A2BlockInvocation.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		000884481491AE4900552AB0 /* iOS Library */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000884531491AE4900552AB0 /* Build configuration list for PBXNativeTarget "iOS Library" */;
+			buildPhases = (
+				000884451491AE4900552AB0 /* Sources */,
+				000884461491AE4900552AB0 /* Frameworks */,
+				000884471491AE4900552AB0 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iOS Library";
+			productName = A2DynamicDelegate;
+			productReference = 000884491491AE4900552AB0 /* libA2DynamicDelegate.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		0051A03E1481BE160089CC41 /* A2DD Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0051A0571481BE160089CC41 /* Build configuration list for PBXNativeTarget "A2DD Demo" */;
+			buildPhases = (
+				0051A03B1481BE160089CC41 /* Sources */,
+				0051A03C1481BE160089CC41 /* Frameworks */,
+				0051A03D1481BE160089CC41 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00F6D21914995D3C0003DEAE /* PBXTargetDependency */,
+			);
+			name = "A2DD Demo";
+			productName = DynamicDelegate;
+			productReference = 0051A03F1481BE160089CC41 /* A2DD Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0071BC4114A2C74D00D7F4F8 /* OS X Framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0071BC4E14A2C74E00D7F4F8 /* Build configuration list for PBXNativeTarget "OS X Framework" */;
+			buildPhases = (
+				0071BC3D14A2C74D00D7F4F8 /* Sources */,
+				0071BC3E14A2C74D00D7F4F8 /* Frameworks */,
+				0071BC3F14A2C74D00D7F4F8 /* Headers */,
+				0071BC4014A2C74D00D7F4F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OS X Framework";
+			productName = A2DynamicDelegate;
+			productReference = 0071BC4214A2C74D00D7F4F8 /* A2DynamicDelegate.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		6C10426D157E7158001AF708 /* iOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C10427F157E7158001AF708 /* Build configuration list for PBXNativeTarget "iOS Tests" */;
+			buildPhases = (
+				6C104269157E7158001AF708 /* Sources */,
+				6C10426A157E7158001AF708 /* Frameworks */,
+				6C10426B157E7158001AF708 /* Resources */,
+				6C10426C157E7158001AF708 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6C104286157E72BF001AF708 /* PBXTargetDependency */,
+			);
+			name = "iOS Tests";
+			productName = "A2DD iOS Tests";
+			productReference = 6C10426E157E7158001AF708 /* A2DD iOS Tests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		6C1042AE157E8F6B001AF708 /* OS X Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C1042C1157E8F6C001AF708 /* Build configuration list for PBXNativeTarget "OS X Tests" */;
+			buildPhases = (
+				6C1042AA157E8F6B001AF708 /* Sources */,
+				6C1042AB157E8F6B001AF708 /* Frameworks */,
+				6C1042AC157E8F6B001AF708 /* Resources */,
+				6C1042AD157E8F6B001AF708 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6C1042C5157E8F7E001AF708 /* PBXTargetDependency */,
+			);
+			name = "OS X Tests";
+			productName = "OS X Tests";
+			productReference = 6C1042AF157E8F6B001AF708 /* A2DD OS X Tests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0051A0361481BE160089CC41 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Pandamonia LLC";
+			};
+			buildConfigurationList = 0051A0391481BE160089CC41 /* Build configuration list for PBXProject "A2DynamicDelegate" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0051A0341481BE160089CC41;
+			productRefGroup = 0051A0401481BE160089CC41 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0051A03E1481BE160089CC41 /* A2DD Demo */,
+				000884481491AE4900552AB0 /* iOS Library */,
+				0071BC4114A2C74D00D7F4F8 /* OS X Framework */,
+				6C10426D157E7158001AF708 /* iOS Tests */,
+				6C1042AE157E8F6B001AF708 /* OS X Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0051A03D1481BE160089CC41 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CAF1CA01609F42C001AAADC /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0071BC4014A2C74D00D7F4F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C10426B157E7158001AF708 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C1042AC157E8F6B001AF708 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6C10426C157E7158001AF708 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		6C1042AD157E8F6B001AF708 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000884451491AE4900552AB0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				001ED6551491B143006EE0B2 /* A2BlockDelegate.m in Sources */,
+				001ED6571491B146006EE0B2 /* A2DynamicDelegate.m in Sources */,
+				6CC0711F1537918D00BF5468 /* ffi.c in Sources */,
+				6CC071201537918D00BF5468 /* sysv.S in Sources */,
+				6CC071211537918D00BF5468 /* trampoline.S in Sources */,
+				6CC071221537918D00BF5468 /* darwin.S in Sources */,
+				6CC071231537918D00BF5468 /* ffi.c in Sources */,
+				6CC0714C153791A000BF5468 /* closures.c in Sources */,
+				6CC07154153791A000BF5468 /* prep_cif.c in Sources */,
+				6CC07156153791A000BF5468 /* raw_api.c in Sources */,
+				6CC07158153791A000BF5468 /* types.c in Sources */,
+				6CB62416161C83210054A28B /* A2BlockInvocation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0051A03B1481BE160089CC41 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0051A0501481BE160089CC41 /* Demo-main.m in Sources */,
+				0051A0541481BE160089CC41 /* DDAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0071BC3D14A2C74D00D7F4F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0071BC5314A2C87200D7F4F8 /* A2BlockDelegate.m in Sources */,
+				0071BC5414A2C87300D7F4F8 /* A2DynamicDelegate.m in Sources */,
+				6CB62417161C83210054A28B /* A2BlockInvocation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C104269157E7158001AF708 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C104284157E7283001AF708 /* A2BlockInvocationTests.m in Sources */,
+				6C104290157E747E001AF708 /* A2DynamicDelegateTests.m in Sources */,
+				6C1042A9157E8F4A001AF708 /* A2BlockDelegateTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C1042AA157E8F6B001AF708 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C1042C8157E8FA0001AF708 /* A2BlockInvocationTests.m in Sources */,
+				6C1042CA157E8FA0001AF708 /* A2DynamicDelegateTests.m in Sources */,
+				6C1042CC157E8FA0001AF708 /* A2BlockDelegateTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00F6D21914995D3C0003DEAE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000884481491AE4900552AB0 /* iOS Library */;
+			targetProxy = 00F6D21814995D3C0003DEAE /* PBXContainerItemProxy */;
+		};
+		6C104286157E72BF001AF708 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000884481491AE4900552AB0 /* iOS Library */;
+			targetProxy = 6C104285157E72BF001AF708 /* PBXContainerItemProxy */;
+		};
+		6C1042C5157E8F7E001AF708 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0071BC4114A2C74D00D7F4F8 /* OS X Framework */;
+			targetProxy = 6C1042C4157E8F7E001AF708 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		000884511491AE4900552AB0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DYLIB_COMPATIBILITY_VERSION = 2.0;
+				DYLIB_CURRENT_VERSION = 2.0.2;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libffi/ios/include\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = A2DynamicDelegate;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = debugging;
+			};
+			name = Debug;
+		};
+		000884521491AE4900552AB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DYLIB_COMPATIBILITY_VERSION = 2.0;
+				DYLIB_CURRENT_VERSION = 2.0.2;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libffi/ios/include\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = A2DynamicDelegate;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = debugging;
+			};
+			name = Release;
+		};
+		0051A0551481BE160089CC41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0051A0561481BE160089CC41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0051A0581481BE160089CC41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = libffi/ios/include;
+				INFOPLIST_FILE = "Demo/Demo-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-Wl,-no_compact_unwind",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0051A0591481BE160089CC41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = libffi/ios/include;
+				INFOPLIST_FILE = "Demo/Demo-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-Wl,-no_compact_unwind",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		0071BC4F14A2C74E00D7F4F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DYLIB_COMPATIBILITY_VERSION = 2.0;
+				DYLIB_CURRENT_VERSION = 2.0.2;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libffi/osx/include\"",
+				);
+				INFOPLIST_FILE = "Demo/OS X Framework-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-Wl,-no_compact_unwind";
+				PRODUCT_NAME = A2DynamicDelegate;
+				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		0071BC5014A2C74E00D7F4F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 2.0;
+				DYLIB_CURRENT_VERSION = 2.0.2;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libffi/osx/include\"",
+				);
+				INFOPLIST_FILE = "Demo/OS X Framework-Info.plist";
+				OTHER_LDFLAGS = "-Wl,-no_compact_unwind";
+				PRODUCT_NAME = A2DynamicDelegate;
+				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		6C10427D157E7158001AF708 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/iOS Tests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/iOS Tests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "A2DD iOS Tests";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		6C10427E157E7158001AF708 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/iOS Tests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/iOS Tests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "A2DD iOS Tests";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+		6C1042C2157E8F6C001AF708 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/OS X Tests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/OS X Tests-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "A2DD OS X Tests";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		6C1042C3157E8F6C001AF708 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/OS X Tests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/OS X Tests-Info.plist";
+				PRODUCT_NAME = "A2DD OS X Tests";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		000884531491AE4900552AB0 /* Build configuration list for PBXNativeTarget "iOS Library" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000884511491AE4900552AB0 /* Debug */,
+				000884521491AE4900552AB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0051A0391481BE160089CC41 /* Build configuration list for PBXProject "A2DynamicDelegate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0051A0551481BE160089CC41 /* Debug */,
+				0051A0561481BE160089CC41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0051A0571481BE160089CC41 /* Build configuration list for PBXNativeTarget "A2DD Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0051A0581481BE160089CC41 /* Debug */,
+				0051A0591481BE160089CC41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0071BC4E14A2C74E00D7F4F8 /* Build configuration list for PBXNativeTarget "OS X Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0071BC4F14A2C74E00D7F4F8 /* Debug */,
+				0071BC5014A2C74E00D7F4F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C10427F157E7158001AF708 /* Build configuration list for PBXNativeTarget "iOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C10427D157E7158001AF708 /* Debug */,
+				6C10427E157E7158001AF708 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C1042C1157E8F6C001AF708 /* Build configuration list for PBXNativeTarget "OS X Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C1042C2157E8F6C001AF708 /* Debug */,
+				6C1042C3157E8F6C001AF708 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0051A0361481BE160089CC41 /* Project object */;
+}
