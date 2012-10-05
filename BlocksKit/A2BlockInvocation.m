@@ -447,17 +447,17 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		[inv getArgument: argument atIndex: i + 2];
 		[self setArgument: argument atIndex: i];
 	}
+	if (argument)
+		free(argument);
 
 	[self invoke];
 
 	if (_returnLength) {
-		argument = realloc(argument, _returnLength);
+		void *returnValue = malloc(_returnLength);
 		[self getReturnValue: argument];
 		[inv setReturnValue: argument];
+		free(returnValue);
 	}
-	
-	if (argument)
-		free(argument);
 }
 
 - (void)clearArguments {
