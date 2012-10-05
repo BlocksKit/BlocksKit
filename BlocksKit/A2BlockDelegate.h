@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BKGlobals.h"
 
 /** The A2BlockDelegate category extends features provided
  by A2DynamicDelegate to create custom block properties in
@@ -107,5 +107,45 @@
  names as keys and selectors (as strings) as objects.
  */
 + (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) selectorsForPropertyNames;
+
+/** @name Delegate replacement properties */
+
+/** Registers a dynamic data source replacement using
+ the property name `dataSource` and the protocol name
+ `FooBarDataSource` for an instance of `FooBar`. */
++ (void) registerDynamicDataSource;
+
+/** Registers a dynamic delegate replacement using
+ the property name `delegate` and the protocol name
+ `FooBarDelegate` for an instance of `FooBar`. */
++ (void) registerDynamicDelegate;
+
+/** Registers a dynamic data source replacement using
+ the given property name and the protocol name
+ `FooBarDataSource` for an instance of `FooBar`.
+
+ @param dataSourceName The name of the class' data
+ source property. Must not be nil.
+ */
++ (void) registerDynamicDataSourceNamed: (NSString *) dataSourceName;
+
+/** Registers a dynamic delegate replacement using
+ the given property name and the protocol name
+ `FooBarDelegate` for an instance of `FooBar`.
+
+ @param delegateName The name of the class'
+ delegate property. Must not be nil.
+ */
++ (void) registerDynamicDelegateNamed: (NSString *) delegateName;
+
+/** Registers a dynamic protocol implementation replacement
+ using the given property name and the given protocol.
+
+ @param delegateName The name of the class' delegation
+ protocol property, such as `safeDelegate`. Must not be nil.
+ @param protocol A properly encoded protocol. Must not
+ be NULL.
+ */
++ (void) registerDynamicDelegateNamed: (NSString *) delegateName forProtocol: (Protocol *) protocol;
 
 @end

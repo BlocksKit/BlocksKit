@@ -5,14 +5,7 @@
 
 #import "NSURLConnection+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
-#import "A2BlockDelegate+BlocksKit.h"
 #import <objc/runtime.h>
-
-@interface A2DynamicDelegate ()
-
-+ (Protocol *) protocol;
-
-@end
 
 #pragma mark Private
 
@@ -170,9 +163,9 @@ static char kResponseLengthKey;
 
 @implementation A2DynamicNSURLConnectionDelegate
 
-+ (BOOL)conformsToProtocol:(Protocol *)protocol {
+- (BOOL)conformsToProtocol:(Protocol *)protocol {
     Protocol *dataDelegateProtocol = objc_getProtocol("NSURLConnectionDataDelegate");
-    return (protocol_isEqual(protocol, dataDelegateProtocol) || protocol_isEqual(protocol, [self protocol]) || [super conformsToProtocol:protocol]);
+    return (protocol_isEqual(protocol, dataDelegateProtocol) || protocol_isEqual(protocol, self.protocol) || [super conformsToProtocol:protocol]);
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

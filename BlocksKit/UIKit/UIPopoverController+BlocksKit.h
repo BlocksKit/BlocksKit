@@ -3,6 +3,8 @@
 //  %PROJECT
 //
 
+#import "BKGlobals.h"
+
 /** Block functionality for UIPopoverController.
  
  Created by Alexsander Akers and contributed to BlocksKit. Copyright (c) 2011 Pandamonia LLC. All rights reserved.

@@ -16,7 +16,6 @@
 #import <ffi.h>
 #endif
 
-
 #pragma mark Block Internals
 
 typedef enum {
@@ -221,7 +220,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
             } else if (!strcmp(argumentType, @encode(CGRect))) {
                 return &ffi_type_cgrect; break;
             }
-#if !TARGET_OS_MAC
+#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
             if (!strcmp(argumentType, @encode(NSSize))) {
                 return &ffi_type_cgsize; break;
             } else if (!strcmp(argumentType, @encode(NSPoint))) {

@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BKGlobals.h"
 
 /** A2DynamicDelegate implements a class's delegate,
  data source, or other delegated protocol by associating
@@ -53,24 +53,18 @@
  are usually weak references on the part of the delegating object, a dynamic
  delegate would be deallocated immediately after its declaring scope ends.
  */
-@interface A2DynamicDelegate : NSProxy {
-@private
-	Protocol *_protocol;
-	__unsafe_unretained id _delegatingObject;
-	id _classProxy;
-	NSMutableDictionary *_handlers;
-	NSMutableDictionary *_blockMap;
-	NSMutableDictionary *_signatureMap;
-}
+@interface A2DynamicDelegate : NSProxy
 
 /** A dictionary of custom handlers to be used by custom responders
  in a A2Dynamic(Protocol Name) subclass of A2DynamicDelegate, like
- `A2DynamicUIAlertViewDelegate`.
- */
+ `A2DynamicUIAlertViewDelegate`. */
 @property (nonatomic, strong, readonly) NSMutableDictionary *handlers;
 
 /** The object that the dynamic delegate implements methods for. */
-@property (nonatomic, unsafe_unretained, readonly) id delegatingObject;
+@property (nonatomic, unsafe_unretained, readonly) id realDelegate;
+
+/** The protocol delegating the dynamic delegate. */
+@property (nonatomic, readonly) Protocol *protocol;
 
 /** @name Block Class Method Implementations */
 
@@ -202,12 +196,8 @@
  with the format `A2DynamicClassFooBarDelegate` for it to be used instead of
  a basic proxy.
  */
-@interface A2DynamicClassDelegate : A2DynamicDelegate {
-@private
-	Class _proxiedClass;
-}
+@interface A2DynamicClassDelegate : A2DynamicDelegate
 
-- (id) init NS_UNAVAILABLE;
 - (id) initWithClass:(Class)proxy;
 
 - (id) blockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;

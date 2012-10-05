@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Pandamonia LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BKGlobals.h"
 
 @interface A2BlockInvocation : NSInvocation
 

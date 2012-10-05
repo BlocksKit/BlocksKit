@@ -34,8 +34,8 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 @interface A2DynamicDelegate ()
 
-@property (nonatomic, unsafe_unretained, readwrite) id delegatingObject;
-@property (nonatomic) Protocol *protocol;
+@property (nonatomic, unsafe_unretained, readwrite) id realDelegate;
+@property (nonatomic, readwrite) Protocol *protocol;
 @property (nonatomic, strong) id classProxy;
 @property (nonatomic, strong, readonly) NSMutableDictionary *blockMap;
 @property (nonatomic, strong, readonly) NSMutableDictionary *signatureMap;
@@ -48,6 +48,8 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 @end
 
 @implementation A2DynamicDelegate
+
+@synthesize blockMap = _blockMap, signatureMap = _signatureMap;
 
 - (id)init {
 	if (self) {
@@ -78,6 +80,8 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	NSString *key = NSStringFromSelector(aSelector);
 	if (self.signatureMap[key]) {
 		return self.signatureMap[key];
+	} else if ([self.realDelegate methodSignatureForSelector: aSelector]) {
+		return [self.realDelegate methodSignatureForSelector: aSelector];
 	}
 	return [[NSObject class] methodSignatureForSelector: aSelector];
 }
@@ -86,6 +90,8 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	A2BlockInvocation *innerInv = self.blockMap[NSStringFromSelector(outerInv.selector)];
 	if (innerInv)
 		[innerInv invokeUsingInvocation: outerInv];
+	else if ([self.realDelegate respondsToSelector: outerInv.selector])
+		[outerInv invokeWithTarget: self.realDelegate];
 }
 
 - (Class)class {
@@ -100,7 +106,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	if (!_classProxy) {
 		Class cls = NSClassFromString([@"A2DynamicClass" stringByAppendingString: NSStringFromProtocol(self.protocol)]) ?: [A2DynamicClassDelegate class];
 		_classProxy = [[cls alloc] initWithClass: object_getClass(self)];
-		[_classProxy setDelegatingObject: self];
+		[_classProxy setRealDelegate: self];
 		[_classProxy setProtocol: self.protocol];
 	}
 	return _classProxy;
@@ -136,6 +142,13 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	return _signatureMap;
 }
 
+- (id)realDelegate {
+	id obj = _realDelegate;
+	if ([obj isKindOfClass: [NSValue class]])
+		obj = [obj nonretainedObjectValue];
+	return obj;
+}
+
 #pragma mark -
 
 - (BOOL)conformsToProtocol:(Protocol *)aProtocol {
@@ -144,7 +157,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 - (BOOL) respondsToSelector: (SEL) selector
 {
-	return self.blockMap[NSStringFromSelector(selector)] || [super respondsToSelector: selector];
+	return self.blockMap[NSStringFromSelector(selector)] || [self.realDelegate respondsToSelector: selector] || [super respondsToSelector: selector];
 }
 
 - (void)doesNotRecognizeSelector:(SEL)aSelector {
@@ -202,7 +215,9 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 #pragma mark -
 
-@implementation A2DynamicClassDelegate
+@implementation A2DynamicClassDelegate {
+	Class _proxiedClass;
+}
 
 - (id) initWithClass:(Class)proxy {
 	if ((self = [super init])) {
@@ -302,7 +317,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 		{
 			Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString: NSStringFromProtocol(protocol)]) ?: [A2DynamicDelegate class];
 			dynamicDelegate = [[cls alloc] init];
-			dynamicDelegate.delegatingObject = self;
+			dynamicDelegate.realDelegate = self;
 			dynamicDelegate.protocol = protocol;
 			objc_setAssociatedObject(self, (__bridge const void *)protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		}

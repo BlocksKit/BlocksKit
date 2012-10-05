@@ -5,7 +5,6 @@
 
 #import "NSArray+BlocksKit.h"
 #import "UIAlertView+BlocksKit.h"
-#import "A2BlockDelegate+BlocksKit.h"
 
 #pragma mark Delegate
 
