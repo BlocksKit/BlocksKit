@@ -327,7 +327,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 #pragma mark Initializers
 
 + (NSURLConnection*)connectionWithRequest:(NSURLRequest *)request {
-	return [[[[self class] alloc] initWithRequest:request] autorelease];
+	return [[[self class] alloc] initWithRequest:request];
 }
 
 + (NSURLConnection *)startConnectionWithRequest:(NSURLRequest *)request successHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))success failureHandler:(void(^)(NSURLConnection *, NSError *))failure {
@@ -335,7 +335,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	connection.successBlock = success;
 	connection.failureBlock = failure;
 	[connection start];
-	return [connection autorelease];
+	return connection;
 }
 
 - (id)initWithRequest:(NSURLRequest *)request {
@@ -360,37 +360,37 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 #pragma mark Properties
 
 - (void(^)(NSURLConnection *, NSURLResponse *, NSData *))successBlock {
-	return [[self.dynamicDelegate handlers] objectForKey:kSuccessBlockKey];
+	return [[self.dynamicDelegate handlers] objectForKey: kSuccessBlockKey];
 }
 
 - (void)setSuccessBlock:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block {
 	if (block)
-		[[self.dynamicDelegate handlers] setObject:[[block copy] autorelease] forKey:kSuccessBlockKey];
+		[self.dynamicDelegate handlers][kSuccessBlockKey] = [block copy];
 	else
-		[[self.dynamicDelegate handlers] removeObjectForKey:kSuccessBlockKey];
+		[[self.dynamicDelegate handlers] removeObjectForKey: kSuccessBlockKey];
 	
 }
 
 - (void(^)(CGFloat))uploadBlock {
-	return [[self.dynamicDelegate handlers] objectForKey:kUploadBlockKey];
+	return [[self.dynamicDelegate handlers] objectForKey: kUploadBlockKey];
 }
 
 - (void)setUploadBlock:(void(^)(CGFloat))block {
 	if (block)
-		[[self.dynamicDelegate handlers] setObject:[[block copy] autorelease] forKey:kUploadBlockKey];
+		[self.dynamicDelegate handlers][kUploadBlockKey] = [block copy];
 	else
-		[[self.dynamicDelegate handlers] removeObjectForKey:kUploadBlockKey];
+		[[self.dynamicDelegate handlers] removeObjectForKey: kUploadBlockKey];
 }
 
 - (void(^)(CGFloat))downloadBlock {
-	return [[self.dynamicDelegate handlers] objectForKey:kDownloadBlockKey];
+	return [[self.dynamicDelegate handlers] objectForKey: kDownloadBlockKey];
 }
 
 - (void)setDownloadBlock:(void(^)(CGFloat))block {
 	if (block)
-		[[self.dynamicDelegate handlers] setObject:[[block copy] autorelease] forKey:kDownloadBlockKey];
+		[self.dynamicDelegate handlers][kDownloadBlockKey] = [block copy];
 	else
-		[[self.dynamicDelegate handlers] removeObjectForKey:kDownloadBlockKey];
+		[[self.dynamicDelegate handlers] removeObjectForKey: kDownloadBlockKey];
 }
 
 @end

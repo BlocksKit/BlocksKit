@@ -40,7 +40,7 @@
 		[new setObject:value forKey:key];
 	}];
 	
-	[self setDictionary:[new autorelease]];
+	[self setDictionary: new];
 }
 
 @end

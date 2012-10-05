@@ -37,7 +37,7 @@
 	}];
 	
 	[self removeAllIndexes];
-	[self addIndexes:[new autorelease]];
+	[self addIndexes: new];
 }
 
 @end

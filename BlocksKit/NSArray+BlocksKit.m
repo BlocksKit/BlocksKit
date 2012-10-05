@@ -69,15 +69,13 @@
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	__block id result = [initial retain];
+	__block id result = initial;
 	
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		id new = block(result, obj);
-		[result release];
-		result = [new retain];
+		result = block(result, obj);
 	}];
 	
-	return [result autorelease];
+	return result;
 }
 
 - (BOOL)any:(BKValidationBlock)block {

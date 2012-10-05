@@ -99,7 +99,7 @@
 #pragma mark Initializers
 
 + (id)actionSheetWithTitle:(NSString *)title {
-	return [[[UIActionSheet alloc] initWithTitle:title] autorelease];
+	return [[UIActionSheet alloc] initWithTitle:title];
 }
 
 - (id)initWithTitle:(NSString *)title {
@@ -141,7 +141,7 @@
 	id key = [NSNumber numberWithInteger:index];
 	
 	if (block)
-		[[self.dynamicDelegate handlers] setObject:[[block copy] autorelease] forKey:key];
+		[self.dynamicDelegate handlers][key] = [block copy];
 	else
 		[[self.dynamicDelegate handlers] removeObjectForKey:key];
 }

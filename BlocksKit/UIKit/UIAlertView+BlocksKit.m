@@ -157,7 +157,7 @@
 }
 
 + (id)alertViewWithTitle:(NSString *)title message:(NSString *)message {
-	return [[[UIAlertView alloc] initWithTitle:title message:message] autorelease];
+	return [[UIAlertView alloc] initWithTitle:title message:message];
 }
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message {
@@ -188,9 +188,9 @@
 	id key = [NSNumber numberWithInteger:index];
 	
 	if (block)
-		[[self.dynamicDelegate handlers] setObject:[[block copy] autorelease] forKey:key];
+		[self.dynamicDelegate handlers][key] = [block copy];
 	else
-		[[self.dynamicDelegate handlers] removeObjectForKey:key];
+		[[self.dynamicDelegate handlers] removeObjectForKey: key];
 }
 
 - (BKBlock)handlerForButtonAtIndex:(NSInteger)index {

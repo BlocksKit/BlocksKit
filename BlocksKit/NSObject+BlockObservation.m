@@ -8,13 +8,9 @@
 #import "NSDictionary+BlocksKit.h"
 #import "NSArray+BlocksKit.h"
 
-@interface BKObserver : NSObject {
-	id _task;
-	id _observee;
-	NSArray *_keyPaths;
-}
+@interface BKObserver : NSObject
 
-@property (nonatomic, assign) id observee;
+@property (nonatomic, unsafe_unretained) id observee;
 @property (nonatomic, copy) NSArray *keyPaths;
 @property (nonatomic, copy) id task;
 
@@ -30,14 +26,12 @@ static char kMultipleBlockObservationContext;
 
 @implementation BKObserver
 
-@synthesize observee = _observee, keyPaths = _keyPaths, task = _task;
-
 + (BKObserver *)observerForObject:(id)object keyPaths:(NSArray *)keyPaths task:(id)task {
 	BKObserver *instance = [BKObserver new];
 	instance.observee = object;
 	instance.keyPaths = keyPaths;
 	instance.task = task;
-	return [instance autorelease];
+	return instance;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -54,12 +48,6 @@ static char kMultipleBlockObservationContext;
 		BKMultipleObservationBlock task = self.task;
 		task(object, keyPath, change);
 	}
-}
-
-- (void)dealloc {
-	self.task = nil;
-	self.keyPaths = nil;
-	[super dealloc];
 }
 
 @end

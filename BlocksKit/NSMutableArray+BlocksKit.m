@@ -42,8 +42,8 @@
 		
 		[new replaceObjectAtIndex:idx withObject:value];
 	}];
-	
-	[self setArray:[new autorelease]];
+
+	[self setArray: new];
 }
 
 @end

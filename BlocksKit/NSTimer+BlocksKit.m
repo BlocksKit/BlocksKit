@@ -13,12 +13,12 @@
 
 + (id)scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKTimerBlock)block repeats:(BOOL)inRepeats {
 	NSParameterAssert(block);
-	return [self scheduledTimerWithTimeInterval:inTimeInterval target:self selector:@selector(_executeBlockFromTimer:) userInfo:[[block copy] autorelease] repeats:inRepeats];
+	return [self scheduledTimerWithTimeInterval:inTimeInterval target:self selector:@selector(_executeBlockFromTimer:) userInfo:[block copy] repeats:inRepeats];
 }
 
 + (id)timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKTimerBlock)block repeats:(BOOL)inRepeats {
 	NSParameterAssert(block);
-	return [self timerWithTimeInterval:inTimeInterval target:self selector:@selector(_executeBlockFromTimer:) userInfo:[[block copy] autorelease] repeats:inRepeats];
+	return [self timerWithTimeInterval:inTimeInterval target:self selector:@selector(_executeBlockFromTimer:) userInfo: [block copy] repeats:inRepeats];
 }
 
 + (void)_executeBlockFromTimer:(NSTimer *)aTimer {

@@ -39,11 +39,6 @@ static char kControlHandlersKey;
 	self.handler(sender);
 }
 
-- (void)dealloc {
-	self.handler = nil;
-	[super dealloc];
-}
-
 @end
 
 #pragma mark Category
@@ -69,7 +64,6 @@ static char kControlHandlersKey;
 	BKControlWrapper *target = [[BKControlWrapper alloc] initWithHandler:handler forControlEvents:controlEvents];
 	[handlers addObject:target];
 	[self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
-	[target release];
 }
 
 - (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents {
