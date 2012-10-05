@@ -17,9 +17,9 @@
 
 - (void)testEach {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexBlock indexBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld", index];
-		_target[index] = [NSString stringWithFormat:@"%ld", index];
+	BKIndexBlock indexBlock = ^(unsigned int index) {
+		[order appendFormat:@"%d", index];
+		_target[index] = [NSString stringWithFormat:@"%d", index];
 	};
 	[_subject each: indexBlock];
 	STAssertTrue([order isEqualToString: @"123"], @"the index loop order is %@", order);
@@ -29,11 +29,11 @@
 
 - (void)testMatch {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld", index];
+	BKIndexValidationBlock indexValidationBlock = ^(unsigned int index) {
+		[order appendFormat:@"%d", index];
 		BOOL match = NO;
 		if (index%2 == 0 ) {
-			_target[index] = [NSString stringWithFormat:@"%ld",index];
+			_target[index] = [NSString stringWithFormat:@"%d",index];
 			match = YES;
 		}
 		return match;
@@ -45,8 +45,8 @@
 
 - (void)testNotMatch {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat: @"%ld", index];
+	BKIndexValidationBlock indexValidationBlock = ^(unsigned int index) {
+		[order appendFormat: @"%d", index];
 		BOOL match = index > 4 ? YES : NO;
 		return match;
 	};
@@ -57,8 +57,8 @@
 
 - (void)testSelect {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld", index];
+	BKIndexValidationBlock indexValidationBlock = ^(unsigned int index) {
+		[order appendFormat:@"%d", index];
 		BOOL match = index < 3 ? YES : NO;
 		return match;
 	};
@@ -70,8 +70,8 @@
 
 - (void)testSelectedNone {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld", index];
+	BKIndexValidationBlock indexValidationBlock = ^(unsigned int index) {
+		[order appendFormat:@"%d", index];
 		BOOL match = index == 0 ? YES : NO;
 		return match;
 	};
@@ -82,8 +82,8 @@
 
 - (void)testReject {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld",index];
+	BKIndexValidationBlock indexValidationBlock = ^(unsigned int index) {
+		[order appendFormat:@"%d",index];
 		BOOL match = [[_target objectAtIndex:index] isEqual: @"0"] ? YES : NO;
 		return match;
 	};
@@ -94,8 +94,8 @@
 
 - (void)testRejectedNone {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld",index];
+	BKIndexValidationBlock indexValidationBlock = ^(unsigned int index) {
+		[order appendFormat:@"%d",index];
 		BOOL match = [[_target objectAtIndex:index] isEqual: @"0"] ? NO : YES;
 		return match;
 	};
@@ -106,11 +106,11 @@
 
 - (void)testAny {
 	__block NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld",index];
+	BKIndexValidationBlock indexValidationBlock = ^(unsigned int index) {
+		[order appendFormat:@"%d",index];
 		BOOL match = NO;
 		if (index%2 == 0 ) {
-			_target[index] = [NSString stringWithFormat:@"%ld", index];
+			_target[index] = [NSString stringWithFormat:@"%d", index];
 			match = YES;
 		}
 		return match;
