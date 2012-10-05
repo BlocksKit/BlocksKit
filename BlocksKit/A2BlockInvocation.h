@@ -1,9 +1,6 @@
 //
 //  A2BlockInvocation.h
-//  A2DynamicDelegate
-//
-//  Created by Zachary Waldowski on 10/3/12.
-//  Copyright (c) 2012 Pandamonia LLC. All rights reserved.
+//  %PROJECT
 //
 
 #import "BKGlobals.h"

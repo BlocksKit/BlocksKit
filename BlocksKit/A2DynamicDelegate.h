@@ -1,16 +1,12 @@
 //
 //  A2DynamicDelegate.h
-//  A2DynamicDelegate
-//
-//  Created by Alexsander Akers on 11/26/11.
-//  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
+//  %PROJECT
 //
 
 #import "BKGlobals.h"
 
-/** A2DynamicDelegate implements a class's delegate,
- data source, or other delegated protocol by associating
- protocol methods with a block implementations.
+/** A2DynamicDelegate implements a class's delegate, data source, or other
+ delegated protocol by associating protocol methods with a block implementation.
 
     - (IBAction) annoyUser
     {
@@ -43,7 +39,7 @@
         [alertView release];
     }
     
- A2DynamicDelegate is designed to be 'plug and play'. It just works. Pretty neat, huh?
+ A2DynamicDelegate is designed to be 'plug and play'. It just works.
  
  @warning An A2DynamicDelegate cannot simply be allocated. Calling one of the
  A2DynamicDelegate methods on NSObject, -dynamicDataSource, -dynamicDelegate,
