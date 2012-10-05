@@ -7,7 +7,7 @@
 //
 
 #import "A2DynamicDelegate.h"
-#import "A2BlockClosure.h"
+#import "A2BlockInvocation.h"
 #import <objc/message.h>
 
 #pragma mark -
@@ -19,8 +19,18 @@
 
 Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
-extern BOOL a2_blockIsCompatible(id block, NSMethodSignature *signature);
-extern void (*a2_blockGetInvocation(id block))(void);
+
+static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NSMethodSignature *blockSignature) {
+	if (strcmp(methodSignature.methodReturnType, blockSignature.methodReturnType))
+		return NO;
+
+	NSUInteger numberOfArguments = methodSignature.numberOfArguments;
+	for (NSUInteger i = 2; i < numberOfArguments; i++) {
+		if (strcmp([methodSignature getArgumentTypeAtIndex: i], [blockSignature getArgumentTypeAtIndex: i - 1]))
+			return NO;
+	}
+	return YES;
+}
 
 @interface A2DynamicDelegate ()
 
@@ -28,6 +38,7 @@ extern void (*a2_blockGetInvocation(id block))(void);
 @property (nonatomic) Protocol *protocol;
 @property (nonatomic, strong) id classProxy;
 @property (nonatomic, strong, readonly) NSMutableDictionary *blockMap;
+@property (nonatomic, strong, readonly) NSMutableDictionary *signatureMap;
 
 - (id)init;
 
@@ -64,23 +75,17 @@ extern void (*a2_blockGetInvocation(id block))(void);
 }
 
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)aSelector {
-	id ret = nil;
 	NSString *key = NSStringFromSelector(aSelector);
-	if (self.blockMap[key]) {
-		ret = [self.blockMap[key] methodSignature];
-	} else if ([NSStringFromSelector(aSelector) isEqualToString:@"testClassMethod"]) {
-		ret = [NSMethodSignature signatureWithObjCTypes:"@@:"];
+	if (self.signatureMap[key]) {
+		return self.signatureMap[key];
 	}
-	if (ret)
-		return ret;
 	return [[NSObject class] methodSignatureForSelector: aSelector];
 }
 
-- (void)forwardInvocation:(NSInvocation *)invoc {
-	A2BlockClosure *closure = self.blockMap[NSStringFromSelector(invoc.selector)];
-	if (closure) {
-		[closure callWithInvocation: invoc];
-	}
+- (void)forwardInvocation:(NSInvocation *)outerInv {
+	A2BlockInvocation *innerInv = self.blockMap[NSStringFromSelector(outerInv.selector)];
+	if (innerInv)
+		[innerInv invokeUsingInvocation: outerInv];
 }
 
 - (Class)class {
@@ -123,6 +128,14 @@ extern void (*a2_blockGetInvocation(id block))(void);
 	return _blockMap;
 }
 
+- (NSMutableDictionary *) signatureMap
+{
+	if (!_signatureMap) {
+		_signatureMap = [NSMutableDictionary dictionary];
+	}
+	return _signatureMap;
+}
+
 #pragma mark -
 
 - (BOOL)conformsToProtocol:(Protocol *)aProtocol {
@@ -152,18 +165,21 @@ extern void (*a2_blockGetInvocation(id block))(void);
 	if (!block)
 	{
 		[self.blockMap removeObjectForKey: key];
+		[self.signatureMap removeObjectForKey: key];
 		return;
 	}
 
 	struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, !isClassMethod);
 	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
 	if (!methodDescription.name) return;
+
+	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
 	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes: methodDescription.types];
 
-    NSAlwaysAssert(a2_blockIsCompatible(block, protoSig), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
-
-	A2BlockClosure *closure = [[A2BlockClosure alloc] initWithBlock: block methodSignature: protoSig];
-	[self.blockMap setObject: closure forKey: key];
+    NSAlwaysAssert(a2_methodSignaturesCompatible(protoSig, inv.methodSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
+	
+	self.blockMap[key] = inv;
+	self.signatureMap[key] = protoSig;
 }
 
 - (void) removeBlockImplementationForMethod: (SEL) selector {

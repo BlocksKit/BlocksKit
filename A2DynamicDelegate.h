@@ -60,6 +60,7 @@
 	id _classProxy;
 	NSMutableDictionary *_handlers;
 	NSMutableDictionary *_blockMap;
+	NSMutableDictionary *_signatureMap;
 }
 
 /** A dictionary of custom handlers to be used by custom responders
