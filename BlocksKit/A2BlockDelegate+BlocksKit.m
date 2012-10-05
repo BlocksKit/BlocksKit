@@ -93,6 +93,9 @@ static void *BKRealDelegateKey;
 		propertyName = [[[cls bk_propertyMap] allKeysForObject: NSStringFromProtocol(protocol)] lastObject];
 		cls = [cls superclass];
 	}
+
+	if (!propertyName.length)
+		return;
     
 	SEL a2_setter = a2_selector(a2_setterForProperty(self.class, propertyName));
 	SEL a2_getter = a2_selector(a2_getterForProperty(self.class, propertyName));
