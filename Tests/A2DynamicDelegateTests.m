@@ -7,7 +7,6 @@
 //
 
 #import "A2DynamicDelegateTests.h"
-#import <A2DynamicDelegate/A2DynamicDelegate.h>
 
 #pragma mark -
 

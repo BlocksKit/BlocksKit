@@ -3,9 +3,10 @@
 //  BlocksKit Unit Tests
 //
 
-#import <GHUnitIOS/GHUnit.h>
-#import "BlocksKit/BlocksKit.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import <BlocksKit/NSURLConnection+BlocksKit.h>
+#import "BKAsyncTestCase.h"
 
-@interface NSURLConnectionBlocksKitTest : GHAsyncTestCase
+@interface NSURLConnectionBlocksKitTest : BKAsyncTestCase
 
 @end

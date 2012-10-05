@@ -7,7 +7,6 @@
 //
 
 #import "NSCacheBlocksKitTest.h"
-#import "NSTimer+BlocksKit.h"
 
 #define OBJECT_COUNT 300
 
@@ -21,7 +20,7 @@
 }
 
 - (void)tearDown {
-	[_subject release];
+	_subject = nil;
 }
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
@@ -31,11 +30,12 @@
 - (void)testDelegate {
 	_subject.delegate = self;
 	_total = 2;
+	__unsafe_unretained NSCacheBlocksKitTest *weakSelf = self;
 	_subject.willEvictBlock = ^(NSCache *cache, id obj){
-        _total--;
+        weakSelf->_total--;
     };
 	[_subject.dynamicDelegate cache:_subject willEvictObject:nil];
-	GHAssertEquals(_total, 0, @"The delegates should have been called!");
+	STAssertEquals(_total, (NSInteger)0, @"The delegates should have been called!");
 }
 
 @end

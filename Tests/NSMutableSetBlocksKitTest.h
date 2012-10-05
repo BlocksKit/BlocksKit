@@ -3,10 +3,10 @@
 //  BlocksKit Unit Tests
 //
 
-#import <GHUnitIOS/GHUnit.h>
-#import "BlocksKit/BlocksKit.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import <BlocksKit/NSMutableSet+BlocksKit.h>
 
-@interface NSMutableSetBlocksKitTest : GHTestCase
+@interface NSMutableSetBlocksKitTest : SenTestCase
 
 - (void)testSelect;
 - (void)testSelectedNone;

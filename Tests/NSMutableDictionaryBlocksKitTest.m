@@ -12,18 +12,13 @@
 }
 
 - (void)setUp {
-	_subject = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-		[NSNumber numberWithInteger:1],@"1",
-		[NSNumber numberWithInteger:2],@"2",
-		[NSNumber numberWithInteger:3],@"3",
-		nil
-	];
+	_subject = [@{
+		@"1" : @(1),
+		@"2" : @(2),
+		@"3" : @(3)
+	} mutableCopy];
 	_total = 0;
 }
-
-- (void)tearDown {
-	[_subject release];
-}  
 
 - (void)testSelect {
 	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
@@ -32,13 +27,9 @@
 		return select;
 	};
 	[_subject performSelect:validationBlock];
-	GHAssertEquals(_total,12,@"2*(1+2+3) = %d",_total);
-	NSMutableDictionary *target = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-		[NSNumber numberWithInteger:1],@"1",
-		[NSNumber numberWithInteger:2],@"2",
-		nil
-	];
-	GHAssertEqualObjects(_subject,target,@"selected dictionary is %@",_subject);
+	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
+	NSDictionary *target = @{ @"1" : @(1), @"2" : @(2) };
+	STAssertEqualObjects(_subject,target,@"selected dictionary is %@",_subject);
 }
 
 - (void)testSelectedNone {
@@ -48,8 +39,8 @@
 		return select;
 	};
 	[_subject performSelect:validationBlock];
-	GHAssertEquals(_total,12,@"2*(1+2+3) = %d",_total);
-	GHAssertEquals(_subject.count,(NSUInteger)0,@"no item is selected");
+	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
+	STAssertEquals(_subject.count,(NSUInteger)0,@"no item is selected");
 }
 
 - (void)testReject {
@@ -59,13 +50,9 @@
 		return reject;
 	};
 	[_subject performReject:validationBlock];
-	GHAssertEquals(_total,12,@"2*(1+2+3) = %d",_total);
-	NSMutableDictionary *target = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-		[NSNumber numberWithInteger:1],@"1",
-		[NSNumber numberWithInteger:2],@"2",
-		nil
-	];
-	GHAssertEqualObjects(_subject,target,@"dictionary after reject is %@",_subject);
+	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
+	NSDictionary *target = @{ @"1" : @(1), @"2" : @(2) };
+	STAssertEqualObjects(_subject,target,@"dictionary after reject is %@",_subject);
 }
 
 - (void)testRejectedAll {
@@ -75,8 +62,8 @@
 		return reject;
 	};
 	[_subject performReject:validationBlock];
-	GHAssertEquals(_total,12,@"2*(1+2+3) = %d",_total);
-	GHAssertEquals(_subject.count,(NSUInteger)0,@"all items are rejected");
+	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
+	STAssertEquals(_subject.count,(NSUInteger)0,@"all items are rejected");
 }
 
 - (void)testMap {
@@ -85,14 +72,13 @@
 		return [NSNumber numberWithInteger:_total];
 	};
 	[_subject performMap:transformBlock];
-	GHAssertEquals(_total,12,@"2*(1+2+3) = %d",_total);
-	NSMutableDictionary *target = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-		[NSNumber numberWithInteger:2],@"1",
-		[NSNumber numberWithInteger:6],@"2",
-		[NSNumber numberWithInteger:12],@"3",
-		nil
-	];
-	GHAssertEqualObjects(_subject,target,@"transformed dictionary is %@",_subject);
+	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
+	NSDictionary *target = @{
+		@"1" : @(2),
+		@"2" : @(6),
+		@"3" : @(12)
+	};
+	STAssertEqualObjects(_subject,target,@"transformed dictionary is %@",_subject);
 }
 
 @end

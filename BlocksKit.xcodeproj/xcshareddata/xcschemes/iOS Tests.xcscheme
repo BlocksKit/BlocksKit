@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0440"
+   LastUpgradeVersion = "0450"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "60FF000613C023CB004A1394"
-               BuildableName = "iOS Tests.app"
+               BlueprintIdentifier = "6CF22CAF161EB048002FD317"
+               BuildableName = "iOS Tests.octest"
                BlueprintName = "iOS Tests"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
@@ -23,7 +23,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
@@ -32,8 +32,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "60FF000613C023CB004A1394"
-            BuildableName = "iOS Tests.app"
+            BlueprintIdentifier = "6CF22CAF161EB048002FD317"
+            BuildableName = "iOS Tests.octest"
             BlueprintName = "iOS Tests"
             ReferencedContainer = "container:BlocksKit.xcodeproj">
          </BuildableReference>
@@ -51,8 +51,8 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "60FF000613C023CB004A1394"
-            BuildableName = "iOS Tests.app"
+            BlueprintIdentifier = "6CF22CAF161EB048002FD317"
+            BuildableName = "iOS Tests.octest"
             BlueprintName = "iOS Tests"
             ReferencedContainer = "container:BlocksKit.xcodeproj">
          </BuildableReference>
@@ -69,8 +69,8 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "60FF000613C023CB004A1394"
-            BuildableName = "iOS Tests.app"
+            BlueprintIdentifier = "6CF22CAF161EB048002FD317"
+            BuildableName = "iOS Tests.octest"
             BlueprintName = "iOS Tests"
             ReferencedContainer = "container:BlocksKit.xcodeproj">
          </BuildableReference>

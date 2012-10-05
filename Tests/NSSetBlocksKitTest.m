@@ -10,15 +10,8 @@
 	NSInteger _total;
 }
 
-- (void)setUpClass {
-	_subject = [[NSSet alloc] initWithObjects:@"1",@"22",@"333",nil];
-}
-
-- (void)tearDownClass {
-	[_subject release];
-}
-
 - (void)setUp {
+	_subject = [NSSet setWithArray: @[ @"1", @"22", @"333" ]];
 	_total = 0;
 }
 
@@ -27,7 +20,7 @@
 		_total += [sender length];
 	};
 	[_subject each:senderBlock];
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
 }
 
 - (void)testMatch {
@@ -37,10 +30,8 @@
 		return match;
 	};
 	id found = [_subject match:validationBlock];
-
-	//match: is functionally identical to select:, but will stop and return on the first match
-	GHAssertEquals(_total,3,@"total length of \"122\" is %d",_total);
-	GHAssertEquals(found,@"22",@"matched object is %@",found);
+	STAssertEquals(_total,(NSInteger)3,@"total length of \"122\" is %d",_total);
+	STAssertEquals(found,@"22",@"matched object is %@",found);
 }
 
 - (void)testNotMatch {
@@ -50,10 +41,8 @@
 		return match;
 	};
 	id found = [_subject match:validationBlock];
-
-	//@return Returns the object if found, `nil` otherwise.
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertNil(found,@"no matched object");
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	STAssertNil(found,@"no matched object");
 }
 
 - (void)testSelect {
@@ -64,9 +53,9 @@
 	};
 	NSSet *found = [_subject select:validationBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	NSSet *target = [NSSet setWithObjects:@"1",@"22",nil];
-	GHAssertEqualObjects(found,target,@"selected items are %@",found);
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	NSSet *target = [NSSet setWithArray: @[ @"1", @"22" ]];
+	STAssertEqualObjects(found,target,@"selected items are %@",found);
 }
 
 - (void)testSelectedNone {
@@ -76,9 +65,8 @@
 		return match;
 	};
 	NSSet *found = [_subject select:validationBlock];
-
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertFalse(found.count,@"no item is selected");
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	STAssertFalse(found.count,@"no item is selected");
 }
 
 - (void)testReject {
@@ -88,10 +76,9 @@
 		return match;
 	};
 	NSSet *left = [_subject reject:validationBlock];
-
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	NSSet *target = [NSSet setWithObjects:@"1",@"22",nil];
-	GHAssertEqualObjects(left,target,@"not rejected items are %@",left);
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	NSSet *target = [NSSet setWithArray: @[ @"1", @"22" ]];
+	STAssertEqualObjects(left,target,@"not rejected items are %@",left);
 }
 
 - (void)testRejectedAll {
@@ -101,9 +88,8 @@
 		return match;
 	};
 	NSSet *left = [_subject reject:validationBlock];
-
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertFalse(left.count,@"all items are rejected");
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	STAssertFalse(left.count,@"all items are rejected");
 }
 
 - (void)testMap {
@@ -113,9 +99,9 @@
 	};
 	NSSet *transformed = [_subject map:transformBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	NSSet *target = [NSSet setWithObjects:@"1",@"2",@"3",nil];
-	GHAssertEqualObjects(transformed,target,@"transformed items are %@",transformed);
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	NSSet *target = [NSSet setWithArray: @[ @"1", @"2", @"3" ]];
+	STAssertEqualObjects(transformed,target,@"transformed items are %@",transformed);
 }
 
 - (void)testReduceWithBlock {
@@ -123,7 +109,7 @@
 		return [sum stringByAppendingString:obj];
 	};
 	NSString *concatenated = [_subject reduce:@"" withBlock:accumlationBlock];
-	GHAssertEqualStrings(concatenated,@"122333",@"concatenated string is %@",concatenated);
+	STAssertTrue([concatenated isEqualToString: @"122333"], @"concatenated string is %@", concatenated);
 }
 
 - (void)testAny {
@@ -133,10 +119,8 @@
 		return match;
 	};
 	BOOL wasFound = [_subject any:validationBlock];
-	
-	// any: is functionally identical to select:, but will stop and return YES on the first match
-	GHAssertEquals(_total,3,@"total length of \"122\" is %d",_total);
-	GHAssertTrue(wasFound,@"matched object was found");
+	STAssertEquals(_total,(NSInteger)3,@"total length of \"122\" is %d",_total);
+	STAssertTrue(wasFound,@"matched object was found");
 }
 
 - (void)testAll {
@@ -147,8 +131,8 @@
 	};
 	
 	BOOL allMatched = [_subject all: validationBlock];
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertTrue(allMatched, @"Not all values matched");
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	STAssertTrue(allMatched, @"Not all values matched");
 }
 
 - (void)testNone {
@@ -159,8 +143,8 @@
 	};
 	
 	BOOL noneMatched = [_subject none: validationBlock];
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertTrue(noneMatched, @"Some values matched");
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	STAssertTrue(noneMatched, @"Some values matched");
 }
 
 @end

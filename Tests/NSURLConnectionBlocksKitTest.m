@@ -8,15 +8,14 @@
 @implementation NSURLConnectionBlocksKitTest
 
 - (void)testAsyncConnection {
-	[self prepare];
 	NSURL *URL = [NSURL URLWithString:@"http://google.com/"];
 	NSURLRequest *request = [NSURLRequest requestWithURL:URL];
 	[NSURLConnection startConnectionWithRequest:request successHandler:^(NSURLConnection *connection, NSURLResponse *response, NSData *data) {
-		[self notify:data.length ? kGHUnitWaitStatusSuccess : kGHUnitWaitStatusFailure forSelector:@selector(testAsyncConnection)];
+		[self notify:data.length ? SenAsyncTestCaseStatusSucceeded : SenAsyncTestCaseStatusFailed];
 	} failureHandler:^(NSURLConnection *connection, NSError *err) {
-		[self notify:kGHUnitWaitStatusFailure forSelector:@selector(testAsyncConnection)];
+		[self notify: SenAsyncTestCaseStatusFailed];
 	}];
-	[self waitForStatus:kGHUnitWaitStatusSuccess timeout:10.0];
+	[self waitForStatus: SenAsyncTestCaseStatusSucceeded timeout:10.0];
 }
 
 @end

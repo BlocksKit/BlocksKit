@@ -3,10 +3,11 @@
 //  BlocksKit Unit Tests
 //
 
-#import <GHUnitIOS/GHUnit.h>
-#import "BlocksKit/BlocksKit.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import <BlocksKit/NSTimer+BlocksKit.h>
+#import "BKAsyncTestCase.h"
 
-@interface NSTimerBlocksKitTest : GHAsyncTestCase
+@interface NSTimerBlocksKitTest : BKAsyncTestCase
 
 - (void)testScheduledTimer;
 - (void)testRepeatedlyScheduledTimer;

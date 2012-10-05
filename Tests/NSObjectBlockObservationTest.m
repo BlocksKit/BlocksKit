@@ -7,21 +7,20 @@
 
 @interface SubjectKVCAndKVO : NSObject
 
-@property (nonatomic, getter=isKvc) BOOL kvc; //scalar
-@property (nonatomic, retain) NSNumber *number;	  //scalar
-@property (nonatomic, retain) NSObjectBlockObservationTest *test; //to-one
-@property (nonatomic, retain) NSMutableArray *names; //ordered to-many
-@property (nonatomic, retain) NSMutableSet *members; //unordered to-many
+@property (nonatomic, getter=isKVC) BOOL kvc; //scalar
+@property (nonatomic, strong) NSNumber *number;	  //scalar
+@property (nonatomic, strong) NSObjectBlockObservationTest *test; //to-one
+@property (nonatomic, strong) NSMutableArray *names; //ordered to-many
+@property (nonatomic, strong) NSMutableSet *members; //unordered to-many
 
 - (void)insertObject:(NSString *)name inNamesAtIndex:(NSUInteger)index;
 - (void)removeObjectFromNamesAtIndex:(NSUInteger)index;
 - (void)addMembersObject:(NSString *)member;
 - (void)removeMembersObject:(NSString *)member;
+
 @end
 
 @implementation SubjectKVCAndKVO
-
-@synthesize kvc=_kvc, test=_test, number=_number, names=_names, members=_members;
 
 - (id)initSubjectWithTest:(NSObjectBlockObservationTest *)test {
 	if ( (self = [super init]) ) {
@@ -32,14 +31,6 @@
 		self.members = [NSMutableSet setWithObjects:@"foo",@"bar",nil];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_number release];
-	[_test release];
-	[_names release];
-	[_members release];
-	[super dealloc];
 }
 
 - (void)insertObject:(NSString *)name inNamesAtIndex:(NSUInteger)index {
@@ -65,15 +56,8 @@
 	NSInteger _total;
 }
 
-- (void)setUpClass {
-	_subject = [[SubjectKVCAndKVO alloc] initSubjectWithTest:self];
-}
-
-- (void)tearDownClass {
-	[_subject release];
-}
-
 - (void)setUp {
+	_subject = [[SubjectKVCAndKVO alloc] initSubjectWithTest:self];
 	_total = 0;
 }
 
@@ -88,8 +72,8 @@
 	NSString *token = [self addObserverForKeyPath:@"subject.kvc" task:observeBlock];
 
 	[self setValue:[NSNumber numberWithBool:NO] forKeyPath:@"subject.kvc"];
-	GHAssertFalse(_subject.kvc,@"kvc is NO");
-	GHAssertEquals(_total,1,@"total is %d",_total);
+	STAssertFalse(_subject.kvc, @"kvc is NO");
+	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
 	[self removeObserverForKeyPath:@"subject.kvc" identifier:token];
 }
 
@@ -101,8 +85,8 @@
 
 	NSNumber *number = [NSNumber numberWithInteger:1];
 	[self setValue:number forKeyPath:@"subject.number"];
-	GHAssertEquals(_subject.number,number,@"number is %@",_subject.number);
-	GHAssertEquals(_total,1,@"total is %d",_total);
+	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
+	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
 	
 	[self removeObserverForKeyPath:@"subject.number" identifier:token];
 }
@@ -114,12 +98,11 @@
 	NSString *token = [self addObserverForKeyPath:@"subject.names" task:observeBlock];
 
 	NSMutableArray *names = [self mutableArrayValueForKeyPath:@"subject.names"];
-	[names replaceObjectAtIndex:0 withObject:@"1"];
-	[names replaceObjectAtIndex:1 withObject:@"2"];
+	names[0] = @"1";
+	names[1] = @"2";
 	NSArray *target = [NSArray arrayWithObjects:@"1",@"2",nil];
-	GHAssertEqualObjects(_subject.names,target,@"names are %@",_subject.names);
-	GHAssertEquals(_total,2,@"total is %d",_total);
-	
+	STAssertEqualObjects(_subject.names,target,@"names are %@",_subject.names);
+	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
 	[self removeObserverForKeyPath:@"subject.names" identifier:token];
 }
 
@@ -133,9 +116,8 @@
 	[members removeObject:@"bar"];
 	[members addObject:@"one"];
 	NSSet *target = [NSSet setWithObjects:@"foo",@"one",nil];
-	GHAssertEqualObjects(_subject.members,target,@"members are %@",_subject.members);
-	GHAssertEquals(_total,2,@"total is %d",_total);
-	
+	STAssertEqualObjects(_subject.members,target,@"members are %@",_subject.members);
+	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
 	[self removeObserverForKeyPath:@"subject.members" identifier:token];
 } 
 @end

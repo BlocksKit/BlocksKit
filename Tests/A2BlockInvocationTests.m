@@ -7,7 +7,6 @@
 //
 
 #import "A2BlockInvocationTests.h"
-#import "A2BlockInvocation.h"
 
 typedef struct _BigStruct {
 	double doubleValue;

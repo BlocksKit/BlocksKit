@@ -10,16 +10,13 @@
 	NSInteger _total;
 }
 
-- (void)setUpClass {
-	_subject = [[NSArray alloc] initWithObjects:@"1",@"22",@"333",nil];
-}
-
-- (void)tearDownClass {
-	[_subject release];
-}
-
 - (void)setUp {
+	_subject = @[ @"1", @"22", @"333" ];
 	_total = 0;
+}
+
+- (void)tearDown {
+	_subject = nil;
 }
 
 - (void)testEach {
@@ -27,7 +24,7 @@
 		_total += [sender length];
 	};
 	[_subject each:senderBlock];
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 }
 
 - (void)testMatch {
@@ -39,8 +36,8 @@
 	id found = [_subject match:validationBlock];
 
 	//match: is functionally identical to select:, but will stop and return on the first match
-	GHAssertEquals(_total,3,@"total length of \"122\" is %d",_total);
-	GHAssertEquals(found,@"22",@"matched object is %@",found);
+	STAssertEquals(_total, (NSInteger)3, @"total length of \"122\" is %d", _total);
+	STAssertEquals(found, @"22", @"matched object is %@", found);
 }
 
 - (void)testNotMatch {
@@ -52,8 +49,8 @@
 	id found = [_subject match:validationBlock];
 
 	// @return Returns the object if found, `nil` otherwise.
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertNil(found,@"no matched object");
+	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
+	STAssertNil(found, @"no matched object");
 }
 
 - (void)testSelect {
@@ -64,9 +61,9 @@
 	};
 	NSArray *found = [_subject select:validationBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 	NSArray *target = [NSArray arrayWithObjects:@"1",@"22",nil];
-	GHAssertEqualObjects(found,target,@"selected items are %@",found);
+	STAssertEqualObjects(found, target, @"selected items are %@", found);
 }
 
 - (void)testSelectedNone {
@@ -77,8 +74,8 @@
 	};
 	NSArray *found = [_subject select:validationBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertFalse(found.count, @"no item is selected");
+	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
+	STAssertFalse(found.count, @"no item is selected");
 }
 
 - (void)testReject {
@@ -89,9 +86,9 @@
 	};
 	NSArray *left = [_subject reject:validationBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 	NSArray *target = [NSArray arrayWithObjects:@"1",@"22",nil];
-	GHAssertEqualObjects(left,target,@"not rejected items are %@",left);
+	STAssertEqualObjects(left, target, @"not rejected items are %@", left);
 }
 
 - (void)testRejectedAll {
@@ -102,8 +99,8 @@
 	};
 	NSArray *left = [_subject reject:validationBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertFalse(left.count, @"all items are rejected");
+	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
+	STAssertFalse(left.count, @"all items are rejected");
 }
 
 - (void)testMap {
@@ -113,9 +110,9 @@
 	};
 	NSArray *transformed = [_subject map:transformBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 	NSArray *target = [NSArray arrayWithObjects:@"1",@"2",@"3",nil];
-	GHAssertEqualObjects(transformed,target,@"transformed items are %@",transformed);
+	STAssertEqualObjects(transformed, target, @"transformed items are %@", transformed);
 }
 
 - (void)testReduceWithBlock {
@@ -123,7 +120,7 @@
 		return [sum stringByAppendingString:obj];
 	};
 	NSString *concatenated = [_subject reduce:@"" withBlock:accumlationBlock];
-	GHAssertEqualStrings(concatenated,@"122333",@"concatenated string is %@",concatenated);
+	STAssertTrue([concatenated isEqualToString: @"122333"], @"concatenated string is %@", concatenated);
 }
 
 - (void)testAny {
@@ -137,10 +134,10 @@
     };
     
     BOOL letterExists = [_subject any: existsBlockTrue];
-    GHAssertTrue(letterExists, @"letter is not in array");
+    STAssertTrue(letterExists, @"letter is not in array");
     
     BOOL letterDoesNotExist = [_subject any: existsBlockFalse];
-    GHAssertFalse(letterDoesNotExist, @"letter is in array");
+    STAssertFalse(letterDoesNotExist, @"letter is in array");
 }
 
 - (void)testAll {
@@ -153,10 +150,10 @@
     };
 
     BOOL allNamesStartWithJ = [names all: nameStartsWithJ];
-    GHAssertTrue(allNamesStartWithJ, @"all names do not start with J in array");
+    STAssertTrue(allNamesStartWithJ, @"all names do not start with J in array");
     
     BOOL allNamesDoNotStartWithJ = [names2 all: nameStartsWithJ];
-    GHAssertFalse(allNamesDoNotStartWithJ, @"all names do start with J in array");  
+    STAssertFalse(allNamesDoNotStartWithJ, @"all names do start with J in array");  
 }
 
 - (void)testNone {
@@ -169,10 +166,10 @@
     };
 	
 	BOOL noNamesStartWithM = [names none: nameStartsWithM];
-	GHAssertTrue(noNamesStartWithM, @"some names start with M in array");
+	STAssertTrue(noNamesStartWithM, @"some names start with M in array");
 	
 	BOOL someNamesStartWithM = [names2 none: nameStartsWithM];
-	GHAssertFalse(someNamesStartWithM, @"no names start with M in array");
+	STAssertFalse(someNamesStartWithM, @"no names start with M in array");
 }
 
 - (void)testCorresponds {
@@ -181,7 +178,7 @@
     BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
         return [[number stringValue] isEqualToString: letter];
     }];
-    GHAssertTrue(doesCorrespond, @"1,2,3 does not correspond to \"1\",\"2\",\"3\"");
+    STAssertTrue(doesCorrespond, @"1,2,3 does not correspond to \"1\",\"2\",\"3\"");
     
 }
 

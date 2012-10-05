@@ -23,9 +23,9 @@
 		[sender action];
 	};
 	NSInvocation *invocation = [NSInvocation invocationWithTarget:self block:senderBlock];
-	GHAssertNotNil(invocation,@"invocation is nil");
+	STAssertNotNil(invocation, @"invocation is nil");
 	[invocation invoke];
-	GHAssertEquals(_total,1,@"total is %d",_total);
+	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
 }
 
 @end

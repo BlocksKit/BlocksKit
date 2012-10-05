@@ -11,13 +11,9 @@
 }
 
 - (void)setUp {
-	_subject = [[NSMutableArray alloc] initWithObjects:@"1",@"22",@"333",nil];
+	_subject = [@[ @"1", @"22", @"333" ] mutableCopy];
 	_total = 0;
 }
-
-- (void)tearDown {
-	[_subject release];
-}  
 
 - (void)testSelect {
 	BKValidationBlock validationBlock = ^(id obj) {
@@ -27,9 +23,9 @@
 	};
 	[_subject performSelect:validationBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
 	NSMutableArray *target = [NSMutableArray arrayWithObjects:@"1",@"22",nil];
-	GHAssertEqualObjects(_subject,target,@"selected items are %@",_subject);
+	STAssertEqualObjects(_subject,target,@"selected items are %@",_subject);
 }
 
 - (void)testSelectedNone {
@@ -40,8 +36,8 @@
 	};
 	[_subject performSelect:validationBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertEquals(_subject.count,(NSUInteger)0,@"no item is selected");
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_subject.count,(NSUInteger)0,@"no item is selected");
 }
 
 - (void)testReject {
@@ -52,9 +48,9 @@
 	};
 	[_subject performReject:validationBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
 	NSMutableArray *target = [NSMutableArray arrayWithObjects:@"1",@"22",nil];
-	GHAssertEqualObjects(_subject,target,@"not rejected items are %@",_subject);
+	STAssertEqualObjects(_subject,target,@"not rejected items are %@",_subject);
 }
 
 - (void)testRejectedAll {
@@ -65,8 +61,8 @@
 	};
 	[_subject performReject:validationBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
-	GHAssertEquals(_subject.count,(NSUInteger)0,@"all items are rejected");
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_subject.count,(NSUInteger)0,@"all items are rejected");
 }
 
 - (void)testMap {
@@ -76,9 +72,9 @@
 	};
 	[_subject performMap:transformBlock];
 
-	GHAssertEquals(_total,6,@"total length of \"122333\" is %d",_total);
+	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
 	NSMutableArray *target = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",nil];
-	GHAssertEqualObjects(_subject,target,@"transformed items are %@",_subject);
+	STAssertEqualObjects(_subject,target,@"transformed items are %@",_subject);
 }
 
 @end
