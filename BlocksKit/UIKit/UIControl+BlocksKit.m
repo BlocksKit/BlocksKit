@@ -13,7 +13,7 @@ static char kControlHandlersKey;
 
 @interface BKControlWrapper : NSObject <NSCopying>
 
-- (id)initWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents;
+- (id)initWithHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents;
 @property (nonatomic, copy) BKSenderBlock handler;
 @property (nonatomic) UIControlEvents controlEvents;
 
@@ -21,12 +21,10 @@ static char kControlHandlersKey;
 
 @implementation BKControlWrapper
 
-@synthesize handler, controlEvents;
-
-- (id)initWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents {
+- (id)initWithHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
 	if ((self = [super init])) {
-		self.handler = aHandler;
-		self.controlEvents = someControlEvents;
+		self.handler = handler;
+		self.controlEvents = controlEvents;
 	}
 	return self;
 }

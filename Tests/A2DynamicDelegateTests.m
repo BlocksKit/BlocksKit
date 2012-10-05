@@ -16,8 +16,6 @@
 	return !![self.delegate testReturnObject].length;
 }
 
-@synthesize delegate = _delegate;
-
 @end
 
 #pragma mark -
@@ -29,8 +27,6 @@
 	return value.first && value.second;
 }
 
-@synthesize delegate = _delegate;
-
 @end
 
 #pragma mark -
@@ -40,8 +36,6 @@
 - (BOOL)test {
 	return [self.delegate testWithObject: @"Test"];
 }
-
-@synthesize delegate = _delegate;
 
 @end
 
@@ -53,8 +47,6 @@
 	return [self.delegate testWithChar: 'Z'];
 }
 
-@synthesize delegate = _delegate;
-
 @end
 
 #pragma mark -
@@ -64,8 +56,6 @@
 - (BOOL)test {
 	return [self.delegate testWithUChar: 'Z'];
 }
-
-@synthesize delegate = _delegate;
 
 @end
 
@@ -77,8 +67,6 @@
 	return [self.delegate testWithShort: SHRT_MAX];
 }
 
-@synthesize delegate = _delegate;
-
 @end
 
 #pragma mark -
@@ -88,8 +76,6 @@
 - (BOOL)test {
 	return [self.delegate testWithUShort: USHRT_MAX];
 }
-
-@synthesize delegate = _delegate;
 
 @end
 
@@ -101,8 +87,6 @@
 	return [self.delegate testWithInt: INT_MAX];
 }
 
-@synthesize delegate = _delegate;
-
 @end
 
 #pragma mark -
@@ -112,8 +96,6 @@
 - (BOOL)test {
 	return [self.delegate testWithUInt: UINT_MAX];
 }
-
-@synthesize delegate = _delegate;
 
 @end
 
@@ -125,8 +107,6 @@
 	return [self.delegate testWithLong: LONG_MAX];
 }
 
-@synthesize delegate = _delegate;
-
 @end
 
 #pragma mark -
@@ -136,8 +116,6 @@
 - (BOOL)test {
 	return [self.delegate testWithULong: ULONG_MAX];
 }
-
-@synthesize delegate = _delegate;
 
 @end
 
@@ -149,8 +127,6 @@
 	return [self.delegate testWithLongLong: LLONG_MAX];
 }
 
-@synthesize delegate = _delegate;
-
 @end
 
 #pragma mark -
@@ -160,8 +136,6 @@
 - (BOOL)test {
 	return [self.delegate testWithULongLong: ULLONG_MAX];
 }
-
-@synthesize delegate = _delegate;
 
 @end
 
@@ -173,8 +147,6 @@
 	return [self.delegate testWithFloat: 1.01f];
 }
 
-@synthesize delegate = _delegate;
-
 @end
 
 #pragma mark -
@@ -184,8 +156,6 @@
 - (BOOL)test {
 	return [self.delegate testWithDouble: 1.01];
 }
-
-@synthesize delegate = _delegate;
 
 @end
 
@@ -197,8 +167,6 @@
 	int myArray[5] = { 1, 2, 3, 4, 5 };
 	return [self.delegate testWithArray: myArray];
 }
-
-@synthesize delegate = _delegate;
 
 @end
 
@@ -213,8 +181,6 @@
 	return [self.delegate testPassStruct: stret];
 }
 
-@synthesize delegate = _delegate;
-
 @end
 
 #pragma mark -
@@ -225,7 +191,6 @@
 	return [[self.delegate class] testWithObject: @"Test"];
 }
 
-@synthesize delegate = _delegate;
 
 @end
 

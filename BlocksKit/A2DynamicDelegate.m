@@ -32,7 +32,10 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	return YES;
 }
 
-@interface A2DynamicDelegate ()
+@interface A2DynamicDelegate () {
+	NSMutableDictionary *_blockMap;
+	NSMutableDictionary *_signatureMap;
+}
 
 @property (nonatomic, unsafe_unretained, readwrite) id realDelegate;
 @property (nonatomic, readwrite) Protocol *protocol;
@@ -48,8 +51,6 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 @end
 
 @implementation A2DynamicDelegate
-
-@synthesize blockMap = _blockMap, signatureMap = _signatureMap;
 
 - (id)init {
 	if (self) {
