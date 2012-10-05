@@ -401,7 +401,9 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 				char *tmp = malloc(len + 1);
 				strncpy(tmp, new, len);
 				tmp[len] = '\0';
-				buffer = tmp;
+				memcpy(_argumentFrame[idx], tmp, a2_sizeForType(cif.arg_types[idx]));
+				free(tmp);
+				return;
 			}
 		}
 	}
@@ -447,9 +449,12 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	void *argument = NULL;
 	for (int i = 0; i < self.interface.nargs - 1; i++) {
 		size_t argSize = a2_sizeForType(self.interface.arg_types[i]);
-		argument = realloc(argument, argSize);
-		[inv getArgument: argument atIndex: i + 2];
-		[self setArgument: argument atIndex: i];
+		void *thisArgument = realloc(argument, argSize);
+		if (!thisArgument)
+			continue;
+		[inv getArgument: thisArgument atIndex: i + 2];
+		[self setArgument: thisArgument atIndex: i];
+		argument = thisArgument;
 	}
 	if (argument)
 		free(argument);
