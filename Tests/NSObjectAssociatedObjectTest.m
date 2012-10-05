@@ -37,13 +37,10 @@ static char kNotFoundKey;
 - (void)testAssociatedAssignValue {
 	NSString *subject = @"Hello BlocksKit";
 	[self weaklyAssociateValue:subject withKey:&kAssociationKey];
+	void *brokenPtr = (__bridge void *)subject;
 	subject = nil;
-#warning FIXME
-	/*#if BK_HAS_APPKIT
-	//zeroing weak reference is not available for iOS
-	NSString *associated = [self associatedValueForKey:&kAssociationKey];
-	STAssertNil(associated,@"associated value is nil");
-	 #endif*/
+	void *associated = (__bridge void *)[self associatedValueForKey:&kAssociationKey];
+	STAssertEquals(brokenPtr, associated, @"assign associated values equal");
 }
 
 - (void)testAssociatedNotFound {
