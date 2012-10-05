@@ -16,7 +16,7 @@
 - (void)testScheduledTimer {
 	BKTimerBlock timerBlock = ^(NSTimeInterval time) {
 		_total++;
-		NSLog(@"total is %ld",_total);
+		NSLog(@"total is %lu", (unsigned long)_total);
 	};
 	NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 block:timerBlock repeats:NO];
 	STAssertNotNil(timer,@"timer is nil");
@@ -27,7 +27,7 @@
 - (void)testRepeatedlyScheduledTimer {
 	BKTimerBlock timerBlock = ^(NSTimeInterval time) {
 		_total++;
-		NSLog(@"total is %ld", _total);
+		NSLog(@"total is %lu", (unsigned long)_total);
 	};
 	NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 block:timerBlock repeats:YES];
 	STAssertNotNil(timer,@"timer is nil");
@@ -39,7 +39,7 @@
 - (void)testUnscheduledTimer {
 	BKTimerBlock timerBlock = ^(NSTimeInterval time) {
 		_total++;
-		NSLog(@"total is %ld", _total);
+		NSLog(@"total is %lu", (unsigned long)_total);
 	};
 	NSTimer *timer = [NSTimer timerWithTimeInterval:0.1 block:timerBlock repeats:NO];
 	STAssertNotNil(timer,@"timer is nil");
@@ -51,7 +51,7 @@
 - (void)testRepeatableUnscheduledTimer {
 	BKTimerBlock timerBlock = ^(NSTimeInterval time) {
 		_total += 1;
-		NSLog(@"total is %ld",_total);
+		NSLog(@"total is %lu", (unsigned long)_total);
 	};
 	NSTimer *timer = [NSTimer timerWithTimeInterval:0.1 block:timerBlock repeats:YES];
 	STAssertNotNil(timer,@"timer is nil");

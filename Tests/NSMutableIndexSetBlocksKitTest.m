@@ -19,7 +19,7 @@
 - (void)testSelect {
 	NSMutableString *order = [NSMutableString string];
 	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld",index];
+		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = index < 3 ? YES : NO; //1,2
 		return match;
 	};
@@ -32,7 +32,7 @@
 - (void)testSelectedNone {
 	NSMutableString *order = [NSMutableString string];
 	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld",index];
+		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = index == 0 ? YES : NO;
 		return match;
 	};
@@ -44,7 +44,7 @@
 - (void)testReject {
 	NSMutableString *order = [NSMutableString string];
 	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld",index];
+		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = [[_target objectAtIndex:index] isEqual: @"0"] ? YES : NO;
 		return match;
 	};
@@ -56,7 +56,7 @@
 - (void)testRejectedNone {
 	NSMutableString *order = [NSMutableString string];
 	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
-		[order appendFormat:@"%ld",index];
+		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = [[_target objectAtIndex:index] isEqual: @"0"] ? NO : YES;
 		return match;
 	};
