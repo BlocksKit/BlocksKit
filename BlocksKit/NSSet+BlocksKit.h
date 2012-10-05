@@ -90,13 +90,12 @@
 /** Arbitrarily accumulate objects using a block.
 
  The concept of this selector is difficult to illustrate in words. The sum can
- be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValue.
+ be any NSObject, including (but not limited to) a string, number, or value.
 
  You can also do something like summing the count of an item:
-	 NSNumber *sum = [bodyList reduce:nil withBlock:^id(id sum, id obj) {
-	   return [NSNumber numberWithInteger: [sum integerValue] + obj.numberOfAppendages];
-	 }];
-	 NSUInteger numberOfBodyParts = [sum integerValue];
+	 NSUInteger numberOfBodyParts = [[bodyList reduce:nil withBlock:^id(id sum, id obj) {
+	   return @([sum integerValue] + obj.numberOfAppendages);
+	 }] integerValue]
 
  @param initial The value of the reduction at its start.
  @param block A block that takes the current sum and the next object to return the new sum.

@@ -39,8 +39,8 @@
 		
 		if ([value isEqual:obj])
 			return;
-		
-		[new replaceObjectAtIndex:idx withObject:value];
+
+		new[idx] = value;
 	}];
 
 	[self setArray: new];

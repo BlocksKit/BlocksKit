@@ -33,8 +33,8 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(alertViewCancel:)])
 		[realDelegate alertViewCancel:alertView];
 	
-	id key = [NSNumber numberWithInteger:alertView.cancelButtonIndex];
-	BKBlock cancelBlock = [self.handlers objectForKey:key];
+	id key = @(alertView.cancelButtonIndex);
+	BKBlock cancelBlock = (self.handlers)[key];
 	if (cancelBlock)
 		cancelBlock();
 }
@@ -88,8 +88,8 @@
 	if (block)
 		block(alertView, buttonIndex);
 	
-	id key = [NSNumber numberWithInteger:buttonIndex];
-	BKBlock buttonBlock = [self.handlers objectForKey: key];
+	id key = @(buttonIndex);
+	BKBlock buttonBlock = (self.handlers)[key];
 	if (buttonBlock)
 		buttonBlock();
 }
@@ -105,14 +105,13 @@
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegate];
-		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
-								 @"willPresentAlertView:", @"willShowBlock",
-								 @"didPresentAlertView:", @"didShowBlock",
-								 @"alertView:willDismissWithButtonIndex:", @"willDismissBlock",
-								 @"alertView:didDismissWithButtonIndex:", @"didDismissBlock",
-								 @"alertViewShouldEnableFirstOtherButton:", @"shouldEnableFirstOtherButtonBlock",
-								 nil];
-		[self linkDelegateMethods:methods];
+		[self linkDelegateMethods: @{
+		 @"willShowBlock" : @"willPresentAlertView:",
+		 @"didShowBlock" : @"didPresentAlertView:",
+		 @"willDismissBlock" : @"alertView:willDismissWithButtonIndex:",
+		 @"didDismissBlock" : @"alertView:didDismissWithButtonIndex:",
+		 @"shouldEnableFirstOtherButtonBlock" : @"alertViewShouldEnableFirstOtherButton:"
+		}];
 	}
 }
 
@@ -133,8 +132,8 @@
 	// Set other buttons
 	if (otherButtonTitles.count)
 	{
-		NSUInteger firstOtherButton = [alertView addButtonWithTitle: [otherButtonTitles objectAtIndex: 0]];
-		[alertView setValue: [NSNumber numberWithInteger: firstOtherButton] forKey: @"firstOtherButton"];
+		NSUInteger firstOtherButton = [alertView addButtonWithTitle: otherButtonTitles[0]];
+		[alertView setValue: @(firstOtherButton) forKey: @"firstOtherButton"];
 		
 		otherButtonTitles = [otherButtonTitles subarrayWithRange: NSMakeRange(1, otherButtonTitles.count - 1)];
 		[otherButtonTitles each: ^(NSString *button) {
@@ -184,7 +183,7 @@
 #pragma mark Properties
 
 - (void)setHandler:(BKBlock)block forButtonAtIndex:(NSInteger)index {
-	id key = [NSNumber numberWithInteger:index];
+	id key = @(index);
 	
 	if (block)
 		[self.dynamicDelegate handlers][key] = [block copy];
@@ -193,8 +192,8 @@
 }
 
 - (BKBlock)handlerForButtonAtIndex:(NSInteger)index {
-	id key = [NSNumber numberWithInteger:index];
-	return [[self.dynamicDelegate handlers] objectForKey:key];
+	id key = @(index);
+	return [self.dynamicDelegate handlers][key];
 }
 
 - (BKBlock)cancelBlock {

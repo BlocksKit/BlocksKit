@@ -66,7 +66,7 @@ static char kGestureRecognizerCancelKey;
 }
 
 - (void)setHandlerDelay:(NSTimeInterval)delay {
-	NSNumber *delayValue = delay ? [NSNumber numberWithDouble:delay] : nil;
+	NSNumber *delayValue = delay ? @(delay) : nil;
 	[self associateValue:delayValue withKey:&kGestureRecognizerDelayKey];
 }
 

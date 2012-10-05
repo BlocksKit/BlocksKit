@@ -62,7 +62,7 @@
 	NSArray *found = [_subject select:validationBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
-	NSArray *target = [NSArray arrayWithObjects:@"1",@"22",nil];
+	NSArray *target = @[ @"1", @"22" ];
 	STAssertEqualObjects(found, target, @"selected items are %@", found);
 }
 
@@ -87,7 +87,7 @@
 	NSArray *left = [_subject reject:validationBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
-	NSArray *target = [NSArray arrayWithObjects:@"1",@"22",nil];
+	NSArray *target = @[ @"1", @"22" ];
 	STAssertEqualObjects(left, target, @"not rejected items are %@", left);
 }
 
@@ -111,7 +111,7 @@
 	NSArray *transformed = [_subject map:transformBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
-	NSArray *target = [NSArray arrayWithObjects:@"1",@"2",@"3",nil];
+	NSArray *target = @[ @"1", @"2", @"3" ];
 	STAssertEqualObjects(transformed, target, @"transformed items are %@", transformed);
 }
 
@@ -141,8 +141,8 @@
 }
 
 - (void)testAll {
-    NSArray *names = [NSArray arrayWithObjects: @"John", @"Joe", @"Jon", @"Jester", nil];
-    NSArray *names2 = [NSArray arrayWithObjects: @"John", @"Joe", @"Jon", @"Mary", nil];
+    NSArray *names = @[ @"John", @"Joe", @"Jon", @"Jester" ];
+    NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
     
     // Check if array has element with prefix 1
     BKValidationBlock nameStartsWithJ = ^BOOL(id obj) {
@@ -157,8 +157,8 @@
 }
 
 - (void)testNone {
-    NSArray *names = [NSArray arrayWithObjects: @"John", @"Joe", @"Jon", @"Jester", nil];
-    NSArray *names2 = [NSArray arrayWithObjects: @"John", @"Joe", @"Jon", @"Mary", nil];
+    NSArray *names = @[ @"John", @"Joe", @"Jon", @"Jester" ];
+    NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
     
     // Check if array has element with prefix 1
     BKValidationBlock nameStartsWithM = ^BOOL(id obj) {
@@ -173,8 +173,8 @@
 }
 
 - (void)testCorresponds {
-    NSArray *numbers = [NSArray arrayWithObjects: [NSNumber numberWithInt: 1], [NSNumber numberWithInt: 2], [NSNumber numberWithInt: 3], nil];
-    NSArray *letters = [NSArray arrayWithObjects: @"1", @"2", @"3", nil];
+    NSArray *numbers = @[ @(1), @(2), @(3) ];
+	NSArray *letters = @[ @"1", @"2", @"3" ];
     BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
         return [[number stringValue] isEqualToString: letter];
     }];

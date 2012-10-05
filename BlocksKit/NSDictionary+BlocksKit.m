@@ -33,8 +33,8 @@
 		}
 		return NO;
 	}] anyObject];
-	
-	return [self objectForKey:key];
+
+	return self[key];
 }
 
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {
@@ -65,7 +65,7 @@
 		if (!value)
 			value = [NSNull null];
 		
-		[result setObject:value forKey:key];
+		result[key] = value;
 	}];
 	
 	return result;

@@ -73,7 +73,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 
 - (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
-	[self addObserverForKeyPaths: [NSArray arrayWithObject:keyPath] identifier: token options: options task: (id)task];
+	[self addObserverForKeyPaths: @[keyPath] identifier: token options: options task: (id)task];
 	return token;
 }
 
@@ -84,7 +84,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
-	[self addObserverForKeyPaths: [NSArray arrayWithObject:keyPath] identifier: identifier options: options task: (id)task];
+	[self addObserverForKeyPaths: @[keyPath] identifier: identifier options: options task: (id)task];
 }
 
 - (void)addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task {
@@ -104,7 +104,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 		}
 		
 		[keyPaths each:^(NSString *keyPath) {
-			[dict setObject:newObserver forKey:[NSString stringWithFormat:@"%@_%@", keyPath, identifier]];
+			dict[[NSString stringWithFormat:@"%@_%@", keyPath, identifier]] = newObserver;
 		}];
 	});
 	
@@ -121,8 +121,8 @@ static dispatch_queue_t BKObserverMutationQueue() {
 	dispatch_sync(BKObserverMutationQueue(), ^{
 		NSString *token = [NSString stringWithFormat:@"%@_%@", keyPath, identifier];
 		NSMutableDictionary *dict = [self associatedValueForKey:&kObserverBlocksKey];
-		BKObserver *trampoline = [dict objectForKey:token];
-		
+		BKObserver *trampoline = dict[token];
+
 		if (!trampoline || ![trampoline.keyPaths containsObject:keyPath])
 			return;
 		

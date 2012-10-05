@@ -54,11 +54,11 @@ static char kControlHandlersKey;
 		[self associateValue:events withKey:&kControlHandlersKey];
 	}
 	
-	NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
-	NSMutableSet *handlers = [events objectForKey:key];
+	NSNumber *key = @(controlEvents);
+	NSMutableSet *handlers = events[key];
 	if (!handlers) {
 		handlers = [NSMutableSet set];
-		[events setObject:handlers forKey:key];
+		events[key] = handlers;
 	}
 	
 	BKControlWrapper *target = [[BKControlWrapper alloc] initWithHandler:handler forControlEvents:controlEvents];
@@ -73,8 +73,8 @@ static char kControlHandlersKey;
 		[self associateValue:events withKey:&kControlHandlersKey];
 	}
 	
-	NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
-	NSSet *handlers = [events objectForKey:key];
+	NSNumber *key = @(controlEvents);
+	NSSet *handlers = events[key];
 
 	if (!handlers)
 		return;
@@ -93,8 +93,8 @@ static char kControlHandlersKey;
 		[self associateValue:events withKey:&kControlHandlersKey];
 	}
 	
-	NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
-	NSSet *handlers = [events objectForKey:key];
+	NSNumber *key = @(controlEvents);
+	NSSet *handlers = events[key];
 	
 	if (!handlers)
 		return NO;

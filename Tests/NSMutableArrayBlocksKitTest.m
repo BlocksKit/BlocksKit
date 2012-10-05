@@ -24,7 +24,7 @@
 	[_subject performSelect:validationBlock];
 
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	NSMutableArray *target = [NSMutableArray arrayWithObjects:@"1",@"22",nil];
+	NSMutableArray *target = [@[ @"1", @"22" ] mutableCopy];
 	STAssertEqualObjects(_subject,target,@"selected items are %@",_subject);
 }
 
@@ -49,7 +49,7 @@
 	[_subject performReject:validationBlock];
 
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	NSMutableArray *target = [NSMutableArray arrayWithObjects:@"1",@"22",nil];
+	NSMutableArray *target = [@[ @"1", @"22" ] mutableCopy];
 	STAssertEqualObjects(_subject,target,@"not rejected items are %@",_subject);
 }
 
@@ -73,7 +73,7 @@
 	[_subject performMap:transformBlock];
 
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	NSMutableArray *target = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",nil];
+	NSMutableArray *target = [@[ @"1", @"2", @"3" ] mutableCopy];
 	STAssertEqualObjects(_subject,target,@"transformed items are %@",_subject);
 }
 

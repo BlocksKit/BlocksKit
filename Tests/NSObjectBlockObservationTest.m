@@ -26,9 +26,9 @@
 	if ( (self = [super init]) ) {
 		self.kvc = YES;
 		self.test = test;
-		self.number = [NSNumber numberWithInteger:0];
-		self.names = [NSMutableArray arrayWithObjects:@"one",@"two",nil];
-		self.members = [NSMutableSet setWithObjects:@"foo",@"bar",nil];
+		self.number = @(0);
+		self.names = [@[ @"one", @"two" ] mutableCopy];
+		self.members = [NSMutableSet setWithArray: @[ @"foo", @"bar" ]];
 	}
 	return self;
 }
@@ -71,7 +71,7 @@
 	};
 	NSString *token = [self addObserverForKeyPath:@"subject.kvc" task:observeBlock];
 
-	[self setValue:[NSNumber numberWithBool:NO] forKeyPath:@"subject.kvc"];
+	[self setValue:@NO forKeyPath:@"subject.kvc"];
 	STAssertFalse(_subject.kvc, @"kvc is NO");
 	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
 	[self removeObserverForKeyPath:@"subject.kvc" identifier:token];
@@ -83,7 +83,7 @@
 	};
 	NSString *token = [self addObserverForKeyPath:@"subject.number" task:observeBlock];
 
-	NSNumber *number = [NSNumber numberWithInteger:1];
+	NSNumber *number = @1;
 	[self setValue:number forKeyPath:@"subject.number"];
 	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
 	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
@@ -100,7 +100,7 @@
 	NSMutableArray *names = [self mutableArrayValueForKeyPath:@"subject.names"];
 	names[0] = @"1";
 	names[1] = @"2";
-	NSArray *target = [NSArray arrayWithObjects:@"1",@"2",nil];
+	NSArray *target = @[ @"1", @"2" ];
 	STAssertEqualObjects(_subject.names,target,@"names are %@",_subject.names);
 	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
 	[self removeObserverForKeyPath:@"subject.names" identifier:token];
@@ -115,7 +115,7 @@
 	NSMutableSet *members = [self mutableSetValueForKeyPath:@"subject.members"];
 	[members removeObject:@"bar"];
 	[members addObject:@"one"];
-	NSSet *target = [NSSet setWithObjects:@"foo",@"one",nil];
+	NSSet *target = [NSSet setWithArray: @[ @"foo", @"one" ]];
 	STAssertEqualObjects(_subject.members,target,@"members are %@",_subject.members);
 	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
 	[self removeObserverForKeyPath:@"subject.members" identifier:token];

@@ -37,7 +37,7 @@
 		if ([value isEqual:obj])
 			return;
 
-		[new setObject:value forKey:key];
+		new[key] = value;
 	}];
 	
 	[self setDictionary: new];

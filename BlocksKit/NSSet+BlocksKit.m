@@ -54,7 +54,7 @@
 - (NSSet *)map:(BKTransformBlock)block {
 	NSParameterAssert(block != nil);
 	
-	NSMutableSet *result = [[NSMutableSet alloc] initWithCapacity:self.count];
+	NSMutableSet *result = [NSMutableSet setWithCapacity: self.count];
 	
 	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
 		id value = block(obj);

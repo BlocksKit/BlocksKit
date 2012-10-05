@@ -11,7 +11,7 @@
 }
 
 - (void)setUp {
-	_target = [[NSMutableArray alloc] initWithObjects:@"0",@"0",@"0",@"0",nil];
+	_target = [@[@"0", @"0", @"0", @"0"] mutableCopy];
 	_subject = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(1, 3)];
 }
 
@@ -84,7 +84,7 @@
 	NSMutableString *order = [NSMutableString string];
 	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
 		[order appendFormat:@"%lu", (unsigned long)index];
-		BOOL match = [[_target objectAtIndex:index] isEqual: @"0"] ? YES : NO;
+		BOOL match = [_target[index] isEqual: @"0"] ? YES : NO;
 		return match;
 	};
 	NSIndexSet *found = [_subject reject:indexValidationBlock];
@@ -96,7 +96,7 @@
 	NSMutableString *order = [NSMutableString string];
 	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
 		[order appendFormat:@"%lu", (unsigned long)index];
-		BOOL match = [[_target objectAtIndex:index] isEqual: @"0"] ? NO : YES;
+		BOOL match = [_target[index] isEqual: @"0"] ? NO : YES;
 		return match;
 	};
 	NSIndexSet *found = [_subject reject:indexValidationBlock];

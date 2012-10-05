@@ -42,8 +42,7 @@ static char kResponseLengthKey;
 }
 
 - (void)bk_setResponseLength:(NSUInteger)responseLength {
-	NSNumber *value = [NSNumber numberWithUnsignedInteger:responseLength];
-	return [self associateValue:value withKey:&kResponseLengthKey];
+	return [self associateValue: @(responseLength) withKey: &kResponseLengthKey];
 }
 
 @end
@@ -357,7 +356,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 #pragma mark Properties
 
 - (void(^)(NSURLConnection *, NSURLResponse *, NSData *))successBlock {
-	return [[self.dynamicDelegate handlers] objectForKey: kSuccessBlockKey];
+	return [self.dynamicDelegate handlers][kSuccessBlockKey];
 }
 
 - (void)setSuccessBlock:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block {
@@ -368,7 +367,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 }
 
 - (void(^)(CGFloat))uploadBlock {
-	return [[self.dynamicDelegate handlers] objectForKey: kUploadBlockKey];
+	return [self.dynamicDelegate handlers][kUploadBlockKey];
 }
 
 - (void)setUploadBlock:(void(^)(CGFloat))block {
@@ -379,7 +378,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 }
 
 - (void(^)(CGFloat))downloadBlock {
-	return [[self.dynamicDelegate handlers] objectForKey: kDownloadBlockKey];
+	return [self.dynamicDelegate handlers][kDownloadBlockKey];
 }
 
 - (void)setDownloadBlock:(void(^)(CGFloat))block {

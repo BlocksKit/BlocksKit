@@ -33,7 +33,7 @@
 	if (index == NSNotFound)
 		return nil;
 	
-	return [self objectAtIndex:index];
+	return self[index];
 }
 
 - (NSArray *)select:(BKValidationBlock)block {
@@ -107,8 +107,8 @@
     __block BOOL result = NO;
 	
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (idx < [list count]) {
-            id obj2 = [list objectAtIndex: idx];
+        if (idx < list.count) {
+            id obj2 = list[idx];
             result = block(obj, obj2);
         } else {
             result = NO;

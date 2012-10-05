@@ -18,8 +18,8 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)])
 		[realDelegate actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
 	
-	id key = [NSNumber numberWithInteger:buttonIndex];
-	BKBlock block = [self.handlers objectForKey:key];
+	id key = @(buttonIndex);
+	BKBlock block = (self.handlers)[key];
 	if (block)
 		block();
 }
@@ -85,13 +85,12 @@
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegate];
-		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
-								 @"willPresentActionSheet:", @"willShowBlock",
-								 @"didPresentActionSheet:", @"didShowBlock",
-								 @"actionSheet:willDismissWithButtonIndex:", @"willDismissBlock",
-								 @"actionSheet:didDismissWithButtonIndex:", @"didDismissBlock",
-								 nil];
-		[self linkDelegateMethods:methods];
+		[self linkDelegateMethods: @{
+		 @"willShowBlock" : @"willPresentActionSheet:",
+		 @"didShowBlock" : @"didPresentActionSheet:",
+		 @"willDismissBlock" : @"actionSheet:willDismissWithButtonIndex:",
+		 @"didDismissBlock" : @"actionSheet:didDismissWithButtonIndex:"
+		}];
 	}
 }
 
@@ -137,7 +136,7 @@
 #pragma mark Properties
 
 - (void)setHandler:(BKBlock)block forButtonAtIndex:(NSInteger)index {
-	id key = [NSNumber numberWithInteger:index];
+	id key = @(index);
 	
 	if (block)
 		[self.dynamicDelegate handlers][key] = [block copy];
@@ -146,8 +145,8 @@
 }
 
 - (BKBlock)handlerForButtonAtIndex:(NSInteger)index {
-	id key = [NSNumber numberWithInteger:index];
-	return [[self.dynamicDelegate handlers] objectForKey:key];
+	id key = @(index);
+	return [self.dynamicDelegate handlers][key];
 }
 
 - (BKBlock)cancelBlock {

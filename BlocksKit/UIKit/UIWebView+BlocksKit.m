@@ -67,13 +67,12 @@
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegate];
-		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
-								 @"webView:shouldStartLoadWithRequest:navigationType:", @"shouldStartLoadBlock",
-								 @"webViewDidStartLoad:", @"didStartLoadBlock",
-								 @"webViewDidFinishLoad:", @"didFinishLoadBlock",
-								 @"webView:didFailLoadWithError:", @"didFinishWithErrorBlock",
-								 nil];
-		[self linkDelegateMethods:methods];
+		[self linkDelegateMethods: @{
+		 @"shouldStartLoadBlock" : @"webView:shouldStartLoadWithRequest:navigationType:",
+		 @"didStartLoadBlock" : @"webViewDidStartLoad:",
+		 @"didFinishLoadBlock" : @"webViewDidFinishLoad:",
+		 @"didFinishWithErrorBlock" : @"webView:didFailLoadWithError:"
+		}];
 	}
 }
 

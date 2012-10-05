@@ -69,7 +69,7 @@
 - (void)testMap {
 	BKKeyValueTransformBlock transformBlock = ^id(id key,id value) {
 		_total += [value intValue] + [key intValue];
-		return [NSNumber numberWithInteger:_total];
+		return @(_total);
 	};
 	[_subject performMap:transformBlock];
 	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
