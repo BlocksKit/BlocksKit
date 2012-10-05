@@ -458,8 +458,8 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 	if (_returnLength) {
 		void *returnValue = malloc(_returnLength);
-		[self getReturnValue: argument];
-		[inv setReturnValue: argument];
+		[self getReturnValue: returnValue];
+		[inv setReturnValue: returnValue];
 		free(returnValue);
 	}
 }
