@@ -2,6 +2,9 @@
 //  UIControlBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Created by Zachary Waldowski on 12/20/11.
+//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
+//
 
 #import "UIControlBlocksKitTest.h"
 

@@ -2,6 +2,9 @@
 //  NSDictionaryBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Created by Kai Wu on 7/3/11.
+//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
+//
 
 #import "NSDictionaryBlocksKitTest.h"
 
