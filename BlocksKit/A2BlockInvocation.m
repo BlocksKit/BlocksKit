@@ -7,11 +7,15 @@
 //
 
 #import "A2BlockInvocation.h"
-#if TARGET_OS_IPHONE
-#import <CoreGraphics/CoreGraphics.h>
-#endif
 #import <objc/runtime.h>
+
+#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
+#import <ffi/ffi.h>
+#else
+#import <CoreGraphics/CoreGraphics.h>
 #import <ffi.h>
+#endif
+
 
 #pragma mark Block Internals
 
