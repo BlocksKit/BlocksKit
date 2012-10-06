@@ -73,7 +73,6 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	if (!_classProxy)
 	{
 		_classProxy = [[A2DynamicClassDelegate alloc] initWithClass: object_getClass(self)];
-		[_classProxy setRealDelegate: self];
 		[_classProxy setProtocol: self.protocol];
 	}
 	
@@ -351,7 +350,6 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 		{
 			Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString: NSStringFromProtocol(protocol)]) ?: [A2DynamicDelegate class];
 			dynamicDelegate = [[cls alloc] init];
-			dynamicDelegate.realDelegate = self;
 			dynamicDelegate.protocol = protocol;
 			objc_setAssociatedObject(self, (__bridge const void *)protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		}

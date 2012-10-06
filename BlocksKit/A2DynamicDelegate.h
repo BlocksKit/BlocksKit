@@ -56,7 +56,8 @@
  `A2DynamicUIAlertViewDelegate`. */
 @property (nonatomic, strong, readonly) NSMutableDictionary *handlers;
 
-/** The object that the dynamic delegate implements methods for. */
+/** When replacing the delegate using the A2BlockDelegate extensions, the object
+ responding to classical delegate method implementations. */
 @property (nonatomic, unsafe_unretained, readonly) id realDelegate;
 
 /** The protocol delegating the dynamic delegate. */
