@@ -124,7 +124,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 		return self.signatureMap[key];
 	else if ([self.realDelegate methodSignatureForSelector: aSelector])
 		return [self.realDelegate methodSignatureForSelector: aSelector];
-	else if ([object_getClass(self) instancesRespondToSelector: aSelector])
+	else if (class_respondsToSelector(object_getClass(self), aSelector))
 		return [object_getClass(self) methodSignatureForSelector: aSelector];
 	return [[NSObject class] methodSignatureForSelector: aSelector];
 }
@@ -166,7 +166,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 }
 - (BOOL) respondsToSelector: (SEL) selector
 {
-	return self.blockMap[NSStringFromSelector(selector)] || [object_getClass(self) instancesRespondToSelector: selector] || [self.realDelegate respondsToSelector: selector] || [super respondsToSelector: selector];
+	return self.blockMap[NSStringFromSelector(selector)] || class_respondsToSelector(object_getClass(self), selector) || [self.realDelegate respondsToSelector: selector];
 }
 
 - (void) doesNotRecognizeSelector: (SEL) aSelector
