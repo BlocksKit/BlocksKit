@@ -20,7 +20,8 @@
 Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
 
-static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NSMethodSignature *blockSignature) {
+static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NSMethodSignature *blockSignature)
+{
 	if (strcmp(methodSignature.methodReturnType, blockSignature.methodReturnType))
 		return NO;
 
@@ -32,89 +33,52 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	return YES;
 }
 
-@interface A2DynamicDelegate () {
+@interface A2DynamicDelegate ()
+{
 	NSMutableDictionary *_blockMap;
 	NSMutableDictionary *_signatureMap;
 }
 
-@property (nonatomic, unsafe_unretained, readwrite) id realDelegate;
 @property (nonatomic, readwrite) Protocol *protocol;
 @property (nonatomic, strong) id classProxy;
 @property (nonatomic, strong, readonly) NSMutableDictionary *blockMap;
 @property (nonatomic, strong, readonly) NSMutableDictionary *signatureMap;
+@property (nonatomic, unsafe_unretained, readwrite) id realDelegate;
 
-- (id)init;
+- (BOOL)isClassProxy;
 
 + (dispatch_queue_t) dynamicDelegateBackgroundQueue;
-- (BOOL)isClassProxy;
+
+- (id)init;
 
 @end
 
 @implementation A2DynamicDelegate
 
-- (id)init {
-	if (self) {
-		_handlers = [NSMutableDictionary dictionary];
-	}
-	return self;
-}
-
-- (NSString *) description {
-	return [NSString stringWithFormat: @"<A2DynamicDelegate %@>", NSStringFromProtocol(self.protocol)];
-}
-
-+ (NSString *)description {
-	return @"A2DynamicDelegate";
-}
-
-+ (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
-	id ret = nil;
-	if ([NSStringFromSelector(aSelector) isEqualToString:@"testClassMethod"]) {
-		ret = [NSMethodSignature signatureWithObjCTypes:"@@:"];
-	}
-	if (!ret)
-		ret = [[NSObject class] methodSignatureForSelector: aSelector];
-	return ret;
-}
-
-- (NSMethodSignature*)methodSignatureForSelector:(SEL)aSelector {
-	NSString *key = NSStringFromSelector(aSelector);
-	if (self.signatureMap[key]) {
-		return self.signatureMap[key];
-	} else if ([self.realDelegate methodSignatureForSelector: aSelector]) {
-		return [self.realDelegate methodSignatureForSelector: aSelector];
-	}
-	return [[NSObject class] methodSignatureForSelector: aSelector];
-}
-
-- (void)forwardInvocation:(NSInvocation *)outerInv {
-	A2BlockInvocation *innerInv = self.blockMap[NSStringFromSelector(outerInv.selector)];
-	if (innerInv)
-		[innerInv invokeUsingInvocation: outerInv];
-	else if ([self.realDelegate respondsToSelector: outerInv.selector])
-		[outerInv invokeWithTarget: self.realDelegate];
-}
-
-- (Class)class {
-	Class myClass = object_getClass(self);
-	if (myClass == [A2DynamicDelegate class] || [myClass superclass] == [A2DynamicDelegate class]) {
-		return (Class)self.classProxy;
-	}
-	return [super class];
-}
-
-- (A2DynamicClassDelegate *)classProxy {
-	if (!_classProxy) {
-		Class cls = NSClassFromString([@"A2DynamicClass" stringByAppendingString: NSStringFromProtocol(self.protocol)]) ?: [A2DynamicClassDelegate class];
+- (A2DynamicClassDelegate *) classProxy
+{
+	if (!_classProxy)
+	{
+		Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString: NSStringFromProtocol(self.protocol)]) ?: [A2DynamicClassDelegate class];
 		_classProxy = [[cls alloc] initWithClass: object_getClass(self)];
 		[_classProxy setRealDelegate: self];
 		[_classProxy setProtocol: self.protocol];
 	}
+	
 	return _classProxy;
 }
 
-- (BOOL)isClassProxy {
+- (BOOL) isClassProxy
+{
 	return NO;
+}
+
+- (Class) class
+{
+	Class myClass = object_getClass(self);
+	if (myClass == [A2DynamicDelegate class] || [myClass superclass] == [A2DynamicDelegate class])
+		return (Class) self.classProxy;
+	return [super class];
 }
 
 + (dispatch_queue_t) dynamicDelegateBackgroundQueue
@@ -124,55 +88,90 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	dispatch_once(&onceToken, ^{
 		backgroundQueue = dispatch_queue_create("us.pandamonia.A2DynamicDelegate.backgroundQueue", DISPATCH_QUEUE_SERIAL);
 	});
+	
 	return backgroundQueue;
+}
+
+- (id) init
+{
+	self->_handlers = [NSMutableDictionary dictionary];
+	return self;
+}
+- (id) realDelegate
+{
+	id obj = _realDelegate;
+	if ([obj isKindOfClass: [NSValue class]])
+		return [obj nonretainedObjectValue];
+	else
+		return obj;
+}
+
+- (NSMethodSignature*) methodSignatureForSelector: (SEL) aSelector
+{
+	NSString *key = NSStringFromSelector(aSelector);
+	if (self.signatureMap[key])
+		return self.signatureMap[key];
+	else if ([self.realDelegate methodSignatureForSelector: aSelector])
+		return [self.realDelegate methodSignatureForSelector: aSelector];
+	
+	return [[NSObject class] methodSignatureForSelector: aSelector];
 }
 
 - (NSMutableDictionary *) blockMap
 {
-	if (!_blockMap) {
-		_blockMap = [NSMutableDictionary dictionary];
-	}
+	if (!_blockMap) _blockMap = [NSMutableDictionary dictionary];
 	return _blockMap;
 }
-
 - (NSMutableDictionary *) signatureMap
 {
-	if (!_signatureMap) {
-		_signatureMap = [NSMutableDictionary dictionary];
-	}
+	if (!_signatureMap) _signatureMap = [NSMutableDictionary dictionary];
 	return _signatureMap;
 }
 
-- (id)realDelegate {
-	id obj = _realDelegate;
-	if ([obj isKindOfClass: [NSValue class]])
-		obj = [obj nonretainedObjectValue];
-	return obj;
++ (NSString *) description
+{
+	return @"A2DynamicDelegate";
+}
+- (NSString *) description
+{
+	return [NSString stringWithFormat: @"<A2DynamicDelegate: %p; protocol = %@>", self, NSStringFromProtocol(self.protocol)];
+}
+
+- (void) forwardInvocation: (NSInvocation *) outerInv
+{
+	A2BlockInvocation *innerInv = self.blockMap[NSStringFromSelector(outerInv.selector)];
+	if (innerInv)
+		[innerInv invokeUsingInvocation: outerInv];
+	else if ([self.realDelegate respondsToSelector: outerInv.selector])
+		[outerInv invokeWithTarget: self.realDelegate];
 }
 
 #pragma mark -
 
-- (BOOL)conformsToProtocol:(Protocol *)aProtocol {
-	return (protocol_isEqual(aProtocol, self.protocol) || [super conformsToProtocol: aProtocol]);
+- (BOOL) conformsToProtocol: (Protocol *) aProtocol
+{
+	return protocol_isEqual(aProtocol, self.protocol) || [super conformsToProtocol: aProtocol];
 }
-
 - (BOOL) respondsToSelector: (SEL) selector
 {
 	return self.blockMap[NSStringFromSelector(selector)] || [self.realDelegate respondsToSelector: selector] || [super respondsToSelector: selector];
 }
 
-- (void)doesNotRecognizeSelector:(SEL)aSelector {
+- (void) doesNotRecognizeSelector: (SEL) aSelector
+{
 	[NSException raise: NSInvalidArgumentException format: @"-[%s %@]: unrecognized selector sent to instance %p", object_getClassName(self), NSStringFromSelector(aSelector), self];
 }
 
-#pragma mark -
+#pragma mark - Block Instance Method Implementations
 
-- (id) blockImplementationForMethod: (SEL) selector {
+- (id) blockImplementationForMethod: (SEL) selector
+{
 	return [self.blockMap[NSStringFromSelector(selector)] block];
 }
 
-- (void) implementMethod: (SEL) selector withBlock: (id) block {
-	NSAlwaysAssert(selector, @"Attempt to implement/remove NULL selector");
+- (void) implementMethod: (SEL) selector withBlock: (id) block
+{
+	NSAlwaysAssert(selector, @"Attempt to implement or remove NULL selector");
 	BOOL isClassMethod = self.isClassProxy;
     NSString *key = NSStringFromSelector(selector);
 
@@ -195,20 +194,24 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	self.blockMap[key] = inv;
 	self.signatureMap[key] = protoSig;
 }
-
-- (void) removeBlockImplementationForMethod: (SEL) selector {
+- (void) removeBlockImplementationForMethod: (SEL) selector
+{
 	[self implementMethod: selector withBlock: NULL];
 }
 
-- (id) blockImplementationForClassMethod: (SEL) selector {
+#pragma mark - Block Class Method Implementations
+
+- (id) blockImplementationForClassMethod: (SEL) selector
+{
 	return [self.classProxy blockImplementationForMethod: selector];
 }
 
-- (void) implementClassMethod: (SEL) selector withBlock: (id) block {
+- (void) implementClassMethod: (SEL) selector withBlock: (id) block
+{
 	[self.classProxy implementMethod: selector withBlock: block];
 }
-
-- (void) removeBlockImplementationForClassMethod: (SEL) selector {
+- (void) removeBlockImplementationForClassMethod: (SEL) selector
+{
 	[self.classProxy implementMethod: selector withBlock: NULL];
 }
 
@@ -216,68 +219,81 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 #pragma mark -
 
-@implementation A2DynamicClassDelegate {
+@implementation A2DynamicClassDelegate
+{
 	Class _proxiedClass;
 }
 
-- (id) initWithClass:(Class)proxy {
-	if ((self = [super init])) {
-		_proxiedClass = proxy;
-	}
-	return self;
+- (BOOL) isClassProxy
+{
+	return YES;
 }
-
-- (id)init {
-	[self doesNotRecognizeSelector: _cmd];
-	return nil;
+- (BOOL) isEqual: (id) object
+{
+	return [super isEqual: object] || [_proxiedClass isEqual: object];
 }
-
-- (NSMethodSignature*)methodSignatureForSelector:(SEL)aSelector {
-	return [_proxiedClass methodSignatureForSelector: aSelector] ?: [super methodSignatureForSelector: aSelector];
-}
-
-- (void)forwardInvocation:(NSInvocation *)invoc {
-	if (self.blockMap[NSStringFromSelector(invoc.selector)]) {
-		[super forwardInvocation:invoc];
-	} else {
-		[invoc invokeWithTarget: _proxiedClass];
-	}
-}
-
-- (NSString *)description {
-	return [_proxiedClass description];
-}
-
-- (BOOL)respondsToSelector:(SEL)aSelector {
+- (BOOL) respondsToSelector: (SEL) aSelector
+{
 	return self.blockMap[NSStringFromSelector(aSelector)] || [_proxiedClass respondsToSelector: aSelector];
 }
 
-- (BOOL)isClassProxy {
-	return YES;
-}
-
-- (Class)class {
+- (Class) class
+{
 	return _proxiedClass;
 }
 
-- (BOOL)isEqual:(id)object {
-	return [super isEqual: object] || [_proxiedClass isEqual: object];
+- (id) init
+{
+	[self doesNotRecognizeSelector: _cmd];
+	return nil;
+}
+- (id) initWithClass: (Class) proxy
+{
+	if ((self = [super init]))
+	{
+		_proxiedClass = proxy;
+	}
+	
+	return self;
 }
 
-- (NSUInteger)hash {
+- (NSMethodSignature *) methodSignatureForSelector: (SEL) aSelector
+{
+	return [_proxiedClass methodSignatureForSelector: aSelector] ?: [super methodSignatureForSelector: aSelector];
+}
+
+- (NSString *) description
+{
+	return [_proxiedClass description];
+}
+
+- (NSUInteger) hash
+{
 	return [_proxiedClass hash];
 }
 
-- (id) blockImplementationForClassMethod: (SEL) selector {
+- (void) forwardInvocation: (NSInvocation *) invoc
+{
+	if (self.blockMap[NSStringFromSelector(invoc.selector)])
+		[super forwardInvocation: invoc];
+	else
+		[invoc invokeWithTarget: _proxiedClass];
+}
+
+#pragma mark - Unavailable Methods
+
+- (id) blockImplementationForClassMethod: (SEL) selector
+{
 	[self doesNotRecognizeSelector: _cmd];
 	return nil;
 }
 
-- (void) implementClassMethod: (SEL) selector withBlock: (id) block {
+- (void) implementClassMethod: (SEL) selector withBlock: (id) block
+{
 	[self doesNotRecognizeSelector: _cmd];
 }
-
-- (void) removeBlockImplementationForClassMethod: (SEL) selector {
+- (void) removeBlockImplementationForClassMethod: (SEL) selector
+{
 	[self doesNotRecognizeSelector: _cmd];
 }
 
@@ -331,7 +347,8 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 #pragma mark - Functions
 
-Protocol *a2_dataSourceProtocol(Class cls) {
+Protocol *a2_dataSourceProtocol(Class cls)
+{
     NSString *className = NSStringFromClass(cls);
 	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
@@ -339,8 +356,8 @@ Protocol *a2_dataSourceProtocol(Class cls) {
 	NSAlwaysAssert(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
-
-Protocol *a2_delegateProtocol(Class cls) {
+Protocol *a2_delegateProtocol(Class cls)
+{
     NSString *className = NSStringFromClass(cls);
 	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);

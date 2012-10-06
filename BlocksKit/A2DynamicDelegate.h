@@ -62,7 +62,7 @@
 /** The protocol delegating the dynamic delegate. */
 @property (nonatomic, readonly) Protocol *protocol;
 
-/** @name Block Class Method Implementations */
+/** @name Block Instance Method Implementations */
 
 /** The block that is to be fired when the specified
  selector is called on the reciever.
@@ -97,7 +97,7 @@
  */
 - (void) removeBlockImplementationForMethod: (SEL) selector;
 
-/** @name Block Instance Method Implementations */
+/** @name Block Class Method Implementations */
 
 /** The block that is to be fired when the specified
  selector is called on the delegating object's class.
@@ -189,14 +189,17 @@
 @end
 
 /** A2DynamicDelegate proxies the class of an instance's delegate. Subclass it
- with the format `A2DynamicClassFooBarDelegate` for it to be used instead of
+ with the format `A2DynamicFooBarDelegate` for it to be used instead of
  a basic proxy.
  */
 @interface A2DynamicClassDelegate : A2DynamicDelegate
 
-- (id) initWithClass:(Class)proxy;
+- (id) initWithClass: (Class) proxy;
+
+#pragma mark - Unavailable Methods
 
 - (id) blockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
+
 - (void) implementClassMethod: (SEL) selector withBlock: (id) block NS_UNAVAILABLE;
 - (void) removeBlockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
 
