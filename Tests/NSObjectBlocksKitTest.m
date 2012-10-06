@@ -23,30 +23,33 @@
 - (void)testPerformBlockAfterDelay {
 	BKSenderBlock senderBlock = ^(NSObjectBlocksKitTest *sender) {
 		[_subject appendString:@"BlocksKit"];
-		[sender notify: SenAsyncTestCaseStatusSucceeded];
+		[sender notify: SenTestCaseWaitStatusSuccess forSelector: @selector(testPerformBlockAfterDelay)];
 	};
+	[self prepare];
 	id block = [self performBlock:senderBlock afterDelay:0.5];
 	STAssertNotNil(block,@"block is nil");
-	[self waitForStatus: SenAsyncTestCaseStatusSucceeded timeout:1.0];
+	[self waitForStatus: SenTestCaseWaitStatusSuccess timeout:1.0];
 	STAssertEqualObjects(_subject,@"Hello BlocksKit",@"subject string is %@",_subject);
 }
 
 - (void)testClassPerformBlockAfterDelay {
 	NSObjectBlocksKitTest *test = self;
 	NSMutableString *subject = [NSMutableString stringWithString:@"Hello "];
+	[self prepare];
 	id blk = [NSObject performBlock:^{
 		[subject appendString:@"BlocksKit"];
-		[test notify: SenAsyncTestCaseStatusSucceeded];
+		[test notify: SenTestCaseWaitStatusSuccess forSelector: @selector(testClassPerformBlockAfterDelay)];
 	} afterDelay:0.5];
 	STAssertNotNil(blk,@"block is nil");
-	[self waitForStatus: SenAsyncTestCaseStatusSucceeded timeout:1.0];
+	[self waitForStatus: SenTestCaseWaitStatusSuccess timeout:1.0];
 	STAssertEqualObjects(subject,@"Hello BlocksKit",@"subject string is %@",subject);
 }
 
 - (void)testCancel {
+	[self prepare];
 	id block = [self performBlock:^(NSObjectBlocksKitTest * sender) {
 		[_subject appendString:@"BlocksKit"];
-		[sender notify: SenAsyncTestCaseStatusSucceeded];
+		[sender notify: SenTestCaseWaitStatusSuccess];
 	} afterDelay:0.1];
 	STAssertNotNil(block,@"block is nil");
 	[NSObject cancelBlock:block];

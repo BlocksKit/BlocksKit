@@ -7,51 +7,156 @@
 //
 
 #import "BKAsyncTestCase.h"
+#import <objc/runtime.h>
 
-@interface BKAsyncTestCase ()
+typedef NS_ENUM(NSUInteger, SenTestCaseError) {
+	SenTestCaseErrorNone,
+	SenTestCaseErrorUnprepared,
+	SenTestCaseErrorTimedOut,
+	SenTestCaseErrorInvalidStatus
+};
 
-@property (nonatomic, strong) NSDate *loopUntil;
-@property (nonatomic) BOOL notified;
-@property (nonatomic) SenAsyncTestCaseStatus notifiedStatus;
-@property (nonatomic) SenAsyncTestCaseStatus expectedStatus;
+@interface BKAsyncTestCase () {
+	SenTestCaseWaitStatus waitForStatus_;
+	SenTestCaseWaitStatus notifiedStatus_;
+
+	BOOL prepared_; // Whether prepared was called before waitForStatus:timeout:
+	NSRecursiveLock *lock_; // Lock to synchronize on
+	SEL waitSelector_; // The selector we are waiting on
+}
 
 @end
 
 @implementation BKAsyncTestCase
 
-- (void)waitForStatus:(SenAsyncTestCaseStatus)status timeout:(NSTimeInterval)timeout {
-	self.notified = NO;
-	self.expectedStatus = status;
-	self.loopUntil = [NSDate dateWithTimeIntervalSinceNow:timeout];
-	
-	NSDate *date = [NSDate dateWithTimeIntervalSinceNow: 0.1];
-	while (!self.notified && self.loopUntil.timeIntervalSinceNow) {
-		[[NSRunLoop currentRunLoop] runMode: NSDefaultRunLoopMode beforeDate: date];
-		date = [NSDate dateWithTimeIntervalSinceNow: 0.1];
+- (void)_setUp {
+	lock_ = [[NSRecursiveLock alloc] init];
+	prepared_ = NO;
+	notifiedStatus_ = SenTestCaseWaitStatusUnknown;
+}
+
+// Internal GHUnit tear down
+- (void)_tearDown {
+	waitSelector_ = NULL;
+	if (prepared_) [lock_ unlock]; // If we prepared but never waited we need to unlock
+	lock_ = nil;
+}
+
+- (void)prepare {
+	[self prepare: [self selector]];
+}
+
+- (void)prepare:(SEL)selector {
+	[lock_ lock];
+	prepared_ = YES;
+	waitSelector_ = selector;
+	notifiedStatus_ = SenTestCaseWaitStatusUnknown;
+}
+
+- (SenTestCaseError)_waitFor:(NSInteger)status timeout:(NSTimeInterval)timeout {
+	if (!prepared_) {
+		return SenTestCaseErrorUnprepared;
 	}
-	
-	if (self.notified) {
-		STAssertEquals(self.notifiedStatus, self.expectedStatus, @"Notified status does not match the expected status.");
-	} else {
-		STFail(@"Async test timed out.");
+	prepared_ = NO;
+
+	waitForStatus_ = status;
+
+	if (!_runLoopModes)
+		_runLoopModes = [NSArray arrayWithObjects:NSDefaultRunLoopMode, NSRunLoopCommonModes, nil];
+
+	NSTimeInterval checkEveryInterval = 0.05;
+	NSDate *runUntilDate = [NSDate dateWithTimeIntervalSinceNow:timeout];
+	BOOL timedOut = NO;
+	NSInteger runIndex = 0;
+	while(notifiedStatus_ == SenTestCaseWaitStatusUnknown) {
+		NSString *mode = [_runLoopModes objectAtIndex:(runIndex++ % [_runLoopModes count])];
+
+		[lock_ unlock];
+		@autoreleasepool {
+			if (!mode || ![[NSRunLoop currentRunLoop] runMode:mode beforeDate:[NSDate dateWithTimeIntervalSinceNow:checkEveryInterval]])
+				// If there were no run loop sources or timers then we should sleep for the interval
+				[NSThread sleepForTimeInterval:checkEveryInterval];
+		}
+		[lock_ lock];
+
+		// If current date is after the run until date
+		if ([runUntilDate compare:[NSDate date]] == NSOrderedAscending) {
+			timedOut = YES;
+			break;
+		}
+	}
+	[lock_ unlock];
+
+	if (timedOut) {
+		return SenTestCaseErrorTimedOut;
+	} else if (waitForStatus_ != notifiedStatus_) {
+		return SenTestCaseErrorInvalidStatus;
+	}
+
+	return SenTestCaseErrorNone;
+}
+
+- (void)waitFor:(NSInteger)status timeout:(NSTimeInterval)timeout {
+	[NSException raise:NSDestinationInvalidException format:@"Deprecated; Use waitForStatus:timeout:"];
+}
+
+- (void)waitForStatus:(NSInteger)status timeout:(NSTimeInterval)timeout {
+	SenTestCaseError error = [self _waitFor:status timeout:timeout];
+	if (error == SenTestCaseErrorTimedOut) {
+		STFail(@"Request timed out");
+	} else if (error == SenTestCaseErrorInvalidStatus) {
+		STFail(@"Request finished with the wrong status: %d != %d", status, notifiedStatus_);
+	} else if (error == SenTestCaseErrorUnprepared) {
+		STFail(@"Call prepare before calling asynchronous method and waitForStatus:timeout:");
 	}
 }
 
 - (void)waitForTimeout:(NSTimeInterval)timeout {
-	self.notified = NO;
-	self.expectedStatus = SenAsyncTestCaseStatusUnknown;
-	self.loopUntil = [NSDate dateWithTimeIntervalSinceNow:timeout];
-	
-	NSDate *dt = [NSDate dateWithTimeIntervalSinceNow:0.1];
-	while (!self.notified && [self.loopUntil timeIntervalSinceNow] > 0) {
-		[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:dt];
-		dt = [NSDate dateWithTimeIntervalSinceNow:0.1];
+	SenTestCaseError error = [self _waitFor:-1 timeout:timeout];
+	if (error != SenTestCaseErrorTimedOut) {
+		STFail(@"Request should have timed out");
 	}
 }
 
-- (void)notify:(SenAsyncTestCaseStatus)status {
-	self.notifiedStatus = status;
-	self.notified = YES;
+- (void)runForInterval:(NSTimeInterval)interval {
+	NSTimeInterval checkEveryInterval = 0.05;
+	NSDate *runUntilDate = [NSDate dateWithTimeIntervalSinceNow:interval];
+
+	if (!_runLoopModes)
+		_runLoopModes = [NSArray arrayWithObjects:NSDefaultRunLoopMode, NSRunLoopCommonModes, nil];
+
+	NSInteger runIndex = 0;
+
+	while ([runUntilDate compare:[NSDate dateWithTimeIntervalSinceNow:0]] == NSOrderedDescending) {
+		NSString *mode = [_runLoopModes objectAtIndex:(runIndex++ % [_runLoopModes count])];
+
+		[lock_ unlock];
+		@autoreleasepool {
+			if (!mode || ![[NSRunLoop currentRunLoop] runMode:mode beforeDate:[NSDate dateWithTimeIntervalSinceNow:checkEveryInterval]])
+				// If there were no run loop sources or timers then we should sleep for the interval
+				[NSThread sleepForTimeInterval:checkEveryInterval];
+		}
+		[lock_ lock];
+	}
+}
+
+- (void)notify:(NSInteger)status {
+	[self notify:status forSelector:NULL];
+}
+
+- (void)notify:(NSInteger)status forSelector:(SEL)selector {
+	@autoreleasepool {
+
+		// Make sure the notify is for the currently waiting test
+		if (selector != NULL && !sel_isEqual(waitSelector_, selector)) {
+			NSLog(@"Warning: Notified from %@ but we were waiting for %@", NSStringFromSelector(selector), NSStringFromSelector(waitSelector_));
+		}  else {
+			[lock_ lock];
+			notifiedStatus_ = status;
+			[lock_ unlock];
+		}
+
+	}
 }
 
 @end

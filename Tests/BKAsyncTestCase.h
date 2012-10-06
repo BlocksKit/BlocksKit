@@ -5,19 +5,24 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-enum {
-	SenAsyncTestCaseStatusUnknown = 0,
-	SenAsyncTestCaseStatusWaiting,
-	SenAsyncTestCaseStatusSucceeded,
-	SenAsyncTestCaseStatusFailed,
-	SenAsyncTestCaseStatusCancelled,
+typedef NS_ENUM(NSUInteger, SenTestCaseWaitStatus) {
+	SenTestCaseWaitStatusUnknown = 0,
+	SenTestCaseWaitStatusSuccess,
+	SenTestCaseWaitStatusFailure,
+	SenTestCaseWaitStatusCancelled
 };
-typedef NSUInteger SenAsyncTestCaseStatus;
 
 @interface BKAsyncTestCase : SenTestCase
 
-- (void)waitForStatus:(SenAsyncTestCaseStatus)status timeout:(NSTimeInterval)timeout;
+@property (strong, nonatomic) NSArray *runLoopModes;
+
+- (void)prepare;
+- (void)prepare:(SEL)selector;
+- (void)waitForStatus:(NSInteger)status timeout:(NSTimeInterval)timeout;
+- (void)waitFor:(NSInteger)status timeout:(NSTimeInterval)timeout;
 - (void)waitForTimeout:(NSTimeInterval)timeout;
-- (void)notify:(SenAsyncTestCaseStatus)status;
+- (void)notify:(NSInteger)status forSelector:(SEL)selector;
+- (void)notify:(NSInteger)status;
+- (void)runForInterval:(NSTimeInterval)interval;
 
 @end
