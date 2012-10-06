@@ -271,7 +271,12 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 - (NSMethodSignature *) methodSignatureForSelector: (SEL) aSelector
 {
-	return [_proxiedClass methodSignatureForSelector: aSelector] ?: [super methodSignatureForSelector: aSelector];
+	NSString *key = NSStringFromSelector(aSelector);
+	if (self.signatureMap[key])
+		return self.signatureMap[key];
+	else if ([_proxiedClass methodSignatureForSelector: aSelector])
+		return [_proxiedClass methodSignatureForSelector: aSelector];
+	return [[NSObject class] methodSignatureForSelector: aSelector];
 }
 
 - (NSString *) description
