@@ -440,7 +440,7 @@
 	A2DynamicDelegate <TestClassMethodProtocol> *dd = [obj dynamicDelegateForProtocol:@protocol(TestClassMethodProtocol)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	Class interposed = [dd class];
-	Class original = [A2DynamicDelegate class];
+	Class original = NSClassFromString(@"A2DynamicClassDelegate");
 	
 	STAssertTrue([[interposed description] isEqualToString: [original description]], @"Descriptions not the same");
 	STAssertEquals([interposed class], [original class], @"Classes not the same");

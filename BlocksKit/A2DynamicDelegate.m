@@ -10,8 +10,6 @@
 #import "A2BlockInvocation.h"
 #import <objc/message.h>
 
-#pragma mark -
-
 #ifndef NSAlwaysAssert
 	#define NSAlwaysAssert(condition, desc, ...) \
 		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
@@ -33,6 +31,21 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	return YES;
 }
 
+@interface A2DynamicClassDelegate : A2DynamicDelegate
+
+- (id) initWithClass: (Class) proxy;
+
+#pragma mark - Unavailable Methods
+
+- (id) blockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
+
+- (void) implementClassMethod: (SEL) selector withBlock: (id) block NS_UNAVAILABLE;
+- (void) removeBlockImplementationForClassMethod: (SEL) selector NS_UNAVAILABLE;
+
+@end
+
+#pragma mark -
+
 @interface A2DynamicDelegate ()
 {
 	NSMutableDictionary *_blockMap;
@@ -45,11 +58,11 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 @property (nonatomic, strong, readonly) NSMutableDictionary *signatureMap;
 @property (nonatomic, unsafe_unretained, readwrite) id realDelegate;
 
-- (BOOL)isClassProxy;
+- (BOOL) isClassProxy;
 
 + (dispatch_queue_t) dynamicDelegateBackgroundQueue;
 
-- (id)init;
+- (id) init;
 
 @end
 
@@ -60,7 +73,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	if (!_classProxy)
 	{
 		Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString: NSStringFromProtocol(self.protocol)]) ?: [A2DynamicClassDelegate class];
-		_classProxy = [[cls alloc] initWithClass: object_getClass(self)];
+		_classProxy = [[A2DynamicClassDelegate alloc] initWithClass: cls];
 		[_classProxy setRealDelegate: self];
 		[_classProxy setProtocol: self.protocol];
 	}
@@ -299,7 +312,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 @end
 
-#pragma mark - NSObject categories
+#pragma mark - NSObject Categories
 
 @implementation NSObject (A2DynamicDelegate)
 
