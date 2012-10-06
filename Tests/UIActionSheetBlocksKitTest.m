@@ -12,10 +12,6 @@
 	UIActionSheet *_subject;
 }
 
-- (BOOL)shouldRunOnMainThread {
-	return YES;
-}
-
 - (void)setUp {
 	_subject = [[UIActionSheet alloc] initWithTitle:@"Hello BlocksKit"];
 }

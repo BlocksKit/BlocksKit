@@ -13,20 +13,14 @@
 	NSInteger _total;
 }
 
-- (void)setUpClass {
+- (void)setUp {
 	_subject = [UIControl new];
 	_total = 0;
-}
-
-- (void)testAddEventHandler {
+	
 	__unsafe_unretained UIControlBlocksKitTest *weakSelf = self;
 	[_subject addEventHandler:^(id sender) {
 		weakSelf->_total++;
 	} forControlEvents:UIControlEventTouchUpInside];
-	
-	[_subject sendActionsForControlEvents:UIControlEventTouchUpInside];
-	
-	STAssertEquals(_total, (NSInteger)1, @"Event handler did not get called.");
 }
 
 - (void)testHasEventHandler {
@@ -34,10 +28,15 @@
 	STAssertTrue(hasHandler, @"Control doesn't have the handler.");
 }
 
+- (void)testInvokeEventHandler {
+	[_subject sendActionsForControlEvents:UIControlEventTouchUpInside];
+	STAssertEquals(_total, (NSInteger)1, @"Event handler did not get called.");
+}
+
 - (void)testRemoveEventHandler {
 	[_subject removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
 	[_subject sendActionsForControlEvents:UIControlEventTouchUpInside];	
-	STAssertEquals(_total, (NSInteger)1, @"Event handler still called.");
+	STAssertEquals(_total, (NSInteger)0, @"Event handler still called.");
 }
 
 @end

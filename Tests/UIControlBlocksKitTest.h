@@ -8,8 +8,8 @@
 
 @interface UIControlBlocksKitTest : SenTestCase
 
-- (void)testAddEventHandler;
 - (void)testHasEventHandler;
+- (void)testInvokeEventHandler;
 - (void)testRemoveEventHandler;
 
 @end

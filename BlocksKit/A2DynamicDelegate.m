@@ -54,7 +54,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 - (id)init {
 	if (self) {
-
+		_handlers = [NSMutableDictionary dictionary];
 	}
 	return self;
 }
