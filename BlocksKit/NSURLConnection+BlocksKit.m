@@ -329,10 +329,13 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	Protocol *delegateProtocol = objc_getProtocol("NSURLConnectionDelegate");
 	if (!delegateProtocol)
 		delegateProtocol = @protocol(BKURLConnectionInformalDelegate);
-	A2DynamicDelegate *dd = [self dynamicDelegateForProtocol:delegateProtocol];
-	dd.handlers[kSuccessBlockKey] = [success copy];
-	[dd implementMethod: @selector(connection:didFailWithError:) withBlock: [failure copy]];
-	return [[[self class] alloc] initWithRequest: request delegate: dd startImmediately: YES];
+	NSURLConnection *ret = [[self class] alloc];
+	A2DynamicDelegate *dd = [ret dynamicDelegateForProtocol:delegateProtocol];
+	if (success)
+		dd.handlers[kSuccessBlockKey] = [success copy];
+	if (failure)
+		[dd implementMethod: @selector(connection:didFailWithError:) withBlock: [failure copy]];
+	return [ret initWithRequest: request delegate: dd startImmediately: YES];
 }
 
 - (id)initWithRequest:(NSURLRequest *)request {
@@ -344,7 +347,8 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	if (!delegateProtocol)
 		delegateProtocol = @protocol(BKURLConnectionInformalDelegate);
 	A2DynamicDelegate *dd = [self dynamicDelegateForProtocol:delegateProtocol];
-	dd.handlers[kSuccessBlockKey] = [block copy];
+	if (block)
+		dd.handlers[kSuccessBlockKey] = [block copy];
 	return [self initWithRequest: request delegate: dd startImmediately: NO];
 }
 
