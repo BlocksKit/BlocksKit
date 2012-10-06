@@ -8,7 +8,7 @@
 
 typedef void(^BKInternalWrappingBlock)(BOOL);
 
-#define BKTimeDelay(t) dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * t)
+#define BKTimeDelay(t) dispatch_time(DISPATCH_TIME_NOW, (uint64_t)(NSEC_PER_SEC * t))
 
 @implementation NSObject (BlocksKit)
 

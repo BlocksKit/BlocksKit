@@ -26,15 +26,13 @@
 - (id)match:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 
-	id key = [[self keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
+	return self[[[self keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
 		if (block(key, obj)) {
 			*stop = YES;
 			return YES;
 		}
 		return NO;
-	}] anyObject];
-
-	return self[key];
+	}] anyObject]];
 }
 
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {

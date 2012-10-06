@@ -207,7 +207,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 				{
 					ffi_type *type = allocate(sizeof(ffi_type));
 					type->size = size;
-					type->alignment = align;
+					type->alignment = (unsigned short)align;
 					type->type = FFI_TYPE_STRUCT;
 					type->elements = allocate((size + 1) * sizeof(ffi_type *));
 					for (NSUInteger i = 0; i < size; i++)
@@ -257,7 +257,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 			ffi_type *type = allocate(sizeof(ffi_type));
 			type->size = size;
-			type->alignment = align;
+			type->alignment = (unsigned short)align;
 			type->type = FFI_TYPE_STRUCT;
 			type->elements = allocate((a2_getStructSize(argumentType) + 1) * sizeof(ffi_type *));
 

@@ -75,7 +75,7 @@ typedef struct _BigStruct {
 	[inv getReturnValue: &output];
 	STAssertEquals(output.doubleValue, 92.4, @"Struct return block test didn't return right values");
 	STAssertEquals(output.integerValue, 42, @"Struct return block test didn't return right values");
-	STAssertFalse(strcmp(output.stringValue, "Test"), @"Struct return block test didn't return right values");
+	STAssertTrue(strcmp(output.stringValue, "Test") == 0, @"Struct return block test didn't return right values");
 	STAssertEquals(output.first, YES, @"Struct return block test didn't return right values");
 	STAssertEquals(output.second, NO, @"Struct return block test didn't return right values");
 }

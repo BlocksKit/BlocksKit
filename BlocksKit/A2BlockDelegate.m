@@ -153,25 +153,25 @@ static inline SEL prefixedSelector(SEL selector) {
 			cls = [cls superclass];
 		}
 
-		IMP getterImplementation = imp_implementationWithBlock(^id(NSObject *self){
-			return [[self dynamicDelegateForProtocol: protocol] blockImplementationForMethod: selector];
-		});
-		IMP setterImplementation = imp_implementationWithBlock(^void(NSObject *self, id block){
-			A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+		IMP getterImplementation = imp_implementationWithBlock([^(NSObject *delegatingObject){
+			return [[delegatingObject dynamicDelegateForProtocol: protocol] blockImplementationForMethod: selector];
+		} copy]);
+		IMP setterImplementation = imp_implementationWithBlock([^(NSObject *delegatingObject, id block){
+			A2DynamicDelegate *dynamicDelegate = [delegatingObject dynamicDelegateForProtocol: protocol];
 
 			if (delegateProperty.length) {
-				SEL a2_setter = prefixedSelector(setterForProperty(self.class, delegateProperty));
-				SEL a2_getter = prefixedSelector(getterForProperty(self.class, delegateProperty));
+				SEL a2_setter = prefixedSelector(setterForProperty(delegatingObject.class, delegateProperty));
+				SEL a2_getter = prefixedSelector(getterForProperty(delegatingObject.class, delegateProperty));
 
-				if ([self respondsToSelector:a2_setter]) {
-					id originalDelegate = objc_msgSend(self, a2_getter);
+				if ([delegatingObject respondsToSelector:a2_setter]) {
+					id originalDelegate = objc_msgSend(delegatingObject, a2_getter);
 					if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
-						objc_msgSend(self, a2_setter, dynamicDelegate);
+						objc_msgSend(delegatingObject, a2_setter, dynamicDelegate);
 				}
 			}
 			
 			[dynamicDelegate implementMethod: selector withBlock: block];
-		});
+		} copy]);
 
 
 		const char *getterTypes = "@@:";
@@ -216,22 +216,22 @@ static inline SEL prefixedSelector(SEL selector) {
 	SEL setter = setterForProperty(self, delegateName);
 	SEL a2_setter = prefixedSelector(setter);
 
-	IMP getterImplementation = imp_implementationWithBlock(^id(NSObject *self){
-		return [[self dynamicDelegateForProtocol: protocol] realDelegate];
+	IMP getterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject){
+		return [[delegatingObject dynamicDelegateForProtocol: protocol] realDelegate];
 	});
 
-	IMP setterImplementation = imp_implementationWithBlock(^(NSObject *self, id delegate){
-		A2DynamicDelegate *dynamicDelegate = [self dynamicDelegateForProtocol: protocol];
+	IMP setterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject, id delegate){
+		A2DynamicDelegate *dynamicDelegate = [delegatingObject dynamicDelegateForProtocol: protocol];
 
-		if ([self respondsToSelector:a2_setter]) {
-			id originalDelegate = objc_msgSend(self, a2_getter, delegate);
+		if ([delegatingObject respondsToSelector:a2_setter]) {
+			id originalDelegate = objc_msgSend(delegatingObject, a2_getter, delegate);
 			if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
-				objc_msgSend(self, a2_setter, dynamicDelegate);
+				objc_msgSend(delegatingObject, a2_setter, dynamicDelegate);
 		}
 
 		if ([delegate isEqual: dynamicDelegate])
 			delegate = nil;
-		else if ([delegate isEqual:self] || [self isEqual:dynamicDelegate.realDelegate])
+		else if ([delegate isEqual: delegatingObject] || [delegatingObject isEqual:dynamicDelegate.realDelegate])
 			delegate = [NSValue valueWithNonretainedObject: delegate];
 
 		dynamicDelegate.realDelegate = delegate;

@@ -19,7 +19,7 @@
 }
 
 - (void)testEach {
-	BKSenderBlock senderBlock = ^(id sender) {
+	BKSenderBlock senderBlock = ^(NSString *sender) {
 		_total += [sender length];
 	};
 	[_subject each:senderBlock];
@@ -27,7 +27,7 @@
 }
 
 - (void)testMatch {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 22) ? YES : NO;
 		return match;
@@ -38,7 +38,7 @@
 }
 
 - (void)testNotMatch {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 4444) ? YES : NO;
 		return match;
@@ -49,7 +49,7 @@
 }
 
 - (void)testSelect {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 300) ? YES : NO;
 		return match;
@@ -62,18 +62,18 @@
 }
 
 - (void)testSelectedNone {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 400) ? YES : NO;
 		return match;
 	};
 	NSSet *found = [_subject select:validationBlock];
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	STAssertFalse(found.count,@"no item is selected");
+	STAssertTrue(found.count == 0,@"no item is selected");
 }
 
 - (void)testReject {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 300) ? YES : NO;
 		return match;
@@ -85,18 +85,18 @@
 }
 
 - (void)testRejectedAll {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 400) ? YES : NO;
 		return match;
 	};
 	NSSet *left = [_subject reject:validationBlock];
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	STAssertFalse(left.count,@"all items are rejected");
+	STAssertTrue(left.count == 0,@"all items are rejected");
 }
 
 - (void)testMap {
-	BKTransformBlock transformBlock = ^id(id obj) {
+	BKTransformBlock transformBlock = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};
@@ -108,7 +108,7 @@
 }
 
 - (void)testReduceWithBlock {
-	BKAccumulationBlock accumlationBlock = ^id(id sum,id obj) {
+	BKAccumulationBlock accumlationBlock = ^(NSString *sum, NSString *obj) {
 		return [sum stringByAppendingString:obj];
 	};
 	NSString *concatenated = [_subject reduce:@"" withBlock:accumlationBlock];
@@ -116,7 +116,7 @@
 }
 
 - (void)testAny {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 22) ? YES : NO;
 		return match;
@@ -127,7 +127,7 @@
 }
 
 - (void)testAll {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 444) ? YES : NO;
 		return match;
@@ -139,7 +139,7 @@
 }
 
 - (void)testNone {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 1) ? YES : NO;
 		return match;

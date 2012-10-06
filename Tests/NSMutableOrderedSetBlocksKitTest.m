@@ -26,7 +26,7 @@
 }
 
 - (void)testSelect {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 300) ? YES : NO;
 		return match;
@@ -40,7 +40,7 @@
 }
 
 - (void)testSelectedNone {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 400) ? YES : NO;
 		return match;
@@ -53,7 +53,7 @@
 }
 
 - (void)testReject {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 300) ? YES : NO;
 		return match;
@@ -67,7 +67,7 @@
 }
 
 - (void)testRejectedAll {
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 400) ? YES : NO;
 		return match;
@@ -80,7 +80,7 @@
 }
 
 - (void)testMap {
-	BKTransformBlock transformBlock = ^id(id obj) {
+	BKTransformBlock transformBlock = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};

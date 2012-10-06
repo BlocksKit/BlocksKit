@@ -66,7 +66,7 @@
 	};
 	NSDictionary *selected = [_subject select: validationBlock];
 	STAssertEquals(_total, (NSInteger)12, @"2*(1+2+3) = %d", _total);
-	STAssertFalse(selected.count, @"none item is selected");
+	STAssertTrue(selected.count == 0, @"none item is selected");
 }
 
 - (void)testReject {
@@ -89,7 +89,7 @@
 	};
 	NSDictionary *rejected = [_subject reject: validationBlock];
 	STAssertEquals(_total, (NSInteger)12, @"2*(1+2+3) = %d", _total);
-	STAssertFalse(rejected.count, @"all items are selected");
+	STAssertTrue(rejected.count == 0, @"all items are selected");
 }
 
 - (void)testMap {

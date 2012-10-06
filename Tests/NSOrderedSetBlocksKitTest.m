@@ -33,7 +33,7 @@
 	if (!_hasClassAvailable)
 		return;
 
-	BKSenderBlock senderBlock = ^(id sender) {
+	BKSenderBlock senderBlock = ^(NSString *sender) {
 		_total += [sender length];
 	};
 	[_subject each:senderBlock];
@@ -44,7 +44,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 22) ? YES : NO;
 		return match;
@@ -58,7 +58,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 4444) ? YES : NO;
 		return match;
@@ -72,7 +72,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 300) ? YES : NO;
 		return match;
@@ -89,7 +89,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 400) ? YES : NO;
 		return match;
@@ -98,14 +98,14 @@
 	NSOrderedSet *found = [subject select:validationBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
-	STAssertFalse(found.count, @"no item is selected");
+	STAssertTrue(found.count == 0, @"no item is selected");
 }
 
 - (void)testReject {
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 300) ? YES : NO;
 		return match;
@@ -122,7 +122,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(id obj) {
+	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 400) ? YES : NO;
 		return match;
@@ -131,14 +131,14 @@
 	NSOrderedSet *left = [subject reject:validationBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
-	STAssertFalse(left.count, @"all items are rejected");
+	STAssertTrue(left.count == 0, @"all items are rejected");
 }
 
 - (void)testMap {
 	if (!_hasClassAvailable)
 		return;
 	
-	BKTransformBlock transformBlock = ^id(id obj) {
+	BKTransformBlock transformBlock = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};

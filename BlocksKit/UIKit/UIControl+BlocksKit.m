@@ -97,7 +97,7 @@ static char kControlHandlersKey;
 	if (!handlers)
 		return NO;
 	
-	return handlers.count;
+	return !!handlers.count;
 }
 
 @end
