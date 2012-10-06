@@ -82,8 +82,8 @@
 - (BOOL)all:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    __block BOOL result = YES;
-    
+	__block BOOL result = YES;
+	
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		if (!block(key, obj)) {
 			result = NO;

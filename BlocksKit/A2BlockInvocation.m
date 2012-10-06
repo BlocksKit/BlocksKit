@@ -19,64 +19,64 @@
 #pragma mark Block Internals
 
 typedef enum {
-    BLOCK_DEALLOCATING =      (0x0001),
-    BLOCK_REFCOUNT_MASK =     (0xfffe),
-    BLOCK_NEEDS_FREE =        (1 << 24),
-    BLOCK_HAS_COPY_DISPOSE =  (1 << 25),
-    BLOCK_HAS_CTOR =          (1 << 26), // helpers have C++ code
-    BLOCK_IS_GC =             (1 << 27),
-    BLOCK_IS_GLOBAL =         (1 << 28),
-    BLOCK_USE_STRET =         (1 << 29), // undefined if !BLOCK_HAS_SIGNATURE
-    BLOCK_HAS_SIGNATURE  =    (1 << 30)
+	BLOCK_DEALLOCATING =      (0x0001),
+	BLOCK_REFCOUNT_MASK =     (0xfffe),
+	BLOCK_NEEDS_FREE =        (1 << 24),
+	BLOCK_HAS_COPY_DISPOSE =  (1 << 25),
+	BLOCK_HAS_CTOR =          (1 << 26), // helpers have C++ code
+	BLOCK_IS_GC =             (1 << 27),
+	BLOCK_IS_GLOBAL =         (1 << 28),
+	BLOCK_USE_STRET =         (1 << 29), // undefined if !BLOCK_HAS_SIGNATURE
+	BLOCK_HAS_SIGNATURE =     (1 << 30)
 } block_flags_t;
 
 typedef enum {
-    BLOCK_FIELD_IS_OBJECT   =  3,  // id, NSObject, __attribute__((NSObject)), block, ...
-    BLOCK_FIELD_IS_BLOCK    =  7,  // a block variable
-    BLOCK_FIELD_IS_BYREF    =  8,  // the on stack structure holding the __block variable
-    BLOCK_FIELD_IS_WEAK     = 16,  // declared __weak, only used in byref copy helpers
-    BLOCK_BYREF_CALLER      = 128, // called from __block (byref) copy/dispose support routines.
+	BLOCK_FIELD_IS_OBJECT   =  3,  // id, NSObject, __attribute__((NSObject)), block, ...
+	BLOCK_FIELD_IS_BLOCK    =  7,  // a block variable
+	BLOCK_FIELD_IS_BYREF    =  8,  // the on stack structure holding the __block variable
+	BLOCK_FIELD_IS_WEAK     = 16,  // declared __weak, only used in byref copy helpers
+	BLOCK_BYREF_CALLER      = 128, // called from __block (byref) copy/dispose support routines.
 } block_field_flags_t;
 
 struct Block_descriptor_1 {
-    unsigned long int reserved;
-    unsigned long int size;
+	unsigned long int reserved;
+	unsigned long int size;
 };
 
 struct Block_descriptor_2 {
-    // requires BLOCK_HAS_COPY_DISPOSE
-    void (*copy)(void *dst, const void *src);
-    void (*dispose)(const void *);
+	// requires BLOCK_HAS_COPY_DISPOSE
+	void (*copy)(void *dst, const void *src);
+	void (*dispose)(const void *);
 };
 
 struct Block_descriptor_3 {
-    // requires BLOCK_HAS_SIGNATURE
-    const char *signature;
-    const char *layout;
+	// requires BLOCK_HAS_SIGNATURE
+	const char *signature;
+	const char *layout;
 };
 
 struct Block {
-    void *isa;
-    block_flags_t flags;
-    int reserved;
-    void (*invoke)(void);
-    struct Block_descriptor_1 *descriptor;
+	void *isa;
+	block_flags_t flags;
+	int reserved;
+	void (*invoke)(void);
+	struct Block_descriptor_1 *descriptor;
 };
 
 static NSMethodSignature *a2_blockGetSignature(id block) {
 	struct Block *layout = (__bridge void *)block;
 
 	int requiredFlags = BLOCK_HAS_SIGNATURE;
-    if ((layout->flags & requiredFlags) != requiredFlags)
+	if ((layout->flags & requiredFlags) != requiredFlags)
 		return nil;
 
-    void *desc = (void *)layout->descriptor;
-    desc += sizeof(struct Block_descriptor_1);
-    if (layout->flags & BLOCK_HAS_COPY_DISPOSE)
-        desc += sizeof(struct Block_descriptor_2);
+	void *desc = (void *)layout->descriptor;
+	desc += sizeof(struct Block_descriptor_1);
+	if (layout->flags & BLOCK_HAS_COPY_DISPOSE)
+		desc += sizeof(struct Block_descriptor_2);
 
 	struct Block_descriptor_3 *desc3 = (struct Block_descriptor_3 *)desc;
-    if (!desc3)
+	if (!desc3)
 		return nil;
 
 	return [NSMethodSignature signatureWithObjCTypes: desc3->signature];
@@ -121,41 +121,41 @@ static ffi_type ffi_type_charptr = { sizeof(char *), __alignof(char *), FFI_TYPE
 #pragma mark - Helper functions
 
 static inline const char *a2_skipStructName(const char *type) {
-    if (*type == _C_STRUCT_B) type++;
+	if (*type == _C_STRUCT_B) type++;
 
-    if (*type == _C_UNDEF)
+	if (*type == _C_UNDEF)
 	{
-        type++;
-    }
+		type++;
+	}
 	else if (isalpha(*type) || *type == '_')
 	{
-        while (isalnum(*type) || *type == '_')
+		while (isalnum(*type) || *type == '_')
 		{
-            type++;
-        }
-    }
+			type++;
+		}
+	}
 	else
 	{
-        return type;
-    }
+		return type;
+	}
 
-    if (*type == '=') type++;
+	if (*type == '=') type++;
 
-    return type;
+	return type;
 }
 
 static inline NSUInteger a2_getStructSize(const char *encodingType) {
-    if (*encodingType != _C_STRUCT_B) return -1;
-    while (*encodingType != _C_STRUCT_E && *encodingType++ != '='); // skip "<name>="
+	if (*encodingType != _C_STRUCT_B) return -1;
+	while (*encodingType != _C_STRUCT_E && *encodingType++ != '='); // skip "<name>="
 
-    NSUInteger ret = 0;
-    while (*encodingType != _C_STRUCT_E)
+	NSUInteger ret = 0;
+	while (*encodingType != _C_STRUCT_E)
 	{
-        encodingType = NSGetSizeAndAlignment(encodingType, NULL, NULL);
-        ret++;
-    }
+		encodingType = NSGetSizeAndAlignment(encodingType, NULL, NULL);
+		ret++;
+	}
 	
-    return ret;
+	return ret;
 }
 
 static inline NSUInteger a2_sizeForType(ffi_type *type) {
@@ -164,18 +164,18 @@ static inline NSUInteger a2_sizeForType(ffi_type *type) {
 }
 
 static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)(size_t)) {
-    switch (*argumentType) {
+	switch (*argumentType) {
 		case _C_CLASS: return &ffi_type_class; break;
 		case _C_SEL: return &ffi_type_selector; break;
 		case _C_ID: return &ffi_type_id; break;
-        case _C_CHARPTR: return &ffi_type_charptr; break;
-        case _C_ATOM:
-        case _C_PTR:
-            return &ffi_type_pointer; break;
+		case _C_CHARPTR: return &ffi_type_charptr; break;
+		case _C_ATOM:
+		case _C_PTR:
+			return &ffi_type_pointer; break;
 		case _C_BOOL:
 		case _C_UCHR:
-            return &ffi_type_uchar; break;
-        case _C_CHR: return &ffi_type_schar; break;
+			return &ffi_type_uchar; break;
+		case _C_CHR: return &ffi_type_schar; break;
 		case _C_SHT: return &ffi_type_sshort; break;
 		case _C_USHT: return &ffi_type_ushort; break;
 		case _C_INT: return &ffi_type_sint; break;
@@ -187,99 +187,99 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		case _C_FLT: return &ffi_type_float; break;
 		case _C_DBL: return &ffi_type_double; break;
 		case _C_VOID: return &ffi_type_void; break;
-        case _C_BFLD:
-        case _C_ARY_B:
-        {
-            NSUInteger size, align;
-            NSGetSizeAndAlignment(argumentType, &size, &align);
+		case _C_BFLD:
+		case _C_ARY_B:
+		{
+			NSUInteger size, align;
+			NSGetSizeAndAlignment(argumentType, &size, &align);
 
-            if (size > 0)
+			if (size > 0)
 			{
-                if (size == 1)
-                    return &ffi_type_uchar;
-                else if (size == 2)
-                    return &ffi_type_ushort;
-                else if (size <= 4)
-                    return &ffi_type_uint;
+				if (size == 1)
+					return &ffi_type_uchar;
+				else if (size == 2)
+					return &ffi_type_ushort;
+				else if (size <= 4)
+					return &ffi_type_uint;
 				else if (size > sizeof(void *))
 					return &ffi_type_pointer;
-                else
+				else
 				{
-                    ffi_type *type = allocate(sizeof(ffi_type));
-                    type->size = size;
-                    type->alignment = align;
-                    type->type = FFI_TYPE_STRUCT;
-                    type->elements = allocate((size + 1) * sizeof(ffi_type *));
-                    for (NSUInteger i = 0; i < size; i++)
-                        type->elements[i] = &ffi_type_uchar;
-                    type->elements[size] = NULL;
-                    return type;
-                }
+					ffi_type *type = allocate(sizeof(ffi_type));
+					type->size = size;
+					type->alignment = align;
+					type->type = FFI_TYPE_STRUCT;
+					type->elements = allocate((size + 1) * sizeof(ffi_type *));
+					for (NSUInteger i = 0; i < size; i++)
+						type->elements[i] = &ffi_type_uchar;
+					type->elements[size] = NULL;
+					return type;
+				}
 				
-                break;
-            }
-        }
-        case _C_STRUCT_B:
-        {
-            if (!strcmp(argumentType, @encode(NSRange)))
+				break;
+			}
+		}
+		case _C_STRUCT_B:
+		{
+			if (!strcmp(argumentType, @encode(NSRange)))
 			{
-                return &ffi_type_nsrange; break;
-            }
+				return &ffi_type_nsrange; break;
+			}
 			else if (!strcmp(argumentType, @encode(CGSize)))
 			{
-                return &ffi_type_cgsize; break;
-            }
+				return &ffi_type_cgsize; break;
+			}
 			else if (!strcmp(argumentType, @encode(CGPoint)))
 			{
-                return &ffi_type_cgpoint; break;
-            }
+				return &ffi_type_cgpoint; break;
+			}
 			else if (!strcmp(argumentType, @encode(CGRect)))
 			{
-                return &ffi_type_cgrect; break;
-            }
+				return &ffi_type_cgrect; break;
+			}
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
-            else if (!strcmp(argumentType, @encode(NSSize)))
+			else if (!strcmp(argumentType, @encode(NSSize)))
 			{
-                return &ffi_type_cgsize; break;
-            }
+				return &ffi_type_cgsize; break;
+			}
 			else if (!strcmp(argumentType, @encode(NSPoint)))
 			{
-                return &ffi_type_cgpoint; break;
-            }
+				return &ffi_type_cgpoint; break;
+			}
 			else if (!strcmp(argumentType, @encode(NSRect)))
 			{
-                return &ffi_type_cgrect; break;
-            }
+				return &ffi_type_cgrect; break;
+			}
 #endif
 
 			NSUInteger size, align;
-            NSGetSizeAndAlignment(argumentType, &size, &align);
+			NSGetSizeAndAlignment(argumentType, &size, &align);
 
-            ffi_type *type = allocate(sizeof(ffi_type));
-            type->size = size;
-            type->alignment = align;
-            type->type = FFI_TYPE_STRUCT;
-            type->elements = allocate((a2_getStructSize(argumentType) + 1) * sizeof(ffi_type *));
+			ffi_type *type = allocate(sizeof(ffi_type));
+			type->size = size;
+			type->alignment = align;
+			type->type = FFI_TYPE_STRUCT;
+			type->elements = allocate((a2_getStructSize(argumentType) + 1) * sizeof(ffi_type *));
 
-            size_t index = 0;
-            argumentType = a2_skipStructName(argumentType);
-            while (*argumentType != _C_STRUCT_E)
+			size_t index = 0;
+			argumentType = a2_skipStructName(argumentType);
+			while (*argumentType != _C_STRUCT_E)
 			{
-                type->elements[index] = a2_typeForSignature(argumentType, allocate);
-                argumentType = NSGetSizeAndAlignment(argumentType, NULL, NULL);
-                index++;
-            }
+				type->elements[index] = a2_typeForSignature(argumentType, allocate);
+				argumentType = NSGetSizeAndAlignment(argumentType, NULL, NULL);
+				index++;
+			}
 
-            return type;
-            break;
-        }
-        default:
-        {
+			return type;
+			break;
+		}
+		default:
+		{
 			NSCAssert(0, @"Unknown type in sig");
-            return &ffi_type_void;
-            break;
-        }
-    }
+			return &ffi_type_void;
+			break;
+		}
+	}
 }
 
 @interface A2BlockInvocation ()
@@ -304,7 +304,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 + (A2BlockInvocation *) invocationWithBlock: (id) block
 {
 	NSParameterAssert(block);
-    NSMethodSignature *signature = a2_blockGetSignature(block);
+	NSMethodSignature *signature = a2_blockGetSignature(block);
 	NSAlwaysAssert(signature, @"Incompatible block: %@", block);
 	
 	A2BlockInvocation *inv = [self alloc];

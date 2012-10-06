@@ -12,8 +12,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
+	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	self.window.backgroundColor = [UIColor whiteColor];
 	
 	UIViewController *rootViewController = [[UIViewController alloc] init];
 	UILabel *label = [[UILabel alloc] init];
@@ -30,9 +30,9 @@
 	[rootViewController.view addSubview: activityIndicator];
 	
 	self.window.rootViewController = rootViewController;
-    [self.window makeKeyAndVisible];
+	[self.window makeKeyAndVisible];
 	
-    return YES;
+	return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

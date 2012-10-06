@@ -90,16 +90,16 @@
 - (BOOL)all:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    __block BOOL result = YES;
-    
+	__block BOOL result = YES;
+	
 	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
 		if (!block(obj)) {
 			result = NO;
 			*stop = YES;
 		}
 	}];
-    
-    return result;
+	
+	return result;
 }
 
 @end

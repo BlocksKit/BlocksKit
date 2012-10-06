@@ -89,34 +89,34 @@
 - (BOOL)all:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    __block BOOL result = YES;
-    
+	__block BOOL result = YES;
+	
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if (!block(obj)) {
 			result = NO;
 			*stop = YES;
 		}
 	}];
-    
-    return result;
+	
+	return result;
 }
 
 - (BOOL) corresponds: (NSArray *) list withBlock: (BKKeyValueValidationBlock) block {
 	NSParameterAssert(block != nil);
  
-    __block BOOL result = NO;
+	__block BOOL result = NO;
 	
-    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (idx < list.count) {
-            id obj2 = list[idx];
-            result = block(obj, obj2);
-        } else {
-            result = NO;
-        }
-        *stop = !result;
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if (idx < list.count) {
+			id obj2 = list[idx];
+			result = block(obj, obj2);
+		} else {
+			result = NO;
+		}
+		*stop = !result;
 	}]; 
-    
-    return result;
+	
+	return result;
 }
 
 @end

@@ -185,7 +185,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 {
 	NSAlwaysAssert(selector, @"Attempt to implement or remove NULL selector");
 	BOOL isClassMethod = self.isClassProxy;
-    NSString *key = NSStringFromSelector(selector);
+	NSString *key = NSStringFromSelector(selector);
 
 	if (!block)
 	{
@@ -201,7 +201,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
 	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes: methodDescription.types];
 
-    NSAlwaysAssert(a2_methodSignaturesCompatible(protoSig, inv.methodSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
+	NSAlwaysAssert(a2_methodSignaturesCompatible(protoSig, inv.methodSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
 	
 	self.blockMap[key] = inv;
 	self.signatureMap[key] = protoSig;
@@ -361,7 +361,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 Protocol *a2_dataSourceProtocol(Class cls)
 {
-    NSString *className = NSStringFromClass(cls);
+	NSString *className = NSStringFromClass(cls);
 	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	
@@ -370,7 +370,7 @@ Protocol *a2_dataSourceProtocol(Class cls)
 }
 Protocol *a2_delegateProtocol(Class cls)
 {
-    NSString *className = NSStringFromClass(cls);
+	NSString *className = NSStringFromClass(cls);
 	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 	

@@ -75,7 +75,7 @@ static SEL setterForProperty(Class cls, NSString *propertyName)
 }
 
 static inline SEL prefixedSelector(SEL selector) {
-    return NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(selector)]);
+	return NSSelectorFromString([@"a2_" stringByAppendingString: NSStringFromSelector(selector)]);
 }
 
 #pragma mark -
@@ -91,7 +91,7 @@ static inline SEL prefixedSelector(SEL selector) {
 	if (!propertyMap)
 	{
 		propertyMap = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, _cmd, propertyMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, _cmd, propertyMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 
 	return propertyMap;
@@ -128,7 +128,7 @@ static inline SEL prefixedSelector(SEL selector) {
 + (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) dictionary
 {
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *propertyName, NSString *selectorName, __unused BOOL *stop) {
-        objc_property_t property = class_getProperty(self, propertyName.UTF8String);
+		objc_property_t property = class_getProperty(self, propertyName.UTF8String);
 		NSAlwaysAssert(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
 
 		char *dynamic = property_copyAttributeValue(property, "D");
@@ -153,7 +153,7 @@ static inline SEL prefixedSelector(SEL selector) {
 			cls = [cls superclass];
 		}
 
-        IMP getterImplementation = imp_implementationWithBlock(^id(NSObject *self){
+		IMP getterImplementation = imp_implementationWithBlock(^id(NSObject *self){
 			return [[self dynamicDelegateForProtocol: protocol] blockImplementationForMethod: selector];
 		});
 		IMP setterImplementation = imp_implementationWithBlock(^void(NSObject *self, id block){
@@ -209,7 +209,7 @@ static inline SEL prefixedSelector(SEL selector) {
 	NSString *protocolName = NSStringFromProtocol(protocol);
 	NSMutableDictionary *propertyMap = [self bk_delegateNameMap];
 	if (propertyMap[protocolName])
-        return;
+		return;
 
 	SEL getter = getterForProperty(self, delegateName);
 	SEL a2_getter = prefixedSelector(getter);

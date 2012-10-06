@@ -151,7 +151,7 @@
  NSArray *numbers = @[ @(1), @(2), @(3) ];
  NSArray *letters = @[ @"1", @"2", @"3" ];
  BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
-    return [[number stringValue] isEqualToString: letter];
+ 	return [[number stringValue] isEqualToString: letter];
  }];
  
  @param block A two-argument, BOOL-returning code block.

@@ -6,11 +6,11 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 enum {
-    SenAsyncTestCaseStatusUnknown = 0,
-    SenAsyncTestCaseStatusWaiting,
-    SenAsyncTestCaseStatusSucceeded,
-    SenAsyncTestCaseStatusFailed,
-    SenAsyncTestCaseStatusCancelled,
+	SenAsyncTestCaseStatusUnknown = 0,
+	SenAsyncTestCaseStatusWaiting,
+	SenAsyncTestCaseStatusSucceeded,
+	SenAsyncTestCaseStatusFailed,
+	SenAsyncTestCaseStatusCancelled,
 };
 typedef NSUInteger SenAsyncTestCaseStatus;
 

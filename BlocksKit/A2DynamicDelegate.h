@@ -8,37 +8,37 @@
 /** A2DynamicDelegate implements a class's delegate, data source, or other
  delegated protocol by associating protocol methods with a block implementation.
 
-    - (IBAction) annoyUser
-    {
-        // Create an alert view
-        UIAlertView *alertView = [[UIAlertView alloc]
-        						  initWithTitle: @"Hello World!"
-        						  message: @"This alert's delegate is implemented using blocks. That's so cool!"
-        						  delegate: nil
-        						  cancelButtonTitle: @"Meh."
-        						  otherButtonTitles: @"Woo!", nil];
-        
-        // Get the dynamic delegate
-        A2DynamicDelegate *dd = alertView.dynamicDelegate;
-        
-        // Implement -alertViewShouldEnableFirstOtherButton:
-        [dd implementMethod: @selector(alertViewShouldEnableFirstOtherButton:) withBlock: ^(UIAlertView *alertView) {
-            NSLog(@"Message: %@", alertView.message);
-            return YES;
-        }];
-        
-        // Implement -alertView:willDismissWithButtonIndex:
-        [dd implementMethod: @selector(alertView:willDismissWithButtonIndex:) withBlock: ^(UIAlertView *alertView, NSInteger buttonIndex) {
-            NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex: buttonIndex]);
-        }];
-        
-        // Set the delegate
-        alertView.delegate = dd;
-        
-        [alertView show];
-        [alertView release];
-    }
-    
+	- (IBAction) annoyUser
+	{
+		// Create an alert view
+		UIAlertView *alertView = [[UIAlertView alloc]
+								  initWithTitle: @"Hello World!"
+								  message: @"This alert's delegate is implemented using blocks. That's so cool!"
+								  delegate: nil
+								  cancelButtonTitle: @"Meh."
+								  otherButtonTitles: @"Woo!", nil];
+		
+		// Get the dynamic delegate
+		A2DynamicDelegate *dd = alertView.dynamicDelegate;
+		
+		// Implement -alertViewShouldEnableFirstOtherButton:
+		[dd implementMethod: @selector(alertViewShouldEnableFirstOtherButton:) withBlock: ^(UIAlertView *alertView) {
+			NSLog(@"Message: %@", alertView.message);
+			return YES;
+		}];
+		
+		// Implement -alertView:willDismissWithButtonIndex:
+		[dd implementMethod: @selector(alertView:willDismissWithButtonIndex:) withBlock: ^(UIAlertView *alertView, NSInteger buttonIndex) {
+			NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex: buttonIndex]);
+		}];
+		
+		// Set the delegate
+		alertView.delegate = dd;
+		
+		[alertView show];
+		[alertView release];
+	}
+	
  A2DynamicDelegate is designed to be 'plug and play'. It just works.
  
  @warning An A2DynamicDelegate cannot simply be allocated. Calling one of the
@@ -75,10 +75,10 @@
 /** Assigns the given block to be fired when the specified
  selector is called on the reciever.
  
-    [tableView.dynamicDataSource implementMethod:@selector(numberOfSectionsInTableView:)
-								      withBlock:NSInteger^(UITableView *tableView){
-        return 2;
-    }];
+	[tableView.dynamicDataSource implementMethod:@selector(numberOfSectionsInTableView:)
+									  withBlock:NSInteger^(UITableView *tableView){
+		return 2;
+	}];
  
  @warning Starting with A2DynamicDelegate 2.0, a block will
  not be checked for a matching signature. A block can have

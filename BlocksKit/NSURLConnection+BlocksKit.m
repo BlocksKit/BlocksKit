@@ -139,17 +139,17 @@ static char kResponseLengthKey;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
-        [realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
+		[realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
 }
 
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
-    id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
-        return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
-    
-    return NO;
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
+		return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
+	
+	return NO;
 }
 
 @end
@@ -163,8 +163,8 @@ static char kResponseLengthKey;
 @implementation A2DynamicNSURLConnectionDelegate
 
 - (BOOL)conformsToProtocol:(Protocol *)protocol {
-    Protocol *dataDelegateProtocol = objc_getProtocol("NSURLConnectionDataDelegate");
-    return (protocol_isEqual(protocol, dataDelegateProtocol) || protocol_isEqual(protocol, self.protocol) || [super conformsToProtocol:protocol]);
+	Protocol *dataDelegateProtocol = objc_getProtocol("NSURLConnectionDataDelegate");
+	return (protocol_isEqual(protocol, dataDelegateProtocol) || protocol_isEqual(protocol, self.protocol) || [super conformsToProtocol:protocol]);
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -184,8 +184,8 @@ static char kResponseLengthKey;
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connectionShouldUseCredentialStorage:)])
 		return [realDelegate connectionShouldUseCredentialStorage: connection];
-    
-    return YES;
+	
+	return YES;
 }
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
@@ -201,7 +201,7 @@ static char kResponseLengthKey;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willSendRequest:redirectResponse:)])
 		return [realDelegate connection: connection willSendRequest: request redirectResponse: response];
 
-    return request;
+	return request;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -244,11 +244,11 @@ static char kResponseLengthKey;
 }
 
 - (NSInputStream *)connection:(NSURLConnection *)connection needNewBodyStream:(NSURLRequest *)request {
-    id realDelegate = self.realDelegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:needNewBodyStream:)])
 		return [realDelegate connection: connection needNewBodyStream: request];
 
-    return nil;
+	return nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
@@ -262,11 +262,11 @@ static char kResponseLengthKey;
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
-    id realDelegate = self.realDelegate;
+	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willCacheResponse:)])
 		return [realDelegate connection: connection willCacheResponse: cachedResponse];
-    
-    return nil;
+	
+	return nil;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -285,17 +285,17 @@ static char kResponseLengthKey;
 #pragma mark - Deprecated iOS 4.x authentication methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-    id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
-        [realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
+		[realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
 }
 
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
-    id realDelegate = self.realDelegate;
-    if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
-        return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
-    
-    return NO;
+	id realDelegate = self.realDelegate;
+	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
+		return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
+	
+	return NO;
 }
 
 @end
@@ -329,7 +329,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	Protocol *delegateProtocol = objc_getProtocol("NSURLConnectionDelegate");
 	if (!delegateProtocol)
 		delegateProtocol = @protocol(BKURLConnectionInformalDelegate);
-    A2DynamicDelegate *dd = [self dynamicDelegateForProtocol:delegateProtocol];
+	A2DynamicDelegate *dd = [self dynamicDelegateForProtocol:delegateProtocol];
 	dd.handlers[kSuccessBlockKey] = [success copy];
 	[dd implementMethod: @selector(connection:didFailWithError:) withBlock: [failure copy]];
 	return [[[self class] alloc] initWithRequest: request delegate: dd startImmediately: YES];
@@ -343,7 +343,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	Protocol *delegateProtocol = objc_getProtocol("NSURLConnectionDelegate");
 	if (!delegateProtocol)
 		delegateProtocol = @protocol(BKURLConnectionInformalDelegate);
-    A2DynamicDelegate *dd = [self dynamicDelegateForProtocol:delegateProtocol];
+	A2DynamicDelegate *dd = [self dynamicDelegateForProtocol:delegateProtocol];
 	dd.handlers[kSuccessBlockKey] = [block copy];
 	return [self initWithRequest: request delegate: dd startImmediately: NO];
 }

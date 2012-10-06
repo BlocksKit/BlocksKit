@@ -16,7 +16,7 @@
 }
 
 - (void)setUp {
-    _subject = [NSCache new];
+	_subject = [NSCache new];
 }
 
 - (void)tearDown {
@@ -32,8 +32,8 @@
 	_total = 2;
 	__unsafe_unretained NSCacheBlocksKitTest *weakSelf = self;
 	_subject.willEvictBlock = ^(NSCache *cache, id obj){
-        weakSelf->_total--;
-    };
+		weakSelf->_total--;
+	};
 	[_subject.dynamicDelegate cache:_subject willEvictObject:nil];
 	STAssertEquals(_total, (NSInteger)0, @"The delegates should have been called!");
 }

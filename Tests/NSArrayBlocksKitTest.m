@@ -127,46 +127,46 @@
 }
 
 - (void)testAny {
-    // Check if array has element with prefix 1
-    BKValidationBlock existsBlockTrue = ^BOOL(id obj) {
-        return [obj hasPrefix: @"1"];
-    };
-    
-    BKValidationBlock existsBlockFalse = ^BOOL(id obj) {
-        return [obj hasPrefix: @"4"];
-    };
-    
-    BOOL letterExists = [_subject any: existsBlockTrue];
-    STAssertTrue(letterExists, @"letter is not in array");
-    
-    BOOL letterDoesNotExist = [_subject any: existsBlockFalse];
-    STAssertFalse(letterDoesNotExist, @"letter is in array");
+	// Check if array has element with prefix 1
+	BKValidationBlock existsBlockTrue = ^BOOL(id obj) {
+		return [obj hasPrefix: @"1"];
+	};
+	
+	BKValidationBlock existsBlockFalse = ^BOOL(id obj) {
+		return [obj hasPrefix: @"4"];
+	};
+	
+	BOOL letterExists = [_subject any: existsBlockTrue];
+	STAssertTrue(letterExists, @"letter is not in array");
+	
+	BOOL letterDoesNotExist = [_subject any: existsBlockFalse];
+	STAssertFalse(letterDoesNotExist, @"letter is in array");
 }
 
 - (void)testAll {
-    NSArray *names = @[ @"John", @"Joe", @"Jon", @"Jester" ];
-    NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
-    
-    // Check if array has element with prefix 1
-    BKValidationBlock nameStartsWithJ = ^BOOL(id obj) {
-        return [obj hasPrefix: @"J"];
-    };
+	NSArray *names = @[ @"John", @"Joe", @"Jon", @"Jester" ];
+	NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
+	
+	// Check if array has element with prefix 1
+	BKValidationBlock nameStartsWithJ = ^BOOL(id obj) {
+		return [obj hasPrefix: @"J"];
+	};
 
-    BOOL allNamesStartWithJ = [names all: nameStartsWithJ];
-    STAssertTrue(allNamesStartWithJ, @"all names do not start with J in array");
-    
-    BOOL allNamesDoNotStartWithJ = [names2 all: nameStartsWithJ];
-    STAssertFalse(allNamesDoNotStartWithJ, @"all names do start with J in array");  
+	BOOL allNamesStartWithJ = [names all: nameStartsWithJ];
+	STAssertTrue(allNamesStartWithJ, @"all names do not start with J in array");
+	
+	BOOL allNamesDoNotStartWithJ = [names2 all: nameStartsWithJ];
+	STAssertFalse(allNamesDoNotStartWithJ, @"all names do start with J in array");  
 }
 
 - (void)testNone {
-    NSArray *names = @[ @"John", @"Joe", @"Jon", @"Jester" ];
-    NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
-    
-    // Check if array has element with prefix 1
-    BKValidationBlock nameStartsWithM = ^BOOL(id obj) {
-        return [obj hasPrefix: @"M"];
-    };
+	NSArray *names = @[ @"John", @"Joe", @"Jon", @"Jester" ];
+	NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
+	
+	// Check if array has element with prefix 1
+	BKValidationBlock nameStartsWithM = ^BOOL(id obj) {
+		return [obj hasPrefix: @"M"];
+	};
 	
 	BOOL noNamesStartWithM = [names none: nameStartsWithM];
 	STAssertTrue(noNamesStartWithM, @"some names start with M in array");
@@ -176,13 +176,13 @@
 }
 
 - (void)testCorresponds {
-    NSArray *numbers = @[ @(1), @(2), @(3) ];
+	NSArray *numbers = @[ @(1), @(2), @(3) ];
 	NSArray *letters = @[ @"1", @"2", @"3" ];
-    BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
-        return [[number stringValue] isEqualToString: letter];
-    }];
-    STAssertTrue(doesCorrespond, @"1,2,3 does not correspond to \"1\",\"2\",\"3\"");
-    
+	BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
+		return [[number stringValue] isEqualToString: letter];
+	}];
+	STAssertTrue(doesCorrespond, @"1,2,3 does not correspond to \"1\",\"2\",\"3\"");
+	
 }
 
 @end
