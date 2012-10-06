@@ -55,7 +55,7 @@
 	};
 	NSUInteger found = [_subject match: indexValidationBlock];
 	STAssertTrue([order isEqualToString: @"123"], @"the index loop order is %@", order);
-	STAssertEquals(found, NSNotFound, @"no items are found");
+	STAssertEquals((NSInteger) found, NSNotFound, @"no items are found");
 }
 
 - (void)testSelect {
