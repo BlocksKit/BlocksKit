@@ -1,8 +1,8 @@
 //
 //  BKMacros.h
-//  %PROJECT
+//  BlocksKit
 //
-//  Includes code by Michael Ash. <https://github.com/mikeash>. 2010. BSD.
+//  Includes code by Michael Ash. <https://github.com/mikeash>.
 //
 
 #import "NSArray+BlocksKit.h"

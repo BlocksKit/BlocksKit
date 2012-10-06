@@ -1,18 +1,13 @@
 //
 //  NSURLConnection+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
 
-/** NSURLConnection with both delegate and block callback support
+/** NSURLConnection with both delegate and block callback support.
  
- This category allows you to assign blocks on NSURLConnection
- delegate callbacks, while still allowing the normal delegation
- pattern!
- 
- It also adds useful block handlers for tracking upload and
- download progress.
+ It also adds useful block handlers for tracking upload and download progress.
  
  Here is a small example:
 	 - (void)downloadImage:(id)sender {
@@ -48,7 +43,9 @@
 		 NSLog(@"%s",__PRETTY_FUNCTION__);
 	 }
 
- Created by Igor Evsukov as [IEURLConnection](https://github.com/evsukov89/IEURLConnection) and contributed to BlocksKit.
+ Created by Igor Evsukov as
+ [IEURLConnection](https://github.com/evsukov89/IEURLConnection) and contributed
+ to BlocksKit.
 */
 
 @interface NSURLConnection (BlocksKit)

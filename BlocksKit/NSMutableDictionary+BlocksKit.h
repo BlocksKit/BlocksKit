@@ -1,21 +1,20 @@
 //
 //  NSMutableDictionary+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
 
 /** Block extensions for NSMutableDictionary.
  
- These utilities expound upon the BlocksKit additions
- to the immutable superclass by allowing certain utilities
- to work on an instance of the mutable class, saving memory
- by not creating an immutable copy of the results.
+ These utilities expound upon the BlocksKit additions to the immutable
+ superclass by allowing certain utilities to work on an instance of the mutable
+ class, saving memory by not creating an immutable copy of the results.
  
  Includes code by the following:
  
- - Martin Schürrer.  <https://github.com/MSch>.	 2011. MIT.
- - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
+ - [Martin Schürrer](https://github.com/MSch)
+ - [Zach Waldowski](https://github.com/zwaldowski)
  
  @see NSDictionary(BlocksKit)
  */

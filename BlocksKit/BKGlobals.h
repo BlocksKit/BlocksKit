@@ -1,6 +1,6 @@
 //
 //  BKGlobals.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import <dispatch/dispatch.h>

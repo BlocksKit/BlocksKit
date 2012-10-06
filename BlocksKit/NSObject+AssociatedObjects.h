@@ -1,27 +1,25 @@
 //
 //  NSObject+AssociatedObjects.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
 
-/** Objective-C wrapper for 10.6 associated object API.
+/** Objective-C wrapper for 10.6+ associated object API.
 
- In Mac OS X Snow Leopard and iOS 3.0, Apple introduced an
- addition to the Objective-C Runtime called associated objects.
- Associated objects allow for the pairing of a random key and
- object pair to be saved on an instance.
+ In Mac OS X Snow Leopard and iOS 3.0, Apple introduced an addition to the
+ Objective-C Runtime called associated objects. Associated objects allow for the
+ pairing of a random key and object pair to be saved on an instance.
 
- In BlocksKit, associated objects allow us to emulate instance
- variables in the categories we use.
+ In BlocksKit, associated objects allow us to emulate instance variables in the 
+ ategories we use.
  
- Class methods also exist for each association. These associations
- are unique to each class, and exist for the lifetime of the
- application unless set to `nil`. Each class is a unique meta-object;
- the ultimate singleton.
+ Class methods also exist for each association. These associations are unique to
+ each class, and exist for the lifetime of the application unless set to `nil`.
+ Each class is a unique meta-object; the ultimate singleton.
 
- Created by Andy Matuschak as [AMAssociatedObjects](https://github.com/andymatuschak/NSObject-AssociatedObjects).
- Licensed in the public domain.
+ Created by [Andy Matuschak](https://github.com/andymatuschak) as
+ `AMAssociatedObjects`.
  */
 @interface NSObject (AssociatedObjects)
 

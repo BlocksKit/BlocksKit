@@ -1,13 +1,13 @@
 //
 //  UIPopoverController+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
 
 /** Block functionality for UIPopoverController.
  
- Created by Alexsander Akers and contributed to BlocksKit. Copyright (c) 2011 Pandamonia LLC. All rights reserved.
+ Created by [Alexsander Akers](https://github.com/a2) and contributed to BlocksKit.
  
  @warning UIPopovercontroller is only available on a platform with UIKit.
  */

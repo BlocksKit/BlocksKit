@@ -1,6 +1,6 @@
 //
 //  NSIndexSet+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -14,9 +14,9 @@
 
  Includes code by the following:
 
-- Robin Lu.	   <https://github.com/robin>.	  2009. MIT.
-- Michael Ash.	<https://github.com/mikeash>.	2010. BSD.
-- Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
+- [Robin Lu](https://github.com/robin)
+- [Michael Ash](https://github.com/mikeash)
+- [Zach Waldowski](https://github.com/zwaldowski)
 
  @see NSArray(BlocksKit)
  @see NSDictionary(BlocksKit)

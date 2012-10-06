@@ -1,14 +1,13 @@
 //
 //  NSTimer+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
 
 /** Simple category on NSTimer to give it blocks capability.
 
- Created by Jiva DeVoe as [NSTimer-Blocks](https://github.com/jivadevoe/NSTimer-Blocks).
- Licensed under MIT.
+ Created by [Jiva DeVoe](https://github.com/jivadevoe) as `NSTimer-Blocks`.
 */
 @interface NSTimer (BlocksKit)
 

@@ -1,6 +1,6 @@
 //
 //  UIGestureRecognizer+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -29,8 +29,8 @@
 
  Includes code by the following:
 
- - Kevin O'Neill.  <https://github.com/kevinoneill>. 2011. BSD.
- - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
+ - [Kevin O'Neill](https://github.com/kevinoneill)
+ - [Zach Waldowski](https://github.com/zwaldowski)
 
  @warning UIGestureRecognizer is only available on a platform with UIKit.
  

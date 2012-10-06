@@ -1,15 +1,11 @@
 //
 //  UIWebView+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
 
 /** Block callbacks for UIWebView.
-
- Includes code by the following:
-
- - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
 
  @warning UIWebView is only available on a platform with UIKit.
 */

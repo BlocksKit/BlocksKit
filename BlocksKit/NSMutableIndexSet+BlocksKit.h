@@ -1,20 +1,15 @@
 //
 //  NSMutableIndexSet+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
 
 /** Block extensions for NSMutableIndexSet.
  
- These utilities expound upon the BlocksKit additions
- to the immutable superclass by allowing certain utilities
- to work on an instance of the mutable class, saving memory
- by not creating an immutable copy of the results.
- 
- Includes code by the following:
- 
- - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
+ These utilities expound upon the BlocksKit additions to the immutable
+ superclass by allowing certain utilities to work on an instance of the mutable
+ class, saving memory by not creating an immutable copy of the results.
  
  @see NSIndexSet(BlocksKit)
  */

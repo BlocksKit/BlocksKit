@@ -1,6 +1,6 @@
 //
 //  A2BlockDelegate.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"

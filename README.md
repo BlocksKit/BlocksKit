@@ -36,8 +36,8 @@ An Xcode 4 compatible documentation set is available [using this Atom link](http
 License
 =======
 
-BlocksKit is created and maintained by [Pandamonia LLC](https://github.com/pandamonia) under the MIT license.  **The project itself is free for use in any and all projects.**  You can use BlocksKit in any project, public or private, with or without attribution.
+BlocksKit is created and maintained by [Pandamonia LLC](https://github.com/pandamonia) under the MIT license.  **The project itself is free for use in any and all projects.**  You can use BlocksKit in any project, public or private, with or without attribution - though we prefer attribution! It helps us.
 
 Unsure about your rights?  [Read more.](http://pandamonia.github.com/BlocksKit/index.html#license)
 
-All of the included code is licensed either under BSD, MIT, or is in the public domain. A full list of contributors exists on the [project page](http://pandamonia.github.com/BlocksKit/index.html#contributors). Individual credits exist in the header files and documentation. We thank them for their contributions to the open source community.
+Individual credits for included code exist in the header files and documentation. We thank them for their contributions to the open source community.

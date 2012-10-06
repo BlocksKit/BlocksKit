@@ -1,6 +1,6 @@
 //
 //  NSInvocation+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -17,7 +17,8 @@
  without creating the buffers yourself. It is only recommended to call a method
  on the argument to the block only once.
  
- Created by Jonathan Rentzch as [NSInvocation-blocks](https://github.com/rentzsch/NSInvocation-blocks) and licensed under MIT.
+ Created by [Jonathan Rentzch](https://github.com/rentzsch) as
+ `NSInvocation-blocks`.
 
  @param target The object to "grab" the block invocation from.
  @param block A code block.
