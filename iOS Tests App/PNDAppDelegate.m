@@ -13,9 +13,25 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+	
+	UIViewController *rootViewController = [[UIViewController alloc] init];
+	UILabel *label = [[UILabel alloc] init];
+	label.font = [UIFont systemFontOfSize: [UIFont labelFontSize]];
+	label.text = @"Testing…";
+	[label sizeToFit];
+	
+	label.frame = CGRectMake((rootViewController.view.bounds.size.width - label.frame.size.width) / 2.0, (rootViewController.view.bounds.size.height - label.frame.size.height) / 2.0, label.frame.size.width, label.frame.size.height);
+	[rootViewController.view addSubview: label];
+	
+	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
+	activityIndicator.frame = CGRectMake((rootViewController.view.bounds.size.width - activityIndicator.frame.size.width) / 2.0, (rootViewController.view.bounds.size.height - label.frame.size.height) / 2.0 - activityIndicator.frame.size.height - 8, activityIndicator.frame.size.width, activityIndicator.frame.size.height);
+	[activityIndicator startAnimating];
+	[rootViewController.view addSubview: activityIndicator];
+	
+	self.window.rootViewController = rootViewController;
     [self.window makeKeyAndVisible];
+	
     return YES;
 }
 
