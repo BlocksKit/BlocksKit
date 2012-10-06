@@ -12,10 +12,6 @@
 	UIView *_subject;
 }
 
-- (BOOL)shouldRunOnMainThread {
-	return YES;
-}
-
 - (void)setUp {
 	_subject = [UIView new];
 }

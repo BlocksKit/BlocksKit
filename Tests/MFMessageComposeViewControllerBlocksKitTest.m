@@ -13,10 +13,6 @@
 	BOOL delegateWorked;
 }
 
-- (BOOL)shouldRunOnMainThread {
-	return YES;
-}
-
 - (void)setUp {
 	_subject = [MFMessageComposeViewController new];
 }

@@ -13,10 +13,6 @@
 	BOOL shouldStartLoadDelegate, didStartLoadDelegate, didFinishLoadDelegate, didFinishWithErrorDelegate;
 }
 
-- (BOOL)shouldRunOnMainThread {
-	return YES;
-}
-
 - (void)setUp {
 	_subject = [[UIWebView alloc] initWithFrame: (CGRect){0, 0, 0, 0}];
 }

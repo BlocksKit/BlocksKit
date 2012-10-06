@@ -13,10 +13,6 @@
 	NSInteger _total;
 }
 
-- (BOOL)shouldRunOnMainThread {
-	return YES;
-}
-
 - (void)setUpClass {
 	_subject = [UIControl new];
 	_total = 0;
