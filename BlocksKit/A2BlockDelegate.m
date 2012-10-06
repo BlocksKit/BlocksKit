@@ -258,3 +258,5 @@ static inline SEL prefixedSelector(SEL selector) {
 }
 
 @end
+
+BK_MAKE_CATEGORY_LOADABLE(A2BlockDelegate)
