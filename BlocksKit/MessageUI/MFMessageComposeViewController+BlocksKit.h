@@ -15,7 +15,7 @@
 
  Created by Igor Evsukov and contributed to BlocksKit.
 
- @warning UIWebView is only available on iOS or in a Mac app using Chameleon.
+ @warning UIWebView is only available on a platform with UIKit.
 */
 @interface MFMessageComposeViewController (BlocksKit)
 

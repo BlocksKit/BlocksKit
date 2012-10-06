@@ -11,7 +11,7 @@
 
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
 
- @warning UIWebView is only available on iOS or in a Mac app using Chameleon.
+ @warning UIWebView is only available on a platform with UIKit.
 */
 
 @interface UIWebView (BlocksKit)

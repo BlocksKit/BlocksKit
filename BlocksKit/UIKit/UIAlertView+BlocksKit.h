@@ -30,7 +30,7 @@
  - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
  - Zach Waldowski.	<https://github.com/zwaldowski>. 2011. MIT.
 
- @warning UIAlertView is only available on iOS or in a Mac app using Chameleon.
+ @warning UIAlertView is only available on a platform with UIKit.
  */
 @interface UIAlertView (BlocksKit)
 

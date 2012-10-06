@@ -32,12 +32,12 @@
  - Kevin O'Neill.  <https://github.com/kevinoneill>. 2011. BSD.
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
 
- @warning UIGestureRecognizer is only available on iOS or in a Mac app using Chameleon.
+ @warning UIGestureRecognizer is only available on a platform with UIKit.
  
  @warning It is not recommended to use the Apple-supplied locationInView and state
  methods on a *delayed* block-backed gesture recognizer, as these properties are
  likely to have been cleared by the time by the block fires.  It is instead recommended
- to use the arguments provided to the block in BlocksKit builds after 15 Jun. 2011.
+ to use the arguments provided to the block.
  */
 
 @interface UIGestureRecognizer (BlocksKit)

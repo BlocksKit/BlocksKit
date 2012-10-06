@@ -13,7 +13,7 @@
  - Jake Marsh.	 <https://github.com/jakemarsh>.   2011. 
  - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
 
- @warning UIView is only available on iOS or in a Mac app using Chameleon.
+ @warning UIView is only available on a platform with UIKit.
  */
 @interface UIView (BlocksKit)
 

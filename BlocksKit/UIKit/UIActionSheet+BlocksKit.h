@@ -28,7 +28,7 @@
  - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
  - Zach Waldowski.	<https://github.com/zwaldowski>. 2011. MIT.
 
- @warning UIActionSheet is only available on iOS or in a Mac app using Chameleon.
+ @warning UIActionSheet is only available on a platform with UIKit.
  */
 @interface UIActionSheet (BlocksKit) <UIActionSheetDelegate>
 
