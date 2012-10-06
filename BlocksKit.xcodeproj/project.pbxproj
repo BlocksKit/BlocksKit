@@ -10,12 +10,12 @@
 		00D28ACC14AAC47800ECB62C /* UIPopoverController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 00D28AC614AAC43E00ECB62C /* UIPopoverController+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00D28ACE14AAC48600ECB62C /* UIPopoverController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */; };
 		6C145417138497D50067A56E /* BKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C161C901620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */; };
-		6C161C911620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */; };
+		6C161C901620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C161C911620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C161C921620C6E000F04A9A /* NSOrderedSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C161C8F1620C6E000F04A9A /* NSOrderedSet+BlocksKit.m */; };
 		6C161C931620C6E000F04A9A /* NSOrderedSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C161C8F1620C6E000F04A9A /* NSOrderedSet+BlocksKit.m */; };
-		6C161C971620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C951620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h */; };
-		6C161C981620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C951620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h */; };
+		6C161C971620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C951620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C161C981620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C951620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C161C991620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C161C961620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m */; };
 		6C161C9A1620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C161C961620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m */; };
 		6C161C9D1620C71A00F04A9A /* NSMutableOrderedSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C161C9C1620C71A00F04A9A /* NSMutableOrderedSetBlocksKitTest.m */; };
@@ -828,6 +828,8 @@
 				6CF22BCF161EAC72002FD317 /* A2BlockDelegate.h in Headers */,
 				6CF22BD3161EAC72002FD317 /* A2BlockInvocation.h in Headers */,
 				6CF22BD7161EAC72002FD317 /* A2DynamicDelegate.h in Headers */,
+				6C161C901620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */,
+				6C161C971620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */,
 				6CF22C68161EACBD002FD317 /* ffi.h in Headers */,
 				6CF22C69161EACBD002FD317 /* ffi_armv7.h in Headers */,
 				6CF22C6A161EACBD002FD317 /* ffi_common.h in Headers */,
@@ -838,8 +840,6 @@
 				6CF22C6F161EACBD002FD317 /* ffitarget.h in Headers */,
 				6CF22C70161EACBD002FD317 /* ffitarget_armv7.h in Headers */,
 				6CF22C71161EACBD002FD317 /* ffitarget_i386.h in Headers */,
-				6C161C901620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */,
-				6C161C971620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
