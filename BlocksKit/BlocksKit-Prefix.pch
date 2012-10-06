@@ -1,5 +1,0 @@
-#ifdef __OBJC__
-	#import <Foundation/Foundation.h>
-	#import "BKGlobals.h"
-	#import <dispatch/dispatch.h>
-#endif
