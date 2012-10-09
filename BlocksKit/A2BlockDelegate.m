@@ -25,7 +25,7 @@ extern Protocol *a2_delegateProtocol(Class cls);
 
 @interface A2DynamicDelegate ()
 
-@property (nonatomic, unsafe_unretained, readwrite) id realDelegate;
+@property (nonatomic, weak, readwrite) id realDelegate;
 
 @end
 
@@ -231,8 +231,6 @@ static inline SEL prefixedSelector(SEL selector) {
 
 		if ([delegate isEqual: dynamicDelegate])
 			delegate = nil;
-		else if ([delegate isEqual: delegatingObject] || [delegatingObject isEqual:dynamicDelegate.realDelegate])
-			delegate = [NSValue valueWithNonretainedObject: delegate];
 
 		dynamicDelegate.realDelegate = delegate;
 	});

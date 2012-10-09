@@ -58,7 +58,7 @@
 
 /** When replacing the delegate using the A2BlockDelegate extensions, the object
  responding to classical delegate method implementations. */
-@property (nonatomic, unsafe_unretained, readonly) id realDelegate;
+@property (nonatomic, weak, readonly) id realDelegate;
 
 /** The protocol delegating the dynamic delegate. */
 @property (nonatomic, readonly) Protocol *protocol;

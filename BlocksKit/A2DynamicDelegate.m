@@ -108,14 +108,6 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	return self;
 }
 
-- (id) realDelegate
-{
-	id obj = _realDelegate;
-	if ([obj isKindOfClass: [NSValue class]])
-		return [obj nonretainedObjectValue];
-	else
-		return obj;
-}
 - (NSMethodSignature*) methodSignatureForSelector: (SEL) aSelector
 {
 	NSString *key = NSStringFromSelector(aSelector);
