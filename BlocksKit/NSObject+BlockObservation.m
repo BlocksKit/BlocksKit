@@ -7,6 +7,7 @@
 #import "NSObject+AssociatedObjects.h"
 #import "NSDictionary+BlocksKit.h"
 #import "NSArray+BlocksKit.h"
+#import "NSSet+BlocksKit.h"
 
 @interface BKObserver : NSObject
 
@@ -161,15 +162,16 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 - (void)removeAllBlockObservers {
-	dispatch_sync(BKObserverMutationQueue(), ^{
-		NSMutableDictionary *observationDictionary = [self associatedValueForKey:&kObserverBlocksKey];
-		[observationDictionary each:^(NSString *key, BKObserver *trampoline) {
-			[trampoline.keyPaths each:^(NSString *keyPath) {
-				[self removeObserver:trampoline forKeyPath:keyPath];
-			}];
-		}];
-		[self associateValue:nil withKey:&kObserverBlocksKey];
-	});
+    dispatch_sync(BKObserverMutationQueue(), ^{
+        NSMutableDictionary *observationDictionary = [self associatedValueForKey:&kObserverBlocksKey];
+        NSSet *trampolinesToRemove = [NSSet setWithArray:[observationDictionary allValues]];
+        [trampolinesToRemove each:^(BKObserver *trampoline) {
+            [trampoline.keyPaths each:^(NSString *keyPath) {
+                [self removeObserver:trampoline forKeyPath:keyPath];
+            }];
+        }];
+        [self associateValue:nil withKey:&kObserverBlocksKey];
+    });
 }
 
 @end
