@@ -7,7 +7,9 @@ Pod::Spec.new do |s|
   s.author   = { 'Zachary Waldowski' => 'zwaldowski@gmail.com',
                  'Alexsander Akers' => 'a2@pandamonia.us' }
   s.source   = { :git => 'https://github.com/pandamonia/BlocksKit.git', :tag => 'v1.6' }
+  s.requires_arc     = true
   s.osx.source_files = 'BlocksKit/*.{h,m}'
+  s.osx.library      = 'ffi'
   s.ios.dependency     'libffi'
   s.ios.frameworks   = 'MessageUI'
   s.ios.source_files = 'BlocksKit/*.{h,m}', 'BlocksKit/UIKit/*.{h,m}', 'BlocksKit/MessageUI/*.{h,m}'
