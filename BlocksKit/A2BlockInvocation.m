@@ -18,72 +18,53 @@
 
 #pragma mark Block Internals
 
-typedef enum {
-	BLOCK_DEALLOCATING =      (0x0001),
-	BLOCK_REFCOUNT_MASK =     (0xfffe),
-	BLOCK_NEEDS_FREE =        (1 << 24),
-	BLOCK_HAS_COPY_DISPOSE =  (1 << 25),
-	BLOCK_HAS_CTOR =          (1 << 26), // helpers have C++ code
-	BLOCK_IS_GC =             (1 << 27),
-	BLOCK_IS_GLOBAL =         (1 << 28),
-	BLOCK_USE_STRET =         (1 << 29), // undefined if !BLOCK_HAS_SIGNATURE
-	BLOCK_HAS_SIGNATURE =     (1 << 30)
-} block_flags_t;
-
-typedef enum {
-	BLOCK_FIELD_IS_OBJECT   =  3,  // id, NSObject, __attribute__((NSObject)), block, ...
-	BLOCK_FIELD_IS_BLOCK    =  7,  // a block variable
-	BLOCK_FIELD_IS_BYREF    =  8,  // the on stack structure holding the __block variable
-	BLOCK_FIELD_IS_WEAK     = 16,  // declared __weak, only used in byref copy helpers
-	BLOCK_BYREF_CALLER      = 128, // called from __block (byref) copy/dispose support routines.
-} block_field_flags_t;
-
-struct Block_descriptor_1 {
-	unsigned long int reserved;
-	unsigned long int size;
+typedef NS_ENUM(int, BKBlockFlags) {
+	BKBlockFlagsHasCopyDisposeHelpers	= (1 << 25),
+	BKBlockFlagsHasConstructor			= (1 << 26),
+	BKBlockFlagsIsGlobal				= (1 << 28),
+	BKBlockFlagsReturnsStruct			= (1 << 29),
+	BKBlockFlagsHasSignature			= (1 << 30)
 };
 
-struct Block_descriptor_2 {
-	// requires BLOCK_HAS_COPY_DISPOSE
-	void (*copy)(void *dst, const void *src);
-	void (*dispose)(const void *);
-};
-
-struct Block_descriptor_3 {
-	// requires BLOCK_HAS_SIGNATURE
-	const char *signature;
-	const char *layout;
-};
-
-struct Block {
+typedef struct _BKBlock {
 	void *isa;
-	block_flags_t flags;
+	BKBlockFlags flags;
 	int reserved;
 	void (*invoke)(void);
-	struct Block_descriptor_1 *descriptor;
-};
+	struct {
+		unsigned long int reserved;
+		unsigned long int size;
+		// requires BKBlockFlagsHasCopyDisposeHelpers
+		void (*copy)(void *dst, const void *src);
+		void (*dispose)(const void *);
+		// requires BKBlockFlagsHasSignature
+		const char *signature;
+		const char *layout;
+	} *descriptor;
+	// imported variables
+} *BKBlockRef;
 
 static NSMethodSignature *a2_blockGetSignature(id block) {
-	struct Block *layout = (__bridge void *)block;
+	BKBlockRef layout = (__bridge void *)block;
 
-	int requiredFlags = BLOCK_HAS_SIGNATURE;
-	if ((layout->flags & requiredFlags) != requiredFlags)
+	if (!(layout->flags & BKBlockFlagsHasSignature))
 		return nil;
 
-	void *desc = (void *)layout->descriptor;
-	desc += sizeof(struct Block_descriptor_1);
-	if (layout->flags & BLOCK_HAS_COPY_DISPOSE)
-		desc += sizeof(struct Block_descriptor_2);
+	void *desc = layout->descriptor;
+	desc += 2 * sizeof(unsigned long int);
 
-	struct Block_descriptor_3 *desc3 = (struct Block_descriptor_3 *)desc;
-	if (!desc3)
+	if (layout->flags & BKBlockFlagsHasCopyDisposeHelpers)
+		desc += 2 * sizeof(void *);
+
+	if (!desc)
 		return nil;
 
-	return [NSMethodSignature signatureWithObjCTypes: desc3->signature];
+	const char *signature = (*(const char **)desc);
+	return [NSMethodSignature signatureWithObjCTypes: signature];
 }
 
 static void (*a2_blockGetInvoke(id block))(void) {
-	struct Block *layout = (__bridge void *) block;
+	BKBlockRef layout = (__bridge void *) block;
 	return layout->invoke;
 }
 
