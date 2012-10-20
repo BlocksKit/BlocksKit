@@ -292,11 +292,11 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	
 	if ((self = [super init])) {
 		NSMutableSet *allocations = [NSMutableSet set];
-		void *(^allocate)(size_t) = ^(size_t howmuch){
-			void *buffer = malloc(howmuch);
-			NSData *data = [NSData dataWithBytesNoCopy: buffer length: howmuch];
+		void *(^allocate)(size_t) = ^(size_t howmuch) {
+			void *buf = malloc(howmuch);
+			NSData *data = [NSData dataWithBytesNoCopy: buf length: howmuch freeWhenDone: NO];
 			[allocations addObject: data];
-			return buffer;
+			return buf;
 		};
 
 		ffi_type *returnType = a2_typeForSignature(blockSignature.methodReturnType, allocate);
@@ -327,9 +327,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		self.retainedArguments = [NSMutableSet setWithCapacity: cif.nargs];
 		self.interface = cif;
 
-		void *blockRef = (__bridge void *)self.block;
-		memcpy(_argumentFrame[0], &blockRef, cif.arg_types[0]->size);
-
+		*(__unsafe_unretained id *)_argumentFrame[0] = self.block;
 	}
 	return self;
 }
@@ -342,6 +340,10 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 - (void) dealloc
 {
 	[self setReturnValue: nil];
+	[self.allocations enumerateObjectsUsingBlock:^(NSData *obj, BOOL *stop) {
+		const void *buf = obj.bytes;
+		free((void *)buf);
+	}];
 }
 
 - (void) retainArguments
