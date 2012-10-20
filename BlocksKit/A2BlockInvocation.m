@@ -293,9 +293,10 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	{
 		inv.allocations = [NSMutableSet set];
 		void *(^allocate)(size_t) = ^(size_t howmuch){
-			NSMutableData *data = [NSMutableData dataWithLength: howmuch];
+			void *buffer = malloc(howmuch);
+			NSData *data = [NSData dataWithBytesNoCopy: buffer length: howmuch];
 			[inv.allocations addObject: data];
-			return [data mutableBytes];
+			return buffer;
 		};
 		
 		ffi_type *returnType = a2_typeForSignature(signature.methodReturnType, allocate);
