@@ -469,20 +469,19 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 	[inv retainArguments];
 
-	void *argument = NULL;
 	for (int i = 0; i < self.interface.nargs - 1; i++)
 	{
-		size_t argSize = a2_sizeForType(self.interface.arg_types[i]);
-		void *thisArgument = realloc(argument, argSize);
-		if (!thisArgument)
-			continue;
-		
+		ffi_type *type = self.interface.arg_types[i];
+		if (!type) break;
+
+		size_t argSize = a2_sizeForType(type);
+
+		void *thisArgument = malloc(argSize);
+		if (!thisArgument) break;
 		[inv getArgument: thisArgument atIndex: i + 2];
 		[self setArgument: thisArgument atIndex: i];
-		argument = thisArgument;
+		free(thisArgument);
 	}
-	
-	if (argument) free(argument);
 
 	[self invoke];
 
