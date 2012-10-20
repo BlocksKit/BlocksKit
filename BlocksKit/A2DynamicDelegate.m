@@ -198,7 +198,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
 	if (!methodDescription.name) return;
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block];
 	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes: methodDescription.types];
 
 	NSAlwaysAssert(a2_methodSignaturesCompatible(protoSig, inv.methodSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));

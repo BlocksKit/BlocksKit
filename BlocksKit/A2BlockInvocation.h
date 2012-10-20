@@ -5,25 +5,24 @@
 
 #import "BKGlobals.h"
 
-@interface A2BlockInvocation : NSInvocation
+@interface A2BlockInvocation : NSObject
 
-+ (A2BlockInvocation *) invocationWithBlock: (id) block;
-
-- (void) clearArguments;
-- (void) invokeUsingInvocation: (NSInvocation *) inv;
-
+- (id) initWithBlock: (id) block;
 @property (nonatomic, copy, readonly) id block;
 
-#pragma mark - Unavailable Methods
+@property (nonatomic, readonly) NSMethodSignature *methodSignature;
 
-+ (NSInvocation *) invocationWithMethodSignature: (NSMethodSignature *) sig NS_UNAVAILABLE;
+- (void) retainArguments;
+- (BOOL) argumentsRetained;
 
-- (id) target NS_UNAVAILABLE;
-- (void) setTarget: (id) target NS_UNAVAILABLE;
+- (void) getReturnValue: (void *) retLoc;
+- (void) setReturnValue: (void *) retLoc;
 
-- (SEL) selector NS_UNAVAILABLE;
-- (void) setSelector: (SEL) selector NS_UNAVAILABLE;
+- (void) getArgument: (void *) argumentLocation atIndex: (NSInteger) idx;
+- (void) setArgument: (void *) argumentLocation atIndex: (NSInteger) idx;
+- (void) clearArguments;
 
-- (void) invokeWithTarget: (id) target NS_UNAVAILABLE;
+- (void) invoke;
+- (void) invokeUsingInvocation: (NSInvocation *) inv;
 
 @end

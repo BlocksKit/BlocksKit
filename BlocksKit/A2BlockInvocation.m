@@ -282,52 +282,53 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 @implementation A2BlockInvocation
 
-+ (A2BlockInvocation *) invocationWithBlock: (id) block
+- (id) initWithBlock: (id) block
 {
 	NSParameterAssert(block);
 	NSMethodSignature *signature = a2_blockGetSignature(block);
 	NSAlwaysAssert(signature, @"Incompatible block: %@", block);
-	
-	A2BlockInvocation *inv = [self alloc];
-	if (inv)
-	{
-		inv.allocations = [NSMutableSet set];
+	if ((self = [super init])) {
+		NSMutableSet *allocations = [NSMutableSet set];
 		void *(^allocate)(size_t) = ^(size_t howmuch){
 			void *buffer = malloc(howmuch);
 			NSData *data = [NSData dataWithBytesNoCopy: buffer length: howmuch];
-			[inv.allocations addObject: data];
+			[allocations addObject: data];
 			return buffer;
 		};
-		
+
 		ffi_type *returnType = a2_typeForSignature(signature.methodReturnType, allocate);
-		if (returnType->type == FFI_TYPE_VOID)
-			inv->_returnLength = 0;
-		else
-			inv->_returnLength = a2_sizeForType(returnType);
-		inv->_returnValue = allocate(inv->_returnLength);
+		if (returnType->type == FFI_TYPE_VOID) {
+			_returnLength = 0;
+			_returnValue = NULL;
+		} else {
+			_returnLength = a2_sizeForType(returnType);
+			_returnValue = allocate(_returnLength);
+		}
 
 		unsigned int argCount = (unsigned int)signature.numberOfArguments;
 
 		ffi_type **methodArgs = allocate(argCount * sizeof(ffi_type *));
-		inv->_argumentFrame = allocate(argCount * sizeof(void *));
+		_argumentFrame = allocate(argCount * sizeof(void *));
 		for (NSUInteger i = 0; i < argCount; i++)
 		{
 			methodArgs[i] = a2_typeForSignature([signature getArgumentTypeAtIndex: i], allocate);
-			inv->_argumentFrame[i] = allocate(a2_sizeForType(methodArgs[i]));
+			_argumentFrame[i] = allocate(a2_sizeForType(methodArgs[i]));
 		}
 
 		ffi_cif cif;
 		ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argCount, returnType, methodArgs);
 		NSAlwaysAssert(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], block);
 
-		inv.interface = cif;
-		inv.block = block;
-		inv.retainedArguments = [NSMutableSet setWithCapacity: cif.nargs];
-		
-		void *blockRef = (__bridge void *)inv.block;
-		memcpy(inv->_argumentFrame[0], &blockRef, cif.arg_types[0]->size);
+		self.block = block;
+		self.allocations = allocations;
+		self.retainedArguments = [NSMutableSet setWithCapacity: cif.nargs];
+		self.interface = cif;
+
+		void *blockRef = (__bridge void *)self.block;
+		memcpy(_argumentFrame[0], &blockRef, cif.arg_types[0]->size);
+
 	}
-	return inv;
+	return self;
 }
 
 - (NSMethodSignature *) methodSignature
