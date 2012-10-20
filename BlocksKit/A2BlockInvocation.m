@@ -381,16 +381,13 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	else if (returnType == &ffi_type_id)
 	{
 		if (_validReturn)
-			*(__strong id *) _returnValue = nil;
+			*(__autoreleasing id *) _returnValue = nil;
 		else
 			*(__unsafe_unretained id *) _returnValue = nil;
 
-		id value = nil;
-		if (retLoc) value = *(__unsafe_unretained id *)retLoc;
-
-		if (value)
+		if (retLoc)
 		{
-			*(__strong id *) _returnValue = value;
+			*(__strong id *) _returnValue = *(__unsafe_unretained id *)retLoc;
 			_validReturn = YES;
 		}
 		else
