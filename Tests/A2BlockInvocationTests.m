@@ -26,7 +26,8 @@ typedef struct _BigStruct {
 		ran = YES;
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "v@:"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 	[inv invoke];
 
 	STAssertTrue(ran, @"Void block didn't run");
@@ -38,7 +39,8 @@ typedef struct _BigStruct {
 		return (val == 42 && [str isEqualToString:@"Test"]) ? @"YES" : @"NO";
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "@@:i@"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	int firstArgument = 42;
 	NSString *secondArgument = @"Test";
@@ -63,7 +65,8 @@ typedef struct _BigStruct {
 		return ret;
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "{_BigStruct=di*cc}@:i@"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	int firstArgument = 42;
 	NSString *secondArgument = @"Test";
@@ -85,7 +88,8 @@ typedef struct _BigStruct {
 		return (val == 42 && [str isEqualToString:@"Test"]);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "@@:i@"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	int firstArgument = 42;
 	NSString *secondArgument = @"Test";
@@ -104,7 +108,8 @@ typedef struct _BigStruct {
 		return (val == 'Z');
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:c"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	char firstArgument = 'Z';
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -121,7 +126,8 @@ typedef struct _BigStruct {
 		return (val == 'Z');
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:C"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	unsigned char firstArgument = 'Z';
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -138,7 +144,8 @@ typedef struct _BigStruct {
 		return (val == SHRT_MAX);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:s"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	short firstArgument = SHRT_MAX;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -155,7 +162,8 @@ typedef struct _BigStruct {
 		return (val == USHRT_MAX);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:S"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	unsigned short firstArgument = USHRT_MAX;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -172,7 +180,8 @@ typedef struct _BigStruct {
 		return (val == INT_MAX);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:i"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	int firstArgument = INT_MAX;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -189,7 +198,8 @@ typedef struct _BigStruct {
 		return (val == UINT_MAX);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:I"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	unsigned int firstArgument = UINT_MAX;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -206,7 +216,8 @@ typedef struct _BigStruct {
 		return (val == LONG_MAX);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:l"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	long firstArgument = LONG_MAX;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -223,7 +234,8 @@ typedef struct _BigStruct {
 		return (val == ULONG_MAX);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:L"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	unsigned long firstArgument = ULONG_MAX;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -240,7 +252,8 @@ typedef struct _BigStruct {
 		return (val == LLONG_MAX);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:q"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	long long firstArgument = LLONG_MAX;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -257,7 +270,8 @@ typedef struct _BigStruct {
 		return (val == ULLONG_MAX);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:Q"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	unsigned long long firstArgument = ULLONG_MAX;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -274,7 +288,8 @@ typedef struct _BigStruct {
 		return (val == 1.01f);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:f"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	float firstArgument = 1.01f;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -291,7 +306,8 @@ typedef struct _BigStruct {
 		return (val == 1.01);
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:d"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	double firstArgument = 1.01;
 	[inv setArgument: &firstArgument atIndex: 0];
@@ -308,7 +324,8 @@ typedef struct _BigStruct {
 		return ary[0] == 1 && ary[1] == 2 && ary[2] == 3 && ary[3] == 4 && ary[4] == 5;
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "c@:^i"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	int firstArgument[5] = { 1, 2, 3, 4, 5 };
 	int *indirect = firstArgument;
@@ -328,7 +345,8 @@ typedef struct _BigStruct {
 		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second) ? @"YES" : @"NO";
 	};
 
-	A2BlockInvocation *inv = [A2BlockInvocation invocationWithBlock: block];
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "@@:{_BigStruct=di*cc}"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
 
 	int val = 42;
 	NSString *str = @"Test";

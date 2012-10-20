@@ -274,6 +274,8 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 }
 
 @property (nonatomic, copy, readwrite) id block;
+@property (nonatomic, strong, readwrite, setter = a2_setMethodSignature:) NSMethodSignature *methodSignature;
+@property (nonatomic, strong, readwrite, setter = a2_setBlockSignature:) NSMethodSignature *blockSignature;
 @property (nonatomic, strong) NSMutableSet *allocations;
 @property (nonatomic, strong) NSMutableSet *retainedArguments;
 @property (nonatomic) ffi_cif interface;
@@ -282,11 +284,12 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 @implementation A2BlockInvocation
 
-- (id) initWithBlock: (id) block
+- (id) initWithBlock: (id) block methodSignature: (NSMethodSignature *)methodSignature
 {
 	NSParameterAssert(block);
-	NSMethodSignature *signature = a2_blockGetSignature(block);
-	NSAlwaysAssert(signature, @"Incompatible block: %@", block);
+	NSMethodSignature *blockSignature = a2_blockGetSignature(block);
+	NSAlwaysAssert(blockSignature, @"Incompatible block: %@", block);
+	
 	if ((self = [super init])) {
 		NSMutableSet *allocations = [NSMutableSet set];
 		void *(^allocate)(size_t) = ^(size_t howmuch){
@@ -296,22 +299,20 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 			return buffer;
 		};
 
-		ffi_type *returnType = a2_typeForSignature(signature.methodReturnType, allocate);
-		if (returnType->type == FFI_TYPE_VOID) {
+		ffi_type *returnType = a2_typeForSignature(blockSignature.methodReturnType, allocate);
+		if (returnType->type == FFI_TYPE_VOID)
 			_returnLength = 0;
-			_returnValue = NULL;
-		} else {
+		else
 			_returnLength = a2_sizeForType(returnType);
-			_returnValue = allocate(_returnLength);
-		}
+		_returnValue = allocate(_returnLength);
 
-		unsigned int argCount = (unsigned int)signature.numberOfArguments;
+		unsigned int argCount = (unsigned int)blockSignature.numberOfArguments;
 
 		ffi_type **methodArgs = allocate(argCount * sizeof(ffi_type *));
 		_argumentFrame = allocate(argCount * sizeof(void *));
 		for (NSUInteger i = 0; i < argCount; i++)
 		{
-			methodArgs[i] = a2_typeForSignature([signature getArgumentTypeAtIndex: i], allocate);
+			methodArgs[i] = a2_typeForSignature([blockSignature getArgumentTypeAtIndex: i], allocate);
 			_argumentFrame[i] = allocate(a2_sizeForType(methodArgs[i]));
 		}
 
@@ -320,6 +321,8 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		NSAlwaysAssert(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], block);
 
 		self.block = block;
+		self.methodSignature = methodSignature;
+		self.blockSignature = blockSignature;
 		self.allocations = allocations;
 		self.retainedArguments = [NSMutableSet setWithCapacity: cif.nargs];
 		self.interface = cif;
@@ -329,11 +332,6 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 	}
 	return self;
-}
-
-- (NSMethodSignature *) methodSignature
-{
-	return a2_blockGetSignature(self.block);
 }
 
 - (void) clearArguments
@@ -476,9 +474,9 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		if (!type) break;
 
 		size_t argSize = a2_sizeForType(type);
-
 		void *thisArgument = malloc(argSize);
 		if (!thisArgument) break;
+		
 		[inv getArgument: thisArgument atIndex: i + 2];
 		[self setArgument: thisArgument atIndex: i];
 		free(thisArgument);
@@ -493,39 +491,6 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		[inv setReturnValue: returnValue];
 		free(returnValue);
 	}
-}
-
-#pragma mark - Unavailable Methods
-
-+ (NSInvocation *) invocationWithMethodSignature: (NSMethodSignature *) sig
-{
-	[self doesNotRecognizeSelector: _cmd];
-	return nil;
-}
-
-- (id) target
-{
-	[self doesNotRecognizeSelector: _cmd];
-	return nil;
-}
-- (void) setTarget: (id) target
-{
-	[self doesNotRecognizeSelector: _cmd];
-}
-
-- (SEL) selector
-{
-	[self doesNotRecognizeSelector: _cmd];
-	return NULL;
-}
-- (void) setSelector: (SEL) selector
-{
-	[self doesNotRecognizeSelector: _cmd];
-}
-
-- (void) invokeWithTarget: (id) target
-{
-	[self doesNotRecognizeSelector: _cmd];
 }
 
 @end

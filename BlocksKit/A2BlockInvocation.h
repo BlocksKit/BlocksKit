@@ -7,10 +7,12 @@
 
 @interface A2BlockInvocation : NSObject
 
-- (id) initWithBlock: (id) block;
+- (id) initWithBlock: (id) block methodSignature: (NSMethodSignature *)methodSignature;
+
 @property (nonatomic, copy, readonly) id block;
 
-@property (nonatomic, readonly) NSMethodSignature *methodSignature;
+@property (nonatomic, strong, readonly) NSMethodSignature *methodSignature;
+@property (nonatomic, strong, readonly) NSMethodSignature *blockSignature;
 
 - (void) retainArguments;
 - (BOOL) argumentsRetained;

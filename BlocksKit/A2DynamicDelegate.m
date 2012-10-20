@@ -48,14 +48,12 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 @interface A2DynamicDelegate ()
 {
-	NSMutableDictionary *_blockMap;
-	NSMutableDictionary *_signatureMap;
+	NSMutableDictionary *_blockInvocations;
 }
 
 @property (nonatomic, readwrite) Protocol *protocol;
 @property (nonatomic, strong) id classProxy;
-@property (nonatomic, strong, readonly) NSMutableDictionary *blockMap;
-@property (nonatomic, strong, readonly) NSMutableDictionary *signatureMap;
+@property (nonatomic, strong, readonly) NSMutableDictionary *blockInvocations;
 @property (nonatomic, unsafe_unretained, readwrite) id realDelegate;
 
 - (BOOL) isClassProxy;
@@ -105,9 +103,11 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 - (id) init
 {
-	self->_handlers = [NSMutableDictionary dictionary];
+	_handlers = [NSMutableDictionary dictionary];
+	_blockInvocations = [NSMutableDictionary dictionary];
 	return self;
 }
+
 - (id) realDelegate
 {
 	id obj = _realDelegate;
@@ -116,28 +116,16 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	else
 		return obj;
 }
-
 - (NSMethodSignature*) methodSignatureForSelector: (SEL) aSelector
 {
 	NSString *key = NSStringFromSelector(aSelector);
-	if (self.signatureMap[key])
-		return self.signatureMap[key];
+	if (self.blockInvocations[key])
+		return [self.blockInvocations[key] methodSignature];
 	else if ([self.realDelegate methodSignatureForSelector: aSelector])
 		return [self.realDelegate methodSignatureForSelector: aSelector];
 	else if (class_respondsToSelector(object_getClass(self), aSelector))
 		return [object_getClass(self) methodSignatureForSelector: aSelector];
 	return [[NSObject class] methodSignatureForSelector: aSelector];
-}
-
-- (NSMutableDictionary *) blockMap
-{
-	if (!_blockMap) _blockMap = [NSMutableDictionary dictionary];
-	return _blockMap;
-}
-- (NSMutableDictionary *) signatureMap
-{
-	if (!_signatureMap) _signatureMap = [NSMutableDictionary dictionary];
-	return _signatureMap;
 }
 
 + (NSString *) description
@@ -151,7 +139,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 - (void) forwardInvocation: (NSInvocation *) outerInv
 {
-	A2BlockInvocation *innerInv = self.blockMap[NSStringFromSelector(outerInv.selector)];
+	A2BlockInvocation *innerInv = self.blockInvocations[NSStringFromSelector(outerInv.selector)];
 	if (innerInv)
 		[innerInv invokeUsingInvocation: outerInv];
 	else if ([self.realDelegate respondsToSelector: outerInv.selector])
@@ -166,7 +154,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 }
 - (BOOL) respondsToSelector: (SEL) selector
 {
-	return self.blockMap[NSStringFromSelector(selector)] || class_respondsToSelector(object_getClass(self), selector) || [self.realDelegate respondsToSelector: selector];
+	return self.blockInvocations[NSStringFromSelector(selector)] || class_respondsToSelector(object_getClass(self), selector) || [self.realDelegate respondsToSelector: selector];
 }
 
 - (void) doesNotRecognizeSelector: (SEL) aSelector
@@ -178,7 +166,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 - (id) blockImplementationForMethod: (SEL) selector
 {
-	return [self.blockMap[NSStringFromSelector(selector)] block];
+	return [self.blockInvocations[NSStringFromSelector(selector)] block];
 }
 
 - (void) implementMethod: (SEL) selector withBlock: (id) block
@@ -189,8 +177,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 	if (!block)
 	{
-		[self.blockMap removeObjectForKey: key];
-		[self.signatureMap removeObjectForKey: key];
+		[self.blockInvocations removeObjectForKey: key];
 		return;
 	}
 
@@ -198,13 +185,12 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
 	if (!methodDescription.name) return;
 
-	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block];
 	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes: methodDescription.types];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: protoSig];
 
-	NSAlwaysAssert(a2_methodSignaturesCompatible(protoSig, inv.methodSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
+	NSAlwaysAssert(a2_methodSignaturesCompatible(inv.methodSignature, inv.blockSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
 	
-	self.blockMap[key] = inv;
-	self.signatureMap[key] = protoSig;
+	self.blockInvocations[key] = inv;
 }
 - (void) removeBlockImplementationForMethod: (SEL) selector
 {
@@ -246,7 +232,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 }
 - (BOOL) respondsToSelector: (SEL) aSelector
 {
-	return self.blockMap[NSStringFromSelector(aSelector)] || [_proxiedClass respondsToSelector: aSelector];
+	return self.blockInvocations[NSStringFromSelector(aSelector)] || [_proxiedClass respondsToSelector: aSelector];
 }
 
 - (Class) class
@@ -272,8 +258,8 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 - (NSMethodSignature *) methodSignatureForSelector: (SEL) aSelector
 {
 	NSString *key = NSStringFromSelector(aSelector);
-	if (self.signatureMap[key])
-		return self.signatureMap[key];
+	if (self.blockInvocations[key])
+		return [self.blockInvocations[key] methodSignature];
 	else if ([_proxiedClass methodSignatureForSelector: aSelector])
 		return [_proxiedClass methodSignatureForSelector: aSelector];
 	return [[NSObject class] methodSignatureForSelector: aSelector];
@@ -291,7 +277,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 - (void) forwardInvocation: (NSInvocation *) invoc
 {
-	if (self.blockMap[NSStringFromSelector(invoc.selector)])
+	if (self.blockInvocations[NSStringFromSelector(invoc.selector)])
 		[super forwardInvocation: invoc];
 	else
 		[invoc invokeWithTarget: _proxiedClass];
