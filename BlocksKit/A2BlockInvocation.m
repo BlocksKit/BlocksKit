@@ -300,7 +300,10 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		};
 		
 		ffi_type *returnType = a2_typeForSignature(signature.methodReturnType, allocate);
-		inv->_returnLength = a2_sizeForType(returnType);
+		if (returnType->type == FFI_TYPE_VOID)
+			inv->_returnLength = 0;
+		else
+			inv->_returnLength = a2_sizeForType(returnType);
 		inv->_returnValue = allocate(inv->_returnLength);
 
 		unsigned int argCount = (unsigned int)signature.numberOfArguments;
