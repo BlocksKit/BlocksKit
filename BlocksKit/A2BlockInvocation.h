@@ -9,10 +9,10 @@
 
 - (id) initWithBlock: (id) block methodSignature: (NSMethodSignature *)methodSignature;
 
-@property (nonatomic, copy, readonly) id block;
-
 @property (nonatomic, strong, readonly) NSMethodSignature *methodSignature;
 @property (nonatomic, strong, readonly) NSMethodSignature *blockSignature;
+
+- (id) block;
 
 - (void) retainArguments;
 - (BOOL) argumentsRetained;

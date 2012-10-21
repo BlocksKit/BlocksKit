@@ -63,8 +63,8 @@ static NSMethodSignature *a2_blockGetSignature(id block) {
 	return [NSMethodSignature signatureWithObjCTypes: signature];
 }
 
-static void (*a2_blockGetInvoke(__unsafe_unretained id block))(void) {
-	BKBlockRef layout = (__bridge void *) block;
+static void (*a2_blockGetInvoke(void *block))(void) {
+	BKBlockRef layout = block;
 	return layout->invoke;
 }
 
@@ -272,9 +272,9 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	void **_argumentFrame;
 	void *_returnValue;
 	size_t _returnLength;
+	void *_block;
 }
 
-@property (nonatomic, copy, readwrite) id block;
 @property (nonatomic, strong, readwrite, setter = a2_setMethodSignature:) NSMethodSignature *methodSignature;
 @property (nonatomic, strong, readwrite, setter = a2_setBlockSignature:) NSMethodSignature *blockSignature;
 @property (nonatomic, strong) NSMutableArray *allocations;
@@ -321,9 +321,9 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 		ffi_cif cif;
 		ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argCount, returnType, methodArgs);
-		NSAlwaysAssert(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], block);
+		NSAlwaysAssert(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], [self block]);
 
-		self.block = block;
+		_block = (void *) Block_copy((__bridge void *) block);
 		self.methodSignature = methodSignature;
 		self.blockSignature = blockSignature;
 		self.allocations = allocations;
@@ -335,6 +335,11 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	return self;
 }
 
+- (id) block
+{
+	return (__bridge id) _block;
+}
+
 - (void) clearArguments
 {
 	for (int i = 0; i < self.interface.nargs - 1; i++)
@@ -343,6 +348,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 - (void) dealloc
 {
 	[self setReturnValue: nil];
+	Block_release(_block);
 }
 
 - (void) retainArguments
