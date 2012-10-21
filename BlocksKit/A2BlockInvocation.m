@@ -459,7 +459,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 {
 	ffi_cif cif = self.interface;
 	void *returnValue = malloc(_returnLength);
-	ffi_call(&cif, a2_blockGetInvoke(self.block), returnValue, _argumentFrame);
+	ffi_call(&cif, a2_blockGetInvoke(_block), returnValue, _argumentFrame);
 	[self setReturnValue: returnValue];
 	free(returnValue);
 }
