@@ -63,7 +63,7 @@ static NSMethodSignature *a2_blockGetSignature(id block) {
 	return [NSMethodSignature signatureWithObjCTypes: signature];
 }
 
-static void (*a2_blockGetInvoke(id block))(void) {
+static void (*a2_blockGetInvoke(__unsafe_unretained id block))(void) {
 	BKBlockRef layout = (__bridge void *) block;
 	return layout->invoke;
 }
@@ -251,6 +251,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 				index++;
 			}
 
+			type->elements[index] = NULL;
 			return type;
 			break;
 		}
@@ -276,7 +277,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 @property (nonatomic, copy, readwrite) id block;
 @property (nonatomic, strong, readwrite, setter = a2_setMethodSignature:) NSMethodSignature *methodSignature;
 @property (nonatomic, strong, readwrite, setter = a2_setBlockSignature:) NSMethodSignature *blockSignature;
-@property (nonatomic, strong) NSMutableSet *allocations;
+@property (nonatomic, strong) NSMutableArray *allocations;
 @property (nonatomic, strong) NSMutableSet *retainedArguments;
 @property (nonatomic) ffi_cif interface;
 
@@ -291,26 +292,28 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	NSAlwaysAssert(blockSignature, @"Incompatible block: %@", block);
 	
 	if ((self = [super init])) {
-		NSMutableSet *allocations = [NSMutableSet set];
-		void *(^allocate)(size_t) = ^(size_t howmuch) {
-			void *buf = malloc(howmuch);
-			NSData *data = [NSData dataWithBytesNoCopy: buf length: howmuch freeWhenDone: NO];
-			[allocations addObject: data];
-			return buf;
+		NSMutableArray *allocations = [NSMutableArray new];
+
+		void *(^allocate)(size_t) = ^(size_t howmuch){
+			void *buffer = calloc(howmuch, 1);
+			[allocations addObject: [NSData dataWithBytesNoCopy: buffer length: howmuch]];
+			return buffer;
 		};
 
 		ffi_type *returnType = a2_typeForSignature(blockSignature.methodReturnType, allocate);
-		if (returnType->type == FFI_TYPE_VOID)
-			_returnLength = 0;
-		else
+		if (returnType->type != FFI_TYPE_VOID) {
 			_returnLength = a2_sizeForType(returnType);
-		_returnValue = allocate(_returnLength);
+			_returnValue = allocate(_returnLength);
+		}
 
 		unsigned int argCount = (unsigned int)blockSignature.numberOfArguments;
 
 		ffi_type **methodArgs = allocate(argCount * sizeof(ffi_type *));
 		_argumentFrame = allocate(argCount * sizeof(void *));
-		for (NSUInteger i = 0; i < argCount; i++)
+
+		methodArgs[0] = &ffi_type_pointer;
+
+		for (NSUInteger i = 1; i < argCount; i++)
 		{
 			methodArgs[i] = a2_typeForSignature([blockSignature getArgumentTypeAtIndex: i], allocate);
 			_argumentFrame[i] = allocate(a2_sizeForType(methodArgs[i]));
@@ -327,7 +330,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		self.retainedArguments = [NSMutableSet setWithCapacity: cif.nargs];
 		self.interface = cif;
 
-		*(__unsafe_unretained id *)_argumentFrame[0] = self.block;
+		_argumentFrame[0] = &_block;
 	}
 	return self;
 }
@@ -340,10 +343,6 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 - (void) dealloc
 {
 	[self setReturnValue: nil];
-	[self.allocations enumerateObjectsUsingBlock:^(NSData *obj, BOOL *stop) {
-		const void *buf = obj.bytes;
-		free((void *)buf);
-	}];
 }
 
 - (void) retainArguments
