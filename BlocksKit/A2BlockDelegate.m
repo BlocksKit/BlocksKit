@@ -12,6 +12,7 @@
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
 #import "NSObject+AssociatedObjects.h"
+#import "NSDictionary+BlocksKit.h"
 #import <objc/message.h>
 
 #pragma mark - Declarations and macros
@@ -128,7 +129,7 @@ static inline SEL prefixedSelector(SEL selector) {
 }
 + (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) dictionary
 {
-	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *propertyName, NSString *selectorName, __unused BOOL *stop) {
+	[dictionary each:^(NSString *propertyName, NSString *selectorName) {
 		objc_property_t property = class_getProperty(self, propertyName.UTF8String);
 		NSAlwaysAssert(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
 
@@ -154,10 +155,10 @@ static inline SEL prefixedSelector(SEL selector) {
 			cls = [cls superclass];
 		}
 
-		IMP getterImplementation = imp_implementationWithBlock([^(NSObject *delegatingObject){
+		IMP getterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject){
 			return [[delegatingObject dynamicDelegateForProtocol: protocol] blockImplementationForMethod: selector];
-		} copy]);
-		IMP setterImplementation = imp_implementationWithBlock([^(NSObject *delegatingObject, id block){
+		});
+		IMP setterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject, id block){
 			A2DynamicDelegate *dynamicDelegate = [delegatingObject dynamicDelegateForProtocol: protocol];
 
 			if (delegateProperty.length) {
@@ -172,7 +173,7 @@ static inline SEL prefixedSelector(SEL selector) {
 			}
 			
 			[dynamicDelegate implementMethod: selector withBlock: block];
-		} copy]);
+		});
 
 
 		const char *getterTypes = "@@:";

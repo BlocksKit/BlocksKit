@@ -47,9 +47,6 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 #pragma mark -
 
 @interface A2DynamicDelegate ()
-{
-	NSMutableDictionary *_blockInvocations;
-}
 
 @property (nonatomic, readwrite) Protocol *protocol;
 @property (nonatomic, strong) A2DynamicClassDelegate *classProxy;

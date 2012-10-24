@@ -264,9 +264,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	}
 }
 
-@interface A2BlockInvocation ()
-{
-@private
+@interface A2BlockInvocation () {
 	BOOL _argumentsRetained;
 	BOOL _validReturn;
 	void **_argumentFrame;

@@ -56,7 +56,7 @@
  in an instance of NSURLConnection.  It only works on block-backed
  NSURLConnection instances.
  */
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, weak) id delegate;
 
 /** The block fired once the connection recieves a response from the server.
 
