@@ -73,6 +73,10 @@
 		6C6AADA1138372E400203261 /* UIView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6AAD9F138372E300203261 /* UIView+BlocksKit.m */; };
 		6C8063B313C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C8063B613C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8063B213C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m */; };
+		6C9594511638435700DBF5A1 /* NSObject+A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C95944F1638435700DBF5A1 /* NSObject+A2DynamicDelegate.h */; };
+		6C9594521638435700DBF5A1 /* NSObject+A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C95944F1638435700DBF5A1 /* NSObject+A2DynamicDelegate.h */; };
+		6C9594531638435700DBF5A1 /* NSObject+A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9594501638435700DBF5A1 /* NSObject+A2DynamicDelegate.m */; };
+		6C9594541638435700DBF5A1 /* NSObject+A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9594501638435700DBF5A1 /* NSObject+A2DynamicDelegate.m */; };
 		6CC0902013855E8700DDEABB /* NSIndexSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC0901E13855E8600DDEABB /* NSIndexSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC0902113855E8700DDEABB /* NSIndexSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0901F13855E8600DDEABB /* NSIndexSet+BlocksKit.m */; };
 		6CC40A841447BB2900E47595 /* NSArray+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */; };
@@ -291,6 +295,8 @@
 		6C6AAD9F138372E300203261 /* UIView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BlocksKit.m"; sourceTree = "<group>"; };
 		6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableIndexSet+BlocksKit.h"; sourceTree = "<group>"; };
 		6C8063B213C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableIndexSet+BlocksKit.m"; sourceTree = "<group>"; };
+		6C95944F1638435700DBF5A1 /* NSObject+A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+A2DynamicDelegate.h"; sourceTree = "<group>"; };
+		6C9594501638435700DBF5A1 /* NSObject+A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+A2DynamicDelegate.m"; sourceTree = "<group>"; };
 		6CC0901E13855E8600DDEABB /* NSIndexSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BlocksKit.h"; sourceTree = "<group>"; };
 		6CC0901F13855E8600DDEABB /* NSIndexSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BlocksKit.m"; sourceTree = "<group>"; };
 		6CC40A751447BB1400E47595 /* BlocksKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlocksKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -523,6 +529,8 @@
 				6CF22BCC161EAC72002FD317 /* A2BlockInvocation.m */,
 				6CF22BCD161EAC72002FD317 /* A2DynamicDelegate.h */,
 				6CF22BCE161EAC72002FD317 /* A2DynamicDelegate.m */,
+				6C95944F1638435700DBF5A1 /* NSObject+A2DynamicDelegate.h */,
+				6C9594501638435700DBF5A1 /* NSObject+A2DynamicDelegate.m */,
 				6C145416138497D40067A56E /* BKGlobals.h */,
 				6C3DBFB41383050F00E6C9AA /* BKMacros.h */,
 				6C3DBFB21383044600E6C9AA /* BlocksKit.h */,
@@ -840,6 +848,7 @@
 				6CF22C6F161EACBD002FD317 /* ffitarget.h in Headers */,
 				6CF22C70161EACBD002FD317 /* ffitarget_armv7.h in Headers */,
 				6CF22C71161EACBD002FD317 /* ffitarget_i386.h in Headers */,
+				6C9594511638435700DBF5A1 /* NSObject+A2DynamicDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,6 +879,7 @@
 				6CF22BD8161EAC72002FD317 /* A2DynamicDelegate.h in Headers */,
 				6C161C911620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */,
 				6C161C981620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */,
+				6C9594521638435700DBF5A1 /* NSObject+A2DynamicDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1113,6 +1123,7 @@
 				6CF22C89161EACBD002FD317 /* types.c in Sources */,
 				6C161C921620C6E000F04A9A /* NSOrderedSet+BlocksKit.m in Sources */,
 				6C161C991620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m in Sources */,
+				6C9594531638435700DBF5A1 /* NSObject+A2DynamicDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1140,6 +1151,7 @@
 				6CF22BDA161EAC72002FD317 /* A2DynamicDelegate.m in Sources */,
 				6C161C931620C6E000F04A9A /* NSOrderedSet+BlocksKit.m in Sources */,
 				6C161C9A1620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m in Sources */,
+				6C9594541638435700DBF5A1 /* NSObject+A2DynamicDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

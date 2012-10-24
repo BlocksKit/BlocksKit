@@ -39,17 +39,26 @@
 		[alertView release];
 	}
 	
- A2DynamicDelegate is designed to be 'plug and play'. It just works.
- 
- @warning An A2DynamicDelegate cannot simply be allocated. Calling one of the
- A2DynamicDelegate methods on NSObject, -dynamicDataSource, -dynamicDelegate,
- or -dynamicDelegateForProtocol: allows us to store the dynamic delegate as
- an associated object of the delegating object. This not only allows us to
- later retrieve it, but it also creates a strong relationship. Since delegates
- are usually weak references on the part of the delegating object, a dynamic
- delegate would be deallocated immediately after its declaring scope ends.
+ A2DynamicDelegate is designed to be 'plug and play'.
  */
 @interface A2DynamicDelegate : NSProxy
+
+/**
+ * The designated initializer for the A2DynamicDelegate proxy.
+ *
+ * An instance of A2DynamicDelegate should generally not be created by the user,
+ * but instead by calling a method in NSObject(A2DynamicDelegate). Since
+ * delegates are usually weak references on the part of the delegating object, a
+ * dynamic delegate would be deallocated immediately after its declaring scope
+ * ends. NSObject(A2DynamicDelegate) creates a strong reference.
+ *
+ * @param protocol A protocol to which the dynamic delegate should conform.
+ * @return An initialized delegate proxy.
+ */
+- (id)initWithProtocol:(Protocol *)protocol;
+
+/** The protocol delegating the dynamic delegate. */
+@property (nonatomic, readonly) Protocol *protocol;
 
 /** A dictionary of custom handlers to be used by custom responders
  in a A2Dynamic(Protocol Name) subclass of A2DynamicDelegate, like
@@ -59,9 +68,6 @@
 /** When replacing the delegate using the A2BlockDelegate extensions, the object
  responding to classical delegate method implementations. */
 @property (nonatomic, weak, readonly) id realDelegate;
-
-/** The protocol delegating the dynamic delegate. */
-@property (nonatomic, readonly) Protocol *protocol;
 
 /** @name Block Instance Method Implementations */
 
@@ -128,63 +134,5 @@
  @param selector An encoded selector. Must not be NULL.
  */
 - (void) removeBlockImplementationForClassMethod: (SEL) selector;
-
-@end
-
-@interface NSObject (A2DynamicDelegate)
-
-/** Creates or gets a dynamic data source for the reciever.
- 
- A2DynamicDelegate assumes a protocol name `FooBarDataSource`
- for instances of class `FooBar`. The object is given a strong
- attachment to the reciever, and is automatically deallocated
- when the reciever is released.
- 
- If the user implements a `A2DynamicFooBarDataSource` subclass
- of A2DynamicDelegate, its implementation of any method
- will be used over the block. If the block needs to be used,
- it can be called from within the custom
- implementation using blockImplementationForMethod:.
- 
- @see blockImplementationForMethod:
- @return A dynamic data source.
- */
-- (id) dynamicDataSource;
-
-/** Creates or gets a dynamic delegate for the reciever.
- 
- A2DynamicDelegate assumes a protocol name `FooBarDelegate`
- for instances of class `FooBar`. The object is given a strong
- attachment to the reciever, and is automatically deallocated
- when the reciever is released.
- 
- If the user implements a `A2DynamicFooBarDelegate` subclass
- of A2DynamicDelegate, its implementation of any method
- will be used over the block. If the block needs to be used,
- it can be called from within the custom
- implementation using blockImplementationForMethod:.
- 
- @see blockImplementationForMethod:
- @return A dynamic delegate.
- */
-- (id) dynamicDelegate;
-
-/** Creates or gets a dynamic protocol implementation for
- the reciever. The designated initializer.
- 
- The object is given a strong attachment to the reciever,
- and is automatically deallocated when the reciever is released.
- 
- If the user implements a subclass of A2DynamicDelegate prepended
- with `A2Dynamic`, such as `A2DynamicFooProvider`, its
- implementation of any method will be used over the block.
- If the block needs to be used, it can be called from within the
- custom implementation using blockImplementationForMethod:.
- 
- @param protocol A custom protocol.
- @return A dynamic protocol implementation.
- @see blockImplementationForMethod:
- */
-- (id) dynamicDelegateForProtocol: (Protocol *) protocol;
 
 @end

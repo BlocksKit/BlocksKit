@@ -33,7 +33,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 @interface A2DynamicClassDelegate : A2DynamicDelegate
 
-- (id) initWithClass: (Class) proxy;
+@property (nonatomic) Class proxiedClass;
 
 #pragma mark - Unavailable Methods
 
@@ -52,15 +52,11 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 }
 
 @property (nonatomic, readwrite) Protocol *protocol;
-@property (nonatomic, strong) id classProxy;
+@property (nonatomic, strong) A2DynamicClassDelegate *classProxy;
 @property (nonatomic, strong, readonly) NSMutableDictionary *blockInvocations;
 @property (nonatomic, unsafe_unretained, readwrite) id realDelegate;
 
 - (BOOL) isClassProxy;
-
-+ (dispatch_queue_t) dynamicDelegateBackgroundQueue;
-
-- (id) init;
 
 @end
 
@@ -70,8 +66,8 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 {
 	if (!_classProxy)
 	{
-		_classProxy = [[A2DynamicClassDelegate alloc] initWithClass: object_getClass(self)];
-		[_classProxy setProtocol: self.protocol];
+		_classProxy = [[A2DynamicClassDelegate alloc] initWithProtocol: self.protocol];
+		_classProxy.proxiedClass = object_getClass(self);
 	}
 	
 	return _classProxy;
@@ -90,19 +86,9 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	return [super class];
 }
 
-+ (dispatch_queue_t) dynamicDelegateBackgroundQueue
+- (id) initWithProtocol:(Protocol *)protocol
 {
-	static dispatch_once_t onceToken;
-	static dispatch_queue_t backgroundQueue = nil;
-	dispatch_once(&onceToken, ^{
-		backgroundQueue = dispatch_queue_create("us.pandamonia.A2DynamicDelegate.backgroundQueue", DISPATCH_QUEUE_SERIAL);
-	});
-	
-	return backgroundQueue;
-}
-
-- (id) init
-{
+	_protocol = protocol;
 	_handlers = [NSMutableDictionary dictionary];
 	_blockInvocations = [NSMutableDictionary dictionary];
 	return self;
@@ -232,14 +218,9 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	return _proxiedClass;
 }
 
-- (id) init
-{
-	[self doesNotRecognizeSelector: _cmd];
-	return nil;
-}
 - (id) initWithClass: (Class) proxy
 {
-	if ((self = [super init]))
+	if ((self = [super initWithProtocol: NULL]))
 	{
 		_proxiedClass = proxy;
 	}
@@ -294,59 +275,14 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 @end
 
-#pragma mark - NSObject Categories
-
-@implementation NSObject (A2DynamicDelegate)
-
-- (id) dynamicDataSource
-{
-	Protocol *protocol = a2_dataSourceProtocol([self class]);
-	return [self dynamicDelegateForProtocol: protocol];
-}
-- (id) dynamicDelegate
-{
-	Protocol *protocol = a2_delegateProtocol([self class]);
-	return [self dynamicDelegateForProtocol: protocol];
-}
-- (id) dynamicDelegateForProtocol: (Protocol *) protocol
-{
-	/**
-	 * Storing the dynamic delegate as an associated object of the delegating
-	 * object not only allows us to later retrieve the delegate, but it also
-	 * creates a strong relationship to the delegate. Since delegates are weak
-	 * references on the part of the delegating object, a dynamic delegate
-	 * would be deallocated immediately after its declaring scope ends.
-	 * Therefore, this strong relationship is required to ensure that the
-	 * delegate's lifetime is at least as long as that of the delegating object.
-	 **/
-	
-	__block A2DynamicDelegate *dynamicDelegate;
-	
-	dispatch_sync([A2DynamicDelegate dynamicDelegateBackgroundQueue], ^{
-		dynamicDelegate = objc_getAssociatedObject(self, (__bridge const void *)protocol);
-
-		if (!dynamicDelegate)
-		{
-			Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString: NSStringFromProtocol(protocol)]) ?: [A2DynamicDelegate class];
-			dynamicDelegate = [[cls alloc] init];
-			dynamicDelegate.protocol = protocol;
-			objc_setAssociatedObject(self, (__bridge const void *)protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-		}
-	});
-	
-	return dynamicDelegate;
-}
-
-@end
-
-#pragma mark - Functions
+#pragma mark - Helper functions
 
 Protocol *a2_dataSourceProtocol(Class cls)
 {
 	NSString *className = NSStringFromClass(cls);
 	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
-	
+
 	NSAlwaysAssert(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
@@ -355,8 +291,7 @@ Protocol *a2_delegateProtocol(Class cls)
 	NSString *className = NSStringFromClass(cls);
 	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
-	
+
 	NSAlwaysAssert(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
-	
