@@ -7,7 +7,7 @@
 //
 
 #import "NSObject+A2DynamicDelegate.h"
-#import <objc/runtime.h>
+#import "NSObject+AssociatedObjects.h"
 
 #ifndef NSAlwaysAssert
 	#define NSAlwaysAssert(condition, desc, ...) \
@@ -54,13 +54,13 @@ static dispatch_queue_t a2_backgroundQueue(void)
 	__block A2DynamicDelegate *dynamicDelegate;
 
 	dispatch_sync(a2_backgroundQueue(), ^{
-		dynamicDelegate = objc_getAssociatedObject(self, (__bridge const void *)protocol);
+		dynamicDelegate = [self associatedValueForKey: (__bridge const void *)protocol];
 
 		if (!dynamicDelegate)
 		{
 			Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString: NSStringFromProtocol(protocol)]) ?: [A2DynamicDelegate class];
 			dynamicDelegate = [[cls alloc] initWithProtocol: protocol];
-			objc_setAssociatedObject(self, (__bridge const void *)protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+			[self associateValue: dynamicDelegate withKey: (__bridge const void *)protocol];
 		}
 	});
 

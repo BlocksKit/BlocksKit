@@ -6,23 +6,23 @@
 #import "NSObject+AssociatedObjects.h"
 #import <objc/runtime.h>
 
-@implementation NSObject (AssociatedObjects)
+@implementation NSObject (BKAssociatedObjects)
 
 #pragma mark - Instance Methods
 
-- (void)associateValue:(id)value withKey:(const char *)key {
+- (void)associateValue:(id)value withKey:(const void *)key {
 	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)associateCopyOfValue:(id)value withKey:(const char *)key {
+- (void)associateCopyOfValue:(id)value withKey:(const void *)key {
 	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (void)weaklyAssociateValue:(id)value withKey:(const char *)key {
+- (void)weaklyAssociateValue:(id)value withKey:(const void *)key {
 	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (id)associatedValueForKey:(const char *)key {
+- (id)associatedValueForKey:(const void *)key {
 	return objc_getAssociatedObject(self, key);
 }
 
@@ -32,19 +32,19 @@
 
 #pragma mark - Class Methods
 
-+ (void)associateValue:(id)value withKey:(const char *)key {
++ (void)associateValue:(id)value withKey:(const void *)key {
 	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-+ (void)associateCopyOfValue:(id)value withKey:(const char *)key {
++ (void)associateCopyOfValue:(id)value withKey:(const void *)key {
 	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-+ (void)weaklyAssociateValue:(id)value withKey:(const char *)key {
++ (void)weaklyAssociateValue:(id)value withKey:(const void *)key {
 	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN);
 }
 
-+ (id)associatedValueForKey:(const char *)key {
++ (id)associatedValueForKey:(const void *)key {
 	return objc_getAssociatedObject(self, key);
 }
 

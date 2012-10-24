@@ -11,6 +11,7 @@
 
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
+#import "NSObject+AssociatedObjects.h"
 #import <objc/message.h>
 
 #pragma mark - Declarations and macros
@@ -86,12 +87,12 @@ static inline SEL prefixedSelector(SEL selector) {
 
 + (NSMutableDictionary *) bk_delegateNameMap
 {
-	NSMutableDictionary *propertyMap = objc_getAssociatedObject(self, _cmd);
+	NSMutableDictionary *propertyMap = [self associatedValueForKey: _cmd];
 
 	if (!propertyMap)
 	{
 		propertyMap = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, _cmd, propertyMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		[self associateValue: propertyMap withKey: _cmd];
 	}
 
 	return propertyMap;
