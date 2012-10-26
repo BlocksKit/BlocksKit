@@ -32,6 +32,12 @@ static char kBarButtonItemBlockKey;
 	return self;
 }
 
+- (id)initWithCustomView:(UIView *)customView handler:(BKSenderBlock)action {
+    self = [self initWithCustomView:customView];
+	[self associateCopyOfValue:action withKey:&kBarButtonItemBlockKey];
+    return self;
+}
+
 - (void)_handleAction:(UIBarButtonItem *)sender {
 	BKSenderBlock block = [self associatedValueForKey:&kBarButtonItemBlockKey];
 	if (block)
