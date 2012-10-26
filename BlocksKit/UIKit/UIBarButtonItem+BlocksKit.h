@@ -48,4 +48,13 @@
  */
 - (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action;
 
+/** Creates and returns a configured item using the specified custom view.
+ 
+ @return Newly initialized item with the specified properties.
+ @param title The text displayed on the button item.
+ @param handler A custom view representing the item.
+ @param action The block that gets fired on the button press.
+ */
+- (id)initWithCustomView:(UIView *)customView handler:(BKSenderBlock)action;
+
 @end
