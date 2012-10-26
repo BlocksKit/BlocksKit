@@ -84,7 +84,7 @@ static inline SEL prefixedSelector(SEL selector) {
 
 @implementation NSObject (A2BlockDelegate)
 
-#pragma mark Helpers
+#pragma mark Helper
 
 + (NSMutableDictionary *) bk_delegateNameMap
 {
@@ -99,34 +99,18 @@ static inline SEL prefixedSelector(SEL selector) {
 	return propertyMap;
 }
 
-#pragma mark Data Source
+#pragma mark Linking block properties
 
-+ (void) linkCategoryBlockProperty: (NSString *) propertyName withDataSourceMethod: (SEL) selector
-{
-	[self linkProtocol: a2_dataSourceProtocol(self) methods: @{ propertyName : NSStringFromSelector(selector) }];
-}
 + (void) linkDataSourceMethods: (NSDictionary *) dictionary
 {
 	[self linkProtocol: a2_dataSourceProtocol(self) methods: dictionary];
 }
 
-#pragma mark Delegate
-
-+ (void) linkCategoryBlockProperty: (NSString *) propertyName withDelegateMethod: (SEL) selector
-{
-	[self linkProtocol: a2_delegateProtocol(self) methods: @{ propertyName : NSStringFromSelector(selector) }];
-}
 + (void) linkDelegateMethods: (NSDictionary *) dictionary
 {
 	[self linkProtocol: a2_delegateProtocol(self) methods: dictionary];
 }
 
-#pragma mark Other Protocol
-
-+ (void) linkCategoryBlockProperty: (NSString *) propertyName withProtocol: (Protocol *) protocol method: (SEL) selector
-{
-	[self linkProtocol: protocol methods: @{ propertyName : NSStringFromSelector(selector) }];
-}
 + (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) dictionary
 {
 	[dictionary each:^(NSString *propertyName, NSString *selectorName) {
@@ -186,7 +170,7 @@ static inline SEL prefixedSelector(SEL selector) {
 	}];
 }
 
-#pragma mark Register Dynamic Delegate
+#pragma mark Dynamic Delegate Replacement
 
 + (void) registerDynamicDataSource
 {

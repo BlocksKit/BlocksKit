@@ -14,7 +14,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testReturnObjectBlock" withDelegateMethod:@selector(testReturnObject)];
+		[self linkDelegateMethods: @{ @"testReturnObjectBlock": @"testReturnObject" }];
 	}
 }
 
@@ -28,7 +28,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testReturnStructBlock" withDelegateMethod:@selector(testReturnStruct)];
+		[self linkDelegateMethods: @{ @"testReturnStructBlock": @"testReturnStruct" }];
 	}
 }
 
@@ -42,7 +42,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithObjectBlock" withDelegateMethod:@selector(testWithObject:)];
+		[self linkDelegateMethods: @{ @"testWithObjectBlock": @"testWithObject:" }];
 	}
 }
 
@@ -56,7 +56,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithCharBlock" withDelegateMethod:@selector(testWithChar:)];
+		[self linkDelegateMethods: @{ @"testWithCharBlock": @"testWithChar:" }];
 	}
 }
 
@@ -70,7 +70,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithUCharBlock" withDelegateMethod:@selector(testWithUChar:)];
+		[self linkDelegateMethods: @{ @"testWithUCharBlock": @"testWithUChar:" }];
 	}
 }
 
@@ -84,7 +84,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithShortBlock" withDelegateMethod:@selector(testWithShort:)];
+		[self linkDelegateMethods: @{ @"testWithShortBlock": @"testWithShort:" }];
 	}
 }
 
@@ -98,7 +98,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithUShortBlock" withDelegateMethod:@selector(testWithUShort:)];
+		[self linkDelegateMethods: @{ @"testWithUShortBlock": @"testWithUShort:" }];
 	}
 }
 
@@ -112,7 +112,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithIntBlock" withDelegateMethod:@selector(testWithInt:)];
+		[self linkDelegateMethods: @{ @"testWithIntBlock": @"testWithInt:" }];
 	}
 }
 
@@ -126,7 +126,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithUIntBlock" withDelegateMethod:@selector(testWithUInt:)];
+		[self linkDelegateMethods: @{ @"testWithUIntBlock": @"testWithUInt:" }];
 	}
 }
 
@@ -140,7 +140,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithLongBlock" withDelegateMethod:@selector(testWithLong:)];
+		[self linkDelegateMethods: @{ @"testWithLongBlock": @"testWithLong:" }];
 	}
 }
 
@@ -154,7 +154,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithULongBlock" withDelegateMethod:@selector(testWithULong:)];
+		[self linkDelegateMethods: @{ @"testWithULongBlock": @"testWithULong:" }];
 	}
 }
 
@@ -168,7 +168,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithLongLongBlock" withDelegateMethod:@selector(testWithLongLong:)];
+		[self linkDelegateMethods: @{ @"testWithLongLongBlock": @"testWithLongLong:" }];
 	}
 }
 
@@ -182,7 +182,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithULongLongBlock" withDelegateMethod:@selector(testWithULongLong:)];
+		[self linkDelegateMethods: @{ @"testWithULongLongBlock": @"testWithULongLong:" }];
 	}
 }
 
@@ -196,7 +196,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithFloatBlock" withDelegateMethod:@selector(testWithFloat:)];
+		[self linkDelegateMethods: @{ @"testWithFloatBlock": @"testWithFloat:" }];
 	}
 }
 
@@ -210,7 +210,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithDoubleBlock" withDelegateMethod:@selector(testWithDouble:)];
+		[self linkDelegateMethods: @{ @"testWithDoubleBlock": @"testWithDouble:" }];
 	}
 }
 
@@ -224,7 +224,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithArrayBlock" withDelegateMethod:@selector(testWithArray:)];
+		[self linkDelegateMethods: @{ @"testWithArrayBlock": @"testWithArray:" }];
 	}
 }
 
@@ -238,7 +238,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkCategoryBlockProperty:@"testWithStructBlock" withDelegateMethod:@selector(testPassStruct:)];
+		[self linkDelegateMethods: @{ @"testWithStructBlock": @"testPassStruct:" }];
 	}
 }
 

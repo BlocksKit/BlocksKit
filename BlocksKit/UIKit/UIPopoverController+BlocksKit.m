@@ -50,8 +50,7 @@
 	@autoreleasepool
 	{
 		[self registerDynamicDelegate];
-		[self linkCategoryBlockProperty: @"didDismissBlock" withDelegateMethod: @selector(popoverControllerDidDismissPopover:)];
-		[self linkCategoryBlockProperty: @"shouldDismissBlock" withDelegateMethod: @selector(popoverControllerShouldDismissPopover:)];
+		[self linkDelegateMethods: @{ @"didDismissBlock": @"popoverControllerDidDismissPopover:", @"shouldDismissBlock": @"popoverControllerShouldDismissPopover:" }];
 	}
 }
 

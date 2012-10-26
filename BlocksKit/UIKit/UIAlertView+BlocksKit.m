@@ -106,11 +106,11 @@
 	@autoreleasepool {
 		[self registerDynamicDelegate];
 		[self linkDelegateMethods: @{
-		 @"willShowBlock" : @"willPresentAlertView:",
-		 @"didShowBlock" : @"didPresentAlertView:",
-		 @"willDismissBlock" : @"alertView:willDismissWithButtonIndex:",
-		 @"didDismissBlock" : @"alertView:didDismissWithButtonIndex:",
-		 @"shouldEnableFirstOtherButtonBlock" : @"alertViewShouldEnableFirstOtherButton:"
+		 @"willShowBlock": @"willPresentAlertView:",
+		 @"didShowBlock": @"didPresentAlertView:",
+		 @"willDismissBlock": @"alertView:willDismissWithButtonIndex:",
+		 @"didDismissBlock": @"alertView:didDismissWithButtonIndex:",
+		 @"shouldEnableFirstOtherButtonBlock": @"alertViewShouldEnableFirstOtherButton:"
 		}];
 	}
 }

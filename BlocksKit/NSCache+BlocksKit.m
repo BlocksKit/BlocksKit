@@ -34,7 +34,7 @@
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegate];
-		[self linkCategoryBlockProperty:@"willEvictBlock" withDelegateMethod:@selector(cache:willEvictObject:)];
+		[self linkDelegateMethods: @{ @"willEvictBlock": @"cache:willEvictObject:" }];
 	}
 }
 

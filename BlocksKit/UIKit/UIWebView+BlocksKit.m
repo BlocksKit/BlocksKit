@@ -68,10 +68,10 @@
 	@autoreleasepool {
 		[self registerDynamicDelegate];
 		[self linkDelegateMethods: @{
-		 @"shouldStartLoadBlock" : @"webView:shouldStartLoadWithRequest:navigationType:",
-		 @"didStartLoadBlock" : @"webViewDidStartLoad:",
-		 @"didFinishLoadBlock" : @"webViewDidFinishLoad:",
-		 @"didFinishWithErrorBlock" : @"webView:didFailLoadWithError:"
+		 @"shouldStartLoadBlock": @"webView:shouldStartLoadWithRequest:navigationType:",
+		 @"didStartLoadBlock": @"webViewDidStartLoad:",
+		 @"didFinishLoadBlock": @"webViewDidFinishLoad:",
+		 @"didFinishWithErrorBlock": @"webView:didFailLoadWithError:"
 		}];
 	}
 }

@@ -26,19 +26,7 @@
  */
 @interface NSObject (A2BlockDelegate)
 
-/** @name Data Source Properties */
-
-/** Synthesizes a property with the given name and links it to the given
- selector in the data source protocol.
- 
- A2DynamicDelegate assumes a protocol name `FooBarDataSource` for instances of
- class `FooBar`. The method will generate appropriate `setHandler:` and
- `handler` implementations for the given property name.
- 
- @param propertyName A property name to synthesize. Must not be NULL.
- @param selector An encoded selector. Must not be NULL.
- */
-+ (void) linkCategoryBlockProperty: (NSString *) propertyName withDataSourceMethod: (SEL) selector;
+/** @name Linking Block Properties */
 
 /** Synthesizes multiple properties and links them to the appropriate selector
  in the data source protocol.
@@ -52,20 +40,6 @@
  */
 + (void) linkDataSourceMethods: (NSDictionary *) selectorsForPropertyNames;
 
-/** @name Delegate Properties */
-
-/** Synthesizes a property with the given name and links it to the given
- selector in the delegate protocol.
- 
- A2DynamicDelegate assumes a protocol name `FooBarDelegate` for instances of
- class `FooBar`. The method will generate appropriate `setHandler:` and
- `handler` implementations for the given property name.
- 
- @param propertyName A property name to synthesize. Must not be NULL.
- @param selector An encoded selector. Must not be NULL.
- */
-+ (void) linkCategoryBlockProperty: (NSString *) propertyName withDelegateMethod: (SEL) selector;
-
 /** Synthesizes multiple properties and links them to the appropriate selector
  in the delegate protocol.
  
@@ -77,20 +51,6 @@
  selectors strings as objects.
  */
 + (void) linkDelegateMethods: (NSDictionary *) selectorsForPropertyNames;
-
-/** @name Other Protocol Properties */
-
-/** Synthesizes a property with the given name and links it to the given
- selector in the given protocol.
- 
- The method will generate appropriate `setHandler:` and `handler`
- implementations for the given property name.
- 
- @param propertyName A property name to synthesize. Must not be NULL.
- @param protocol A protocol that declares the given selector. Must not be NULL.
- @param selector An encoded selector. Must not be NULL.
- */
-+ (void) linkCategoryBlockProperty: (NSString *) propertyName withProtocol: (Protocol *) protocol method: (SEL) selector;
 
 /** Synthesizes multiple properties and links them to the appropriate selector
  in the given protocol.

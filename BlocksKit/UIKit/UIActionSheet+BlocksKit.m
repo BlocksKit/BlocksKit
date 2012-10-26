@@ -86,10 +86,10 @@
 	@autoreleasepool {
 		[self registerDynamicDelegate];
 		[self linkDelegateMethods: @{
-		 @"willShowBlock" : @"willPresentActionSheet:",
-		 @"didShowBlock" : @"didPresentActionSheet:",
-		 @"willDismissBlock" : @"actionSheet:willDismissWithButtonIndex:",
-		 @"didDismissBlock" : @"actionSheet:didDismissWithButtonIndex:"
+		 @"willShowBlock": @"willPresentActionSheet:",
+		 @"didShowBlock": @"didPresentActionSheet:",
+		 @"willDismissBlock": @"actionSheet:willDismissWithButtonIndex:",
+		 @"didDismissBlock": @"actionSheet:didDismissWithButtonIndex:"
 		}];
 	}
 }
