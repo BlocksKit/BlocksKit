@@ -40,6 +40,8 @@
 #import "NSMutableDictionary+BlocksKit.h"
 #import "NSIndexSet+BlocksKit.h"
 #import "NSMutableIndexSet+BlocksKit.h"
+#import "NSOrderedSet+BlocksKit.h"
+#import "NSMutableOrderedSet+BlocksKit.h"
 
 #import "NSInvocation+BlocksKit.h"
 #import "NSTimer+BlocksKit.h"
