@@ -119,7 +119,7 @@
 
 + (void) showAlertViewWithTitle: (NSString *) title message: (NSString *) message cancelButtonTitle: (NSString *) cancelButtonTitle otherButtonTitles: (NSArray *) otherButtonTitles handler: (void (^)(UIAlertView *, NSInteger)) block
 {
-	UIAlertView *alertView = [UIAlertView alertViewWithTitle: title message: message];
+	UIAlertView *alertView = [[self class] alertViewWithTitle: title message: message];
 	
 	// If no buttons were specified, cancel button becomes "Dismiss"
 	if (!cancelButtonTitle.length && !otherButtonTitles.count)
@@ -155,7 +155,7 @@
 }
 
 + (id)alertViewWithTitle:(NSString *)title message:(NSString *)message {
-	return [[UIAlertView alloc] initWithTitle:title message:message];
+	return [[[self class] alloc] initWithTitle:title message:message];
 }
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message {
