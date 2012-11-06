@@ -1365,7 +1365,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_DYNAMIC_NO_PIC = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				SDKROOT = iphoneos;
@@ -1377,7 +1376,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_DYNAMIC_NO_PIC = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRIVATE_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "../$(PRODUCT_NAME)/$(PRODUCT_NAME)";
 				SDKROOT = iphoneos;
@@ -1392,7 +1390,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1406,7 +1403,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
