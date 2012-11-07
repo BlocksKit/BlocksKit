@@ -17,11 +17,6 @@
 
 #pragma mark - Declarations and macros
 
-#ifndef NSAlwaysAssert
-	#define NSAlwaysAssert(condition, desc, ...) \
-		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, (desc)], ## __VA_ARGS__]; } } while(0)
-#endif
-
 extern Protocol *a2_dataSourceProtocol(Class cls);
 extern Protocol *a2_delegateProtocol(Class cls);
 
@@ -115,14 +110,14 @@ static inline SEL prefixedSelector(SEL selector) {
 {
 	[dictionary each:^(NSString *propertyName, NSString *selectorName) {
 		objc_property_t property = class_getProperty(self, propertyName.UTF8String);
-		NSAlwaysAssert(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
+		NSCAssert2(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
 
 		char *dynamic = property_copyAttributeValue(property, "D");
-		NSAlwaysAssert(dynamic, @"Property \"%@\" on class %s must be backed with \"@dynamic\"", propertyName, class_getName(self));
+		NSCAssert2(dynamic, @"Property \"%@\" on class %s must be backed with \"@dynamic\"", propertyName, class_getName(self));
 		free(dynamic);
 
 		char *copy = property_copyAttributeValue(property, "C");
-		NSAlwaysAssert(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
+		NSCAssert2(copy, @"Property \"%@\" on class %s must be defined with the \"copy\" attribute", propertyName, class_getName(self));
 		free(copy);
 
 		SEL selector = NSSelectorFromString(selectorName);
@@ -162,11 +157,11 @@ static inline SEL prefixedSelector(SEL selector) {
 
 		const char *getterTypes = "@@:";
 		BOOL success = class_addMethod(self, getter, getterImplementation, getterTypes);
-		NSAlwaysAssert(success, @"Could not implement getter for \"%@\" property.", propertyName);
+		NSCAssert1(success, @"Could not implement getter for \"%@\" property.", propertyName);
 
 		const char *setterTypes = "v@:@";
 		success = class_addMethod(self, setter, setterImplementation, setterTypes);
-		NSAlwaysAssert(success, @"Could not implement setter for \"%@\" property.", propertyName);
+		NSCAssert1(success, @"Could not implement setter for \"%@\" property.", propertyName);
 	}];
 }
 

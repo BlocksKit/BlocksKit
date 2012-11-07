@@ -68,13 +68,6 @@ static void (*a2_blockGetInvoke(void *block))(void) {
 	return layout->invoke;
 }
 
-#pragma mark - Declarations and macros
-
-#ifndef NSAlwaysAssert
-	#define NSAlwaysAssert(condition, desc, ...) \
-		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
-#endif
-
 #pragma mark - Core Graphics FFI types
 
 static const ffi_type *_ffi_type_elements_nsrange[] = { &ffi_type_ulong, &ffi_type_ulong, NULL };
@@ -287,7 +280,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 {
 	NSParameterAssert(block);
 	NSMethodSignature *blockSignature = a2_blockGetSignature(block);
-	NSAlwaysAssert(blockSignature, @"Incompatible block: %@", block);
+	NSCAssert1(blockSignature, @"Incompatible block: %@", block);
 	
 	if ((self = [super init])) {
 		NSMutableArray *allocations = [NSMutableArray new];
@@ -319,7 +312,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 		ffi_cif cif;
 		ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argCount, returnType, methodArgs);
-		NSAlwaysAssert(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], [self block]);
+		NSCAssert2(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], [self block]);
 
 		_block = (void *) Block_copy((__bridge void *) block);
 		self.methodSignature = methodSignature;

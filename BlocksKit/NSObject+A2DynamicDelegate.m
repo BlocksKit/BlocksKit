@@ -9,11 +9,6 @@
 #import "NSObject+A2DynamicDelegate.h"
 #import "NSObject+AssociatedObjects.h"
 
-#ifndef NSAlwaysAssert
-	#define NSAlwaysAssert(condition, desc, ...) \
-		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
-#endif
-
 extern Protocol *a2_dataSourceProtocol(Class cls);
 extern Protocol *a2_delegateProtocol(Class cls);
 

@@ -10,11 +10,6 @@
 #import "A2BlockInvocation.h"
 #import <objc/message.h>
 
-#ifndef NSAlwaysAssert
-	#define NSAlwaysAssert(condition, desc, ...) \
-		do { if (!(condition)) { [NSException raise: NSInternalInconsistencyException format: [NSString stringWithFormat: @"%s: %@", __PRETTY_FUNCTION__, desc], ## __VA_ARGS__]; } } while(0)
-#endif
-
 Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
 
@@ -146,7 +141,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 - (void) implementMethod: (SEL) selector withBlock: (id) block
 {
-	NSAlwaysAssert(selector, @"Attempt to implement or remove NULL selector");
+	NSCAssert(selector, @"Attempt to implement or remove NULL selector");
 	BOOL isClassMethod = self.isClassProxy;
 	NSString *key = NSStringFromSelector(selector);
 
@@ -163,7 +158,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes: methodDescription.types];
 	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: protoSig];
 
-	NSAlwaysAssert(a2_methodSignaturesCompatible(inv.methodSignature, inv.blockSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
+	NSCAssert3(a2_methodSignaturesCompatible(inv.methodSignature, inv.blockSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
 	
 	self.blockInvocations[key] = inv;
 }
@@ -280,7 +275,7 @@ Protocol *a2_dataSourceProtocol(Class cls)
 	NSString *protocolName = [className stringByAppendingString: @"DataSource"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 
-	NSAlwaysAssert(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
+	NSCAssert2(protocol, @"Specify protocol explicitly: could not determine data source protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
 Protocol *a2_delegateProtocol(Class cls)
@@ -289,6 +284,6 @@ Protocol *a2_delegateProtocol(Class cls)
 	NSString *protocolName = [className stringByAppendingString: @"Delegate"];
 	Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
 
-	NSAlwaysAssert(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
+	NSCAssert2(protocol, @"Specify protocol explicitly: could not determine delegate protocol for class %@ (tried <%@>)", className, protocolName);
 	return protocol;
 }
