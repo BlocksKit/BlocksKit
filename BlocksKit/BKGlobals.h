@@ -12,12 +12,15 @@
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 #define BK_HAS_UIKIT 0
 #define BK_HAS_APPKIT 1
+#define BK_MAKE_CATEGORY_LOADABLE(NAME)
 #elif (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 #define BK_HAS_UIKIT 1
 #define BK_HAS_APPKIT 0
+#define BK_MAKE_CATEGORY_LOADABLE(NAME) @interface FORCELOAD_##NAME @end @implementation FORCELOAD_##NAME @end
 #else
 #define BK_HAS_UIKIT 0
 #define BK_HAS_APPKIT 0
+#define BK_MAKE_CATEGORY_LOADABLE(NAME)
 #endif
 
 #ifndef DEPRECATED_ATTRIBUTE_M
@@ -26,10 +29,6 @@
 #else
 #define DEPRECATED_ATTRIBUTE_M(...) DEPRECATED_ATTRIBUTE
 #endif
-#endif
-
-#ifndef BK_MAKE_CATEGORY_LOADABLE
-#define BK_MAKE_CATEGORY_LOADABLE(NAME) @interface FORCELOAD_##NAME @end @implementation FORCELOAD_##NAME @end
 #endif
 
 #import <Foundation/Foundation.h>
