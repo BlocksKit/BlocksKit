@@ -1386,6 +1386,7 @@
 		6CC40A821447BB1400E47595 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
@@ -1399,6 +1400,7 @@
 		6CC40A831447BB1400E47595 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
