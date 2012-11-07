@@ -51,7 +51,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 @property (nonatomic, readwrite) Protocol *protocol;
 @property (nonatomic, strong) A2DynamicClassDelegate *classProxy;
 @property (nonatomic, strong, readonly) NSMutableDictionary *blockInvocations;
-@property (nonatomic, unsafe_unretained, readwrite) id realDelegate;
+@property (nonatomic, weak, readwrite) id realDelegate;
 
 - (BOOL) isClassProxy;
 
