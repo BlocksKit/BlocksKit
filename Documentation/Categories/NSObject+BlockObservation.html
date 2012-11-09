@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -158,12 +158,12 @@ and a bunch of code and a bunch of potential bugs.</p>
 <p>Includes code by the following:</p>
 
 <ul>
-<li>Andy Matuschak. <a href="https://github.com/andymatuschak">https://github.com/andymatuschak</a>. 2009. Public domain.</li>
-<li>Jon Sterling. <a href="https://github.com/jonsterling">https://github.com/jonsterling</a>. 2010. Public domain.</li>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
-<li>Jonathan Wight. <a href="https://github.com/schwa">https://github.com/schwa</a>. 2011. BSD.</li>
+<li><a href="https://github.com/andymatuschak">Andy Matuschak</a></li>
+<li><a href="https://github.com/jonsterling">Jon Sterling</a></li>
+<li><a href="https://github.com/zwaldowski">Zach Waldowski</a></li>
+<li><a href="https://github.com/schwa">Jonathan Wight</a></li>
 </ul>
-<div class="warning"><p><em>Important:</em> Due to a design flaw in some recent versions of the
+<div class="warning"><p><strong>Warning:</strong> <em>Important:</em> Due to a design flaw in some recent versions of the
 Objective-C runtime, you must call either a block overserver removal
 method in the dealloc method of any object making use of block-backed
 key-value observing. This has been fixed in the OS X 10.7 and iOS 5.0
@@ -273,9 +273,11 @@ runtime.</p></div>
 		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)addObserverForKeyPath:(NSString *)<em>keyPath</em> identifier:(NSString *)<em>token</em> options:(NSKeyValueObservingOptions)<em>options</em> task:(BKObservationBlock)<em>task</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -311,7 +313,9 @@ observation with removeObserverWithBlockToken:.</p></dd>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Adds a block observer that executes the block upon a
+		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
+
+<p>Adds a block observer that executes the block upon a
 state change.</p>
 	</div>
 	
@@ -348,9 +352,11 @@ state change.</p>
 		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSString *)addObserverForKeyPath:(NSString *)<em>keyPath</em> options:(NSKeyValueObservingOptions)<em>options</em> task:(BKObservationBlock)<em>task</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -387,7 +393,9 @@ observation with removeObserverWithBlockToken:.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Adds a block observer that executes a block upon a state change
+		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
+
+<p>Adds a block observer that executes a block upon a state change
 with specific options.</p>
 	</div>
 	
@@ -424,9 +432,11 @@ with specific options.</p>
 		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSString *)addObserverForKeyPath:(NSString *)<em>keyPath</em> task:(BKSenderBlock)<em>task</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -457,7 +467,9 @@ observation with removeObserverWithBlockToken:.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Adds a block observer that executes a block upon a state change.</p>
+		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
+
+<p>Adds a block observer that executes a block upon a state change.</p>
 	</div>
 	
 	
@@ -493,9 +505,11 @@ observation with removeObserverWithBlockToken:.</p>
 		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)addObserverForKeyPaths:(NSArray *)<em>keyPaths</em> identifier:(NSString *)<em>token</em> options:(NSKeyValueObservingOptions)<em>options</em> task:(BKMultipleObservationBlock)<em>task</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -531,7 +545,9 @@ observation with <a href="#//api/name/removeObserversWithIdentifier:">removeObse
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Adds a block observer that executes the same block upon
+		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
+
+<p>Adds a block observer that executes the same block upon
 multiple state changes.</p>
 	</div>
 	
@@ -568,9 +584,11 @@ multiple state changes.</p>
 		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSString *)addObserverForKeyPaths:(NSArray *)<em>keyPaths</em> options:(NSKeyValueObservingOptions)<em>options</em> task:(BKMultipleObservationBlock)<em>task</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -606,7 +624,9 @@ observation with removeObserverWithBlockToken:.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Adds a block observer that executes the same block upon
+		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
+
+<p>Adds a block observer that executes the same block upon
 multiple state changes with specific options.</p>
 	</div>
 	
@@ -643,9 +663,11 @@ multiple state changes with specific options.</p>
 		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSString *)addObserverForKeyPaths:(NSArray *)<em>keyPaths</em> task:(BKSenderKeyPathBlock)<em>task</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -677,7 +699,9 @@ observation with removeObserverWithBlockToken:.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Adds a block observer that executes the same block upon
+		<p>Adds an observer to an object conforming to NSKeyValueObserving.</p>
+
+<p>Adds a block observer that executes the same block upon
 multiple state changes.</p>
 	</div>
 	
@@ -714,8 +738,11 @@ multiple state changes.</p>
 		<p>Remove all registered block observers.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)removeAllBlockObservers</code></div>
+
+    
 	
 	
 	
@@ -723,6 +750,10 @@ multiple state changes.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Remove all registered block observers.</p>
+	</div>
 	
 	
 	
@@ -748,9 +779,11 @@ multiple state changes.</p>
 		<p>Removes a block observer.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)removeObserverForKeyPath:(NSString *)<em>keyPath</em> identifier:(NSString *)<em>token</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -773,6 +806,11 @@ or the identifier given in addObserverForKeyPath:identifier:task:.</p></dd>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Removes a block observer.</p>
+	</div>
 	
 	
 	
@@ -807,9 +845,11 @@ or the identifier given in addObserverForKeyPath:identifier:task:.</p></dd>
 		<p>Removes multiple block observers with a certain identifier.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)removeObserversWithIdentifier:(NSString *)<em>token</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -829,6 +869,11 @@ addObserverForKeyPaths:identifier:task:.</p></dd>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Removes multiple block observers with a certain identifier.</p>
+	</div>
 	
 	
 	
@@ -866,9 +911,9 @@ addObserverForKeyPaths:identifier:task:.</p></dd>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -956,6 +1001,14 @@ addObserverForKeyPaths:identifier:task:.</p></dd>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

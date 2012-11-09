@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -116,8 +116,7 @@
 						<h2 class="subtitle subtitle-overview">Overview</h2>
 						<p>Simple category on NSTimer to give it blocks capability.</p>
 
-<p>Created by Jiva DeVoe as <a href="https://github.com/jivadevoe/NSTimer-Blocks">NSTimer-Blocks</a>.
-Licensed under MIT.</p>
+<p>Created by <a href="https://github.com/jivadevoe">Jiva DeVoe</a> as <code>NSTimer-Blocks</code>.</p>
 					</div>
 					
 					
@@ -172,68 +171,11 @@ Licensed under MIT.</p>
 		<p>Creates and returns a block-based NSTimer object and schedules it on the current run loop.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)<em>inTimeInterval</em> block:(BKTimerBlock)<em>inBlock</em> repeats:(BOOL)<em>inRepeats</em></code></div>
-	
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>inTimeInterval</em></dt>
-			<dd><p>The number of seconds between firings of the timer.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>inBlock</em></dt>
-			<dd><p>The block that the NSTimer fires.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>inRepeats</em></dt>
-			<dd><p>If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>A new NSTimer object, configured according to the specified parameters.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSTimer+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/timerWithTimeInterval:block:repeats:" title="timerWithTimeInterval:block:repeats:"></a>
-	<h3 class="subsubtitle method-title">timerWithTimeInterval:block:repeats:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Creates and returns a block-based NSTimer initialized with the specified block.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>+ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)<em>inTimeInterval</em> block:(BKTimerBlock)<em>inBlock</em> repeats:(BOOL)<em>inRepeats</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -268,7 +210,75 @@ Licensed under MIT.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>You must add the new timer to a run loop, using <code>-addTimer:forMode:</code>. Then,
+		<p>Creates and returns a block-based NSTimer object and schedules it on the current run loop.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">NSTimer+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/timerWithTimeInterval:block:repeats:" title="timerWithTimeInterval:block:repeats:"></a>
+	<h3 class="subsubtitle method-title">timerWithTimeInterval:block:repeats:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates and returns a block-based NSTimer initialized with the specified block.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)<em>inTimeInterval</em> block:(BKTimerBlock)<em>inBlock</em> repeats:(BOOL)<em>inRepeats</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>inTimeInterval</em></dt>
+			<dd><p>The number of seconds between firings of the timer.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>inBlock</em></dt>
+			<dd><p>The block that the NSTimer fires.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>inRepeats</em></dt>
+			<dd><p>If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new NSTimer object, configured according to the specified parameters.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and returns a block-based NSTimer initialized with the specified block.</p>
+
+<p>You must add the new timer to a run loop, using <code>-addTimer:forMode:</code>. Then,
 after seconds seconds have elapsed, the timer fires the block.  If the timer
 is configured to repeat, there is no need to subsequently re-add the timer.</p>
 	</div>
@@ -302,9 +312,9 @@ is configured to repeat, there is no need to subsequently re-add the timer.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -392,6 +402,14 @@ is configured to repeat, there is no need to subsequently re-add the timer.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

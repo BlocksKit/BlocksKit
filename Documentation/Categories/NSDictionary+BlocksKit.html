@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -151,8 +151,8 @@ saves quite a bit of boilerplate code.</p>
 <p>Includes code by the following:</p>
 
 <ul>
-<li>Mirko Kiefer.   <a href="https://github.com/mirkok">https://github.com/mirkok</a>.  2011.</li>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
+<li><a href="https://github.com/mirkok">Mirko Kiefer</a></li>
+<li><a href="https://github.com/zwaldowski">Zach Waldowski</a></li>
 </ul>
 
 					</div>
@@ -262,9 +262,11 @@ and a new set of values.</p></span>
 		<p>Loops through a dictionary to find whether all key/value pairs match the block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (BOOL)all:(BKKeyValueValidationBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -286,6 +288,11 @@ and a new set of values.</p></span>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Loops through a dictionary to find whether all key/value pairs match the block.</p>
+	</div>
 	
 	
 	
@@ -311,9 +318,11 @@ and a new set of values.</p></span>
 		<p>Loops through a dictionary to find whether any key/value pair matches the block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (BOOL)any:(BKKeyValueValidationBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -338,9 +347,11 @@ and a new set of values.</p></span>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This method is similar to the Scala list <code>exists</code>. It is functionally
+		<p>Loops through a dictionary to find whether any key/value pair matches the block.</p>
+
+<p>This method is similar to the Scala list <code>exists</code>. It is functionally
 identical to <a href="#//api/name/match:">match:</a> but returns a <code>BOOL</code> instead. It is not recommended
-to use <a href="#//api/name/any:">any:</a> as a check condition before executing <a href="#//api/name/match:">match:</a>, since it would
+to use any: as a check condition before executing <a href="#//api/name/match:">match:</a>, since it would
 require two loops through the dictionary.</p>
 	</div>
 	
@@ -369,9 +380,11 @@ require two loops through the dictionary.</p>
 the given block once for each pair.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)apply:(BKKeyValueBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -391,7 +404,10 @@ the given block once for each pair.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Enumeration will occur on appropriate background queues;
+		<p>Enumerates through the dictionary concurrently and executes
+the given block once for each pair.</p>
+
+<p>Enumeration will occur on appropriate background queues;
 the system will spawn threads as need for execution. This
 will have a noticeable speed increase, especially on dual-core
 devices, but you <em>must</em> be aware of the thread safety of the
@@ -422,9 +438,11 @@ objects you message from within the block.</p>
 		<p>Loops through the dictionary and executes the given block using each item.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)each:(BKKeyValueBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -441,6 +459,11 @@ objects you message from within the block.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Loops through the dictionary and executes the given block using each item.</p>
+	</div>
 	
 	
 	
@@ -467,9 +490,11 @@ objects you message from within the block.</p>
 and a new set of values.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSDictionary *)map:(BKKeyValueTransformBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -491,6 +516,12 @@ and a new set of values.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Call the block once for each object and create a dictionary with the same keys
+and a new set of values.</p>
+	</div>
 	
 	
 	
@@ -516,9 +547,11 @@ and a new set of values.</p>
 		<p>Loops through a dictionary to find the first key/value pair matching the block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (id)match:(BKKeyValueValidationBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -543,7 +576,9 @@ and a new set of values.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p><a href="#//api/name/match:">match:</a> is functionally identical to <a href="#//api/name/select:">select:</a>, but will stop and return
+		<p>Loops through a dictionary to find the first key/value pair matching the block.</p>
+
+<p>match: is functionally identical to <a href="#//api/name/select:">select:</a>, but will stop and return
 the value on the first match.</p>
 	</div>
 	
@@ -571,9 +606,11 @@ the value on the first match.</p>
 		<p>Loops through a dictionary to find whether no key/value pairs match the block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (BOOL)none:(BKKeyValueValidationBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -598,7 +635,9 @@ the value on the first match.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This selector performs <em>literally</em> the exact same function as <a href="#//api/name/all:">all:</a> but in reverse.</p>
+		<p>Loops through a dictionary to find whether no key/value pairs match the block.</p>
+
+<p>This selector performs <em>literally</em> the exact same function as <a href="#//api/name/all:">all:</a> but in reverse.</p>
 	</div>
 	
 	
@@ -625,9 +664,11 @@ the value on the first match.</p>
 		<p>Loops through a dictionary to find the key/value pairs not matching the block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSDictionary *)reject:(BKKeyValueValidationBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -652,7 +693,9 @@ the value on the first match.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This selector performs <em>literally</em> the exact same function as select: but in reverse.</p>
+		<p>Loops through a dictionary to find the key/value pairs not matching the block.</p>
+
+<p>This selector performs <em>literally</em> the exact same function as select: but in reverse.</p>
 
 <p>This is useful, as one may expect, for filtering objects.</p>
 
@@ -686,9 +729,11 @@ the value on the first match.</p>
 		<p>Loops through a dictionary to find the key/value pairs matching the block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSDictionary *)select:(BKKeyValueValidationBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -710,6 +755,11 @@ the value on the first match.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Loops through a dictionary to find the key/value pairs matching the block.</p>
+	</div>
 	
 	
 	
@@ -738,9 +788,9 @@ the value on the first match.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -828,6 +878,14 @@ the value on the first match.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

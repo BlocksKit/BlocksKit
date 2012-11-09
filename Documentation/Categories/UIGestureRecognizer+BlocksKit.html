@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -179,13 +179,13 @@ things, it is more flexible and allows for much more complicated setups.</p>
 <p>Includes code by the following:</p>
 
 <ul>
-<li>Kevin O'Neill.  <a href="https://github.com/kevinoneill">https://github.com/kevinoneill</a>. 2011. BSD.</li>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>.  2011. MIT.</li>
+<li><a href="https://github.com/kevinoneill">Kevin O'Neill</a></li>
+<li><a href="https://github.com/zwaldowski">Zach Waldowski</a></li>
 </ul>
-<div class="warning"><p>UIGestureRecognizer is only available on iOS or in a Mac app using Chameleon.</p></div><div class="warning"><p>It is not recommended to use the Apple-supplied locationInView and state
+<div class="warning"><p><strong>Warning:</strong> UIGestureRecognizer is only available on a platform with UIKit.</p></div><div class="warning"><p><strong>Warning:</strong> It is not recommended to use the Apple-supplied locationInView and state
 methods on a <em>delayed</em> block-backed gesture recognizer, as these properties are
 likely to have been cleared by the time by the block fires.  It is instead recommended
-to use the arguments provided to the block in BlocksKit builds after 15 Jun. 2011.</p></div>
+to use the arguments provided to the block.</p></div>
 					</div>
 					
 					
@@ -287,9 +287,11 @@ will stop it from firing, but only if a delay is set.</p></span>
 recognizer will be fired to modify.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic) NSTimeInterval delay DEPRECATED_ATTRIBUTE_M ( &quot;Use handlerDelay&quot; )</code></div>
-	
+
+    
 	
 	
 	
@@ -299,7 +301,8 @@ recognizer will be fired to modify.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p>Due to a collision with an internal method in
+		<p>Allows the length of the delay after which the gesture
+recognizer will be fired to modify.</p><div class="warning"><p><strong>Warning:</strong> Due to a collision with an internal method in
 UILongPressGestureRecognizer, this method was replaced
 with <a href="#//api/name/handlerDelay">handlerDelay</a> starting in BlocksKit 1.0.5.</p></div>
 	</div>
@@ -329,8 +332,11 @@ with <a href="#//api/name/handlerDelay">handlerDelay</a> starting in BlocksKit 1
 to be modified after the fact.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BKGestureRecognizerBlock handler</code></div>
+
+    
 	
 	
 	
@@ -338,6 +344,11 @@ to be modified after the fact.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Allows the block that will be fired by the gesture recognizer
+to be modified after the fact.</p>
+	</div>
 	
 	
 	
@@ -364,8 +375,11 @@ to be modified after the fact.</p>
 recognizer will be fired to modify.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic) NSTimeInterval handlerDelay</code></div>
+
+    
 	
 	
 	
@@ -373,6 +387,11 @@ recognizer will be fired to modify.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Allows the length of the delay after which the gesture
+recognizer will be fired to modify.</p>
+	</div>
 	
 	
 	
@@ -406,9 +425,11 @@ recognizer will be fired to modify.</p>
 		<p>An autoreleased gesture recognizer that will call the given block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (id)recognizerWithHandler:(BKGestureRecognizerBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -434,7 +455,9 @@ subclass, or <code>nil</code>.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>For convenience and compatibility reasons, this method is indentical
+		<p>An autoreleased gesture recognizer that will call the given block.</p>
+
+<p>For convenience and compatibility reasons, this method is indentical
 to using <a href="#//api/name/recognizerWithHandler:delay:">recognizerWithHandler:delay:</a> with a delay of 0.0.</p>
 	</div>
 	
@@ -463,9 +486,11 @@ to using <a href="#//api/name/recognizerWithHandler:delay:">recognizerWithHandle
 the given block asynchronously after a number of seconds.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (id)recognizerWithHandler:(BKGestureRecognizerBlock)<em>block</em> delay:(NSTimeInterval)<em>delay</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -492,6 +517,12 @@ the given block asynchronously after a number of seconds.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>An autoreleased gesture recognizer that will, on firing, call
+the given block asynchronously after a number of seconds.</p>
+	</div>
 	
 	
 	
@@ -526,9 +557,11 @@ the given block asynchronously after a number of seconds.</p>
 will stop it from firing, but only if a delay is set.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)cancel</code></div>
-	
+
+    
 	
 	
 	
@@ -538,7 +571,8 @@ will stop it from firing, but only if a delay is set.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p>This method is not for arbitrarily canceling the
+		<p>If the recognizer happens to be fired, calling this method
+will stop it from firing, but only if a delay is set.</p><div class="warning"><p><strong>Warning:</strong> This method is not for arbitrarily canceling the
 firing of a recognizer, but will only function for a block
 <a href="#//api/name/handler">handler</a> <em>after the recognizer has already been fired</em>.  Be
 sure to make your delay times accomodate this likelihood.</p></div>
@@ -568,9 +602,11 @@ sure to make your delay times accomodate this likelihood.</p></div>
 		<p>Initializes an allocated gesture recognizer that will call the given block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (id)initWithHandler:(BKGestureRecognizerBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -595,7 +631,9 @@ sure to make your delay times accomodate this likelihood.</p></div>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This method is indentical to calling <a href="#//api/name/initWithHandler:delay:">initWithHandler:delay:</a> with a delay of 0.0.</p>
+		<p>Initializes an allocated gesture recognizer that will call the given block.</p>
+
+<p>This method is indentical to calling <a href="#//api/name/initWithHandler:delay:">initWithHandler:delay:</a> with a delay of 0.0.</p>
 	</div>
 	
 	
@@ -623,9 +661,11 @@ sure to make your delay times accomodate this likelihood.</p></div>
 after a given delay.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (id)initWithHandler:(BKGestureRecognizerBlock)<em>block</em> delay:(NSTimeInterval)<em>delay</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -655,7 +695,10 @@ after a given delay.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>An alternative to the designated initializer.</p>
+		<p>Initializes an allocated gesture recognizer that will call the given block
+after a given delay.</p>
+
+<p>An alternative to the designated initializer.</p>
 	</div>
 	
 	
@@ -685,9 +728,9 @@ after a given delay.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -775,6 +818,14 @@ after a given delay.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

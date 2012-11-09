@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -146,11 +146,11 @@
 <p>Includes code by the following:</p>
 
 <ul>
-<li>Kevin O'Neill.  <a href="https://github.com/kevinoneill">https://github.com/kevinoneill</a>. 2011. BSD.</li>
-<li>Jake Marsh.    <a href="https://github.com/jakemarsh">https://github.com/jakemarsh</a>.   2011.</li>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>.  2011. MIT.</li>
+<li>Kevin O'Neill. <a href="https://github.com/kevinoneill">https://github.com/kevinoneill</a>. 2011. BSD.</li>
+<li>Jake Marsh. <a href="https://github.com/jakemarsh">https://github.com/jakemarsh</a>. 2011.</li>
+<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011.</li>
 </ul>
-<div class="warning"><p>UIView is only available on iOS or in a Mac app using Chameleon.</p></div>
+<div class="warning"><p><strong>Warning:</strong> UIView is only available on a platform with UIKit.</p></div>
 					</div>
 					
 					
@@ -238,9 +238,11 @@
 		<p>The block that gets called on a finger down.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BKTouchBlock onTouchDownBlock</code></div>
-	
+
+    
 	
 	
 	
@@ -250,7 +252,9 @@
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Internally, this method overrides the touchesBegan:withEvent:
+		<p>The block that gets called on a finger down.</p>
+
+<p>Internally, this method overrides the touchesBegan:withEvent:
 selector of UIView and is mechanically similar to
 UIControlEventTouchDown.</p>
 	</div>
@@ -279,9 +283,11 @@ UIControlEventTouchDown.</p>
 		<p>The block that gets called on a finger drag.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BKTouchBlock onTouchMoveBlock</code></div>
-	
+
+    
 	
 	
 	
@@ -291,7 +297,9 @@ UIControlEventTouchDown.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Internally, this method overrides the touchesMoved:withEvent:
+		<p>The block that gets called on a finger drag.</p>
+
+<p>Internally, this method overrides the touchesMoved:withEvent:
 selector of UIView.</p>
 	</div>
 	
@@ -319,9 +327,11 @@ selector of UIView.</p>
 		<p>The block that gets called on a finger up.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BKTouchBlock onTouchUpBlock</code></div>
-	
+
+    
 	
 	
 	
@@ -331,7 +341,9 @@ selector of UIView.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Internally, this method overrides the touchesBegan:withEvent:
+		<p>The block that gets called on a finger up.</p>
+
+<p>Internally, this method overrides the touchesBegan:withEvent:
 selector of UIView and is mechanically similar to
 UIControlEventTouchCancel.</p>
 	</div>
@@ -370,9 +382,11 @@ UIControlEventTouchCancel.</p>
 		<p>A convenience wrapper that non-recursively loops through the subviews of a view.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)eachSubview:(void ( ^ ) ( UIView *))<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -389,6 +403,11 @@ UIControlEventTouchCancel.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>A convenience wrapper that non-recursively loops through the subviews of a view.</p>
+	</div>
 	
 	
 	
@@ -414,9 +433,11 @@ UIControlEventTouchCancel.</p>
 		<p>Adds a recognizer for one finger tapping twice.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)whenDoubleTapped:(BKBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -436,7 +457,7 @@ UIControlEventTouchCancel.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p>This method has an <em>additive</em> effect. Do not call it multiple
+		<p>Adds a recognizer for one finger tapping twice.</p><div class="warning"><p><strong>Warning:</strong> This method has an <em>additive</em> effect. Do not call it multiple
 times to set-up or tear-down. The view will discard the gesture recognizer
 on release.</p></div>
 	</div>
@@ -476,9 +497,11 @@ on release.</p></div>
 		<p>Adds a recognizer for one finger tapping once.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)whenTapped:(BKBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -498,7 +521,7 @@ on release.</p></div>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p>This method has an <em>additive</em> effect. Do not call it multiple
+		<p>Adds a recognizer for one finger tapping once.</p><div class="warning"><p><strong>Warning:</strong> This method has an <em>additive</em> effect. Do not call it multiple
 times to set-up or tear-down. The view will discard the gesture recognizer
 on release.</p></div>
 	</div>
@@ -538,9 +561,11 @@ on release.</p></div>
 		<p>Abstract creation of a block-backed UITapGestureRecognizer.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)whenTouches:(NSUInteger)<em>numberOfTouches</em> tapped:(NSUInteger)<em>numberOfTaps</em> handler:(BKBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -570,10 +595,12 @@ on release.</p></div>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This method allows for the recognition of any arbitrary number
+		<p>Abstract creation of a block-backed UITapGestureRecognizer.</p>
+
+<p>This method allows for the recognition of any arbitrary number
 of fingers tapping any number of times on a view.  An instance
 of UITapGesture recognizer is allocated for the block and added
-to the recieving view.</p><div class="warning"><p>This method has an <em>additive</em> effect. Do not call it multiple
+to the recieving view.</p><div class="warning"><p><strong>Warning:</strong> This method has an <em>additive</em> effect. Do not call it multiple
 times to set-up or tear-down. The view will discard the gesture recognizer
 on release.</p></div>
 	</div>
@@ -616,9 +643,9 @@ on release.</p></div>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -706,6 +733,14 @@ on release.</p></div>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

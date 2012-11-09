@@ -2,22 +2,22 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>NSObject(AssociatedObjects) Category Reference</title>
+		<title>NSObject(BKAssociatedObjects) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">NSObject(AssociatedObjects) Category Reference</h1>
+				<h1 class="hideInXcode">NSObject(BKAssociatedObjects) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -126,7 +126,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="NSObject(AssociatedObjects) Category Reference" name="top"></a>
+				<a title="NSObject(BKAssociatedObjects) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -135,7 +135,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">NSObject(AssociatedObjects) Category Reference</h1>
+						<h1 class="title title-header">NSObject(BKAssociatedObjects) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -153,23 +153,21 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Objective-C wrapper for 10.6 associated object API.</p>
+						<p>Objective-C wrapper for 10.6+ associated object API.</p>
 
-<p>In Mac OS X Snow Leopard and iOS 3.0, Apple introduced an
-addition to the Objective-C Runtime called associated objects.
-Associated objects allow for the pairing of a random key and
-object pair to be saved on an instance.</p>
+<p>In Mac OS X Snow Leopard and iOS 3.0, Apple introduced an addition to the
+Objective-C Runtime called associated objects. Associated objects allow for the
+pairing of a random key and object pair to be saved on an instance.</p>
 
-<p>In BlocksKit, associated objects allow us to emulate instance
-variables in the categories we use.</p>
+<p>In BlocksKit, associated objects allow us to emulate instance variables in the
+ategories we use.</p>
 
-<p>Class methods also exist for each association. These associations
-are unique to each class, and exist for the lifetime of the
-application unless set to <code>nil</code>. Each class is a unique meta-object;
-the ultimate singleton.</p>
+<p>Class methods also exist for each association. These associations are unique to
+each class, and exist for the lifetime of the application unless set to <code>nil</code>.
+Each class is a unique meta-object; the ultimate singleton.</p>
 
-<p>Created by Andy Matuschak as <a href="https://github.com/andymatuschak/NSObject-AssociatedObjects">AMAssociatedObjects</a>.
-Licensed in the public domain.</p>
+<p>Created by <a href="https://github.com/andymatuschak">Andy Matuschak</a> as
+<code>AMAssociatedObjects</code>.</p>
 					</div>
 					
 					
@@ -282,9 +280,11 @@ all associated objects, releasing them if necessary.</p></span>
 		<p>Associates a copy of an object with the receiving class.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>+ (void)associateCopyOfValue:(id)<em>value</em> withKey:(const char *)<em>key</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)associateCopyOfValue:(id)<em>value</em> withKey:(const void *)<em>key</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -306,6 +306,11 @@ all associated objects, releasing them if necessary.</p></span>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Associates a copy of an object with the receiving class.</p>
+	</div>
 	
 	
 	
@@ -340,9 +345,11 @@ all associated objects, releasing them if necessary.</p></span>
 		<p>Strongly associates an object with the receiving class.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>+ (void)associateValue:(id)<em>value</em> withKey:(const char *)<em>key</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)associateValue:(id)<em>value</em> withKey:(const void *)<em>key</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -364,6 +371,11 @@ all associated objects, releasing them if necessary.</p></span>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Strongly associates an object with the receiving class.</p>
+	</div>
 	
 	
 	
@@ -398,9 +410,11 @@ all associated objects, releasing them if necessary.</p></span>
 		<p>Returns the associated value for a key on the receiving class.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>+ (id)associatedValueForKey:(const char *)<em>key</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (id)associatedValueForKey:(const void *)<em>key</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -422,6 +436,11 @@ all associated objects, releasing them if necessary.</p></span>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns the associated value for a key on the receiving class.</p>
+	</div>
 	
 	
 	
@@ -457,8 +476,11 @@ all associated objects, releasing them if necessary.</p></span>
 all associated objects, releasing them if necessary.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (void)removeAllAssociatedObjects</code></div>
+
+    
 	
 	
 	
@@ -466,6 +488,11 @@ all associated objects, releasing them if necessary.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns the recieving class to a clean state by removing
+all associated objects, releasing them if necessary.</p>
+	</div>
 	
 	
 	
@@ -491,9 +518,11 @@ all associated objects, releasing them if necessary.</p>
 		<p>Weakly associates an object with the receiving class.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>+ (void)weaklyAssociateValue:(id)<em>value</em> withKey:(const char *)<em>key</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)weaklyAssociateValue:(id)<em>value</em> withKey:(const void *)<em>key</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -515,6 +544,11 @@ all associated objects, releasing them if necessary.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Weakly associates an object with the receiving class.</p>
+	</div>
 	
 	
 	
@@ -557,9 +591,11 @@ all associated objects, releasing them if necessary.</p>
 		<p>Associates a copy of an object with the reciever.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>- (void)associateCopyOfValue:(id)<em>value</em> withKey:(const char *)<em>key</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)associateCopyOfValue:(id)<em>value</em> withKey:(const void *)<em>key</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -584,7 +620,9 @@ all associated objects, releasing them if necessary.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>The associated value is copied as if it were a property
+		<p>Associates a copy of an object with the reciever.</p>
+
+<p>The associated value is copied as if it were a property
 synthesized with <code>nonatomic</code> and <code>copy</code>.</p>
 
 <p>Using copied association is recommended for a block or
@@ -615,9 +653,11 @@ otherwise <code>NSCopying</code>-compliant instances like NSString.</p>
 		<p>Strongly associates an object with the reciever.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>- (void)associateValue:(id)<em>value</em> withKey:(const char *)<em>key</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)associateValue:(id)<em>value</em> withKey:(const void *)<em>key</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -642,7 +682,9 @@ otherwise <code>NSCopying</code>-compliant instances like NSString.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>The associated value is retained as if it were a property
+		<p>Strongly associates an object with the reciever.</p>
+
+<p>The associated value is retained as if it were a property
 synthesized with <code>nonatomic</code> and <code>retain</code>.</p>
 
 <p>Using retained association is strongly recommended for most
@@ -675,9 +717,11 @@ when it is subject to being externally released or is in an
 		<p>Returns the associated value for a key on the reciever.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>- (id)associatedValueForKey:(const char *)<em>key</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)associatedValueForKey:(const void *)<em>key</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -699,6 +743,11 @@ when it is subject to being externally released or is in an
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns the associated value for a key on the reciever.</p>
+	</div>
 	
 	
 	
@@ -725,8 +774,11 @@ when it is subject to being externally released or is in an
 associated objects, releasing them if necessary.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)removeAllAssociatedObjects</code></div>
+
+    
 	
 	
 	
@@ -734,6 +786,11 @@ associated objects, releasing them if necessary.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns the reciever to a clean state by removing all
+associated objects, releasing them if necessary.</p>
+	</div>
 	
 	
 	
@@ -759,9 +816,11 @@ associated objects, releasing them if necessary.</p>
 		<p>Weakly associates an object with the reciever.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>- (void)weaklyAssociateValue:(id)<em>value</em> withKey:(const char *)<em>key</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)weaklyAssociateValue:(id)<em>value</em> withKey:(const void *)<em>key</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -786,7 +845,9 @@ associated objects, releasing them if necessary.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>A weak association will cause the pointer to be set to zero
+		<p>Weakly associates an object with the reciever.</p>
+
+<p>A weak association will cause the pointer to be set to zero
 or nil upon the disappearance of what it references;
 in other words, the associated object is not kept alive.</p>
 	</div>
@@ -818,9 +879,9 @@ in other words, the associated object is not kept alive.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -908,6 +969,14 @@ in other words, the associated object is not kept alive.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

@@ -2,22 +2,22 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>NSMutableDictionary(BlocksKit) Category Reference</title>
+		<title>UIBarButtonItem(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">NSMutableDictionary(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">UIBarButtonItem(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -44,11 +44,11 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
-	<option value="//api/name/performMap:">&nbsp;&nbsp;&nbsp;&nbsp;- performMap:</option>
+	<option value="//api/name/initWithBarButtonSystemItem:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithBarButtonSystemItem:handler:</option>
 	
-	<option value="//api/name/performReject:">&nbsp;&nbsp;&nbsp;&nbsp;- performReject:</option>
+	<option value="//api/name/initWithImage:style:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithImage:style:handler:</option>
 	
-	<option value="//api/name/performSelect:">&nbsp;&nbsp;&nbsp;&nbsp;- performSelect:</option>
+	<option value="//api/name/initWithTitle:style:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithTitle:style:handler:</option>
 	
 	
 	
@@ -78,11 +78,11 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performMap:">performMap:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithBarButtonSystemItem:handler:">initWithBarButtonSystemItem:handler:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performReject:">performReject:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithImage:style:handler:">initWithImage:style:handler:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performSelect:">performSelect:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithTitle:style:handler:">initWithTitle:style:handler:</a></span></li>
 	
 </ul></li>
 
@@ -91,7 +91,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="NSMutableDictionary(BlocksKit) Category Reference" name="top"></a>
+				<a title="UIBarButtonItem(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -100,7 +100,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">NSMutableDictionary(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">UIBarButtonItem(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -108,7 +108,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">NSMutableDictionary+BlocksKit.h</td>
+	<td class="specification-value">UIBarButtonItem+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -118,20 +118,19 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Block extensions for NSMutableDictionary.</p>
+						<p>Block event initialization for UIBarButtonItem.</p>
 
-<p>These utilities expound upon the BlocksKit additions
-to the immutable superclass by allowing certain utilities
-to work on an instance of the mutable class, saving memory
-by not creating an immutable copy of the results.</p>
+<p>This set of extensions has near-drop-in replacements
+for the standard set of UIBarButton item initializations,
+using a block handler instead of a target/selector.</p>
 
 <p>Includes code by the following:</p>
 
 <ul>
-<li>Martin Schürrer.  <a href="https://github.com/MSch">https://github.com/MSch</a>.   2011. MIT.</li>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
+<li><a href="https://github.com/kevinoneill">Kevin O'Neill</a></li>
+<li><a href="https://github.com/zwaldowski">Zach Waldowski</a></li>
 </ul>
-
+<div class="warning"><p><strong>Warning:</strong> UIBarButtonItem is only available on a platform with UIKit.</p></div>
 					</div>
 					
 					
@@ -149,24 +148,22 @@ by not creating an immutable copy of the results.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/performSelect:">&ndash;&nbsp;performSelect:</a></code>
-		<span class="tooltip"><p>Filters a mutable dictionary to the key/value pairs matching the block.</p></span>
+		<code><a href="#//api/name/initWithBarButtonSystemItem:handler:">&ndash;&nbsp;initWithBarButtonSystemItem:handler:</a></code>
+		<span class="tooltip"><p>Creates and returns a configured item containing the specified system item.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/performReject:">&ndash;&nbsp;performReject:</a></code>
-		<span class="tooltip"><p>Filters a mutable dictionary to the key/value pairs not matching the block,
-the logical inverse to select:.</p></span>
+		<code><a href="#//api/name/initWithImage:style:handler:">&ndash;&nbsp;initWithImage:style:handler:</a></code>
+		<span class="tooltip"><p>Creates and returns a configured item using the specified image and style.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/performMap:">&ndash;&nbsp;performMap:</a></code>
-		<span class="tooltip"><p>Transform each value of the dictionary to a new value, as returned by the
-block.</p></span>
+		<code><a href="#//api/name/initWithTitle:style:handler:">&ndash;&nbsp;initWithTitle:style:handler:</a></code>
+		<span class="tooltip"><p>Creates and returns a configured item using the specified text and style.</p></span>
 	</span>
 	
 	
@@ -188,35 +185,51 @@ block.</p></span>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/performMap:" title="performMap:"></a>
-	<h3 class="subsubtitle method-title">performMap:</h3>
+	<a name="//api/name/initWithBarButtonSystemItem:handler:" title="initWithBarButtonSystemItem:handler:"></a>
+	<h3 class="subsubtitle method-title">initWithBarButtonSystemItem:handler:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Transform each value of the dictionary to a new value, as returned by the
-block.</p>
+		<p>Creates and returns a configured item containing the specified system item.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>- (void)performMap:(BKKeyValueTransformBlock)<em>block</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithBarButtonSystemItem:(UIBarButtonSystemItem)<em>systemItem</em> handler:(BKSenderBlock)<em>action</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A block that returns a new value for a given key/value pair.</p></dd>
+			<dt><em>systemItem</em></dt>
+			<dd><p>The system item to use as the item representation. One of the constants defined in UIBarButtonSystemItem.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>action</em></dt>
+			<dd><p>The block that gets fired on the button press.</p></dd>
 		</dl>
 		
 	</div>
 	
 	
 	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Newly initialized item with the specified properties.</p>
+	</div>
 	
 	
 	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and returns a configured item containing the specified system item.</p>
+	</div>
 	
 	
 	
@@ -226,42 +239,65 @@ block.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableDictionary+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIBarButtonItem+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/performReject:" title="performReject:"></a>
-	<h3 class="subsubtitle method-title">performReject:</h3>
+	<a name="//api/name/initWithImage:style:handler:" title="initWithImage:style:handler:"></a>
+	<h3 class="subsubtitle method-title">initWithImage:style:handler:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Filters a mutable dictionary to the key/value pairs not matching the block,
-the logical inverse to select:.</p>
+		<p>Creates and returns a configured item using the specified image and style.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>- (void)performReject:(BKKeyValueValidationBlock)<em>block</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithImage:(UIImage *)<em>image</em> style:(UIBarButtonItemStyle)<em>style</em> handler:(BKSenderBlock)<em>action</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A BOOL-returning code block for a key/value pair.</p></dd>
+			<dt><em>image</em></dt>
+			<dd><p>The item’s image. If nil an image is not displayed.
+If this image is too large to fit on the bar, it is scaled to fit
+The size of a toolbar and navigation bar image is 20 x 20 points.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>style</em></dt>
+			<dd><p>The style of the item. One of the constants defined in UIBarButtonItemStyle.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>action</em></dt>
+			<dd><p>The block that gets fired on the button press.</p></dd>
 		</dl>
 		
 	</div>
 	
 	
 	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Newly initialized item with the specified properties.</p>
+	</div>
 	
 	
 	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and returns a configured item using the specified image and style.</p>
+	</div>
 	
 	
 	
@@ -271,41 +307,63 @@ the logical inverse to select:.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableDictionary+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIBarButtonItem+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/performSelect:" title="performSelect:"></a>
-	<h3 class="subsubtitle method-title">performSelect:</h3>
+	<a name="//api/name/initWithTitle:style:handler:" title="initWithTitle:style:handler:"></a>
+	<h3 class="subsubtitle method-title">initWithTitle:style:handler:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Filters a mutable dictionary to the key/value pairs matching the block.</p>
+		<p>Creates and returns a configured item using the specified text and style.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>- (void)performSelect:(BKKeyValueValidationBlock)<em>block</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithTitle:(NSString *)<em>title</em> style:(UIBarButtonItemStyle)<em>style</em> handler:(BKSenderBlock)<em>action</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A BOOL-returning code block for a key/value pair.</p></dd>
+			<dt><em>title</em></dt>
+			<dd><p>The text displayed on the button item.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>style</em></dt>
+			<dd><p>The style of the item. One of the constants defined in UIBarButtonItemStyle.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>action</em></dt>
+			<dd><p>The block that gets fired on the button press.</p></dd>
 		</dl>
 		
 	</div>
 	
 	
 	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Newly initialized item with the specified properties.</p>
+	</div>
 	
 	
 	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and returns a configured item using the specified text and style.</p>
+	</div>
 	
 	
 	
@@ -315,7 +373,7 @@ the logical inverse to select:.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableDictionary+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIBarButtonItem+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -334,9 +392,9 @@ the logical inverse to select:.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -424,6 +482,14 @@ the logical inverse to select:.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

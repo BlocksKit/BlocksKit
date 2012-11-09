@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -208,11 +208,11 @@ using the methods here, you must add buttons using
 <p>Includes code by the following:</p>
 
 <ul>
-<li>Landon Fuller, &ldquo;Using Blocks&rdquo;.  <a href="http://landonf.bikemonkey.org">http://landonf.bikemonkey.org</a>.</li>
-<li>Peter Steinberger. <a href="https://github.com/steipete">https://github.com/steipete</a>.   2011. MIT.</li>
-<li>Zach Waldowski.   <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
+<li><a href="http://landonf.bikemonkey.org">Landon Fuller</a>, &ldquo;Using Blocks&rdquo;.</li>
+<li><a href="https://github.com/steipete">Peter Steinberger</a></li>
+<li><a href="https://github.com/zwaldowski">Zach Waldowski</a></li>
 </ul>
-<div class="warning"><p>UIAlertView is only available on iOS or in a Mac app using Chameleon.</p></div>
+<div class="warning"><p><strong>Warning:</strong> UIAlertView is only available on a platform with UIKit.</p></div>
 					</div>
 					
 					
@@ -367,9 +367,11 @@ button.</p></span>
 button.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BKBlock cancelBlock</code></div>
-	
+
+    
 	
 	
 	
@@ -379,7 +381,10 @@ button.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Contrary to <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>, you can set this
+		<p>The block to be fired when the action sheet is dismissed with the cancel
+button.</p>
+
+<p>Contrary to <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>, you can set this
 property multiple times but multiple cancel buttons will
 not be generated.</p>
 	</div>
@@ -408,8 +413,11 @@ not be generated.</p>
 		<p>The block to be fired after the alert view dismisses.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIAlertView *, NSInteger ) didDismissBlock</code></div>
+
+    
 	
 	
 	
@@ -417,6 +425,10 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired after the alert view dismisses.</p>
+	</div>
 	
 	
 	
@@ -442,8 +454,11 @@ not be generated.</p>
 		<p>The block to be fired when the alert view shows.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIAlertView *) didShowBlock</code></div>
+
+    
 	
 	
 	
@@ -451,6 +466,10 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired when the alert view shows.</p>
+	</div>
 	
 	
 	
@@ -476,8 +495,11 @@ not be generated.</p>
 		<p>The block to be fired to determine whether the first non-cancel should be enabled</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BOOL ( ^ ) ( UIAlertView *) ( 5 _0 ) shouldEnableFirstOtherButtonBlock</code></div>
+
+    
 	
 	
 	
@@ -485,6 +507,10 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired to determine whether the first non-cancel should be enabled</p>
+	</div>
 	
 	
 	
@@ -510,8 +536,11 @@ not be generated.</p>
 		<p>The block to be fired before the alert view will dismiss.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIAlertView *, NSInteger ) willDismissBlock</code></div>
+
+    
 	
 	
 	
@@ -519,6 +548,10 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired before the alert view will dismiss.</p>
+	</div>
 	
 	
 	
@@ -544,8 +577,11 @@ not be generated.</p>
 		<p>The block to be fired before the alert view will show.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIAlertView *) willShowBlock</code></div>
+
+    
 	
 	
 	
@@ -553,6 +589,10 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired before the alert view will show.</p>
+	</div>
 	
 	
 	
@@ -586,9 +626,11 @@ not be generated.</p>
 		<p>Creates and returns a new alert view with only a title and cancel button.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (id)alertViewWithTitle:(NSString *)<em>title</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -610,6 +652,11 @@ not be generated.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and returns a new alert view with only a title and cancel button.</p>
+	</div>
 	
 	
 	
@@ -635,9 +682,11 @@ not be generated.</p>
 		<p>Creates and returns a new alert view with only a title, message, and cancel button.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (id)alertViewWithTitle:(NSString *)<em>title</em> message:(NSString *)<em>message</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -665,6 +714,11 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and returns a new alert view with only a title, message, and cancel button.</p>
+	</div>
+	
 	
 	
 	
@@ -689,9 +743,11 @@ not be generated.</p>
 		<p>Creates and shows a new alert view with only a title, message, and cancel button.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (void)showAlertViewWithTitle:(NSString *)<em>title</em> message:(NSString *)<em>message</em> cancelButtonTitle:(NSString *)<em>cancelButtonTitle</em> otherButtonTitles:(NSArray *)<em>otherButtonTitles</em> handler:(void ( ^ ) ( UIAlertView *, NSInteger ))<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -729,6 +785,11 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and shows a new alert view with only a title, message, and cancel button.</p>
+	</div>
+	
 	
 	
 	
@@ -761,9 +822,11 @@ not be generated.</p>
 		<p>Add a new button with an associated code block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSInteger)addButtonWithTitle:(NSString *)<em>title</em> handler:(BKBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -785,6 +848,11 @@ not be generated.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Add a new button with an associated code block.</p>
+	</div>
 	
 	
 	
@@ -810,9 +878,11 @@ not be generated.</p>
 		<p>The block that is to be fired when a button is pressed.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (BKBlock)handlerForButtonAtIndex:(NSInteger)<em>index</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -834,6 +904,11 @@ not be generated.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block that is to be fired when a button is pressed.</p>
+	</div>
 	
 	
 	
@@ -859,9 +934,11 @@ not be generated.</p>
 		<p>Returns a configured alert view with only a title, message, and cancel button.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (id)initWithTitle:(NSString *)<em>title</em> message:(NSString *)<em>message</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -889,6 +966,11 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns a configured alert view with only a title, message, and cancel button.</p>
+	</div>
+	
 	
 	
 	
@@ -913,9 +995,11 @@ not be generated.</p>
 		<p>Set the title and trigger of the cancel button.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSInteger)setCancelButtonWithTitle:(NSString *)<em>title</em> handler:(BKBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -937,6 +1021,11 @@ not be generated.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Set the title and trigger of the cancel button.</p>
+	</div>
 	
 	
 	
@@ -962,9 +1051,11 @@ not be generated.</p>
 		<p>Sets the block that is to be fired when a button is pressed.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)setHandler:(BKBlock)<em>block</em> forButtonAtIndex:(NSInteger)<em>index</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -986,6 +1077,11 @@ not be generated.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sets the block that is to be fired when a button is pressed.</p>
+	</div>
 	
 	
 	
@@ -1014,9 +1110,9 @@ not be generated.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -1104,6 +1200,14 @@ not be generated.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

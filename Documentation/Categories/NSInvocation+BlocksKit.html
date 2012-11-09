@@ -2,22 +2,22 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>MFMailComposeViewController(BlocksKit) Category Reference</title>
+		<title>NSInvocation(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">MFMailComposeViewController(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">NSInvocation(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -38,11 +38,11 @@
 	
 	
 	
-	<option value="properties">Properties</option>
-	
-	<option value="//api/name/completionBlock">&nbsp;&nbsp;&nbsp;&nbsp;completionBlock</option>
 	
 	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/invocationWithTarget:block:">&nbsp;&nbsp;&nbsp;&nbsp;+ invocationWithTarget:block:</option>
 	
 	
 	
@@ -68,13 +68,13 @@
 
 
 
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/completionBlock">completionBlock</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/invocationWithTarget:block:">invocationWithTarget:block:</a></span></li>
 	
 </ul></li>
-
-
 
 
 
@@ -83,7 +83,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="MFMailComposeViewController(BlocksKit) Category Reference" name="top"></a>
+				<a title="NSInvocation(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -92,7 +92,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">MFMailComposeViewController(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">NSInvocation(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -100,7 +100,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">MFMailComposeViewController+BlocksKit.h</td>
+	<td class="specification-value">NSInvocation+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -110,15 +110,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>MFMailComposeViewController with block callbacks.</p>
-
-<p>If you provide a completion handler to an instance of
-MFMailComposeViewController but do not implement a delegate
-callback for mailComposeController:didFinishWithResult:error:,
-the mail compose view controller will automatically be
-dismissed if it was launched modally.</p>
-
-<p>Created by Igor Evsukov and contributed to BlocksKit.</p><div class="warning"><p>UIWebView is only available on iOS or in a Mac app using Chameleon.</p></div>
+						<p>BlocksKit extensions for NSInvocation.</p>
 					</div>
 					
 					
@@ -136,10 +128,10 @@ dismissed if it was launched modally.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/completionBlock">&nbsp;&nbsp;completionBlock</a></code>
-		<span class="tooltip"><p>  The block fired on the dismissal of the mail composition interface.</p></span>
+		<code><a href="#//api/name/invocationWithTarget:block:">+&nbsp;invocationWithTarget:block:</a></code>
+		<span class="tooltip"><p>Generates an <code>NSInvocation</code> instance for a given block.</p></span>
 	</span>
-	<span class="task-item-suffix">property</span>
+	
 	
 </li>
 						</ul>
@@ -150,25 +142,49 @@ dismissed if it was launched modally.</p>
 					
 					
 					
+					
+					
 					<div class="section section-methods">
-						<a title="Properties" name="properties"></a>
-						<h2 class="subtitle subtitle-methods">Properties</h2>
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/completionBlock" title="completionBlock"></a>
-	<h3 class="subsubtitle method-title">completionBlock</h3>
+	<a name="//api/name/invocationWithTarget:block:" title="invocationWithTarget:block:"></a>
+	<h3 class="subsubtitle method-title">invocationWithTarget:block:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>  The block fired on the dismissal of the mail composition interface.</p>
+		<p>Generates an <code>NSInvocation</code> instance for a given block.</p>
 	</div>		
 	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (NSInvocation *)invocationWithTarget:(id)<em>target</em> block:(BKSenderBlock)<em>block</em></code></div>
+
+    
 	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( MFMailComposeViewController *, MFMailComposeResult , NSError *) completionBlock</code></div>
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>target</em></dt>
+			<dd><p>The object to &ldquo;grab&rdquo; the block invocation from.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A code block.</p></dd>
+		</dl>
+		
+	</div>
 	
 	
 	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A fully-prepared instance of NSInvocation ready to be invoked.</p>
+	</div>
 	
 	
 	
@@ -176,9 +192,19 @@ dismissed if it was launched modally.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This block callback is an analog for the
-mailComposeController:didFinishWithResult:error: method
-of MFMailComposeViewControllerDelegate.</p>
+		<p>Generates an <code>NSInvocation</code> instance for a given block.</p>
+
+<pre><code>NSInvocation *invocation = [NSInvocation invocationWithTarget: target block: ^(id myObject){
+    [myObject someMethodWithArg:42.0];
+}];
+</code></pre>
+
+<p>This returns an invocation with the appropriate target, selector, and arguments
+without creating the buffers yourself. It is only recommended to call a method
+on the argument to the block only once.</p>
+
+<p>Created by <a href="https://github.com/rentzsch">Jonathan Rentzch</a> as
+<code>NSInvocation-blocks</code>.</p>
 	</div>
 	
 	
@@ -189,15 +215,13 @@ of MFMailComposeViewControllerDelegate.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">MFMailComposeViewController+BlocksKit.h</code><br />
+		<code class="declared-in-ref">NSInvocation+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 					</div>
-					
-					
 					
 					
 					
@@ -212,9 +236,9 @@ of MFMailComposeViewControllerDelegate.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -302,6 +326,14 @@ of MFMailComposeViewControllerDelegate.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

@@ -2,22 +2,22 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>NSMutableIndexSet(BlocksKit) Category Reference</title>
+		<title>UIPopoverController(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">NSMutableIndexSet(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">UIPopoverController(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -38,17 +38,15 @@
 	
 	
 	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/didDismissBlock">&nbsp;&nbsp;&nbsp;&nbsp;didDismissBlock</option>
+	
+	<option value="//api/name/shouldDismissBlock">&nbsp;&nbsp;&nbsp;&nbsp;shouldDismissBlock</option>
 	
 	
 	
 	
-	<option value="instance_methods">Instance Methods</option>
-	
-	<option value="//api/name/performMap:">&nbsp;&nbsp;&nbsp;&nbsp;- performMap:</option>
-	
-	<option value="//api/name/performReject:">&nbsp;&nbsp;&nbsp;&nbsp;- performReject:</option>
-	
-	<option value="//api/name/performSelect:">&nbsp;&nbsp;&nbsp;&nbsp;- performSelect:</option>
 	
 	
 	
@@ -72,26 +70,24 @@
 
 
 
-
-
-
-
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performMap:">performMap:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didDismissBlock">didDismissBlock</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performReject:">performReject:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performSelect:">performSelect:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/shouldDismissBlock">shouldDismissBlock</a></span></li>
 	
 </ul></li>
+
+
+
+
 
 
 			</ul>
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="NSMutableIndexSet(BlocksKit) Category Reference" name="top"></a>
+				<a title="UIPopoverController(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -100,7 +96,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">NSMutableIndexSet(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">UIPopoverController(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -108,7 +104,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">NSMutableIndexSet+BlocksKit.h</td>
+	<td class="specification-value">UIPopoverController+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -118,19 +114,9 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Block extensions for NSMutableIndexSet.</p>
+						<p>Block functionality for UIPopoverController.</p>
 
-<p>These utilities expound upon the BlocksKit additions
-to the immutable superclass by allowing certain utilities
-to work on an instance of the mutable class, saving memory
-by not creating an immutable copy of the results.</p>
-
-<p>Includes code by the following:</p>
-
-<ul>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
-</ul>
-
+<p>Created by <a href="https://github.com/a2">Alexsander Akers</a> and contributed to BlocksKit.</p><div class="warning"><p><strong>Warning:</strong> UIPopovercontroller is only available on a platform with UIKit.</p></div>
 					</div>
 					
 					
@@ -148,26 +134,17 @@ by not creating an immutable copy of the results.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/performSelect:">&ndash;&nbsp;performSelect:</a></code>
-		<span class="tooltip"><p>Filters a mutable index set to the indexes matching the block.</p></span>
+		<code><a href="#//api/name/shouldDismissBlock">&nbsp;&nbsp;shouldDismissBlock</a></code>
+		<span class="tooltip"><p>The block to be called when the popover controller will dismiss the popover. Return NO to prevent the dismissal of the view.</p></span>
 	</span>
-	
+	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/performReject:">&ndash;&nbsp;performReject:</a></code>
-		<span class="tooltip"><p>Filters a mutable index set to all indexes but the ones matching the block,
-the logical inverse to select:.</p></span>
+		<code><a href="#//api/name/didDismissBlock">&nbsp;&nbsp;didDismissBlock</a></code>
+		<span class="tooltip"><p>The block to be called when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.</p></span>
 	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/performMap:">&ndash;&nbsp;performMap:</a></code>
-		<span class="tooltip"><p>Transform each index of the index set to a new index, as returned by the
-block.</p></span>
-	</span>
-	
+	<span class="task-item-suffix">property</span>
 	
 </li>
 						</ul>
@@ -178,44 +155,36 @@ block.</p></span>
 					
 					
 					
-					
-					
-					
-					
 					<div class="section section-methods">
-						<a title="Instance Methods" name="instance_methods"></a>
-						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/performMap:" title="performMap:"></a>
-	<h3 class="subsubtitle method-title">performMap:</h3>
+	<a name="//api/name/didDismissBlock" title="didDismissBlock"></a>
+	<h3 class="subsubtitle method-title">didDismissBlock</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Transform each index of the index set to a new index, as returned by the
-block.</p>
+		<p>The block to be called when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.</p>
 	</div>		
 	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIPopoverController *) didDismissBlock</code></div>
+
+    
 	
-	<div class="method-subsection method-declaration"><code>- (void)performMap:(BKIndexTransformBlock)<em>block</em></code></div>
 	
 	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A block that returns a new index for a index.</p></dd>
-		</dl>
-		
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be called when the user has taken action to dismiss the popover. This is not called when -dismissPopoverAnimated: is called directly.</p>
 	</div>
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -225,42 +194,38 @@ block.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableIndexSet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIPopoverController+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/performReject:" title="performReject:"></a>
-	<h3 class="subsubtitle method-title">performReject:</h3>
+	<a name="//api/name/shouldDismissBlock" title="shouldDismissBlock"></a>
+	<h3 class="subsubtitle method-title">shouldDismissBlock</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Filters a mutable index set to all indexes but the ones matching the block,
-the logical inverse to select:.</p>
+		<p>The block to be called when the popover controller will dismiss the popover. Return NO to prevent the dismissal of the view.</p>
 	</div>		
 	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BOOL ( ^ ) ( UIPopoverController *) shouldDismissBlock</code></div>
+
+    
 	
-	<div class="method-subsection method-declaration"><code>- (void)performReject:(BKIndexValidationBlock)<em>block</em></code></div>
 	
 	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A single-argument, BOOL-returning code block.</p></dd>
-		</dl>
-		
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be called when the popover controller will dismiss the popover. Return NO to prevent the dismissal of the view.</p>
 	</div>
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -270,57 +235,17 @@ the logical inverse to select:.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableIndexSet+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/performSelect:" title="performSelect:"></a>
-	<h3 class="subsubtitle method-title">performSelect:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Filters a mutable index set to the indexes matching the block.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>- (void)performSelect:(BKIndexValidationBlock)<em>block</em></code></div>
-	
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A single-argument, BOOL-returning code block.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableIndexSet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIPopoverController+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 					</div>
+					
+					
+					
+					
 					
 					
 				</div>
@@ -333,9 +258,9 @@ the logical inverse to select:.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -423,6 +348,14 @@ the logical inverse to select:.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

@@ -2,22 +2,22 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>NSMutableSet(BlocksKit) Category Reference</title>
+		<title>UIControl(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">NSMutableSet(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">UIControl(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -44,11 +44,11 @@
 	
 	<option value="instance_methods">Instance Methods</option>
 	
-	<option value="//api/name/performMap:">&nbsp;&nbsp;&nbsp;&nbsp;- performMap:</option>
+	<option value="//api/name/addEventHandler:forControlEvents:">&nbsp;&nbsp;&nbsp;&nbsp;- addEventHandler:forControlEvents:</option>
 	
-	<option value="//api/name/performReject:">&nbsp;&nbsp;&nbsp;&nbsp;- performReject:</option>
+	<option value="//api/name/hasEventHandlersForControlEvents:">&nbsp;&nbsp;&nbsp;&nbsp;- hasEventHandlersForControlEvents:</option>
 	
-	<option value="//api/name/performSelect:">&nbsp;&nbsp;&nbsp;&nbsp;- performSelect:</option>
+	<option value="//api/name/removeEventHandlersForControlEvents:">&nbsp;&nbsp;&nbsp;&nbsp;- removeEventHandlersForControlEvents:</option>
 	
 	
 	
@@ -66,6 +66,8 @@
 
 <li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Block event handling">Block event handling</a></span></li>
+	
 </ul></li>
 
 
@@ -78,11 +80,11 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performMap:">performMap:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addEventHandler:forControlEvents:">addEventHandler:forControlEvents:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performReject:">performReject:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/hasEventHandlersForControlEvents:">hasEventHandlersForControlEvents:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performSelect:">performSelect:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeEventHandlersForControlEvents:">removeEventHandlersForControlEvents:</a></span></li>
 	
 </ul></li>
 
@@ -91,7 +93,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="NSMutableSet(BlocksKit) Category Reference" name="top"></a>
+				<a title="UIControl(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -100,7 +102,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">NSMutableSet(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">UIControl(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -108,7 +110,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">NSMutableSet+BlocksKit.h</td>
+	<td class="specification-value">UIControl+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -118,20 +120,15 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Block extensions for NSMutableSet.</p>
-
-<p>These utilities expound upon the BlocksKit additions
-to the immutable superclass by allowing certain utilities
-to work on an instance of the mutable class, saving memory
-by not creating an immutable copy of the results.</p>
+						<p>Block control event handling for UIControl.</p>
 
 <p>Includes code by the following:</p>
 
 <ul>
-<li>Martin Schürrer.  <a href="https://github.com/MSch">https://github.com/MSch</a>.   2011. MIT.</li>
-<li>Zach Waldowski. <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
+<li><a href="https://github.com/kevinoneill">Kevin O'Neill</a></li>
+<li><a href="https://github.com/zwaldowski">Zach Waldowski</a></li>
 </ul>
-
+<div class="warning"><p><strong>Warning:</strong> UIControl is only available on a platform with UIKit.</p></div>
 					</div>
 					
 					
@@ -143,29 +140,28 @@ by not creating an immutable copy of the results.</p>
 						<h2 class="subtitle subtitle-tasks">Tasks</h2>
 						
 						
+						<a title="Block event handling" name="task_Block event handling"></a>
 						
-						
-
+<h3 class="subsubtitle task-title">Block event handling</h3>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/performSelect:">&ndash;&nbsp;performSelect:</a></code>
-		<span class="tooltip"><p>Filters a mutable set to the objects matching the block.</p></span>
+		<code><a href="#//api/name/addEventHandler:forControlEvents:">&ndash;&nbsp;addEventHandler:forControlEvents:</a></code>
+		<span class="tooltip"><p>Adds a block for a particular event to an internal dispatch table.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/performReject:">&ndash;&nbsp;performReject:</a></code>
-		<span class="tooltip"><p>Filters a mutable set to all objects but the ones matching the block,
-the logical inverse to select:.</p></span>
+		<code><a href="#//api/name/removeEventHandlersForControlEvents:">&ndash;&nbsp;removeEventHandlersForControlEvents:</a></code>
+		<span class="tooltip"><p>Removes all blocks for a particular event combination.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/performMap:">&ndash;&nbsp;performMap:</a></code>
-		<span class="tooltip"><p>Transform the objects in the set to the results of the block.</p></span>
+		<code><a href="#//api/name/hasEventHandlersForControlEvents:">&ndash;&nbsp;hasEventHandlersForControlEvents:</a></code>
+		<span class="tooltip"><p>Checks to see if the control has any blocks for a particular event combination.</p></span>
 	</span>
 	
 	
@@ -187,25 +183,32 @@ the logical inverse to select:.</p></span>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/performMap:" title="performMap:"></a>
-	<h3 class="subsubtitle method-title">performMap:</h3>
+	<a name="//api/name/addEventHandler:forControlEvents:" title="addEventHandler:forControlEvents:"></a>
+	<h3 class="subsubtitle method-title">addEventHandler:forControlEvents:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Transform the objects in the set to the results of the block.</p>
+		<p>Adds a block for a particular event to an internal dispatch table.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>- (void)performMap:(BKTransformBlock)<em>block</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)addEventHandler:(BKSenderBlock)<em>handler</em> forControlEvents:(UIControlEvents)<em>controlEvents</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A single-argument, object-returning code block.</p></dd>
+			<dt><em>handler</em></dt>
+			<dd><p>A block representing an action message, with an argument for the sender.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>controlEvents</em></dt>
+			<dd><p>A bitmask specifying the control events for which the action message is sent.</p></dd>
 		</dl>
 		
 	</div>
@@ -218,49 +221,119 @@ the logical inverse to select:.</p></span>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This is sometimes referred to as a transform, mutating one of each object:</p>
+		<p>Adds a block for a particular event to an internal dispatch table.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/removeEventHandlersForControlEvents:">&ndash; removeEventHandlersForControlEvents:</a></p></code></li>
+			
+		</ul>
+	</div>
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIControl+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/hasEventHandlersForControlEvents:" title="hasEventHandlersForControlEvents:"></a>
+	<h3 class="subsubtitle method-title">hasEventHandlersForControlEvents:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Checks to see if the control has any blocks for a particular event combination.</p>
+	</div>		
+	
+    
 
-<pre><code>[controllers map:^id(id obj) {
-  return [obj view];
-}];
-</code></pre>
+	<div class="method-subsection method-declaration"><code>- (BOOL)hasEventHandlersForControlEvents:(UIControlEvents)<em>controlEvents</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>controlEvents</em></dt>
+			<dd><p>A bitmask specifying the control events for which to check for blocks.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Returns YES if there are blocks for these control events, NO otherwise.</p>
 	</div>
 	
 	
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Checks to see if the control has any blocks for a particular event combination.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/addEventHandler:forControlEvents:">&ndash; addEventHandler:forControlEvents:</a></p></code></li>
+			
+		</ul>
+	</div>
+	
 	
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableSet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIControl+BlocksKit.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/performReject:" title="performReject:"></a>
-	<h3 class="subsubtitle method-title">performReject:</h3>
+	<a name="//api/name/removeEventHandlersForControlEvents:" title="removeEventHandlersForControlEvents:"></a>
+	<h3 class="subsubtitle method-title">removeEventHandlersForControlEvents:</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Filters a mutable set to all objects but the ones matching the block,
-the logical inverse to select:.</p>
+		<p>Removes all blocks for a particular event combination.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>- (void)performReject:(BKValidationBlock)<em>block</em></code></div>
-	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeEventHandlersForControlEvents:(UIControlEvents)<em>controlEvents</em></code></div>
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
 		
 		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A single-argument, BOOL-returning code block.</p></dd>
+			<dt><em>controlEvents</em></dt>
+			<dd><p>A bitmask specifying the control events for which the block will be removed.</p></dd>
 		</dl>
 		
 	</div>
@@ -271,59 +344,29 @@ the logical inverse to select:.</p>
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableSet+BlocksKit.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/performSelect:" title="performSelect:"></a>
-	<h3 class="subsubtitle method-title">performSelect:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Filters a mutable set to the objects matching the block.</p>
-	</div>		
-	
-	
-	<div class="method-subsection method-declaration"><code>- (void)performSelect:(BKValidationBlock)<em>block</em></code></div>
-	
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>block</em></dt>
-			<dd><p>A single-argument, BOOL-returning code block.</p></dd>
-		</dl>
-		
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Removes all blocks for a particular event combination.</p>
 	</div>
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
+	<div class="method-subsection see-also-section">
+		<h4 class="method-subtitle">See Also</h4>
+		<ul>
+			
+			<li><code><p><a href="#//api/name/addEventHandler:forControlEvents:">&ndash; addEventHandler:forControlEvents:</a></p></code></li>
+			
+		</ul>
+	</div>
 	
 	
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">NSMutableSet+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIControl+BlocksKit.h</code><br />
 	</div>				
 	
 	
@@ -342,9 +385,9 @@ the logical inverse to select:.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -432,6 +475,14 @@ the logical inverse to select:.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

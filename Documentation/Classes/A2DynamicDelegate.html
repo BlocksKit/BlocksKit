@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -40,9 +40,11 @@
 	
 	<option value="properties">Properties</option>
 	
-	<option value="//api/name/delegatingObject">&nbsp;&nbsp;&nbsp;&nbsp;delegatingObject</option>
-	
 	<option value="//api/name/handlers">&nbsp;&nbsp;&nbsp;&nbsp;handlers</option>
+	
+	<option value="//api/name/protocol">&nbsp;&nbsp;&nbsp;&nbsp;protocol</option>
+	
+	<option value="//api/name/realDelegate">&nbsp;&nbsp;&nbsp;&nbsp;realDelegate</option>
 	
 	
 	
@@ -58,6 +60,8 @@
 	<option value="//api/name/implementClassMethod:withBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- implementClassMethod:withBlock:</option>
 	
 	<option value="//api/name/implementMethod:withBlock:">&nbsp;&nbsp;&nbsp;&nbsp;- implementMethod:withBlock:</option>
+	
+	<option value="//api/name/initWithProtocol:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithProtocol:</option>
 	
 	<option value="//api/name/removeBlockImplementationForClassMethod:">&nbsp;&nbsp;&nbsp;&nbsp;- removeBlockImplementationForClassMethod:</option>
 	
@@ -79,9 +83,9 @@
 
 <li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Block Class Method Implementations">Block Class Method Implementations</a></span></li>
-	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Block Instance Method Implementations">Block Instance Method Implementations</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Block Class Method Implementations">Block Class Method Implementations</a></span></li>
 	
 </ul></li>
 
@@ -91,9 +95,11 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegatingObject">delegatingObject</a></span></li>
-	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handlers">handlers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/protocol">protocol</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/realDelegate">realDelegate</a></span></li>
 	
 </ul></li>
 
@@ -110,6 +116,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/implementClassMethod:withBlock:">implementClassMethod:withBlock:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/implementMethod:withBlock:">implementMethod:withBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithProtocol:">initWithProtocol:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeBlockImplementationForClassMethod:">removeBlockImplementationForClassMethod:</a></span></li>
 	
@@ -139,7 +147,7 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Inherits from</td>
-	<td class="specification-value">NSObject</td>
+	<td class="specification-value">NSProxy</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
 	<td class="specification-value">A2DynamicDelegate.h</td>
@@ -152,9 +160,8 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p><a href="A2DynamicDelegate.html">A2DynamicDelegate</a> implements a class&rsquo;s delegate,
-data source, or other delegated protocol by associating
-protocol methods with a block implementations.</p>
+						<p>A2DynamicDelegate implements a class&rsquo;s delegate, data source, or other
+delegated <a href="#//api/name/protocol">protocol</a> by associating <a href="#//api/name/protocol">protocol</a> methods with a block implementation.</p>
 
 <pre><code>- (IBAction) annoyUser
 {
@@ -188,13 +195,7 @@ protocol methods with a block implementations.</p>
 }
 </code></pre>
 
-<p><a href="A2DynamicDelegate.html">A2DynamicDelegate</a> is designed to be &lsquo;plug and play&rsquo;. It just works. Pretty neat, huh?</p><div class="warning"><p>An <a href="A2DynamicDelegate.html">A2DynamicDelegate</a> cannot simply be allocated. Calling one of the
-<a href="A2DynamicDelegate.html">A2DynamicDelegate</a> methods on NSObject, -dynamicDataSource, -dynamicDelegate,
-or -dynamicDelegateForProtocol: allows us to store the dynamic delegate as
-an associated object of the delegating object. This not only allows us to
-later retrieve it, but it also creates a strong relationship. Since delegates
-are usually weak references on the part of the delegating object, a dynamic
-delegate would be deallocated immediately after its declaring scope ends.</p></div>
+<p>A2DynamicDelegate is designed to be &lsquo;plug and play&rsquo;.</p>
 					</div>
 					
 					
@@ -212,17 +213,32 @@ delegate would be deallocated immediately after its declaring scope ends.</p></d
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
+		<code><a href="#//api/name/initWithProtocol:">&ndash;&nbsp;initWithProtocol:</a></code>
+		<span class="tooltip"><p>The designated initializer for the A2DynamicDelegate proxy.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/protocol">&nbsp;&nbsp;protocol</a></code>
+		<span class="tooltip"><p>The protocol delegating the dynamic delegate.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/handlers">&nbsp;&nbsp;handlers</a></code>
-		<span class="tooltip"><p>A dictionary of custom <a href="#//api/name/handlers">handlers</a> to be used by custom responders
-in a A2Dynamic(Protocol Name) subclass of <a href="A2DynamicDelegate.html">A2DynamicDelegate</a>, like
+		<span class="tooltip"><p>A dictionary of custom handlers to be used by custom responders
+in a A2Dynamic(Protocol Name) subclass of A2DynamicDelegate, like
 <code>A2DynamicUIAlertViewDelegate</code>.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/delegatingObject">&nbsp;&nbsp;delegatingObject</a></code>
-		<span class="tooltip"><p>The object that the dynamic delegate implements methods for.</p></span>
+		<code><a href="#//api/name/realDelegate">&nbsp;&nbsp;realDelegate</a></code>
+		<span class="tooltip"><p>When replacing the delegate using the A2BlockDelegate extensions, the object
+responding to classical delegate method implementations.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -230,8 +246,8 @@ in a A2Dynamic(Protocol Name) subclass of <a href="A2DynamicDelegate.html">A2Dyn
 						</ul>
 						
 						
-						<a title="Block Class Method Implementations" name="task_Block Class Method Implementations"></a>
-						<h3 class="subsubtitle task-title">Block Class Method Implementations</h3>
+						<a title="Block Instance Method Implementations" name="task_Block Instance Method Implementations"></a>
+						<h3 class="subsubtitle task-title">Block Instance Method Implementations</h3>
 
 						<ul class="task-list">
 							<li>
@@ -262,8 +278,8 @@ when the specified selector is called on the reciever.</p></span>
 						</ul>
 						
 						
-						<a title="Block Instance Method Implementations" name="task_Block Instance Method Implementations"></a>
-						<h3 class="subsubtitle task-title">Block Instance Method Implementations</h3>
+						<a title="Block Class Method Implementations" name="task_Block Class Method Implementations"></a>
+						<h3 class="subsubtitle task-title">Block Class Method Implementations</h3>
 
 						<ul class="task-list">
 							<li>
@@ -305,24 +321,35 @@ object&rsquo;s class.</p></span>
 						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/delegatingObject" title="delegatingObject"></a>
-	<h3 class="subsubtitle method-title">delegatingObject</h3>
+	<a name="//api/name/handlers" title="handlers"></a>
+	<h3 class="subsubtitle method-title">handlers</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The object that the dynamic delegate implements methods for.</p>
+		<p>A dictionary of custom handlers to be used by custom responders
+in a A2Dynamic(Protocol Name) subclass of A2DynamicDelegate, like
+<code>A2DynamicUIAlertViewDelegate</code>.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, readonly) id delegatingObject</code></div>
-	
-	
-	
-	
-	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) NSMutableDictionary *handlers</code></div>
+
+    
 	
 	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>A dictionary of custom handlers to be used by custom responders
+in a A2Dynamic(Protocol Name) subclass of A2DynamicDelegate, like
+<code>A2DynamicUIAlertViewDelegate</code>.</p>
+	</div>
 	
 	
 	
@@ -339,26 +366,74 @@ object&rsquo;s class.</p></span>
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/handlers" title="handlers"></a>
-	<h3 class="subsubtitle method-title">handlers</h3>
+	<a name="//api/name/protocol" title="protocol"></a>
+	<h3 class="subsubtitle method-title">protocol</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>A dictionary of custom <a href="#//api/name/handlers">handlers</a> to be used by custom responders
-in a A2Dynamic(Protocol Name) subclass of <a href="A2DynamicDelegate.html">A2DynamicDelegate</a>, like
-<code>A2DynamicUIAlertViewDelegate</code>.</p>
+		<p>The protocol delegating the dynamic delegate.</p>
 	</div>		
 	
-	
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, retain, readonly) NSMutableDictionary *handlers</code></div>
-	
-	
-	
-	
-	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) Protocol *protocol</code></div>
+
+    
 	
 	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The protocol delegating the dynamic delegate.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">A2DynamicDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/realDelegate" title="realDelegate"></a>
+	<h3 class="subsubtitle method-title">realDelegate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>When replacing the delegate using the A2BlockDelegate extensions, the object
+responding to classical delegate method implementations.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak, readonly) id realDelegate</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>When replacing the delegate using the A2BlockDelegate extensions, the object
+responding to classical delegate method implementations.</p>
+	</div>
 	
 	
 	
@@ -395,9 +470,11 @@ in a A2Dynamic(Protocol Name) subclass of <a href="A2DynamicDelegate.html">A2Dyn
 selector is called on the delegating object&rsquo;s class.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (id)blockImplementationForClassMethod:(SEL)<em>selector</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -419,6 +496,12 @@ selector is called on the delegating object&rsquo;s class.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block that is to be fired when the specified
+selector is called on the delegating object&rsquo;s class.</p>
+	</div>
 	
 	
 	
@@ -445,9 +528,11 @@ selector is called on the delegating object&rsquo;s class.</p>
 selector is called on the reciever.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (id)blockImplementationForMethod:(SEL)<em>selector</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -469,6 +554,12 @@ selector is called on the reciever.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block that is to be fired when the specified
+selector is called on the reciever.</p>
+	</div>
 	
 	
 	
@@ -495,9 +586,11 @@ selector is called on the reciever.</p>
 selector is called on the reciever.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)implementClassMethod:(SEL)<em>selector</em> withBlock:(id)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -522,7 +615,8 @@ selector is called on the reciever.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p>Starting with <a href="A2DynamicDelegate.html">A2DynamicDelegate</a> 2.0, a block will
+		<p>Assigns the given block to be fired when the specified
+selector is called on the reciever.</p><div class="warning"><p><strong>Warning:</strong> Starting with A2DynamicDelegate 2.0, a block will
 not be checked for a matching signature. A block can have
 less parameters than the original selector and will be
 ignored, but cannot have more.</p></div>
@@ -553,9 +647,11 @@ ignored, but cannot have more.</p></div>
 selector is called on the reciever.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)implementMethod:(SEL)<em>selector</em> withBlock:(id)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -580,14 +676,79 @@ selector is called on the reciever.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<pre><code>[tableView.dynamicDataSource implementMethod:@selector(numberOfSectionsInTableView:)
+		<p>Assigns the given block to be fired when the specified
+selector is called on the reciever.</p>
+
+<pre><code>[tableView.dynamicDataSource implementMethod:@selector(numberOfSectionsInTableView:)
                                   withBlock:NSInteger^(UITableView *tableView){
     return 2;
 }];
-</code></pre><div class="warning"><p>Starting with <a href="A2DynamicDelegate.html">A2DynamicDelegate</a> 2.0, a block will
+</code></pre><div class="warning"><p><strong>Warning:</strong> Starting with A2DynamicDelegate 2.0, a block will
 not be checked for a matching signature. A block can have
 less parameters than the original selector and will be
 ignored, but cannot have more.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">A2DynamicDelegate.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithProtocol:" title="initWithProtocol:"></a>
+	<h3 class="subsubtitle method-title">initWithProtocol:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The designated initializer for the A2DynamicDelegate proxy.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithProtocol:(Protocol *)<em>protocol</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>protocol</em></dt>
+			<dd><p>A <a href="#//api/name/protocol">protocol</a> to which the dynamic delegate should conform.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An initialized delegate proxy.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The designated initializer for the A2DynamicDelegate proxy.</p>
+
+<p>An instance of A2DynamicDelegate should generally not be created by the user,
+but instead by calling a method in <a href="../Categories/NSObject+A2DynamicDelegate.html">NSObject(A2DynamicDelegate)</a>. Since
+delegates are usually weak references on the part of the delegating object, a
+dynamic delegate would be deallocated immediately after its declaring scope
+ends. <a href="../Categories/NSObject+A2DynamicDelegate.html">NSObject(A2DynamicDelegate)</a> creates a strong reference.</p>
 	</div>
 	
 	
@@ -616,9 +777,11 @@ when the specified selector is called on the delegating
 object&rsquo;s class.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)removeBlockImplementationForClassMethod:(SEL)<em>selector</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -635,6 +798,13 @@ object&rsquo;s class.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Disassociates any blocks so that nothing will be fired
+when the specified selector is called on the delegating
+object&rsquo;s class.</p>
+	</div>
 	
 	
 	
@@ -661,9 +831,11 @@ object&rsquo;s class.</p>
 when the specified selector is called on the reciever.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)removeBlockImplementationForMethod:(SEL)<em>selector</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -680,6 +852,12 @@ when the specified selector is called on the reciever.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Disassociates any block so that nothing will be fired
+when the specified selector is called on the reciever.</p>
+	</div>
 	
 	
 	
@@ -708,9 +886,9 @@ when the specified selector is called on the reciever.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -798,6 +976,14 @@ when the specified selector is called on the reciever.</p>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>

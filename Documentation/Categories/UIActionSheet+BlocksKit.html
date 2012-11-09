@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.0.5 (build 737)" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
 	</head>
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
 				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
-				<a id="developerHome" href="../index.html">Dizzy Technology</a>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
 			</div>
 			
 			<div id="title" role="banner">
@@ -199,11 +199,11 @@ addButtonWithTitle:handler: to make sure nothing breaks.</p>
 <p>Includes code by the following:</p>
 
 <ul>
-<li>Landon Fuller, &ldquo;Using Blocks&rdquo;.  <a href="http://landonf.bikemonkey.org">http://landonf.bikemonkey.org</a>.</li>
-<li>Peter Steinberger. <a href="https://github.com/steipete">https://github.com/steipete</a>.   2011. MIT.</li>
-<li>Zach Waldowski.   <a href="https://github.com/zwaldowski">https://github.com/zwaldowski</a>. 2011. MIT.</li>
+<li><a href="http://landonf.bikemonkey.org">Landon Fuller</a>, &ldquo;Using Blocks&rdquo;.</li>
+<li><a href="https://github.com/steipete">Peter Steinberger</a></li>
+<li><a href="https://github.com/zwaldowski">Zach Waldowski</a></li>
 </ul>
-<div class="warning"><p>UIActionSheet is only available on iOS or in a Mac app using Chameleon.</p></div>
+<div class="warning"><p><strong>Warning:</strong> UIActionSheet is only available on a platform with UIKit.</p></div>
 					</div>
 					
 					
@@ -344,9 +344,11 @@ button and/or action.</p></span>
 button and/or action.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BKBlock cancelBlock</code></div>
-	
+
+    
 	
 	
 	
@@ -356,7 +358,10 @@ button and/or action.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This property performs the same action as <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>
+		<p>The block to be fired when the action sheet is dismissed with the cancel
+button and/or action.</p>
+
+<p>This property performs the same action as <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>
 but with <code>title</code> set to nil.  Contrary to <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>,
 you can set this property multiple times and multiple cancel buttons will
 not be generated.</p>
@@ -386,8 +391,11 @@ not be generated.</p>
 		<p>The block to be fired after the action sheet dismisses.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *, NSInteger ) didDismissBlock</code></div>
+
+    
 	
 	
 	
@@ -395,6 +403,10 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired after the action sheet dismisses.</p>
+	</div>
 	
 	
 	
@@ -420,8 +432,11 @@ not be generated.</p>
 		<p>The block to be fired when the action sheet shows.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *) didShowBlock</code></div>
+
+    
 	
 	
 	
@@ -429,6 +444,10 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired when the action sheet shows.</p>
+	</div>
 	
 	
 	
@@ -454,8 +473,11 @@ not be generated.</p>
 		<p>The block to be fired before the action sheet will dismiss.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *, NSInteger ) willDismissBlock</code></div>
+
+    
 	
 	
 	
@@ -463,6 +485,10 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired before the action sheet will dismiss.</p>
+	</div>
 	
 	
 	
@@ -488,8 +514,11 @@ not be generated.</p>
 		<p>The block to be fired before the action sheet will show.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *) willShowBlock</code></div>
+
+    
 	
 	
 	
@@ -497,6 +526,10 @@ not be generated.</p>
 	
 	
 	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired before the action sheet will show.</p>
+	</div>
 	
 	
 	
@@ -530,9 +563,11 @@ not be generated.</p>
 		<p>Creates and returns a new action sheet with only a title and cancel button.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>+ (id)actionSheetWithTitle:(NSString *)<em>title</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -554,6 +589,11 @@ not be generated.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and returns a new action sheet with only a title and cancel button.</p>
+	</div>
 	
 	
 	
@@ -587,9 +627,11 @@ not be generated.</p>
 		<p>Add a new button with an associated code block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSInteger)addButtonWithTitle:(NSString *)<em>title</em> handler:(BKBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -611,6 +653,11 @@ not be generated.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Add a new button with an associated code block.</p>
+	</div>
 	
 	
 	
@@ -636,9 +683,11 @@ not be generated.</p>
 		<p>The block that is to be fired when a button is pressed.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (BKBlock)handlerForButtonAtIndex:(NSInteger)<em>index</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -660,6 +709,11 @@ not be generated.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block that is to be fired when a button is pressed.</p>
+	</div>
 	
 	
 	
@@ -685,9 +739,11 @@ not be generated.</p>
 		<p>Returns a configured action sheet with only a title and cancel button.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (id)initWithTitle:(NSString *)<em>title</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -709,6 +765,11 @@ not be generated.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns a configured action sheet with only a title and cancel button.</p>
+	</div>
 	
 	
 	
@@ -734,9 +795,11 @@ not be generated.</p>
 		<p>Set the title and trigger of the cancel button.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSInteger)setCancelButtonWithTitle:(NSString *)<em>title</em> handler:(BKBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -761,7 +824,9 @@ not be generated.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p><code>block</code> can be set to <code>nil</code>, but this is generally useless as
+		<p>Set the title and trigger of the cancel button.</p>
+
+<p><code>block</code> can be set to <code>nil</code>, but this is generally useless as
 the cancel button is configured already to do nothing.</p>
 
 <p>iPhone users will have the button shown regardless; if the title is
@@ -792,9 +857,11 @@ set to <code>nil</code>, it will automatically be localized.</p>
 		<p>Set the destructive (red) button with an associated code block.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (NSInteger)setDestructiveButtonWithTitle:(NSString *)<em>title</em> handler:(BKBlock)<em>block</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -819,7 +886,7 @@ set to <code>nil</code>, it will automatically be localized.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<div class="warning"><p>Because buttons cannot be removed from an action sheet,
+		<p>Set the destructive (red) button with an associated code block.</p><div class="warning"><p><strong>Warning:</strong> Because buttons cannot be removed from an action sheet,
 be aware that the effects of calling this method are cumulative.
 Previously added destructive buttons will become normal buttons.</p></div>
 	</div>
@@ -848,9 +915,11 @@ Previously added destructive buttons will become normal buttons.</p></div>
 		<p>Sets the block that is to be fired when a button is pressed.</p>
 	</div>		
 	
-	
+    
+
 	<div class="method-subsection method-declaration"><code>- (void)setHandler:(BKBlock)<em>block</em> forButtonAtIndex:(NSInteger)<em>index</em></code></div>
-	
+
+    
 	
 	<div class="method-subsection arguments-section parameters">
 		<h4 class="method-subtitle parameter-title">Parameters</h4>
@@ -872,6 +941,11 @@ Previously added destructive buttons will become normal buttons.</p></div>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sets the block that is to be fired when a button is pressed.</p>
+	</div>
 	
 	
 	
@@ -900,9 +974,9 @@ Previously added destructive buttons will become normal buttons.</p></div>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Dizzy Technology. All rights reserved. (Last updated: 2012-06-10)</span><br />
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 737)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
 					</div>
 				</div>
@@ -990,6 +1064,14 @@ Previously added destructive buttons will become normal buttons.</p></div>
 			}
 			
 			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
 		</script>
 	</body>
 </html>
