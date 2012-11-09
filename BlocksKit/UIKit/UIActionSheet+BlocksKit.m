@@ -97,7 +97,7 @@
 #pragma mark Initializers
 
 + (id)actionSheetWithTitle:(NSString *)title {
-	return [[UIActionSheet alloc] initWithTitle:title];
+	return [[[self class] alloc] initWithTitle:title];
 }
 
 - (id)initWithTitle:(NSString *)title {
