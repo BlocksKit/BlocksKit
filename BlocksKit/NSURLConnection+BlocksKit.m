@@ -392,5 +392,3 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSURLConnection_BlocksKit)

@@ -210,5 +210,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(UIAlertView_BlocksKit)

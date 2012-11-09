@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 //  Created by Zachary Waldowski on 10/5/12.
-//  Copyright (c) 2012 Dizzy Technology. All rights reserved.
+//  Copyright (c) 2012 Pandamonia LLC. All rights reserved.
 //
 
 #import "NSOrderedSet+BlocksKit.h"
@@ -128,5 +128,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSOrderedSet_BlocksKit)

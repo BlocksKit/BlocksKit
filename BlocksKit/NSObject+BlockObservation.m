@@ -175,5 +175,3 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSKeyValueOvserving_BlocksKit)

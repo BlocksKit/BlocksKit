@@ -44,5 +44,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSInvocation_BlocksKit)

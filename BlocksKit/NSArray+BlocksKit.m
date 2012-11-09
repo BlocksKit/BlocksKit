@@ -120,5 +120,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSArray_BlocksKit)
