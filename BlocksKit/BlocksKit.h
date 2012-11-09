@@ -1,9 +1,9 @@
 //
-//  %PROJECT
+//  BlocksKit
 //
 //  The Objective-C block utilities you always wish you had.
 //
-//  Copyright (c) %YEAR %COMPANY.
+//  Copyright (c) 2011-2012 Pandamonia LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,8 @@
 #import "NSMutableDictionary+BlocksKit.h"
 #import "NSIndexSet+BlocksKit.h"
 #import "NSMutableIndexSet+BlocksKit.h"
+#import "NSOrderedSet+BlocksKit.h"
+#import "NSMutableOrderedSet+BlocksKit.h"
 
 #import "NSInvocation+BlocksKit.h"
 #import "NSTimer+BlocksKit.h"

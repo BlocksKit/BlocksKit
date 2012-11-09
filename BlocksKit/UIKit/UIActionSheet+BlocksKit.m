@@ -4,7 +4,6 @@
 //
 
 #import "UIActionSheet+BlocksKit.h"
-#import "A2BlockDelegate+BlocksKit.h"
 
 #pragma mark Custom delegate
 
@@ -19,8 +18,8 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)])
 		[realDelegate actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
 	
-	id key = [NSNumber numberWithInteger:buttonIndex];
-	BKBlock block = [self.handlers objectForKey:key];
+	id key = @(buttonIndex);
+	BKBlock block = (self.handlers)[key];
 	if (block)
 		block();
 }
@@ -86,20 +85,19 @@
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegate];
-		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
-								 @"willPresentActionSheet:", @"willShowBlock",
-								 @"didPresentActionSheet:", @"didShowBlock",
-								 @"actionSheet:willDismissWithButtonIndex:", @"willDismissBlock",
-								 @"actionSheet:didDismissWithButtonIndex:", @"didDismissBlock",
-								 nil];
-		[self linkDelegateMethods:methods];
+		[self linkDelegateMethods: @{
+		 @"willShowBlock": @"willPresentActionSheet:",
+		 @"didShowBlock": @"didPresentActionSheet:",
+		 @"willDismissBlock": @"actionSheet:willDismissWithButtonIndex:",
+		 @"didDismissBlock": @"actionSheet:didDismissWithButtonIndex:"
+		}];
 	}
 }
 
 #pragma mark Initializers
 
 + (id)actionSheetWithTitle:(NSString *)title {
-	return [[[UIActionSheet alloc] initWithTitle:title] autorelease];
+	return [[[self class] alloc] initWithTitle:title];
 }
 
 - (id)initWithTitle:(NSString *)title {
@@ -138,17 +136,17 @@
 #pragma mark Properties
 
 - (void)setHandler:(BKBlock)block forButtonAtIndex:(NSInteger)index {
-	id key = [NSNumber numberWithInteger:index];
+	id key = @(index);
 	
 	if (block)
-		[[self.dynamicDelegate handlers] setObject:[[block copy] autorelease] forKey:key];
+		[self.dynamicDelegate handlers][key] = [block copy];
 	else
 		[[self.dynamicDelegate handlers] removeObjectForKey:key];
 }
 
 - (BKBlock)handlerForButtonAtIndex:(NSInteger)index {
-	id key = [NSNumber numberWithInteger:index];
-	return [[self.dynamicDelegate handlers] objectForKey:key];
+	id key = @(index);
+	return [self.dynamicDelegate handlers][key];
 }
 
 - (BKBlock)cancelBlock {
@@ -160,5 +158,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(UIActionSheet_BlocksKit)

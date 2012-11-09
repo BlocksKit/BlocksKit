@@ -1,6 +1,6 @@
 //
 //  UIView+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -9,11 +9,11 @@
 
  Includes code by the following:
 
- - Kevin O'Neill.  <https://github.com/kevinoneill>. 2011. BSD.
- - Jake Marsh.	 <https://github.com/jakemarsh>.   2011. 
- - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
+ - Kevin O'Neill. <https://github.com/kevinoneill>. 2011. BSD.
+ - Jake Marsh. <https://github.com/jakemarsh>. 2011. 
+ - Zach Waldowski. <https://github.com/zwaldowski>. 2011.
 
- @warning UIView is only available on iOS or in a Mac app using Chameleon.
+ @warning UIView is only available on a platform with UIKit.
  */
 @interface UIView (BlocksKit)
 

@@ -8,7 +8,7 @@
 
 typedef void(^BKInternalWrappingBlock)(BOOL);
 
-#define BKTimeDelay(t) dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * t)
+#define BKTimeDelay(t) dispatch_time(DISPATCH_TIME_NOW, (uint64_t)(NSEC_PER_SEC * t))
 
 @implementation NSObject (BlocksKit)
 
@@ -29,7 +29,7 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 		wrapper(NO);
 	});
 	
-	return [[wrapper copy] autorelease];
+	return [wrapper copy];
 }
 
 + (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay {
@@ -47,7 +47,7 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 	
 	dispatch_after(BKTimeDelay(delay), dispatch_get_main_queue(), ^{ wrapper(NO); });
 	
-	return [[wrapper copy] autorelease];
+	return [wrapper copy];
 }
 
 + (void)cancelBlock:(id)block {
@@ -57,5 +57,3 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSObject_BlocksKit)

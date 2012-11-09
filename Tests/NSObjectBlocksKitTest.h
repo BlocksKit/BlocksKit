@@ -3,10 +3,11 @@
 //  BlocksKit Unit Tests
 //
 
-#import <GHUnitIOS/GHUnit.h>
-#import "BlocksKit/BlocksKit.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import <BlocksKit/NSObject+BlocksKit.h>
+#import "BKAsyncTestCase.h"
 
-@interface NSObjectBlocksKitTest : GHAsyncTestCase
+@interface NSObjectBlocksKitTest : BKAsyncTestCase
 
 - (void)testPerformBlockAfterDelay;
 - (void)testClassPerformBlockAfterDelay;

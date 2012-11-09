@@ -1,6 +1,6 @@
 //
 //  UIActionSheet+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -24,11 +24,11 @@
 
  Includes code by the following:
 
- - Landon Fuller, "Using Blocks".  <http://landonf.bikemonkey.org>.
- - Peter Steinberger. <https://github.com/steipete>.   2011. MIT.
- - Zach Waldowski.	<https://github.com/zwaldowski>. 2011. MIT.
+ - [Landon Fuller](http://landonf.bikemonkey.org), "Using Blocks".
+ - [Peter Steinberger](https://github.com/steipete)
+ - [Zach Waldowski](https://github.com/zwaldowski)
 
- @warning UIActionSheet is only available on iOS or in a Mac app using Chameleon.
+ @warning UIActionSheet is only available on a platform with UIKit.
  */
 @interface UIActionSheet (BlocksKit) <UIActionSheetDelegate>
 

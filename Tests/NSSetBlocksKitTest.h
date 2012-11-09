@@ -3,10 +3,10 @@
 //  BlocksKit Unit Tests
 //
 
-#import <GHUnitIOS/GHUnit.h>
-#import "BlocksKit/BlocksKit.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import <BlocksKit/NSSet+BlocksKit.h>
 
-@interface NSSetBlocksKitTest : GHTestCase
+@interface NSSetBlocksKitTest : SenTestCase
 
 - (void)testEach;
 - (void)testMatch;

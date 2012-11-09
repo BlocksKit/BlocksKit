@@ -3,8 +3,6 @@
 //  BlocksKit
 //
 
-#import "A2BlockDelegate+BlocksKit.h"
-#import "A2DynamicDelegate.h"
 #import "UIPopoverController+BlocksKit.h"
 
 #pragma mark - Delegate
@@ -52,11 +50,8 @@
 	@autoreleasepool
 	{
 		[self registerDynamicDelegate];
-		[self linkCategoryBlockProperty: @"didDismissBlock" withDelegateMethod: @selector(popoverControllerDidDismissPopover:)];
-		[self linkCategoryBlockProperty: @"shouldDismissBlock" withDelegateMethod: @selector(popoverControllerShouldDismissPopover:)];
+		[self linkDelegateMethods: @{ @"didDismissBlock": @"popoverControllerDidDismissPopover:", @"shouldDismissBlock": @"popoverControllerShouldDismissPopover:" }];
 	}
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(UIPopoverController_BlocksKit)

@@ -3,13 +3,13 @@
 //  BlocksKit Unit Tests
 //
 
-#import <GHUnitIOS/GHUnit.h>
-#import "BlocksKit/BlocksKit.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import <BlocksKit/UIControl+BlocksKit.h>
 
-@interface UIControlBlocksKitTest : GHTestCase
+@interface UIControlBlocksKitTest : SenTestCase
 
-- (void)testAddEventHandler;
 - (void)testHasEventHandler;
+- (void)testInvokeEventHandler;
 - (void)testRemoveEventHandler;
 
 @end

@@ -4,7 +4,6 @@
 //
 
 #import "MFMessageComposeViewController+BlocksKit.h"
-#import "A2BlockDelegate+BlocksKit.h"
 
 #pragma mark Custom delegate
 
@@ -38,10 +37,8 @@
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegateNamed:@"messageComposeDelegate" forProtocol:@protocol(MFMessageComposeViewControllerDelegate)];
-		[self linkCategoryBlockProperty:@"completionBlock" withDelegateMethod:@selector(messageComposeViewController:didFinishWithResult:)];
+		[self linkDelegateMethods: @{ @"completionBlock": @"messageComposeViewController:didFinishWithResult:" }];
 	}
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(MFMessageComposeViewController_BlocksKit)

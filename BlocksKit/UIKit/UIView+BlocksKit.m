@@ -99,5 +99,3 @@ static char kViewTouchUpBlockKey;
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(UIView_BlocksKit)

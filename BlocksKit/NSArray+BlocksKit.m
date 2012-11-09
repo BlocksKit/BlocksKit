@@ -33,7 +33,7 @@
 	if (index == NSNotFound)
 		return nil;
 	
-	return [self objectAtIndex:index];
+	return self[index];
 }
 
 - (NSArray *)select:(BKValidationBlock)block {
@@ -69,15 +69,13 @@
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	__block id result = [initial retain];
+	__block id result = initial;
 	
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		id new = block(result, obj);
-		[result release];
-		result = [new retain];
+		result = block(result, obj);
 	}];
 	
-	return [result autorelease];
+	return result;
 }
 
 - (BOOL)any:(BKValidationBlock)block {
@@ -91,36 +89,34 @@
 - (BOOL)all:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    __block BOOL result = YES;
-    
+	__block BOOL result = YES;
+	
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if (!block(obj)) {
 			result = NO;
 			*stop = YES;
 		}
 	}];
-    
-    return result;
+	
+	return result;
 }
 
 - (BOOL) corresponds: (NSArray *) list withBlock: (BKKeyValueValidationBlock) block {
 	NSParameterAssert(block != nil);
  
-    __block BOOL result = NO;
+	__block BOOL result = NO;
 	
-    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (idx < [list count]) {
-            id obj2 = [list objectAtIndex: idx];
-            result = block(obj, obj2);
-        } else {
-            result = NO;
-        }
-        *stop = !result;
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if (idx < list.count) {
+			id obj2 = list[idx];
+			result = block(obj, obj2);
+		} else {
+			result = NO;
+		}
+		*stop = !result;
 	}]; 
-    
-    return result;
+	
+	return result;
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSArray_BlocksKit)

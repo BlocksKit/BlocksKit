@@ -2,6 +2,9 @@
 //  MFMailComposeViewControllerBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Created by Zachary Waldowski on 12/20/11.
+//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
+//
 
 #import "MFMailComposeViewControllerBlocksKitTest.h"
 
@@ -10,16 +13,8 @@
 	BOOL delegateWorked;
 }
 
-- (BOOL)shouldRunOnMainThread {
-	return YES;
-}
-
 - (void)setUp {
 	_subject = [MFMailComposeViewController new];
-}
-
-- (void)tearDown {
-	[_subject release];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
@@ -34,8 +29,8 @@
 		blockWorked = YES;
 	};
 	[[_subject dynamicDelegateForProtocol:@protocol(MFMailComposeViewControllerDelegate)] mailComposeController:_subject didFinishWithResult:MFMailComposeResultSent error:nil];
-	GHAssertTrue(delegateWorked, @"Delegate method not called.");
-	GHAssertTrue(blockWorked, @"Block handler not called.");
+	STAssertTrue(delegateWorked, @"Delegate method not called.");
+	STAssertTrue(blockWorked, @"Block handler not called.");
 }
 
 @end

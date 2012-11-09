@@ -1,6 +1,10 @@
 //
 //  MFMessageComposeViewControllerBlocksKitTest.m
 //  BlocksKit Unit Tests
+//
+//  Created by Zachary Waldowski on 12/20/11.
+//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
+//
 
 #import "MFMessageComposeViewControllerBlocksKitTest.h"
 
@@ -9,16 +13,8 @@
 	BOOL delegateWorked;
 }
 
-- (BOOL)shouldRunOnMainThread {
-	return YES;
-}
-
 - (void)setUp {
 	_subject = [MFMessageComposeViewController new];
-}
-
-- (void)tearDown {
-	[_subject release];
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
@@ -36,8 +32,8 @@
 		blockWorked = YES;
 	};
 	[[_subject dynamicDelegateForProtocol:@protocol(MFMessageComposeViewControllerDelegate)] messageComposeViewController:_subject didFinishWithResult:MessageComposeResultSent];
-	GHAssertTrue(delegateWorked, @"Delegate method not called.");
-	GHAssertTrue(blockWorked, @"Block handler not called.");
+	STAssertTrue(delegateWorked, @"Delegate method not called.");
+	STAssertTrue(blockWorked, @"Block handler not called.");
 }
 
 @end

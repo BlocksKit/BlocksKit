@@ -4,7 +4,6 @@
 //
 
 #import "UIWebView+BlocksKit.h"
-#import "A2BlockDelegate+BlocksKit.h"
 
 #pragma mark Custom delegate
 
@@ -68,16 +67,13 @@
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegate];
-		NSDictionary *methods = [NSDictionary dictionaryWithObjectsAndKeys:
-								 @"webView:shouldStartLoadWithRequest:navigationType:", @"shouldStartLoadBlock",
-								 @"webViewDidStartLoad:", @"didStartLoadBlock",
-								 @"webViewDidFinishLoad:", @"didFinishLoadBlock",
-								 @"webView:didFailLoadWithError:", @"didFinishWithErrorBlock",
-								 nil];
-		[self linkDelegateMethods:methods];
+		[self linkDelegateMethods: @{
+		 @"shouldStartLoadBlock": @"webView:shouldStartLoadWithRequest:navigationType:",
+		 @"didStartLoadBlock": @"webViewDidStartLoad:",
+		 @"didFinishLoadBlock": @"webViewDidFinishLoad:",
+		 @"didFinishWithErrorBlock": @"webView:didFailLoadWithError:"
+		}];
 	}
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(UIWebView_BlocksKit)

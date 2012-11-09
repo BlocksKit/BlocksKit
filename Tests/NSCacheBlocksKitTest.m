@@ -3,11 +3,10 @@
 //  BlocksKit
 //
 //  Created by Zachary Waldowski on 10/5/11.
-//  Copyright (c) 2011 Dizzy Technology. All rights reserved.
+//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
 //
 
 #import "NSCacheBlocksKitTest.h"
-#import "NSTimer+BlocksKit.h"
 
 #define OBJECT_COUNT 300
 
@@ -17,11 +16,11 @@
 }
 
 - (void)setUp {
-    _subject = [NSCache new];
+	_subject = [NSCache new];
 }
 
 - (void)tearDown {
-	[_subject release];
+	_subject = nil;
 }
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
@@ -31,11 +30,12 @@
 - (void)testDelegate {
 	_subject.delegate = self;
 	_total = 2;
+	__unsafe_unretained NSCacheBlocksKitTest *weakSelf = self;
 	_subject.willEvictBlock = ^(NSCache *cache, id obj){
-        _total--;
-    };
+		weakSelf->_total--;
+	};
 	[_subject.dynamicDelegate cache:_subject willEvictObject:nil];
-	GHAssertEquals(_total, 0, @"The delegates should have been called!");
+	STAssertEquals(_total, (NSInteger)0, @"The delegates should have been called!");
 }
 
 @end

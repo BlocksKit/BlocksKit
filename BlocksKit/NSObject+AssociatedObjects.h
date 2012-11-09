@@ -1,29 +1,27 @@
 //
 //  NSObject+AssociatedObjects.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
 
-/** Objective-C wrapper for 10.6 associated object API.
+/** Objective-C wrapper for 10.6+ associated object API.
 
- In Mac OS X Snow Leopard and iOS 3.0, Apple introduced an
- addition to the Objective-C Runtime called associated objects.
- Associated objects allow for the pairing of a random key and
- object pair to be saved on an instance.
+ In Mac OS X Snow Leopard and iOS 3.0, Apple introduced an addition to the
+ Objective-C Runtime called associated objects. Associated objects allow for the
+ pairing of a random key and object pair to be saved on an instance.
 
- In BlocksKit, associated objects allow us to emulate instance
- variables in the categories we use.
+ In BlocksKit, associated objects allow us to emulate instance variables in the 
+ ategories we use.
  
- Class methods also exist for each association. These associations
- are unique to each class, and exist for the lifetime of the
- application unless set to `nil`. Each class is a unique meta-object;
- the ultimate singleton.
+ Class methods also exist for each association. These associations are unique to
+ each class, and exist for the lifetime of the application unless set to `nil`.
+ Each class is a unique meta-object; the ultimate singleton.
 
- Created by Andy Matuschak as [AMAssociatedObjects](https://github.com/andymatuschak/NSObject-AssociatedObjects).
- Licensed in the public domain.
+ Created by [Andy Matuschak](https://github.com/andymatuschak) as
+ `AMAssociatedObjects`.
  */
-@interface NSObject (AssociatedObjects)
+@interface NSObject (BKAssociatedObjects)
 
 /** Strongly associates an object with the reciever.
 
@@ -38,7 +36,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-- (void)associateValue:(id)value withKey:(const char *)key;
+- (void)associateValue:(id)value withKey:(const void *)key;
 
 /** Strongly associates an object with the receiving class.
  
@@ -46,7 +44,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-+ (void)associateValue:(id)value withKey:(const char *)key;
++ (void)associateValue:(id)value withKey:(const void *)key;
 
 /** Associates a copy of an object with the reciever.
 
@@ -59,7 +57,7 @@
  @param value Any object, pointer, or value.
  @param key A unique key pointer.
  */
-- (void)associateCopyOfValue:(id)value withKey:(const char *)key;
+- (void)associateCopyOfValue:(id)value withKey:(const void *)key;
 
 /** Associates a copy of an object with the receiving class.
  
@@ -67,7 +65,7 @@
  @param value Any object, pointer, or value.
  @param key A unique key pointer.
  */
-+ (void)associateCopyOfValue:(id)value withKey:(const char *)key;
++ (void)associateCopyOfValue:(id)value withKey:(const void *)key;
 
 /** Weakly associates an object with the reciever.
 
@@ -78,7 +76,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-- (void)weaklyAssociateValue:(id)value withKey:(const char *)key;
+- (void)weaklyAssociateValue:(id)value withKey:(const void *)key;
 
 /** Weakly associates an object with the receiving class.
  
@@ -86,14 +84,14 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-+ (void)weaklyAssociateValue:(id)value withKey:(const char *)key;
++ (void)weaklyAssociateValue:(id)value withKey:(const void *)key;
 
 /** Returns the associated value for a key on the reciever.
 
  @param key A unique key pointer.
  @return The object associated with the key, or `nil` if not found.
  */
-- (id)associatedValueForKey:(const char *)key;
+- (id)associatedValueForKey:(const void *)key;
 
 /** Returns the associated value for a key on the receiving class.
  
@@ -101,7 +99,7 @@
  @param key A unique key pointer.
  @return The object associated with the key, or `nil` if not found.
  */
-+ (id)associatedValueForKey:(const char *)key;
++ (id)associatedValueForKey:(const void *)key;
 
 /** Returns the reciever to a clean state by removing all
  associated objects, releasing them if necessary. */

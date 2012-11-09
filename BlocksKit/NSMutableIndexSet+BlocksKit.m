@@ -37,9 +37,7 @@
 	}];
 	
 	[self removeAllIndexes];
-	[self addIndexes:[new autorelease]];
+	[self addIndexes: new];
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSMutableIndexSet_BlocksKit)

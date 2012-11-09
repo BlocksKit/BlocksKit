@@ -5,41 +5,30 @@
 
 #import "NSInvocation+BlocksKit.h"
 
-@interface BKInvocationGrabber : NSProxy {
-	id target;
-	NSInvocation *invocation;
-}
+@interface BKInvocationGrabber : NSProxy
 
 + (BKInvocationGrabber *)grabberWithTarget:(id)target;
 
-@property (nonatomic, retain) id target;
-@property (nonatomic, retain) NSInvocation *invocation;
+@property (nonatomic, strong) id target;
+@property (nonatomic, strong) NSInvocation *invocation;
 
 @end
 
 @implementation BKInvocationGrabber
 
-@synthesize target, invocation;
-
 + (BKInvocationGrabber *)grabberWithTarget:(id)target {
 	BKInvocationGrabber *instance = [BKInvocationGrabber alloc];
 	instance.target = target;
-	return [instance autorelease];
+	return instance;
 }
 
-- (NSMethodSignature*)methodSignatureForSelector:(SEL)selector_ {
-	return [self.target methodSignatureForSelector:selector_];
+- (NSMethodSignature*)methodSignatureForSelector:(SEL)selector {
+	return [self.target methodSignatureForSelector: selector];
 }
 
-- (void)forwardInvocation:(NSInvocation*)invocation_ {
-	[invocation_ setTarget:self.target];
-	self.invocation = invocation_;
-}
-
-- (void)dealloc {
-	self.target = nil;
-	self.invocation = nil;
-	[super dealloc];
+- (void)forwardInvocation:(NSInvocation*)invocation {
+	[invocation setTarget: self.target];
+	self.invocation = invocation;
 }
 
 @end
@@ -55,5 +44,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSInvocation_BlocksKit)

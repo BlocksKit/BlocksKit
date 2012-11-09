@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.dizzytechnology.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>us.pandamonia.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2011 Dizzy Technology. All rights reserved.</string>
+	<string>Copyright © 2011-2012 Pandamonia LLC. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 </dict>

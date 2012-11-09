@@ -2,6 +2,9 @@
 //  NSObjectBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Created by Kai Wu on 7/4/11.
+//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
+//
 
 #import "NSObjectBlocksKitTest.h"
 
@@ -10,48 +13,48 @@
 }
 
 - (void)setUp {
-	_subject = [[NSMutableString alloc] initWithString:@"Hello "];
+	_subject = [@"Hello " mutableCopy];
 }
 
 - (void)tearDown {
-	[_subject release];
+	_subject = nil;
 }  
 
 - (void)testPerformBlockAfterDelay {
 	BKSenderBlock senderBlock = ^(NSObjectBlocksKitTest *sender) {
 		[_subject appendString:@"BlocksKit"];
-		[sender notify:kGHUnitWaitStatusSuccess forSelector:@selector(testPerformBlockAfterDelay)];
+		[sender notify: SenTestCaseWaitStatusSuccess forSelector: @selector(testPerformBlockAfterDelay)];
 	};
 	[self prepare];
 	id block = [self performBlock:senderBlock afterDelay:0.5];
-	GHAssertNotNil(block,@"block is nil");
-	[self waitForStatus:kGHUnitWaitStatusSuccess timeout:1.0];
-	GHAssertEqualStrings(_subject,@"Hello BlocksKit",@"subject string is %@",_subject);
+	STAssertNotNil(block,@"block is nil");
+	[self waitForStatus: SenTestCaseWaitStatusSuccess timeout:1.0];
+	STAssertEqualObjects(_subject,@"Hello BlocksKit",@"subject string is %@",_subject);
 }
 
 - (void)testClassPerformBlockAfterDelay {
-	__block NSObjectBlocksKitTest *test = self;
-	__block NSMutableString *subject = [NSMutableString stringWithString:@"Hello "];
+	NSObjectBlocksKitTest *test = self;
+	NSMutableString *subject = [NSMutableString stringWithString:@"Hello "];
 	[self prepare];
 	id blk = [NSObject performBlock:^{
 		[subject appendString:@"BlocksKit"];
-		[test notify:kGHUnitWaitStatusSuccess forSelector:@selector(testClassPerformBlockAfterDelay)];
+		[test notify: SenTestCaseWaitStatusSuccess forSelector: @selector(testClassPerformBlockAfterDelay)];
 	} afterDelay:0.5];
-	GHAssertNotNil(blk,@"block is nil");
-	[self waitForStatus:kGHUnitWaitStatusSuccess timeout:1.0];
-	GHAssertEqualStrings(subject,@"Hello BlocksKit",@"subject string is %@",subject);
+	STAssertNotNil(blk,@"block is nil");
+	[self waitForStatus: SenTestCaseWaitStatusSuccess timeout:1.0];
+	STAssertEqualObjects(subject,@"Hello BlocksKit",@"subject string is %@",subject);
 }
 
 - (void)testCancel {
 	[self prepare];
 	id block = [self performBlock:^(NSObjectBlocksKitTest * sender) {
 		[_subject appendString:@"BlocksKit"];
-		[sender notify:kGHUnitWaitStatusSuccess forSelector:@selector(testCancel)];
+		[sender notify: SenTestCaseWaitStatusSuccess];
 	} afterDelay:0.1];
-	GHAssertNotNil(block,@"block is nil");
+	STAssertNotNil(block,@"block is nil");
 	[NSObject cancelBlock:block];
 	[self waitForTimeout:0.5];
-	GHAssertEqualStrings(_subject,@"Hello ",@"subject string is %@",_subject);
+	STAssertEqualObjects(_subject,@"Hello ",@"subject string is %@",_subject);
 }
 
 @end

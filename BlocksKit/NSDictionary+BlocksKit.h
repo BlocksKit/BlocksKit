@@ -1,6 +1,6 @@
 //
 //  NSDictionary+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -13,8 +13,8 @@
 
  Includes code by the following:
 
-- Mirko Kiefer.   <https://github.com/mirkok>.	 2011.
-- Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
+- [Mirko Kiefer](https://github.com/mirkok)
+- [Zach Waldowski](https://github.com/zwaldowski)
 
  @see NSArray(BlocksKit)
  @see NSSet(BlocksKit)

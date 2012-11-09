@@ -2,9 +2,11 @@
 //  NSInvocationBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Created by Kai Wu on 7/5/11.
+//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
+//
 
 #import "NSInvocationBlocksKitTest.h"
-
 
 @implementation NSInvocationBlocksKitTest {
 	NSInteger _total;	
@@ -23,9 +25,9 @@
 		[sender action];
 	};
 	NSInvocation *invocation = [NSInvocation invocationWithTarget:self block:senderBlock];
-	GHAssertNotNil(invocation,@"invocation is nil");
+	STAssertNotNil(invocation, @"invocation is nil");
 	[invocation invoke];
-	GHAssertEquals(_total,1,@"total is %d",_total);
+	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
 }
 
 @end

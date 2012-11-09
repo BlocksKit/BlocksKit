@@ -4,7 +4,6 @@
 //
 
 #import "NSCache+BlocksKit.h"
-#import "A2BlockDelegate+BlocksKit.h"
 
 #pragma mark Custom delegate
 
@@ -35,7 +34,7 @@
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegate];
-		[self linkCategoryBlockProperty:@"willEvictBlock" withDelegateMethod:@selector(cache:willEvictObject:)];
+		[self linkDelegateMethods: @{ @"willEvictBlock": @"cache:willEvictObject:" }];
 	}
 }
 
@@ -55,5 +54,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSCache_BlocksKit)

@@ -3,10 +3,10 @@
 //  BlocksKit Unit Tests
 //
 
-#import <GHUnitIOS/GHUnit.h>
-#import "BlocksKit/BlocksKit.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import <BlocksKit/UIWebView+BlocksKit.h>
 
-@interface UIWebViewBlocksKitTest : GHTestCase <UIWebViewDelegate>
+@interface UIWebViewBlocksKitTest : SenTestCase <UIWebViewDelegate>
 
 - (void)testShouldStartLoad;
 - (void)testDidStartLoad;

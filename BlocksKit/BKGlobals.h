@@ -1,26 +1,23 @@
 //
 //  BKGlobals.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import <dispatch/dispatch.h>
 #import <Foundation/Foundation.h>
 
 #import "A2BlockDelegate.h"
-#import "A2DynamicDelegate.h"
-#import "A2BlockDelegate+BlocksKit.h"
+#import "NSObject+A2DynamicDelegate.h"
 
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-	#define BK_HAS_UIKIT 1
-	#define BK_HAS_APPKIT 0
-#elif defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
-	#define BK_HAS_APPKIT 1
-
-	#if CHAMELEON
-		#define BK_HAS_UIKIT 1
-	#else
-		#define BK_HAS_UIKIT 0
-	#endif
+#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
+#define BK_HAS_UIKIT 0
+#define BK_HAS_APPKIT 1
+#elif (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
+#define BK_HAS_UIKIT 1
+#define BK_HAS_APPKIT 0
+#else
+#define BK_HAS_UIKIT 0
+#define BK_HAS_APPKIT 0
 #endif
 
 #ifndef DEPRECATED_ATTRIBUTE_M
@@ -31,9 +28,7 @@
 #endif
 #endif
 
-#ifndef BK_MAKE_CATEGORY_LOADABLE
-#define BK_MAKE_CATEGORY_LOADABLE(NAME) @interface FORCELOAD_##NAME @end @implementation FORCELOAD_##NAME @end
-#endif
+#import <Foundation/Foundation.h>
 
 #if BK_HAS_APPKIT
 #import <Cocoa/Cocoa.h>

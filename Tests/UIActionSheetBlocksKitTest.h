@@ -3,10 +3,10 @@
 //  BlocksKit Unit Tests
 //
 
-#import <GHUnitIOS/GHUnit.h>
-#import "BlocksKit/BlocksKit.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import <BlocksKit/UIActionSheet+BlocksKit.h>
 
-@interface UIActionSheetBlocksKitTest : GHTestCase
+@interface UIActionSheetBlocksKitTest : SenTestCase
 
 - (void)testInit;
 - (void)testAddButtonWithHandler;

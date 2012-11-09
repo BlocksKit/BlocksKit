@@ -1,6 +1,6 @@
 //
 //  UIControl+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -9,10 +9,10 @@
 
  Includes code by the following:
 
- - Kevin O'Neill.  <https://github.com/kevinoneill>. 2011. BSD.
- - Zach Waldowski. <https://github.com/zwaldowski>.  2011. MIT.
+ - [Kevin O'Neill](https://github.com/kevinoneill)
+ - [Zach Waldowski](https://github.com/zwaldowski)
 
- @warning UIControl is only available on iOS or in a Mac app using Chameleon.
+ @warning UIControl is only available on a platform with UIKit.
  */
 @interface UIControl (BlocksKit)
 

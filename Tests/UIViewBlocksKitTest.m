@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 //  Created by Zachary Waldowski on 12/20/11.
-//  Copyright (c) 2011 Dizzy Technology. All rights reserved.
+//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
 //
 
 #import "UIViewBlocksKitTest.h"
@@ -12,16 +12,8 @@
 	UIView *_subject;
 }
 
-- (BOOL)shouldRunOnMainThread {
-	return YES;
-}
-
 - (void)setUp {
 	_subject = [UIView new];
-}
-
-- (void)tearDown {
-	[_subject release];
 }
 
 - (void)testOnTouchDown {
@@ -32,7 +24,7 @@
 	
 	[_subject touchesBegan:[NSSet set] withEvent:nil];
 	
-	GHAssertTrue(onTouchDownBlock, @"Block handler was not called");
+	STAssertTrue(onTouchDownBlock, @"Block handler was not called");
 }
 
 - (void)testOnTouchMove {
@@ -43,7 +35,7 @@
 	
 	[_subject touchesMoved:[NSSet set] withEvent:nil];
 	
-	GHAssertTrue(onTouchMoveBlock, @"Block handler was not called");
+	STAssertTrue(onTouchMoveBlock, @"Block handler was not called");
 }
 
 - (void)testOnTouchUp {
@@ -54,7 +46,7 @@
 	
 	[_subject touchesEnded:[NSSet set] withEvent:nil];
 	
-	GHAssertTrue(onTouchUpBlock, @"Block handler was not called");
+	STAssertTrue(onTouchUpBlock, @"Block handler was not called");
 }
 
 @end

@@ -37,12 +37,10 @@
 		if ([value isEqual:obj])
 			return;
 
-		[new setObject:value forKey:key];
+		new[key] = value;
 	}];
 	
-	[self setDictionary:[new autorelease]];
+	[self setDictionary: new];
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSMutableDictionary_BlocksKit)

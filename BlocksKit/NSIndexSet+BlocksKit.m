@@ -76,7 +76,7 @@
 - (BOOL)all:(BKIndexValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    __block BOOL result = YES;
+	__block BOOL result = YES;
 	
 	[self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
 		if (!block(idx)) {
@@ -89,5 +89,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSIndexSet_BlocksKit)

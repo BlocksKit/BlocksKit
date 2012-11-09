@@ -1,6 +1,6 @@
 //
 //  NSArray+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -14,10 +14,10 @@
 
  Includes code by the following:
 
-- Robin Lu.	   <https://github.com/robin>.	  2009. MIT.
-- Michael Ash.	<https://github.com/mikeash>.	2010. BSD.
-- Aleks Nesterow. <https://github.com/nesterow>.   2010. BSD.
-- Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
+- [Robin Lu](https://github.com/robin)
+- [Michael Ash](https://github.com/mikeash)
+- [Aleks Nesterow](https://github.com/nesterow)
+- [Zach Waldowski](https://github.com/zwaldowski)
 
  @see NSDictionary(BlocksKit)
  @see NSSet(BlocksKit)
@@ -92,7 +92,7 @@
 /** Arbitrarily accumulate objects using a block.
  
  The concept of this selector is difficult to illustrate in words. The sum can
- be any NSObject, including (but not limited to) an NSString, NSNumber, or NSValue.
+ be any NSObject, including (but not limited to) a string, number, or value.
  
  For example, you can concentate the strings in an array:
 	 NSString *concentrated = [stringArray reduce:@"" withBlock:^id(id sum, id obj) {
@@ -100,10 +100,9 @@
 	 }];
  
  You can also do something like summing the lengths of strings in an array:
-	 NSNumber *sum = [stringArray reduce:nil withBlock:^id(id sum, id obj) {
-	   return [NSNumber numberWithInteger: [sum integerValue] + obj.length];
-	 }];
-	 NSUInteger value = [sum integerValue];
+	 NSUInteger value = [[[stringArray reduce:nil withBlock:^id(id sum, id obj) {
+	   return @([sum integerValue] + obj.length);
+	 }]] unsignedIntegerValue];
 
  @param initial The value of the reduction at its start.
  @param block A block that takes the current sum and the next object to return the new sum.
@@ -149,12 +148,13 @@
 /** Tests whether every element of this array relates to the corresponding element of another array according to match by block.
  
  For example, finding if a list of numbers corresponds to their sequenced string values;
- NSArray *numbers = [NSArray arrayWithObjects: [NSNumber numberWithInt: 1], [NSNumber numberWithInt: 2], [NSNumber numberWithInt: 3], nil];
- NSArray *letters = [NSArray arrayWithObjects: @"1", @"2", @"3", nil];
+ NSArray *numbers = @[ @(1), @(2), @(3) ];
+ NSArray *letters = @[ @"1", @"2", @"3" ];
  BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
-    return [[number stringValue] isEqualToString: letter];
+ 	return [[number stringValue] isEqualToString: letter];
  }];
  
+ @param list An array of objects to compare with.
  @param block A two-argument, BOOL-returning code block.
  @return Returns a BOOL, true if every element of array relates to corresponding element in another array.
  */

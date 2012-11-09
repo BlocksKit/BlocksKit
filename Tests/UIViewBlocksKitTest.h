@@ -3,10 +3,10 @@
 //  BlocksKit Unit Tests
 //
 
-#import <GHUnitIOS/GHUnit.h>
-#import "BlocksKit/BlocksKit.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import <BlocksKit/UIView+BlocksKit.h>
 
-@interface UIViewBlocksKitTest : GHTestCase
+@interface UIViewBlocksKitTest : SenTestCase
 
 - (void)testOnTouchDown;
 - (void)testOnTouchMove;

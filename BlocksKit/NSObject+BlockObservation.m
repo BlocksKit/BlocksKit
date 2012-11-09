@@ -9,13 +9,9 @@
 #import "NSArray+BlocksKit.h"
 #import "NSSet+BlocksKit.h"
 
-@interface BKObserver : NSObject {
-	id _task;
-	id _observee;
-	NSArray *_keyPaths;
-}
+@interface BKObserver : NSObject
 
-@property (nonatomic, assign) id observee;
+@property (nonatomic, unsafe_unretained) id observee;
 @property (nonatomic, copy) NSArray *keyPaths;
 @property (nonatomic, copy) id task;
 
@@ -31,14 +27,12 @@ static char kMultipleBlockObservationContext;
 
 @implementation BKObserver
 
-@synthesize observee = _observee, keyPaths = _keyPaths, task = _task;
-
 + (BKObserver *)observerForObject:(id)object keyPaths:(NSArray *)keyPaths task:(id)task {
 	BKObserver *instance = [BKObserver new];
 	instance.observee = object;
 	instance.keyPaths = keyPaths;
 	instance.task = task;
-	return [instance autorelease];
+	return instance;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -55,12 +49,6 @@ static char kMultipleBlockObservationContext;
 		BKMultipleObservationBlock task = self.task;
 		task(object, keyPath, change);
 	}
-}
-
-- (void)dealloc {
-	self.task = nil;
-	self.keyPaths = nil;
-	[super dealloc];
 }
 
 @end
@@ -86,7 +74,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 
 - (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
-	[self addObserverForKeyPaths: [NSArray arrayWithObject:keyPath] identifier: token options: options task: (id)task];
+	[self addObserverForKeyPaths: @[keyPath] identifier: token options: options task: (id)task];
 	return token;
 }
 
@@ -97,7 +85,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 - (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
-	[self addObserverForKeyPaths: [NSArray arrayWithObject:keyPath] identifier: identifier options: options task: (id)task];
+	[self addObserverForKeyPaths: @[keyPath] identifier: identifier options: options task: (id)task];
 }
 
 - (void)addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task {
@@ -117,7 +105,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 		}
 		
 		[keyPaths each:^(NSString *keyPath) {
-			[dict setObject:newObserver forKey:[NSString stringWithFormat:@"%@_%@", keyPath, identifier]];
+			dict[[NSString stringWithFormat:@"%@_%@", keyPath, identifier]] = newObserver;
 		}];
 	});
 	
@@ -134,8 +122,8 @@ static dispatch_queue_t BKObserverMutationQueue() {
 	dispatch_sync(BKObserverMutationQueue(), ^{
 		NSString *token = [NSString stringWithFormat:@"%@_%@", keyPath, identifier];
 		NSMutableDictionary *dict = [self associatedValueForKey:&kObserverBlocksKey];
-		BKObserver *trampoline = [dict objectForKey:token];
-		
+		BKObserver *trampoline = dict[token];
+
 		if (!trampoline || ![trampoline.keyPaths containsObject:keyPath])
 			return;
 		
@@ -187,5 +175,3 @@ static dispatch_queue_t BKObserverMutationQueue() {
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSKeyValueOvserving_BlocksKit)

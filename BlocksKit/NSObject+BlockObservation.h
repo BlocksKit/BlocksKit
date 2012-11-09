@@ -1,6 +1,6 @@
 //
 //  NSObject+BlockObservation.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -20,10 +20,10 @@
  
  Includes code by the following:
  
- - Andy Matuschak. <https://github.com/andymatuschak>. 2009. Public domain.
- - Jon Sterling. <https://github.com/jonsterling>. 2010. Public domain.
- - Zach Waldowski. <https://github.com/zwaldowski>. 2011. MIT.
- - Jonathan Wight. <https://github.com/schwa>. 2011. BSD.
+ - [Andy Matuschak](https://github.com/andymatuschak)
+ - [Jon Sterling](https://github.com/jonsterling)
+ - [Zach Waldowski](https://github.com/zwaldowski)
+ - [Jonathan Wight](https://github.com/schwa)
 
  @warning *Important:* Due to a design flaw in some recent versions of the
  Objective-C runtime, you must call either a block overserver removal 

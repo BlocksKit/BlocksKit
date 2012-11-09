@@ -1,6 +1,6 @@
 //
 //  NSCache+BlocksKit.h
-//  %PROJECT
+//  BlocksKit
 //
 
 #import "BKGlobals.h"
@@ -14,7 +14,7 @@
  
  These methods emulate Rails caching behavior.
 
- Created by Igor Evsukov and contributed to BlocksKit.
+ Created by [Igor Evsukov](https://github.com/evsukov89) and contributed to BlocksKit.
  */
 
 @interface NSCache (BlocksKit)

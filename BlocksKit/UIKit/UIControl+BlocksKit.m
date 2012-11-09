@@ -13,7 +13,7 @@ static char kControlHandlersKey;
 
 @interface BKControlWrapper : NSObject <NSCopying>
 
-- (id)initWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents;
+- (id)initWithHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents;
 @property (nonatomic, copy) BKSenderBlock handler;
 @property (nonatomic) UIControlEvents controlEvents;
 
@@ -21,12 +21,10 @@ static char kControlHandlersKey;
 
 @implementation BKControlWrapper
 
-@synthesize handler, controlEvents;
-
-- (id)initWithHandler:(BKSenderBlock)aHandler forControlEvents:(UIControlEvents)someControlEvents {
+- (id)initWithHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
 	if ((self = [super init])) {
-		self.handler = aHandler;
-		self.controlEvents = someControlEvents;
+		self.handler = handler;
+		self.controlEvents = controlEvents;
 	}
 	return self;
 }
@@ -37,11 +35,6 @@ static char kControlHandlersKey;
 
 - (void)invoke:(id)sender {
 	self.handler(sender);
-}
-
-- (void)dealloc {
-	self.handler = nil;
-	[super dealloc];
 }
 
 @end
@@ -59,17 +52,16 @@ static char kControlHandlersKey;
 		[self associateValue:events withKey:&kControlHandlersKey];
 	}
 	
-	NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
-	NSMutableSet *handlers = [events objectForKey:key];
+	NSNumber *key = @(controlEvents);
+	NSMutableSet *handlers = events[key];
 	if (!handlers) {
 		handlers = [NSMutableSet set];
-		[events setObject:handlers forKey:key];
+		events[key] = handlers;
 	}
 	
 	BKControlWrapper *target = [[BKControlWrapper alloc] initWithHandler:handler forControlEvents:controlEvents];
 	[handlers addObject:target];
 	[self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
-	[target release];
 }
 
 - (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents {
@@ -79,8 +71,8 @@ static char kControlHandlersKey;
 		[self associateValue:events withKey:&kControlHandlersKey];
 	}
 	
-	NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
-	NSSet *handlers = [events objectForKey:key];
+	NSNumber *key = @(controlEvents);
+	NSSet *handlers = events[key];
 
 	if (!handlers)
 		return;
@@ -99,15 +91,13 @@ static char kControlHandlersKey;
 		[self associateValue:events withKey:&kControlHandlersKey];
 	}
 	
-	NSNumber *key = [NSNumber numberWithUnsignedInteger:controlEvents];
-	NSSet *handlers = [events objectForKey:key];
+	NSNumber *key = @(controlEvents);
+	NSSet *handlers = events[key];
 	
 	if (!handlers)
 		return NO;
 	
-	return handlers.count;
+	return !!handlers.count;
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(UIControl_BlocksKit)

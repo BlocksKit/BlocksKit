@@ -39,13 +39,11 @@
 		
 		if ([value isEqual:obj])
 			return;
-		
-		[new replaceObjectAtIndex:idx withObject:value];
+
+		new[idx] = value;
 	}];
-	
-	[self setArray:[new autorelease]];
+
+	[self setArray: new];
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSMutableArray_BlocksKit)

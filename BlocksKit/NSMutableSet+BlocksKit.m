@@ -37,5 +37,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSMutableSet_BlocksKit)

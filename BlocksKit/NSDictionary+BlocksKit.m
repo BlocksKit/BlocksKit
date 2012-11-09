@@ -26,15 +26,13 @@
 - (id)match:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 
-	id key = [[self keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
+	return self[[[self keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
 		if (block(key, obj)) {
 			*stop = YES;
 			return YES;
 		}
 		return NO;
-	}] anyObject];
-	
-	return [self objectForKey:key];
+	}] anyObject]];
 }
 
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {
@@ -65,7 +63,7 @@
 		if (!value)
 			value = [NSNull null];
 		
-		[result setObject:value forKey:key];
+		result[key] = value;
 	}];
 	
 	return result;
@@ -82,8 +80,8 @@
 - (BOOL)all:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    __block BOOL result = YES;
-    
+	__block BOOL result = YES;
+	
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		if (!block(key, obj)) {
 			result = NO;
@@ -95,5 +93,3 @@
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSDictionary_BlocksKit)

@@ -2,6 +2,9 @@
 //  UIWebViewBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Created by Zachary Waldowski on 12/20/11.
+//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
+//
 
 #import "UIWebViewBlocksKitTest.h"
 
@@ -10,16 +13,8 @@
 	BOOL shouldStartLoadDelegate, didStartLoadDelegate, didFinishLoadDelegate, didFinishWithErrorDelegate;
 }
 
-- (BOOL)shouldRunOnMainThread {
-	return YES;
-}
-
 - (void)setUp {
-	_subject = [[UIWebView alloc] initWithFrame:CGRectZero];
-}
-
-- (void)tearDown {
-	[_subject release];
+	_subject = [[UIWebView alloc] initWithFrame: (CGRect){0, 0, 0, 0}];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -50,9 +45,9 @@
 	
 	BOOL shouldStartLoad = [_subject.dynamicDelegate webView:_subject shouldStartLoadWithRequest:nil navigationType:UIWebViewNavigationTypeLinkClicked];
 	
-	GHAssertTrue(shouldStartLoad, @"Web view is allowed to load");
-	GHAssertTrue(shouldStartLoadBlock, @"Block handler was called");
-	GHAssertTrue(shouldStartLoadDelegate, @"Delegate was called");
+	STAssertTrue(shouldStartLoad, @"Web view is allowed to load");
+	STAssertTrue(shouldStartLoadBlock, @"Block handler was called");
+	STAssertTrue(shouldStartLoadDelegate, @"Delegate was called");
 }
 
 - (void)testDidStartLoad {
@@ -65,8 +60,8 @@
 	
 	[_subject.dynamicDelegate webViewDidStartLoad:_subject];
 	
-	GHAssertTrue(didStartLoadBlock, @"Block handler was called");
-	GHAssertTrue(didStartLoadDelegate, @"Delegate was called");
+	STAssertTrue(didStartLoadBlock, @"Block handler was called");
+	STAssertTrue(didStartLoadDelegate, @"Delegate was called");
 }
 
 - (void)testDidFinishLoad {
@@ -79,8 +74,8 @@
 	
 	[_subject.dynamicDelegate webViewDidFinishLoad:_subject];
 	
-	GHAssertTrue(didFinishLoadBlock, @"Block handler was called");
-	GHAssertTrue(didFinishLoadDelegate, @"Delegate was called");
+	STAssertTrue(didFinishLoadBlock, @"Block handler was called");
+	STAssertTrue(didFinishLoadDelegate, @"Delegate was called");
 }
 
 - (void)testDidFinishWithError {
@@ -93,8 +88,8 @@
 	
 	[_subject.dynamicDelegate webView:_subject didFailLoadWithError:nil];
 	
-	GHAssertTrue(didFinishWithErrorBlock, @"Block handler was called");
-	GHAssertTrue(didFinishWithErrorDelegate, @"Delegate was called");
+	STAssertTrue(didFinishWithErrorBlock, @"Block handler was called");
+	STAssertTrue(didFinishWithErrorDelegate, @"Delegate was called");
 }
 
 @end

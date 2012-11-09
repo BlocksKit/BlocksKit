@@ -54,7 +54,7 @@
 - (NSSet *)map:(BKTransformBlock)block {
 	NSParameterAssert(block != nil);
 	
-	NSMutableSet *result = [[NSMutableSet alloc] initWithCapacity:self.count];
+	NSMutableSet *result = [NSMutableSet setWithCapacity: self.count];
 	
 	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
 		id value = block(obj);
@@ -64,21 +64,19 @@
 		[result addObject:value];
 	}];
 
-	return [result autorelease];
+	return result;
 }
 
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	__block id result = [initial retain];
+	__block id result = initial;
 	
 	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-		id new = block(result, obj);
-		[result release];
-		result = [new retain];
+		result = block(result, obj);
 	}];
 	
-	return [result autorelease];
+	return result;
 }
 
 - (BOOL)any:(BKValidationBlock)block {
@@ -92,18 +90,16 @@
 - (BOOL)all:(BKValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-    __block BOOL result = YES;
-    
+	__block BOOL result = YES;
+	
 	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
 		if (!block(obj)) {
 			result = NO;
 			*stop = YES;
 		}
 	}];
-    
-    return result;
+	
+	return result;
 }
 
 @end
-
-BK_MAKE_CATEGORY_LOADABLE(NSSet_BlocksKit)
