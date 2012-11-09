@@ -3,12 +3,12 @@
 
 Blocks in C and Objective-C are downright magical.  They make coding easier and potentially quicker, not to mention faster on the front end with multithreading and Grand Central Dispatch.  BlocksKit hopes to facilitate this kind of programming by removing some of the annoying - and, in some cases, impeding - limits on coding with blocks.
 
-BlocksKit is a framework and static library for iOS 4.3+ and Mac OS X 10.6+.
+BlocksKit is a framework for OS X Lion and newer and a static library for iOS 5 and newer.
 
 Installation
 ============
 
-BlocksKit can be added to a project using [CocoaPods](https://github.com/alloy/cocoapods). We also distribute a static library build.
+BlocksKit can be added to a project using [CocoaPods](https://github.com/cocoapods/cocoapods). We also distribute a static library build.
 
 ### Library
 
