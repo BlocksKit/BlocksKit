@@ -23,7 +23,7 @@
 /** Filters a mutable ordered set to the objects matching the block.
 
  @param block A single-argument, BOOL-returning code block.
- @see reject:
+ @see <NSOrderedSet(BlocksKit)>reject:
  */
 - (void)performSelect:(BKValidationBlock)block;
 
@@ -31,7 +31,7 @@
  block, the logical inverse to select:.
 
  @param block A single-argument, BOOL-returning code block.
- @see select:
+ @see <NSOrderedSet(BlocksKit)>select:
  */
 - (void)performReject:(BKValidationBlock)block;
 
@@ -43,6 +43,7 @@
      }];
 
  @param block A single-argument, object-returning code block.
+ @see <NSOrderedSet(BlocksKit)>map:
  */
 - (void)performMap:(BKTransformBlock)block;
 

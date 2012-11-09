@@ -23,7 +23,7 @@
 /** Filters a mutable array to the objects matching the block.
  
  @param block A single-argument, BOOL-returning code block.
- @see reject:
+ @see <NSArray(BlocksKit)>reject:
  */
 - (void)performSelect:(BKValidationBlock)block;
 
@@ -31,18 +31,19 @@
  the logical inverse to select:.
  
  @param block A single-argument, BOOL-returning code block.
- @see select:
+ @see <NSArray(BlocksKit)>select:
  */
 - (void)performReject:(BKValidationBlock)block;
 
 /** Transform the objects in the array to the results of the block.
  
  This is sometimes referred to as a transform, mutating one of each object:
-	[foo map:^id(id obj) {
+	[foo performMap:^id(id obj) {
 	  return [dateTransformer dateFromString:obj];
 	}];
  
  @param block A single-argument, object-returning code block.
+ @see <NSArray(BlocksKit)>map:
  */
 - (void)performMap:(BKTransformBlock)block;
 

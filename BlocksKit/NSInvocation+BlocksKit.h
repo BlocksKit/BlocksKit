@@ -5,6 +5,7 @@
 
 #import "BKGlobals.h"
 
+/** BlocksKit extensions for NSInvocation. */
 @interface NSInvocation (BlocksKit)
 
 /** Generates an `NSInvocation` instance for a given block.

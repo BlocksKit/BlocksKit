@@ -6,6 +6,8 @@
 #import "BKGlobals.h"
 #import "A2DynamicDelegate.h"
 
+/** The A2DynamicDelegate category to NSObject provides the primary interface
+ by which dynamic delegates are generated for a given object. */
 @interface NSObject (A2DynamicDelegate)
 
 /** Creates or gets a dynamic data source for the reciever.
@@ -21,7 +23,7 @@
  it can be called from within the custom
  implementation using blockImplementationForMethod:.
 
- @see blockImplementationForMethod:
+ @see <A2DynamicDelegate>blockImplementationForMethod:
  @return A dynamic data source.
  */
 - (id) dynamicDataSource;
@@ -39,7 +41,7 @@
  it can be called from within the custom
  implementation using blockImplementationForMethod:.
 
- @see blockImplementationForMethod:
+ @see <A2DynamicDelegate>blockImplementationForMethod:
  @return A dynamic delegate.
  */
 - (id) dynamicDelegate;
@@ -58,7 +60,7 @@
 
  @param protocol A custom protocol.
  @return A dynamic protocol implementation.
- @see blockImplementationForMethod:
+ @see <A2DynamicDelegate>blockImplementationForMethod:
  */
 - (id) dynamicDelegateForProtocol: (Protocol *) protocol;
 

@@ -23,7 +23,7 @@
 /** Filters a mutable dictionary to the key/value pairs matching the block.
  
  @param block A BOOL-returning code block for a key/value pair.
- @see reject:
+ @see <NSDictionary(BlocksKit)>reject:
  */
 - (void)performSelect:(BKKeyValueValidationBlock)block;
 
@@ -31,7 +31,7 @@
  the logical inverse to select:.
  
  @param block A BOOL-returning code block for a key/value pair.
- @see select:
+ @see <NSDictionary(BlocksKit)>select:
  */
 - (void)performReject:(BKKeyValueValidationBlock)block;
 
@@ -39,6 +39,7 @@
  block.
  
  @param block A block that returns a new value for a given key/value pair.
+ @see <NSDictionary(BlocksKit)>map:
  */
 - (void)performMap:(BKKeyValueTransformBlock)block;
 

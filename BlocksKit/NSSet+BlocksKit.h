@@ -94,7 +94,7 @@
  You can also do something like summing the count of an item:
 	 NSUInteger numberOfBodyParts = [[bodyList reduce:nil withBlock:^id(id sum, id obj) {
 	   return @([sum integerValue] + obj.numberOfAppendages);
-	 }] integerValue]
+	 }] unsignedIntegerValue];
 
  @param initial The value of the reduction at its start.
  @param block A block that takes the current sum and the next object to return the new sum.

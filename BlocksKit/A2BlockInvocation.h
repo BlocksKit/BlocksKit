@@ -116,7 +116,7 @@
  If the block invocation object has never been invoked, the result of this
  method is undefined and is not recommended.
  
- @param buffer An untyped buffer into which the receiver copies its return
+ @param retLoc An untyped buffer into which the receiver copies its return
  value. It should be large enough to accommodate the value. See the discussion
  for more information.
  @see setReturnValue:
@@ -127,7 +127,7 @@
  
  This value is normally set when you send an invoke message.
  
- @param buffer An untyped buffer whose contents are copied as the receiver's
+ @param retLoc An untyped buffer whose contents are copied as the receiver's
  return value.
  @see invoke
  @see getReturnValue:
@@ -200,6 +200,7 @@
  Otherwise, this method raises NSInvalidArgumentException if the number of
  arguments in both invocations are not appropriately matched.
 
+ @param inv An instance of NSInvocation with values for its arguments set.
  @see setArgument:atIndex:
  @see getReturnValue:
  */

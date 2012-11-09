@@ -100,9 +100,9 @@
      }];
 
  You can also do something like summing the lengths of strings in an ordered set:
-     NSUInteger value = [[stringArray reduce:nil withBlock:^id(id sum, id obj) {
+     NSUInteger value = [[[stringArray reduce:nil withBlock:^id(id sum, id obj) {
          return @([sum integerValue] + obj.length);
-     }]];
+     }]] unsignedIntegerValue];
 
  @param initial The value of the reduction at its start.
  @param block A block that takes the current sum and the next object to return the new sum.
@@ -159,6 +159,7 @@
          return [[number stringValue] isEqualToString: letter];
      }];
 
+ @param list An array of objects to compare with.
  @param block A two-argument, BOOL-returning code block.
  @return Returns a BOOL, true if every element of the ordered set relates to
  corresponding element in another ordered set.
