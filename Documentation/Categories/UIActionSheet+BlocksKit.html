@@ -1,0 +1,1077 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>UIActionSheet(BlocksKit) Category Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">BlocksKit </a></h1>
+				<a id="developerHome" href="../index.html">Pandamonia LLC</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">UIActionSheet(BlocksKit) Category Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/cancelBlock">&nbsp;&nbsp;&nbsp;&nbsp;cancelBlock</option>
+	
+	<option value="//api/name/didDismissBlock">&nbsp;&nbsp;&nbsp;&nbsp;didDismissBlock</option>
+	
+	<option value="//api/name/didShowBlock">&nbsp;&nbsp;&nbsp;&nbsp;didShowBlock</option>
+	
+	<option value="//api/name/willDismissBlock">&nbsp;&nbsp;&nbsp;&nbsp;willDismissBlock</option>
+	
+	<option value="//api/name/willShowBlock">&nbsp;&nbsp;&nbsp;&nbsp;willShowBlock</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/actionSheetWithTitle:">&nbsp;&nbsp;&nbsp;&nbsp;+ actionSheetWithTitle:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/addButtonWithTitle:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- addButtonWithTitle:handler:</option>
+	
+	<option value="//api/name/handlerForButtonAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- handlerForButtonAtIndex:</option>
+	
+	<option value="//api/name/initWithTitle:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithTitle:</option>
+	
+	<option value="//api/name/setCancelButtonWithTitle:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- setCancelButtonWithTitle:handler:</option>
+	
+	<option value="//api/name/setDestructiveButtonWithTitle:handler:">&nbsp;&nbsp;&nbsp;&nbsp;- setDestructiveButtonWithTitle:handler:</option>
+	
+	<option value="//api/name/setHandler:forButtonAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- setHandler:forButtonAtIndex:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Creating action sheets">Creating action sheets</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Adding buttons">Adding buttons</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Altering actions">Altering actions</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cancelBlock">cancelBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didDismissBlock">didDismissBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didShowBlock">didShowBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willDismissBlock">willDismissBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willShowBlock">willShowBlock</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/actionSheetWithTitle:">actionSheetWithTitle:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addButtonWithTitle:handler:">addButtonWithTitle:handler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handlerForButtonAtIndex:">handlerForButtonAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithTitle:">initWithTitle:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setDestructiveButtonWithTitle:handler:">setDestructiveButtonWithTitle:handler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setHandler:forButtonAtIndex:">setHandler:forButtonAtIndex:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="UIActionSheet(BlocksKit) Category Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">UIActionSheet(BlocksKit) Category Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">UIActionSheetDelegate</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">UIActionSheet+BlocksKit.h</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>UIActionSheet without delegates!</p>
+
+<p>This set of extensions and convenience classes allows
+for an instance of UIAlertView without the implementation
+of a delegate.  Any time you instantiate a UIAlertView
+using the methods here, you must add buttons using
+addButtonWithTitle:handler: to make sure nothing breaks.</p>
+
+<p>A typical invocation might go like this:</p>
+
+<pre><code> UIActionSheet *testSheet = [UIActionSheet actionSheetWithTitle:@"Please select one."];
+ [testSheet addButtonWithTitle:@"Zip" handler:^{ NSLog(@"Zip!"); }];
+ [testSheet addButtonWithTitle:@"Zap" handler:^{ NSLog(@"Zap!"); }];
+ [testSheet addButtonWithTitle:@"Zop" handler:^{ NSLog(@"Zop!"); }];
+ [testSheet setDestructiveButtonWithTitle:@"No!" handler:^{ NSLog(@"Fine!"); }];
+ [testSheet setCancelButtonWithTitle:nil handler:^{ NSLog(@"Never mind, then!"); }];
+ [testSheet showInView:self.view];
+</code></pre>
+
+<p>Includes code by the following:</p>
+
+<ul>
+<li><a href="http://landonf.bikemonkey.org">Landon Fuller</a>, &ldquo;Using Blocks&rdquo;.</li>
+<li><a href="https://github.com/steipete">Peter Steinberger</a></li>
+<li><a href="https://github.com/zwaldowski">Zach Waldowski</a></li>
+</ul>
+<div class="warning"><p><strong>Warning:</strong> UIActionSheet is only available on a platform with UIKit.</p></div>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Creating action sheets" name="task_Creating action sheets"></a>
+						<h3 class="subsubtitle task-title">Creating action sheets</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/actionSheetWithTitle:">+&nbsp;actionSheetWithTitle:</a></code>
+		<span class="tooltip"><p>Creates and returns a new action sheet with only a title and cancel button.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initWithTitle:">&ndash;&nbsp;initWithTitle:</a></code>
+		<span class="tooltip"><p>Returns a configured action sheet with only a title and cancel button.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Adding buttons" name="task_Adding buttons"></a>
+						<h3 class="subsubtitle task-title">Adding buttons</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/addButtonWithTitle:handler:">&ndash;&nbsp;addButtonWithTitle:handler:</a></code>
+		<span class="tooltip"><p>Add a new button with an associated code block.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setDestructiveButtonWithTitle:handler:">&ndash;&nbsp;setDestructiveButtonWithTitle:handler:</a></code>
+		<span class="tooltip"><p>Set the destructive (red) button with an associated code block.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setCancelButtonWithTitle:handler:">&ndash;&nbsp;setCancelButtonWithTitle:handler:</a></code>
+		<span class="tooltip"><p>Set the title and trigger of the cancel button.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Altering actions" name="task_Altering actions"></a>
+						<h3 class="subsubtitle task-title">Altering actions</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setHandler:forButtonAtIndex:">&ndash;&nbsp;setHandler:forButtonAtIndex:</a></code>
+		<span class="tooltip"><p>Sets the block that is to be fired when a button is pressed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/handlerForButtonAtIndex:">&ndash;&nbsp;handlerForButtonAtIndex:</a></code>
+		<span class="tooltip"><p>The block that is to be fired when a button is pressed.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/cancelBlock">&nbsp;&nbsp;cancelBlock</a></code>
+		<span class="tooltip"><p>The block to be fired when the action sheet is dismissed with the cancel
+button and/or action.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/willShowBlock">&nbsp;&nbsp;willShowBlock</a></code>
+		<span class="tooltip"><p>The block to be fired before the action sheet will show.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didShowBlock">&nbsp;&nbsp;didShowBlock</a></code>
+		<span class="tooltip"><p>The block to be fired when the action sheet shows.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/willDismissBlock">&nbsp;&nbsp;willDismissBlock</a></code>
+		<span class="tooltip"><p>The block to be fired before the action sheet will dismiss.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didDismissBlock">&nbsp;&nbsp;didDismissBlock</a></code>
+		<span class="tooltip"><p>The block to be fired after the action sheet dismisses.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/cancelBlock" title="cancelBlock"></a>
+	<h3 class="subsubtitle method-title">cancelBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block to be fired when the action sheet is dismissed with the cancel
+button and/or action.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) BKBlock cancelBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired when the action sheet is dismissed with the cancel
+button and/or action.</p>
+
+<p>This property performs the same action as <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>
+but with <code>title</code> set to nil.  Contrary to <a href="#//api/name/setCancelButtonWithTitle:handler:">setCancelButtonWithTitle:handler:</a>,
+you can set this property multiple times and multiple cancel buttons will
+not be generated.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didDismissBlock" title="didDismissBlock"></a>
+	<h3 class="subsubtitle method-title">didDismissBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block to be fired after the action sheet dismisses.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *, NSInteger ) didDismissBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired after the action sheet dismisses.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didShowBlock" title="didShowBlock"></a>
+	<h3 class="subsubtitle method-title">didShowBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block to be fired when the action sheet shows.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *) didShowBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired when the action sheet shows.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/willDismissBlock" title="willDismissBlock"></a>
+	<h3 class="subsubtitle method-title">willDismissBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block to be fired before the action sheet will dismiss.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *, NSInteger ) willDismissBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired before the action sheet will dismiss.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/willShowBlock" title="willShowBlock"></a>
+	<h3 class="subsubtitle method-title">willShowBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block to be fired before the action sheet will show.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIActionSheet *) willShowBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block to be fired before the action sheet will show.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/actionSheetWithTitle:" title="actionSheetWithTitle:"></a>
+	<h3 class="subsubtitle method-title">actionSheetWithTitle:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates and returns a new action sheet with only a title and cancel button.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (id)actionSheetWithTitle:(NSString *)<em>title</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>title</em></dt>
+			<dd><p>The header of the action sheet.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A newly created action sheet.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Creates and returns a new action sheet with only a title and cancel button.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/addButtonWithTitle:handler:" title="addButtonWithTitle:handler:"></a>
+	<h3 class="subsubtitle method-title">addButtonWithTitle:handler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Add a new button with an associated code block.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSInteger)addButtonWithTitle:(NSString *)<em>title</em> handler:(BKBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>title</em></dt>
+			<dd><p>The text of the button.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block of code.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Add a new button with an associated code block.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/handlerForButtonAtIndex:" title="handlerForButtonAtIndex:"></a>
+	<h3 class="subsubtitle method-title">handlerForButtonAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The block that is to be fired when a button is pressed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BKBlock)handlerForButtonAtIndex:(NSInteger)<em>index</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>The index of a button already added to the action sheet.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A code block, or nil if no block is assigned.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The block that is to be fired when a button is pressed.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithTitle:" title="initWithTitle:"></a>
+	<h3 class="subsubtitle method-title">initWithTitle:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns a configured action sheet with only a title and cancel button.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithTitle:(NSString *)<em>title</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>title</em></dt>
+			<dd><p>The header of the action sheet.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An instantiated actionSheet.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns a configured action sheet with only a title and cancel button.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setCancelButtonWithTitle:handler:" title="setCancelButtonWithTitle:handler:"></a>
+	<h3 class="subsubtitle method-title">setCancelButtonWithTitle:handler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Set the title and trigger of the cancel button.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSInteger)setCancelButtonWithTitle:(NSString *)<em>title</em> handler:(BKBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>title</em></dt>
+			<dd><p>The text of the button.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block of code.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Set the title and trigger of the cancel button.</p>
+
+<p><code>block</code> can be set to <code>nil</code>, but this is generally useless as
+the cancel button is configured already to do nothing.</p>
+
+<p>iPhone users will have the button shown regardless; if the title is
+set to <code>nil</code>, it will automatically be localized.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setDestructiveButtonWithTitle:handler:" title="setDestructiveButtonWithTitle:handler:"></a>
+	<h3 class="subsubtitle method-title">setDestructiveButtonWithTitle:handler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Set the destructive (red) button with an associated code block.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSInteger)setDestructiveButtonWithTitle:(NSString *)<em>title</em> handler:(BKBlock)<em>block</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>title</em></dt>
+			<dd><p>The text of the button.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A block of code.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Set the destructive (red) button with an associated code block.</p><div class="warning"><p><strong>Warning:</strong> Because buttons cannot be removed from an action sheet,
+be aware that the effects of calling this method are cumulative.
+Previously added destructive buttons will become normal buttons.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setHandler:forButtonAtIndex:" title="setHandler:forButtonAtIndex:"></a>
+	<h3 class="subsubtitle method-title">setHandler:forButtonAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the block that is to be fired when a button is pressed.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setHandler:(BKBlock)<em>block</em> forButtonAtIndex:(NSInteger)<em>index</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>A code block, or nil to set no response.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>The index of a button already added to the action sheet.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sets the block that is to be fired when a button is pressed.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIActionSheet+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>
