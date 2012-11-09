@@ -16,14 +16,14 @@
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/zwaldowski/BlocksKit">View on GitHub</a>
+          <a id="forkme_banner" href="https://github.com/pandamonia/BlocksKit">View on GitHub</a>
 
           <h1 id="project_title">BlocksKit</h1>
           <h2 id="project_tagline">The Objective-C block utilities you always wish you had.</h2>
 
             <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/zwaldowski/BlocksKit/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/zwaldowski/BlocksKit/tarball/master">Download this project as a tar.gz file</a>
+              <a class="zip_download_link" href="https://github.com/pandamonia/BlocksKit/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/pandamonia/BlocksKit/tarball/master">Download this project as a tar.gz file</a>
             </section>
         </header>
     </div>
@@ -31,127 +31,43 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1><a href="http://zwaldowski.github.com/BlocksKit">BlocksKit</a></h1>
+        <h1><a href="http://pandamonia.github.com/BlocksKit">BlocksKit</a></h1>
 
 <p>Blocks in C and Objective-C are downright magical.  They make coding easier and potentially quicker, not to mention faster on the front end with multithreading and Grand Central Dispatch.  BlocksKit hopes to facilitate this kind of programming by removing some of the annoying - and, in some cases, impeding - limits on coding with blocks.</p>
 
-<p>BlocksKit includes: basic block calling; key value observing extensions; filtering and enumeration for mutable and immutable collections; <code>NSInvocation</code> from a block; block-based timers, controls, and gesture recognizers; block-based alert views and action sheets; and block-backed delegation alternatives to <code>NSURLConnection</code>, <code>NSCache</code>, <code>MFMailComposeViewController</code>, <code>MFMessageComposeViewController</code>, and <code>UIWebView</code>.</p>
-
-<h1>Dependencies</h1>
-
-<p>BlocksKit is a framework and static library for Mac OS X 10.6+ and iOS 4.0+. Use of BlocksKit on iOS requires linking against Core Graphics, MessageUI, and UIKit.</p>
+<p>BlocksKit is a framework and static library for iOS 4.3+ and Mac OS X 10.6+.</p>
 
 <h1>Installation</h1>
 
-<p>BlocksKit can be added to a project using <a href="http://cocoapods.org">CocoaPods</a>, or through the methods described below.</p>
+<p>BlocksKit can be added to a project using <a href="https://github.com/alloy/cocoapods">CocoaPods</a>. We also distribute a static library build.</p>
 
-<h3>Framework</h3>
-
-<ul>
-<li>Download a release of BlocksKit.</li>
-<li>Move BlocksKit.framework to your project's folder.  Drag it from there into your project.</li>
-<li>Add BlocksKit.framework to "Link Binary With Libraries" in your app's target. Make sure your app is linked with CoreGraphics, Foundation, MessageUI, and UIKit.</li>
-<li>In the build settings of your target or project, change "Other Linker Flags" (<code>OTHER_LDFLAGS</code>) to <code>-ObjC -all_load</code>.</li>
-<li>Insert <code>#import &lt;BlocksKit/BlocksKit.h&gt;</code> in your project's prefix header.</li>
-<li>Make amazing software.</li>
-</ul><h3>Library</h3>
+<h3>Library</h3>
 
 <ul>
 <li>Download a release of BlocksKit.</li>
 <li>Move libBlocksKit.a and Headers to your project's folder, preferably a subfolder like "Vendor".</li>
-<li>In "Build Phases", drag libBlocksKit.a into your target's "Link Binary With Libraries" build phase. </li>
+<li>In "Build Phases", Drag libBlocksKit.a into your target's "Link Binary With Libraries" build phase. </li>
 <li>In the build settings of your target or project, change "Other Linker Flags" to <code>-ObjC -all_load</code>. Make sure your app is linked with CoreGraphics, Foundation, MessageUI, and UIKit.</li>
 <li>Change (or add) to "Header Search Paths" the relative path to BlocksKit's headers, like <code>$(SRCROOT)/Vendor/Headers</code>.</li>
-<li>Insert <code>#import &lt;BlocksKit/BlocksKit.h&gt;</code> in your project's prefix header.</li>
-</ul><h1>Download</h1>
+<li>Insert <code>#import &lt;BlocksKit/BlocksKit.h&gt;</code>` in your project's prefix header.</li>
+</ul><h1>Documentation</h1>
 
-<p>You can download this project in either <a href="https://github.com/zwaldowski/BlocksKit/zipball/master">zip</a> or <a href="https://github.com/zwaldowski/BlocksKit/tarball/master">tar</a> formats.</p>
-
-<p>You can also clone the project with Git by running:</p>
-
-<pre><code>$ git clone git://github.com/zwaldowski/BlocksKit
-</code></pre>
-
-<h1>Documentation</h1>
-
-<p>An Xcode 4 compatible documentation set is available <a href="http://zwaldowski.github.com/BlocksKit/com.dizzytechnology.BlocksKit.atom">using this Atom link</a>. Add it to Xcode 4's preferences and it'll download automatically. You may also view the documentation <a href="http://zwaldowski.github.com/BlocksKit/Documentation">online</a>.</p>
+<p>An Xcode 4 compatible documentation set is available <a href="http://pandamonia.github.com/BlocksKit/us.pandamonia.BlocksKit.atom">using this Atom link</a>. You may also view the documentation <a href="http://pandamonia.github.com/BlocksKit/Documentation">online</a>.</p>
 
 <h1>License</h1>
 
-<p>BlocksKit is created and maintained by <a href="https://github.com/zwaldowski">Zachary Waldowski</a> under the MIT license.  <strong>The project itself is free for use in any and all projects.</strong>  You can use BlocksKit in any project, public or private, with or without attribution. The license is reproduced below.</p>
+<p>BlocksKit is created and maintained by <a href="https://github.com/pandamonia">Pandamonia LLC</a> under the MIT license.  <strong>The project itself is free for use in any and all projects.</strong>  You can use BlocksKit in any project, public or private, with or without attribution - though we prefer attribution! It helps us.</p>
 
-<p>Copyright (c) 2011-2012 Zachary Waldowski, Alexsander Akers, and the BlocksKit Contributors.</p>
+<p>Unsure about your rights?  <a href="http://pandamonia.github.com/BlocksKit/index.html#license">Read more.</a></p>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-
-<p>All of the code included in BlocksKit is licensed either under BSD or MIT, or is otherwise in the public domain. You can use BlocksKit in any project, public or private, with or without attribution.</p>
-
-<h1>Credits</h1>
-
-<p>BlocksKit takes, repurposes, fiddles with, and groups together a variety of block-related code generally found on GitHub.</p>
-
-<p>The following people (in alphabetical order) have their code lovingly enshrined in BlocksKit:</p>
-
-<ul>
-<li>Michael Ash</li>
-<li>Jiva DeVoe</li>
-<li>Igor Evsukov</li>
-<li>Corey Floyd</li>
-<li>Landon Fuller</li>
-<li>Mirko Kiefer</li>
-<li>Robin Lu</li>
-<li>Jake Marsh</li>
-<li>Andy Matuschak</li>
-<li>Aleks Nesterow</li>
-<li>Kevin O'Neill</li>
-<li>Jonathan Rentzch</li>
-<li>Peter Steinberger</li>
-<li>Jon Sterling</li>
-<li>Martin Schürrer</li>
-<li>Jonathan Wight</li>
-</ul><p>Specific credits exist in the header files and documentation.</p>
-
-<h1>Contributors</h1>
-
-<p>A special thanks are also extended to the following who have contributed to the project on GitHub.</p>
-
-<ul>
-<li>Muhammad Adil <a href="mailto:adil@itsaboutcode.com">adil@itsaboutcode.com</a>
-</li>
-<li>Aubrey Goodman <a href="mailto:aubrey.goodman@gmail.com">aubrey.goodman@gmail.com</a>
-</li>
-<li>Brian Doig <a href="mailto:brian.doig@me.com">brian.doig@me.com</a>
-</li>
-<li>Dieter Komendera <a href="mailto:dieter@komendera.com">dieter@komendera.com</a>
-</li>
-<li>David Linsin <a href="mailto:dlinsin@gmail.com">dlinsin@gmail.com</a>
-</li>
-<li>Yasuhiro Inami <a href="mailto:inamiy@gmail.com">inamiy@gmail.com</a>
-</li>
-<li>Kai Wu <a href="mailto:kaiwu2004@gmail.com">kaiwu2004@gmail.com</a>
-</li>
-<li>Martin Schürrer <a href="mailto:martin@schuerrer.org">martin@schuerrer.org</a>
-</li>
-<li>Scott Talbot <a href="mailto:s@chikachow.org">s@chikachow.org</a>
-</li>
-<li>Simon Blommegård <a href="mailto:simon@blommegard.se">simon@blommegard.se</a>
-</li>
-<li>Stelian Iancu <a href="mailto:stelian.iancu@gmail.com">stelian.iancu@gmail.com</a>
-</li>
-<li>Anthony Mittaz <a href="mailto:sync@me.com">sync@me.com</a>
-</li>
-</ul>
+<p>Individual credits for included code exist in the header files and documentation. We thank them for their contributions to the open source community.</p>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">BlocksKit maintained by <a href="https://github.com/zwaldowski">zwaldowski</a></p>
+        <p class="copyright">BlocksKit maintained by <a href="https://github.com/pandamonia">pandamonia</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
