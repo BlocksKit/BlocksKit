@@ -464,6 +464,8 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	if (![inv isMemberOfClass: [NSInvocation class]])
 		return;
 
+	NSParameterAssert(inv.methodSignature.numberOfArguments - 1 == self.interface.nargs);
+
 	[inv retainArguments];
 
 	for (int i = 0; i < self.interface.nargs - 1; i++)
