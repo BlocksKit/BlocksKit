@@ -5,9 +5,6 @@
 //  Created by Alexsander Akers on 11/30/11.
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
 //
-//  Includes code by Apple Inc. Licensed under APSL.
-//  Copyright (c) 1999-2007 Apple Inc. All rights reserved.
-//
 
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
@@ -19,6 +16,19 @@
 
 extern Protocol *a2_dataSourceProtocol(Class cls);
 extern Protocol *a2_delegateProtocol(Class cls);
+
+static BOOL bk_object_isKindOfClass(id obj, Class testClass)
+{
+	BOOL isKindOfClass = NO;
+	Class cls = object_getClass(obj);
+	while (cls && !isKindOfClass)
+	{
+		isKindOfClass = (cls == testClass);
+		cls = class_getSuperclass(cls);
+	}
+	
+	return isKindOfClass;
+}
 
 @interface A2DynamicDelegate ()
 
@@ -146,7 +156,7 @@ static inline SEL prefixedSelector(SEL selector) {
 
 				if ([delegatingObject respondsToSelector:a2_setter]) {
 					id originalDelegate = objc_msgSend(delegatingObject, a2_getter);
-					if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
+					if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class]))
 						objc_msgSend(delegatingObject, a2_setter, dynamicDelegate);
 				}
 			}
@@ -206,7 +216,7 @@ static inline SEL prefixedSelector(SEL selector) {
 
 		if ([delegatingObject respondsToSelector:a2_setter]) {
 			id originalDelegate = objc_msgSend(delegatingObject, a2_getter, delegate);
-			if (![originalDelegate isKindOfClass:[A2DynamicDelegate class]])
+			if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class]))
 				objc_msgSend(delegatingObject, a2_setter, dynamicDelegate);
 		}
 
