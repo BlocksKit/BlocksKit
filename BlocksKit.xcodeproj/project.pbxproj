@@ -178,6 +178,12 @@
 		6CF22D39161F32A9002FD317 /* UIWebViewBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D33161F32A9002FD317 /* UIWebViewBlocksKitTest.m */; };
 		6CF22D3F161F32C5002FD317 /* MFMailComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D3C161F32C4002FD317 /* MFMailComposeViewControllerBlocksKitTest.m */; };
 		6CF22D40161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D3E161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m */; };
+		7BFF19D31788D336005FF656 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFF19D21788D336005FF656 /* Cocoa.framework */; };
+		7BFF19DF1788D336005FF656 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFF19DE1788D336005FF656 /* main.m */; };
+		7BFF19E61788D336005FF656 /* BKApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFF19E51788D336005FF656 /* BKApp.m */; };
+		7BFF19E91788D337005FF656 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BFF19E71788D337005FF656 /* MainMenu.xib */; };
+		7BFF19F01788D35F005FF656 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC40A751447BB1400E47595 /* BlocksKit.framework */; };
+		7BFF19F11788D372005FF656 /* BlocksKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6CC40A751447BB1400E47595 /* BlocksKit.framework */; };
 		A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A92C9A6413F41E0A006DA96A /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
 		A97E4C9F13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A97E4C9D13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -186,14 +192,14 @@
 		A97E4CA413FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */; };
 		A99DD88613D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A99DD88913D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */; };
-		DB155FD9176294A2008B9A43 /* ffi_arm.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FCF176294A2008B9A43 /* ffi_arm.h */; };
+		DB155FD9176294A2008B9A43 /* ffi_armv7.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FCF176294A2008B9A43 /* ffi_armv7.h */; };
 		DB155FDA176294A2008B9A43 /* ffi_common.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD0176294A2008B9A43 /* ffi_common.h */; };
 		DB155FDB176294A2008B9A43 /* ffi_i386.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD1176294A2008B9A43 /* ffi_i386.h */; };
 		DB155FDC176294A2008B9A43 /* ffi.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD2176294A2008B9A43 /* ffi.h */; };
-		DB155FDD176294A2008B9A43 /* fficonfig_arm.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD3176294A2008B9A43 /* fficonfig_arm.h */; };
+		DB155FDD176294A2008B9A43 /* fficonfig_armv7.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD3176294A2008B9A43 /* fficonfig_armv7.h */; };
 		DB155FDE176294A2008B9A43 /* fficonfig_i386.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD4176294A2008B9A43 /* fficonfig_i386.h */; };
 		DB155FDF176294A2008B9A43 /* fficonfig.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD5176294A2008B9A43 /* fficonfig.h */; };
-		DB155FE0176294A2008B9A43 /* ffitarget_arm.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD6176294A2008B9A43 /* ffitarget_arm.h */; };
+		DB155FE0176294A2008B9A43 /* ffitarget_armv7.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD6176294A2008B9A43 /* ffitarget_armv7.h */; };
 		DB155FE1176294A2008B9A43 /* ffitarget_i386.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD7176294A2008B9A43 /* ffitarget_i386.h */; };
 		DB155FE2176294A2008B9A43 /* ffitarget.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD8176294A2008B9A43 /* ffitarget.h */; };
 		DB155FEA176294B4008B9A43 /* closures.c in Sources */ = {isa = PBXBuildFile; fileRef = DB155FE3176294B4008B9A43 /* closures.c */; };
@@ -224,10 +230,30 @@
 			remoteGlobalIDString = 6C3DBF8C1382F1BA00E6C9AA;
 			remoteInfo = "iOS Library";
 		};
+		7BFF19ED1788D348005FF656 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6C3DBF841382F1BA00E6C9AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6CC40A741447BB1400E47595;
+			remoteInfo = BlocksKit;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7BFF19EF1788D34D005FF656 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7BFF19F11788D372005FF656 /* BlocksKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		0005D5DE161FDF23007DD837 /* iOS Tests App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Tests App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0005D5DE161FDF23007DD837 /* BlocksKit iOS Tests App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BlocksKit iOS Tests App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0005D5E8161FDF23007DD837 /* iOS Tests App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOS Tests App-Info.plist"; sourceTree = "<group>"; };
 		0005D5EE161FDF23007DD837 /* iOS Tests App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS Tests App-Prefix.pch"; sourceTree = "<group>"; };
 		005292201781083E008ACFDA /* BlocksKit+MessageUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+MessageUI.h"; sourceTree = "<group>"; };
@@ -308,11 +334,11 @@
 		6CF22BF2161EACBD002FD317 /* trampoline.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = trampoline.S; sourceTree = "<group>"; };
 		6CF22BF4161EACBD002FD317 /* darwin.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin.S; sourceTree = "<group>"; };
 		6CF22BF5161EACBD002FD317 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
-		6CF22C95161EAFB8002FD317 /* OS X Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OS X Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CF22C95161EAFB8002FD317 /* BlocksKit OS X Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BlocksKit OS X Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF22C96161EAFB8002FD317 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		6CF22CA0161EAFB8002FD317 /* OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OS X Tests-Info.plist"; sourceTree = "<group>"; };
 		6CF22CA7161EAFB8002FD317 /* OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
-		6CF22CB0161EB048002FD317 /* iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CF22CB0161EB048002FD317 /* BlocksKit iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BlocksKit iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF22CB1161EB048002FD317 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		6CF22CC0161EB048002FD317 /* iOS Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6CF22CDC161EB1C3002FD317 /* A2BlockDelegateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockDelegateTests.h; sourceTree = "<group>"; };
@@ -365,6 +391,13 @@
 		6CF22D3C161F32C4002FD317 /* MFMailComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMailComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		6CF22D3D161F32C4002FD317 /* MFMessageComposeViewControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMessageComposeViewControllerBlocksKitTest.h; sourceTree = "<group>"; };
 		6CF22D3E161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMessageComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		7BFF19D11788D336005FF656 /* BlocksKit Mac Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BlocksKit Mac Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BFF19D21788D336005FF656 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		7BFF19DA1788D336005FF656 /* MacDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MacDemo-Info.plist"; sourceTree = "<group>"; };
+		7BFF19DE1788D336005FF656 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7BFF19E41788D336005FF656 /* BKApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKApp.h; sourceTree = "<group>"; };
+		7BFF19E51788D336005FF656 /* BKApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKApp.m; sourceTree = "<group>"; };
+		7BFF19E81788D337005FF656 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
 		A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BlocksKit.m"; sourceTree = "<group>"; };
 		A97E4C9D13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMailComposeViewController+BlocksKit.h"; sourceTree = "<group>"; };
@@ -373,14 +406,14 @@
 		A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMessageComposeViewController+BlocksKit.m"; sourceTree = "<group>"; };
 		A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+BlocksKit.h"; sourceTree = "<group>"; };
 		A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+BlocksKit.m"; sourceTree = "<group>"; };
-		DB155FCF176294A2008B9A43 /* ffi_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_arm.h; sourceTree = "<group>"; };
+		DB155FCF176294A2008B9A43 /* ffi_armv7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_armv7.h; sourceTree = "<group>"; };
 		DB155FD0176294A2008B9A43 /* ffi_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_common.h; sourceTree = "<group>"; };
 		DB155FD1176294A2008B9A43 /* ffi_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_i386.h; sourceTree = "<group>"; };
 		DB155FD2176294A2008B9A43 /* ffi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi.h; sourceTree = "<group>"; };
-		DB155FD3176294A2008B9A43 /* fficonfig_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fficonfig_arm.h; sourceTree = "<group>"; };
+		DB155FD3176294A2008B9A43 /* fficonfig_armv7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fficonfig_armv7.h; sourceTree = "<group>"; };
 		DB155FD4176294A2008B9A43 /* fficonfig_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fficonfig_i386.h; sourceTree = "<group>"; };
 		DB155FD5176294A2008B9A43 /* fficonfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fficonfig.h; sourceTree = "<group>"; };
-		DB155FD6176294A2008B9A43 /* ffitarget_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_arm.h; sourceTree = "<group>"; };
+		DB155FD6176294A2008B9A43 /* ffitarget_armv7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_armv7.h; sourceTree = "<group>"; };
 		DB155FD7176294A2008B9A43 /* ffitarget_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_i386.h; sourceTree = "<group>"; };
 		DB155FD8176294A2008B9A43 /* ffitarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget.h; sourceTree = "<group>"; };
 		DB155FE3176294B4008B9A43 /* closures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = closures.c; sourceTree = "<group>"; };
@@ -443,6 +476,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7BFF19CE1788D336005FF656 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BFF19D31788D336005FF656 /* Cocoa.framework in Frameworks */,
+				7BFF19F01788D35F005FF656 /* BlocksKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -486,6 +528,7 @@
 				6C3DBF921382F1BA00E6C9AA /* BlocksKit */,
 				6CF22C9E161EAFB8002FD317 /* Tests */,
 				6CF22BDF161EACBD002FD317 /* libffi */,
+				7BFF19D81788D336005FF656 /* BlocksKit Mac Demo */,
 				6C3DBF8F1382F1BA00E6C9AA /* Frameworks */,
 				6C3DBF8E1382F1BA00E6C9AA /* Products */,
 			);
@@ -495,9 +538,10 @@
 			isa = PBXGroup;
 			children = (
 				6CC40A751447BB1400E47595 /* BlocksKit.framework */,
-				6CF22C95161EAFB8002FD317 /* OS X Tests.octest */,
-				6CF22CB0161EB048002FD317 /* iOS Tests.octest */,
-				0005D5DE161FDF23007DD837 /* iOS Tests App.app */,
+				6CF22C95161EAFB8002FD317 /* BlocksKit OS X Tests.octest */,
+				6CF22CB0161EB048002FD317 /* BlocksKit iOS Tests.octest */,
+				0005D5DE161FDF23007DD837 /* BlocksKit iOS Tests App.app */,
+				7BFF19D11788D336005FF656 /* BlocksKit Mac Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -510,6 +554,7 @@
 				DB70D7DB177FC26F002B5223 /* UIKit.framework */,
 				DB70D7DD177FC26F002B5223 /* Foundation.framework */,
 				DB70D7DF177FC26F002B5223 /* CoreGraphics.framework */,
+				7BFF19D21788D336005FF656 /* Cocoa.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -594,14 +639,14 @@
 		6CF22BE3161EACBD002FD317 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				DB155FCF176294A2008B9A43 /* ffi_arm.h */,
+				DB155FCF176294A2008B9A43 /* ffi_armv7.h */,
 				DB155FD0176294A2008B9A43 /* ffi_common.h */,
 				DB155FD1176294A2008B9A43 /* ffi_i386.h */,
 				DB155FD2176294A2008B9A43 /* ffi.h */,
-				DB155FD3176294A2008B9A43 /* fficonfig_arm.h */,
+				DB155FD3176294A2008B9A43 /* fficonfig_armv7.h */,
 				DB155FD4176294A2008B9A43 /* fficonfig_i386.h */,
 				DB155FD5176294A2008B9A43 /* fficonfig.h */,
-				DB155FD6176294A2008B9A43 /* ffitarget_arm.h */,
+				DB155FD6176294A2008B9A43 /* ffitarget_armv7.h */,
 				DB155FD7176294A2008B9A43 /* ffitarget_i386.h */,
 				DB155FD8176294A2008B9A43 /* ffitarget.h */,
 			);
@@ -727,6 +772,26 @@
 			name = MessageUI;
 			sourceTree = "<group>";
 		};
+		7BFF19D81788D336005FF656 /* BlocksKit Mac Demo */ = {
+			isa = PBXGroup;
+			children = (
+				7BFF19E41788D336005FF656 /* BKApp.h */,
+				7BFF19E51788D336005FF656 /* BKApp.m */,
+				7BFF19E71788D337005FF656 /* MainMenu.xib */,
+				7BFF19D91788D336005FF656 /* Supporting Files */,
+			);
+			path = "BlocksKit Mac Demo";
+			sourceTree = "<group>";
+		};
+		7BFF19D91788D336005FF656 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7BFF19DA1788D336005FF656 /* MacDemo-Info.plist */,
+				7BFF19DE1788D336005FF656 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		DB70D7D3177FB44B002B5223 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -831,15 +896,15 @@
 				6CF22BD7161EAC72002FD317 /* A2DynamicDelegate.h in Headers */,
 				6C161C901620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */,
 				6C161C971620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */,
-				DB155FD9176294A2008B9A43 /* ffi_arm.h in Headers */,
+				DB155FD9176294A2008B9A43 /* ffi_armv7.h in Headers */,
 				005292231781083E008ACFDA /* BlocksKit+UIKit.h in Headers */,
 				DB155FDA176294A2008B9A43 /* ffi_common.h in Headers */,
 				DB155FDB176294A2008B9A43 /* ffi_i386.h in Headers */,
 				DB155FDC176294A2008B9A43 /* ffi.h in Headers */,
-				DB155FDD176294A2008B9A43 /* fficonfig_arm.h in Headers */,
+				DB155FDD176294A2008B9A43 /* fficonfig_armv7.h in Headers */,
 				DB155FDE176294A2008B9A43 /* fficonfig_i386.h in Headers */,
 				DB155FDF176294A2008B9A43 /* fficonfig.h in Headers */,
-				DB155FE0176294A2008B9A43 /* ffitarget_arm.h in Headers */,
+				DB155FE0176294A2008B9A43 /* ffitarget_armv7.h in Headers */,
 				DB155FE1176294A2008B9A43 /* ffitarget_i386.h in Headers */,
 				DB155FE2176294A2008B9A43 /* ffitarget.h in Headers */,
 			);
@@ -877,9 +942,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0005D5DD161FDF23007DD837 /* iOS Tests App */ = {
+		0005D5DD161FDF23007DD837 /* BlocksKit iOS Tests App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0005D5F8161FDF24007DD837 /* Build configuration list for PBXNativeTarget "iOS Tests App" */;
+			buildConfigurationList = 0005D5F8161FDF24007DD837 /* Build configuration list for PBXNativeTarget "BlocksKit iOS Tests App" */;
 			buildPhases = (
 				0005D5DA161FDF23007DD837 /* Sources */,
 				0005D5DB161FDF23007DD837 /* Frameworks */,
@@ -889,9 +954,9 @@
 			);
 			dependencies = (
 			);
-			name = "iOS Tests App";
+			name = "BlocksKit iOS Tests App";
 			productName = "iOS Tests App";
-			productReference = 0005D5DE161FDF23007DD837 /* iOS Tests App.app */;
+			productReference = 0005D5DE161FDF23007DD837 /* BlocksKit iOS Tests App.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6C3DBF8C1382F1BA00E6C9AA /* libBlocksKit */ = {
@@ -929,9 +994,9 @@
 			productReference = 6CC40A751447BB1400E47595 /* BlocksKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6CF22C94161EAFB8002FD317 /* OS X Tests */ = {
+		6CF22C94161EAFB8002FD317 /* BlocksKit OS X Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CF22CA8161EAFB8002FD317 /* Build configuration list for PBXNativeTarget "OS X Tests" */;
+			buildConfigurationList = 6CF22CA8161EAFB8002FD317 /* Build configuration list for PBXNativeTarget "BlocksKit OS X Tests" */;
 			buildPhases = (
 				6CF22C90161EAFB8002FD317 /* Sources */,
 				6CF22C91161EAFB8002FD317 /* Frameworks */,
@@ -943,14 +1008,14 @@
 			dependencies = (
 				6CF22CC7161EB13A002FD317 /* PBXTargetDependency */,
 			);
-			name = "OS X Tests";
+			name = "BlocksKit OS X Tests";
 			productName = "OS X Tests";
-			productReference = 6CF22C95161EAFB8002FD317 /* OS X Tests.octest */;
+			productReference = 6CF22C95161EAFB8002FD317 /* BlocksKit OS X Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		6CF22CAF161EB048002FD317 /* iOS Tests */ = {
+		6CF22CAF161EB048002FD317 /* BlocksKit iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CF22CC1161EB048002FD317 /* Build configuration list for PBXNativeTarget "iOS Tests" */;
+			buildConfigurationList = 6CF22CC1161EB048002FD317 /* Build configuration list for PBXNativeTarget "BlocksKit iOS Tests" */;
 			buildPhases = (
 				6CF22CAB161EB048002FD317 /* Sources */,
 				6CF22CAC161EB048002FD317 /* Frameworks */,
@@ -963,10 +1028,29 @@
 				6CF22CDA161EB198002FD317 /* PBXTargetDependency */,
 				0005D5FC161FDF3C007DD837 /* PBXTargetDependency */,
 			);
-			name = "iOS Tests";
+			name = "BlocksKit iOS Tests";
 			productName = "iOS Tests";
-			productReference = 6CF22CB0161EB048002FD317 /* iOS Tests.octest */;
+			productReference = 6CF22CB0161EB048002FD317 /* BlocksKit iOS Tests.octest */;
 			productType = "com.apple.product-type.bundle";
+		};
+		7BFF19D01788D336005FF656 /* BlocksKit Mac Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BFF19EC1788D337005FF656 /* Build configuration list for PBXNativeTarget "BlocksKit Mac Demo" */;
+			buildPhases = (
+				7BFF19CD1788D336005FF656 /* Sources */,
+				7BFF19CE1788D336005FF656 /* Frameworks */,
+				7BFF19CF1788D336005FF656 /* Resources */,
+				7BFF19EF1788D34D005FF656 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7BFF19EE1788D348005FF656 /* PBXTargetDependency */,
+			);
+			name = "BlocksKit Mac Demo";
+			productName = MacDemo;
+			productReference = 7BFF19D11788D336005FF656 /* BlocksKit Mac Demo.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -996,9 +1080,10 @@
 			targets = (
 				6C3DBF8C1382F1BA00E6C9AA /* libBlocksKit */,
 				6CC40A741447BB1400E47595 /* BlocksKit */,
-				6CF22CAF161EB048002FD317 /* iOS Tests */,
-				6CF22C94161EAFB8002FD317 /* OS X Tests */,
-				0005D5DD161FDF23007DD837 /* iOS Tests App */,
+				6CF22CAF161EB048002FD317 /* BlocksKit iOS Tests */,
+				6CF22C94161EAFB8002FD317 /* BlocksKit OS X Tests */,
+				0005D5DD161FDF23007DD837 /* BlocksKit iOS Tests App */,
+				7BFF19D01788D336005FF656 /* BlocksKit Mac Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -1030,6 +1115,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BFF19CF1788D336005FF656 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BFF19E91788D337005FF656 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1211,12 +1304,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7BFF19CD1788D336005FF656 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BFF19DF1788D336005FF656 /* main.m in Sources */,
+				7BFF19E61788D336005FF656 /* BKApp.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		0005D5FC161FDF3C007DD837 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0005D5DD161FDF23007DD837 /* iOS Tests App */;
+			target = 0005D5DD161FDF23007DD837 /* BlocksKit iOS Tests App */;
 			targetProxy = 0005D5FB161FDF3C007DD837 /* PBXContainerItemProxy */;
 		};
 		6CF22CC7161EB13A002FD317 /* PBXTargetDependency */ = {
@@ -1229,7 +1331,23 @@
 			target = 6C3DBF8C1382F1BA00E6C9AA /* libBlocksKit */;
 			targetProxy = 6CF22CD9161EB198002FD317 /* PBXContainerItemProxy */;
 		};
+		7BFF19EE1788D348005FF656 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6CC40A741447BB1400E47595 /* BlocksKit */;
+			targetProxy = 7BFF19ED1788D348005FF656 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7BFF19E71788D337005FF656 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7BFF19E81788D337005FF656 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0005D5F9161FDF24007DD837 /* Debug */ = {
@@ -1382,14 +1500,21 @@
 		6CC40A821447BB1400E47595 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
 				DYLIB_CURRENT_VERSION = 1.8.2;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libffi\"/**";
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
+				INSTALL_PATH = "@loader_path/Frameworks/";
 				ONLY_ACTIVE_ARCH = YES;
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -1397,13 +1522,21 @@
 		6CC40A831447BB1400E47595 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_CURRENT_VERSION = 1.8.2;
 				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libffi\"/**";
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -1490,10 +1623,46 @@
 			};
 			name = Release;
 		};
+		7BFF19EA1788D337005FF656 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "BlocksKit Mac Demo/MacDemo-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7BFF19EB1788D337005FF656 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "BlocksKit Mac Demo/MacDemo-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0005D5F8161FDF24007DD837 /* Build configuration list for PBXNativeTarget "iOS Tests App" */ = {
+		0005D5F8161FDF24007DD837 /* Build configuration list for PBXNativeTarget "BlocksKit iOS Tests App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0005D5F9161FDF24007DD837 /* Debug */,
@@ -1529,7 +1698,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CF22CA8161EAFB8002FD317 /* Build configuration list for PBXNativeTarget "OS X Tests" */ = {
+		6CF22CA8161EAFB8002FD317 /* Build configuration list for PBXNativeTarget "BlocksKit OS X Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CF22CA9161EAFB8002FD317 /* Debug */,
@@ -1538,11 +1707,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CF22CC1161EB048002FD317 /* Build configuration list for PBXNativeTarget "iOS Tests" */ = {
+		6CF22CC1161EB048002FD317 /* Build configuration list for PBXNativeTarget "BlocksKit iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CF22CC2161EB048002FD317 /* Debug */,
 				6CF22CC3161EB048002FD317 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7BFF19EC1788D337005FF656 /* Build configuration list for PBXNativeTarget "BlocksKit Mac Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BFF19EA1788D337005FF656 /* Debug */,
+				7BFF19EB1788D337005FF656 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
