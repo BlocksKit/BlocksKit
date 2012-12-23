@@ -38,7 +38,7 @@
 - (NSDictionary *)select:(BKKeyValueValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
-	NSArray *keys = [[self keysOfEntriesWithOptions:NSEnumerationConcurrent passingTest:^(id key, id obj, BOOL *stop) {
+	NSArray *keys = [[self keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
 		return block(key, obj);
 	}] allObjects];
 	
