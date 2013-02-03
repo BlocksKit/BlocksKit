@@ -266,7 +266,7 @@ static char kResponseLengthKey;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:willCacheResponse:)])
 		return [realDelegate connection: connection willCacheResponse: cachedResponse];
 	
-	return nil;
+	return cachedResponse;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
