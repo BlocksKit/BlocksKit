@@ -113,7 +113,7 @@
  @param success A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  @param failure A code block that acts on instances of NSURLResponse and NSError in the event of a failed connection.
  */
-+ (NSURLConnection *)startConnectionWithRequest:(NSURLRequest *)request successHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))success failureHandler:(void(^)(NSURLConnection *, NSError *))failure;
++ (NSURLConnection *)startConnectionWithRequest:(NSURLRequest *)request successHandler:(void(^)(NSURLConnection *urlConnection, NSURLResponse *urlResponse, NSData *data))success failureHandler:(void(^)(NSURLConnection *urlConnection, NSError *error))failure;
 
 /** Returns an initialized block-backed URL connection.
  
@@ -128,12 +128,12 @@
  @param request The URL request to load.
  @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  */
-- (id)initWithRequest:(NSURLRequest *)request completionHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block;
+- (id)initWithRequest:(NSURLRequest *)request completionHandler:(void(^)(NSURLConnection *urlConnection, NSURLResponse *urlResponse, NSData *data))block;
 
 /** Causes the connection to begin loading data, if it has not already, with the specified block to be fired on successful completion.
  
  @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  */
-- (void)startWithCompletionBlock:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block;
+- (void)startWithCompletionBlock:(void(^)(NSURLConnection *urlConnection, NSURLResponse *urlResponse, NSData *data))block;
 
 @end
