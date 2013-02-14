@@ -425,30 +425,39 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		{
 			id old = *(__unsafe_unretained id *)_argumentFrame[idx];
 			if (old) [self.retainedArguments removeObject: old];
-
-			id new = *(__unsafe_unretained id *)buffer;
-			if (new) [self.retainedArguments addObject: new];
+			
+			if (buffer)
+			{
+				id new = *(__unsafe_unretained id *)buffer;
+				if (new) [self.retainedArguments addObject: new];
+			}
 		}
 		else if (type == &ffi_type_charptr)
 		{
 			char *old = *(char **)_argumentFrame[idx];
 			if (old) free(old);
 			
-			char *new = *(char**)buffer;
-			if (new)
+			if (buffer)
 			{
-				size_t len = strlen(new);
-				char *tmp = malloc(len + 1);
-				strncpy(tmp, new, len);
-				tmp[len] = '\0';
-				memcpy(_argumentFrame[idx], tmp, a2_sizeForType(cif.arg_types[idx]));
-				free(tmp);
-				return;
+				char *new = *(char**)buffer;
+				if (new)
+				{
+					size_t len = strlen(new);
+					char *tmp = malloc(len + 1);
+					strncpy(tmp, new, len);
+					tmp[len] = '\0';
+					memcpy(_argumentFrame[idx], tmp, a2_sizeForType(cif.arg_types[idx]));
+					free(tmp);
+					return;
+				}
 			}
 		}
 	}
 	
-	memcpy(_argumentFrame[idx], buffer, a2_sizeForType(cif.arg_types[idx]));
+	if (buffer)
+		memcpy(_argumentFrame[idx], buffer, a2_sizeForType(cif.arg_types[idx]));
+	else
+		memset(_argumentFrame[idx], 0, a2_sizeForType(cif.arg_types[idx]));
 }
 
 - (void) invoke
