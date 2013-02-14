@@ -350,11 +350,22 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		
 		for (NSUInteger i = 1; i < cif.nargs; i++)
 		{
-			if (cif.arg_types[i] != &ffi_type_id)
-				continue;
-			
-			id argument = *(__unsafe_unretained id *)_argumentFrame[i];
-			if (argument) [self.retainedArguments addObject: argument];
+			if (cif.arg_types[i] == &ffi_type_id)
+			{
+				id argument = *(__unsafe_unretained id *)_argumentFrame[i];
+				if (argument) [self.retainedArguments addObject: argument];
+			}
+			else if (cif.arg_types[i] == &ffi_type_charptr)
+			{
+				char *new = *(char **)_argumentFrame[i];
+				if (!new) continue;
+				
+				size_t len = strlen(new);
+				char *tmp = malloc(len + 1);
+				strncpy(tmp, new, len);
+				tmp[len] = '\0';
+				memcpy(_argumentFrame[i], &tmp, a2_sizeForType(cif.arg_types[i]));
+			}
 		}
 		
 		_argumentsRetained = YES;
@@ -446,9 +457,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 					char *tmp = malloc(len + 1);
 					strncpy(tmp, new, len);
 					tmp[len] = '\0';
-					memcpy(_argumentFrame[idx], tmp, a2_sizeForType(cif.arg_types[idx]));
-					free(tmp);
-					return;
+					memcpy(_argumentFrame[idx], &tmp, a2_sizeForType(cif.arg_types[idx]));
 				}
 			}
 		}

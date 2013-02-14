@@ -364,5 +364,126 @@ typedef struct _BigStruct {
 	[inv getReturnValue: &output];
 	STAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
 }
+- (void)testRetainArgumentsBeforeSetting
+{
+	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string){
+		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second && [object boolValue] && !strcmp(string, "Hello, World")) ? @"YES" : @"NO";
+	};
+	
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "@@:{_BigStruct=di*cc}@*"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
+	[inv retainArguments];
+	
+	int val = 42;
+	NSString *str = @"Test";
+	BigStruct ret;
+	ret.doubleValue = val * 2.2;
+	ret.integerValue = val;
+	ret.stringValue = str.UTF8String;
+	ret.first = YES;
+	ret.second = NO;
+	[inv setArgument: &ret atIndex: 0];
+	
+	id object = @YES;
+	[inv setArgument: &object atIndex: 1];
+	
+	char *cstr = "Hello, World";
+	[inv setArgument: &cstr atIndex: 2];
+	
+	[inv invoke];
+	
+	NSString *output;
+	[inv getReturnValue: &output];
+	STAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+}
+- (void)testRetainArgumentsAfterSetting
+{
+	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string){
+		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second && [object boolValue] && !strcmp(string, "Hello, World")) ? @"YES" : @"NO";
+	};
+	
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "@@:{_BigStruct=di*cc}@*"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
+	
+	int val = 42;
+	NSString *str = @"Test";
+	BigStruct ret;
+	ret.doubleValue = val * 2.2;
+	ret.integerValue = val;
+	ret.stringValue = str.UTF8String;
+	ret.first = YES;
+	ret.second = NO;
+	[inv setArgument: &ret atIndex: 0];
+	
+	id object = @YES;
+	[inv setArgument: &object atIndex: 1];
+	
+	char *cstr = "Hello, World";
+	[inv setArgument: &cstr atIndex: 2];
+	
+	[inv retainArguments];
+
+	[inv invoke];
+	
+	NSString *output;
+	[inv getReturnValue: &output];
+	STAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+}
+- (void)testClearArguments
+{
+	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string){
+		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second && [object boolValue] && !strcmp(string, "Hello, World")) ? @"YES" : @"NO";
+	};
+	
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "@@:{_BigStruct=di*cc}@*"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
+	
+	int val = 42;
+	NSString *str = @"Test";
+	BigStruct ret;
+	ret.doubleValue = val * 2.2;
+	ret.integerValue = val;
+	ret.stringValue = str.UTF8String;
+	ret.first = YES;
+	ret.second = NO;
+	[inv setArgument: &ret atIndex: 0];
+	
+	id object = @YES;
+	[inv setArgument: &object atIndex: 1];
+	
+	char *cstr = "Hello, World";
+	[inv setArgument: &cstr atIndex: 2];
+	
+	STAssertNoThrow([inv clearArguments], @"-clearArguments should not throw an exception");
+}
+- (void)testClearRetainedArguments
+{
+	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string){
+		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second && [object boolValue] && !strcmp(string, "Hello, World")) ? @"YES" : @"NO";
+	};
+	
+	NSMethodSignature *siggy = [NSMethodSignature signatureWithObjCTypes: "@@:{_BigStruct=di*cc}@*"];
+	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock: block methodSignature: siggy];
+	
+	int val = 42;
+	NSString *str = @"Test";
+	BigStruct ret;
+	ret.doubleValue = val * 2.2;
+	ret.integerValue = val;
+	ret.stringValue = str.UTF8String;
+	ret.first = YES;
+	ret.second = NO;
+	[inv setArgument: &ret atIndex: 0];
+	
+	id object = @YES;
+	[inv setArgument: &object atIndex: 1];
+	
+	char *cstr = "Hello, World";
+	[inv setArgument: &cstr atIndex: 2];
+	
+	[inv retainArguments];
+	
+	STAssertNoThrow([inv clearArguments], @"-clearArguments should not throw an exception");
+}
 
 @end
