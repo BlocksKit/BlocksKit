@@ -52,9 +52,10 @@
 #if BK_HAS_UIKIT
 #import "UIAlertView+BlocksKit.h"
 #import "UIActionSheet+BlocksKit.h"
-#import "UIControl+BlocksKit.h"
 #import "UIBarButtonItem+BlocksKit.h"
+#import "UIControl+BlocksKit.h"
 #import "UIGestureRecognizer+BlocksKit.h"
+#import "UIPopoverController+BlocksKit.h"
 #import "UIView+BlocksKit.h"
 #import "UIWebView+BlocksKit.h"
 #import "MFMailComposeViewController+BlocksKit.h"
