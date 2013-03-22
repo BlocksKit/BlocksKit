@@ -73,6 +73,13 @@
  */
 - (NSIndexSet *)map:(BKIndexTransformBlock)block;
 
+/** Call the block once for each index and create an array of the return values.
+ 
+ @param block A block that returns an object for an index.
+ @return Returns an array of the objects returned by the block.
+ */
+- (NSArray *)mapIndex:(BKIndexMapBlock)block;
+
 /** Loops through an index set to find whether any of the indexes matche the block.
  
  This method is similar to the Scala list `exists`. It is functionally
