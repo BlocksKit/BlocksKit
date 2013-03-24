@@ -205,6 +205,9 @@
 		A97E4CA413FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */; };
 		A99DD88613D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A99DD88913D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */; };
+		C21DE51B16FD4E2F0098F00D /* UIViewControllerKeyboardTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C21DE51A16FD4E2F0098F00D /* UIViewControllerKeyboardTest.m */; };
+		C21DE51E16FD58C90098F00D /* UIViewController+Keyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = C21DE51C16FD58C90098F00D /* UIViewController+Keyboard.h */; };
+		C21DE51F16FD58C90098F00D /* UIViewController+Keyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C21DE51D16FD58C90098F00D /* UIViewController+Keyboard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -400,6 +403,10 @@
 		A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMessageComposeViewController+BlocksKit.m"; sourceTree = "<group>"; };
 		A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+BlocksKit.h"; sourceTree = "<group>"; };
 		A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+BlocksKit.m"; sourceTree = "<group>"; };
+		C21DE51916FD4E2F0098F00D /* UIViewControllerKeyboardTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewControllerKeyboardTest.h; sourceTree = "<group>"; };
+		C21DE51A16FD4E2F0098F00D /* UIViewControllerKeyboardTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewControllerKeyboardTest.m; sourceTree = "<group>"; };
+		C21DE51C16FD58C90098F00D /* UIViewController+Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Keyboard.h"; sourceTree = "<group>"; };
+		C21DE51D16FD58C90098F00D /* UIViewController+Keyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Keyboard.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -593,6 +600,8 @@
 				6C6AAD9F138372E300203261 /* UIView+BlocksKit.m */,
 				6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */,
 				6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */,
+				C21DE51C16FD58C90098F00D /* UIViewController+Keyboard.h */,
+				C21DE51D16FD58C90098F00D /* UIViewController+Keyboard.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -783,6 +792,8 @@
 				6CF22D31161F32A3002FD317 /* UIViewBlocksKitTest.m */,
 				6CF22D32161F32A4002FD317 /* UIWebViewBlocksKitTest.h */,
 				6CF22D33161F32A9002FD317 /* UIWebViewBlocksKitTest.m */,
+				C21DE51916FD4E2F0098F00D /* UIViewControllerKeyboardTest.h */,
+				C21DE51A16FD4E2F0098F00D /* UIViewControllerKeyboardTest.m */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -849,6 +860,7 @@
 				6CF22C6F161EACBD002FD317 /* ffitarget.h in Headers */,
 				6CF22C70161EACBD002FD317 /* ffitarget_armv7.h in Headers */,
 				6CF22C71161EACBD002FD317 /* ffitarget_i386.h in Headers */,
+				C21DE51E16FD58C90098F00D /* UIViewController+Keyboard.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1124,6 +1136,7 @@
 				6C161C921620C6E000F04A9A /* NSOrderedSet+BlocksKit.m in Sources */,
 				6C161C991620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m in Sources */,
 				6C9594531638435700DBF5A1 /* NSObject+A2DynamicDelegate.m in Sources */,
+				C21DE51F16FD58C90098F00D /* UIViewController+Keyboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1215,6 +1228,7 @@
 				6CF22D40161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */,
 				6C161C9D1620C71A00F04A9A /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
 				6C161CA11620C74400F04A9A /* NSOrderedSetBlocksKitTest.m in Sources */,
+				C21DE51B16FD4E2F0098F00D /* UIViewControllerKeyboardTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
