@@ -24,15 +24,15 @@
 @interface NSObject (BKAssociatedObjects)
 
 /** Strongly associates an object with the reciever.
-
+ 
  The associated value is retained as if it were a property
  synthesized with `nonatomic` and `retain`.
-
+ 
  Using retained association is strongly recommended for most
  Objective-C object derivative of NSObject, particularly
  when it is subject to being externally released or is in an
  `NSAutoreleasePool`.
-
+ 
  @param value Any object.
  @param key A unique key pointer.
  */
@@ -46,14 +46,38 @@
  */
 + (void)associateValue:(id)value withKey:(const void *)key;
 
-/** Associates a copy of an object with the reciever.
+/** Strongly, thread-safely associates an object with the reciever.
+ 
+ The associated value is retained as if it were a property
+ synthesized with `atomic` and `retain`.
+ 
+ Using retained association is strongly recommended for most
+ Objective-C object derivative of NSObject, particularly
+ when it is subject to being externally released or is in an
+ `NSAutoreleasePool`.
+ 
+ @see associateValue:withKey:
+ @param value Any object.
+ @param key A unique key pointer.
+ */
+- (void)atomicallyAssociateValue:(id)value withKey:(const void *)key;
 
+/** Strongly, thread-safely associates an object with the receiving class.
+ 
+ @see associateValue:withKey:
+ @param value Any object.
+ @param key A unique key pointer.
+ */
++ (void)atomicallyAssociateValue:(id)value withKey:(const void *)key;
+
+/** Associates a copy of an object with the reciever.
+ 
  The associated value is copied as if it were a property
  synthesized with `nonatomic` and `copy`.
-
+ 
  Using copied association is recommended for a block or
  otherwise `NSCopying`-compliant instances like NSString.
-
+ 
  @param value Any object, pointer, or value.
  @param key A unique key pointer.
  */
@@ -67,12 +91,34 @@
  */
 + (void)associateCopyOfValue:(id)value withKey:(const void *)key;
 
-/** Weakly associates an object with the reciever.
+/** Thread-safely associates a copy of an object with the reciever.
+ 
+ The associated value is copied as if it were a property
+ synthesized with `atomic` and `copy`.
+ 
+ Using copied association is recommended for a block or
+ otherwise `NSCopying`-compliant instances like NSString.
+ 
+ @see associateCopyOfValue:withKey:
+ @param value Any object, pointer, or value.
+ @param key A unique key pointer.
+ */
+- (void)atomicallyAssociateCopyOfValue:(id)value withKey:(const void *)key;
 
+/** Thread-safely associates a copy of an object with the receiving class.
+ 
+ @see associateCopyOfValue:withKey:
+ @param value Any object, pointer, or value.
+ @param key A unique key pointer.
+ */
++ (void)atomicallyAssociateCopyOfValue:(id)value withKey:(const void *)key;
+
+/** Weakly associates an object with the reciever.
+ 
  A weak association will cause the pointer to be set to zero
  or nil upon the disappearance of what it references;
  in other words, the associated object is not kept alive.
-
+ 
  @param value Any object.
  @param key A unique key pointer.
  */
