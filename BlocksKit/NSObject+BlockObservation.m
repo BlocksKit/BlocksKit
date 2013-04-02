@@ -57,7 +57,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 	static dispatch_queue_t queue = nil;
 	static dispatch_once_t token = 0;
 	dispatch_once(&token, ^{
-		queue = dispatch_queue_create("org.blockskit.observers.queue", 0);
+		queue = dispatch_queue_create("us.pandamonia.blockskit.observers", 0);
 	});
 	return queue;
 }
@@ -84,11 +84,7 @@ static dispatch_queue_t BKObserverMutationQueue() {
 	return token;
 }
 
-- (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
-	[self addObserverForKeyPaths: @[keyPath] identifier: identifier options: options task: (id)task];
-}
-
-- (void)addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task {
+- (void)bk_addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options context:(void *)context task:(id)task {
 	NSParameterAssert(keyPaths.count);
 	NSParameterAssert(identifier.length);
 	NSParameterAssert(task);
@@ -109,10 +105,19 @@ static dispatch_queue_t BKObserverMutationQueue() {
 		}];
 	});
 	
-	void *context = (options == 0) ? ((keyPaths.count == 1) ? &kBlockObservationNoChangeContext : &kMultipleBlockObservationNoChangeContext) : ((keyPaths.count == 1) ? &kBlockObservationContext : &kMultipleBlockObservationContext);
 	[keyPaths each:^(NSString *keyPath) {
 		[self addObserver:newObserver forKeyPath:keyPath options:options context:context];
 	}];
+}
+
+- (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
+    void *context = (options == 0) ? &kBlockObservationNoChangeContext : &kBlockObservationContext;
+    [self bk_addObserverForKeyPaths:@[keyPath] identifier:identifier options:options context:context task:task];
+}
+
+- (void)addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task {
+    void *context = (options == 0) ? &kMultipleBlockObservationNoChangeContext : &kMultipleBlockObservationContext;
+    [self bk_addObserverForKeyPaths:keyPaths identifier:identifier options:options context:context task:task];
 }
 
 - (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier {

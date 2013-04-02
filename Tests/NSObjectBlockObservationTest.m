@@ -122,5 +122,30 @@
 	STAssertEqualObjects(_subject.members,target,@"members are %@",_subject.members);
 	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
 	[self removeObserverForKeyPath:@"subject.members" identifier:token];
-} 
+}
+
+
+- (void)testMultipleKeyValueObservation {
+    NSString *token = [self addObserverForKeyPaths: @[@"subject.kvc", @"subject.number"] task:^(id obj, NSString *keyPath) {
+        [(NSObjectBlockObservationTest *)obj action];
+    }];
+    NSNumber *number = @1;
+    [self setValue:@NO forKeyPath:@"subject.kvc"];
+    [self setValue:number forKeyPath:@"subject.number"];
+    STAssertFalse(_subject.kvc, @"kvc is NO");
+	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
+	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
+    [self removeObserversWithIdentifier: token];
+}
+
+- (void)testMultipleOnlyOneKeyValueObservation {
+    NSString *token = [self addObserverForKeyPaths: @[@"subject.kvc"] task:^(id obj, NSString *keyPath) {
+        [(NSObjectBlockObservationTest *)obj action];
+    }];
+    [self setValue:@NO forKeyPath:@"subject.kvc"];
+    STAssertFalse(_subject.kvc, @"kvc is NO");
+	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
+    [self removeObserversWithIdentifier: token];    
+}
+
 @end
