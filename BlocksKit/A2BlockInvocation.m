@@ -269,7 +269,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 @property (nonatomic, strong, readwrite, setter = a2_setMethodSignature:) NSMethodSignature *methodSignature;
 @property (nonatomic, strong, readwrite, setter = a2_setBlockSignature:) NSMethodSignature *blockSignature;
 @property (nonatomic, strong) NSMutableArray *allocations;
-@property (nonatomic, strong) NSMutableSet *retainedArguments;
+@property (nonatomic, strong) NSMutableDictionary *arguments;
 @property (nonatomic) ffi_cif interface;
 
 @end
@@ -318,7 +318,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		self.methodSignature = methodSignature;
 		self.blockSignature = blockSignature;
 		self.allocations = allocations;
-		self.retainedArguments = [NSMutableSet setWithCapacity: cif.nargs];
+		self.arguments = [NSMutableDictionary dictionaryWithCapacity:cif.nargs-1];
 		self.interface = cif;
 
 		_argumentFrame[0] = &_block;
@@ -353,18 +353,21 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 			if (cif.arg_types[i] == &ffi_type_id)
 			{
 				id argument = *(__unsafe_unretained id *)_argumentFrame[i];
-				if (argument) [self.retainedArguments addObject: argument];
+                if (argument) self.arguments[@(i)] = argument;
 			}
 			else if (cif.arg_types[i] == &ffi_type_charptr)
 			{
-				char *new = *(char **)_argumentFrame[i];
-				if (!new) continue;
-				
-				size_t len = strlen(new);
-				char *tmp = malloc(len + 1);
-				strncpy(tmp, new, len);
-				tmp[len] = '\0';
-				memcpy(_argumentFrame[i], &tmp, a2_sizeForType(cif.arg_types[i]));
+				char *old = *(char **)_argumentFrame[i];
+				if (!old) continue;
+                NSNumber *key = @(i);
+                NSData *currentData = self.arguments[key];
+                if (currentData.bytes == old) continue;
+                
+                char *new = strdup(old);
+                currentData = [NSData dataWithBytesNoCopy:new length:strlen(new) freeWhenDone:YES];
+                self.arguments[key] = currentData;
+                const char *newPtr = currentData.bytes;
+                memcpy(_argumentFrame[i], &newPtr, a2_sizeForType(&ffi_type_charptr));
 			}
 		}
 		
@@ -434,30 +437,29 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		ffi_type *type = cif.arg_types[idx];
 		if (type == &ffi_type_id)
 		{
-			id old = *(__unsafe_unretained id *)_argumentFrame[idx];
-			if (old) [self.retainedArguments removeObject: old];
+            NSNumber *key = @(idx);
+            [self.arguments removeObjectForKey: key];
 			
 			if (buffer)
 			{
 				id new = *(__unsafe_unretained id *)buffer;
-				if (new) [self.retainedArguments addObject: new];
+				if (new) self.arguments[key] = new;
 			}
 		}
 		else if (type == &ffi_type_charptr)
 		{
-			char *old = *(char **)_argumentFrame[idx];
-			if (old) free(old);
-			
+            NSNumber *key = @(idx);
+            [self.arguments removeObjectForKey: key];
+            
 			if (buffer)
 			{
 				char *new = *(char**)buffer;
 				if (new)
 				{
-					size_t len = strlen(new);
-					char *tmp = malloc(len + 1);
-					strncpy(tmp, new, len);
-					tmp[len] = '\0';
-					memcpy(_argumentFrame[idx], &tmp, a2_sizeForType(cif.arg_types[idx]));
+                    NSMutableData *wrap = [NSMutableData dataWithBytes:new length:strlen(new)];
+                    self.arguments[key] = wrap;
+                    new = wrap.mutableBytes;
+                    buffer = &new;
 				}
 			}
 		}
