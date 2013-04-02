@@ -65,6 +65,22 @@
 	return list;
 }
 
+- (NSArray *)mapIndex:(BKIndexMapBlock)block {
+	NSParameterAssert(block != nil);
+	
+	NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
+	
+	[self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+		id value = block(idx);
+		if (!value)
+			value = [NSNull null];
+		
+		[result addObject:value];
+	}];
+	
+	return result;
+}
+
 - (BOOL)any:(BKIndexValidationBlock)block {
 	return [self match: block] != NSNotFound;
 }
