@@ -24,12 +24,6 @@
  - [Jon Sterling](https://github.com/jonsterling)
  - [Zach Waldowski](https://github.com/zwaldowski)
  - [Jonathan Wight](https://github.com/schwa)
-
- @warning *Important:* Due to a design flaw in some recent versions of the
- Objective-C runtime, you must call either a block overserver removal 
- method in the dealloc method of any object making use of block-backed
- key-value observing. This has been fixed in the OS X 10.7 and iOS 5.0
- runtime.
  */
 
 @interface NSObject (BlockObservation)
