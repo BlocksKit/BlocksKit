@@ -45,12 +45,9 @@ static char BKBlockObservationContext;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	NSLog(@"hr");
 	if (context != &BKBlockObservationContext) return;
-	NSLog(@"hre");
 	
 	@synchronized(self) {
-		NSLog(@"here");
 		switch (self.context) {
 			case BKObserverContextKey: {
 				BKSenderBlock task = self.task;
