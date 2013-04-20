@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage              = 'https://github.com/pandamonia/BlocksKit'
   s.author                = { 'Zachary Waldowski' => 'zwaldowski@gmail.com',
                               'Alexsander Akers' => 'a2@pandamonia.us' }
-  s.source                = { :git => 'https://github.com/pandamonia/BlocksKit.git', :branch => 'next' }
+  s.source                = { :git => 'https://github.com/pandamonia/BlocksKit.git', :tag => "v#{s.version}" }
   s.requires_arc          = true
   s.osx.source_files      = 'BlocksKit/*.{h,m}'
   s.osx.library           = 'ffi'
