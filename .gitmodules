@@ -1,3 +1,4 @@
 [submodule "libffi"]
 	path = libffi
-	url = https://github.com/pandamonia/libffi-iOS.git
+	url = https://github.com/zwaldowski/libffi-iOS
+	branch = master
