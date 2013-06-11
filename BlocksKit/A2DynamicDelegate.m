@@ -15,12 +15,12 @@ Protocol *a2_delegateProtocol(Class cls);
 
 static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NSMethodSignature *blockSignature)
 {
-	if (strcmp(methodSignature.methodReturnType, blockSignature.methodReturnType))
+	if (methodSignature.methodReturnType[0] != blockSignature.methodReturnType[0])
 		return NO;
 
 	NSUInteger numberOfArguments = methodSignature.numberOfArguments;
 	for (NSUInteger i = 2; i < numberOfArguments; i++) {
-		if (strcmp([methodSignature getArgumentTypeAtIndex: i], [blockSignature getArgumentTypeAtIndex: i - 1]))
+		if ([methodSignature getArgumentTypeAtIndex: i][0] != [blockSignature getArgumentTypeAtIndex: i - 1][0])
 			return NO;
 	}
 	return YES;
