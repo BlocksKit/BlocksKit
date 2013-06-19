@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6CC40A741447BB1400E47595"
                BuildableName = "BlocksKit.framework"
-               BlueprintName = "OS X Framework"
+               BlueprintName = "BlocksKit"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

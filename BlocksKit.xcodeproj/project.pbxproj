@@ -895,9 +895,9 @@
 			productReference = 0005D5DE161FDF23007DD837 /* iOS Tests App.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6C3DBF8C1382F1BA00E6C9AA /* iOS Library */ = {
+		6C3DBF8C1382F1BA00E6C9AA /* libBlocksKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6C3DBF971382F1BA00E6C9AA /* Build configuration list for PBXNativeTarget "iOS Library" */;
+			buildConfigurationList = 6C3DBF971382F1BA00E6C9AA /* Build configuration list for PBXNativeTarget "libBlocksKit" */;
 			buildPhases = (
 				6C3DBF891382F1BA00E6C9AA /* Sources */,
 				6C3DBF8A1382F1BA00E6C9AA /* Frameworks */,
@@ -907,14 +907,14 @@
 			);
 			dependencies = (
 			);
-			name = "iOS Library";
+			name = libBlocksKit;
 			productName = BlocksKit;
 			productReference = 6C3DBF8D1382F1BA00E6C9AA /* libBlocksKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		6CC40A741447BB1400E47595 /* OS X Framework */ = {
+		6CC40A741447BB1400E47595 /* BlocksKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CC40A811447BB1400E47595 /* Build configuration list for PBXNativeTarget "OS X Framework" */;
+			buildConfigurationList = 6CC40A811447BB1400E47595 /* Build configuration list for PBXNativeTarget "BlocksKit" */;
 			buildPhases = (
 				6CC40A701447BB1400E47595 /* Sources */,
 				6CC40A711447BB1400E47595 /* Frameworks */,
@@ -925,7 +925,7 @@
 			);
 			dependencies = (
 			);
-			name = "OS X Framework";
+			name = BlocksKit;
 			productName = BlocksKit;
 			productReference = 6CC40A751447BB1400E47595 /* BlocksKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -990,8 +990,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6C3DBF8C1382F1BA00E6C9AA /* iOS Library */,
-				6CC40A741447BB1400E47595 /* OS X Framework */,
+				6C3DBF8C1382F1BA00E6C9AA /* libBlocksKit */,
+				6CC40A741447BB1400E47595 /* BlocksKit */,
 				6CF22CAF161EB048002FD317 /* iOS Tests */,
 				6CF22C94161EAFB8002FD317 /* OS X Tests */,
 				0005D5DD161FDF23007DD837 /* iOS Tests App */,
@@ -1220,12 +1220,12 @@
 		};
 		6CF22CC7161EB13A002FD317 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6CC40A741447BB1400E47595 /* OS X Framework */;
+			target = 6CC40A741447BB1400E47595 /* BlocksKit */;
 			targetProxy = 6CF22CC6161EB13A002FD317 /* PBXContainerItemProxy */;
 		};
 		6CF22CDA161EB198002FD317 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6C3DBF8C1382F1BA00E6C9AA /* iOS Library */;
+			target = 6C3DBF8C1382F1BA00E6C9AA /* libBlocksKit */;
 			targetProxy = 6CF22CD9161EB198002FD317 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1509,7 +1509,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6C3DBF971382F1BA00E6C9AA /* Build configuration list for PBXNativeTarget "iOS Library" */ = {
+		6C3DBF971382F1BA00E6C9AA /* Build configuration list for PBXNativeTarget "libBlocksKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6C3DBF981382F1BA00E6C9AA /* Debug */,
@@ -1518,7 +1518,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CC40A811447BB1400E47595 /* Build configuration list for PBXNativeTarget "OS X Framework" */ = {
+		6CC40A811447BB1400E47595 /* Build configuration list for PBXNativeTarget "BlocksKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CC40A821447BB1400E47595 /* Debug */,

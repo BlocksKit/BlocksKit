@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6C3DBF8C1382F1BA00E6C9AA"
                BuildableName = "libBlocksKit.a"
-               BlueprintName = "iOS Library"
+               BlueprintName = "libBlocksKit"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
