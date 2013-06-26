@@ -23,11 +23,12 @@
 }
 
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)selector {
-	return [self.target methodSignatureForSelector: selector];
+	return [self.target methodSignatureForSelector:selector];
 }
 
 - (void)forwardInvocation:(NSInvocation*)invocation {
-	[invocation setTarget: self.target];
+	[invocation setTarget:self.target];
+	NSParameterAssert(self.invocation == nil);
 	self.invocation = invocation;
 }
 
@@ -36,7 +37,8 @@
 
 @implementation NSInvocation (BlocksKit)
 
-+ (NSInvocation *)invocationWithTarget:(id)target block:(BKSenderBlock)block {
++ (NSInvocation *)bk_invocationWithTarget:(id)target block:(BKSenderBlock)block
+{
 	NSParameterAssert(block != nil);
 	BKInvocationGrabber *grabber = [BKInvocationGrabber grabberWithTarget:target];
 	block(grabber);

@@ -34,7 +34,7 @@
 @implementation TestPassObject
 
 - (BOOL)test {
-	return [self.delegate testWithObject: @"Test"];
+	return [self.delegate testWithObject:@"Test"];
 }
 
 @end
@@ -44,7 +44,7 @@
 @implementation TestPassChar
 
 - (BOOL)test {
-	return [self.delegate testWithChar: 'Z'];
+	return [self.delegate testWithChar:'Z'];
 }
 
 @end
@@ -54,7 +54,7 @@
 @implementation TestPassUChar
 
 - (BOOL)test {
-	return [self.delegate testWithUChar: 'Z'];
+	return [self.delegate testWithUChar:'Z'];
 }
 
 @end
@@ -64,7 +64,7 @@
 @implementation TestPassShort
 
 - (BOOL)test {
-	return [self.delegate testWithShort: SHRT_MAX];
+	return [self.delegate testWithShort:SHRT_MAX];
 }
 
 @end
@@ -74,7 +74,7 @@
 @implementation TestPassUShort
 
 - (BOOL)test {
-	return [self.delegate testWithUShort: USHRT_MAX];
+	return [self.delegate testWithUShort:USHRT_MAX];
 }
 
 @end
@@ -84,7 +84,7 @@
 @implementation TestPassInt
 
 - (BOOL)test {
-	return [self.delegate testWithInt: INT_MAX];
+	return [self.delegate testWithInt:INT_MAX];
 }
 
 @end
@@ -94,7 +94,7 @@
 @implementation TestPassUInt
 
 - (BOOL)test {
-	return [self.delegate testWithUInt: UINT_MAX];
+	return [self.delegate testWithUInt:UINT_MAX];
 }
 
 @end
@@ -104,7 +104,7 @@
 @implementation TestPassLong
 
 - (BOOL)test {
-	return [self.delegate testWithLong: LONG_MAX];
+	return [self.delegate testWithLong:LONG_MAX];
 }
 
 @end
@@ -114,7 +114,7 @@
 @implementation TestPassULong
 
 - (BOOL)test {
-	return [self.delegate testWithULong: ULONG_MAX];
+	return [self.delegate testWithULong:ULONG_MAX];
 }
 
 @end
@@ -124,7 +124,7 @@
 @implementation TestPassLongLong
 
 - (BOOL)test {
-	return [self.delegate testWithLongLong: LLONG_MAX];
+	return [self.delegate testWithLongLong:LLONG_MAX];
 }
 
 @end
@@ -134,7 +134,7 @@
 @implementation TestPassULongLong
 
 - (BOOL)test {
-	return [self.delegate testWithULongLong: ULLONG_MAX];
+	return [self.delegate testWithULongLong:ULLONG_MAX];
 }
 
 @end
@@ -144,7 +144,7 @@
 @implementation TestPassFloat
 
 - (BOOL)test {
-	return [self.delegate testWithFloat: 1.01f];
+	return [self.delegate testWithFloat:1.01f];
 }
 
 @end
@@ -154,7 +154,7 @@
 @implementation TestPassDouble
 
 - (BOOL)test {
-	return [self.delegate testWithDouble: 1.01];
+	return [self.delegate testWithDouble:1.01];
 }
 
 @end
@@ -165,7 +165,7 @@
 
 - (BOOL)test {
 	int myArray[5] = { 1, 2, 3, 4, 5 };
-	return [self.delegate testWithArray: myArray];
+	return [self.delegate testWithArray:myArray];
 }
 
 @end
@@ -178,7 +178,7 @@
 	MyStruct stret;
 	stret.first = YES;
 	stret.second = YES;
-	return [self.delegate testPassStruct: stret];
+	return [self.delegate testPassStruct:stret];
 }
 
 @end
@@ -188,7 +188,7 @@
 @implementation TestClassMethod
 
 - (BOOL)test {
-	return [[self.delegate class] testWithObject: @"Test"];
+	return [[self.delegate class] testWithObject:@"Test"];
 }
 
 
@@ -200,7 +200,7 @@
 
 - (void)testReturnObject {
 	TestReturnObject *obj = [TestReturnObject new];
-	A2DynamicDelegate <TestReturnObjectDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestReturnObjectDelegate)];
+	A2DynamicDelegate <TestReturnObjectDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestReturnObjectDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testReturnObject) withBlock:^NSString *{
 		return @"Test";
@@ -213,7 +213,7 @@
 
 - (void)testReturnStruct {
 	TestReturnStruct *obj = [TestReturnStruct new];
-	A2DynamicDelegate <TestReturnStructDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestReturnStructDelegate)];
+	A2DynamicDelegate <TestReturnStructDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestReturnStructDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testReturnStruct) withBlock:^MyStruct{
 		MyStruct val;
@@ -229,7 +229,7 @@
 
 - (void)testPassObject {
 	TestPassObject *obj = [TestPassObject new];
-	A2DynamicDelegate <TestPassObjectDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassObjectDelegate)];
+	A2DynamicDelegate <TestPassObjectDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassObjectDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithObject:) withBlock:^BOOL(NSString *str){
 		return !!str.length;
@@ -242,7 +242,7 @@
 
 - (void)testPassChar {
 	TestPassChar *obj = [TestPassChar new];
-	A2DynamicDelegate <TestPassCharDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassCharDelegate)];
+	A2DynamicDelegate <TestPassCharDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassCharDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithChar:) withBlock:^BOOL(char chr){
 		return (chr == 'Z');
@@ -255,7 +255,7 @@
 
 - (void)testPassUChar {
 	TestPassUChar *obj = [TestPassUChar new];
-	A2DynamicDelegate <TestPassUCharDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassUCharDelegate)];
+	A2DynamicDelegate <TestPassUCharDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassUCharDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithUChar:) withBlock:^BOOL(unsigned char uchr){
 		return (uchr == 'Z');
@@ -268,7 +268,7 @@
 
 - (void)testPassShort {
 	TestPassShort *obj = [TestPassShort new];
-	A2DynamicDelegate <TestPassShortDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassShortDelegate)];
+	A2DynamicDelegate <TestPassShortDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassShortDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithShort:) withBlock:^BOOL(short shrt){
 		return (shrt == SHRT_MAX);
@@ -281,7 +281,7 @@
 
 - (void)testPassUShort {
 	TestPassUShort *obj = [TestPassUShort new];
-	A2DynamicDelegate <TestPassUShortDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassUShortDelegate)];
+	A2DynamicDelegate <TestPassUShortDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassUShortDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithUShort:) withBlock:^BOOL(unsigned short ushrt){
 		return (ushrt == USHRT_MAX);
@@ -294,7 +294,7 @@
 
 - (void)testPassInt {
 	TestPassInt *obj = [TestPassInt new];
-	A2DynamicDelegate <TestPassIntDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassIntDelegate)];
+	A2DynamicDelegate <TestPassIntDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassIntDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithInt:) withBlock:^BOOL(int inte){
 		return (inte == INT_MAX);
@@ -307,7 +307,7 @@
 
 - (void)testPassUInt {
 	TestPassUInt *obj = [TestPassUInt new];
-	A2DynamicDelegate <TestPassUIntDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassUIntDelegate)];
+	A2DynamicDelegate <TestPassUIntDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassUIntDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithUInt:) withBlock:^BOOL(unsigned int uint){
 		return (uint == UINT_MAX);
@@ -320,7 +320,7 @@
 
 - (void)testPassLong {
 	TestPassLong *obj = [TestPassLong new];
-	A2DynamicDelegate <TestPassLongDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassLongDelegate)];
+	A2DynamicDelegate <TestPassLongDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassLongDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithLong:) withBlock:^BOOL(long lng){
 		return (lng == LONG_MAX);
@@ -333,7 +333,7 @@
 
 - (void)testPassULong {
 	TestPassULong *obj = [TestPassULong new];
-	A2DynamicDelegate <TestPassULongDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassULongDelegate)];
+	A2DynamicDelegate <TestPassULongDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassULongDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithULong:) withBlock:^BOOL(unsigned long lng){
 		return (lng == ULONG_MAX);
@@ -346,7 +346,7 @@
 
 - (void)testPassLongLong {
 	TestPassLongLong *obj = [TestPassLongLong new];
-	A2DynamicDelegate <TestPassLongLongDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassLongLongDelegate)];
+	A2DynamicDelegate <TestPassLongLongDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassLongLongDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithLongLong:) withBlock:^BOOL(long long llng){
 		return (llng == LLONG_MAX);
@@ -359,7 +359,7 @@
 
 - (void)testPassULongLong {
 	TestPassULongLong *obj = [TestPassULongLong new];
-	A2DynamicDelegate <TestPassULongLongDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassULongLongDelegate)];
+	A2DynamicDelegate <TestPassULongLongDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassULongLongDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithULongLong:) withBlock:^BOOL(unsigned long long lng){
 		return (lng == ULLONG_MAX);
@@ -372,7 +372,7 @@
 
 - (void)testPassFloat {
 	TestPassFloat *obj = [TestPassFloat new];
-	A2DynamicDelegate <TestPassFloatDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassFloatDelegate)];
+	A2DynamicDelegate <TestPassFloatDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassFloatDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithFloat:) withBlock:^BOOL(float flt){
 		return (flt == 1.01f);
@@ -385,7 +385,7 @@
 
 - (void)testPassDouble {
 	TestPassDouble *obj = [TestPassDouble new];
-	A2DynamicDelegate <TestPassDoubleDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassDoubleDelegate)];
+	A2DynamicDelegate <TestPassDoubleDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassDoubleDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithDouble:) withBlock:^BOOL(double dbl){
 		return (dbl == 1.01);
@@ -398,7 +398,7 @@
 
 - (void)testPassArray {
 	TestPassArray *obj = [TestPassArray new];
-	A2DynamicDelegate <TestPassArrayDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassArrayDelegate)];
+	A2DynamicDelegate <TestPassArrayDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassArrayDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testWithArray:) withBlock:^BOOL(int *ary){
 		return ary[0] == 1 && ary[1] == 2 && ary[2] == 3 && ary[3] == 4 && ary[4] == 5;
@@ -411,7 +411,7 @@
 
 - (void)testPassStruct {
 	TestPassStruct *obj = [TestPassStruct new];
-	A2DynamicDelegate <TestPassStructDelegate> *dd = [obj dynamicDelegateForProtocol:@protocol(TestPassStructDelegate)];
+	A2DynamicDelegate <TestPassStructDelegate> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestPassStructDelegate)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementMethod:@selector(testPassStruct:) withBlock:^BOOL(MyStruct stret){
 		return stret.first && stret.second;
@@ -424,7 +424,7 @@
 
 - (void)testClassMethod {
 	TestClassMethod *obj = [TestClassMethod new];
-	A2DynamicDelegate <TestClassMethodProtocol> *dd = [obj dynamicDelegateForProtocol:@protocol(TestClassMethodProtocol)];
+	A2DynamicDelegate <TestClassMethodProtocol> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestClassMethodProtocol)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	[dd implementClassMethod:@selector(testWithObject:) withBlock:^BOOL(NSString *str){
 		return !!str.length;
@@ -437,12 +437,12 @@
 
 - (void)testClassInterfacing {
 	TestClassMethod *obj = [TestClassMethod new];
-	A2DynamicDelegate <TestClassMethodProtocol> *dd = [obj dynamicDelegateForProtocol:@protocol(TestClassMethodProtocol)];
+	A2DynamicDelegate <TestClassMethodProtocol> *dd = [obj bk_dynamicDelegateForProtocol:@protocol(TestClassMethodProtocol)];
 	STAssertNotNil(dd, @"Dynamic delegate not set");
 	Class interposed = [dd class];
 	Class original = [A2DynamicDelegate class];
 	
-	STAssertTrue([[interposed description] isEqualToString: [original description]], @"Descriptions not the same");
+	STAssertTrue([[interposed description] isEqualToString:[original description]], @"Descriptions not the same");
 	STAssertEquals([interposed class], [original class], @"Classes not the same");
 	STAssertEquals([interposed hash], [original hash], @"Hashes not the same");
 	STAssertEquals([interposed superclass], [original superclass], @"Superclasses not the same");

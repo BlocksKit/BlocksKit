@@ -26,7 +26,7 @@
  @see <A2DynamicDelegate>blockImplementationForMethod:
  @return A dynamic data source.
  */
-- (id) dynamicDataSource;
+- (id)bk_dynamicDataSource;
 
 /** Creates or gets a dynamic delegate for the reciever.
 
@@ -44,7 +44,7 @@
  @see <A2DynamicDelegate>blockImplementationForMethod:
  @return A dynamic delegate.
  */
-- (id) dynamicDelegate;
+- (id)bk_dynamicDelegate;
 
 /** Creates or gets a dynamic protocol implementation for
  the reciever. The designated initializer.
@@ -62,7 +62,7 @@
  @return A dynamic protocol implementation.
  @see <A2DynamicDelegate>blockImplementationForMethod:
  */
-- (id) dynamicDelegateForProtocol: (Protocol *) protocol;
+- (id)bk_dynamicDelegateForProtocol:(Protocol *)protocol;
 
 
 @end

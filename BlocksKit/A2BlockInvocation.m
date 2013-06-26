@@ -60,7 +60,7 @@ static NSMethodSignature *a2_blockGetSignature(id block) {
 		return nil;
 
 	const char *signature = (*(const char **)desc);
-	return [NSMethodSignature signatureWithObjCTypes: signature];
+	return [NSMethodSignature signatureWithObjCTypes:signature];
 }
 
 static void (*a2_blockGetInvoke(void *block))(void) {
@@ -97,23 +97,17 @@ static ffi_type ffi_type_charptr = { sizeof(char *), __alignof(char *), FFI_TYPE
 static inline const char *a2_skipStructName(const char *type) {
 	if (*type == _C_STRUCT_B) type++;
 
-	if (*type == _C_UNDEF)
-	{
+	if (*type == _C_UNDEF) {
 		type++;
-	}
-	else if (isalpha(*type) || *type == '_')
-	{
+	} else if (isalpha(*type) || *type == '_') {
 		while (isalnum(*type) || *type == '_')
-		{
 			type++;
-		}
-	}
-	else
-	{
+	} else {
 		return type;
 	}
 
-	if (*type == '=') type++;
+	if (*type == '=')
+		type++;
 
 	return type;
 }
@@ -123,8 +117,7 @@ static inline NSUInteger a2_getStructSize(const char *encodingType) {
 	while (*encodingType != _C_STRUCT_E && *encodingType++ != '='); // skip "<name>="
 
 	NSUInteger ret = 0;
-	while (*encodingType != _C_STRUCT_E)
-	{
+	while (*encodingType != _C_STRUCT_E) {
 		encodingType = NSGetSizeAndAlignment(encodingType, NULL, NULL);
 		ret++;
 	}
@@ -162,23 +155,20 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		case _C_DBL: return &ffi_type_double; break;
 		case _C_VOID: return &ffi_type_void; break;
 		case _C_BFLD:
-		case _C_ARY_B:
-		{
+		case _C_ARY_B: {
 			NSUInteger size, align;
 			NSGetSizeAndAlignment(argumentType, &size, &align);
 
-			if (size > 0)
-			{
-				if (size == 1)
+			if (size > 0) {
+				if (size == 1) {
 					return &ffi_type_uchar;
-				else if (size == 2)
+				} else if (size == 2) {
 					return &ffi_type_ushort;
-				else if (size <= 4)
+				} else if (size <= 4) {
 					return &ffi_type_uint;
-				else if (size > sizeof(void *))
+				} else if (size > sizeof(void *)) {
 					return &ffi_type_pointer;
-				else
-				{
+				} else {
 					ffi_type *type = allocate(sizeof(ffi_type));
 					type->size = size;
 					type->alignment = (unsigned short)align;
@@ -193,35 +183,22 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 				break;
 			}
 		}
-		case _C_STRUCT_B:
-		{
-			if (!strcmp(argumentType, @encode(NSRange)))
-			{
+		case _C_STRUCT_B: {
+			if (!strcmp(argumentType, @encode(NSRange))) {
 				return &ffi_type_nsrange; break;
-			}
-			else if (!strcmp(argumentType, @encode(CGSize)))
-			{
+			} else if (!strcmp(argumentType, @encode(CGSize))) {
 				return &ffi_type_cgsize; break;
-			}
-			else if (!strcmp(argumentType, @encode(CGPoint)))
-			{
+			} else if (!strcmp(argumentType, @encode(CGPoint))) {
 				return &ffi_type_cgpoint; break;
-			}
-			else if (!strcmp(argumentType, @encode(CGRect)))
-			{
+			} else if (!strcmp(argumentType, @encode(CGRect))) {
 				return &ffi_type_cgrect; break;
 			}
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
-			else if (!strcmp(argumentType, @encode(NSSize)))
-			{
+			else if (!strcmp(argumentType, @encode(NSSize))) {
 				return &ffi_type_cgsize; break;
-			}
-			else if (!strcmp(argumentType, @encode(NSPoint)))
-			{
+			} else if (!strcmp(argumentType, @encode(NSPoint))) {
 				return &ffi_type_cgpoint; break;
-			}
-			else if (!strcmp(argumentType, @encode(NSRect)))
-			{
+			} else if (!strcmp(argumentType, @encode(NSRect))) {
 				return &ffi_type_cgrect; break;
 			}
 #endif
@@ -237,8 +214,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 			size_t index = 0;
 			argumentType = a2_skipStructName(argumentType);
-			while (*argumentType != _C_STRUCT_E)
-			{
+			while (*argumentType != _C_STRUCT_E) {
 				type->elements[index] = a2_typeForSignature(argumentType, allocate);
 				argumentType = NSGetSizeAndAlignment(argumentType, NULL, NULL);
 				index++;
@@ -248,8 +224,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 			return type;
 			break;
 		}
-		default:
-		{
+		default: {
 			NSCAssert(0, @"Unknown type in sig");
 			return &ffi_type_void;
 			break;
@@ -257,7 +232,8 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	}
 }
 
-@interface A2BlockInvocation () {
+@interface A2BlockInvocation ()
+{
 	BOOL _argumentsRetained;
 	BOOL _validReturn;
 	void **_argumentFrame;
@@ -276,157 +252,147 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 @implementation A2BlockInvocation
 
-- (id) initWithBlock: (id) block methodSignature: (NSMethodSignature *)methodSignature
+- (id)initWithBlock:(id)block methodSignature:(NSMethodSignature *)methodSignature
 {
 	NSParameterAssert(block);
 	NSMethodSignature *blockSignature = a2_blockGetSignature(block);
 	NSCAssert1(blockSignature, @"Incompatible block: %@", block);
 	
-	if ((self = [super init])) {
-		NSMutableArray *allocations = [NSMutableArray new];
+	self = [super init];
+	if (!self) return nil;
+	
+	NSMutableArray *allocations = [NSMutableArray new];
 
-		void *(^allocate)(size_t) = ^(size_t howmuch){
-			void *buffer = calloc(howmuch, 1);
-			[allocations addObject: [NSData dataWithBytesNoCopy: buffer length: howmuch]];
-			return buffer;
-		};
+	void *(^allocate)(size_t) = ^(size_t howmuch){
+		void *buffer = calloc(howmuch, 1);
+		[allocations addObject:[NSData dataWithBytesNoCopy:buffer length:howmuch]];
+		return buffer;
+	};
 
-		ffi_type *returnType = a2_typeForSignature(blockSignature.methodReturnType, allocate);
-		if (returnType->type != FFI_TYPE_VOID) {
-			_returnLength = a2_sizeForType(returnType);
-			_returnValue = allocate(_returnLength);
-		}
-
-		unsigned int argCount = (unsigned int)blockSignature.numberOfArguments;
-
-		ffi_type **methodArgs = allocate(argCount * sizeof(ffi_type *));
-		_argumentFrame = allocate(argCount * sizeof(void *));
-
-		methodArgs[0] = &ffi_type_pointer;
-
-		for (NSUInteger i = 1; i < argCount; i++)
-		{
-			methodArgs[i] = a2_typeForSignature([blockSignature getArgumentTypeAtIndex: i], allocate);
-			_argumentFrame[i] = allocate(a2_sizeForType(methodArgs[i]));
-		}
-
-		ffi_cif cif;
-		ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argCount, returnType, methodArgs);
-		NSCAssert2(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], [self block]);
-
-		_block = (void *) Block_copy((__bridge void *) block);
-		self.methodSignature = methodSignature;
-		self.blockSignature = blockSignature;
-		self.allocations = allocations;
-		self.arguments = [NSMutableDictionary dictionaryWithCapacity:cif.nargs-1];
-		self.interface = cif;
-
-		_argumentFrame[0] = &_block;
+	ffi_type *returnType = a2_typeForSignature(blockSignature.methodReturnType, allocate);
+	if (returnType->type != FFI_TYPE_VOID) {
+		_returnLength = a2_sizeForType(returnType);
+		_returnValue = allocate(_returnLength);
 	}
+
+	unsigned int argCount = (unsigned int)blockSignature.numberOfArguments;
+
+	ffi_type **methodArgs = allocate(argCount * sizeof(ffi_type *));
+	_argumentFrame = allocate(argCount * sizeof(void *));
+
+	methodArgs[0] = &ffi_type_pointer;
+
+	for (NSUInteger i = 1; i < argCount; i++) {
+		methodArgs[i] = a2_typeForSignature([blockSignature getArgumentTypeAtIndex:i], allocate);
+		_argumentFrame[i] = allocate(a2_sizeForType(methodArgs[i]));
+	}
+
+	ffi_cif cif;
+	ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argCount, returnType, methodArgs);
+	NSCAssert2(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], [self block]);
+
+	_block = (void *)Block_copy((__bridge void *) block);
+	self.methodSignature = methodSignature;
+	self.blockSignature = blockSignature;
+	self.allocations = allocations;
+	self.arguments = [NSMutableDictionary dictionaryWithCapacity:cif.nargs-1];
+	self.interface = cif;
+
+	_argumentFrame[0] = &_block;
+	
 	return self;
 }
 
-- (id) block
+- (id)block
 {
-	return (__bridge id) _block;
+	return (__bridge id)_block;
 }
 
-- (void) clearArguments
+- (void)clearArguments
 {
 	for (int i = 0; i < self.interface.nargs - 1; i++)
-		[self setArgument: 0 atIndex: i];
+		[self setArgument:0 atIndex:i];
 }
-- (void) dealloc
+- (void)dealloc
 {
-	[self setReturnValue: nil];
+	[self setReturnValue:nil];
 	Block_release(_block);
 }
 
-- (void) retainArguments
+- (void)retainArguments
 {
-	if (!_argumentsRetained)
-	{
-		ffi_cif cif = self.interface;
-		
-		for (NSUInteger i = 1; i < cif.nargs; i++)
-		{
-			if (cif.arg_types[i] == &ffi_type_id)
-			{
-				id argument = *(__unsafe_unretained id *)_argumentFrame[i];
-                if (argument) self.arguments[@(i)] = argument;
-			}
-			else if (cif.arg_types[i] == &ffi_type_charptr)
-			{
-				char *old = *(char **)_argumentFrame[i];
-				if (!old) continue;
-                NSNumber *key = @(i);
-                NSData *currentData = self.arguments[key];
-                if (currentData.bytes == old) continue;
-                
-                char *new = strdup(old);
-                currentData = [NSData dataWithBytesNoCopy:new length:strlen(new) freeWhenDone:YES];
-                self.arguments[key] = currentData;
-                const char *newPtr = currentData.bytes;
-                memcpy(_argumentFrame[i], &newPtr, a2_sizeForType(&ffi_type_charptr));
-			}
+	if (_argumentsRetained) return;
+	
+	ffi_cif cif = self.interface;
+	
+	for (NSUInteger i = 1; i < cif.nargs; i++) {
+		if (cif.arg_types[i] == &ffi_type_id) {
+			id argument = *(__unsafe_unretained id *)_argumentFrame[i];
+			if (argument) self.arguments[@(i)] = argument;
+		} else if (cif.arg_types[i] == &ffi_type_charptr) {
+			char *old = *(char **)_argumentFrame[i];
+			if (!old) continue;
+			NSNumber *key = @(i);
+			NSData *currentData = self.arguments[key];
+			if (currentData.bytes == old) continue;
+			
+			char *new = strdup(old);
+			currentData = [NSData dataWithBytesNoCopy:new length:strlen(new) freeWhenDone:YES];
+			self.arguments[key] = currentData;
+			const char *newPtr = currentData.bytes;
+			memcpy(_argumentFrame[i], &newPtr, a2_sizeForType(&ffi_type_charptr));
 		}
-		
-		_argumentsRetained = YES;
 	}
+	
+	_argumentsRetained = YES;
 }
-- (BOOL) argumentsRetained
+- (BOOL)argumentsRetained
 {
 	return _argumentsRetained;
 }
 
-- (void) getReturnValue: (void *) retLoc
+- (void)getReturnValue:(void *)retLoc
 {
 	if (!_validReturn) return;
 	memcpy(retLoc, _returnValue, _returnLength);
 }
-- (void) setReturnValue: (void *) retLoc
+- (void)setReturnValue:(void *)retLoc
 {
 	ffi_type *returnType = self.interface.rtype;
-	if (returnType == &ffi_type_void)
+	if (returnType == &ffi_type_void) {
 		return;
-	else if (returnType == &ffi_type_id)
-	{
-		if (_validReturn)
+	} else if (returnType == &ffi_type_id) {
+		if (_validReturn) {
 			*(__autoreleasing id *) _returnValue = nil;
-		else
+		} else {
 			*(__unsafe_unretained id *) _returnValue = nil;
-
-		if (retLoc)
-		{
+		}
+		
+		if (retLoc) {
 			*(__strong id *) _returnValue = *(__unsafe_unretained id *)retLoc;
 			_validReturn = YES;
-		}
-		else
-		{
+		} else {
 			*(__unsafe_unretained id *) _returnValue = nil;
 			_validReturn = NO;
 		}
-	}
-	else
-	{
-		if (retLoc)
-		{
+	} else {
+		if (retLoc) {
 			memcpy(_returnValue, retLoc, _returnLength);
 			_validReturn = YES;
-		}
-		else
+		} else {
 			_validReturn = NO;
+		}
 	}
 }
 
-- (void) getArgument: (void *) buffer atIndex: (NSInteger) idx
+- (void)getArgument:(void *)buffer atIndex:(NSInteger)idx
 {
 	idx++;
 	ffi_cif cif = self.interface;
 	NSParameterAssert(idx >= 0 && idx < cif.nargs);
 	memcpy(buffer, _argumentFrame[idx], a2_sizeForType(cif.arg_types[idx]));
 }
-- (void) setArgument: (void *) buffer atIndex: (NSInteger) idx
+- (void)setArgument:(void *)buffer atIndex:(NSInteger)idx
 {
 	idx++;
 	ffi_cif cif = self.interface;
@@ -435,61 +401,55 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	if (_argumentsRetained)
 	{
 		ffi_type *type = cif.arg_types[idx];
-		if (type == &ffi_type_id)
-		{
-            NSNumber *key = @(idx);
-            [self.arguments removeObjectForKey: key];
+		if (type == &ffi_type_id) {
+			NSNumber *key = @(idx);
+			[self.arguments removeObjectForKey:key];
 			
-			if (buffer)
-			{
+			if (buffer) {
 				id new = *(__unsafe_unretained id *)buffer;
 				if (new) self.arguments[key] = new;
 			}
-		}
-		else if (type == &ffi_type_charptr)
-		{
-            NSNumber *key = @(idx);
-            [self.arguments removeObjectForKey: key];
-            
-			if (buffer)
-			{
+		} else if (type == &ffi_type_charptr) {
+			NSNumber *key = @(idx);
+			[self.arguments removeObjectForKey:key];
+			
+			if (buffer) {
 				char *new = *(char**)buffer;
-				if (new)
-				{
-                    NSMutableData *wrap = [NSMutableData dataWithBytes:new length:strlen(new)];
-                    self.arguments[key] = wrap;
-                    new = wrap.mutableBytes;
-                    buffer = &new;
+				if (new) {
+					NSMutableData *wrap = [NSMutableData dataWithBytes:new length:strlen(new)];
+					self.arguments[key] = wrap;
+					new = wrap.mutableBytes;
+					buffer = &new;
 				}
 			}
 		}
 	}
 	
-	if (buffer)
+	if (buffer) {
 		memcpy(_argumentFrame[idx], buffer, a2_sizeForType(cif.arg_types[idx]));
-	else
+	} else {
 		memset(_argumentFrame[idx], 0, a2_sizeForType(cif.arg_types[idx]));
+	}
 }
 
-- (void) invoke
+- (void)invoke
 {
 	ffi_cif cif = self.interface;
 	void *returnValue = malloc(_returnLength);
 	ffi_call(&cif, a2_blockGetInvoke(_block), returnValue, _argumentFrame);
-	[self setReturnValue: returnValue];
+	[self setReturnValue:returnValue];
 	free(returnValue);
 }
-- (void) invokeUsingInvocation: (NSInvocation *) inv
+- (void)invokeUsingInvocation:(NSInvocation *)inv
 {
-	if (![inv isMemberOfClass: [NSInvocation class]])
+	if (![inv isMemberOfClass:[NSInvocation class]])
 		return;
 
 	NSParameterAssert(inv.methodSignature.numberOfArguments - 1 == self.interface.nargs);
 
 	[inv retainArguments];
 
-	for (int i = 0; i < self.interface.nargs - 1; i++)
-	{
+	for (int i = 0; i < self.interface.nargs - 1; i++) {
 		ffi_type *type = self.interface.arg_types[i];
 		if (!type) break;
 
@@ -497,18 +457,17 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		void *thisArgument = malloc(argSize);
 		if (!thisArgument) break;
 		
-		[inv getArgument: thisArgument atIndex: i + 2];
-		[self setArgument: thisArgument atIndex: i];
+		[inv getArgument:thisArgument atIndex:i + 2];
+		[self setArgument:thisArgument atIndex:i];
 		free(thisArgument);
 	}
 
 	[self invoke];
 
-	if (_returnLength)
-	{
+	if (_returnLength) {
 		void *returnValue = malloc(_returnLength);
-		[self getReturnValue: returnValue];
-		[inv setReturnValue: returnValue];
+		[self getReturnValue:returnValue];
+		[inv setReturnValue:returnValue];
 		free(returnValue);
 	}
 }

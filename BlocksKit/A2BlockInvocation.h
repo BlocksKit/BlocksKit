@@ -54,7 +54,7 @@
  @param methodSignature An Objective-C method signature matching the block.
  @return An initialized block invocation object.
 */
-- (id) initWithBlock: (id) block methodSignature: (NSMethodSignature *)methodSignature;
+- (id)initWithBlock:(id)block methodSignature:(NSMethodSignature *)methodSignature;
 
 /** @name Getting the Block and Method Signatures */
 
@@ -88,13 +88,13 @@
  
  @see argumentsRetained
  */
-- (void) retainArguments;
+- (void)retainArguments;
 
 /** Returns YES if the receiver has retained its arguments, NO otherwise.
 
  @see retainArguments
  */
-- (BOOL) argumentsRetained;
+- (BOOL)argumentsRetained;
 
 /** Gets the receiver's return value.
 
@@ -121,7 +121,7 @@
  for more information.
  @see setReturnValue:
  */
-- (void) getReturnValue: (void *) retLoc;
+- (void)getReturnValue:(void *)retLoc;
 
 /** Sets the receiver’s return value.
  
@@ -132,7 +132,7 @@
  @see invoke
  @see getReturnValue:
  */
-- (void) setReturnValue: (void *) retLoc;
+- (void)setReturnValue:(void *)retLoc;
 
 /** Returns by indirection the receiver's argument at a specified index.
 
@@ -154,7 +154,7 @@
  at 0 representing the first argument of the underlying block.
  @see setArgument:atIndex:
  */
-- (void) getArgument: (void *) argumentLocation atIndex: (NSInteger) idx;
+- (void)getArgument:(void *)argumentLocation atIndex:(NSInteger)idx;
 
 /** Sets an argument of the receiver.
 
@@ -175,11 +175,11 @@
  @param idx An integer specifying the index of the argument, starting at 0
  representing the first argument of the underlying block.
  */
-- (void) setArgument: (void *) argumentLocation atIndex: (NSInteger) idx;
+- (void)setArgument:(void *)argumentLocation atIndex:(NSInteger)idx;
 
 /** Unsets all arguments in the block invocation, including releasing any
  objects if argumentsRetained is YES. */
-- (void) clearArguments;
+- (void)clearArguments;
 
 /** @name Dispatching an Invocation */
 
@@ -190,7 +190,7 @@
  @see setArgument:atIndex:
  @see getReturnValue:
  */
-- (void) invoke;
+- (void)invoke;
 
 /** Calls the receiver's block with the arguments from the given invocation,
  and sets the return value both on the receiving invocation and the given
@@ -204,6 +204,6 @@
  @see setArgument:atIndex:
  @see getReturnValue:
  */
-- (void) invokeUsingInvocation: (NSInvocation *) inv;
+- (void)invokeUsingInvocation:(NSInvocation *)inv;
 
 @end

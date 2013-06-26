@@ -28,7 +28,7 @@
 		BOOL select = [value intValue] < 3 ? YES : NO;
 		return select;
 	};
-	[_subject performSelect:validationBlock];
+	[_subject bk_performSelect:validationBlock];
 	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
 	NSDictionary *target = @{ @"1" : @(1), @"2" : @(2) };
 	STAssertEqualObjects(_subject,target,@"selected dictionary is %@",_subject);
@@ -40,7 +40,7 @@
 		BOOL select = [value intValue] > 4 ? YES : NO;
 		return select;
 	};
-	[_subject performSelect:validationBlock];
+	[_subject bk_performSelect:validationBlock];
 	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
 	STAssertEquals(_subject.count,(NSUInteger)0,@"no item is selected");
 }
@@ -51,7 +51,7 @@
 		BOOL reject = [value intValue] > 2 ? YES : NO;
 		return reject;
 	};
-	[_subject performReject:validationBlock];
+	[_subject bk_performReject:validationBlock];
 	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
 	NSDictionary *target = @{ @"1" : @(1), @"2" : @(2) };
 	STAssertEqualObjects(_subject,target,@"dictionary after reject is %@",_subject);
@@ -63,7 +63,7 @@
 		BOOL reject = [value intValue] < 4 ? YES : NO;
 		return reject;
 	};
-	[_subject performReject:validationBlock];
+	[_subject bk_performReject:validationBlock];
 	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
 	STAssertEquals(_subject.count,(NSUInteger)0,@"all items are rejected");
 }
@@ -73,7 +73,7 @@
 		_total += [value intValue] + [key intValue];
 		return @(_total);
 	};
-	[_subject performMap:transformBlock];
+	[_subject bk_performMap:transformBlock];
 	STAssertEquals(_total,(NSInteger)12,@"2*(1+2+3) = %d",_total);
 	NSDictionary *target = @{
 		@"1" : @(2),

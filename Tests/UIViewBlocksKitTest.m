@@ -18,7 +18,7 @@
 
 - (void)testOnTouchDown {
 	__block BOOL onTouchDownBlock = NO;
-	_subject.onTouchDownBlock = ^(NSSet *touches, UIEvent *event) {
+	_subject.bk_onTouchDownBlock = ^(NSSet *touches, UIEvent *event) {
 		onTouchDownBlock = YES;
 	};
 	
@@ -29,7 +29,7 @@
 
 - (void)testOnTouchMove {
 	__block BOOL onTouchMoveBlock = NO;
-	_subject.onTouchMoveBlock = ^(NSSet *touches, UIEvent *event) {
+	_subject.bk_onTouchMoveBlock = ^(NSSet *touches, UIEvent *event) {
 		onTouchMoveBlock = YES;
 	};
 	
@@ -40,7 +40,7 @@
 
 - (void)testOnTouchUp {
 	__block BOOL onTouchUpBlock = NO;
-	_subject.onTouchUpBlock = ^(NSSet *touches, UIEvent *event) {
+	_subject.bk_onTouchUpBlock = ^(NSSet *touches, UIEvent *event) {
 		onTouchUpBlock = YES;
 	};
 	

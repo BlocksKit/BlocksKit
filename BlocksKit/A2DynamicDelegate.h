@@ -12,24 +12,24 @@
 	{
 		// Create an alert view
 		UIAlertView *alertView = [[UIAlertView alloc]
-								  initWithTitle: @"Hello World!"
-								  message: @"This alert's delegate is implemented using blocks. That's so cool!"
-								  delegate: nil
-								  cancelButtonTitle: @"Meh."
-								  otherButtonTitles: @"Woo!", nil];
+								  initWithTitle:@"Hello World!"
+								  message:@"This alert's delegate is implemented using blocks. That's so cool!"
+								  delegate:nil
+								  cancelButtonTitle:@"Meh."
+								  otherButtonTitles:@"Woo!", nil];
 		
 		// Get the dynamic delegate
-		A2DynamicDelegate *dd = alertView.dynamicDelegate;
+		A2DynamicDelegate *dd = alertView.bk_dynamicDelegate;
 		
 		// Implement -alertViewShouldEnableFirstOtherButton:
-		[dd implementMethod: @selector(alertViewShouldEnableFirstOtherButton:) withBlock: ^(UIAlertView *alertView) {
+		[dd implementMethod:@selector(alertViewShouldEnableFirstOtherButton:) withBlock:^(UIAlertView *alertView) {
 			NSLog(@"Message: %@", alertView.message);
 			return YES;
 		}];
 		
 		// Implement -alertView:willDismissWithButtonIndex:
-		[dd implementMethod: @selector(alertView:willDismissWithButtonIndex:) withBlock: ^(UIAlertView *alertView, NSInteger buttonIndex) {
-			NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex: buttonIndex]);
+		[dd implementMethod:@selector(alertView:willDismissWithButtonIndex:) withBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+			NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
 		}];
 		
 		// Set the delegate
@@ -77,7 +77,7 @@
  @param selector An encoded selector. Must not be NULL.
  @return A code block, or nil if no block is assigned.
  */
-- (id) blockImplementationForMethod: (SEL) selector;
+- (id)blockImplementationForMethod:(SEL)selector;
 
 /** Assigns the given block to be fired when the specified
  selector is called on the reciever.
@@ -95,14 +95,14 @@
  @param selector An encoded selector. Must not be NULL.
  @param block A code block with the same signature as selector.
  */
-- (void) implementMethod: (SEL) selector withBlock: (id) block;
+- (void)implementMethod:(SEL)selector withBlock:(id)block;
 
 /** Disassociates any block so that nothing will be fired
  when the specified selector is called on the reciever.
  
  @param selector An encoded selector. Must not be NULL.
  */
-- (void) removeBlockImplementationForMethod: (SEL) selector;
+- (void)removeBlockImplementationForMethod:(SEL)selector;
 
 /** @name Block Class Method Implementations */
 
@@ -112,7 +112,7 @@
  @param selector An encoded selector. Must not be NULL.
  @return A code block, or nil if no block is assigned.
  */
-- (id) blockImplementationForClassMethod: (SEL) selector;
+- (id)blockImplementationForClassMethod:(SEL)selector;
 
 /** Assigns the given block to be fired when the specified
  selector is called on the reciever.
@@ -125,7 +125,7 @@
  @param selector An encoded selector. Must not be NULL.
  @param block A code block with the same signature as selector.
  */
-- (void) implementClassMethod: (SEL) selector withBlock: (id) block;
+- (void)implementClassMethod:(SEL)selector withBlock:(id)block;
 
 /** Disassociates any blocks so that nothing will be fired
  when the specified selector is called on the delegating
@@ -133,6 +133,6 @@
  
  @param selector An encoded selector. Must not be NULL.
  */
-- (void) removeBlockImplementationForClassMethod: (SEL) selector;
+- (void)removeBlockImplementationForClassMethod:(SEL)selector;
 
 @end

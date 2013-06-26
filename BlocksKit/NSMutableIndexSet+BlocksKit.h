@@ -18,25 +18,25 @@
 /** Filters a mutable index set to the indexes matching the block.
  
  @param block A single-argument, BOOL-returning code block.
- @see <NSIndexSet(BlocksKit)>reject:
+ @see <NSIndexSet(BlocksKit)>bk_reject:
  */
-- (void)performSelect:(BKIndexValidationBlock)block;
+- (void)bk_performSelect:(BKIndexValidationBlock)block;
 
 /** Filters a mutable index set to all indexes but the ones matching the block,
- the logical inverse to select:.
+ the logical inverse to bk_select:.
  
  @param block A single-argument, BOOL-returning code block.
- @see <NSIndexSet(BlocksKit)>select:
+ @see <NSIndexSet(BlocksKit)>bk_select:
  */
-- (void)performReject:(BKIndexValidationBlock)block;
+- (void)bk_performReject:(BKIndexValidationBlock)block;
 
 /** Transform each index of the index set to a new index, as returned by the
  block.
  
  @param block A block that returns a new index for a index.
- @see <NSIndexSet(BlocksKit)>map:
+ @see <NSIndexSet(BlocksKit)>bk_map:
  */
-- (void)performMap:(BKIndexTransformBlock)block;
+- (void)bk_performMap:(BKIndexTransformBlock)block;
 
 
 @end

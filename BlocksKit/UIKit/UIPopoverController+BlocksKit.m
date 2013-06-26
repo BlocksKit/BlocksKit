@@ -13,27 +13,27 @@
 
 @implementation A2DynamicUIPopoverControllerDelegate
 
-- (BOOL) popoverControllerShouldDismissPopover: (UIPopoverController *) popoverController
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
 {
 	BOOL should = YES;
 	
 	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector: @selector(popoverControllerShouldDismissPopover:)])
-		should &= [realDelegate popoverControllerShouldDismissPopover: popoverController];
+	if (realDelegate && [realDelegate respondsToSelector:@selector(popoverControllerShouldDismissPopover:)])
+		should &= [realDelegate popoverControllerShouldDismissPopover:popoverController];
 	
-	BOOL (^block)(UIPopoverController *) = [self blockImplementationForMethod: _cmd];
+	BOOL (^block)(UIPopoverController *) = [self blockImplementationForMethod:_cmd];
 	if (block) should &= block(popoverController);
 	
 	return should;
 }
 
-- (void) popoverControllerDidDismissPopover: (UIPopoverController *) popoverController
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
 	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector: @selector(popoverControllerDidDismissPopover:)])
-		[realDelegate popoverControllerDidDismissPopover: popoverController];
+	if (realDelegate && [realDelegate respondsToSelector:@selector(popoverControllerDidDismissPopover:)])
+		[realDelegate popoverControllerDidDismissPopover:popoverController];
 	
-	void (^block)(UIPopoverController *) = [self blockImplementationForMethod: _cmd];
+	void (^block)(UIPopoverController *) = [self blockImplementationForMethod:_cmd];
 	if (block) block(popoverController);
 }
 
@@ -43,14 +43,13 @@
 
 @implementation UIPopoverController (BlocksKit)
 
-@dynamic didDismissBlock, shouldDismissBlock;
+@dynamic bk_didDismissBlock, bk_shouldDismissBlock;
 
-+ (void) load
++ (void)load
 {
-	@autoreleasepool
-	{
-		[self registerDynamicDelegate];
-		[self linkDelegateMethods: @{ @"didDismissBlock": @"popoverControllerDidDismissPopover:", @"shouldDismissBlock": @"popoverControllerShouldDismissPopover:" }];
+	@autoreleasepool {
+		[self bk_registerDynamicDelegate];
+		[self bk_linkDelegateMethods:@{ @"bk_didDismissBlock": @"popoverControllerDidDismissPopover:", @"bk_shouldDismissBlock": @"popoverControllerShouldDismissPopover:" }];
 	}
 }
 

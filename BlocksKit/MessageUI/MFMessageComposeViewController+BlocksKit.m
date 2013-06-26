@@ -12,23 +12,23 @@
 
 @implementation A2DynamicMFMessageComposeViewControllerDelegate
 
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
 	id realDelegate = self.realDelegate;
 	BOOL shouldDismiss = (realDelegate && [realDelegate respondsToSelector:@selector(messageComposeViewController:didFinishWithResult:)]);
 	if (shouldDismiss)
 		[realDelegate messageComposeViewController:controller didFinishWithResult:result];
 	
 	void(^block)(MFMessageComposeViewController *, MessageComposeResult) = [self blockImplementationForMethod:_cmd];
-	if (block)
-		block(controller, result);
+	if (block) block(controller, result);
 	
 	if (!shouldDismiss) {
-	        #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
-	            [controller dismissModalViewControllerAnimated:YES];
-                #else
-                    [controller dismissViewControllerAnimated:YES completion:nil];
-                #endif
-         }
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
+		[controller dismissModalViewControllerAnimated:YES];
+#else
+		[controller dismissViewControllerAnimated:YES completion:nil];
+#endif
+	}
 }
 
 @end
@@ -37,12 +37,13 @@
 
 @implementation MFMessageComposeViewController (BlocksKit)
 
-@dynamic completionBlock;
+@dynamic bk_completionBlock;
 
-+ (void)load {
++ (void)load
+{
 	@autoreleasepool {
-		[self registerDynamicDelegateNamed:@"messageComposeDelegate" forProtocol:@protocol(MFMessageComposeViewControllerDelegate)];
-		[self linkDelegateMethods: @{ @"completionBlock": @"messageComposeViewController:didFinishWithResult:" }];
+		[self bk_registerDynamicDelegateNamed:@"messageComposeDelegate" forProtocol:@protocol(MFMessageComposeViewControllerDelegate)];
+		[self bk_linkDelegateMethods:@{ @"bk_completionBlock": @"messageComposeViewController:didFinishWithResult:" }];
 	}
 }
 

@@ -28,10 +28,10 @@
 	delegateWorked = NO;
 	__block BOOL blockWorked = NO;
 	_subject.messageComposeDelegate = self;
-	_subject.completionBlock = ^(MFMessageComposeViewController *controller, MessageComposeResult result){
+	_subject.bk_completionBlock = ^(MFMessageComposeViewController *controller, MessageComposeResult result){
 		blockWorked = YES;
 	};
-	[[_subject dynamicDelegateForProtocol:@protocol(MFMessageComposeViewControllerDelegate)] messageComposeViewController:_subject didFinishWithResult:MessageComposeResultSent];
+	[[_subject bk_dynamicDelegateForProtocol:@protocol(MFMessageComposeViewControllerDelegate)] messageComposeViewController:_subject didFinishWithResult:MessageComposeResultSent];
 	STAssertTrue(delegateWorked, @"Delegate method not called.");
 	STAssertTrue(blockWorked, @"Block handler not called.");
 }

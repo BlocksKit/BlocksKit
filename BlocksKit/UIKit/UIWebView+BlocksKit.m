@@ -32,8 +32,7 @@
 		[realDelegate webViewDidStartLoad:webView];
 
 	void(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
-	if (block)
-		block(webView);
+	if (block) block(webView);
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -42,8 +41,7 @@
 		[realDelegate webViewDidFinishLoad:webView];
 
 	void(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
-	if (block)
-		block(webView);
+	if (block) block(webView);
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -52,8 +50,7 @@
 		[realDelegate webView:webView didFailLoadWithError:error];
 
 	void(^block)(UIWebView *, NSError *) = [self blockImplementationForMethod:_cmd];
-	if (block)
-		block(webView, error);
+	if (block) block(webView, error);
 }
 
 @end
@@ -62,16 +59,17 @@
 
 @implementation UIWebView (BlocksKit)
 
-@dynamic shouldStartLoadBlock, didStartLoadBlock, didFinishLoadBlock, didFinishWithErrorBlock;
+@dynamic bk_shouldStartLoadBlock, bk_didStartLoadBlock, bk_didFinishLoadBlock, bk_didFinishWithErrorBlock;
 
-+ (void)load {
++ (void)load
+{
 	@autoreleasepool {
-		[self registerDynamicDelegate];
-		[self linkDelegateMethods: @{
-		 @"shouldStartLoadBlock": @"webView:shouldStartLoadWithRequest:navigationType:",
-		 @"didStartLoadBlock": @"webViewDidStartLoad:",
-		 @"didFinishLoadBlock": @"webViewDidFinishLoad:",
-		 @"didFinishWithErrorBlock": @"webView:didFailLoadWithError:"
+		[self bk_registerDynamicDelegate];
+		[self bk_linkDelegateMethods:@{
+			@"bk_shouldStartLoadBlock": @"webView:shouldStartLoadWithRequest:navigationType:",
+			@"bk_didStartLoadBlock": @"webViewDidStartLoad:",
+			@"bk_didFinishLoadBlock": @"webViewDidFinishLoad:",
+			@"bk_didFinishWithErrorBlock": @"webView:didFailLoadWithError:"
 		}];
 	}
 }

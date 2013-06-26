@@ -12,7 +12,8 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 
 @implementation NSObject (BlocksKit)
 
-- (id)performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay {
+- (id)bk_performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay
+{
 	NSParameterAssert(block != nil);
 	
 	__block BOOL cancelled = NO;
@@ -32,7 +33,8 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 	return [wrapper copy];
 }
 
-+ (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay {
++ (id)bk_performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay
+{
 	NSParameterAssert(block != nil);
 	
 	__block BOOL cancelled = NO;
@@ -50,7 +52,8 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 	return [wrapper copy];
 }
 
-+ (void)cancelBlock:(id)block {
++ (void)bk_cancelBlock:(id)block
+{
 	NSParameterAssert(block != nil);
 	void(^wrapper)(BOOL) = block;
 	wrapper(YES);

@@ -33,18 +33,20 @@ static char BKBlockObservationContext;
 
 @implementation BKObserver
 
-- (id)initWithObservee:(id)observee keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options context:(BKObserverContext)context task:(id)task {
+- (id)initWithObservee:(id)observee keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options context:(BKObserverContext)context task:(id)task
+{
 	if ((self = [super init])) {
 		_observee = observee;
 		_keyPaths = [keyPaths mutableCopy];
 		_context = context;
 		_task = [task copy];
-		[self startObservingWithOptions: options];
+		[self startObservingWithOptions:options];
 	}
 	return self;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
 	if (context != &BKBlockObservationContext) return;
 	
 	@synchronized(self) {
@@ -73,13 +75,15 @@ static char BKBlockObservationContext;
 	}
 }
 
-- (void)startObservingWithOptions:(NSKeyValueObservingOptions)options {
-	[self.keyPaths each:^(NSString *keyPath) {
+- (void)startObservingWithOptions:(NSKeyValueObservingOptions)options
+{
+	[self.keyPaths bk_each:^(NSString *keyPath) {
 		[self.observee addObserver:self forKeyPath:keyPath options:options context:&BKBlockObservationContext];
 	}];
 }
 
-- (void)stopObservingKeyPath:(NSString *)keyPath {
+- (void)stopObservingKeyPath:(NSString *)keyPath
+{
 	NSParameterAssert(keyPath);
 	
 	NSObject *observee;
@@ -103,7 +107,8 @@ static char BKBlockObservationContext;
 	[observee removeObserver:self forKeyPath:keyPath context:&BKBlockObservationContext];
 }
 
-- (void)stopObserving {
+- (void)stopObserving
+{
 	if (_observee == nil) return;
 	NSObject *observee;
 	NSArray *keyPaths;
@@ -118,18 +123,20 @@ static char BKBlockObservationContext;
 		_keyPaths = nil;
 	}
 	
-	[keyPaths each:^(NSString *keyPath) {
-		[observee removeObserver:self forKeyPath:keyPath context: &BKBlockObservationContext];
+	[keyPaths bk_each:^(NSString *keyPath) {
+		[observee removeObserver:self forKeyPath:keyPath context:&BKBlockObservationContext];
 	}];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
 	[self stopObserving];
 }
 
 @end
 
-static NSMutableSet *swizzledClasses() {
+static NSMutableSet *swizzledClasses()
+{
 	static dispatch_once_t onceToken;
 	static NSMutableSet *swizzledClasses = nil;
 	dispatch_once(&onceToken, ^{
@@ -141,41 +148,48 @@ static NSMutableSet *swizzledClasses() {
 
 @implementation NSObject (BlockObservation)
 
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKSenderBlock)task {
+- (NSString *)bk_addObserverForKeyPath:(NSString *)keyPath task:(BKSenderBlock)task
+{
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
 	[self bk_addObserverForKeyPaths:@[ keyPath ] identifier:token options:0 context:BKObserverContextKey task:task];
 	return token;
 }
 
-- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths task:(BKSenderKeyPathBlock)task {
+- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths task:(BKSenderKeyPathBlock)task
+{
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
 	[self bk_addObserverForKeyPaths:keyPaths identifier:token options:0 context:BKObserverContextManyKeys task:task];
 	return token;
 }
 
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
+- (NSString *)bk_addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task
+{
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
-	[self addObserverForKeyPath:keyPath identifier:token options:options task:task];
+	[self bk_addObserverForKeyPath:keyPath identifier:token options:options task:task];
 	return token;
 }
 
-- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task {
+- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task
+{
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
-	[self addObserverForKeyPaths:keyPaths identifier:token options:options task:task];
+	[self bk_addObserverForKeyPaths:keyPaths identifier:token options:options task:task];
 	return token;
 }
 
-- (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task {
+- (void)bk_addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task
+{
 	BKObserverContext context = (options == 0) ? BKObserverContextKey : BKObserverContextKeyWithChange;
 	[self bk_addObserverForKeyPaths:@[keyPath] identifier:identifier options:options context:context task:task];
 }
 
-- (void)addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task {
+- (void)bk_addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task
+{
 	BKObserverContext context = (options == 0) ? BKObserverContextManyKeys : BKObserverContextManyKeysWithChange;
 	[self bk_addObserverForKeyPaths:keyPaths identifier:identifier options:options context:context task:task];
 }
 
-- (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token {
+- (void)bk_removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token
+{
 	NSParameterAssert(keyPath.length);
 	NSParameterAssert(token.length);
 	
@@ -187,7 +201,7 @@ static NSMutableSet *swizzledClasses() {
 	}
 	
 	BKObserver *observer = dict[token];
-	[observer stopObservingKeyPath: keyPath];
+	[observer stopObservingKeyPath:keyPath];
 	
 	if (observer.keyPaths.count == 0) {
 		[dict removeObjectForKey:token];
@@ -196,7 +210,8 @@ static NSMutableSet *swizzledClasses() {
 	if (dict.count == 0) [self bk_setObserverBlocks:nil];
 }
 
-- (void)removeObserversWithIdentifier:(NSString *)token {
+- (void)bk_removeObserversWithIdentifier:(NSString *)token
+{
 	NSParameterAssert(token);
 	
 	NSMutableDictionary *dict;
@@ -214,22 +229,24 @@ static NSMutableSet *swizzledClasses() {
 	if (dict.count == 0) [self bk_setObserverBlocks:nil];
 }
 
-- (void)removeAllBlockObservers {
+- (void)bk_removeAllBlockObservers
+{
 	NSDictionary *dict;
 	
 	@synchronized (self) {
 		dict = [[self bk_observerBlocks] copy];
-		[self bk_setObserverBlocks: nil];
+		[self bk_setObserverBlocks:nil];
 	}
 	
-	[dict.allValues each:^(BKObserver *trampoline) {
+	[dict.allValues bk_each:^(BKObserver *trampoline) {
 		[trampoline stopObserving];
 	}];
 }
 
 #pragma mark - "Private"
 
-- (void)bk_addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options context:(BKObserverContext)context task:(id)task {
+- (void)bk_addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options context:(BKObserverContext)context task:(id)task
+{
 	NSParameterAssert(keyPaths.count);
 	NSParameterAssert(identifier.length);
 	NSParameterAssert(task);
@@ -244,7 +261,7 @@ static NSMutableSet *swizzledClasses() {
 			void (*originalDealloc)(id, SEL) = (__typeof__(originalDealloc))method_getImplementation(deallocMethod);
 			
 			id newDealloc = ^(__unsafe_unretained NSObject *objSelf) {
-				[objSelf removeAllBlockObservers];
+				[objSelf bk_removeAllBlockObservers];
 				originalDealloc(objSelf, deallocSelector);
 			};
 			
@@ -269,12 +286,14 @@ static NSMutableSet *swizzledClasses() {
 	dict[identifier] = observer;
 }
 
-- (void)bk_setObserverBlocks:(NSMutableDictionary *)dict {
-	[self associateValue:dict withKey:&kObserverBlocksKey];
+- (void)bk_setObserverBlocks:(NSMutableDictionary *)dict
+{
+	[self bk_associateValue:dict withKey:&kObserverBlocksKey];
 }
 
-- (NSMutableDictionary *)bk_observerBlocks {
-	return [self associatedValueForKey:&kObserverBlocksKey];
+- (NSMutableDictionary *)bk_observerBlocks
+{
+	return [self bk_associatedValueForKey:&kObserverBlocksKey];
 }
 
 @end
