@@ -243,9 +243,9 @@ static NSMutableSet *swizzledClasses() {
 			Method deallocMethod = class_getInstanceMethod(classToSwizzle, deallocSelector);
 			void (*originalDealloc)(id, SEL) = (__typeof__(originalDealloc))method_getImplementation(deallocMethod);
 			
-			id newDealloc = ^(__unsafe_unretained NSObject *self) {
-				[self removeAllBlockObservers];
-				originalDealloc(self, deallocSelector);
+			id newDealloc = ^(__unsafe_unretained NSObject *objSelf) {
+				[objSelf removeAllBlockObservers];
+				originalDealloc(objSelf, deallocSelector);
 			};
 			
 			class_replaceMethod(classToSwizzle, deallocSelector, imp_implementationWithBlock(newDealloc), method_getTypeEncoding(deallocMethod));
