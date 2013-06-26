@@ -14,88 +14,100 @@ static char kViewTouchUpBlockKey;
 
 @implementation UIView (BlocksKit)
 
-- (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
-	if (!block)
-		return;
+- (void)bk_whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block
+{
+	if (!block) return;
 	
-	UITapGestureRecognizer *gesture = [UITapGestureRecognizer recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+	UITapGestureRecognizer *gesture = [UITapGestureRecognizer bk_recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
 		if (state == UIGestureRecognizerStateRecognized) block();
 	}];
 	
-	[gesture setNumberOfTouchesRequired:numberOfTouches];
-	[gesture setNumberOfTapsRequired:numberOfTaps];
+	gesture.numberOfTouchesRequired = numberOfTouches;
+	gesture.numberOfTapsRequired = numberOfTaps;
 	
-	[[self.gestureRecognizers select:^BOOL(id obj) {
+	[[self.gestureRecognizers bk_select:^BOOL(id obj) {
 		if ([obj isKindOfClass:[UITapGestureRecognizer class]]) {
 			BOOL rightTouches = ([(UITapGestureRecognizer *)obj numberOfTouchesRequired] == numberOfTouches);
 			BOOL rightTaps = ([(UITapGestureRecognizer *)obj numberOfTapsRequired] == numberOfTaps);
 			return (rightTouches && rightTaps);
 		}
 		return NO;
-	}] each:^(id obj) {
+	}] bk_each:^(id obj) {
 		[gesture requireGestureRecognizerToFail:(UITapGestureRecognizer *)obj];
 	}];
 	
 	[self addGestureRecognizer:gesture];
 }
 
-- (void)whenTapped:(BKBlock)block {
-	[self whenTouches:1 tapped:1 handler:block];
+- (void)bk_whenTapped:(BKBlock)block
+{
+	[self bk_whenTouches:1 tapped:1 handler:block];
 }
 
-- (void)whenDoubleTapped:(BKBlock)block {
-	[self whenTouches:2 tapped:1 handler:block];
+- (void)bk_whenDoubleTapped:(BKBlock)block
+{
+	[self bk_whenTouches:2 tapped:1 handler:block];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
 	[super touchesBegan:touches withEvent:event];
-	BKTouchBlock block = [self associatedValueForKey:&kViewTouchDownBlockKey];
-	if (block)
-		block(touches, event);
+
+	BKTouchBlock block = [self bk_associatedValueForKey:&kViewTouchDownBlockKey];
+	if (block) block(touches, event);
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
 	[super touchesMoved:touches withEvent:event];
-	BKTouchBlock block = [self associatedValueForKey:&kViewTouchMoveBlockKey];
-	if (block)
-		block(touches, event);
+
+	BKTouchBlock block = [self bk_associatedValueForKey:&kViewTouchMoveBlockKey];
+	if (block) block(touches, event);
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
 	[super touchesEnded:touches withEvent:event];
-	BKTouchBlock block = [self associatedValueForKey:&kViewTouchUpBlockKey];
-	if (block)
-		block(touches, event);
+
+	BKTouchBlock block = [self bk_associatedValueForKey:&kViewTouchUpBlockKey];
+	if (block) block(touches, event);
 }
 
-- (void)eachSubview:(void(^)(UIView *))block {
-	[self.subviews each:(BKSenderBlock)block];
+- (void)bk_eachSubview:(void(^)(UIView *))block
+{
+	[self.subviews bk_each:(BKSenderBlock)block];
 }
 
 #pragma mark Properties
 
-- (void)setOnTouchDownBlock:(BKTouchBlock)block {
-	[self associateCopyOfValue:block withKey:&kViewTouchDownBlockKey];
+- (void)bk_setOnTouchDownBlock:(BKTouchBlock)block
+{
+	[self bk_associateCopyOfValue:block withKey:&kViewTouchDownBlockKey];
 }
 
-- (BKTouchBlock)onTouchDownBlock {
-	return [self associatedValueForKey:&kViewTouchDownBlockKey];
+- (BKTouchBlock)bk_onTouchDownBlock
+{
+	return [self bk_associatedValueForKey:&kViewTouchDownBlockKey];
 }
 
-- (void)setOnTouchMoveBlock:(BKTouchBlock)block {
-	[self associateCopyOfValue:block withKey:&kViewTouchMoveBlockKey];
+- (void)bk_setOnTouchMoveBlock:(BKTouchBlock)block
+{
+	[self bk_associateCopyOfValue:block withKey:&kViewTouchMoveBlockKey];
 }
 
-- (BKTouchBlock)onTouchMoveBlock {
-	return [self associatedValueForKey:&kViewTouchMoveBlockKey];
+- (BKTouchBlock)bk_onTouchMoveBlock
+{
+	return [self bk_associatedValueForKey:&kViewTouchMoveBlockKey];
 }
 
-- (void)setOnTouchUpBlock:(BKTouchBlock)block {
-	[self associateCopyOfValue:block withKey:&kViewTouchUpBlockKey];
+- (void)bk_setOnTouchUpBlock:(BKTouchBlock)block
+{
+	[self bk_associateCopyOfValue:block withKey:&kViewTouchUpBlockKey];
 }
 
-- (BKTouchBlock)onTouchUpBlock {
-	return [self associatedValueForKey:&kViewTouchUpBlockKey];
+- (BKTouchBlock)bk_onTouchUpBlock
+{
+	return [self bk_associatedValueForKey:&kViewTouchUpBlockKey];
 }
 
 @end

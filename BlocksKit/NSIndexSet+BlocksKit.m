@@ -7,7 +7,7 @@
 
 @implementation NSIndexSet (BlocksKit)
 
-- (void)each:(BKIndexBlock)block {
+- (void)bk_each:(BKIndexBlock)block {
 	NSParameterAssert(block != nil);
 	
 	[self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
@@ -15,7 +15,7 @@
 	}];
 }
 
-- (void)apply:(BKIndexBlock)block {
+- (void)bk_apply:(BKIndexBlock)block {
 	NSParameterAssert(block != nil);
 	
 	[self enumerateIndexesWithOptions:NSEnumerationConcurrent usingBlock:^(NSUInteger idx, BOOL *stop) {
@@ -23,7 +23,7 @@
 	}];
 }
 
-- (NSUInteger)match:(BKIndexValidationBlock)block {
+- (NSUInteger)bk_match:(BKIndexValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
 	return [self indexPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
@@ -31,26 +31,25 @@
 	}];
 }
 
-- (NSIndexSet *)select:(BKIndexValidationBlock)block {
+- (NSIndexSet *)bk_select:(BKIndexValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
 	NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
 		return block(idx);
 	}];
 	
-	if (!list.count)
-		return nil;
-	
+	if (!list.count) return nil;
 	return list;
 }
 
-- (NSIndexSet *)reject:(BKIndexValidationBlock)block {  
-	return [self select:^BOOL(NSUInteger idx) {
+- (NSIndexSet *)bk_reject:(BKIndexValidationBlock)block {
+	NSParameterAssert(block != nil);
+	return [self bk_select:^BOOL(NSUInteger idx) {
 		return !block(idx);
 	}];
 }
 
-- (NSIndexSet *)map:(BKIndexTransformBlock)block {
+- (NSIndexSet *)bk_map:(BKIndexTransformBlock)block {
 	NSParameterAssert(block != nil);
 	
 	NSMutableIndexSet *list = [NSMutableIndexSet indexSet];
@@ -59,37 +58,32 @@
 		[list addIndex:block(idx)];
 	}];
 	
-	if (!list.count)
-		return nil;
-	
+	if (!list.count) return nil;
 	return list;
 }
 
-- (NSArray *)mapIndex:(BKIndexMapBlock)block {
+- (NSArray *)bk_mapIndex:(BKIndexMapBlock)block {
 	NSParameterAssert(block != nil);
 	
 	NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
 	
 	[self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-		id value = block(idx);
-		if (!value)
-			value = [NSNull null];
-		
+		id value = block(idx) ?: [NSNull null];
 		[result addObject:value];
 	}];
 	
 	return result;
 }
 
-- (BOOL)any:(BKIndexValidationBlock)block {
-	return [self match: block] != NSNotFound;
+- (BOOL)bk_any:(BKIndexValidationBlock)block {
+	return [self bk_match:block] != NSNotFound;
 }
 
-- (BOOL)none:(BKIndexValidationBlock)block {
-	return [self match: block] == NSNotFound;
+- (BOOL)bk_none:(BKIndexValidationBlock)block {
+	return [self bk_match:block] == NSNotFound;
 }
 
-- (BOOL)all:(BKIndexValidationBlock)block {
+- (BOOL)bk_all:(BKIndexValidationBlock)block {
 	NSParameterAssert(block != nil);
 	
 	__block BOOL result = YES;

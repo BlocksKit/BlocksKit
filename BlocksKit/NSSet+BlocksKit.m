@@ -7,7 +7,8 @@
 
 @implementation NSSet (BlocksKit)
 
-- (void)each:(BKSenderBlock)block {
+- (void)bk_each:(BKSenderBlock)block
+{
 	NSParameterAssert(block != nil);
 	
 	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
@@ -15,7 +16,8 @@
 	}];
 }
 
-- (void)apply:(BKSenderBlock)block {
+- (void)bk_apply:(BKSenderBlock)block
+{
 	NSParameterAssert(block != nil);
 	
 	[self enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, BOOL *stop) {
@@ -23,7 +25,8 @@
 	}];
 }
 
-- (id)match:(BKValidationBlock)block {
+- (id)bk_match:(BKValidationBlock)block
+{
 	NSParameterAssert(block != nil);
 	
 	return [[self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
@@ -31,43 +34,45 @@
 			*stop = YES;
 			return YES;
 		}
+
 		return NO;
 	}] anyObject];
 }
 
-- (NSSet *)select:(BKValidationBlock)block {  
+- (NSSet *)bk_select:(BKValidationBlock)block
+{
 	NSParameterAssert(block != nil);
 	
 	return [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-		return (block(obj));
+		return block(obj);
 	}];
 }
 
-- (NSSet *)reject:(BKValidationBlock)block {
+- (NSSet *)bk_reject:(BKValidationBlock)block
+{
 	NSParameterAssert(block != nil);
 	
 	return [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
-		return (!block(obj));
+		return !block(obj);
 	}];
 }
 
-- (NSSet *)map:(BKTransformBlock)block {
+- (NSSet *)bk_map:(BKTransformBlock)block
+{
 	NSParameterAssert(block != nil);
 	
-	NSMutableSet *result = [NSMutableSet setWithCapacity: self.count];
+	NSMutableSet *result = [NSMutableSet setWithCapacity:self.count];
 	
 	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-		id value = block(obj);
-		if (!value)
-			value = [NSNull null];
-		
+		id value = block(obj) ?:[NSNull null];
 		[result addObject:value];
 	}];
 
 	return result;
 }
 
-- (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
+- (id)bk_reduce:(id)initial withBlock:(BKAccumulationBlock)block
+{
 	NSParameterAssert(block != nil);
 	
 	__block id result = initial;
@@ -79,15 +84,18 @@
 	return result;
 }
 
-- (BOOL)any:(BKValidationBlock)block {
-	return [self match: block] != nil;
+- (BOOL)bk_any:(BKValidationBlock)block
+{
+	return [self bk_match:block] != nil;
 }
 
-- (BOOL)none:(BKValidationBlock)block {
-	return [self match: block] == nil;
+- (BOOL)bk_none:(BKValidationBlock)block
+{
+	return [self bk_match:block] == nil;
 }
 
-- (BOOL)all:(BKValidationBlock)block {
+- (BOOL)bk_all:(BKValidationBlock)block
+{
 	NSParameterAssert(block != nil);
 	
 	__block BOOL result = YES;

@@ -7,27 +7,28 @@
 
 @implementation NSMutableIndexSet (BlocksKit)
 
-- (void)performSelect:(BKIndexValidationBlock)block {
+- (void)bk_performSelect:(BKIndexValidationBlock)block
+{
 	NSParameterAssert(block != nil);
-	
 	
 	NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
 		return !block(idx);
 	}];
 	
-	if (!list.count)
-		return;
-	
+	if (!list.count) return;
 	[self removeIndexes:list];
 }
 
-- (void)performReject:(BKIndexValidationBlock)block {
-	return [self performSelect:^BOOL(NSUInteger idx) {
+- (void)bk_performReject:(BKIndexValidationBlock)block
+{
+	NSParameterAssert(block != nil);
+	return [self bk_performSelect:^BOOL(NSUInteger idx) {
 		return !block(idx);
 	}];
 }
 
-- (void)performMap:(BKIndexTransformBlock)block {
+- (void)bk_performMap:(BKIndexTransformBlock)block
+{
 	NSParameterAssert(block != nil);
 	
 	NSMutableIndexSet *new = [self mutableCopy];
@@ -37,7 +38,7 @@
 	}];
 	
 	[self removeAllIndexes];
-	[self addIndexes: new];
+	[self addIndexes:new];
 }
 
 @end

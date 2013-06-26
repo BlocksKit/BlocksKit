@@ -14,7 +14,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testReturnObjectBlock": @"testReturnObject" }];
+		[self bk_linkDelegateMethods:@{ @"testReturnObjectBlock": @"testReturnObject" }];
 	}
 }
 
@@ -28,7 +28,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testReturnStructBlock": @"testReturnStruct" }];
+		[self bk_linkDelegateMethods:@{ @"testReturnStructBlock": @"testReturnStruct" }];
 	}
 }
 
@@ -42,7 +42,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithObjectBlock": @"testWithObject:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithObjectBlock": @"testWithObject:" }];
 	}
 }
 
@@ -56,7 +56,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithCharBlock": @"testWithChar:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithCharBlock": @"testWithChar:" }];
 	}
 }
 
@@ -70,7 +70,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithUCharBlock": @"testWithUChar:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithUCharBlock": @"testWithUChar:" }];
 	}
 }
 
@@ -84,7 +84,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithShortBlock": @"testWithShort:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithShortBlock": @"testWithShort:" }];
 	}
 }
 
@@ -98,7 +98,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithUShortBlock": @"testWithUShort:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithUShortBlock": @"testWithUShort:" }];
 	}
 }
 
@@ -112,7 +112,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithIntBlock": @"testWithInt:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithIntBlock": @"testWithInt:" }];
 	}
 }
 
@@ -126,7 +126,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithUIntBlock": @"testWithUInt:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithUIntBlock": @"testWithUInt:" }];
 	}
 }
 
@@ -140,7 +140,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithLongBlock": @"testWithLong:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithLongBlock": @"testWithLong:" }];
 	}
 }
 
@@ -154,7 +154,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithULongBlock": @"testWithULong:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithULongBlock": @"testWithULong:" }];
 	}
 }
 
@@ -168,7 +168,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithLongLongBlock": @"testWithLongLong:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithLongLongBlock": @"testWithLongLong:" }];
 	}
 }
 
@@ -182,7 +182,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithULongLongBlock": @"testWithULongLong:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithULongLongBlock": @"testWithULongLong:" }];
 	}
 }
 
@@ -196,7 +196,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithFloatBlock": @"testWithFloat:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithFloatBlock": @"testWithFloat:" }];
 	}
 }
 
@@ -210,7 +210,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithDoubleBlock": @"testWithDouble:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithDoubleBlock": @"testWithDouble:" }];
 	}
 }
 
@@ -224,7 +224,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithArrayBlock": @"testWithArray:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithArrayBlock": @"testWithArray:" }];
 	}
 }
 
@@ -238,7 +238,7 @@
 
 + (void)load {
 	@autoreleasepool {
-		[self linkDelegateMethods: @{ @"testWithStructBlock": @"testPassStruct:" }];
+		[self bk_linkDelegateMethods:@{ @"testWithStructBlock": @"testPassStruct:" }];
 	}
 }
 
@@ -253,7 +253,7 @@
 	[obj setTestReturnObjectBlock:^NSString *{
 		return @"Test";
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -266,7 +266,7 @@
 		val.second = YES;
 		return val;
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -276,7 +276,7 @@
 	[obj setTestWithObjectBlock:^BOOL(NSString *str) {
 		return !!str.length;
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -286,7 +286,7 @@
 	[obj setTestWithCharBlock:^BOOL(char chr) {
 		return (chr == 'Z');
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -296,7 +296,7 @@
 	[obj setTestWithUCharBlock:^BOOL(unsigned char uchr){
 		return (uchr == 'Z');
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -306,7 +306,7 @@
 	[obj setTestWithShortBlock:^BOOL(short shrt){
 		return (shrt == SHRT_MAX);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -316,7 +316,7 @@
 	[obj setTestWithUShortBlock:^BOOL(unsigned short ushrt) {
 		return (ushrt == USHRT_MAX);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -326,7 +326,7 @@
 	[obj setTestWithIntBlock:^BOOL(int inte) {
 		return (inte == INT_MAX);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -336,7 +336,7 @@
 	[obj setTestWithUIntBlock:^BOOL(unsigned int uint) {
 		return (uint == UINT_MAX);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -346,7 +346,7 @@
 	[obj setTestWithLongBlock:^BOOL(long lng) {
 		return (lng == LONG_MAX);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -356,7 +356,7 @@
 	[obj setTestWithULongBlock:^BOOL(unsigned long lng) {
 		return (lng == ULONG_MAX);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -366,7 +366,7 @@
 	[obj setTestWithLongLongBlock:^BOOL(long long llng) {
 		return (llng == LLONG_MAX);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -376,7 +376,7 @@
 	[obj setTestWithULongLongBlock:^BOOL(unsigned long long lng) {
 		return (lng == ULLONG_MAX);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -386,7 +386,7 @@
 	[obj setTestWithFloatBlock:^BOOL(float flt) {
 		return (flt == 1.01f);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -396,7 +396,7 @@
 	[obj setTestWithDoubleBlock:^BOOL(double dbl) {
 		return (dbl == 1.01);
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -406,7 +406,7 @@
 	[obj setTestWithArrayBlock:^BOOL(int *ary) {
 		return ary[0] == 1 && ary[1] == 2 && ary[2] == 3 && ary[3] == 4 && ary[4] == 5;
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }
@@ -416,7 +416,7 @@
 	[obj setTestWithStructBlock:^BOOL(MyStruct stret) {
 		return stret.first && stret.second;
 	}];
-	obj.delegate = obj.dynamicDelegate;
+	obj.delegate = obj.bk_dynamicDelegate;
 	BOOL result = [obj test];
 	STAssertTrue(result, @"Test object didn't return true");
 }

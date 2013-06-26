@@ -10,7 +10,7 @@
 
 /** Generates an `NSInvocation` instance for a given block.
 
- 	NSInvocation *invocation = [NSInvocation invocationWithTarget: target block: ^(id myObject){
+	NSInvocation *invocation = [NSInvocation invocationWithTarget:target block:^(id myObject){
  		[myObject someMethodWithArg:42.0];
  	}];
  
@@ -25,6 +25,6 @@
  @param block A code block.
  @return A fully-prepared instance of NSInvocation ready to be invoked.
  */
-+ (NSInvocation *)invocationWithTarget:(id)target block:(BKSenderBlock)block;
++ (NSInvocation *)bk_invocationWithTarget:(id)target block:(BKSenderBlock)block;
 
 @end

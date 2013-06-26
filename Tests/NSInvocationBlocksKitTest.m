@@ -24,7 +24,7 @@
 	BKSenderBlock senderBlock = ^(NSInvocationBlocksKitTest * sender) {
 		[sender action];
 	};
-	NSInvocation *invocation = [NSInvocation invocationWithTarget:self block:senderBlock];
+	NSInvocation *invocation = [NSInvocation bk_invocationWithTarget:self block:senderBlock];
 	STAssertNotNil(invocation, @"invocation is nil");
 	[invocation invoke];
 	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);

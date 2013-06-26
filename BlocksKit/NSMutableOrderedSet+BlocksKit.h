@@ -23,28 +23,28 @@
 /** Filters a mutable ordered set to the objects matching the block.
 
  @param block A single-argument, BOOL-returning code block.
- @see <NSOrderedSet(BlocksKit)>reject:
+ @see <NSOrderedSet(BlocksKit)>bk_reject:
  */
-- (void)performSelect:(BKValidationBlock)block;
+- (void)bk_performSelect:(BKValidationBlock)block;
 
 /** Filters a mutable ordered set to all objects but the ones matching the
- block, the logical inverse to select:.
+ block, the logical inverse to bk_select:.
 
  @param block A single-argument, BOOL-returning code block.
- @see <NSOrderedSet(BlocksKit)>select:
+ @see <NSOrderedSet(BlocksKit)>bk_select:
  */
-- (void)performReject:(BKValidationBlock)block;
+- (void)bk_performReject:(BKValidationBlock)block;
 
 /** Transform the objects in the ordered set to the results of the block.
 
  This is sometimes referred to as a transform, mutating one of each object:
-     [foo performMap:^id(id obj) {
+	 [foo bk_performMap:^id(id obj) {
          return [dateTransformer dateFromString:obj];
      }];
 
  @param block A single-argument, object-returning code block.
- @see <NSOrderedSet(BlocksKit)>map:
+ @see <NSOrderedSet(BlocksKit)>bk_map:
  */
-- (void)performMap:(BKTransformBlock)block;
+- (void)bk_performMap:(BKTransformBlock)block;
 
 @end

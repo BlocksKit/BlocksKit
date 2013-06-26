@@ -38,7 +38,7 @@
  @param selectorsForPropertyNames A dictionary with property names as keys and
  selector strings as objects.
  */
-+ (void) linkDataSourceMethods: (NSDictionary *) selectorsForPropertyNames;
++ (void)bk_linkDataSourceMethods:(NSDictionary *)selectorsForPropertyNames;
 
 /** Synthesizes multiple properties and links them to the appropriate selector
  in the delegate protocol.
@@ -50,7 +50,7 @@
  @param selectorsForPropertyNames A dictionary with property names as keys and
  selectors strings as objects.
  */
-+ (void) linkDelegateMethods: (NSDictionary *) selectorsForPropertyNames;
++ (void)bk_linkDelegateMethods:(NSDictionary *)selectorsForPropertyNames;
 
 /** Synthesizes multiple properties and links them to the appropriate selector
  in the given protocol.
@@ -63,18 +63,18 @@
  @param selectorsForPropertyNames A dictionary with property names as keys and
  selector strings as objects.
  */
-+ (void) linkProtocol: (Protocol *) protocol methods: (NSDictionary *) selectorsForPropertyNames;
++ (void)bk_linkProtocol:(Protocol *)protocol methods:(NSDictionary *)selectorsForPropertyNames;
 
 /** @name Delegate replacement properties */
 
 /** Registers a dynamic data source replacement using the property name
  `dataSource` and the protocol name `FooBarDataSource` for an instance of
  `FooBar`. */
-+ (void) registerDynamicDataSource;
++ (void)bk_registerDynamicDataSource;
 
 /** Registers a dynamic delegate replacement using the property name `delegate`
  and the protocol name `FooBarDelegate` for an instance of `FooBar`. */
-+ (void) registerDynamicDelegate;
++ (void)bk_registerDynamicDelegate;
 
 /** Registers a dynamic data source replacement using the given property name
  and the protocol name `FooBarDataSource` for an instance of `FooBar`.
@@ -82,14 +82,14 @@
  @param dataSourceName The name of the class' data source property. Must not be
  nil.
  */
-+ (void) registerDynamicDataSourceNamed: (NSString *) dataSourceName;
++ (void)bk_registerDynamicDataSourceNamed:(NSString *)dataSourceName;
 
 /** Registers a dynamic delegate replacement using the given property name and
  the protocol name `FooBarDelegate` for an instance of `FooBar`.
 
  @param delegateName The name of the class' delegate property. Must not be nil.
  */
-+ (void) registerDynamicDelegateNamed: (NSString *) delegateName;
++ (void)bk_registerDynamicDelegateNamed:(NSString *)delegateName;
 
 /** Registers a dynamic protocol implementation replacement
  using the given property name and the given protocol.
@@ -98,6 +98,6 @@
  as `safeDelegate`. Must not be nil.
  @param protocol A properly encoded protocol. Must not be NULL.
  */
-+ (void) registerDynamicDelegateNamed: (NSString *) delegateName forProtocol: (Protocol *) protocol;
++ (void)bk_registerDynamicDelegateNamed:(NSString *)delegateName forProtocol:(Protocol *)protocol;
 
 @end

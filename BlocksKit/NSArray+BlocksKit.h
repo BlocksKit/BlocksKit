@@ -28,7 +28,7 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)each:(BKSenderBlock)block;
+- (void)bk_each:(BKSenderBlock)block;
 
 /** Enumerates through an array concurrently and executes
  the given block once for each object.
@@ -42,52 +42,52 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)apply:(BKSenderBlock)block;
+- (void)bk_apply:(BKSenderBlock)block;
 
 /** Loops through an array to find the object matching the block.
  
- match: is functionally identical to select:, but will stop and return
+ bk_match: is functionally identical to bk_select:, but will stop and return
  on the first match.
  
  @param block A single-argument, `BOOL`-returning code block.
  @return Returns the object, if found, or `nil`.
- @see select:
+ @see bk_select:
  */
-- (id)match:(BKValidationBlock)block;
+- (id)bk_match:(BKValidationBlock)block;
 
 /** Loops through an array to find the objects matching the block.
  
  @param block A single-argument, BOOL-returning code block.
  @return Returns an array of the objects found.
- @see match:
+ @see bk_match:
  */
-- (NSArray *)select:(BKValidationBlock)block;
+- (NSArray *)bk_select:(BKValidationBlock)block;
 
 /** Loops through an array to find the objects not matching the block.
  
- This selector performs *literally* the exact same function as select: but in reverse.
+ This selector performs *literally* the exact same function as bk_select: but in reverse.
  
  This is useful, as one may expect, for removing objects from an array.
-	 NSArray *new = [computers reject:^BOOL(id obj) {
+	 NSArray *new = [computers bk_reject:^BOOL(id obj) {
 	   return ([obj isUgly]);
 	 }];
  
  @param block A single-argument, BOOL-returning code block.
  @return Returns an array of all objects not found.
  */
-- (NSArray *)reject:(BKValidationBlock)block;
+- (NSArray *)bk_reject:(BKValidationBlock)block;
 
 /** Call the block once for each object and create an array of the return values.
  
  This is sometimes referred to as a transform, mutating one of each object:
-	 NSArray *new = [stringArray map:^id(id obj) {
+	 NSArray *new = [stringArray bk_map:^id(id obj) {
 	   return [obj stringByAppendingString:@".png"]);
 	 }];
  
  @param block A single-argument, object-returning code block.
  @return Returns an array of the objects returned by the block.
  */
-- (NSArray *)map:(BKTransformBlock)block;
+- (NSArray *)bk_map:(BKTransformBlock)block;
 
 /** Arbitrarily accumulate objects using a block.
  
@@ -95,12 +95,12 @@
  be any NSObject, including (but not limited to) a string, number, or value.
  
  For example, you can concentate the strings in an array:
-	 NSString *concentrated = [stringArray reduce:@"" withBlock:^id(id sum, id obj) {
+	 NSString *concentrated = [stringArray bk_reduce:@"" withBlock:^id(id sum, id obj) {
 	   return [sum stringByAppendingString:obj];
 	 }];
  
  You can also do something like summing the lengths of strings in an array:
-	 NSUInteger value = [[[stringArray reduce:nil withBlock:^id(id sum, id obj) {
+	 NSUInteger value = [[[stringArray bk_reduce:nil withBlock:^id(id sum, id obj) {
 	   return @([sum integerValue] + obj.length);
 	 }]] unsignedIntegerValue];
 
@@ -108,56 +108,56 @@
  @param block A block that takes the current sum and the next object to return the new sum.
  @return An accumulated value.
  */
-- (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block;
+- (id)bk_reduce:(id)initial withBlock:(BKAccumulationBlock)block;
 
 /** Loops through an array to find whether any object matches the block.
  
  This method is similar to the Scala list `exists`. It is functionally
- identical to match: but returns a `BOOL` instead. It is not recommended
- to use any: as a check condition before executing match:, since it would
+ identical to bk_match: but returns a `BOOL` instead. It is not recommended
+ to use bk_any: as a check condition before executing bk_match:, since it would
  require two loops through the array.
  
  For example, you can find if a string in an array starts with a certain letter:
 
 	 NSString *letter = @"A";
-	 BOOL containsLetter = [stringArray any: ^(id obj) {
-	   return [obj hasPrefix: @"A"];
+	 BOOL containsLetter = [stringArray bk_any:^(id obj) {
+	   return [obj hasPrefix:@"A"];
 	 }];
 
  @param block A single-argument, BOOL-returning code block.
  @return YES for the first time the block returns YES for an object, NO otherwise.
  */
-- (BOOL)any:(BKValidationBlock)block;
+- (BOOL)bk_any:(BKValidationBlock)block;
 
 /** Loops through an array to find whether no objects match the block.
  
- This selector performs *literally* the exact same function as all: but in reverse.
+ This selector performs *literally* the exact same function as bk_all: but in reverse.
  
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns NO for all objects in the array, NO otherwise.
  */
-- (BOOL)none:(BKValidationBlock)block;
+- (BOOL)bk_none:(BKValidationBlock)block;
 
 /** Loops through an array to find whether all objects match the block.
  
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns YES for all objects in the array, NO otherwise.
  */
-- (BOOL) all: (BKValidationBlock)block;
+- (BOOL)bk_all:(BKValidationBlock)block;
 
 /** Tests whether every element of this array relates to the corresponding element of another array according to match by block.
  
  For example, finding if a list of numbers corresponds to their sequenced string values;
  NSArray *numbers = @[ @(1), @(2), @(3) ];
  NSArray *letters = @[ @"1", @"2", @"3" ];
- BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
- 	return [[number stringValue] isEqualToString: letter];
+ BOOL doesCorrespond = [numbers bk_corresponds:letters withBlock:^(id number, id letter) {
+	return [[number stringValue] isEqualToString:letter];
  }];
  
  @param list An array of objects to compare with.
  @param block A two-argument, BOOL-returning code block.
  @return Returns a BOOL, true if every element of array relates to corresponding element in another array.
  */
-- (BOOL) corresponds: (NSArray *) list withBlock: (BKKeyValueValidationBlock) block;
+- (BOOL)bk_corresponds:(NSArray *)list withBlock:(BKKeyValueValidationBlock)block;
 
 @end
