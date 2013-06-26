@@ -402,24 +402,24 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	{
 		ffi_type *type = cif.arg_types[idx];
 		if (type == &ffi_type_id) {
-            NSNumber *key = @(idx);
-            [self.arguments removeObjectForKey:key];
+			NSNumber *key = @(idx);
+			[self.arguments removeObjectForKey:key];
 			
 			if (buffer) {
 				id new = *(__unsafe_unretained id *)buffer;
 				if (new) self.arguments[key] = new;
 			}
 		} else if (type == &ffi_type_charptr) {
-            NSNumber *key = @(idx);
-            [self.arguments removeObjectForKey:key];
-            
+			NSNumber *key = @(idx);
+			[self.arguments removeObjectForKey:key];
+			
 			if (buffer) {
 				char *new = *(char**)buffer;
 				if (new) {
-                    NSMutableData *wrap = [NSMutableData dataWithBytes:new length:strlen(new)];
-                    self.arguments[key] = wrap;
-                    new = wrap.mutableBytes;
-                    buffer = &new;
+					NSMutableData *wrap = [NSMutableData dataWithBytes:new length:strlen(new)];
+					self.arguments[key] = wrap;
+					new = wrap.mutableBytes;
+					buffer = &new;
 				}
 			}
 		}
