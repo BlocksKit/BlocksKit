@@ -38,7 +38,7 @@
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:identifier:options:task:
  */
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath task:(BKSenderBlock)task;
+- (NSString *)bk_addObserverForKeyPath:(NSString *)keyPath task:(BKSenderBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
@@ -52,7 +52,7 @@
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:identifier:options:task:
  */
-- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths task:(BKSenderKeyPathBlock)task;
+- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths task:(BKSenderKeyPathBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
@@ -67,7 +67,7 @@
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:identifier:options:task:
  */
-- (NSString *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task;
+- (NSString *)bk_addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
@@ -83,7 +83,7 @@
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:identifier:options:task:
  */
-- (NSString *)addObserverForKeyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task;
+- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
@@ -97,7 +97,7 @@
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:task:
  */
-- (void)addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task;
+- (void)bk_addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
  
@@ -111,7 +111,7 @@
  observation with removeObserversWithIdentifier:.
  @see addObserverForKeyPath:task:
  */
-- (void)addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)token options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task;
+- (void)bk_addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)token options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task;
 
 /** Removes a block observer.
  
@@ -120,7 +120,7 @@
  or the identifier given in addObserverForKeyPath:identifier:task:.
  @see removeObserversWithIdentifier:
  */ 
-- (void)removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token;
+- (void)bk_removeObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)token;
 
 /** Removes multiple block observers with a certain identifier.
  
@@ -130,9 +130,9 @@
  addObserverForKeyPaths:identifier:task:.
  @see removeObserverForKeyPath:identifier:
  */ 
-- (void)removeObserversWithIdentifier:(NSString *)token;
+- (void)bk_removeObserversWithIdentifier:(NSString *)token;
 
 /** Remove all registered block observers. */
-- (void)removeAllBlockObservers;
+- (void)bk_removeAllBlockObservers;
 
 @end

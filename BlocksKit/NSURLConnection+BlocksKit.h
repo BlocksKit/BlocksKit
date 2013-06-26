@@ -56,19 +56,19 @@
  in an instance of NSURLConnection.  It only works on block-backed
  NSURLConnection instances.
  */
-@property (nonatomic, weak) id delegate;
+@property (nonatomic, weak, setter = bk_setDelegate:) id bk_delegate;
 
 /** The block fired once the connection recieves a response from the server.
 
  This block corresponds to the connection:didReceiveResponse: method
- of NSURLConnectionDelegate. */
-@property (nonatomic, copy) void(^responseBlock)(NSURLConnection *, NSURLResponse *);
+ of NSURLConnectionDataDelegate. */
+@property (nonatomic, copy, setter = bk_setResponseBlock:) void (^bk_responseBlock)(NSURLConnection *connection, NSURLResponse *response);
 
 /** The block fired upon the failure of the connection.
 
  This block corresponds to the connection:didFailWithError:
  method of NSURLConnectionDelegate. */
-@property (nonatomic, copy) void (^failureBlock)(NSURLConnection *, NSError *);
+@property (nonatomic, copy, setter = bk_setFailureBlock:) void (^bk_failureBlock)(NSURLConnection *connection, NSError *error);
 
 /** The block that  upon the successful completion of the connection.
 
@@ -80,7 +80,7 @@
  the recieved data to an instance NSMutableData is left up to the user due
  to the behavior of frameworks that use NSURLConnection.
  */
-@property (nonatomic, copy) void (^successBlock)(NSURLConnection *, NSURLResponse *, NSData *);
+@property (nonatomic, copy, setter = bk_setSuccessBlock:) void (^bk_successBlock)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData);
 
 /** The block fired every time new data is sent to the server,
  representing the current percentage of completion.
@@ -89,7 +89,7 @@
  connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:
  method of NSURLConnectionDelegate.
  */
-@property (nonatomic, copy) void (^uploadBlock)(CGFloat);
+@property (nonatomic, copy, setter = bk_setUploadBlock:) void (^bk_uploadBlock)(CGFloat percent);
 
 /** The block fired every time new data is recieved from the server,
  representing the current percentage of completion.
@@ -97,14 +97,14 @@
  This block corresponds to the connection:didRecieveData:
  method of NSURLConnectionDelegate.
  */
-@property (nonatomic, copy) void (^downloadBlock)(CGFloat);
+@property (nonatomic, copy, setter = bk_setDownloadBlock:) void (^bk_downloadBlock)(CGFloat percent);
 
 /** Creates and returns an initialized block-backed URL connection that does not begin to load the data for the URL request.
  
  @param request The URL request to load.
  @return An autoreleased NSURLConnection for the specified URL request.
  */
-+ (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request;
++ (NSURLConnection *)bk_connectionWithRequest:(NSURLRequest *)request;
 
 /** Creates, starts, and returns an asynchronous, block-backed URL connection
 
@@ -113,14 +113,14 @@
  @param success A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  @param failure A code block that acts on instances of NSURLResponse and NSError in the event of a failed connection.
  */
-+ (NSURLConnection *)startConnectionWithRequest:(NSURLRequest *)request successHandler:(void(^)(NSURLConnection *urlConnection, NSURLResponse *urlResponse, NSData *data))success failureHandler:(void(^)(NSURLConnection *urlConnection, NSError *error))failure;
++ (NSURLConnection *)bk_startConnectionWithRequest:(NSURLRequest *)request successHandler:(void(^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))success failureHandler:(void(^)(NSURLConnection *connection, NSError *error))failure;
 
 /** Returns an initialized block-backed URL connection.
  
  @return Newly initialized NSURLConnection with the specified properties.
  @param request The URL request to load.
  */
-- (id)initWithRequest:(NSURLRequest *)request;
+- (id)bk_initWithRequest:(NSURLRequest *)request;
 
 /** Returns an initialized URL connection with the specified completion handler.
  
@@ -128,12 +128,12 @@
  @param request The URL request to load.
  @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  */
-- (id)initWithRequest:(NSURLRequest *)request completionHandler:(void(^)(NSURLConnection *urlConnection, NSURLResponse *urlResponse, NSData *data))block;
+- (id)bk_initWithRequest:(NSURLRequest *)request completionHandler:(void(^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))block;
 
 /** Causes the connection to begin loading data, if it has not already, with the specified block to be fired on successful completion.
  
  @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  */
-- (void)startWithCompletionBlock:(void(^)(NSURLConnection *urlConnection, NSURLResponse *urlResponse, NSData *data))block;
+- (void)bk_startWithCompletionBlock:(void(^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))block;
 
 @end

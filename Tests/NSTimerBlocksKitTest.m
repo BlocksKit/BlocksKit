@@ -22,7 +22,7 @@
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
 	[self prepare];
-	NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 block:timerBlock repeats:NO];
+	NSTimer *timer = [NSTimer bk_scheduledTimerWithTimeInterval:0.1 block:timerBlock repeats:NO];
 	STAssertNotNil(timer,@"timer is nil");
 	[self waitForTimeout:0.5];
 	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
@@ -34,7 +34,7 @@
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
 	[self prepare];
-	NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 block:timerBlock repeats:YES];
+	NSTimer *timer = [NSTimer bk_scheduledTimerWithTimeInterval:0.1 block:timerBlock repeats:YES];
 	STAssertNotNil(timer,@"timer is nil");
 	[self waitForTimeout:0.5];
 	[timer invalidate];
@@ -47,7 +47,7 @@
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
 	[self prepare];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:0.1 block:timerBlock repeats:NO];
+	NSTimer *timer = [NSTimer bk_timerWithTimeInterval:0.1 block:timerBlock repeats:NO];
 	STAssertNotNil(timer,@"timer is nil");
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 	[self waitForTimeout:0.5];
@@ -60,7 +60,7 @@
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
 	[self prepare];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:0.1 block:timerBlock repeats:YES];
+	NSTimer *timer = [NSTimer bk_timerWithTimeInterval:0.1 block:timerBlock repeats:YES];
 	STAssertNotNil(timer,@"timer is nil");
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 	[self waitForTimeout:0.5];

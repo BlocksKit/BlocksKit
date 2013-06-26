@@ -37,7 +37,7 @@
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */
-- (id)performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay;
+- (id)bk_performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block after a given delay.
 
@@ -56,7 +56,7 @@
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */
-+ (id)performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay;
++ (id)bk_performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay;
 
 /** Cancels the potential execution of a block.
 
@@ -67,6 +67,6 @@
  @param block A pointer to a containing block, as returned from one of the
  `performBlock` selectors.
  */
-+ (void)cancelBlock:(id)block;
++ (void)bk_cancelBlock:(id)block;
 
 @end

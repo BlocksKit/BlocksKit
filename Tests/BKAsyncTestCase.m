@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, SenTestCaseError) {
 }
 
 - (void)prepare {
-	[self prepare: [self selector]];
+	[self prepare:[self selector]];
 }
 
 - (void)prepare:(SEL)selector {

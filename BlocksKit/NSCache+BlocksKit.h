@@ -41,13 +41,13 @@
  @param getterBlock A block used to get an object if there is no
  value in the cache.
  */
-- (id)objectForKey:(id)key withGetter:(BKReturnBlock)getterBlock;
+- (id)bk_objectForKey:(id)key withGetter:(BKReturnBlock)getterBlock;
 
 /** Called when an object is about to be evicted from the cache.
 
  This block callback is an analog for the cache:willEviceObject:
  method of NSCacheDelegate.
  */
-@property (nonatomic, copy) void(^willEvictBlock)(NSCache *, id);
+@property (nonatomic, copy, setter = bk_setWillEvictBlock:) void(^bk_willEvictBlock)(NSCache *cache, id obj);
 
 @end

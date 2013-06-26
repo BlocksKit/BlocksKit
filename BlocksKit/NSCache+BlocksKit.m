@@ -13,14 +13,14 @@
 
 @implementation A2DynamicNSCacheDelegate
 
-- (void)cache:(NSCache *)cache willEvictObject:(id)obj {
+- (void)cache:(NSCache *)cache willEvictObject:(id)obj
+{
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(cache:willEvictObject:)])
 		[realDelegate cache:cache willEvictObject:obj];
 
 	void (^orig)(NSCache *, id) = [self blockImplementationForMethod:_cmd];
-	if (orig)
-		 orig(cache, obj);
+	if (orig) orig(cache, obj);
 }
 
 @end
@@ -29,21 +29,22 @@
 
 @implementation NSCache (BlocksKit)
 
-@dynamic willEvictBlock;
+@dynamic bk_willEvictBlock;
 
-+ (void)load {
++ (void)load
+{
 	@autoreleasepool {
-		[self registerDynamicDelegate];
-		[self linkDelegateMethods: @{ @"willEvictBlock": @"cache:willEvictObject:" }];
+		[self bk_registerDynamicDelegate];
+		[self bk_linkDelegateMethods:@{ @"bk_willEvictBlock": @"cache:willEvictObject:" }];
 	}
 }
 
 #pragma mark Methods
 
-- (id)objectForKey:(id)key withGetter:(BKReturnBlock)block {
+- (id)bk_objectForKey:(id)key withGetter:(BKReturnBlock)block
+{
 	id object = [self objectForKey:key];
-	if (object)
-		return object;
+	if (object) return object;
 	
 	if (block) {
 		object = block();

@@ -10,7 +10,8 @@
 
 @implementation NSOrderedSet (BlocksKit)
 
-- (void)each:(BKSenderBlock)block {
+- (void)bk_each:(BKSenderBlock)block
+{
 	NSParameterAssert(block != nil);
 
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -18,7 +19,8 @@
 	}];
 }
 
-- (void)apply:(BKSenderBlock)block {
+- (void)bk_apply:(BKSenderBlock)block
+{
 	NSParameterAssert(block != nil);
 
 	[self enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -26,55 +28,54 @@
 	}];
 }
 
-- (id)match:(BKValidationBlock)block {
+- (id)bk_match:(BKValidationBlock)block
+{
 	NSParameterAssert(block != nil);
 
 	NSUInteger index = [self indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		return block(obj);
 	}];
 
-	if (index == NSNotFound)
-		return nil;
-
+	if (index == NSNotFound) return nil;
 	return self[index];
 }
 
-- (NSOrderedSet *)select:(BKValidationBlock)block {
+- (NSOrderedSet *)bk_select:(BKValidationBlock)block
+{
 	NSParameterAssert(block != nil);
 
 	NSArray *objects = [self objectsAtIndexes:[self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		return block(obj);
 	}]];
 
-	if (!objects.count)
-		return [[self class] orderedSet];
-
-	return [[self class] orderedSetWithArray: objects];
+	if (!objects.count) return [[self class] orderedSet];
+	return [[self class] orderedSetWithArray:objects];
 }
 
-- (NSOrderedSet *)reject:(BKValidationBlock)block {
-	return [self select:^BOOL(id obj) {
+- (NSOrderedSet *)bk_reject:(BKValidationBlock)block
+{
+	NSParameterAssert(block != nil);
+	return [self bk_select:^BOOL(id obj) {
 		return !block(obj);
 	}];
 }
 
-- (NSOrderedSet *)map:(BKTransformBlock)block {
+- (NSOrderedSet *)bk_map:(BKTransformBlock)block
+{
 	NSParameterAssert(block != nil);
 
-	NSMutableOrderedSet *result = [NSMutableOrderedSet orderedSetWithCapacity: self.count];
+	NSMutableOrderedSet *result = [NSMutableOrderedSet orderedSetWithCapacity:self.count];
 
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		id value = block(obj);
-		if (!value)
-			value = [NSNull null];
-
+		id value = block(obj) ?: [NSNull null];
 		[result addObject:value];
 	}];
 
 	return result;
 }
 
-- (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block {
+- (id)bk_reduce:(id)initial withBlock:(BKAccumulationBlock)block
+{
 	NSParameterAssert(block != nil);
 
 	__block id result = initial;
@@ -86,15 +87,18 @@
 	return result;
 }
 
-- (BOOL)any:(BKValidationBlock)block {
-	return [self match: block] != nil;
+- (BOOL)bk_any:(BKValidationBlock)block
+{
+	return [self bk_match:block] != nil;
 }
 
-- (BOOL)none:(BKValidationBlock)block {
-	return [self match: block] == nil;
+- (BOOL)bk_none:(BKValidationBlock)block
+{
+	return [self bk_match:block] == nil;
 }
 
-- (BOOL) all: (BKValidationBlock)block {
+- (BOOL)bk_all:(BKValidationBlock)block
+{
 	NSParameterAssert(block != nil);
 
 	__block BOOL result = YES;
@@ -109,7 +113,8 @@
 	return result;
 }
 
-- (BOOL) corresponds: (NSOrderedSet *) list withBlock: (BKKeyValueValidationBlock) block {
+- (BOOL)bk_corresponds:(NSOrderedSet *)list withBlock:(BKKeyValueValidationBlock)block
+{
 	NSParameterAssert(block != nil);
 
 	__block BOOL result = NO;

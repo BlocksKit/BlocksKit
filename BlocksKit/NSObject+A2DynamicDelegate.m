@@ -24,17 +24,17 @@ static dispatch_queue_t a2_backgroundQueue(void)
 
 @implementation NSObject (A2DynamicDelegate)
 
-- (id) dynamicDataSource
+- (id)bk_dynamicDataSource
 {
 	Protocol *protocol = a2_dataSourceProtocol([self class]);
-	return [self dynamicDelegateForProtocol: protocol];
+	return [self bk_dynamicDelegateForProtocol:protocol];
 }
-- (id) dynamicDelegate
+- (id)bk_dynamicDelegate
 {
 	Protocol *protocol = a2_delegateProtocol([self class]);
-	return [self dynamicDelegateForProtocol: protocol];
+	return [self bk_dynamicDelegateForProtocol:protocol];
 }
-- (id) dynamicDelegateForProtocol: (Protocol *) protocol
+- (id)bk_dynamicDelegateForProtocol:(Protocol *)protocol
 {
 	/**
 	 * Storing the dynamic delegate as an associated object of the delegating
@@ -49,13 +49,13 @@ static dispatch_queue_t a2_backgroundQueue(void)
 	__block A2DynamicDelegate *dynamicDelegate;
 
 	dispatch_sync(a2_backgroundQueue(), ^{
-		dynamicDelegate = [self associatedValueForKey: (__bridge const void *)protocol];
+		dynamicDelegate = [self bk_associatedValueForKey:(__bridge const void *)protocol];
 
 		if (!dynamicDelegate)
 		{
-			Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString: NSStringFromProtocol(protocol)]) ?: [A2DynamicDelegate class];
-			dynamicDelegate = [[cls alloc] initWithProtocol: protocol];
-			[self associateValue: dynamicDelegate withKey: (__bridge const void *)protocol];
+			Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString:NSStringFromProtocol(protocol)]) ?: [A2DynamicDelegate class];
+			dynamicDelegate = [[cls alloc] initWithProtocol:protocol];
+			[self bk_associateValue:dynamicDelegate withKey:(__bridge const void *)protocol];
 		}
 	});
 

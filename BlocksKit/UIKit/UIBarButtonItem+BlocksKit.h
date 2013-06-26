@@ -26,7 +26,7 @@
  @param systemItem The system item to use as the item representation. One of the constants defined in UIBarButtonSystemItem.
  @param action The block that gets fired on the button press.
  */
-- (id)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(BKSenderBlock)action;
+- (id)bk_initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(BKSenderBlock)action NS_REPLACES_RECEIVER;
 
 /** Creates and returns a configured item using the specified image and style.
  
@@ -37,7 +37,17 @@
  @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
  @param action The block that gets fired on the button press.
  */
-- (id)initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action;
+- (id)bk_initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action NS_REPLACES_RECEIVER;
+
+/** Creates and returns a configured item using the specified image and style.
+ 
+ @return Newly initialized item with the specified properties.
+ @param image The item’s image. If nil an image is not displayed.
+ @param landscapeImagePhone The image to be used for the item in landscape bars in the UIUserInterfaceIdiomPhone idiom.
+ @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
+ @param action The block that gets fired on the button press.
+ */
+- (id)bk_initWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action NS_REPLACES_RECEIVER NS_AVAILABLE_IOS(5_0);
 
 /** Creates and returns a configured item using the specified text and style.
  
@@ -46,6 +56,6 @@
  @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
  @param action The block that gets fired on the button press.
  */
-- (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action;
+- (id)bk_initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action NS_REPLACES_RECEIVER;
 
 @end
