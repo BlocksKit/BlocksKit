@@ -22,14 +22,23 @@
 		[realDelegate messageComposeViewController:controller didFinishWithResult:result];
 	
 	void(^block)(MFMessageComposeViewController *, MessageComposeResult) = [self blockImplementationForMethod:_cmd];
-	if (block) block(controller, result);
-	
-	if (!shouldDismiss) {
+	if (!shouldDismiss)
+	{
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
 		[controller dismissModalViewControllerAnimated:YES];
+		if (block)
+			block(controller, result);
 #else
-		[controller dismissViewControllerAnimated:YES completion:nil];
+		__weak id wcontroller = controller;
+		[controller dismissViewControllerAnimated:YES completion:^{
+			if (block)
+				block(wcontroller, result);
+		}];
 #endif
+	}
+	else if (block)
+	{
+		block(controller, result);
 	}
 }
 
