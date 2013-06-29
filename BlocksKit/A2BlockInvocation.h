@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <Foundation/Foundation.h>
 
 /** An `A2BlockInvocation` is an Objective-C block call rendered static, that
  is, it is an action turned into an object. `A2BlockInvocation` objects are used

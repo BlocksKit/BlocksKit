@@ -3,9 +3,12 @@
 //  BlocksKit
 //
 
-#import "NSURLConnection+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
 #import <objc/runtime.h>
+#import "A2BlockDelegate.h"
+#import "A2DynamicDelegate.h"
+#import "NSObject+A2DynamicDelegate.h"
+#import "NSObject+AssociatedObjects.h"
+#import "NSURLConnection+BlocksKit.h"
 
 #pragma mark Private
 
@@ -90,9 +93,9 @@ static char kResponseLengthKey;
 {
 	connection.bk_responseLength += data.length;
 	
-	void (^block)(CGFloat) = connection.bk_downloadBlock;
+	void (^block)(double) = connection.bk_downloadBlock;
 	if (block && connection.bk_response && connection.bk_response.expectedContentLength != NSURLResponseUnknownLength)
-		block((CGFloat)connection.bk_responseLength / (CGFloat)connection.bk_response.expectedContentLength);
+		block((double)connection.bk_responseLength / (double)connection.bk_response.expectedContentLength);
 	
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveData:)]) {
@@ -115,8 +118,8 @@ static char kResponseLengthKey;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)])
 		[realDelegate connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
 	
-	void (^block)(CGFloat) = connection.bk_uploadBlock;
-	if (block) block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
+	void (^block)(double) = connection.bk_uploadBlock;
+	if (block) block((double)totalBytesWritten/(double)totalBytesExpectedToWrite);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -238,9 +241,9 @@ static char kResponseLengthKey;
 {
 	connection.bk_responseLength += data.length;
 	
-	void (^block)(CGFloat) = connection.bk_downloadBlock;
+	void (^block)(double) = connection.bk_downloadBlock;
 	if (block && connection.bk_response && connection.bk_response.expectedContentLength != NSURLResponseUnknownLength)
-		block((CGFloat)connection.bk_responseLength / (CGFloat)connection.bk_response.expectedContentLength);
+		block((double)connection.bk_responseLength / (double)connection.bk_response.expectedContentLength);
 	
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveData:)]) {
@@ -272,9 +275,9 @@ static char kResponseLengthKey;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)])
 		[realDelegate connection:connection didSendBodyData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
 	
-	void (^block)(CGFloat) = connection.bk_uploadBlock;
+	void (^block)(double) = connection.bk_uploadBlock;
 	if (block)
-		block((CGFloat)totalBytesWritten/(CGFloat)totalBytesExpectedToWrite);
+		block((double)totalBytesWritten/(double)totalBytesExpectedToWrite);
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse
@@ -395,22 +398,22 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 		[[self.bk_dynamicDelegate handlers] removeObjectForKey:kSuccessBlockKey];
 }
 
-- (void(^)(CGFloat))bk_uploadBlock {
+- (void(^)(double))bk_uploadBlock {
 	return [self.bk_dynamicDelegate handlers][kUploadBlockKey];
 }
 
-- (void)bk_setUploadBlock:(void(^)(CGFloat))block {
+- (void)bk_setUploadBlock:(void(^)(double))block {
 	if (block)
 		[self.bk_dynamicDelegate handlers][kUploadBlockKey] = [block copy];
 	else
 		[[self.bk_dynamicDelegate handlers] removeObjectForKey:kUploadBlockKey];
 }
 
-- (void(^)(CGFloat))bk_downloadBlock {
+- (void(^)(double))bk_downloadBlock {
 	return [self.bk_dynamicDelegate handlers][kDownloadBlockKey];
 }
 
-- (void)bk_setDownloadBlock:(void(^)(CGFloat))block {
+- (void)bk_setDownloadBlock:(void(^)(double))block {
 	if (block)
 		[self.bk_dynamicDelegate handlers][kDownloadBlockKey] = [block copy];
 	else

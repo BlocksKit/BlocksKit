@@ -3,6 +3,9 @@
 //  BlocksKit
 //
 
+#import "A2BlockDelegate.h"
+#import "A2DynamicDelegate.h"
+#import "NSObject+A2DynamicDelegate.h"
 #import "UIActionSheet+BlocksKit.h"
 
 #pragma mark Custom delegate
@@ -19,7 +22,7 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)])
 		[realDelegate actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
 	
-	BKBlock block = self.handlers[@(buttonIndex)];
+	void (^block)(void) = self.handlers[@(buttonIndex)];
 	if (block) block();
 }
 
@@ -69,7 +72,7 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheetCancel:)])
 		[realDelegate actionSheetCancel:actionSheet];
 	
-	BKBlock block = actionSheet.bk_cancelBlock;
+	void (^block)(void) = actionSheet.bk_cancelBlock;
 	if (block) block();
 }
 
@@ -106,20 +109,20 @@
 
 #pragma mark Actions
 
-- (NSInteger)bk_addButtonWithTitle:(NSString *)title handler:(BKBlock)block {
+- (NSInteger)bk_addButtonWithTitle:(NSString *)title handler:(void (^)(void))block {
 	NSAssert(title.length, @"A button without a title cannot be added to an action sheet.");
 	NSInteger index = [self addButtonWithTitle:title];
 	[self bk_setHandler:block forButtonAtIndex:index];
 	return index;
 }
 
-- (NSInteger)bk_setDestructiveButtonWithTitle:(NSString *)title handler:(BKBlock)block {
+- (NSInteger)bk_setDestructiveButtonWithTitle:(NSString *)title handler:(void (^)(void))block {
 	NSInteger index = [self bk_addButtonWithTitle:title handler:block];
 	self.destructiveButtonIndex = index;
 	return index;
 }
 											
-- (NSInteger)bk_setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block {
+- (NSInteger)bk_setCancelButtonWithTitle:(NSString *)title handler:(void (^)(void))block {
 	NSInteger cancelButtonIndex = self.cancelButtonIndex;
 
 	if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) && !title.length)
@@ -135,7 +138,7 @@
 
 #pragma mark Properties
 
-- (void)bk_setHandler:(BKBlock)block forButtonAtIndex:(NSInteger)index {
+- (void)bk_setHandler:(void (^)(void))block forButtonAtIndex:(NSInteger)index {
 	id key = @(index);
 	
 	if (block)
@@ -144,17 +147,17 @@
 		[[self.bk_dynamicDelegate handlers] removeObjectForKey:key];
 }
 
-- (BKBlock)bk_handlerForButtonAtIndex:(NSInteger)index
+- (void (^)(void))bk_handlerForButtonAtIndex:(NSInteger)index
 {
 	return [self.bk_dynamicDelegate handlers][@(index)];
 }
 
-- (BKBlock)bk_cancelBlock
+- (void (^)(void))bk_cancelBlock
 {
 	return [self bk_handlerForButtonAtIndex:self.cancelButtonIndex];
 }
 
-- (void)bk_setCancelBlock:(BKBlock)block
+- (void)bk_setCancelBlock:(void (^)(void))block
 {
 	[self bk_setHandler:block forButtonAtIndex:self.cancelButtonIndex];
 }

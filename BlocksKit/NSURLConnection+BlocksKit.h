@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <Foundation/Foundation.h>
 
 /** NSURLConnection with both delegate and block callback support.
  
@@ -27,7 +27,7 @@
 			 self.imageView.image = [UIImage imageWithData:responseData];
 			 self.downloadButton.enabled = YES;
 		 };
-		 connection.downloadBlock = ^(CGFloat progress){
+		 connection.downloadBlock = ^(double progress){
 			 self.progressView.progress = progress;
 		 };
 		 
@@ -89,7 +89,7 @@
  connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:
  method of NSURLConnectionDelegate.
  */
-@property (nonatomic, copy, setter = bk_setUploadBlock:) void (^bk_uploadBlock)(CGFloat percent);
+@property (nonatomic, copy, setter = bk_setUploadBlock:) void (^bk_uploadBlock)(double percent);
 
 /** The block fired every time new data is recieved from the server,
  representing the current percentage of completion.
@@ -97,7 +97,7 @@
  This block corresponds to the connection:didRecieveData:
  method of NSURLConnectionDelegate.
  */
-@property (nonatomic, copy, setter = bk_setDownloadBlock:) void (^bk_downloadBlock)(CGFloat percent);
+@property (nonatomic, copy, setter = bk_setDownloadBlock:) void (^bk_downloadBlock)(double percent);
 
 /** Creates and returns an initialized block-backed URL connection that does not begin to load the data for the URL request.
  

@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <Foundation/Foundation.h>
 
 /** BlocksKit extensions for NSInvocation. */
 @interface NSInvocation (BlocksKit)
@@ -25,6 +25,6 @@
  @param block A code block.
  @return A fully-prepared instance of NSInvocation ready to be invoked.
  */
-+ (NSInvocation *)bk_invocationWithTarget:(id)target block:(BKSenderBlock)block;
++ (NSInvocation *)bk_invocationWithTarget:(id)target block:(void (^)(id target))block;
 
 @end

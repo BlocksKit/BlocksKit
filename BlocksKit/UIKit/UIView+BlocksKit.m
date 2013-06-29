@@ -14,7 +14,7 @@ static char kViewTouchUpBlockKey;
 
 @implementation UIView (BlocksKit)
 
-- (void)bk_whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block
+- (void)bk_whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(void (^)(void))block
 {
 	if (!block) return;
 	
@@ -39,12 +39,12 @@ static char kViewTouchUpBlockKey;
 	[self addGestureRecognizer:gesture];
 }
 
-- (void)bk_whenTapped:(BKBlock)block
+- (void)bk_whenTapped:(void (^)(void))block
 {
 	[self bk_whenTouches:1 tapped:1 handler:block];
 }
 
-- (void)bk_whenDoubleTapped:(BKBlock)block
+- (void)bk_whenDoubleTapped:(void (^)(void))block
 {
 	[self bk_whenTouches:2 tapped:1 handler:block];
 }
@@ -53,7 +53,7 @@ static char kViewTouchUpBlockKey;
 {
 	[super touchesBegan:touches withEvent:event];
 	
-	BKTouchBlock block = [self bk_associatedValueForKey:&kViewTouchDownBlockKey];
+	void (^block)(NSSet *set, UIEvent *event) = [self bk_associatedValueForKey:&kViewTouchDownBlockKey];
 	if (block) block(touches, event);
 }
 
@@ -61,7 +61,7 @@ static char kViewTouchUpBlockKey;
 {
 	[super touchesMoved:touches withEvent:event];
 	
-	BKTouchBlock block = [self bk_associatedValueForKey:&kViewTouchMoveBlockKey];
+	void (^block)(NSSet *set, UIEvent *event) = [self bk_associatedValueForKey:&kViewTouchMoveBlockKey];
 	if (block) block(touches, event);
 }
 
@@ -69,43 +69,43 @@ static char kViewTouchUpBlockKey;
 {
 	[super touchesEnded:touches withEvent:event];
 	
-	BKTouchBlock block = [self bk_associatedValueForKey:&kViewTouchUpBlockKey];
+	void (^block)(NSSet *set, UIEvent *event) = [self bk_associatedValueForKey:&kViewTouchUpBlockKey];
 	if (block) block(touches, event);
 }
 
-- (void)bk_eachSubview:(void(^)(UIView *))block
+- (void)bk_eachSubview:(void(^)(UIView *subview))block
 {
-	[self.subviews bk_each:(BKSenderBlock)block];
+	[self.subviews bk_each:block];
 }
 
 #pragma mark Properties
 
-- (void)bk_setOnTouchDownBlock:(BKTouchBlock)block
+- (void)bk_setOnTouchDownBlock:(void (^)(NSSet *set, UIEvent *event))block
 {
 	[self bk_associateCopyOfValue:block withKey:&kViewTouchDownBlockKey];
 }
 
-- (BKTouchBlock)bk_onTouchDownBlock
+- (void (^)(NSSet *set, UIEvent *event))bk_onTouchDownBlock
 {
 	return [self bk_associatedValueForKey:&kViewTouchDownBlockKey];
 }
 
-- (void)bk_setOnTouchMoveBlock:(BKTouchBlock)block
+- (void)bk_setOnTouchMoveBlock:(void (^)(NSSet *set, UIEvent *event))block
 {
 	[self bk_associateCopyOfValue:block withKey:&kViewTouchMoveBlockKey];
 }
 
-- (BKTouchBlock)bk_onTouchMoveBlock
+- (void (^)(NSSet *set, UIEvent *event))bk_onTouchMoveBlock
 {
 	return [self bk_associatedValueForKey:&kViewTouchMoveBlockKey];
 }
 
-- (void)bk_setOnTouchUpBlock:(BKTouchBlock)block
+- (void)bk_setOnTouchUpBlock:(void (^)(NSSet *set, UIEvent *event))block
 {
 	[self bk_associateCopyOfValue:block withKey:&kViewTouchUpBlockKey];
 }
 
-- (BKTouchBlock)bk_onTouchUpBlock
+- (void (^)(NSSet *set, UIEvent *event))bk_onTouchUpBlock
 {
 	return [self bk_associatedValueForKey:&kViewTouchUpBlockKey];
 }

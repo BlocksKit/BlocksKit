@@ -7,7 +7,7 @@
 
 @implementation NSMutableDictionary (BlocksKit)
 
-- (void)bk_performSelect:(BKKeyValueValidationBlock)block
+- (void)bk_performSelect:(BOOL (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -18,7 +18,7 @@
 	[self removeObjectsForKeys:keys];
 }
 
-- (void)bk_performReject:(BKKeyValueValidationBlock)block
+- (void)bk_performReject:(BOOL (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 	[self bk_performSelect:^BOOL(id key, id obj) {
@@ -26,7 +26,7 @@
 	}];
 }
 
-- (void)bk_performMap:(BKKeyValueTransformBlock)block
+- (void)bk_performMap:(id (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 	

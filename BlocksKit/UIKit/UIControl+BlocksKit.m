@@ -13,16 +13,16 @@ static char kControlHandlersKey;
 
 @interface BKControlWrapper : NSObject <NSCopying>
 
-- (id)initWithHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents;
+- (id)initWithHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents;
 
-@property (nonatomic, copy) BKSenderBlock handler;
+@property (nonatomic, copy) void (^handler)(id sender);
 @property (nonatomic) UIControlEvents controlEvents;
 
 @end
 
 @implementation BKControlWrapper
 
-- (id)initWithHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents
+- (id)initWithHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents
 {
 	self = [super init];
 	if (!self) return nil;
@@ -49,7 +49,7 @@ static char kControlHandlersKey;
 
 @implementation UIControl (BlocksKit)
 
-- (void)bk_addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents
+- (void)bk_addEventHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents
 {
 	NSParameterAssert(handler);
 	

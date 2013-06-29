@@ -7,7 +7,7 @@
 
 @implementation NSIndexSet (BlocksKit)
 
-- (void)bk_each:(BKIndexBlock)block {
+- (void)bk_each:(id (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	
 	[self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
@@ -15,7 +15,7 @@
 	}];
 }
 
-- (void)bk_apply:(BKIndexBlock)block {
+- (void)bk_apply:(id (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	
 	[self enumerateIndexesWithOptions:NSEnumerationConcurrent usingBlock:^(NSUInteger idx, BOOL *stop) {
@@ -23,7 +23,7 @@
 	}];
 }
 
-- (NSUInteger)bk_match:(BKIndexValidationBlock)block {
+- (NSUInteger)bk_match:(BOOL (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	
 	return [self indexPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
@@ -31,7 +31,7 @@
 	}];
 }
 
-- (NSIndexSet *)bk_select:(BKIndexValidationBlock)block {
+- (NSIndexSet *)bk_select:(BOOL (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	
 	NSIndexSet *list = [self indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
@@ -42,14 +42,14 @@
 	return list;
 }
 
-- (NSIndexSet *)bk_reject:(BKIndexValidationBlock)block {
+- (NSIndexSet *)bk_reject:(BOOL (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	return [self bk_select:^BOOL(NSUInteger idx) {
 		return !block(idx);
 	}];
 }
 
-- (NSIndexSet *)bk_map:(BKIndexTransformBlock)block {
+- (NSIndexSet *)bk_map:(NSUInteger (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	
 	NSMutableIndexSet *list = [NSMutableIndexSet indexSet];
@@ -62,7 +62,7 @@
 	return list;
 }
 
-- (NSArray *)bk_mapIndex:(BKIndexMapBlock)block {
+- (NSArray *)bk_mapIndex:(id (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	
 	NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
@@ -75,15 +75,15 @@
 	return result;
 }
 
-- (BOOL)bk_any:(BKIndexValidationBlock)block {
+- (BOOL)bk_any:(BOOL (^)(NSUInteger index))block {
 	return [self bk_match:block] != NSNotFound;
 }
 
-- (BOOL)bk_none:(BKIndexValidationBlock)block {
+- (BOOL)bk_none:(BOOL (^)(NSUInteger index))block {
 	return [self bk_match:block] == NSNotFound;
 }
 
-- (BOOL)bk_all:(BKIndexValidationBlock)block {
+- (BOOL)bk_all:(BOOL (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	
 	__block BOOL result = YES;

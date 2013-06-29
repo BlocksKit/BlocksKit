@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <MessageUI/MessageUI.h>
 
 /** MFMessageComposeViewController with block callback in addition to delegation.
  

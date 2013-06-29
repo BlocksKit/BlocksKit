@@ -3,8 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
-#import "NSObject+AssociatedObjects.h"
+#import <Foundation/Foundation.h>
 
 /** Block execution on *any* object.
 
@@ -37,7 +36,7 @@
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */
-- (id)bk_performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay;
+- (id)bk_performBlock:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block after a given delay.
 
@@ -56,7 +55,7 @@
  @param delay A measure in seconds.
  @return Returns a pointer to the block that may or may not execute the given block.
  */
-+ (id)bk_performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay;
++ (id)bk_performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 
 /** Cancels the potential execution of a block.
 

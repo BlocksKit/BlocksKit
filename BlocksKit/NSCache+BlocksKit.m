@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "A2BlockDelegate.h"
+#import "A2DynamicDelegate.h"
 #import "NSCache+BlocksKit.h"
 
 #pragma mark Custom delegate
@@ -41,7 +43,7 @@
 
 #pragma mark Methods
 
-- (id)bk_objectForKey:(id)key withGetter:(BKReturnBlock)block
+- (id)bk_objectForKey:(id)key withGetter:(id (^)(void))block
 {
 	id object = [self objectForKey:key];
 	if (object) return object;

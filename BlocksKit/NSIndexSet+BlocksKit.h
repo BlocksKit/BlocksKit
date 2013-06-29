@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <Foundation/Foundation.h>
 
 /** Block extensions for NSIndexSet.
 
@@ -29,7 +29,7 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_each:(BKIndexBlock)block;
+- (void)bk_each:(id (^)(NSUInteger index))block;
 
 /** Enumerates each index in an index set concurrently and executes the
  given block once per index.
@@ -40,7 +40,7 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_apply:(BKIndexBlock)block;
+- (void)bk_apply:(id (^)(NSUInteger index))block;
 
 /** Loops through an array and returns the index matching the block.
  
@@ -48,7 +48,7 @@
  @return Returns the index if found, `NSNotFound` otherwise.
  @see bk_select:
  */
-- (NSUInteger)bk_match:(BKIndexValidationBlock)block;
+- (NSUInteger)bk_match:(BOOL (^)(NSUInteger index))block;
 
 /** Loops through an index set and returns an all indexes matching the block.
  
@@ -56,7 +56,7 @@
  @return Returns an index set of matching indexes found.
  @see bk_match:
  */
-- (NSIndexSet *)bk_select:(BKIndexValidationBlock)block;
+- (NSIndexSet *)bk_select:(BOOL (^)(NSUInteger index))block;
 
 /** Loops through an index set and returns an all indexes but the ones matching the block.
  
@@ -65,14 +65,14 @@
  @param block A single-argument, BOOL-returning code block.
  @return Returns an index set of all indexes but those matched.
  */
-- (NSIndexSet *)bk_reject:(BKIndexValidationBlock)block;
+- (NSIndexSet *)bk_reject:(BOOL (^)(NSUInteger index))block;
 
 /** Call the block once for each index and create an index set with the new values.
  
  @param block A block that returns a new index for an index.
  @return An index set of the indexes returned by the block.
  */
-- (NSIndexSet *)bk_map:(BKIndexTransformBlock)block;
+- (NSIndexSet *)bk_map:(NSUInteger (^)(NSUInteger index))block;
 
 /** Call the block once for each index and create an array of the return values.
  
@@ -86,7 +86,7 @@
  @param block A block that returns an object for an index.
  @return Returns an array of the objects returned by the block.
  */
-- (NSArray *)bk_mapIndex:(BKIndexMapBlock)block;
+- (NSArray *)bk_mapIndex:(id (^)(NSUInteger index))block;
 
 /** Loops through an index set to find whether any of the indexes matche the block.
  
@@ -98,14 +98,14 @@
  @param block A single-argument, BOOL-returning code block.
  @return YES for the first time the block returns YES for an index, NO otherwise.
  */
-- (BOOL)bk_any:(BKIndexValidationBlock)block;
+- (BOOL)bk_any:(BOOL (^)(NSUInteger index))block;
 
 /** Loops through an index set to find whether all objects match the block.
  
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns YES for all indexes in the array, NO otherwise.
  */
-- (BOOL)bk_all:(BKIndexValidationBlock)block;
+- (BOOL)bk_all:(BOOL (^)(NSUInteger index))block;
 
 /** Loops through an index set to find whether no objects match the block.
  
@@ -114,6 +114,6 @@
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns NO for all indexes in the array, NO otherwise.
  */
-- (BOOL)bk_none:(BKIndexValidationBlock)block;
+- (BOOL)bk_none:(BOOL (^)(NSUInteger index))block;
 
 @end

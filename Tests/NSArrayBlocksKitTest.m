@@ -23,7 +23,7 @@
 }
 
 - (void)testEach {
-	BKSenderBlock senderBlock = ^(NSString *sender) {
+	void (^senderBlock)(NSString *) = ^(NSString *sender) {
 		_total += [sender length];
 	};
 	[_subject bk_each:senderBlock];

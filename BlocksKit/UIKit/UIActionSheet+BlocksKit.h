@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <UIKit/UIKit.h>
 
 /** UIActionSheet without delegates!
 
@@ -59,7 +59,7 @@
  @param title The text of the button.
  @param block A block of code.
  */
-- (NSInteger)bk_addButtonWithTitle:(NSString *)title handler:(BKBlock)block;
+- (NSInteger)bk_addButtonWithTitle:(NSString *)title handler:(void (^)(void))block;
 
 /** Set the destructive (red) button with an associated code block.
  
@@ -70,7 +70,7 @@
  @param title The text of the button.
  @param block A block of code.
  */
-- (NSInteger)bk_setDestructiveButtonWithTitle:(NSString *)title handler:(BKBlock)block;
+- (NSInteger)bk_setDestructiveButtonWithTitle:(NSString *)title handler:(void (^)(void))block;
 
 /** Set the title and trigger of the cancel button.
  
@@ -83,7 +83,7 @@
  @param title The text of the button.
  @param block A block of code.
  */
-- (NSInteger)bk_setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block;
+- (NSInteger)bk_setCancelButtonWithTitle:(NSString *)title handler:(void (^)(void))block;
 
 ///-----------------------------------
 /// @name Altering actions
@@ -94,14 +94,14 @@
  @param block A code block, or nil to set no response.
  @param index The index of a button already added to the action sheet.
 */
-- (void)bk_setHandler:(BKBlock)block forButtonAtIndex:(NSInteger)index;
+- (void)bk_setHandler:(void (^)(void))block forButtonAtIndex:(NSInteger)index;
 
 /** The block that is to be fired when a button is pressed.
  
  @param index The index of a button already added to the action sheet.
  @return A code block, or nil if no block is assigned.
  */
-- (BKBlock)bk_handlerForButtonAtIndex:(NSInteger)index;
+- (void (^)(void))bk_handlerForButtonAtIndex:(NSInteger)index;
 
 /** The block to be fired when the action sheet is dismissed with the cancel
  button and/or action.
@@ -111,7 +111,7 @@
  you can set this property multiple times and multiple cancel buttons will
  not be generated.
  */
-@property (nonatomic, copy, setter = bk_setCancelBlock:) BKBlock bk_cancelBlock;
+@property (nonatomic, copy, setter = bk_setCancelBlock:) void (^bk_cancelBlock)(void);
 
 /** The block to be fired before the action sheet will show. */
 @property (nonatomic, copy, setter = bk_setWillShowBlock:) void (^bk_willShowBlock)(UIActionSheet *actionSheet);

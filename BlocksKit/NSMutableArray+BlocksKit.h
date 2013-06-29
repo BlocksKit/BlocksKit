@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <Foundation/Foundation.h>
 
 /** Block extensions for NSMutableArray.
  
@@ -25,7 +25,7 @@
  @param block A single-argument, BOOL-returning code block.
  @see <NSArray(BlocksKit)>bk_reject:
  */
-- (void)bk_performSelect:(BKValidationBlock)block;
+- (void)bk_performSelect:(BOOL (^)(id obj))block;
 
 /** Filters a mutable array to all objects but the ones matching the block,
  the logical inverse to bk_select:.
@@ -33,7 +33,7 @@
  @param block A single-argument, BOOL-returning code block.
  @see <NSArray(BlocksKit)>bk_select:
  */
-- (void)bk_performReject:(BKValidationBlock)block;
+- (void)bk_performReject:(BOOL (^)(id obj))block;
 
 /** Transform the objects in the array to the results of the block.
  
@@ -45,6 +45,6 @@
  @param block A single-argument, object-returning code block.
  @see <NSArray(BlocksKit)>bk_map:
  */
-- (void)bk_performMap:(BKTransformBlock)block;
+- (void)bk_performMap:(id (^)(id obj))block;
 
 @end

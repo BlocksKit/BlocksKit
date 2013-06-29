@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <Foundation/Foundation.h>
 
 /** Simple category on NSTimer to give it blocks capability.
 
@@ -18,7 +18,7 @@
  @param inRepeats If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.
  @return A new NSTimer object, configured according to the specified parameters.
  */
-+ (NSTimer *)bk_scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKTimerBlock)inBlock repeats:(BOOL)inRepeats;
++ (NSTimer *)bk_scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)(NSTimeInterval time))inBlock repeats:(BOOL)inRepeats;
 
 /** Creates and returns a block-based NSTimer initialized with the specified block.
 
@@ -31,6 +31,6 @@
  @param inRepeats If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.
  @return A new NSTimer object, configured according to the specified parameters.
  */
-+ (NSTimer *)bk_timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(BKTimerBlock)inBlock repeats:(BOOL)inRepeats;
++ (NSTimer *)bk_timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)(NSTimeInterval time))inBlock repeats:(BOOL)inRepeats;
 
 @end

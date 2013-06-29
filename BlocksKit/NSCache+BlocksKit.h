@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <Foundation/Foundation.h>
 
 /** NSCache with block adding of objects
  
@@ -41,13 +41,13 @@
  @param getterBlock A block used to get an object if there is no
  value in the cache.
  */
-- (id)bk_objectForKey:(id)key withGetter:(BKReturnBlock)getterBlock;
+- (id)bk_objectForKey:(id)key withGetter:(id (^)(void))getterBlock;
 
 /** Called when an object is about to be evicted from the cache.
 
  This block callback is an analog for the cache:willEviceObject:
  method of NSCacheDelegate.
  */
-@property (nonatomic, copy, setter = bk_setWillEvictBlock:) void(^bk_willEvictBlock)(NSCache *cache, id obj);
+@property (nonatomic, copy, setter = bk_setWillEvictBlock:) void (^bk_willEvictBlock)(NSCache *cache, id obj);
 
 @end

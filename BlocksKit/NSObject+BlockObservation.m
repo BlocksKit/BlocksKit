@@ -52,22 +52,22 @@ static char BKBlockObservationContext;
 	@synchronized(self) {
 		switch (self.context) {
 			case BKObserverContextKey: {
-				BKSenderBlock task = self.task;
+				void (^task)(id) = self.task;
 				task(object);
 				break;
 			}
 			case BKObserverContextKeyWithChange: {
-				BKObservationBlock task = self.task;
+				void (^task)(id, NSDictionary *) = self.task;
 				task(object, change);
 				break;
 			}
 			case BKObserverContextManyKeys: {
-				BKSenderKeyPathBlock task = self.task;
+				void (^task)(id, NSString *) = self.task;
 				task(object, keyPath);
 				break;
 			}
 			case BKObserverContextManyKeysWithChange: {
-				BKMultipleObservationBlock task = self.task;
+				void (^task)(id, NSString *, NSDictionary *) = self.task;
 				task(object, keyPath, change);
 				break;
 			}
@@ -148,41 +148,41 @@ static NSMutableSet *swizzledClasses()
 
 @implementation NSObject (BlockObservation)
 
-- (NSString *)bk_addObserverForKeyPath:(NSString *)keyPath task:(BKSenderBlock)task
+- (NSString *)bk_addObserverForKeyPath:(NSString *)keyPath task:(void (^)(id target))task
 {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
 	[self bk_addObserverForKeyPaths:@[ keyPath ] identifier:token options:0 context:BKObserverContextKey task:task];
 	return token;
 }
 
-- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths task:(BKSenderKeyPathBlock)task
+- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths task:(void (^)(id obj, NSDictionary *keyPath))task
 {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
 	[self bk_addObserverForKeyPaths:keyPaths identifier:token options:0 context:BKObserverContextManyKeys task:task];
 	return token;
 }
 
-- (NSString *)bk_addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task
+- (NSString *)bk_addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options task:(void (^)(id obj, NSDictionary *change))task
 {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
 	[self bk_addObserverForKeyPath:keyPath identifier:token options:options task:task];
 	return token;
 }
 
-- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task
+- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options task:(void (^)(id obj, NSString *keyPath, NSDictionary *change))task
 {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
 	[self bk_addObserverForKeyPaths:keyPaths identifier:token options:options task:task];
 	return token;
 }
 
-- (void)bk_addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKObservationBlock)task
+- (void)bk_addObserverForKeyPath:(NSString *)keyPath identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(void (^)(id obj, NSDictionary *change))task
 {
 	BKObserverContext context = (options == 0) ? BKObserverContextKey : BKObserverContextKeyWithChange;
 	[self bk_addObserverForKeyPaths:@[keyPath] identifier:identifier options:options context:context task:task];
 }
 
-- (void)bk_addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(BKMultipleObservationBlock)task
+- (void)bk_addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options task:(void (^)(id obj, NSString *keyPath, NSDictionary *change))task
 {
 	BKObserverContext context = (options == 0) ? BKObserverContextManyKeys : BKObserverContextManyKeysWithChange;
 	[self bk_addObserverForKeyPaths:keyPaths identifier:identifier options:options context:context task:task];

@@ -3,8 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <SenTestingKit/SenTestingKit.h>
 #import <BlocksKit/A2DynamicDelegate.h>
+#import <SenTestingKit/SenTestingKit.h>
 
 #pragma mark -
 
