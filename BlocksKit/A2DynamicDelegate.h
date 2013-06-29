@@ -36,7 +36,6 @@
 		alertView.delegate = dd;
 		
 		[alertView show];
-		[alertView release];
 	}
 	
  A2DynamicDelegate is designed to be 'plug and play'.
