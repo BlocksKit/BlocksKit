@@ -29,7 +29,7 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_each:(id (^)(NSUInteger index))block;
+- (void)bk_each:(void (^)(NSUInteger index))block;
 
 /** Enumerates each index in an index set concurrently and executes the
  given block once per index.
@@ -40,7 +40,7 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_apply:(id (^)(NSUInteger index))block;
+- (void)bk_apply:(void (^)(NSUInteger index))block;
 
 /** Loops through an array and returns the index matching the block.
  
