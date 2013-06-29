@@ -7,7 +7,8 @@
 //
 
 #import "NSMutableSetBlocksKitTest.h"
-
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 @implementation NSMutableSetBlocksKitTest {
 	NSMutableSet *_subject;
@@ -20,7 +21,7 @@
 }
 
 - (void)testSelect {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 300) ? YES : NO;
 		return match;
@@ -32,7 +33,7 @@
 }
 
 - (void)testSelectedNone {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 400) ? YES : NO;
 		return match;
@@ -43,7 +44,7 @@
 }
 
 - (void)testReject {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 300) ? YES : NO;
 		return match;
@@ -55,7 +56,7 @@
 }
 
 - (void)testRejectedAll {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 400) ? YES : NO;
 		return match;
@@ -66,7 +67,7 @@
 }
 
 - (void)testMap {
-	BKTransformBlock transformBlock = ^(NSString *obj) {
+    id(^transformBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};

@@ -7,6 +7,8 @@
 //
 
 #import "NSObjectBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 @implementation NSObjectBlocksKitTest {
 	NSMutableString *_subject;	
@@ -21,7 +23,7 @@
 }  
 
 - (void)testPerformBlockAfterDelay {
-	BKSenderBlock senderBlock = ^(NSObjectBlocksKitTest *sender) {
+	void (^senderBlock)(id) = ^(NSObjectBlocksKitTest *sender) {
 		[_subject appendString:@"BlocksKit"];
 		[sender notify:SenTestCaseWaitStatusSuccess forSelector:@selector(testPerformBlockAfterDelay)];
 	};

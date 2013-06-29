@@ -4,7 +4,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/NSMutableDictionary+BlocksKit.h>
+#import <Foundation/Foundation.h>
 
 @interface NSMutableDictionaryBlocksKitTest : SenTestCase
 

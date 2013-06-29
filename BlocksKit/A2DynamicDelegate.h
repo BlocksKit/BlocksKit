@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <BlocksKit/NSObject+A2DynamicDelegate.h>
 
 /** A2DynamicDelegate implements a class's delegate, data source, or other
  delegated protocol by associating protocol methods with a block implementation.

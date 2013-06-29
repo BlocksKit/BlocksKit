@@ -7,6 +7,8 @@
 //
 
 #import "MFMailComposeViewControllerBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 @implementation MFMailComposeViewControllerBlocksKitTest {
 	MFMailComposeViewController *_subject;

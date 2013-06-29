@@ -4,7 +4,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/NSArray+BlocksKit.h>
+#import <Foundation/Foundation.h>
 
 @interface NSArrayBlocksKitTest : SenTestCase
 

@@ -7,7 +7,7 @@
 //
 
 #import "NSMutableIndexSetBlocksKitTest.h"
-
+#import <BlocksKit/BlocksKit.h>
 
 @implementation NSMutableIndexSetBlocksKitTest {
 	NSMutableIndexSet *_subject;
@@ -21,7 +21,7 @@
 
 - (void)testSelect {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
+    BOOL(^indexValidationBlock)(NSUInteger index) = ^(NSUInteger index) {
 		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = index < 3 ? YES : NO; //1,2
 		return match;
@@ -34,7 +34,7 @@
 
 - (void)testSelectedNone {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
+	BOOL(^indexValidationBlock)(NSUInteger index) = ^(NSUInteger index) {
 		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = index == 0 ? YES : NO;
 		return match;
@@ -46,7 +46,7 @@
 
 - (void)testReject {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
+	BOOL(^indexValidationBlock)(NSUInteger index) = ^(NSUInteger index) {
 		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = [_target[index] isEqual:@"0"] ? YES : NO;
 		return match;
@@ -58,7 +58,7 @@
 
 - (void)testRejectedNone {
 	NSMutableString *order = [NSMutableString string];
-	BKIndexValidationBlock indexValidationBlock = ^(NSUInteger index) {
+	BOOL(^indexValidationBlock)(NSUInteger index) = ^(NSUInteger index) {
 		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = [_target[index] isEqual:@"0"] ? NO : YES;
 		return match;

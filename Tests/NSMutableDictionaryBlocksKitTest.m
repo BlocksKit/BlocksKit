@@ -7,6 +7,7 @@
 //
 
 #import "NSMutableDictionaryBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
 
 @implementation NSMutableDictionaryBlocksKitTest {
 	NSMutableDictionary *_subject;
@@ -23,7 +24,7 @@
 }
 
 - (void)testSelect {
-	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
+	BOOL(^validationBlock)(id, id) = ^(id key,id value) {
 		_total += [value intValue] + [key intValue];
 		BOOL select = [value intValue] < 3 ? YES : NO;
 		return select;
@@ -35,7 +36,7 @@
 }
 
 - (void)testSelectedNone {
-	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
+	BOOL(^validationBlock)(id, id) = ^(id key,id value) {
 		_total += [value intValue] + [key intValue];
 		BOOL select = [value intValue] > 4 ? YES : NO;
 		return select;
@@ -46,7 +47,7 @@
 }
 
 - (void)testReject {
-	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
+	BOOL(^validationBlock)(id, id) = ^(id key,id value) {
 		_total += [value intValue] + [key intValue];
 		BOOL reject = [value intValue] > 2 ? YES : NO;
 		return reject;
@@ -58,7 +59,7 @@
 }
 
 - (void)testRejectedAll {
-	BKKeyValueValidationBlock validationBlock = ^(id key,id value) {
+	BOOL(^validationBlock)(id, id) = ^(id key,id value) {
 		_total += [value intValue] + [key intValue];
 		BOOL reject = [value intValue] < 4 ? YES : NO;
 		return reject;
@@ -69,7 +70,7 @@
 }
 
 - (void)testMap {
-	BKKeyValueTransformBlock transformBlock = ^id(id key,id value) {
+    id(^transformBlock)(id, id) = ^id(id key,id value) {
 		_total += [value intValue] + [key intValue];
 		return @(_total);
 	};

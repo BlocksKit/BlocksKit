@@ -7,7 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/NSOrderedSet+BlocksKit.h>
+#import <Foundation/Foundation.h>
 
 @interface NSOrderedSetBlocksKitTest : SenTestCase
 

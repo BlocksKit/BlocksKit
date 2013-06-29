@@ -7,6 +7,8 @@
 //
 
 #import "NSCacheBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 #define OBJECT_COUNT 300
 

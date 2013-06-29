@@ -7,6 +7,7 @@
 //
 
 #import "NSOrderedSetBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
 
 @implementation NSOrderedSetBlocksKitTest {
 	id _subject;
@@ -33,10 +34,10 @@
 	if (!_hasClassAvailable)
 		return;
 
-	BKSenderBlock senderBlock = ^(NSString *sender) {
+    void(^senderBlock)(id) = ^(NSString *sender) {
 		_total += [sender length];
 	};
-	[_subject bk_each:senderBlock];
+	[(NSOrderedSet *)_subject bk_each:senderBlock];
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 }
 
@@ -44,12 +45,12 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 22) ? YES : NO;
 		return match;
 	};
-	id found = [_subject bk_match:validationBlock];
+	id found = [(NSOrderedSet *)_subject bk_match:validationBlock];
 	STAssertEquals(_total, (NSInteger)3, @"total length of \"122\" is %d", _total);
 	STAssertEquals(found, @"22", @"matched object is %@", found);
 }
@@ -58,12 +59,12 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 4444) ? YES : NO;
 		return match;
 	};
-	id found = [_subject bk_match:validationBlock];
+	id found = [(NSOrderedSet *)_subject bk_match:validationBlock];
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 	STAssertNil(found, @"no matched object");
 }
@@ -72,7 +73,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 300) ? YES : NO;
 		return match;
@@ -89,7 +90,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 400) ? YES : NO;
 		return match;
@@ -105,7 +106,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 300) ? YES : NO;
 		return match;
@@ -122,7 +123,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 400) ? YES : NO;
 		return match;
@@ -138,7 +139,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKTransformBlock transformBlock = ^(NSString *obj) {
+	id(^transformBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};
@@ -154,7 +155,7 @@
 	if (!_hasClassAvailable)
 		return;
 	
-	BKAccumulationBlock accumlationBlock = ^id(id sum,id obj) {
+	id(^accumlationBlock)(id, id) = ^(id sum,id obj) {
 		return [sum stringByAppendingString:obj];
 	};
 	NSString *concatenated = [_subject bk_reduce:@"" withBlock:accumlationBlock];
@@ -165,18 +166,18 @@
 	if (!_hasClassAvailable)
 		return;
 
-	BKValidationBlock existsBlockTrue = ^BOOL(id obj) {
+    BOOL(^existsBlockTrue)(id) = ^BOOL(id obj) {
 		return [obj hasPrefix:@"1"];
 	};
 
-	BKValidationBlock existsBlockFalse = ^BOOL(id obj) {
+    BOOL(^existsBlockFalse)(id) = ^BOOL(id obj) {
 		return [obj hasPrefix:@"4"];
 	};
 
-	BOOL letterExists = [_subject bk_any:existsBlockTrue];
+	BOOL letterExists = [(NSOrderedSet *)_subject bk_any:existsBlockTrue];
 	STAssertTrue(letterExists, @"letter is not in array");
 
-	BOOL letterDoesNotExist = [_subject bk_any:existsBlockFalse];
+	BOOL letterDoesNotExist = [(NSOrderedSet *)_subject bk_any:existsBlockFalse];
 	STAssertFalse(letterDoesNotExist, @"letter is in array");
 }
 
@@ -188,7 +189,7 @@
 	NSOrderedSet *names2 = [NSOrderedSet orderedSetWithArray:@[ @"John", @"Joe", @"Jon", @"Mary" ]];
 
 	// Check if array has element with prefix 1
-	BKValidationBlock nameStartsWithJ = ^BOOL(id obj) {
+    BOOL(^nameStartsWithJ)(id) = ^BOOL(id obj) {
 		return [obj hasPrefix:@"J"];
 	};
 
@@ -207,7 +208,7 @@
 	NSOrderedSet *names2 = [NSOrderedSet orderedSetWithArray:@[ @"John", @"Joe", @"Jon", @"Mary" ]];
 
 	// Check if array has element with prefix 1
-	BKValidationBlock nameStartsWithM = ^BOOL(id obj) {
+    BOOL(^nameStartsWithM)(id) = ^BOOL(id obj) {
 		return [obj hasPrefix:@"M"];
 	};
 

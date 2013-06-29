@@ -7,6 +7,8 @@
 //
 
 #import "UIActionSheetBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 @implementation UIActionSheetBlocksKitTest {
 	UIActionSheet *_subject;
