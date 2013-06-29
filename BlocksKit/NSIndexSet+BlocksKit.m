@@ -7,7 +7,7 @@
 
 @implementation NSIndexSet (BlocksKit)
 
-- (void)bk_each:(id (^)(NSUInteger index))block {
+- (void)bk_each:(void (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	
 	[self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
@@ -15,7 +15,7 @@
 	}];
 }
 
-- (void)bk_apply:(id (^)(NSUInteger index))block {
+- (void)bk_apply:(void (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 	
 	[self enumerateIndexesWithOptions:NSEnumerationConcurrent usingBlock:^(NSUInteger idx, BOOL *stop) {
