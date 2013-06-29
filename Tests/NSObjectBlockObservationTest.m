@@ -7,6 +7,7 @@
 //
 
 #import "NSObjectBlockObservationTest.h"
+#import <BlocksKit/BlocksKit.h>
 
 @interface SubjectKVCAndKVO : NSObject
 
@@ -69,7 +70,7 @@
 }
 
 - (void)testBoolKeyValueObservation {
-	BKSenderBlock observeBlock = ^(id obj) {
+	void(^observeBlock)(id) = ^(id obj) {
 		[(NSObjectBlockObservationTest *)obj action];
 	};
 	NSString *token = [self bk_addObserverForKeyPath:@"subject.kvc" task:observeBlock];
@@ -81,7 +82,7 @@
 }
 
 - (void)testNSNumberKeyValueObservation {
-	BKSenderBlock observeBlock = ^(id obj) {
+	void(^observeBlock)(id) = ^(id obj) {
 		[(NSObjectBlockObservationTest *)obj action];
 	};
 	NSString *token = [self bk_addObserverForKeyPath:@"subject.number" task:observeBlock];
@@ -95,7 +96,7 @@
 }
 
 - (void)testNSArrayKeyValueObservation {
-	BKSenderBlock observeBlock = ^(id obj) {
+	void(^observeBlock)(id) = ^(id obj) {
 		[(NSObjectBlockObservationTest *)obj action];
 	};
 	NSString *token = [self bk_addObserverForKeyPath:@"subject.names" task:observeBlock];
@@ -110,7 +111,7 @@
 }
 
 - (void)testNSSetKeyValueObservation {
-	BKSenderBlock observeBlock = ^(id obj) {
+	void(^observeBlock)(id) = ^(id obj) {
 		[(NSObjectBlockObservationTest *)obj action];
 	};
 	NSString *token = [self bk_addObserverForKeyPath:@"subject.members" task:observeBlock];
@@ -126,8 +127,8 @@
 
 
 - (void)testMultipleKeyValueObservation {
-	NSString *token = [self bk_addObserverForKeyPaths:@[@"subject.kvc", @"subject.number"] task:^(NSObjectBlockObservationTest *obj, NSString *keyPath) {
-		[obj action];
+	NSString *token = [self bk_addObserverForKeyPaths:@[ @"subject.kvc", @"subject.number" ] task:^(NSObjectBlockObservationTest *obj, NSDictionary *keyPath) {
+        [obj action];
     }];
     NSNumber *number = @1;
     [self setValue:@NO forKeyPath:@"subject.kvc"];
@@ -139,8 +140,8 @@
 }
 
 - (void)testMultipleOnlyOneKeyValueObservation {
-	NSString *token = [self bk_addObserverForKeyPaths:@[@"subject.kvc"] task:^(NSObjectBlockObservationTest *obj, NSString *keyPath) {
-		[obj action];
+	NSString *token = [self bk_addObserverForKeyPaths:@[@"subject.kvc"] task:^(NSObjectBlockObservationTest *obj, NSDictionary *keyPath) {
+        [obj action];
     }];
     [self setValue:@NO forKeyPath:@"subject.kvc"];
     STAssertFalse(_subject.kvc, @"kvc is NO");

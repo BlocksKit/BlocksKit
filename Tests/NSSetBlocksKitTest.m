@@ -7,6 +7,7 @@
 //
 
 #import "NSSetBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
 
 @implementation NSSetBlocksKitTest {
 	NSSet *_subject;
@@ -19,7 +20,7 @@
 }
 
 - (void)testEach {
-	BKSenderBlock senderBlock = ^(NSString *sender) {
+	void(^senderBlock)(id) = ^(NSString *sender) {
 		_total += [sender length];
 	};
 	[_subject bk_each:senderBlock];
@@ -27,7 +28,7 @@
 }
 
 - (void)testMatch {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 22) ? YES : NO;
 		return match;
@@ -38,7 +39,7 @@
 }
 
 - (void)testNotMatch {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 4444) ? YES : NO;
 		return match;
@@ -49,7 +50,7 @@
 }
 
 - (void)testSelect {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 300) ? YES : NO;
 		return match;
@@ -62,7 +63,7 @@
 }
 
 - (void)testSelectedNone {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 400) ? YES : NO;
 		return match;
@@ -73,7 +74,7 @@
 }
 
 - (void)testReject {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 300) ? YES : NO;
 		return match;
@@ -85,7 +86,7 @@
 }
 
 - (void)testRejectedAll {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 400) ? YES : NO;
 		return match;
@@ -96,7 +97,7 @@
 }
 
 - (void)testMap {
-	BKTransformBlock transformBlock = ^(NSString *obj) {
+	id(^transformBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};
@@ -108,7 +109,7 @@
 }
 
 - (void)testReduceWithBlock {
-	BKAccumulationBlock accumlationBlock = ^(NSString *sum, NSString *obj) {
+	id(^accumlationBlock)(id, id) = ^(NSString *sum, NSString *obj) {
 		return [sum stringByAppendingString:obj];
 	};
 	NSString *concatenated = [_subject bk_reduce:@"" withBlock:accumlationBlock];
@@ -116,7 +117,7 @@
 }
 
 - (void)testAny {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 22) ? YES : NO;
 		return match;
@@ -127,7 +128,7 @@
 }
 
 - (void)testAll {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 444) ? YES : NO;
 		return match;
@@ -139,7 +140,7 @@
 }
 
 - (void)testNone {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 1) ? YES : NO;
 		return match;

@@ -7,6 +7,8 @@
 //
 
 #import "A2BlockDelegateTests.h"
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 @implementation TestReturnObject (A2BlockDelegate)
 

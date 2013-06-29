@@ -7,6 +7,8 @@
 //
 
 #import "UIAlertViewBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 @implementation UIAlertViewBlocksKitTest {
 	UIAlertView *_subject;

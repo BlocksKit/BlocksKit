@@ -4,7 +4,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/MFMailComposeViewController+BlocksKit.h>
+#import <MessageUI/MessageUI.h>
 
 @interface MFMailComposeViewControllerBlocksKitTest : SenTestCase <MFMailComposeViewControllerDelegate>
 

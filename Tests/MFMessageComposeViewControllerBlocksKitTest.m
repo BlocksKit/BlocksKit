@@ -7,6 +7,8 @@
 //
 
 #import "MFMessageComposeViewControllerBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 @implementation MFMessageComposeViewControllerBlocksKitTest {
 	MFMessageComposeViewController *_subject;

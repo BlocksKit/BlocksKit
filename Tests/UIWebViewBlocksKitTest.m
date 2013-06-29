@@ -7,6 +7,8 @@
 //
 
 #import "UIWebViewBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 @implementation UIWebViewBlocksKitTest {
 	UIWebView *_subject;

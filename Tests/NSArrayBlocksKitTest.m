@@ -7,6 +7,7 @@
 //
 
 #import "NSArrayBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
 
 @implementation NSArrayBlocksKitTest {
 	NSArray *_subject;
@@ -31,7 +32,7 @@
 }
 
 - (void)testMatch {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 22) ? YES : NO;
 		return match;
@@ -44,7 +45,7 @@
 }
 
 - (void)testNotMatch {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 4444) ? YES : NO;
 		return match;
@@ -57,7 +58,7 @@
 }
 
 - (void)testSelect {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 300) ? YES : NO;
 		return match;
@@ -70,7 +71,7 @@
 }
 
 - (void)testSelectedNone {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 400) ? YES : NO;
 		return match;
@@ -82,7 +83,7 @@
 }
 
 - (void)testReject {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 300) ? YES : NO;
 		return match;
@@ -95,7 +96,7 @@
 }
 
 - (void)testRejectedAll {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 400) ? YES : NO;
 		return match;
@@ -107,7 +108,7 @@
 }
 
 - (void)testMap {
-	BKTransformBlock transformBlock = ^(NSString *obj) {
+	id(^transformBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};
@@ -119,7 +120,7 @@
 }
 
 - (void)testReduceWithBlock {
-	BKAccumulationBlock accumlationBlock = ^id(id sum,id obj) {
+	id(^accumlationBlock)(id, id) = ^(id sum,id obj) {
 		return [sum stringByAppendingString:obj];
 	};
 	NSString *concatenated = [_subject bk_reduce:@"" withBlock:accumlationBlock];
@@ -128,11 +129,11 @@
 
 - (void)testAny {
 	// Check if array has element with prefix 1
-	BKValidationBlock existsBlockTrue = ^BOOL(id obj) {
+	BOOL(^existsBlockTrue)(id) = ^(id obj) {
 		return [obj hasPrefix:@"1"];
 	};
 	
-	BKValidationBlock existsBlockFalse = ^BOOL(id obj) {
+	BOOL(^existsBlockFalse)(id) = ^(id obj) {
 		return [obj hasPrefix:@"4"];
 	};
 	
@@ -148,7 +149,7 @@
 	NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
 	
 	// Check if array has element with prefix 1
-	BKValidationBlock nameStartsWithJ = ^BOOL(id obj) {
+	BOOL(^nameStartsWithJ)(id) = ^(id obj) {
 		return [obj hasPrefix:@"J"];
 	};
 
@@ -164,7 +165,7 @@
 	NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
 	
 	// Check if array has element with prefix 1
-	BKValidationBlock nameStartsWithM = ^BOOL(id obj) {
+	BOOL(^nameStartsWithM)(id) = ^(id obj) {
 		return [obj hasPrefix:@"M"];
 	};
 	
