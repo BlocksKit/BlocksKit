@@ -21,7 +21,7 @@
 }
 
 - (void)testBlockInvocation {
-	BKSenderBlock senderBlock = ^(NSInvocationBlocksKitTest * sender) {
+	void (^senderBlock)(NSInvocationBlocksKitTest *) = ^(NSInvocationBlocksKitTest *sender) {
 		[sender action];
 	};
 	NSInvocation *invocation = [NSInvocation bk_invocationWithTarget:self block:senderBlock];

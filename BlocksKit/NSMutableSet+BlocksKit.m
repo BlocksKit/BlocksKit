@@ -7,7 +7,7 @@
 
 @implementation NSMutableSet (BlocksKit)
 
-- (void)bk_performSelect:(BKValidationBlock)block {
+- (void)bk_performSelect:(BOOL (^)(id obj))block {
 	NSParameterAssert(block != nil);
 	
 	NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
@@ -17,14 +17,14 @@
 	[self setSet:list];
 }
 
-- (void)bk_performReject:(BKValidationBlock)block {
+- (void)bk_performReject:(BOOL (^)(id obj))block {
 	NSParameterAssert(block != nil);
 	[self bk_performSelect:^BOOL(id obj) {
 		return !block(obj);
 	}];
 }
 
-- (void)bk_performMap:(BKTransformBlock)block {
+- (void)bk_performMap:(id (^)(id obj))block {
 	NSParameterAssert(block != nil);
 	
 	NSMutableSet *new = [NSMutableSet setWithCapacity:self.count];

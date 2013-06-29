@@ -7,7 +7,7 @@
 
 @implementation NSSet (BlocksKit)
 
-- (void)bk_each:(BKSenderBlock)block
+- (void)bk_each:(void (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -16,7 +16,7 @@
 	}];
 }
 
-- (void)bk_apply:(BKSenderBlock)block
+- (void)bk_apply:(void (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -25,7 +25,7 @@
 	}];
 }
 
-- (id)bk_match:(BKValidationBlock)block
+- (id)bk_match:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -39,7 +39,7 @@
 	}] anyObject];
 }
 
-- (NSSet *)bk_select:(BKValidationBlock)block
+- (NSSet *)bk_select:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -48,7 +48,7 @@
 	}];
 }
 
-- (NSSet *)bk_reject:(BKValidationBlock)block
+- (NSSet *)bk_reject:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -57,7 +57,7 @@
 	}];
 }
 
-- (NSSet *)bk_map:(BKTransformBlock)block
+- (NSSet *)bk_map:(id (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -71,7 +71,7 @@
 	return result;
 }
 
-- (id)bk_reduce:(id)initial withBlock:(BKAccumulationBlock)block
+- (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -84,17 +84,17 @@
 	return result;
 }
 
-- (BOOL)bk_any:(BKValidationBlock)block
+- (BOOL)bk_any:(BOOL (^)(id obj))block
 {
 	return [self bk_match:block] != nil;
 }
 
-- (BOOL)bk_none:(BKValidationBlock)block
+- (BOOL)bk_none:(BOOL (^)(id obj))block
 {
 	return [self bk_match:block] == nil;
 }
 
-- (BOOL)bk_all:(BKValidationBlock)block
+- (BOOL)bk_all:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 	

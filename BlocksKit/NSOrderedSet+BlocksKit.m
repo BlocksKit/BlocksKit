@@ -10,7 +10,7 @@
 
 @implementation NSOrderedSet (BlocksKit)
 
-- (void)bk_each:(BKSenderBlock)block
+- (void)bk_each:(void (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 
@@ -19,7 +19,7 @@
 	}];
 }
 
-- (void)bk_apply:(BKSenderBlock)block
+- (void)bk_apply:(void (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 
@@ -28,7 +28,7 @@
 	}];
 }
 
-- (id)bk_match:(BKValidationBlock)block
+- (id)bk_match:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 
@@ -40,7 +40,7 @@
 	return self[index];
 }
 
-- (NSOrderedSet *)bk_select:(BKValidationBlock)block
+- (NSOrderedSet *)bk_select:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 
@@ -52,7 +52,7 @@
 	return [[self class] orderedSetWithArray:objects];
 }
 
-- (NSOrderedSet *)bk_reject:(BKValidationBlock)block
+- (NSOrderedSet *)bk_reject:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 	return [self bk_select:^BOOL(id obj) {
@@ -60,7 +60,7 @@
 	}];
 }
 
-- (NSOrderedSet *)bk_map:(BKTransformBlock)block
+- (NSOrderedSet *)bk_map:(id (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 
@@ -74,7 +74,7 @@
 	return result;
 }
 
-- (id)bk_reduce:(id)initial withBlock:(BKAccumulationBlock)block
+- (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block
 {
 	NSParameterAssert(block != nil);
 
@@ -87,17 +87,17 @@
 	return result;
 }
 
-- (BOOL)bk_any:(BKValidationBlock)block
+- (BOOL)bk_any:(BOOL (^)(id obj))block
 {
 	return [self bk_match:block] != nil;
 }
 
-- (BOOL)bk_none:(BKValidationBlock)block
+- (BOOL)bk_none:(BOOL (^)(id obj))block
 {
 	return [self bk_match:block] == nil;
 }
 
-- (BOOL)bk_all:(BKValidationBlock)block
+- (BOOL)bk_all:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
 
@@ -113,7 +113,7 @@
 	return result;
 }
 
-- (BOOL)bk_corresponds:(NSOrderedSet *)list withBlock:(BKKeyValueValidationBlock)block
+- (BOOL)bk_corresponds:(NSOrderedSet *)list withBlock:(BOOL (^)(id obj1, id obj2))block
 {
 	NSParameterAssert(block != nil);
 

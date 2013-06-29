@@ -3,11 +3,14 @@
 //  BlocksKit
 //
 
+#import "A2BlockDelegate.h"
+#import "A2DynamicDelegate.h"
 #import "MFMailComposeViewController+BlocksKit.h"
 
 #pragma mark Custom delegate
 
 @interface A2DynamicMFMailComposeViewControllerDelegate : A2DynamicDelegate
+
 @end
 
 @implementation A2DynamicMFMailComposeViewControllerDelegate

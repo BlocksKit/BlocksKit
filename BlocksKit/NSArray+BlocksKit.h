@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <Foundation/Foundation.h>
 
 /** Block extensions for NSArray.
 
@@ -28,7 +28,7 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_each:(BKSenderBlock)block;
+- (void)bk_each:(void (^)(id obj))block;
 
 /** Enumerates through an array concurrently and executes
  the given block once for each object.
@@ -42,7 +42,7 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_apply:(BKSenderBlock)block;
+- (void)bk_apply:(void (^)(id obj))block;
 
 /** Loops through an array to find the object matching the block.
  
@@ -53,7 +53,7 @@
  @return Returns the object, if found, or `nil`.
  @see bk_select:
  */
-- (id)bk_match:(BKValidationBlock)block;
+- (id)bk_match:(BOOL (^)(id obj))block;
 
 /** Loops through an array to find the objects matching the block.
  
@@ -61,7 +61,7 @@
  @return Returns an array of the objects found.
  @see bk_match:
  */
-- (NSArray *)bk_select:(BKValidationBlock)block;
+- (NSArray *)bk_select:(BOOL (^)(id obj))block;
 
 /** Loops through an array to find the objects not matching the block.
  
@@ -75,7 +75,7 @@
  @param block A single-argument, BOOL-returning code block.
  @return Returns an array of all objects not found.
  */
-- (NSArray *)bk_reject:(BKValidationBlock)block;
+- (NSArray *)bk_reject:(BOOL (^)(id obj))block;
 
 /** Call the block once for each object and create an array of the return values.
  
@@ -87,7 +87,7 @@
  @param block A single-argument, object-returning code block.
  @return Returns an array of the objects returned by the block.
  */
-- (NSArray *)bk_map:(BKTransformBlock)block;
+- (NSArray *)bk_map:(id (^)(id obj))block;
 
 /** Arbitrarily accumulate objects using a block.
  
@@ -108,7 +108,7 @@
  @param block A block that takes the current sum and the next object to return the new sum.
  @return An accumulated value.
  */
-- (id)bk_reduce:(id)initial withBlock:(BKAccumulationBlock)block;
+- (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block;
 
 /** Loops through an array to find whether any object matches the block.
  
@@ -127,7 +127,7 @@
  @param block A single-argument, BOOL-returning code block.
  @return YES for the first time the block returns YES for an object, NO otherwise.
  */
-- (BOOL)bk_any:(BKValidationBlock)block;
+- (BOOL)bk_any:(BOOL (^)(id obj))block;
 
 /** Loops through an array to find whether no objects match the block.
  
@@ -136,14 +136,14 @@
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns NO for all objects in the array, NO otherwise.
  */
-- (BOOL)bk_none:(BKValidationBlock)block;
+- (BOOL)bk_none:(BOOL (^)(id obj))block;
 
 /** Loops through an array to find whether all objects match the block.
  
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns YES for all objects in the array, NO otherwise.
  */
-- (BOOL)bk_all:(BKValidationBlock)block;
+- (BOOL)bk_all:(BOOL (^)(id obj))block;
 
 /** Tests whether every element of this array relates to the corresponding element of another array according to match by block.
  
@@ -158,6 +158,6 @@
  @param block A two-argument, BOOL-returning code block.
  @return Returns a BOOL, true if every element of array relates to corresponding element in another array.
  */
-- (BOOL)bk_corresponds:(NSArray *)list withBlock:(BKKeyValueValidationBlock)block;
+- (BOOL)bk_corresponds:(NSArray *)list withBlock:(BOOL (^)(id obj1, id obj2))block;
 
 @end

@@ -19,12 +19,12 @@ static char kGestureRecognizerCancelKey;
 
 @implementation UIGestureRecognizer (BlocksKit)
 
-+ (id)bk_recognizerWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay
++ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay
 {
 	return [[[self class] alloc] bk_initWithHandler:block delay:delay];
 }
 
-- (id)bk_initWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay
+- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay
 {
 	self = [self initWithTarget:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
@@ -35,24 +35,24 @@ static char kGestureRecognizerCancelKey;
 	return self;
 }
 
-+ (id)bk_recognizerWithHandler:(BKGestureRecognizerBlock)block
++ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block
 {
 	return [self bk_recognizerWithHandler:block delay:0.0];
 }
 
-- (id)bk_initWithHandler:(BKGestureRecognizerBlock)block
+- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block
 {
 	return [self bk_initWithHandler:block delay:0.0];
 }
 
 - (void)bk_handleAction:(UIGestureRecognizer *)recognizer
 {
-	BKGestureRecognizerBlock handler = recognizer.bk_handler;
+	void (^handler)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) = recognizer.bk_handler;
 	if (!handler) return;
 	
 	NSTimeInterval delay = self.bk_handlerDelay;
 	CGPoint location = [self locationInView:self.view];
-	BKBlock block = ^{
+	void (^block)(void) = ^{
 		handler(self, self.state, location);
 	};
 	
@@ -65,12 +65,12 @@ static char kGestureRecognizerCancelKey;
 	[self bk_associateCopyOfValue:cancel withKey:&kGestureRecognizerCancelKey];
 }
 
-- (void)bk_setHandler:(BKGestureRecognizerBlock)handler
+- (void)bk_setHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))handler
 {
 	[self bk_associateCopyOfValue:handler withKey:&kGestureRecognizerBlockKey];
 }
 
-- (BKGestureRecognizerBlock)bk_handler
+- (void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))bk_handler
 {
 	return [self bk_associatedValueForKey:&kGestureRecognizerBlockKey];
 }

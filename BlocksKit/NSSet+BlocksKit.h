@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <Foundation/Foundation.h>
 
 /** Block extensions for NSSet.
 
@@ -27,7 +27,7 @@
 
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_each:(BKSenderBlock)block;
+- (void)bk_each:(void (^)(id obj))block;
 
 /** Enumerates through a set concurrently and executes
  the given block once for each object.
@@ -39,7 +39,7 @@
  
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_apply:(BKSenderBlock)block;
+- (void)bk_apply:(void (^)(id obj))block;
 
 /** Loops through a set to find the object matching the block.
 
@@ -50,7 +50,7 @@
  @return Returns the object if found, `nil` otherwise.
  @see bk_select:
  */
-- (id)bk_match:(BKValidationBlock)block;
+- (id)bk_match:(BOOL (^)(id obj))block;
 
 /** Loops through a set to find the objects matching the block.
 
@@ -58,7 +58,7 @@
  @return Returns a set of the objects found.
  @see bk_match:
  */
-- (NSSet *)bk_select:(BKValidationBlock)block;
+- (NSSet *)bk_select:(BOOL (^)(id obj))block;
 
 /** Loops through a set to find the objects not matching the block.
 
@@ -72,7 +72,7 @@
  @param block A single-argument, BOOL-returning code block.
  @return Returns an array of all objects not found.
  */
-- (NSSet *)bk_reject:(BKValidationBlock)block;
+- (NSSet *)bk_reject:(BOOL (^)(id obj))block;
 
 /** Call the block once for each object and create a set of the return values.
  
@@ -84,7 +84,7 @@
  @param block A single-argument, object-returning code block.
  @return Returns a set of the objects returned by the block.
  */
-- (NSSet *)bk_map:(BKTransformBlock)block;
+- (NSSet *)bk_map:(id (^)(id obj))block;
 
 /** Arbitrarily accumulate objects using a block.
 
@@ -100,7 +100,7 @@
  @param block A block that takes the current sum and the next object to return the new sum.
  @return An accumulated value.
  */
-- (id)bk_reduce:(id)initial withBlock:(BKAccumulationBlock)block;
+- (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block;
 
 /** Loops through a set to find whether any object matches the block.
  
@@ -112,7 +112,7 @@
  @param block A single-argument, BOOL-returning code block.
  @return YES for the first time the block returns YES for an object, NO otherwise.
  */
-- (BOOL)bk_any:(BKValidationBlock)block;
+- (BOOL)bk_any:(BOOL (^)(id obj))block;
 
 /** Loops through a set to find whether no objects match the block.
  
@@ -121,13 +121,13 @@
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns NO for all objects in the set, NO otherwise.
  */
-- (BOOL)bk_none:(BKValidationBlock)block;
+- (BOOL)bk_none:(BOOL (^)(id obj))block;
 
 /** Loops through a set to find whether all objects match the block.
  
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns YES for all objects in the set, NO otherwise.
  */
-- (BOOL)bk_all:(BKValidationBlock)block;
+- (BOOL)bk_all:(BOOL (^)(id obj))block;
 
 @end

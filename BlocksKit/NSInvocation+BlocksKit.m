@@ -37,7 +37,7 @@
 
 @implementation NSInvocation (BlocksKit)
 
-+ (NSInvocation *)bk_invocationWithTarget:(id)target block:(BKSenderBlock)block
++ (NSInvocation *)bk_invocationWithTarget:(id)target block:(void (^)(id target))block
 {
 	NSParameterAssert(block != nil);
 	BKInvocationGrabber *grabber = [BKInvocationGrabber grabberWithTarget:target];

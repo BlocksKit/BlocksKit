@@ -2,9 +2,7 @@
 //  NSObject+BlocksKit.m
 //  BlocksKit
 //
-
 #import "NSObject+BlocksKit.h"
-#import <objc/runtime.h>
 
 typedef void(^BKInternalWrappingBlock)(BOOL);
 
@@ -12,7 +10,7 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 
 @implementation NSObject (BlocksKit)
 
-- (id)bk_performBlock:(BKSenderBlock)block afterDelay:(NSTimeInterval)delay
+- (id)bk_performBlock:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay
 {
 	NSParameterAssert(block != nil);
 	
@@ -33,7 +31,7 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 	return [wrapper copy];
 }
 
-+ (id)bk_performBlock:(BKBlock)block afterDelay:(NSTimeInterval)delay
++ (id)bk_performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay
 {
 	NSParameterAssert(block != nil);
 	

@@ -3,7 +3,10 @@
 //  BlocksKit
 //
 
+#import "A2BlockDelegate.h"
+#import "A2DynamicDelegate.h"
 #import "NSArray+BlocksKit.h"
+#import "NSObject+A2DynamicDelegate.h"
 #import "UIAlertView+BlocksKit.h"
 
 #pragma mark Delegate
@@ -36,7 +39,7 @@
 		[realDelegate alertViewCancel:alertView];
 	
 	id key = @(alertView.cancelButtonIndex);
-	BKBlock cancelBlock = (self.handlers)[key];
+	void (^cancelBlock)(void) = (self.handlers)[key];
 	if (cancelBlock)
 		cancelBlock();
 }
@@ -96,7 +99,7 @@
 		block(alertView, buttonIndex);
 	
 	id key = @(buttonIndex);
-	BKBlock buttonBlock = (self.handlers)[key];
+	void (^buttonBlock)(void) = (self.handlers)[key];
 	if (buttonBlock)
 		buttonBlock();
 }
@@ -164,7 +167,7 @@
 
 #pragma Actions
 
-- (NSInteger)bk_addButtonWithTitle:(NSString *)title handler:(BKBlock)block
+- (NSInteger)bk_addButtonWithTitle:(NSString *)title handler:(void (^)(void))block
 {
 	NSAssert(title.length, @"A button without a title cannot be added to the alert view.");
 	NSInteger index = [self addButtonWithTitle:title];
@@ -172,7 +175,7 @@
 	return index;
 }
 
-- (NSInteger)bk_setCancelButtonWithTitle:(NSString *)title handler:(BKBlock)block
+- (NSInteger)bk_setCancelButtonWithTitle:(NSString *)title handler:(void (^)(void))block
 {
 	if (!title.length)
 		title = NSLocalizedString(@"Cancel", nil);
@@ -184,7 +187,7 @@
 
 #pragma mark Properties
 
-- (void)bk_setHandler:(BKBlock)block forButtonAtIndex:(NSInteger)index
+- (void)bk_setHandler:(void (^)(void))block forButtonAtIndex:(NSInteger)index
 {
 	id key = @(index);
 	if (block)
@@ -193,17 +196,17 @@
 		[[self.bk_dynamicDelegate handlers] removeObjectForKey:key];
 }
 
-- (BKBlock)bk_handlerForButtonAtIndex:(NSInteger)index
+- (void (^)(void))bk_handlerForButtonAtIndex:(NSInteger)index
 {
 	return [self.bk_dynamicDelegate handlers][@(index)];
 }
 
-- (BKBlock)bk_cancelBlock
+- (void (^)(void))bk_cancelBlock
 {
 	return [self bk_handlerForButtonAtIndex:self.cancelButtonIndex];
 }
 
-- (void)bk_setCancelBlock:(BKBlock)block
+- (void)bk_setCancelBlock:(void (^)(void))block
 {
 	if (block && self.cancelButtonIndex == -1) {
 		[self bk_setCancelButtonWithTitle:nil handler:block];

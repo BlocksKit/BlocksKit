@@ -7,7 +7,7 @@
 
 @implementation NSDictionary (BlocksKit)
 
-- (void)bk_each:(BKKeyValueBlock)block
+- (void)bk_each:(void (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -16,7 +16,7 @@
 	}];
 }
 
-- (void)bk_apply:(BKKeyValueBlock)block
+- (void)bk_apply:(void (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -25,7 +25,7 @@
 	}];
 }
 
-- (id)bk_match:(BKKeyValueValidationBlock)block
+- (id)bk_match:(BOOL (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 
@@ -39,7 +39,7 @@
 	}] anyObject]];
 }
 
-- (NSDictionary *)bk_select:(BKKeyValueValidationBlock)block
+- (NSDictionary *)bk_select:(BOOL (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -51,7 +51,7 @@
 	return [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 }
 
-- (NSDictionary *)bk_reject:(BKKeyValueValidationBlock)block
+- (NSDictionary *)bk_reject:(BOOL (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 	return [self bk_select:^BOOL(id key, id obj) {
@@ -59,7 +59,7 @@
 	}];
 }
 
-- (NSDictionary *)bk_map:(BKKeyValueTransformBlock)block
+- (NSDictionary *)bk_map:(id (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -73,17 +73,17 @@
 	return result;
 }
 
-- (BOOL)bk_any:(BKKeyValueValidationBlock)block
+- (BOOL)bk_any:(BOOL (^)(id key, id obj))block
 {
 	return [self bk_match:block] != nil;
 }
 
-- (BOOL)bk_none:(BKKeyValueValidationBlock)block
+- (BOOL)bk_none:(BOOL (^)(id key, id obj))block
 {
 	return [self bk_match:block] == nil;
 }
 
-- (BOOL)bk_all:(BKKeyValueValidationBlock)block
+- (BOOL)bk_all:(BOOL (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
 	

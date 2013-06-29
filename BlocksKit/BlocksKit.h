@@ -24,10 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "BKGlobals.h"
-
 #import "BKMacros.h"
-
 #import "NSObject+BlocksKit.h"
 #import "NSObject+AssociatedObjects.h"
 #import "NSObject+BlockObservation.h"
@@ -49,7 +46,7 @@
 #import "NSURLConnection+BlocksKit.h"
 #import "NSCache+BlocksKit.h"
 
-#if BK_HAS_UIKIT
+#ifdef UI_USER_INTERFACE_IDIOM
 	#import "UIAlertView+BlocksKit.h"
 	#import "UIActionSheet+BlocksKit.h"
 	#import "UIBarButtonItem+BlocksKit.h"
@@ -60,6 +57,4 @@
 	#import "UIWebView+BlocksKit.h"
 	#import "MFMailComposeViewController+BlocksKit.h"
 	#import "MFMessageComposeViewController+BlocksKit.h"
-#else
-// AppKit extensions
 #endif

@@ -14,7 +14,7 @@ static char kBarButtonItemBlockKey;
 
 @implementation UIBarButtonItem (BlocksKit)
 
-- (id)bk_initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(BKSenderBlock)action
+- (id)bk_initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(void (^)(id sender))action
 {
 	self = [self initWithBarButtonSystemItem:systemItem target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
@@ -24,7 +24,7 @@ static char kBarButtonItemBlockKey;
 	return self;
 }
 
-- (id)bk_initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action
+- (id)bk_initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action
 {
 	self = [self initWithImage:image style:style target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
@@ -34,7 +34,7 @@ static char kBarButtonItemBlockKey;
 	return self;
 }
 
-- (id)bk_initWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action
+- (id)bk_initWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action
 {
 	self = [self initWithImage:image landscapeImagePhone:landscapeImagePhone style:style target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
@@ -44,7 +44,7 @@ static char kBarButtonItemBlockKey;
 	return self;
 }
 
-- (id)bk_initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action
+- (id)bk_initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action
 {
 	self = [self initWithTitle:title style:style target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
@@ -56,7 +56,7 @@ static char kBarButtonItemBlockKey;
 
 - (void)bk_handleAction:(UIBarButtonItem *)sender
 {
-	BKSenderBlock block = [self bk_associatedValueForKey:&kBarButtonItemBlockKey];
+	void (^block)(id) = [self bk_associatedValueForKey:&kBarButtonItemBlockKey];
 	if (block) block(self);
 }
 

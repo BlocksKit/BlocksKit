@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "A2BlockDelegate.h"
+#import "A2DynamicDelegate.h"
 #import "UIPopoverController+BlocksKit.h"
 
 #pragma mark - Delegate

@@ -7,7 +7,7 @@
 
 @implementation NSMutableIndexSet (BlocksKit)
 
-- (void)bk_performSelect:(BKIndexValidationBlock)block
+- (void)bk_performSelect:(BOOL (^)(NSUInteger index))block
 {
 	NSParameterAssert(block != nil);
 	
@@ -19,7 +19,7 @@
 	[self removeIndexes:list];
 }
 
-- (void)bk_performReject:(BKIndexValidationBlock)block
+- (void)bk_performReject:(BOOL (^)(NSUInteger index))block
 {
 	NSParameterAssert(block != nil);
 	return [self bk_performSelect:^BOOL(NSUInteger idx) {
@@ -27,7 +27,7 @@
 	}];
 }
 
-- (void)bk_performMap:(BKIndexTransformBlock)block
+- (void)bk_performMap:(NSUInteger (^)(NSUInteger index))block
 {
 	NSParameterAssert(block != nil);
 	

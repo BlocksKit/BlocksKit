@@ -6,11 +6,12 @@
 //  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
 //
 
+#import <objc/message.h>
 #import "A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
-#import "NSObject+AssociatedObjects.h"
 #import "NSDictionary+BlocksKit.h"
-#import <objc/message.h>
+#import "NSObject+A2DynamicDelegate.h"
+#import "NSObject+AssociatedObjects.h"
 
 #pragma mark - Declarations and macros
 
