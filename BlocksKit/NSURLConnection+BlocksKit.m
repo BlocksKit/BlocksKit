@@ -131,7 +131,7 @@ static char kResponseLengthKey;
 	if (!connection.bk_responseData.length)
 		connection.bk_responseData = nil;
 	
-	void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.bk_successBlock;
+	void (^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.bk_successBlock;
 	if (block) block(connection, connection.bk_response, connection.bk_responseData);
 }
 
@@ -298,7 +298,7 @@ static char kResponseLengthKey;
 	if (!connection.bk_responseData.length)
 		connection.bk_responseData = nil;
 	
-	void(^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.bk_successBlock;
+	void (^block)(NSURLConnection *, NSURLResponse *, NSData *) = connection.bk_successBlock;
 	if (block)
 		block(connection, connection.bk_response, connection.bk_responseData);
 }
@@ -349,7 +349,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	return [[[self class] alloc] bk_initWithRequest:request];
 }
 
-+ (NSURLConnection *)bk_startConnectionWithRequest:(NSURLRequest *)request successHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))success failureHandler:(void(^)(NSURLConnection *, NSError *))failure
++ (NSURLConnection *)bk_startConnectionWithRequest:(NSURLRequest *)request successHandler:(void (^)(NSURLConnection *, NSURLResponse *, NSData *))success failureHandler:(void (^)(NSURLConnection *, NSError *))failure
 {
 	Protocol *delegateProtocol = objc_getProtocol("NSURLConnectionDelegate");
 	if (!delegateProtocol)
@@ -368,7 +368,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	return [self bk_initWithRequest:request completionHandler:nil];
 }
 
-- (id)bk_initWithRequest:(NSURLRequest *)request completionHandler:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block
+- (id)bk_initWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLConnection *, NSURLResponse *, NSData *))block
 {
 	Protocol *delegateProtocol = objc_getProtocol("NSURLConnectionDelegate");
 	if (!delegateProtocol)
@@ -379,7 +379,7 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	return [self initWithRequest:request delegate:dd startImmediately:NO];
 }
 
-- (void)bk_startWithCompletionBlock:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block
+- (void)bk_startWithCompletionBlock:(void (^)(NSURLConnection *, NSURLResponse *, NSData *))block
 {
 	self.bk_successBlock = block;
 	[self start];
@@ -387,33 +387,33 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 
 #pragma mark Properties
 
-- (void(^)(NSURLConnection *, NSURLResponse *, NSData *))bk_successBlock {
+- (void (^)(NSURLConnection *, NSURLResponse *, NSData *))bk_successBlock {
 	return [self.bk_dynamicDelegate handlers][kSuccessBlockKey];
 }
 
-- (void)bk_setSuccessBlock:(void(^)(NSURLConnection *, NSURLResponse *, NSData *))block {
+- (void)bk_setSuccessBlock:(void (^)(NSURLConnection *, NSURLResponse *, NSData *))block {
 	if (block)
 		[self.bk_dynamicDelegate handlers][kSuccessBlockKey] = [block copy];
 	else
 		[[self.bk_dynamicDelegate handlers] removeObjectForKey:kSuccessBlockKey];
 }
 
-- (void(^)(double))bk_uploadBlock {
+- (void (^)(double))bk_uploadBlock {
 	return [self.bk_dynamicDelegate handlers][kUploadBlockKey];
 }
 
-- (void)bk_setUploadBlock:(void(^)(double))block {
+- (void)bk_setUploadBlock:(void (^)(double))block {
 	if (block)
 		[self.bk_dynamicDelegate handlers][kUploadBlockKey] = [block copy];
 	else
 		[[self.bk_dynamicDelegate handlers] removeObjectForKey:kUploadBlockKey];
 }
 
-- (void(^)(double))bk_downloadBlock {
+- (void (^)(double))bk_downloadBlock {
 	return [self.bk_dynamicDelegate handlers][kDownloadBlockKey];
 }
 
-- (void)bk_setDownloadBlock:(void(^)(double))block {
+- (void)bk_setDownloadBlock:(void (^)(double))block {
 	if (block)
 		[self.bk_dynamicDelegate handlers][kDownloadBlockKey] = [block copy];
 	else

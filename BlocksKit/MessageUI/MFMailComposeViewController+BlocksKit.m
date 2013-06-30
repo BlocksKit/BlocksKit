@@ -22,7 +22,7 @@
 	if (shouldDismiss)
 		[realDelegate mailComposeController:controller didFinishWithResult:result error:error];
 
-	void(^block)(MFMailComposeViewController *, MFMailComposeResult, NSError *) = [self blockImplementationForMethod:_cmd];
+	void (^block)(MFMailComposeViewController *, MFMailComposeResult, NSError *) = [self blockImplementationForMethod:_cmd];
 	if (!shouldDismiss) {
 		if (block) block(controller, result, error);
 	} else {

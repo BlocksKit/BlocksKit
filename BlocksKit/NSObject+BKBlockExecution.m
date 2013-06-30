@@ -5,7 +5,7 @@
 
 #import "NSObject+BKBlockExecution.h"
 
-typedef void(^BKInternalWrappingBlock)(BOOL);
+typedef void (^BKInternalWrappingBlock)(BOOL);
 
 #define BKTimeDelay(t) dispatch_time(DISPATCH_TIME_NOW, (uint64_t)(NSEC_PER_SEC * t))
 
@@ -17,7 +17,7 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 
 	__block BOOL cancelled = NO;
 
-	void(^wrapper)(BOOL) = ^(BOOL cancel) {
+	void (^wrapper)(BOOL) = ^(BOOL cancel) {
 		if (cancel) {
 			cancelled = YES;
 			return;
@@ -38,7 +38,7 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 
 	__block BOOL cancelled = NO;
 
-	void(^wrapper)(BOOL) = ^(BOOL cancel) {
+	void (^wrapper)(BOOL) = ^(BOOL cancel) {
 		if (cancel) {
 			cancelled = YES;
 			return;
@@ -54,7 +54,7 @@ typedef void(^BKInternalWrappingBlock)(BOOL);
 + (void)bk_cancelBlock:(id)block
 {
 	NSParameterAssert(block != nil);
-	void(^wrapper)(BOOL) = block;
+	void (^wrapper)(BOOL) = block;
 	wrapper(YES);
 }
 

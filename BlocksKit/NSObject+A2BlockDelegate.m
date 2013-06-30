@@ -199,11 +199,11 @@ static inline SEL prefixedSelector(SEL selector) {
 	SEL setter = setterForProperty(self, delegateName);
 	SEL a2_setter = prefixedSelector(setter);
 
-	IMP getterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject){
+	IMP getterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject) {
 		return [[delegatingObject bk_dynamicDelegateForProtocol:protocol] realDelegate];
 	});
 
-	IMP setterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject, id delegate){
+	IMP setterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject, id delegate) {
 		A2DynamicDelegate *dynamicDelegate = [delegatingObject bk_dynamicDelegateForProtocol:protocol];
 
 		if ([delegatingObject respondsToSelector:a2_setter]) {
