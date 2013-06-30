@@ -247,18 +247,18 @@ static char BKBlockObservationContext;
 
 + (NSMapTable *)bk_observersMapTable
 {
-    static dispatch_once_t onceToken;
-    static NSMapTable *observersMapTable = nil;
-    dispatch_once(&onceToken, ^{
+	static dispatch_once_t onceToken;
+	static NSMapTable *observersMapTable = nil;
+	dispatch_once(&onceToken, ^{
 #if HAS_MAP_TABLE
-        Class mapTable = NSClassFromString(@"NSMapTable");
-        if ([mapTable respondsToSelector:@selector(weakToStrongObjectsMapTable)]) {
-            observersMapTable = [NSMapTable weakToStrongObjectsMapTable];
-        } else
+		Class mapTable = NSClassFromString(@"NSMapTable");
+		if ([mapTable respondsToSelector:@selector(weakToStrongObjectsMapTable)]) {
+			observersMapTable = [NSMapTable weakToStrongObjectsMapTable];
+		} else
 #endif
-            observersMapTable = nil;
-    });
-    return observersMapTable;
+			observersMapTable = nil;
+	});
+	return observersMapTable;
 }
 
 + (NSMutableSet *)bk_observedClassesHash
@@ -277,33 +277,33 @@ static char BKBlockObservationContext;
 	NSParameterAssert(keyPaths.count);
 	NSParameterAssert(identifier.length);
 	NSParameterAssert(task);
-    
-    if (![[self class] bk_observersMapTable]) {
+	
+	if (![[self class] bk_observersMapTable]) {
 		NSMutableSet *classes = [[self class] bk_observedClassesHash];
-        @synchronized (classes) {
-            Class classToSwizzle = self.class;
-            NSString *className = NSStringFromClass(classToSwizzle);
-            if (![classes containsObject:className]) {
-                SEL deallocSelector = sel_registerName("dealloc");
-                
-                Method deallocMethod = class_getInstanceMethod(classToSwizzle, deallocSelector);
-                void (*originalDealloc)(id, SEL) = (__typeof__(originalDealloc))method_getImplementation(deallocMethod);
-                
-                id newDealloc = ^(__unsafe_unretained NSObject *objSelf) {
+		@synchronized (classes) {
+			Class classToSwizzle = self.class;
+			NSString *className = NSStringFromClass(classToSwizzle);
+			if (![classes containsObject:className]) {
+				SEL deallocSelector = sel_registerName("dealloc");
+				
+				Method deallocMethod = class_getInstanceMethod(classToSwizzle, deallocSelector);
+				void (*originalDealloc)(id, SEL) = (__typeof__(originalDealloc))method_getImplementation(deallocMethod);
+				
+				id newDealloc = ^(__unsafe_unretained NSObject *objSelf) {
 					[objSelf bk_removeAllAssociatedObjects];
-                    originalDealloc(objSelf, deallocSelector);
-                };
-                
-                class_replaceMethod(classToSwizzle, deallocSelector, imp_implementationWithBlock(newDealloc), method_getTypeEncoding(deallocMethod));
-                
-                [classes addObject:className];
-            }
-        }
-    }
+					originalDealloc(objSelf, deallocSelector);
+				};
+				
+				class_replaceMethod(classToSwizzle, deallocSelector, imp_implementationWithBlock(newDealloc), method_getTypeEncoding(deallocMethod));
+				
+				[classes addObject:className];
+			}
+		}
+	}
 	
 	NSMutableDictionary *dict;
 	_BKObserver *observer = [[_BKObserver alloc] initWithObservee:self keyPaths:keyPaths context:context task:task];
-    [observer startObservingWithOptions:options];
+	[observer startObservingWithOptions:options];
 		
 	@synchronized (self) {
 		dict = [self bk_observerBlocks];
@@ -324,7 +324,7 @@ static char BKBlockObservationContext;
 	if (table) {
 		[table setObject:dict forKey:self];
 		return;
-    }
+	}
 #endif
 	[self bk_associateValue:dict withKey:&kObserverBlocksKey];
 }
@@ -335,7 +335,7 @@ static char BKBlockObservationContext;
 	NSMapTable *table = [[self class] bk_observersMapTable];
 	if (table) {
 		return [table objectForKey:self];
-    }
+	}
 #endif
 	return [self bk_associatedValueForKey:&kObserverBlocksKey];
 }
