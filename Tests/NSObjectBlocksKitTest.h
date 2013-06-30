@@ -4,7 +4,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/NSObject+BlocksKit.h>
+#import <Foundation/Foundation.h>
 #import "BKAsyncTestCase.h"
 
 @interface NSObjectBlocksKitTest : BKAsyncTestCase

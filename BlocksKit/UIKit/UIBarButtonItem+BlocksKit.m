@@ -4,7 +4,7 @@
 //
 
 #import "UIBarButtonItem+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
+#import "NSObject+BKAssociatedObjects.h"
 
 static char kBarButtonItemBlockKey;
 

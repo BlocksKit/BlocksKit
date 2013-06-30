@@ -1,9 +1,9 @@
 //
-//  NSObject+AssociatedObjects.m
+//  NSObject+BKAssociatedObjects.m
 //  BlocksKit
 //
 
-#import "NSObject+AssociatedObjects.h"
+#import "NSObject+BKAssociatedObjects.h"
 #import <objc/runtime.h>
 
 @implementation NSObject (BKAssociatedObjects)

@@ -4,7 +4,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/A2BlockInvocation.h>
+#import <Foundation/Foundation.h>
 
 @interface A2BlockInvocationTests : SenTestCase
 

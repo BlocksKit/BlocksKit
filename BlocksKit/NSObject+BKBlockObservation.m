@@ -1,10 +1,10 @@
 //
-//  NSObject+BlockObservation.m
+//  NSObject+BKBlockObservation.m
 //  BlocksKit
 //
 
-#import "NSObject+BlockObservation.h"
-#import "NSObject+AssociatedObjects.h"
+#import "NSObject+BKBlockObservation.h"
+#import "NSObject+BKAssociatedObjects.h"
 #import "NSDictionary+BlocksKit.h"
 #import "NSArray+BlocksKit.h"
 #import "NSSet+BlocksKit.h"
@@ -24,7 +24,7 @@ typedef NS_ENUM(int, BKObserverContext) {
 	BKObserverContextManyKeysWithChange
 };
 
-@interface BKObserver : NSObject {
+@interface _BKObserver : NSObject {
 	BOOL _isObserving;
 }
 
@@ -40,7 +40,7 @@ typedef NS_ENUM(int, BKObserverContext) {
 static char kObserverBlocksKey;
 static char BKBlockObservationContext;
 
-@implementation BKObserver
+@implementation _BKObserver
 
 - (id)initWithObservee:(id)observee keyPaths:(NSArray *)keyPaths context:(BKObserverContext)context task:(id)task
 {
@@ -56,7 +56,7 @@ static char BKBlockObservationContext;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if (context != &BKBlockObservationContext) return;
-	
+
 	@synchronized(self) {
 		switch (self.context) {
 			case BKObserverContextKey: {
@@ -101,13 +101,13 @@ static char BKBlockObservationContext;
 	@synchronized (self) {
 		if (!_isObserving) return;
 		if (![self.keyPaths containsObject:keyPath]) return;
-		
+
 		NSObject *observee = self.observee;
 		if (!observee) return;
-		
+
 		[self.keyPaths removeObject: keyPath];
 		keyPath = [keyPath copy];
-		
+
 		if (!self.keyPaths.count) {
 			_task = nil;
 			_observee = nil;
@@ -121,15 +121,15 @@ static char BKBlockObservationContext;
 - (void)stopObserving
 {
 	if (_observee == nil) return;
-	
+
 	@synchronized (self) {
 		if (!_isObserving) return;
 
 		_task = nil;
-		
+
 		NSObject *observee = self.observee;
 		NSArray *keyPaths = [self.keyPaths copy];
-		
+
 		_observee = nil;
 		_keyPaths = nil;
 
@@ -192,53 +192,53 @@ static char BKBlockObservationContext;
 {
 	NSParameterAssert(keyPath.length);
 	NSParameterAssert(token.length);
-	
+
 	NSMutableDictionary *dict;
-	
+
 	@synchronized (self) {
 		dict = [self bk_observerBlocks];
 		if (!dict) return;
 	}
-	
-	BKObserver *observer = dict[token];
+
+	_BKObserver *observer = dict[token];
 	[observer stopObservingKeyPath:keyPath];
-	
+
 	if (observer.keyPaths.count == 0) {
 		[dict removeObjectForKey:token];
 	}
-	
+
 	if (dict.count == 0) [self bk_setObserverBlocks:nil];
 }
 
 - (void)bk_removeObserversWithIdentifier:(NSString *)token
 {
 	NSParameterAssert(token);
-	
+
 	NSMutableDictionary *dict;
-	
+
 	@synchronized (self) {
 		dict = [self bk_observerBlocks];
 		if (!dict) return;
 	}
 
-	BKObserver *observer = dict[token];
+	_BKObserver *observer = dict[token];
 	[observer stopObserving];
-	
+
 	[dict removeObjectForKey:token];
-	
+
 	if (dict.count == 0) [self bk_setObserverBlocks:nil];
 }
 
 - (void)bk_removeAllBlockObservers
 {
 	NSDictionary *dict;
-	
+
 	@synchronized (self) {
 		dict = [[self bk_observerBlocks] copy];
 		[self bk_setObserverBlocks:nil];
 	}
-	
-	[dict.allValues bk_each:^(BKObserver *trampoline) {
+
+	[dict.allValues bk_each:^(_BKObserver *trampoline) {
 		[trampoline stopObserving];
 	}];
 }
@@ -300,20 +300,20 @@ static char BKBlockObservationContext;
 			}
 		}
 	}
-	
+
 	NSMutableDictionary *dict;
-	BKObserver *observer = [[BKObserver alloc] initWithObservee:self keyPaths:keyPaths context:context task:task];
+	_BKObserver *observer = [[_BKObserver alloc] initWithObservee:self keyPaths:keyPaths context:context task:task];
 	[observer startObservingWithOptions:options];
-		
+
 	@synchronized (self) {
 		dict = [self bk_observerBlocks];
-		
+
 		if (dict == nil) {
 			dict = [NSMutableDictionary dictionary];
 			[self bk_setObserverBlocks:dict];
 		}
 	}
-	
+
 	dict[identifier] = observer;
 }
 

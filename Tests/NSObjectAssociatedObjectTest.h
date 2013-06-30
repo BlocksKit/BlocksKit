@@ -4,7 +4,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/NSObject+AssociatedObjects.h>
+#import <Foundation/Foundation.h>
 
 @interface NSObjectAssociatedObjectTest : SenTestCase
 

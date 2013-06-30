@@ -4,7 +4,7 @@
 //
 
 #import "UIView+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
+#import "NSObject+BKAssociatedObjects.h"
 #import "UIGestureRecognizer+BlocksKit.h"
 #import "NSArray+BlocksKit.h"
 

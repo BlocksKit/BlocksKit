@@ -1,5 +1,5 @@
 //
-//  NSObject+BlocksKit.h
+//  NSObject+BKBlockExecution.h
 //  BlocksKit
 //
 
@@ -19,7 +19,7 @@
  - [Zach Waldowski](https://github.com/zwaldowski)
 
  */
-@interface NSObject (BlocksKit)
+@interface NSObject (BKBlockExecution)
 
 /** Executes a block after a given delay on the reciever.
 
@@ -27,7 +27,7 @@
 	  [obj addObject:self];
 	  [self release];
 	} afterDelay:0.5f];
- 
+
  @warning *Important:* Use of the **self** reference in a block will
  reference the current implementation context.  The block argument,
  `obj`, should be used instead.

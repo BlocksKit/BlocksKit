@@ -4,7 +4,7 @@
 //
 
 #import "UIControl+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
+#import "NSObject+BKAssociatedObjects.h"
 #import "NSSet+BlocksKit.h"
 
 static char kControlHandlersKey;
