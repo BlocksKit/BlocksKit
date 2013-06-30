@@ -4,8 +4,8 @@
 //
 
 #import "UIGestureRecognizer+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
-#import "NSObject+BlocksKit.h"
+#import "NSObject+BKAssociatedObjects.h"
+#import "NSObject+BKBlockExecution.h"
 
 static char kGestureRecognizerBlockKey;
 static char kGestureRecognizerDelayKey;

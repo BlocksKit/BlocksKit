@@ -7,7 +7,7 @@
 //
 
 #import "NSObject+A2DynamicDelegate.h"
-#import "NSObject+AssociatedObjects.h"
+#import "NSObject+BKAssociatedObjects.h"
 
 extern Protocol *a2_dataSourceProtocol(Class cls);
 extern Protocol *a2_delegateProtocol(Class cls);

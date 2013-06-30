@@ -1,5 +1,5 @@
 //
-//  NSObject+BlockObservation.h
+//  NSObject+BKBlockObservation.h
 //  BlocksKit
 //
 

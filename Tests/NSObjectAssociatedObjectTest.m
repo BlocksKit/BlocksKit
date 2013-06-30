@@ -7,6 +7,7 @@
 //
 
 #import "NSObjectAssociatedObjectTest.h"
+#import "NSObject+BKAssociatedObjects.h"
 
 static char kAssociationKey;
 static char kNotFoundKey;

@@ -1,8 +1,9 @@
 //
-//  NSObject+BlocksKit.m
+//  NSObject+BKBlockExecution.m
 //  BlocksKit
 //
-#import "NSObject+BlocksKit.h"
+
+#import "NSObject+BKBlockExecution.h"
 
 typedef void(^BKInternalWrappingBlock)(BOOL);
 

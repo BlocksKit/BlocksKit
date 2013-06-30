@@ -1,10 +1,10 @@
 //
-//  NSObject+BlockObservation.m
+//  NSObject+BKBlockObservation.m
 //  BlocksKit
 //
 
-#import "NSObject+BlockObservation.h"
-#import "NSObject+AssociatedObjects.h"
+#import "NSObject+BKBlockObservation.h"
+#import "NSObject+BKAssociatedObjects.h"
 #import "NSDictionary+BlocksKit.h"
 #import "NSArray+BlocksKit.h"
 #import "NSSet+BlocksKit.h"
@@ -24,7 +24,7 @@ typedef NS_ENUM(int, BKObserverContext) {
 	BKObserverContextManyKeysWithChange
 };
 
-@interface BKObserver : NSObject {
+@interface _BKObserver : NSObject {
 	BOOL _isObserving;
 }
 
@@ -40,7 +40,7 @@ typedef NS_ENUM(int, BKObserverContext) {
 static char kObserverBlocksKey;
 static char BKBlockObservationContext;
 
-@implementation BKObserver
+@implementation _BKObserver
 
 - (id)initWithObservee:(id)observee keyPaths:(NSArray *)keyPaths context:(BKObserverContext)context task:(id)task
 {
@@ -200,7 +200,7 @@ static char BKBlockObservationContext;
 		if (!dict) return;
 	}
 	
-	BKObserver *observer = dict[token];
+	_BKObserver *observer = dict[token];
 	[observer stopObservingKeyPath:keyPath];
 	
 	if (observer.keyPaths.count == 0) {
@@ -221,7 +221,7 @@ static char BKBlockObservationContext;
 		if (!dict) return;
 	}
 
-	BKObserver *observer = dict[token];
+	_BKObserver *observer = dict[token];
 	[observer stopObserving];
 	
 	[dict removeObjectForKey:token];
@@ -238,7 +238,7 @@ static char BKBlockObservationContext;
 		[self bk_setObserverBlocks:nil];
 	}
 	
-	[dict.allValues bk_each:^(BKObserver *trampoline) {
+	[dict.allValues bk_each:^(_BKObserver *trampoline) {
 		[trampoline stopObserving];
 	}];
 }
@@ -302,7 +302,7 @@ static char BKBlockObservationContext;
     }
 	
 	NSMutableDictionary *dict;
-	BKObserver *observer = [[BKObserver alloc] initWithObservee:self keyPaths:keyPaths context:context task:task];
+	_BKObserver *observer = [[_BKObserver alloc] initWithObservee:self keyPaths:keyPaths context:context task:task];
     [observer startObservingWithOptions:options];
 		
 	@synchronized (self) {

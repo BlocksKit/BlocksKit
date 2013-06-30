@@ -1,5 +1,5 @@
 //
-//  NSObject+AssociatedObjects.h
+//  NSObject+BKAssociatedObjects.h
 //  BlocksKit
 //
 

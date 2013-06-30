@@ -24,9 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import "NSObject+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
-#import "NSObject+BlockObservation.h"
+// Core
+#import "NSObject+BKBlockExecution.h"
+#import "NSObject+BKAssociatedObjects.h"
+#import "NSObject+BKBlockObservation.h"
 
 #import "NSArray+BlocksKit.h"
 #import "NSMutableArray+BlocksKit.h"
@@ -42,10 +43,12 @@
 #import "NSInvocation+BlocksKit.h"
 #import "NSTimer+BlocksKit.h"
 
+// Requiring dynamic delegate
 #import "NSURLConnection+BlocksKit.h"
 #import "NSCache+BlocksKit.h"
 
 #ifdef UI_USER_INTERFACE_IDIOM
+    // UIKit
 	#import "UIAlertView+BlocksKit.h"
 	#import "UIActionSheet+BlocksKit.h"
 	#import "UIBarButtonItem+BlocksKit.h"
@@ -54,6 +57,8 @@
 	#import "UIPopoverController+BlocksKit.h"
 	#import "UIView+BlocksKit.h"
 	#import "UIWebView+BlocksKit.h"
+
+    // MessageUI
 	#import "MFMailComposeViewController+BlocksKit.h"
 	#import "MFMessageComposeViewController+BlocksKit.h"
 #endif
