@@ -7,7 +7,7 @@
 //
 
 #import <objc/message.h>
-#import "A2BlockDelegate.h"
+#import "NSObject+A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
 #import "NSDictionary+BlocksKit.h"
 #import "NSObject+A2DynamicDelegate.h"
@@ -26,7 +26,7 @@ static BOOL bk_object_isKindOfClass(id obj, Class testClass)
 		isKindOfClass = (cls == testClass);
 		cls = class_getSuperclass(cls);
 	}
-	
+
 	return isKindOfClass;
 }
 
@@ -155,7 +155,7 @@ static inline SEL prefixedSelector(SEL selector) {
 						objc_msgSend(delegatingObject, a2_setter, dynamicDelegate);
 				}
 			}
-			
+
 			[dynamicDelegate implementMethod:selector withBlock:block];
 		});
 
@@ -219,7 +219,7 @@ static inline SEL prefixedSelector(SEL selector) {
 
 		dynamicDelegate.realDelegate = delegate;
 	});
-	
+
 	const char *getterTypes = "@@:";
 	const char *setterTypes = "v@:@";
 
@@ -236,7 +236,7 @@ static inline SEL prefixedSelector(SEL selector) {
 		Method a2_method = class_getInstanceMethod(self, a2_setter);
 		method_exchangeImplementations(method, a2_method);
 	}
-	
+
 	propertyMap[protocolName] = delegateName;
 }
 

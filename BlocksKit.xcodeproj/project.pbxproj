@@ -114,10 +114,10 @@
 		6CC40AA61447BBC200E47595 /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC56DF91386A48900925FDC /* UIWebView+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC56DFB1386A48900925FDC /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */; };
-		6CF22BCF161EAC72002FD317 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CF22BC9161EAC72002FD317 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6CF22BD0161EAC72002FD317 /* A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CF22BC9161EAC72002FD317 /* A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6CF22BD1161EAC72002FD317 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22BCA161EAC72002FD317 /* A2BlockDelegate.m */; };
-		6CF22BD2161EAC72002FD317 /* A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22BCA161EAC72002FD317 /* A2BlockDelegate.m */; };
+		6CF22BCF161EAC72002FD317 /* NSObject+A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CF22BC9161EAC72002FD317 /* NSObject+A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CF22BD0161EAC72002FD317 /* NSObject+A2BlockDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CF22BC9161EAC72002FD317 /* NSObject+A2BlockDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CF22BD1161EAC72002FD317 /* NSObject+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22BCA161EAC72002FD317 /* NSObject+A2BlockDelegate.m */; };
+		6CF22BD2161EAC72002FD317 /* NSObject+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22BCA161EAC72002FD317 /* NSObject+A2BlockDelegate.m */; };
 		6CF22BD3161EAC72002FD317 /* A2BlockInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CF22BCB161EAC72002FD317 /* A2BlockInvocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CF22BD4161EAC72002FD317 /* A2BlockInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CF22BCB161EAC72002FD317 /* A2BlockInvocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CF22BD5161EAC72002FD317 /* A2BlockInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22BCC161EAC72002FD317 /* A2BlockInvocation.m */; };
@@ -329,8 +329,8 @@
 		6CC40A751447BB1400E47595 /* BlocksKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlocksKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC56DF71386A48900925FDC /* UIWebView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+BlocksKit.h"; sourceTree = "<group>"; };
 		6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+BlocksKit.m"; sourceTree = "<group>"; };
-		6CF22BC9161EAC72002FD317 /* A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockDelegate.h; sourceTree = "<group>"; };
-		6CF22BCA161EAC72002FD317 /* A2BlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockDelegate.m; sourceTree = "<group>"; };
+		6CF22BC9161EAC72002FD317 /* NSObject+A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+A2BlockDelegate.h"; sourceTree = "<group>"; };
+		6CF22BCA161EAC72002FD317 /* NSObject+A2BlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+A2BlockDelegate.m"; sourceTree = "<group>"; };
 		6CF22BCB161EAC72002FD317 /* A2BlockInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockInvocation.h; sourceTree = "<group>"; };
 		6CF22BCC161EAC72002FD317 /* A2BlockInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockInvocation.m; sourceTree = "<group>"; };
 		6CF22BCD161EAC72002FD317 /* A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicDelegate.h; sourceTree = "<group>"; };
@@ -572,50 +572,9 @@
 		6C3DBF921382F1BA00E6C9AA /* BlocksKit */ = {
 			isa = PBXGroup;
 			children = (
-				6CF22BC9161EAC72002FD317 /* A2BlockDelegate.h */,
-				6CF22BCA161EAC72002FD317 /* A2BlockDelegate.m */,
-				6CF22BCB161EAC72002FD317 /* A2BlockInvocation.h */,
-				6CF22BCC161EAC72002FD317 /* A2BlockInvocation.m */,
-				6CF22BCD161EAC72002FD317 /* A2DynamicDelegate.h */,
-				6CF22BCE161EAC72002FD317 /* A2DynamicDelegate.m */,
-				6C95944F1638435700DBF5A1 /* NSObject+A2DynamicDelegate.h */,
-				6C9594501638435700DBF5A1 /* NSObject+A2DynamicDelegate.m */,
-				6C3DBFB41383050F00E6C9AA /* BKMacros.h */,
 				6C3DBFB21383044600E6C9AA /* BlocksKit.h */,
-				6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */,
-				6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */,
-				A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */,
-				A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */,
-				6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */,
-				6C3DBFAF1383010000E6C9AA /* NSDictionary+BlocksKit.m */,
-				6CC0901E13855E8600DDEABB /* NSIndexSet+BlocksKit.h */,
-				6CC0901F13855E8600DDEABB /* NSIndexSet+BlocksKit.m */,
-				6C6AAD8E1383706000203261 /* NSInvocation+BlocksKit.h */,
-				6C6AAD8F1383706000203261 /* NSInvocation+BlocksKit.m */,
-				6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */,
-				6C2427F213C5653E0016A271 /* NSMutableArray+BlocksKit.m */,
-				6C24280213C565640016A271 /* NSMutableDictionary+BlocksKit.h */,
-				6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */,
-				6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */,
-				6C8063B213C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m */,
-				6C161C951620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h */,
-				6C161C961620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m */,
-				6C2427FA13C565530016A271 /* NSMutableSet+BlocksKit.h */,
-				6C2427FB13C565530016A271 /* NSMutableSet+BlocksKit.m */,
-				6C3DBFD2138318C900E6C9AA /* NSObject+AssociatedObjects.h */,
-				6C3DBFD3138318CA00E6C9AA /* NSObject+AssociatedObjects.m */,
-				6C3DBFDA1383202400E6C9AA /* NSObject+BlockObservation.h */,
-				6C3DBFDB1383202400E6C9AA /* NSObject+BlockObservation.m */,
-				6C3DBFB61383085800E6C9AA /* NSObject+BlocksKit.h */,
-				6C3DBFB71383085800E6C9AA /* NSObject+BlocksKit.m */,
-				6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */,
-				6C161C8F1620C6E000F04A9A /* NSOrderedSet+BlocksKit.m */,
-				6C3DBFA91382FD3B00E6C9AA /* NSSet+BlocksKit.h */,
-				6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */,
-				6C3DBFDE1383265900E6C9AA /* NSTimer+BlocksKit.h */,
-				6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */,
-				A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */,
-				A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */,
+				DB70D7D3177FB44B002B5223 /* Core */,
+				DB70D7D4177FB452002B5223 /* Dynamic Delegate */,
 				00D28ACB14AAC45800ECB62C /* MessageUI */,
 				6CC08FC91385553B00DDEABB /* UIKit */,
 			);
@@ -854,6 +813,71 @@
 			path = "Mac Demo";
 			sourceTree = "<group>";
 		};
+		DB70D7D3177FB44B002B5223 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				6C3DBF9F1382F27300E6C9AA /* NSArray+BlocksKit.h */,
+				6C3DBF9E1382F27300E6C9AA /* NSArray+BlocksKit.m */,
+				A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */,
+				A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */,
+				6C3DBFAE1383010000E6C9AA /* NSDictionary+BlocksKit.h */,
+				6C3DBFAF1383010000E6C9AA /* NSDictionary+BlocksKit.m */,
+				6CC0901E13855E8600DDEABB /* NSIndexSet+BlocksKit.h */,
+				6CC0901F13855E8600DDEABB /* NSIndexSet+BlocksKit.m */,
+				6C6AAD8E1383706000203261 /* NSInvocation+BlocksKit.h */,
+				6C6AAD8F1383706000203261 /* NSInvocation+BlocksKit.m */,
+				6C2427F113C5653E0016A271 /* NSMutableArray+BlocksKit.h */,
+				6C2427F213C5653E0016A271 /* NSMutableArray+BlocksKit.m */,
+				6C24280213C565640016A271 /* NSMutableDictionary+BlocksKit.h */,
+				6C24280313C565650016A271 /* NSMutableDictionary+BlocksKit.m */,
+				6C8063B113C58D9F0018AE1E /* NSMutableIndexSet+BlocksKit.h */,
+				6C8063B213C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.m */,
+				6C161C951620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h */,
+				6C161C961620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m */,
+				6C2427FA13C565530016A271 /* NSMutableSet+BlocksKit.h */,
+				6C2427FB13C565530016A271 /* NSMutableSet+BlocksKit.m */,
+				6C3DBFD2138318C900E6C9AA /* NSObject+AssociatedObjects.h */,
+				6C3DBFD3138318CA00E6C9AA /* NSObject+AssociatedObjects.m */,
+				6C3DBFDA1383202400E6C9AA /* NSObject+BlockObservation.h */,
+				6C3DBFDB1383202400E6C9AA /* NSObject+BlockObservation.m */,
+				6C3DBFB61383085800E6C9AA /* NSObject+BlocksKit.h */,
+				6C3DBFB71383085800E6C9AA /* NSObject+BlocksKit.m */,
+				6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */,
+				6C161C8F1620C6E000F04A9A /* NSOrderedSet+BlocksKit.m */,
+				6C3DBFA91382FD3B00E6C9AA /* NSSet+BlocksKit.h */,
+				6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */,
+				6C3DBFDE1383265900E6C9AA /* NSTimer+BlocksKit.h */,
+				6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */,
+				6C3DBFB41383050F00E6C9AA /* BKMacros.h */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		DB70D7D4177FB452002B5223 /* Dynamic Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				6CF22BCD161EAC72002FD317 /* A2DynamicDelegate.h */,
+				6CF22BCE161EAC72002FD317 /* A2DynamicDelegate.m */,
+				6CF22BCB161EAC72002FD317 /* A2BlockInvocation.h */,
+				6CF22BCC161EAC72002FD317 /* A2BlockInvocation.m */,
+				6CF22BC9161EAC72002FD317 /* NSObject+A2BlockDelegate.h */,
+				6CF22BCA161EAC72002FD317 /* NSObject+A2BlockDelegate.m */,
+				6C95944F1638435700DBF5A1 /* NSObject+A2DynamicDelegate.h */,
+				6C9594501638435700DBF5A1 /* NSObject+A2DynamicDelegate.m */,
+				DB70D7D5177FB45E002B5223 /* Extra */,
+			);
+			name = "Dynamic Delegate";
+			sourceTree = "<group>";
+		};
+		DB70D7D5177FB45E002B5223 /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */,
+				A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */,
+			);
+			name = Extra;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -888,7 +912,7 @@
 				A97E4C9F13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h in Headers */,
 				A97E4CA313FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h in Headers */,
 				00D28ACC14AAC47800ECB62C /* UIPopoverController+BlocksKit.h in Headers */,
-				6CF22BCF161EAC72002FD317 /* A2BlockDelegate.h in Headers */,
+				6CF22BCF161EAC72002FD317 /* NSObject+A2BlockDelegate.h in Headers */,
 				6CF22BD3161EAC72002FD317 /* A2BlockInvocation.h in Headers */,
 				6C9594511638435700DBF5A1 /* NSObject+A2DynamicDelegate.h in Headers */,
 				6CF22BD7161EAC72002FD317 /* A2DynamicDelegate.h in Headers */,
@@ -928,7 +952,7 @@
 				6CC40AA41447BBC200E47595 /* NSTimer+BlocksKit.h in Headers */,
 				6CC40AA51447BBC200E47595 /* NSURLConnection+BlocksKit.h in Headers */,
 				6CC40AA61447BBC200E47595 /* NSCache+BlocksKit.h in Headers */,
-				6CF22BD0161EAC72002FD317 /* A2BlockDelegate.h in Headers */,
+				6CF22BD0161EAC72002FD317 /* NSObject+A2BlockDelegate.h in Headers */,
 				6CF22BD4161EAC72002FD317 /* A2BlockInvocation.h in Headers */,
 				6CF22BD8161EAC72002FD317 /* A2DynamicDelegate.h in Headers */,
 				6C161C911620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */,
@@ -1191,7 +1215,7 @@
 				A97E4CA013FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.m in Sources */,
 				A97E4CA413FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m in Sources */,
 				00D28ACE14AAC48600ECB62C /* UIPopoverController+BlocksKit.m in Sources */,
-				6CF22BD1161EAC72002FD317 /* A2BlockDelegate.m in Sources */,
+				6CF22BD1161EAC72002FD317 /* NSObject+A2BlockDelegate.m in Sources */,
 				6CF22BD5161EAC72002FD317 /* A2BlockInvocation.m in Sources */,
 				6CF22BD9161EAC72002FD317 /* A2DynamicDelegate.m in Sources */,
 				6CF22C72161EACBD002FD317 /* ffi.c in Sources */,
@@ -1228,7 +1252,7 @@
 				6CC40A901447BB2900E47595 /* NSTimer+BlocksKit.m in Sources */,
 				6CC40A911447BB2900E47595 /* NSURLConnection+BlocksKit.m in Sources */,
 				6CC40A921447BB2900E47595 /* NSCache+BlocksKit.m in Sources */,
-				6CF22BD2161EAC72002FD317 /* A2BlockDelegate.m in Sources */,
+				6CF22BD2161EAC72002FD317 /* NSObject+A2BlockDelegate.m in Sources */,
 				6CF22BD6161EAC72002FD317 /* A2BlockInvocation.m in Sources */,
 				6CF22BDA161EAC72002FD317 /* A2DynamicDelegate.m in Sources */,
 				6C161C931620C6E000F04A9A /* NSOrderedSet+BlocksKit.m in Sources */,
