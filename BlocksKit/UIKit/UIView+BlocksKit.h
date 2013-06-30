@@ -64,6 +64,6 @@
  
  @param block A code block that interacts with a UIView sender.
  */
-- (void)bk_eachSubview:(void(^)(UIView *subview))block;
+- (void)bk_eachSubview:(void (^)(UIView *subview))block;
 
 @end
