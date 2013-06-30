@@ -38,13 +38,14 @@ static char kNotFoundKey;
 	STAssertTrue([associated isEqualToString:@"Hello"], @"associated value is %@", associated);
 }
 
-- (void)testAssociatedAssignValue {
-	NSString *subject = @"Hello BlocksKit";
-	[self bk_weaklyAssociateValue:subject withKey:&kAssociationKey];
-	void *brokenPtr = (__bridge void *)subject;
-	subject = nil;
-	void *associated = (__bridge void *)[self bk_associatedValueForKey:&kAssociationKey];
-	STAssertEquals(brokenPtr, associated, @"assign associated values equal");
+- (void)testAssociatedWeakValue {
+    CFStringRef string = CFStringCreateWithCString(NULL, "Hello BlocksKit", kCFStringEncodingUTF8);
+	[self bk_weaklyAssociateValue:(__bridge NSString *)string withKey:&kAssociationKey];
+	CFRelease(string); string = NULL;
+
+	id associated = [self bk_associatedValueForKey:&kAssociationKey];
+    NSLog(@"associated %@", associated);
+    STAssertNil(associated, @"weak associated values nil");
 }
 
 - (void)testAssociatedNotFound {
