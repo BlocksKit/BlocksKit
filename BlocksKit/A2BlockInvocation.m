@@ -400,6 +400,8 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	ffi_cif cif = self.interface;
 	NSParameterAssert(idx >= 0 && idx < cif.nargs);
 
+	const size_t typeSize = a2_sizeForType(cif.arg_types[idx]);
+
 	if (_argumentsRetained)
 	{
 		ffi_type *type = cif.arg_types[idx];
@@ -418,19 +420,22 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 			if (buffer) {
 				char *new = *(char**)buffer;
 				if (new) {
-					NSMutableData *wrap = [NSMutableData dataWithBytes:new length:strlen(new)];
-					self.arguments[key] = wrap;
+					size_t len = strlen(new);
+					NSMutableData *wrap = [NSMutableData dataWithBytes:new length:len+1];
 					new = wrap.mutableBytes;
-					buffer = &new;
+					new[len] = '\0';
+					self.arguments[key] = wrap;
+					memcpy(_argumentFrame[idx], &new, typeSize);
+					return;
 				}
 			}
 		}
 	}
 	
 	if (buffer) {
-		memcpy(_argumentFrame[idx], buffer, a2_sizeForType(cif.arg_types[idx]));
+		memcpy(_argumentFrame[idx], buffer, typeSize);
 	} else {
-		memset(_argumentFrame[idx], 0, a2_sizeForType(cif.arg_types[idx]));
+		memset(_argumentFrame[idx], 0, typeSize);
 	}
 }
 
