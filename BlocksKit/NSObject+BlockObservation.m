@@ -10,6 +10,13 @@
 #import "NSSet+BlocksKit.h"
 #import <objc/runtime.h>
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000 || __MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
+#define HAS_MAP_TABLE 1
+#else
+#define HAS_MAP_TABLE 0
+@class NSMapTable;
+#endif
+
 typedef NS_ENUM(int, BKObserverContext) {
 	BKObserverContextKey,
 	BKObserverContextKeyWithChange,
@@ -17,14 +24,16 @@ typedef NS_ENUM(int, BKObserverContext) {
 	BKObserverContextManyKeysWithChange
 };
 
-@interface BKObserver : NSObject
+@interface BKObserver : NSObject {
+	BOOL _isObserving;
+}
 
 @property (nonatomic, readonly, unsafe_unretained) id observee;
 @property (nonatomic, readonly) NSMutableArray *keyPaths;
 @property (nonatomic, readonly) id task;
 @property (nonatomic, readonly) BKObserverContext context;
 
-- (id)initWithObservee:(id)observee keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options context:(BKObserverContext)context task:(id)task;
+- (id)initWithObservee:(id)observee keyPaths:(NSArray *)keyPaths context:(BKObserverContext)context task:(id)task;
 
 @end
 
@@ -33,14 +42,13 @@ static char BKBlockObservationContext;
 
 @implementation BKObserver
 
-- (id)initWithObservee:(id)observee keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options context:(BKObserverContext)context task:(id)task
+- (id)initWithObservee:(id)observee keyPaths:(NSArray *)keyPaths context:(BKObserverContext)context task:(id)task
 {
 	if ((self = [super init])) {
 		_observee = observee;
 		_keyPaths = [keyPaths mutableCopy];
 		_context = context;
 		_task = [task copy];
-		[self startObservingWithOptions:options];
 	}
 	return self;
 }
@@ -77,21 +85,24 @@ static char BKBlockObservationContext;
 
 - (void)startObservingWithOptions:(NSKeyValueObservingOptions)options
 {
-	[self.keyPaths bk_each:^(NSString *keyPath) {
-		[self.observee addObserver:self forKeyPath:keyPath options:options context:&BKBlockObservationContext];
-	}];
+	@synchronized(self) {
+		if (_isObserving) return;
+		
+		[self.keyPaths bk_each:^(NSString *keyPath) {
+			[self.observee addObserver:self forKeyPath:keyPath options:options context:&BKBlockObservationContext];
+		}];
+	}
 }
 
 - (void)stopObservingKeyPath:(NSString *)keyPath
 {
 	NSParameterAssert(keyPath);
-	
-	NSObject *observee;
-	
+		
 	@synchronized (self) {
+		if (!_isObserving) return;
 		if (![self.keyPaths containsObject:keyPath]) return;
 		
-		observee = self.observee;
+		NSObject *observee = self.observee;
 		if (!observee) return;
 		
 		[self.keyPaths removeObject: keyPath];
@@ -102,49 +113,38 @@ static char BKBlockObservationContext;
 			_observee = nil;
 			_keyPaths = nil;
 		}
+		
+		[observee removeObserver:self forKeyPath:keyPath context:&BKBlockObservationContext];
 	}
-	
-	[observee removeObserver:self forKeyPath:keyPath context:&BKBlockObservationContext];
 }
 
 - (void)stopObserving
 {
 	if (_observee == nil) return;
-	NSObject *observee;
-	NSArray *keyPaths;
 	
 	@synchronized (self) {
+		if (!_isObserving) return;
+		
 		_task = nil;
 		
-		observee = self.observee;
-		keyPaths = [self.keyPaths copy];
+		NSObject *observee = self.observee;
+		NSArray *keyPaths = [self.keyPaths copy];
 		
 		_observee = nil;
 		_keyPaths = nil;
+		
+		[keyPaths bk_each:^(NSString *keyPath) {
+			[observee removeObserver:self forKeyPath:keyPath context:&BKBlockObservationContext];
+		}];
 	}
-	
-	[keyPaths bk_each:^(NSString *keyPath) {
-		[observee removeObserver:self forKeyPath:keyPath context:&BKBlockObservationContext];
-	}];
 }
 
 - (void)dealloc
 {
-	[self stopObserving];
+	if (self.keyPaths) [self stopObserving];
 }
 
 @end
-
-static NSMutableSet *swizzledClasses()
-{
-	static dispatch_once_t onceToken;
-	static NSMutableSet *swizzledClasses = nil;
-	dispatch_once(&onceToken, ^{
-		swizzledClasses = [[NSMutableSet alloc] init];
-	});
-	
-	return swizzledClasses;
-}
 
 @implementation NSObject (BlockObservation)
 
@@ -245,34 +245,65 @@ static NSMutableSet *swizzledClasses()
 
 #pragma mark - "Private"
 
++ (NSMapTable *)bk_observersMapTable
+{
+    static dispatch_once_t onceToken;
+    static NSMapTable *observersMapTable = nil;
+    dispatch_once(&onceToken, ^{
+#if HAS_MAP_TABLE
+        Class mapTable = NSClassFromString(@"NSMapTable");
+        if ([mapTable respondsToSelector:@selector(weakToStrongObjectsMapTable)]) {
+            observersMapTable = [NSMapTable weakToStrongObjectsMapTable];
+        } else
+#endif
+            observersMapTable = nil;
+    });
+    return observersMapTable;
+}
+
++ (NSMutableSet *)bk_observedClassesHash
+{
+	static dispatch_once_t onceToken;
+	static NSMutableSet *swizzledClasses = nil;
+	dispatch_once(&onceToken, ^{
+		swizzledClasses = [[NSMutableSet alloc] init];
+	});
+	
+	return swizzledClasses;
+}
+
 - (void)bk_addObserverForKeyPaths:(NSArray *)keyPaths identifier:(NSString *)identifier options:(NSKeyValueObservingOptions)options context:(BKObserverContext)context task:(id)task
 {
 	NSParameterAssert(keyPaths.count);
 	NSParameterAssert(identifier.length);
 	NSParameterAssert(task);
-	
-	@synchronized (swizzledClasses()) {
-		Class classToSwizzle = self.class;
-		NSString *className = NSStringFromClass(classToSwizzle);
-		if (![swizzledClasses() containsObject:className]) {
-			SEL deallocSelector = sel_registerName("dealloc");
-			
-			Method deallocMethod = class_getInstanceMethod(classToSwizzle, deallocSelector);
-			void (*originalDealloc)(id, SEL) = (__typeof__(originalDealloc))method_getImplementation(deallocMethod);
-			
-			id newDealloc = ^(__unsafe_unretained NSObject *objSelf) {
-				[objSelf bk_removeAllBlockObservers];
-				originalDealloc(objSelf, deallocSelector);
-			};
-			
-			class_replaceMethod(classToSwizzle, deallocSelector, imp_implementationWithBlock(newDealloc), method_getTypeEncoding(deallocMethod));
-			
-			[swizzledClasses() addObject:className];
-		}
-	}
+    
+    if (![[self class] bk_observersMapTable]) {
+		NSMutableSet *classes = [[self class] bk_observedClassesHash];
+        @synchronized (classes) {
+            Class classToSwizzle = self.class;
+            NSString *className = NSStringFromClass(classToSwizzle);
+            if (![classes containsObject:className]) {
+                SEL deallocSelector = sel_registerName("dealloc");
+                
+                Method deallocMethod = class_getInstanceMethod(classToSwizzle, deallocSelector);
+                void (*originalDealloc)(id, SEL) = (__typeof__(originalDealloc))method_getImplementation(deallocMethod);
+                
+                id newDealloc = ^(__unsafe_unretained NSObject *objSelf) {
+					[objSelf bk_removeAllAssociatedObjects];
+                    originalDealloc(objSelf, deallocSelector);
+                };
+                
+                class_replaceMethod(classToSwizzle, deallocSelector, imp_implementationWithBlock(newDealloc), method_getTypeEncoding(deallocMethod));
+                
+                [classes addObject:className];
+            }
+        }
+    }
 	
 	NSMutableDictionary *dict;
-	BKObserver *observer = [[BKObserver alloc] initWithObservee:self keyPaths:keyPaths options:options context:context task:task];
+	BKObserver *observer = [[BKObserver alloc] initWithObservee:self keyPaths:keyPaths context:context task:task];
+    [observer startObservingWithOptions:options];
 		
 	@synchronized (self) {
 		dict = [self bk_observerBlocks];
@@ -288,11 +319,24 @@ static NSMutableSet *swizzledClasses()
 
 - (void)bk_setObserverBlocks:(NSMutableDictionary *)dict
 {
+#if HAS_MAP_TABLE
+	NSMapTable *table = [[self class] bk_observersMapTable];
+	if (table) {
+		[table setObject:dict forKey:self];
+		return;
+    }
+#endif
 	[self bk_associateValue:dict withKey:&kObserverBlocksKey];
 }
 
 - (NSMutableDictionary *)bk_observerBlocks
 {
+#if HAS_MAP_TABLE
+	NSMapTable *table = [[self class] bk_observersMapTable];
+	if (table) {
+		return [table objectForKey:self];
+    }
+#endif
 	return [self bk_associatedValueForKey:&kObserverBlocksKey];
 }
 
