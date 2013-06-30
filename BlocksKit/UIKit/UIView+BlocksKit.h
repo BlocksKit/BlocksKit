@@ -66,27 +66,4 @@
  */
 - (void)bk_eachSubview:(void(^)(UIView *subview))block;
 
-/** The block that gets called on a finger down.
- 
- Internally, this method overrides the touchesBegan:withEvent:
- selector of UIView and is mechanically similar to
- UIControlEventTouchDown.
- */
-@property (nonatomic, copy, setter = bk_setOnTouchDownBlock:) void (^bk_onTouchDownBlock)(NSSet *set, UIEvent *event);
-
-/** The block that gets called on a finger drag.
- 
- Internally, this method overrides the touchesMoved:withEvent:
- selector of UIView.
- */
-@property (nonatomic, copy, setter = bk_setOnTouchMoveBlock:) void (^bk_onTouchMoveBlock)(NSSet *set, UIEvent *event);
-
-/** The block that gets called on a finger up.
- 
- Internally, this method overrides the touchesBegan:withEvent:
- selector of UIView and is mechanically similar to
- UIControlEventTouchCancel.
- */
-@property (nonatomic, copy, setter = bk_setOnTouchUpBlock:) void (^bk_onTouchUpBlock)(NSSet *set, UIEvent *event);
-
 @end
