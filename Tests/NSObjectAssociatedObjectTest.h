@@ -10,7 +10,7 @@
 
 - (void)testAssociatedRetainValue;
 - (void)testAssociatedCopyValue;
-- (void)testAssociatedAssignValue;
+- (void)testAssociatedWeakValue;
 - (void)testAssociatedNotFound;
 
 @end

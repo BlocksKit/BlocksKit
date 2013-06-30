@@ -122,7 +122,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-- (void)bk_weaklyAssociateValue:(id)value withKey:(const void *)key;
+- (void)bk_weaklyAssociateValue:(__autoreleasing id)value withKey:(const void *)key;
 
 /** Weakly associates an object with the receiving class.
 
@@ -130,7 +130,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-+ (void)bk_weaklyAssociateValue:(id)value withKey:(const void *)key;
++ (void)bk_weaklyAssociateValue:(__autoreleasing id)value withKey:(const void *)key;
 
 /** Returns the associated value for a key on the reciever.
 
