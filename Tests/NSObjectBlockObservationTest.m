@@ -149,4 +149,24 @@
     [self bk_removeObserversWithIdentifier:token];
 }
 
+- (void)testRegisterTwice {
+    void(^observeBlock)(id) = ^(id obj) {
+        NSLog(@"Got here!");
+		[(NSObjectBlockObservationTest *)obj action];
+	};
+    NSString *token = [self bk_addObserverForKeyPath:@"subject.number" task:observeBlock];
+    NSNumber *number = @1;
+	[self setValue:number forKeyPath:@"subject.number"];
+	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
+	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
+    [self bk_removeObserversWithIdentifier:token];
+	
+    NSString *token2 = [self bk_addObserverForKeyPath:@"subject.number" task:observeBlock];
+    number = @2;
+	[self setValue:number forKeyPath:@"subject.number"];
+	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
+	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
+    [self bk_removeObserversWithIdentifier:token2];
+}
+
 @end

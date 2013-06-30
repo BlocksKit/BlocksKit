@@ -91,6 +91,8 @@ static char BKBlockObservationContext;
 		[self.keyPaths bk_each:^(NSString *keyPath) {
 			[self.observee addObserver:self forKeyPath:keyPath options:options context:&BKBlockObservationContext];
 		}];
+        
+        _isObserving = YES;
 	}
 }
 
