@@ -25,6 +25,6 @@
  mailComposeController:didFinishWithResult:error:method
  of MFMailComposeViewControllerDelegate.
 */
-@property (nonatomic, copy, setter = bk_setCompletionBlock:) void(^bk_completionBlock)(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error);
+@property (nonatomic, copy, setter = bk_setCompletionBlock:) void (^bk_completionBlock)(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error);
 
 @end

@@ -45,7 +45,7 @@
 	[self bk_whenTouches:2 tapped:1 handler:block];
 }
 
-- (void)bk_eachSubview:(void(^)(UIView *subview))block
+- (void)bk_eachSubview:(void (^)(UIView *subview))block
 {
 	[self.subviews bk_each:block];
 }

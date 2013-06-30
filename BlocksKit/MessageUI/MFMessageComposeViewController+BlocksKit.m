@@ -21,7 +21,7 @@
 	if (shouldDismiss)
 		[realDelegate messageComposeViewController:controller didFinishWithResult:result];
 
-	void(^block)(MFMessageComposeViewController *, MessageComposeResult) = [self blockImplementationForMethod:_cmd];
+	void (^block)(MFMessageComposeViewController *, MessageComposeResult) = [self blockImplementationForMethod:_cmd];
 
 	if (shouldDismiss) {
 		if (block) block(controller, result);
