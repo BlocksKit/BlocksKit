@@ -31,12 +31,12 @@
 
 /** Enumerates through a set concurrently and executes
  the given block once for each object.
- 
+
  Enumeration will occur on appropriate background queues. This
  will have a noticeable speed increase, especially on dual-core
  devices, but you *must* be aware of the thread safety of the
  objects you message from within the block.
- 
+
  @param block A single-argument, void-returning code block.
  */
 - (void)bk_apply:(void (^)(id obj))block;
@@ -75,7 +75,7 @@
 - (NSSet *)bk_reject:(BOOL (^)(id obj))block;
 
 /** Call the block once for each object and create a set of the return values.
- 
+
  This is sometimes referred to as a transform, mutating one of each object:
 	 NSSet *new = [mimeTypes bk_map:^id(id obj) {
 	   return [@"x-company-" stringByAppendingString:obj]);
@@ -103,28 +103,28 @@
 - (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block;
 
 /** Loops through a set to find whether any object matches the block.
- 
+
  This method is similar to the Scala list `exists`. It is functionally
  identical to bk_match: but returns a `BOOL` instead. It is not recommended
  to use bk_any: as a check condition before executing bk_match:, since it would
  require two loops through the array.
- 
+
  @param block A single-argument, BOOL-returning code block.
  @return YES for the first time the block returns YES for an object, NO otherwise.
  */
 - (BOOL)bk_any:(BOOL (^)(id obj))block;
 
 /** Loops through a set to find whether no objects match the block.
- 
+
  This selector performs *literally* the exact same function as bk_all: but in reverse.
- 
+
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns NO for all objects in the set, NO otherwise.
  */
 - (BOOL)bk_none:(BOOL (^)(id obj))block;
 
 /** Loops through a set to find whether all objects match the block.
- 
+
  @param block A single-argument, BOOL-returning code block.
  @return YES if the block returns YES for all objects in the set, NO otherwise.
  */

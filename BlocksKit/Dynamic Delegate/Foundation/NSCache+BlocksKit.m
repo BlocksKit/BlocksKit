@@ -47,12 +47,12 @@
 {
 	id object = [self objectForKey:key];
 	if (object) return object;
-	
+
 	if (block) {
 		object = block();
 		[self setObject:object forKey:key];
 	}
-	
+
 	return object;
 }
 

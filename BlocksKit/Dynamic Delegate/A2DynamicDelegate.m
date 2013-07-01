@@ -61,7 +61,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 		_classProxy = [[A2DynamicClassDelegate alloc] initWithProtocol:self.protocol];
 		_classProxy.proxiedClass = object_getClass(self);
 	}
-	
+
 	return _classProxy;
 }
 
@@ -158,7 +158,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:protoSig];
 
 	NSCAssert3(a2_methodSignaturesCompatible(inv.methodSignature, inv.blockSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
-	
+
 	self.blockInvocations[key] = inv;
 }
 - (void)removeBlockImplementationForMethod:(SEL)selector
@@ -215,7 +215,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	if (!self) return nil;
 
 	_proxiedClass = proxy;
-	
+
 	return self;
 }
 

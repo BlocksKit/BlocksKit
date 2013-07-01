@@ -11,13 +11,14 @@
 /** Generates an `NSInvocation` instance for a given block.
 
 	NSInvocation *invocation = [NSInvocation invocationWithTarget:target block:^(id myObject){
- 		[myObject someMethodWithArg:42.0];
- 	}];
- 
+		[myObject someMethodWithArg:42.0];
+	}];
+
+>>>>>>> Move stuff around:BlocksKit/Core/NSInvocation+BlocksKit.h
  This returns an invocation with the appropriate target, selector, and arguments
  without creating the buffers yourself. It is only recommended to call a method
  on the argument to the block only once.
- 
+
  Created by [Jonathan Rentzch](https://github.com/rentzsch) as
  `NSInvocation-blocks`.
 

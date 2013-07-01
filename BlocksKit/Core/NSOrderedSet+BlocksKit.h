@@ -68,8 +68,8 @@
 
  This is useful, as one may expect, for removing objects from an ordered set to.
 	 NSOrderedSet *new = [computers bk_reject:^BOOL(id obj) {
-         return ([obj isUgly]);
-     }];
+		 return ([obj isUgly]);
+	 }];
 
  @param block A single-argument, BOOL-returning code block.
  @return Returns an ordered set of all objects not found.
@@ -81,8 +81,8 @@
 
  This is sometimes referred to as a transform, mutating one of each object:
 	 NSOrderedSet *new = [stringArray bk_map:^id(id obj) {
-         return [obj stringByAppendingString:@".png"]);
-     }];
+		 return [obj stringByAppendingString:@".png"]);
+	 }];
 
  @param block A single-argument, object-returning code block.
  @return Returns an ordered set of the objects returned by the block.
@@ -96,13 +96,13 @@
 
  For example, you can concentate the strings in an ordered set:
 	 NSString *concentrated = [stringArray bk_reduce:@"" withBlock:^id(id sum, id obj) {
-         return [sum stringByAppendingString:obj];
-     }];
+		 return [sum stringByAppendingString:obj];
+	 }];
 
  You can also do something like summing the lengths of strings in an ordered set:
 	 NSUInteger value = [[[stringArray bk_reduce:nil withBlock:^id(id sum, id obj) {
-         return @([sum integerValue] + obj.length);
-     }]] unsignedIntegerValue];
+		 return @([sum integerValue] + obj.length);
+	 }]] unsignedIntegerValue];
 
  @param initial The value of the reduction at its start.
  @param block A block that takes the current sum and the next object to return the new sum.
@@ -120,10 +120,10 @@
  For example, you can find if a string in an ordered set starts with a certain
  letter:
 
-     NSString *letter = @"A";
+	 NSString *letter = @"A";
 	 BOOL containsLetter = [stringArray bk_any:^(id obj) {
 		 return [obj hasPrefix:@"A"];
-     }];
+	 }];
 
  @param block A single-argument, BOOL-returning code block.
  @return YES for the first time the block returns YES for an object, NO otherwise.
@@ -153,11 +153,11 @@
 
  For example, finding if a list of numbers corresponds to their sequenced string values;
 
-     NSArray *numbers = @[ @(1), @(2), @(3) ];
-     NSArray *letters = @[ @"1", @"2", @"3" ];
+	 NSArray *numbers = @[ @(1), @(2), @(3) ];
+	 NSArray *letters = @[ @"1", @"2", @"3" ];
 	 BOOL doesCorrespond = [numbers bk_corresponds:letters withBlock:^(id number, id letter) {
 		 return [[number stringValue] isEqualToString:letter];
-     }];
+	 }];
 
  @param list An array of objects to compare with.
  @param block A two-argument, BOOL-returning code block.

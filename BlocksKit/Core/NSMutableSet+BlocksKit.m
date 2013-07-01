@@ -9,11 +9,11 @@
 
 - (void)bk_performSelect:(BOOL (^)(id obj))block {
 	NSParameterAssert(block != nil);
-	
+
 	NSSet *list = [self objectsPassingTest:^BOOL(id obj, BOOL *stop) {
 		return block(obj);
 	}];
-	
+
 	[self setSet:list];
 }
 
@@ -26,7 +26,7 @@
 
 - (void)bk_performMap:(id (^)(id obj))block {
 	NSParameterAssert(block != nil);
-	
+
 	NSMutableSet *new = [NSMutableSet setWithCapacity:self.count];
 
 	[self enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
@@ -34,7 +34,7 @@
 		if (!value) return;
 		[new addObject:value];
 	}];
-	
+
 	[self setSet:new];
 }
 

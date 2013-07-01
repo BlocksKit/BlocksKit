@@ -10,7 +10,7 @@
 - (void)bk_each:(void (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
-	
+
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		block(key, obj);
 	}];
@@ -19,7 +19,7 @@
 - (void)bk_apply:(void (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
-	
+
 	[self enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
 		block(key, obj);
 	}];
@@ -42,11 +42,11 @@
 - (NSDictionary *)bk_select:(BOOL (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
-	
+
 	NSArray *keys = [[self keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
 		return block(key, obj);
 	}] allObjects];
-	
+
 	NSArray *objects = [self objectsForKeys:keys notFoundMarker:[NSNull null]];
 	return [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 }
@@ -62,14 +62,14 @@
 - (NSDictionary *)bk_map:(id (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
-	
+
 	NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:self.count];
 
 	[self bk_each:^(id key, id obj) {
 		id value = block(key, obj) ?: [NSNull null];
 		result[key] = value;
 	}];
-	
+
 	return result;
 }
 
@@ -86,16 +86,16 @@
 - (BOOL)bk_all:(BOOL (^)(id key, id obj))block
 {
 	NSParameterAssert(block != nil);
-	
+
 	__block BOOL result = YES;
-	
+
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		if (!block(key, obj)) {
 			result = NO;
 			*stop = YES;
 		}
 	}];
-	
+
 	return result;
 }
 

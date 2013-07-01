@@ -18,27 +18,27 @@
 								  delegate:nil
 								  cancelButtonTitle:@"Meh."
 								  otherButtonTitles:@"Woo!", nil];
-		
+
 		// Get the dynamic delegate
 		A2DynamicDelegate *dd = alertView.bk_dynamicDelegate;
-		
+
 		// Implement -alertViewShouldEnableFirstOtherButton:
 		[dd implementMethod:@selector(alertViewShouldEnableFirstOtherButton:) withBlock:^(UIAlertView *alertView) {
 			NSLog(@"Message: %@", alertView.message);
 			return YES;
 		}];
-		
+
 		// Implement -alertView:willDismissWithButtonIndex:
 		[dd implementMethod:@selector(alertView:willDismissWithButtonIndex:) withBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 			NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
 		}];
-		
+
 		// Set the delegate
 		alertView.delegate = dd;
-		
+
 		[alertView show];
 	}
-	
+
  A2DynamicDelegate is designed to be 'plug and play'.
  */
 @interface A2DynamicDelegate : NSProxy
@@ -73,7 +73,7 @@
 
 /** The block that is to be fired when the specified
  selector is called on the reciever.
- 
+
  @param selector An encoded selector. Must not be NULL.
  @return A code block, or nil if no block is assigned.
  */
@@ -81,17 +81,17 @@
 
 /** Assigns the given block to be fired when the specified
  selector is called on the reciever.
- 
+
 	[tableView.dynamicDataSource implementMethod:@selector(numberOfSectionsInTableView:)
 									  withBlock:NSInteger^(UITableView *tableView){
 		return 2;
 	}];
- 
+
  @warning Starting with A2DynamicDelegate 2.0, a block will
  not be checked for a matching signature. A block can have
  less parameters than the original selector and will be
  ignored, but cannot have more.
- 
+
  @param selector An encoded selector. Must not be NULL.
  @param block A code block with the same signature as selector.
  */
@@ -99,7 +99,7 @@
 
 /** Disassociates any block so that nothing will be fired
  when the specified selector is called on the reciever.
- 
+
  @param selector An encoded selector. Must not be NULL.
  */
 - (void)removeBlockImplementationForMethod:(SEL)selector;
@@ -108,7 +108,7 @@
 
 /** The block that is to be fired when the specified
  selector is called on the delegating object's class.
- 
+
  @param selector An encoded selector. Must not be NULL.
  @return A code block, or nil if no block is assigned.
  */
@@ -116,12 +116,12 @@
 
 /** Assigns the given block to be fired when the specified
  selector is called on the reciever.
- 
+
  @warning Starting with A2DynamicDelegate 2.0, a block will
  not be checked for a matching signature. A block can have
  less parameters than the original selector and will be
  ignored, but cannot have more.
- 
+
  @param selector An encoded selector. Must not be NULL.
  @param block A code block with the same signature as selector.
  */
@@ -130,7 +130,7 @@
 /** Disassociates any blocks so that nothing will be fired
  when the specified selector is called on the delegating
  object's class.
- 
+
  @param selector An encoded selector. Must not be NULL.
  */
 - (void)removeBlockImplementationForClassMethod:(SEL)selector;

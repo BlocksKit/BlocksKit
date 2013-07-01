@@ -123,7 +123,7 @@ static inline NSUInteger a2_getStructSize(const char *encodingType) {
 		encodingType = NSGetSizeAndAlignment(encodingType, NULL, NULL);
 		ret++;
 	}
-	
+
 	return ret;
 }
 
@@ -181,7 +181,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 					type->elements[size] = NULL;
 					return type;
 				}
-				
+
 				break;
 			}
 		}
@@ -259,7 +259,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	NSParameterAssert(block);
 	NSMethodSignature *blockSignature = a2_blockGetSignature(block);
 	NSCAssert1(blockSignature, @"Incompatible block: %@", block);
-	
+
 	self = [super init];
 	if (!self) return nil;
 
@@ -431,7 +431,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 			}
 		}
 	}
-	
+
 	if (buffer) {
 		memcpy(_argumentFrame[idx], buffer, typeSize);
 	} else {
@@ -463,7 +463,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		size_t argSize = a2_sizeForType(type);
 		void *thisArgument = malloc(argSize);
 		if (!thisArgument) break;
-		
+
 		[inv getArgument:thisArgument atIndex:i + 2];
 		[self setArgument:thisArgument atIndex:i];
 		free(thisArgument);

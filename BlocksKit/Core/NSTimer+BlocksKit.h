@@ -12,7 +12,7 @@
 @interface NSTimer (BlocksKit)
 
 /** Creates and returns a block-based NSTimer object and schedules it on the current run loop.
- 
+
  @param inTimeInterval The number of seconds between firings of the timer.
  @param inBlock The block that the NSTimer fires.
  @param inRepeats If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.

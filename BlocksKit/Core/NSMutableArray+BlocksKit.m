@@ -13,7 +13,7 @@
 	NSIndexSet *list = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		return !block(obj);
 	}];
-	
+
 	if (!list.count) return;
 	[self removeObjectsAtIndexes:list];
 }
@@ -29,7 +29,7 @@
 	NSParameterAssert(block != nil);
 
 	NSMutableArray *new = [self mutableCopy];
-	
+
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		id value = block(obj) ?: [NSNull null];
 		if ([value isEqual:obj]) return;
