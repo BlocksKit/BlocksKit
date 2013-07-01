@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		005292271781096B008ACFDA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 005292261781096B008ACFDA /* Default-568h@2x.png */; };
 		00D28ACC14AAC47800ECB62C /* UIPopoverController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 00D28AC614AAC43E00ECB62C /* UIPopoverController+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00D28ACE14AAC48600ECB62C /* UIPopoverController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */; };
 		6C161C901620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,9 +26,6 @@
 		6C161CA61620D2B700F04A9A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C161CA51620D2B600F04A9A /* UIKit.framework */; };
 		6C161CA81620D2C300F04A9A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C161CA71620D2C300F04A9A /* CoreGraphics.framework */; };
 		6C161CAA1620D2C700F04A9A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C161CA91620D2C700F04A9A /* MessageUI.framework */; };
-		6C161CC41620E08B00F04A9A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C161CBE1620E08B00F04A9A /* Default-568h@2x.png */; };
-		6C161CC51620E08B00F04A9A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C161CBF1620E08B00F04A9A /* Default.png */; };
-		6C161CC61620E08B00F04A9A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C161CC01620E08B00F04A9A /* Default@2x.png */; };
 		6C161CC71620E08B00F04A9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C161CC11620E08B00F04A9A /* main.m */; };
 		6C161CC81620E08B00F04A9A /* PNDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C161CC31620E08B00F04A9A /* PNDAppDelegate.m */; };
 		6C161CCA1620E0AD00F04A9A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C161CA91620D2C700F04A9A /* MessageUI.framework */; };
@@ -230,6 +228,7 @@
 		0005D5DE161FDF23007DD837 /* iOS Tests App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Tests App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0005D5E8161FDF23007DD837 /* iOS Tests App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOS Tests App-Info.plist"; sourceTree = "<group>"; };
 		0005D5EE161FDF23007DD837 /* iOS Tests App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS Tests App-Prefix.pch"; sourceTree = "<group>"; };
+		005292261781096B008ACFDA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		00D28AC614AAC43E00ECB62C /* UIPopoverController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPopoverController+BlocksKit.h"; sourceTree = "<group>"; };
 		00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPopoverController+BlocksKit.m"; sourceTree = "<group>"; };
 		6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+BlocksKit.h"; sourceTree = "<group>"; };
@@ -244,9 +243,6 @@
 		6C161CA51620D2B600F04A9A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6C161CA71620D2C300F04A9A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6C161CA91620D2C700F04A9A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		6C161CBE1620E08B00F04A9A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		6C161CBF1620E08B00F04A9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		6C161CC01620E08B00F04A9A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		6C161CC11620E08B00F04A9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C161CC21620E08B00F04A9A /* PNDAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNDAppDelegate.h; sourceTree = "<group>"; };
 		6C161CC31620E08B00F04A9A /* PNDAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNDAppDelegate.m; sourceTree = "<group>"; };
@@ -314,7 +310,6 @@
 		6CF22CA7161EAFB8002FD317 /* OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6CF22CB0161EB048002FD317 /* iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF22CB1161EB048002FD317 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		6CF22CB9161EB048002FD317 /* OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OS X Tests-Info.plist"; sourceTree = "<group>"; };
 		6CF22CC0161EB048002FD317 /* iOS Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6CF22CDC161EB1C3002FD317 /* A2BlockDelegateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockDelegateTests.h; sourceTree = "<group>"; };
 		6CF22CDD161EB1C3002FD317 /* A2BlockDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockDelegateTests.m; sourceTree = "<group>"; };
@@ -447,6 +442,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0052921F1781043B008ACFDA /* OS X Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6CF22CA0161EAFB8002FD317 /* OS X Tests-Info.plist */,
+				6CF22CA7161EAFB8002FD317 /* OS X Tests-Prefix.pch */,
+			);
+			path = "OS X Tests";
+			sourceTree = "<group>";
+		};
 		00D28ACB14AAC45800ECB62C /* MessageUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,22 +465,15 @@
 		6C161CBD1620E08B00F04A9A /* iOS Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6C161CC91620E09200F04A9A /* Supporting Files */,
+				005292261781096B008ACFDA /* Default-568h@2x.png */,
+				0005D5E8161FDF23007DD837 /* iOS Tests App-Info.plist */,
+				0005D5EE161FDF23007DD837 /* iOS Tests App-Prefix.pch */,
+				6CF22CC0161EB048002FD317 /* iOS Tests-Prefix.pch */,
+				6C161CC11620E08B00F04A9A /* main.m */,
 				6C161CC21620E08B00F04A9A /* PNDAppDelegate.h */,
 				6C161CC31620E08B00F04A9A /* PNDAppDelegate.m */,
 			);
 			path = "iOS Tests";
-			sourceTree = "<group>";
-		};
-		6C161CC91620E09200F04A9A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6C161CBE1620E08B00F04A9A /* Default-568h@2x.png */,
-				6C161CBF1620E08B00F04A9A /* Default.png */,
-				6C161CC01620E08B00F04A9A /* Default@2x.png */,
-				6C161CC11620E08B00F04A9A /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		6C3DBF821382F1BA00E6C9AA = {
@@ -692,13 +689,8 @@
 		6CF22C9F161EAFB8002FD317 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6CF22CB9161EB048002FD317 /* OS X Tests-Info.plist */,
-				6CF22CC0161EB048002FD317 /* iOS Tests-Prefix.pch */,
-				6CF22CA0161EAFB8002FD317 /* OS X Tests-Info.plist */,
-				6CF22CA7161EAFB8002FD317 /* OS X Tests-Prefix.pch */,
-				0005D5E8161FDF23007DD837 /* iOS Tests App-Info.plist */,
-				0005D5EE161FDF23007DD837 /* iOS Tests App-Prefix.pch */,
 				6C161CBD1620E08B00F04A9A /* iOS Tests */,
+				0052921F1781043B008ACFDA /* OS X Tests */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -763,7 +755,7 @@
 				6C3DBFDE1383265900E6C9AA /* NSTimer+BlocksKit.h */,
 				6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */,
 			);
-			name = Core;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		DB70D7D4177FB452002B5223 /* Dynamic Delegate */ = {
@@ -779,7 +771,7 @@
 				6C9594501638435700DBF5A1 /* NSObject+A2DynamicDelegate.m */,
 				DB70D7D5177FB45E002B5223 /* Foundation */,
 			);
-			name = "Dynamic Delegate";
+			path = "Dynamic Delegate";
 			sourceTree = "<group>";
 		};
 		DB70D7D5177FB45E002B5223 /* Foundation */ = {
@@ -790,7 +782,7 @@
 				A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */,
 				A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */,
 			);
-			name = Foundation;
+			path = Foundation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -976,6 +968,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Pandamonia LLC";
+				TargetAttributes = {
+					6CF22C94161EAFB8002FD317 = {
+						TestTargetID = 0005D5DD161FDF23007DD837;
+					};
+				};
 			};
 			buildConfigurationList = 6C3DBF871382F1BA00E6C9AA /* Build configuration list for PBXProject "BlocksKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1003,9 +1000,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C161CC41620E08B00F04A9A /* Default-568h@2x.png in Resources */,
-				6C161CC51620E08B00F04A9A /* Default.png in Resources */,
-				6C161CC61620E08B00F04A9A /* Default@2x.png in Resources */,
+				005292271781096B008ACFDA /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1235,8 +1230,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/iOS Tests App-Prefix.pch";
-				INFOPLIST_FILE = "Tests/iOS Tests App-Info.plist";
+				GCC_PREFIX_HEADER = "Tests/iOS Tests/iOS Tests App-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/iOS Tests/iOS Tests App-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1251,8 +1246,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/iOS Tests App-Prefix.pch";
-				INFOPLIST_FILE = "Tests/iOS Tests App-Info.plist";
+				GCC_PREFIX_HEADER = "Tests/iOS Tests/iOS Tests App-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/iOS Tests/iOS Tests App-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
@@ -1408,15 +1403,17 @@
 		6CF22CA9161EAFB8002FD317 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOS Tests App.app/iOS Tests App";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/OS X Tests-Prefix.pch";
-				INFOPLIST_FILE = "Tests/OS X Tests-Info.plist";
+				INFOPLIST_FILE = "Tests/OS X Tests/OS X Tests-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1424,15 +1421,17 @@
 		6CF22CAA161EAFB8002FD317 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOS Tests App.app/iOS Tests App";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/OS X Tests-Prefix.pch";
-				INFOPLIST_FILE = "Tests/OS X Tests-Info.plist";
+				INFOPLIST_FILE = "Tests/OS X Tests/OS X Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -1447,8 +1446,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/iOS Tests-Prefix.pch";
-				INFOPLIST_FILE = "Tests/iOS Tests-Info.plist";
+				GCC_PREFIX_HEADER = "Tests/iOS Tests/iOS Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/iOS Tests/iOS Tests-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-Wl,-no_compact_unwind",
@@ -1473,8 +1472,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/iOS Tests-Prefix.pch";
-				INFOPLIST_FILE = "Tests/iOS Tests-Info.plist";
+				GCC_PREFIX_HEADER = "Tests/iOS Tests/iOS Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/iOS Tests/iOS Tests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-Wl,-no_compact_unwind",
 					"-all_load",
