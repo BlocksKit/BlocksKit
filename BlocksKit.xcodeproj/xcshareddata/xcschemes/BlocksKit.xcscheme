@@ -7,9 +7,9 @@
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
-            buildForTesting = "YES"
+			buildForTesting = "NO"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
+			buildForProfiling = "NO"
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
