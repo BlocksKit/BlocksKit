@@ -2,9 +2,6 @@
 //  NSMutableArrayBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
-//  Created by Kai Wu on 7/7/11.
-//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
-//
 
 #import "NSMutableArrayBlocksKitTest.h"
 #import <BlocksKit/BlocksKit.h>
