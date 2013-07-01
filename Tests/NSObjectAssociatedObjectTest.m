@@ -2,9 +2,6 @@
 //  NSObjectAssociatedObjectTest.m
 //  BlocksKit Unit Tests
 //
-//  Created by Kai Wu on 7/6/11.
-//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
-//
 
 #import "NSObjectAssociatedObjectTest.h"
 #import "NSObject+BKAssociatedObjects.h"
