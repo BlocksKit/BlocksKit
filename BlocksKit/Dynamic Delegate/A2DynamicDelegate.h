@@ -85,7 +85,7 @@
  selector is called on the reciever.
  
 	[tableView.dynamicDataSource implementMethod:@selector(numberOfSectionsInTableView:)
-									  withBlock:NSInteger^(UITableView *tableView){
+									  withBlock:NSInteger^(UITableView *tableView) {
 		return 2;
 	}];
  

@@ -31,7 +31,7 @@
 	_subject.delegate = self;
 	_total = 2;
 	__unsafe_unretained NSCacheBlocksKitTest *weakSelf = self;
-	_subject.bk_willEvictBlock = ^(NSCache *cache, id obj){
+	_subject.bk_willEvictBlock = ^(NSCache *cache, id obj) {
 		weakSelf->_total--;
 	};
 	[_subject.bk_dynamicDelegate cache:_subject willEvictObject:nil];

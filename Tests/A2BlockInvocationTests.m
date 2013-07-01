@@ -33,7 +33,7 @@ typedef struct _BigStruct {
 
 - (void)testReturnObjectBlockInvocation
 {
-	NSString *(^block)(int, NSString *) = ^(int val, NSString *str){
+	NSString *(^block)(int, NSString *) = ^(int val, NSString *str) {
 		return (val == 42 && [str isEqualToString:@"Test"]) ? @"YES" : @"NO";
 	};
 
@@ -53,7 +53,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testReturnStructBlockInvocation {
-	BigStruct(^block)(int, NSString *) = ^BigStruct(int val, NSString *str){
+	BigStruct(^block)(int, NSString *) = ^BigStruct(int val, NSString *str) {
 		BigStruct ret;
 		ret.doubleValue = val * 2.2;
 		ret.integerValue = val;
@@ -82,7 +82,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassObjectBlockInvocation {
-	BOOL(^block)(int, NSString *) = ^BOOL(int val, NSString *str){
+	BOOL(^block)(int, NSString *) = ^BOOL(int val, NSString *str) {
 		return (val == 42 && [str isEqualToString:@"Test"]);
 	};
 
@@ -102,7 +102,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassCharBlockInvocation {
-	BOOL(^block)(char) = ^BOOL(char val){
+	BOOL(^block)(char) = ^BOOL(char val) {
 		return (val == 'Z');
 	};
 
@@ -120,7 +120,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassUCharBlockInvocation {
-	BOOL(^block)(unsigned char) = ^BOOL(unsigned char val){
+	BOOL(^block)(unsigned char) = ^BOOL(unsigned char val) {
 		return (val == 'Z');
 	};
 
@@ -138,7 +138,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassShortBlockInvocation {
-	BOOL(^block)(short) = ^BOOL(short val){
+	BOOL(^block)(short) = ^BOOL(short val) {
 		return (val == SHRT_MAX);
 	};
 
@@ -156,7 +156,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassUShortBlockInvocation {
-	BOOL(^block)(unsigned short) = ^BOOL(unsigned short val){
+	BOOL(^block)(unsigned short) = ^BOOL(unsigned short val) {
 		return (val == USHRT_MAX);
 	};
 
@@ -174,7 +174,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassIntBlockInvocation {
-	BOOL(^block)(int) = ^BOOL(int val){
+	BOOL(^block)(int) = ^BOOL(int val) {
 		return (val == INT_MAX);
 	};
 
@@ -192,7 +192,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassUIntBlockInvocation {
-	BOOL(^block)(unsigned int) = ^BOOL(unsigned int val){
+	BOOL(^block)(unsigned int) = ^BOOL(unsigned int val) {
 		return (val == UINT_MAX);
 	};
 
@@ -210,7 +210,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassLongBlockInvocation {
-	BOOL(^block)(long) = ^BOOL(long val){
+	BOOL(^block)(long) = ^BOOL(long val) {
 		return (val == LONG_MAX);
 	};
 
@@ -228,7 +228,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassULongBlockInvocation {
-	BOOL(^block)(unsigned long) = ^BOOL(unsigned long val){
+	BOOL(^block)(unsigned long) = ^BOOL(unsigned long val) {
 		return (val == ULONG_MAX);
 	};
 
@@ -246,7 +246,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassLongLongBlockInvocation {
-	BOOL(^block)(long long) = ^BOOL(long long val){
+	BOOL(^block)(long long) = ^BOOL(long long val) {
 		return (val == LLONG_MAX);
 	};
 
@@ -264,7 +264,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassULongLongBlockInvocation {
-	BOOL(^block)(unsigned long long) = ^BOOL(unsigned long long val){
+	BOOL(^block)(unsigned long long) = ^BOOL(unsigned long long val) {
 		return (val == ULLONG_MAX);
 	};
 
@@ -282,7 +282,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassFloatBlockInvocation {
-	BOOL(^block)(float) = ^BOOL(float val){
+	BOOL(^block)(float) = ^BOOL(float val) {
 		return (val == 1.01f);
 	};
 
@@ -300,7 +300,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassDoubleBlockInvocation {
-	BOOL(^block)(double) = ^BOOL(double val){
+	BOOL(^block)(double) = ^BOOL(double val) {
 		return (val == 1.01);
 	};
 
@@ -318,7 +318,7 @@ typedef struct _BigStruct {
 }
 
 - (void)testPassArrayBlockInvocation {
-	BOOL(^block)(int []) = ^BOOL(int *ary){
+	BOOL(^block)(int []) = ^BOOL(int *ary) {
 		return ary[0] == 1 && ary[1] == 2 && ary[2] == 3 && ary[3] == 4 && ary[4] == 5;
 	};
 
@@ -339,7 +339,7 @@ typedef struct _BigStruct {
 
 - (void)testPassStructBlockInvocation
 {
-	NSString *(^block)(BigStruct) = ^NSString *(BigStruct sret){
+	NSString *(^block)(BigStruct) = ^NSString *(BigStruct sret) {
 		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second) ? @"YES" : @"NO";
 	};
 
@@ -364,7 +364,7 @@ typedef struct _BigStruct {
 }
 - (void)testRetainArgumentsBeforeSetting
 {
-	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string){
+	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string) {
 		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second && [object boolValue] && !strcmp(string, "Hello, World")) ? @"YES" : @"NO";
 	};
 	
@@ -396,7 +396,7 @@ typedef struct _BigStruct {
 }
 - (void)testRetainArgumentsAfterSetting
 {
-	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string){
+	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string) {
 		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second && [object boolValue] && !strcmp(string, "Hello, World")) ? @"YES" : @"NO";
 	};
 	
@@ -429,7 +429,7 @@ typedef struct _BigStruct {
 }
 - (void)testClearArguments
 {
-	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string){
+	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string) {
 		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second && [object boolValue] && !strcmp(string, "Hello, World")) ? @"YES" : @"NO";
 	};
 	
@@ -456,7 +456,7 @@ typedef struct _BigStruct {
 }
 - (void)testClearRetainedArguments
 {
-	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string){
+	NSString *(^block)(BigStruct, id, char*) = ^NSString *(BigStruct sret, id object, char *string) {
 		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second && [object boolValue] && !strcmp(string, "Hello, World")) ? @"YES" : @"NO";
 	};
 	

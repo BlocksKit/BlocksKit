@@ -292,7 +292,7 @@
 
 - (void)testPassUChar {
 	TestPassUChar *obj = [TestPassUChar new];
-	[obj setTestWithUCharBlock:^BOOL(unsigned char uchr){
+	[obj setTestWithUCharBlock:^BOOL(unsigned char uchr) {
 		return (uchr == 'Z');
 	}];
 	obj.delegate = obj.bk_dynamicDelegate;
@@ -302,7 +302,7 @@
 
 - (void)testPassShort {
 	TestPassShort *obj = [TestPassShort new];
-	[obj setTestWithShortBlock:^BOOL(short shrt){
+	[obj setTestWithShortBlock:^BOOL(short shrt) {
 		return (shrt == SHRT_MAX);
 	}];
 	obj.delegate = obj.bk_dynamicDelegate;
