@@ -2,9 +2,6 @@
 //  NSObject+A2DynamicDelegate.m
 //  BlocksKit
 //
-//  Created by Zachary Waldowski on 10/24/12.
-//  Copyright (c) 2012 Pandamonia LLC. All rights reserved.
-//
 
 #import "NSObject+A2DynamicDelegate.h"
 #import "NSObject+BKAssociatedObjects.h"

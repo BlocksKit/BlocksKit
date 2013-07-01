@@ -1,14 +1,11 @@
 //
 //  A2DynamicDelegate.m
-//  A2DynamicDelegate
-//
-//  Created by Alexsander Akers on 11/26/11.
-//  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
+//  BlocksKit
 //
 
-#import "A2DynamicDelegate.h"
-#import "A2BlockInvocation.h"
 #import <objc/message.h>
+#import "A2BlockInvocation.h"
+#import "A2DynamicDelegate.h"
 
 Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);

@@ -3,12 +3,12 @@
 //  BlocksKit
 //
 
-#import "NSURLConnection+BlocksKit.h"
 #import <objc/runtime.h>
-#import "NSObject+A2BlockDelegate.h"
 #import "A2DynamicDelegate.h"
+#import "NSObject+A2BlockDelegate.h"
 #import "NSObject+A2DynamicDelegate.h"
 #import "NSObject+BKAssociatedObjects.h"
+#import "NSURLConnection+BlocksKit.h"
 
 #pragma mark Private
 

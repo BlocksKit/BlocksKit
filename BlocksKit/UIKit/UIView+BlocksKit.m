@@ -3,10 +3,10 @@
 //  BlocksKit
 //
 
-#import "UIView+BlocksKit.h"
+#import "NSArray+BlocksKit.h"
 #import "NSObject+BKAssociatedObjects.h"
 #import "UIGestureRecognizer+BlocksKit.h"
-#import "NSArray+BlocksKit.h"
+#import "UIView+BlocksKit.h"
 
 @implementation UIView (BlocksKit)
 
