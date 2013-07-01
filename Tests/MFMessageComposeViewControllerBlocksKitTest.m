@@ -28,7 +28,7 @@
 	delegateWorked = NO;
 	__block BOOL blockWorked = NO;
 	_subject.messageComposeDelegate = self;
-	_subject.bk_completionBlock = ^(MFMessageComposeViewController *controller, MessageComposeResult result){
+	_subject.bk_completionBlock = ^(MFMessageComposeViewController *controller, MessageComposeResult result) {
 		blockWorked = YES;
 	};
 	[[_subject bk_dynamicDelegateForProtocol:@protocol(MFMessageComposeViewControllerDelegate)] messageComposeViewController:_subject didFinishWithResult:MessageComposeResultSent];

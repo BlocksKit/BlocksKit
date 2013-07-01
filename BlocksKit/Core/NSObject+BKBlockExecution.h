@@ -23,7 +23,7 @@
 
 /** Executes a block after a given delay on the reciever.
 
-	[array performBlock:^(id obj){
+	[array performBlock:^(id obj) {
 	  [obj addObject:self];
 	  [self release];
 	} afterDelay:0.5f];
@@ -46,7 +46,7 @@
 
  Block execution is very useful, particularly for small events that you would like delayed.
 
-	[object performBlock:^(){
+	[object performBlock:^{
 	  [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 	} afterDelay:0.5f];
 

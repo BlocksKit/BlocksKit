@@ -262,7 +262,7 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 
 	NSMutableArray *allocations = [NSMutableArray new];
 
-	void *(^allocate)(size_t) = ^(size_t howmuch){
+	void *(^allocate)(size_t) = ^(size_t howmuch) {
 		void *buffer = calloc(howmuch, 1);
 		[allocations addObject:[NSData dataWithBytesNoCopy:buffer length:howmuch]];
 		return buffer;

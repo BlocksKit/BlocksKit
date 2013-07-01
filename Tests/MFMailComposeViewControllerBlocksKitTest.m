@@ -25,7 +25,7 @@
 	delegateWorked = NO;
 	__block BOOL blockWorked = NO;
 	_subject.mailComposeDelegate = self;
-	_subject.bk_completionBlock = ^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *err){
+	_subject.bk_completionBlock = ^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *err) {
 		blockWorked = YES;
 	};
 	[[_subject bk_dynamicDelegateForProtocol:@protocol(MFMailComposeViewControllerDelegate)] mailComposeController:_subject didFinishWithResult:MFMailComposeResultSent error:nil];

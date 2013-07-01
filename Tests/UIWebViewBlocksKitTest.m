@@ -37,7 +37,7 @@
 	_subject.delegate = self;
 	
 	__block BOOL shouldStartLoadBlock = NO;
-	_subject.bk_shouldStartLoadBlock = ^BOOL(UIWebView *view, NSURLRequest *req, UIWebViewNavigationType type){
+	_subject.bk_shouldStartLoadBlock = ^BOOL(UIWebView *view, NSURLRequest *req, UIWebViewNavigationType type) {
 		shouldStartLoadBlock = YES;
 		return YES;
 	};
@@ -53,7 +53,7 @@
 	_subject.delegate = self;
 	
 	__block BOOL didStartLoadBlock = NO;
-	_subject.bk_didStartLoadBlock = ^(UIWebView *view){
+	_subject.bk_didStartLoadBlock = ^(UIWebView *view) {
 		didStartLoadBlock = YES;
 	};
 	
@@ -67,7 +67,7 @@
 	_subject.delegate = self;
 	
 	__block BOOL didFinishLoadBlock = NO;
-	_subject.bk_didFinishLoadBlock = ^(UIWebView *view){
+	_subject.bk_didFinishLoadBlock = ^(UIWebView *view) {
 		didFinishLoadBlock = YES;
 	};
 	
@@ -81,7 +81,7 @@
 	_subject.delegate = self;
 	
 	__block BOOL didFinishWithErrorBlock = NO;
-	_subject.bk_didFinishWithErrorBlock = ^(UIWebView *view, NSError *err){
+	_subject.bk_didFinishWithErrorBlock = ^(UIWebView *view, NSError *err) {
 		didFinishWithErrorBlock = YES;
 	};
 	

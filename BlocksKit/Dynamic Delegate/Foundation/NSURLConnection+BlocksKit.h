@@ -17,17 +17,17 @@
 		 NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
 		 NSURLConnection *connection = [NSURLConnection connectionWithRequest:request];
 		 connection.delegate = self;
-		 connection.failureBlock = ^(NSURLConnection *connection, NSError *error){
+		 connection.failureBlock = ^(NSURLConnection *connection, NSError *error) {
 			 [[UIAlertView alertViewWithTitle:@"Download error" message:[error localizedDescription]] show];
 
 			 self.downloadButton.enabled = YES;
 			 self.progressView.progress = 0.0f;
 		 };
-		 connection.successBlock = ^(NSURLConnection *connection, NSURLResponse *response, NSData *responseData){
+		 connection.successBlock = ^(NSURLConnection *connection, NSURLResponse *response, NSData *responseData) {
 			 self.imageView.image = [UIImage imageWithData:responseData];
 			 self.downloadButton.enabled = YES;
 		 };
-		 connection.downloadBlock = ^(double progress){
+		 connection.downloadBlock = ^(double progress) {
 			 self.progressView.progress = progress;
 		 };
 

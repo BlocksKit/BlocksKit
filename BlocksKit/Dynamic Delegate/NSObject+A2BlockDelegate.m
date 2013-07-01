@@ -135,10 +135,10 @@ static inline SEL prefixedSelector(SEL selector) {
 			cls = [cls superclass];
 		}
 
-		IMP getterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject){
+		IMP getterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject) {
 			return [[delegatingObject bk_dynamicDelegateForProtocol:protocol] blockImplementationForMethod:selector];
 		});
-		IMP setterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject, id block){
+		IMP setterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject, id block) {
 			A2DynamicDelegate *dynamicDelegate = [delegatingObject bk_dynamicDelegateForProtocol:protocol];
 
 			if (delegateProperty.length) {
