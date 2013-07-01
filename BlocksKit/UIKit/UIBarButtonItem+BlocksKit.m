@@ -6,10 +6,12 @@
 #import "NSObject+BKAssociatedObjects.h"
 #import "UIBarButtonItem+BlocksKit.h"
 
-static char kBarButtonItemBlockKey;
+static const void *BKBarButtonItemBlockKey = &BKBarButtonItemBlockKey;
 
 @interface UIBarButtonItem (BlocksKitPrivate)
-- (void)bk__handleAction:(UIBarButtonItem *)sender;
+
+- (void)bk_handleAction:(UIBarButtonItem *)sender;
+
 @end
 
 @implementation UIBarButtonItem (BlocksKit)
@@ -19,7 +21,7 @@ static char kBarButtonItemBlockKey;
 	self = [self initWithBarButtonSystemItem:systemItem target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
 	
-	[self bk_associateCopyOfValue:action withKey:&kBarButtonItemBlockKey];
+	[self bk_associateCopyOfValue:action withKey:BKBarButtonItemBlockKey];
 	
 	return self;
 }
@@ -29,7 +31,7 @@ static char kBarButtonItemBlockKey;
 	self = [self initWithImage:image style:style target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
 	
-	[self bk_associateCopyOfValue:action withKey:&kBarButtonItemBlockKey];
+	[self bk_associateCopyOfValue:action withKey:BKBarButtonItemBlockKey];
 	
 	return self;
 }
@@ -39,7 +41,7 @@ static char kBarButtonItemBlockKey;
 	self = [self initWithImage:image landscapeImagePhone:landscapeImagePhone style:style target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
 	
-	[self bk_associateCopyOfValue:action withKey:&kBarButtonItemBlockKey];
+	[self bk_associateCopyOfValue:action withKey:BKBarButtonItemBlockKey];
 	
 	return self;
 }
@@ -49,14 +51,14 @@ static char kBarButtonItemBlockKey;
 	self = [self initWithTitle:title style:style target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
 	
-	[self bk_associateCopyOfValue:action withKey:&kBarButtonItemBlockKey];
+	[self bk_associateCopyOfValue:action withKey:BKBarButtonItemBlockKey];
 	
 	return self;
 }
 
 - (void)bk_handleAction:(UIBarButtonItem *)sender
 {
-	void (^block)(id) = [self bk_associatedValueForKey:&kBarButtonItemBlockKey];
+	void (^block)(id) = [self bk_associatedValueForKey:BKBarButtonItemBlockKey];
 	if (block) block(self);
 }
 

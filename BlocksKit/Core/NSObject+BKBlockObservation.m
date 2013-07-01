@@ -37,8 +37,8 @@ typedef NS_ENUM(int, BKObserverContext) {
 
 @end
 
-static char kObserverBlocksKey;
-static char BKBlockObservationContext;
+static const void *BKObserverBlocksKey = &BKObserverBlocksKey;
+static const void *BKBlockObservationContext = &BKBlockObservationContext;
 
 @implementation _BKObserver
 
@@ -328,7 +328,7 @@ static char BKBlockObservationContext;
 		return;
 	}
 #endif
-	[self bk_associateValue:dict withKey:&kObserverBlocksKey];
+	[self bk_associateValue:dict withKey:BKObserverBlocksKey];
 }
 
 - (NSMutableDictionary *)bk_observerBlocks
@@ -339,7 +339,7 @@ static char BKBlockObservationContext;
 		return [table objectForKey:self];
 	}
 #endif
-	return [self bk_associatedValueForKey:&kObserverBlocksKey];
+	return [self bk_associatedValueForKey:BKObserverBlocksKey];
 }
 
 @end
