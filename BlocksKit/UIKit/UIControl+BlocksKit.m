@@ -7,7 +7,7 @@
 #import "NSSet+BlocksKit.h"
 #import "UIControl+BlocksKit.h"
 
-static char kControlHandlersKey;
+static const void *BKControlHandlersKey = &BKControlHandlersKey;
 
 #pragma mark Private
 
@@ -15,8 +15,8 @@ static char kControlHandlersKey;
 
 - (id)initWithHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents;
 
-@property (nonatomic, copy) void (^handler)(id sender);
 @property (nonatomic) UIControlEvents controlEvents;
+@property (nonatomic, copy) void (^handler)(id sender);
 
 @end
 
@@ -53,10 +53,10 @@ static char kControlHandlersKey;
 {
 	NSParameterAssert(handler);
 	
-	NSMutableDictionary *events = [self bk_associatedValueForKey:&kControlHandlersKey];
+	NSMutableDictionary *events = [self bk_associatedValueForKey:BKControlHandlersKey];
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-		[self bk_associateValue:events withKey:&kControlHandlersKey];
+		[self bk_associateValue:events withKey:BKControlHandlersKey];
 	}
 	
 	NSNumber *key = @(controlEvents);
@@ -73,10 +73,10 @@ static char kControlHandlersKey;
 
 - (void)bk_removeEventHandlersForControlEvents:(UIControlEvents)controlEvents
 {
-	NSMutableDictionary *events = [self bk_associatedValueForKey:&kControlHandlersKey];
+	NSMutableDictionary *events = [self bk_associatedValueForKey:BKControlHandlersKey];
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-		[self bk_associateValue:events withKey:&kControlHandlersKey];
+		[self bk_associateValue:events withKey:BKControlHandlersKey];
 	}
 	
 	NSNumber *key = @(controlEvents);
@@ -94,10 +94,10 @@ static char kControlHandlersKey;
 
 - (BOOL)bk_hasEventHandlersForControlEvents:(UIControlEvents)controlEvents
 {
-	NSMutableDictionary *events = [self bk_associatedValueForKey:&kControlHandlersKey];
+	NSMutableDictionary *events = [self bk_associatedValueForKey:BKControlHandlersKey];
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-		[self bk_associateValue:events withKey:&kControlHandlersKey];
+		[self bk_associateValue:events withKey:BKControlHandlersKey];
 	}
 	
 	NSNumber *key = @(controlEvents);
