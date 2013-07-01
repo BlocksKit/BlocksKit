@@ -6,9 +6,10 @@
 //  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
 //
 
-#import "MFMessageComposeViewControllerBlocksKitTest.h"
-#import <BlocksKit/BlocksKit.h>
 #import <BlocksKit/A2DynamicDelegate.h>
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/BlocksKit+MessageUI.H>
+#import "MFMessageComposeViewControllerBlocksKitTest.h"
 
 @implementation MFMessageComposeViewControllerBlocksKitTest {
 	MFMessageComposeViewController *_subject;

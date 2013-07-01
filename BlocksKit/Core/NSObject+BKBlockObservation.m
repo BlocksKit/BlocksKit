@@ -3,12 +3,12 @@
 //  BlocksKit
 //
 
-#import "NSObject+BKBlockObservation.h"
-#import "NSObject+BKAssociatedObjects.h"
-#import "NSDictionary+BlocksKit.h"
-#import "NSArray+BlocksKit.h"
-#import "NSSet+BlocksKit.h"
 #import <objc/runtime.h>
+#import "NSArray+BlocksKit.h"
+#import "NSDictionary+BlocksKit.h"
+#import "NSObject+BKAssociatedObjects.h"
+#import "NSObject+BKBlockObservation.h"
+#import "NSSet+BlocksKit.h"
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000 || __MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
 #define HAS_MAP_TABLE 1

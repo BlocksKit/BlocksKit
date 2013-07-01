@@ -3,8 +3,8 @@
 //  BlocksKit
 //
 
-#import "NSObject+BKAssociatedObjects.h"
 #import <objc/runtime.h>
+#import "NSObject+BKAssociatedObjects.h"
 
 #pragma mark - Weak support
 

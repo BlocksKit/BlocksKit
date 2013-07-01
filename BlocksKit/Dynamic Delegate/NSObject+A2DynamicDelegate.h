@@ -3,8 +3,8 @@
 //  BlocksKit
 //
 
+#import <BlocksKit/A2DynamicDelegate.h>
 #import <Foundation/Foundation.h>
-#import "A2DynamicDelegate.h"
 
 /** The A2DynamicDelegate category to NSObject provides the primary interface
  by which dynamic delegates are generated for a given object. */
@@ -63,6 +63,5 @@
  @see <A2DynamicDelegate>blockImplementationForMethod:
  */
 - (id)bk_dynamicDelegateForProtocol:(Protocol *)protocol;
-
 
 @end

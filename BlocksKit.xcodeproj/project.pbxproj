@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		005292221781083E008ACFDA /* BlocksKit+MessageUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 005292201781083E008ACFDA /* BlocksKit+MessageUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		005292231781083E008ACFDA /* BlocksKit+UIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 005292211781083E008ACFDA /* BlocksKit+UIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		005292271781096B008ACFDA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 005292261781096B008ACFDA /* Default-568h@2x.png */; };
 		00D28ACC14AAC47800ECB62C /* UIPopoverController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 00D28AC614AAC43E00ECB62C /* UIPopoverController+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00D28ACE14AAC48600ECB62C /* UIPopoverController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */; };
@@ -256,8 +258,10 @@
 
 /* Begin PBXFileReference section */
 		0005D5DE161FDF23007DD837 /* iOS Tests App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Tests App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0005D5E8161FDF23007DD837 /* iOS Tests App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iOS Tests App-Info.plist"; path = "/Users/zw/Documents/Projects/BlocksKit/Tests/iOS Tests App-Info.plist"; sourceTree = "<absolute>"; };
-		0005D5EE161FDF23007DD837 /* iOS Tests App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "iOS Tests App-Prefix.pch"; path = "/Users/zw/Documents/Projects/BlocksKit/Tests/iOS Tests App-Prefix.pch"; sourceTree = "<absolute>"; };
+		0005D5E8161FDF23007DD837 /* iOS Tests App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOS Tests App-Info.plist"; sourceTree = "<group>"; };
+		0005D5EE161FDF23007DD837 /* iOS Tests App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS Tests App-Prefix.pch"; sourceTree = "<group>"; };
+		005292201781083E008ACFDA /* BlocksKit+MessageUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+MessageUI.h"; sourceTree = "<group>"; };
+		005292211781083E008ACFDA /* BlocksKit+UIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+UIKit.h"; sourceTree = "<group>"; };
 		005292261781096B008ACFDA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		00D28AC614AAC43E00ECB62C /* UIPopoverController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPopoverController+BlocksKit.h"; sourceTree = "<group>"; };
 		00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPopoverController+BlocksKit.m"; sourceTree = "<group>"; };
@@ -343,7 +347,6 @@
 		6CF22CA7161EAFB8002FD317 /* OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OS X Tests-Prefix.pch"; path = "/Users/zw/Documents/Projects/BlocksKit/Tests/OS X Tests-Prefix.pch"; sourceTree = "<absolute>"; };
 		6CF22CB0161EB048002FD317 /* iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF22CB1161EB048002FD317 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		6CF22CC0161EB048002FD317 /* iOS Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "iOS Tests-Prefix.pch"; path = "/Users/zw/Documents/Projects/BlocksKit/Tests/iOS Tests-Prefix.pch"; sourceTree = "<absolute>"; };
 		6CF22CDC161EB1C3002FD317 /* A2BlockDelegateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockDelegateTests.h; sourceTree = "<group>"; };
 		6CF22CDD161EB1C3002FD317 /* A2BlockDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockDelegateTests.m; sourceTree = "<group>"; };
 		6CF22CDE161EB1C3002FD317 /* A2BlockInvocationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockInvocationTests.h; sourceTree = "<group>"; };
@@ -518,7 +521,6 @@
 				005292261781096B008ACFDA /* Default-568h@2x.png */,
 				0005D5E8161FDF23007DD837 /* iOS Tests App-Info.plist */,
 				0005D5EE161FDF23007DD837 /* iOS Tests App-Prefix.pch */,
-				6CF22CC0161EB048002FD317 /* iOS Tests-Prefix.pch */,
 				6C161CC11620E08B00F04A9A /* main.m */,
 				6C161CC21620E08B00F04A9A /* PNDAppDelegate.h */,
 				6C161CC31620E08B00F04A9A /* PNDAppDelegate.m */,
@@ -530,6 +532,7 @@
 			isa = PBXGroup;
 			children = (
 				6C3DBF921382F1BA00E6C9AA /* BlocksKit */,
+				7B548FEC17D5B6B000496435 /* BundledFramework.xcconfig */,
 				6CF22C9E161EAFB8002FD317 /* Tests */,
 				6CF22BDF161EACBD002FD317 /* libffi */,
 				6C3DBF8F1382F1BA00E6C9AA /* Frameworks */,
@@ -566,6 +569,8 @@
 			isa = PBXGroup;
 			children = (
 				6C3DBFB21383044600E6C9AA /* BlocksKit.h */,
+				005292201781083E008ACFDA /* BlocksKit+MessageUI.h */,
+				005292211781083E008ACFDA /* BlocksKit+UIKit.h */,
 				DB70D7D3177FB44B002B5223 /* Core */,
 				DB70D7D4177FB452002B5223 /* Dynamic Delegate */,
 				00D28ACB14AAC45800ECB62C /* MessageUI */,
@@ -792,7 +797,6 @@
 		DB6E4E78182C452600128B37 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				7B548FEC17D5B6B000496435 /* BundledFramework.xcconfig */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -895,6 +899,7 @@
 				A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */,
 				A97E4C9F13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h in Headers */,
 				A97E4CA313FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.h in Headers */,
+				005292221781083E008ACFDA /* BlocksKit+MessageUI.h in Headers */,
 				00D28ACC14AAC47800ECB62C /* UIPopoverController+BlocksKit.h in Headers */,
 				6CF22BCF161EAC72002FD317 /* NSObject+A2BlockDelegate.h in Headers */,
 				6CF22BD3161EAC72002FD317 /* A2BlockInvocation.h in Headers */,
@@ -903,6 +908,7 @@
 				6C161C901620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */,
 				6C161C971620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */,
 				DB155FD9176294A2008B9A43 /* ffi_arm.h in Headers */,
+				005292231781083E008ACFDA /* BlocksKit+UIKit.h in Headers */,
 				DB155FDA176294A2008B9A43 /* ffi_common.h in Headers */,
 				DB155FDB176294A2008B9A43 /* ffi_i386.h in Headers */,
 				DB155FDC176294A2008B9A43 /* ffi.h in Headers */,

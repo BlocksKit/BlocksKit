@@ -1,5 +1,5 @@
 //
-//  A2BlockDelegate.h
+//  NSObject+A2BlockDelegate.h
 //  BlocksKit
 //
 

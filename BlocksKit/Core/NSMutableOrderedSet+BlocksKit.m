@@ -2,9 +2,6 @@
 //  NSMutableOrderedSet+BlocksKit.m
 //  BlocksKit
 //
-//  Created by Zachary Waldowski on 10/6/12.
-//  Copyright (c) 2012 Pandamonia LLC. All rights reserved.
-//
 
 #import "NSMutableOrderedSet+BlocksKit.h"
 

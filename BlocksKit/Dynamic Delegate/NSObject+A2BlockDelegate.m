@@ -1,14 +1,11 @@
 //
-//  A2BlockDelegate.m
-//  A2DynamicDelegate
-//
-//  Created by Alexsander Akers on 11/30/11.
-//  Copyright (c) 2011 Pandamonia LLC. All rights reserved.
+//  NSObject+A2BlockDelegate.m
+//  BlocksKit
 //
 
-#import "NSObject+A2BlockDelegate.h"
 #import <objc/message.h>
 #import "NSDictionary+BlocksKit.h"
+#import "NSObject+A2BlockDelegate.h"
 #import "NSObject+A2DynamicDelegate.h"
 #import "NSObject+BKAssociatedObjects.h"
 

@@ -3,8 +3,8 @@
 //  BlocksKit
 //
 
-#import "MFMessageComposeViewController+BlocksKit.h"
 #import "A2DynamicDelegate.h"
+#import "MFMessageComposeViewController+BlocksKit.h"
 #import "NSObject+A2BlockDelegate.h"
 
 #pragma mark Custom delegate

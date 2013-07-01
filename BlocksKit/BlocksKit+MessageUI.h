@@ -1,5 +1,5 @@
 //
-//  BlocksKit
+//  BlocksKit+MessageUI
 //
 //  The Objective-C block utilities you always wish you had.
 //
@@ -14,7 +14,7 @@
 //
 //  The above copyright notice and this permission notice shall be included in
 //  all copies or substantial portions of the Software.
-//  
+//
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,19 +24,5 @@
 //  THE SOFTWARE.
 //
 
-#import <BlocksKit/NSArray+BlocksKit.h>
-#import <BlocksKit/NSDictionary+BlocksKit.h>
-#import <BlocksKit/NSIndexSet+BlocksKit.h>
-#import <BlocksKit/NSInvocation+BlocksKit.h>
-#import <BlocksKit/NSMutableArray+BlocksKit.h>
-#import <BlocksKit/NSMutableDictionary+BlocksKit.h>
-#import <BlocksKit/NSMutableIndexSet+BlocksKit.h>
-#import <BlocksKit/NSMutableOrderedSet+BlocksKit.h>
-#import <BlocksKit/NSMutableSet+BlocksKit.h>
-#import <BlocksKit/NSObject+BKAssociatedObjects.h>
-#import <BlocksKit/NSObject+BKBlockExecution.h>
-#import <BlocksKit/NSObject+BKBlockObservation.h>
-#import <BlocksKit/NSOrderedSet+BlocksKit.h>
-#import <BlocksKit/NSSet+BlocksKit.h>
-#import <BlocksKit/NSTimer+BlocksKit.h>
-#import <BlocksKit/BKMacros.h>
+#import <BlocksKit/MFMailComposeViewController+BlocksKit.h>
+#import <BlocksKit/MFMessageComposeViewController+BlocksKit.h>

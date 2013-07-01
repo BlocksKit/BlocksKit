@@ -6,7 +6,9 @@
 #import "NSTimer+BlocksKit.h"
 
 @interface NSTimer (BlocksKitPrivate)
+
 + (void)bk_executeBlockFromTimer:(NSTimer *)aTimer;
+
 @end
 
 @implementation NSTimer (BlocksKit)
