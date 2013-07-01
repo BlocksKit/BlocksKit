@@ -1,18 +1,42 @@
 Pod::Spec.new do |s|
   s.name                  = 'BlocksKit'
-  s.version               = '1.8.3'
+  s.version               = '2.0.0'
   s.license               = 'MIT'
   s.summary               = 'The Objective-C block utilities you always wish you had.'
   s.homepage              = 'https://github.com/pandamonia/BlocksKit'
   s.author                = { 'Zachary Waldowski' => 'zwaldowski@gmail.com',
-                              'Alexsander Akers' => 'a2@pandamonia.us' }
+							  'Alexsander Akers'  => 'a2@pandamonia.us' }
   s.source                = { :git => 'https://github.com/pandamonia/BlocksKit.git', :tag => "v#{s.version}" }
   s.requires_arc          = true
-  s.osx.source_files      = 'BlocksKit/*.{h,m}'
-  s.osx.library           = 'ffi'
   s.osx.deployment_target = '10.7'
-  s.ios.dependency          'libffi'
-  s.ios.frameworks        = 'MessageUI'
-  s.ios.source_files      = 'BlocksKit/*.{h,m}', 'BlocksKit/UIKit/*.{h,m}', 'BlocksKit/MessageUI/*.{h,m}'
   s.ios.deployment_target = '5.0'
+
+  s.subspec 'Core' do |ss|
+	ss.source_files = 'BlocksKit/Core/*.{h,m}'
+  end
+
+  s.subspec 'DynamicDelegate' do |ss|
+	ss.source_files = 'BlocksKit/DynamicDelegate/*.{h,m}', 'BlocksKit/DynamicDelegate/Foundation/*.{h,m}'
+	ss.ios.dependency 'libffi'
+	ss.osx.library = 'ffi'
+  end
+
+  s.default_subspec = 'BlocksKit'
+  s.subspec 'BlocksKit' do |ss|
+	ss.dependency 'BlocksKit/Core'
+	ss.dependency 'BlocksKit/DynamicDelegate'
+  end
+
+  s.subspec 'MessageUI' do |ss|
+	ss.dependency 'BlocksKit/DynamicDelegate'
+	ss.platform = :ios
+	ss.source_files = 'BlocksKit/MessageUI/*.{h,m}'
+	ss.ios.frameworks = 'MessageUI'
+  end
+
+  s.subspec 'UIKit' do |ss|
+	ss.dependency 'BlocksKit/DynamicDelegate'
+	ss.platform = :ios
+	ss.source_files = 'BlocksKit/UIKit/*.{h,m}'
+  end
 end
