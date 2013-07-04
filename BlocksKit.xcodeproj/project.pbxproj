@@ -1074,7 +1074,7 @@
 				ORGANIZATIONNAME = "Pandamonia LLC";
 				TargetAttributes = {
 					6CF22C94161EAFB8002FD317 = {
-						TestTargetID = 0005D5DD161FDF23007DD837;
+						TestTargetID = 6CC40A741447BB1400E47595;
 					};
 				};
 			};
@@ -1543,17 +1543,15 @@
 		6CF22CA9161EAFB8002FD317 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOS Tests App.app/iOS Tests App";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/OS X Tests-Prefix.pch";
+				GCC_PREFIX_HEADER = "Tests/OS X Tests/OS X Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/OS X Tests/OS X Tests-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1561,17 +1559,15 @@
 		6CF22CAA161EAFB8002FD317 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOS Tests App.app/iOS Tests App";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/OS X Tests-Prefix.pch";
+				GCC_PREFIX_HEADER = "Tests/OS X Tests/OS X Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/OS X Tests/OS X Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
