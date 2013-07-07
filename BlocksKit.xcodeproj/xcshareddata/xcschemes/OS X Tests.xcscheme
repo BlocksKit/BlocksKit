@@ -17,8 +17,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6CF22C94161EAFB8002FD317"
-               BuildableName = "OS X Tests.octest"
-               BlueprintName = "OS X Tests"
+               BuildableName = "BlocksKit OS X Tests.octest"
+               BlueprintName = "BlocksKit OS X Tests"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
