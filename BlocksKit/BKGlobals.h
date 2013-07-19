@@ -63,4 +63,7 @@ typedef id (^BKKeyValueTransformBlock)(id key, id obj);
 typedef id (^BKAccumulationBlock)(id sum, id obj);
 typedef id (^BKIndexMapBlock)(NSUInteger index);
 
+typedef NSString *(^BKStringTransformBlock)(NSString *subString, NSUInteger index);
+typedef BOOL (^BKStringFilterBlock)(NSString *subString, NSUInteger index);
+
 typedef NSUInteger (^BKIndexTransformBlock)(NSUInteger index);

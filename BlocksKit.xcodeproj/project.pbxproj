@@ -205,6 +205,8 @@
 		DB155FEE176294B4008B9A43 /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = DB155FE7176294B4008B9A43 /* prep_cif.c */; };
 		DB155FEF176294B4008B9A43 /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = DB155FE8176294B4008B9A43 /* raw_api.c */; };
 		DB155FF0176294B4008B9A43 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = DB155FE9176294B4008B9A43 /* types.c */; };
+		DBC25B611799977200D57CBD /* NSString+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DBC25B5F1799977200D57CBD /* NSString+BlocksKit.h */; };
+		DBC25B621799977200D57CBD /* NSString+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DBC25B601799977200D57CBD /* NSString+BlocksKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -397,6 +399,8 @@
 		DB155FE7176294B4008B9A43 /* prep_cif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prep_cif.c; sourceTree = "<group>"; };
 		DB155FE8176294B4008B9A43 /* raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_api.c; sourceTree = "<group>"; };
 		DB155FE9176294B4008B9A43 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
+		DBC25B5F1799977200D57CBD /* NSString+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BlocksKit.h"; sourceTree = "<group>"; };
+		DBC25B601799977200D57CBD /* NSString+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BlocksKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,6 +566,8 @@
 				6C3DBFAA1382FD3B00E6C9AA /* NSSet+BlocksKit.m */,
 				6C3DBFDE1383265900E6C9AA /* NSTimer+BlocksKit.h */,
 				6C3DBFDF1383265A00E6C9AA /* NSTimer+BlocksKit.m */,
+				DBC25B5F1799977200D57CBD /* NSString+BlocksKit.h */,
+				DBC25B601799977200D57CBD /* NSString+BlocksKit.m */,
 				A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */,
 				A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */,
 				00D28ACB14AAC45800ECB62C /* MessageUI */,
@@ -858,6 +864,7 @@
 				6C161C911620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */,
 				6C161C981620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h in Headers */,
 				6C9594521638435700DBF5A1 /* NSObject+A2DynamicDelegate.h in Headers */,
+				DBC25B611799977200D57CBD /* NSString+BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1130,6 +1137,7 @@
 				6C161C931620C6E000F04A9A /* NSOrderedSet+BlocksKit.m in Sources */,
 				6C161C9A1620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.m in Sources */,
 				6C9594541638435700DBF5A1 /* NSObject+A2DynamicDelegate.m in Sources */,
+				DBC25B621799977200D57CBD /* NSString+BlocksKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
