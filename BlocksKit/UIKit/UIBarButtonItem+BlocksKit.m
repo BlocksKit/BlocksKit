@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "NSObject+BKAssociatedObjects.h"
+#import <objc/runtime.h>
 #import "UIBarButtonItem+BlocksKit.h"
 
 static const void *BKBarButtonItemBlockKey = &BKBarButtonItemBlockKey;
@@ -21,7 +21,7 @@ static const void *BKBarButtonItemBlockKey = &BKBarButtonItemBlockKey;
 	self = [self initWithBarButtonSystemItem:systemItem target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
 	
-	[self bk_associateCopyOfValue:action withKey:BKBarButtonItemBlockKey];
+    objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	
 	return self;
 }
@@ -31,7 +31,7 @@ static const void *BKBarButtonItemBlockKey = &BKBarButtonItemBlockKey;
 	self = [self initWithImage:image style:style target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
 	
-	[self bk_associateCopyOfValue:action withKey:BKBarButtonItemBlockKey];
+	objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	
 	return self;
 }
@@ -41,7 +41,7 @@ static const void *BKBarButtonItemBlockKey = &BKBarButtonItemBlockKey;
 	self = [self initWithImage:image landscapeImagePhone:landscapeImagePhone style:style target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
 	
-	[self bk_associateCopyOfValue:action withKey:BKBarButtonItemBlockKey];
+	objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	
 	return self;
 }
@@ -51,14 +51,14 @@ static const void *BKBarButtonItemBlockKey = &BKBarButtonItemBlockKey;
 	self = [self initWithTitle:title style:style target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
 	
-	[self bk_associateCopyOfValue:action withKey:BKBarButtonItemBlockKey];
+	objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	
 	return self;
 }
 
 - (void)bk_handleAction:(UIBarButtonItem *)sender
 {
-	void (^block)(id) = [self bk_associatedValueForKey:BKBarButtonItemBlockKey];
+	void (^block)(id) = objc_getAssociatedObject(self, BKBarButtonItemBlockKey);
 	if (block) block(self);
 }
 

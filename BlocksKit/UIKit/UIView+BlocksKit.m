@@ -3,8 +3,6 @@
 //  BlocksKit
 //
 
-#import "NSArray+BlocksKit.h"
-#import "NSObject+BKAssociatedObjects.h"
 #import "UIGestureRecognizer+BlocksKit.h"
 #import "UIView+BlocksKit.h"
 
@@ -21,16 +19,16 @@
 	gesture.numberOfTouchesRequired = numberOfTouches;
 	gesture.numberOfTapsRequired = numberOfTaps;
 	
-	[[self.gestureRecognizers bk_select:^BOOL(id obj) {
-		if ([obj isKindOfClass:[UITapGestureRecognizer class]]) {
-			BOOL rightTouches = ([(UITapGestureRecognizer *)obj numberOfTouchesRequired] == numberOfTouches);
-			BOOL rightTaps = ([(UITapGestureRecognizer *)obj numberOfTapsRequired] == numberOfTaps);
-			return (rightTouches && rightTaps);
-		}
-		return NO;
-	}] bk_each:^(id obj) {
-		[gesture requireGestureRecognizerToFail:(UITapGestureRecognizer *)obj];
-	}];
+    [self.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if (![obj isKindOfClass:[UITapGestureRecognizer class]]) return;
+        
+        UITapGestureRecognizer *tap = obj;
+        BOOL rightTouches = (tap.numberOfTouchesRequired == numberOfTouches);
+        BOOL rightTaps = (tap.numberOfTapsRequired == numberOfTaps);
+        if (rightTouches && rightTaps) {
+            [gesture requireGestureRecognizerToFail:tap];
+        }
+    }];
 	
 	[self addGestureRecognizer:gesture];
 }
@@ -47,7 +45,11 @@
 
 - (void)bk_eachSubview:(void (^)(UIView *subview))block
 {
-	[self.subviews bk_each:block];
+    NSParameterAssert(block != nil);
+    
+    [self.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+        block(subview);
+    }];
 }
 
 @end
