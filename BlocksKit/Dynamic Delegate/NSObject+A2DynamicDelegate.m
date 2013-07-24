@@ -3,8 +3,8 @@
 //  BlocksKit
 //
 
+#import <objc/runtime.h>
 #import "NSObject+A2DynamicDelegate.h"
-#import "NSObject+BKAssociatedObjects.h"
 
 extern Protocol *a2_dataSourceProtocol(Class cls);
 extern Protocol *a2_delegateProtocol(Class cls);
@@ -46,13 +46,13 @@ static dispatch_queue_t a2_backgroundQueue(void)
 	__block A2DynamicDelegate *dynamicDelegate;
 
 	dispatch_sync(a2_backgroundQueue(), ^{
-		dynamicDelegate = [self bk_associatedValueForKey:(__bridge const void *)protocol];
+		dynamicDelegate = objc_getAssociatedObject(self, (__bridge const void *)protocol);
 
 		if (!dynamicDelegate)
 		{
 			Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString:NSStringFromProtocol(protocol)]) ?: [A2DynamicDelegate class];
 			dynamicDelegate = [[cls alloc] initWithProtocol:protocol];
-			[self bk_associateValue:dynamicDelegate withKey:(__bridge const void *)protocol];
+			objc_setAssociatedObject(self, (__bridge const void *)protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		}
 	});
 

@@ -7,7 +7,6 @@
 #import "A2DynamicDelegate.h"
 #import "NSObject+A2BlockDelegate.h"
 #import "NSObject+A2DynamicDelegate.h"
-#import "NSObject+BKAssociatedObjects.h"
 #import "NSURLConnection+BlocksKit.h"
 
 #pragma mark Private
@@ -26,32 +25,32 @@ static const void *BKResponseLengthKey = &BKResponseLengthKey;
 
 - (NSMutableData *)bk_responseData
 {
-	return [self bk_associatedValueForKey:BKResponseDataKey];
+	return objc_getAssociatedObject(self, BKResponseDataKey);
 }
 
 - (void)bk_setResponseData:(NSMutableData *)responseData
 {
-	[self bk_associateValue:responseData withKey:BKResponseDataKey];
+	objc_setAssociatedObject(self, BKResponseDataKey, responseData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSURLResponse *)bk_response
 {
-	return [self bk_associatedValueForKey:BKResponseKey];
+	return objc_getAssociatedObject(self, BKResponseKey);
 }
 
-- (void)bk_setResponse:(NSURLResponse *)response {
-
-	return [self bk_associateValue:response withKey:BKResponseKey];
+- (void)bk_setResponse:(NSURLResponse *)response
+{
+	objc_setAssociatedObject(self, BKResponseKey, response, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSUInteger)bk_responseLength
 {
-	return [[self bk_associatedValueForKey:BKResponseLengthKey] unsignedIntegerValue];
+	return [objc_getAssociatedObject(self, BKResponseLengthKey) unsignedIntegerValue];
 }
 
 - (void)bk_setResponseLength:(NSUInteger)responseLength
 {
-	return [self bk_associateValue:@(responseLength) withKey:BKResponseLengthKey];
+	objc_setAssociatedObject(self, BKResponseLengthKey, @(responseLength), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

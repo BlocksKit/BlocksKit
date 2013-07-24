@@ -4,10 +4,8 @@
 //
 
 #import <objc/message.h>
-#import "NSDictionary+BlocksKit.h"
 #import "NSObject+A2BlockDelegate.h"
 #import "NSObject+A2DynamicDelegate.h"
-#import "NSObject+BKAssociatedObjects.h"
 
 #pragma mark - Declarations and macros
 
@@ -85,11 +83,10 @@ static inline SEL prefixedSelector(SEL selector) {
 
 + (NSMutableDictionary *)bk_delegateNameMap
 {
-	NSMutableDictionary *propertyMap = [self bk_associatedValueForKey:_cmd];
-
+	NSMutableDictionary *propertyMap = objc_getAssociatedObject(self, _cmd);
 	if (!propertyMap) {
 		propertyMap = [NSMutableDictionary dictionary];
-		[self bk_associateValue:propertyMap withKey:_cmd];
+		objc_setAssociatedObject(self, _cmd, propertyMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 
 	return propertyMap;
@@ -109,7 +106,7 @@ static inline SEL prefixedSelector(SEL selector) {
 
 + (void)bk_linkProtocol:(Protocol *)protocol methods:(NSDictionary *)dictionary
 {
-	[dictionary bk_each:^(NSString *propertyName, NSString *selectorName) {
+	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *propertyName, NSString *selectorName, BOOL *stop) {
 		objc_property_t property = class_getProperty(self, propertyName.UTF8String);
 		NSCAssert2(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
 
