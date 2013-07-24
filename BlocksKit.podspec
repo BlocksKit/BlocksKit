@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'DynamicDelegate' do |ss|
-    ss.source_files = 'BlocksKit/DynamicDelegate/*.{h,m}', 'BlocksKit/DynamicDelegate/Foundation/*.{h,m}'
+    ss.source_files = 'BlocksKit/Dynamic Delegate/*.{h,m}', 'BlocksKit/Dynamic Delegate/Foundation/*.{h,m}'
     ss.ios.dependency 'libffi'
     ss.osx.library = 'ffi'
   end
