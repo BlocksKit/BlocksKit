@@ -3,8 +3,7 @@
 //  BlocksKit
 //
 
-#import "NSObject+BKAssociatedObjects.h"
-#import "NSSet+BlocksKit.h"
+#import <objc/runtime.h>
 #import "UIControl+BlocksKit.h"
 
 static const void *BKControlHandlersKey = &BKControlHandlersKey;
@@ -53,10 +52,10 @@ static const void *BKControlHandlersKey = &BKControlHandlersKey;
 {
 	NSParameterAssert(handler);
 	
-	NSMutableDictionary *events = [self bk_associatedValueForKey:BKControlHandlersKey];
+	NSMutableDictionary *events = objc_getAssociatedObject(self, BKControlHandlersKey);
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-		[self bk_associateValue:events withKey:BKControlHandlersKey];
+		objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSNumber *key = @(controlEvents);
@@ -73,10 +72,10 @@ static const void *BKControlHandlersKey = &BKControlHandlersKey;
 
 - (void)bk_removeEventHandlersForControlEvents:(UIControlEvents)controlEvents
 {
-	NSMutableDictionary *events = [self bk_associatedValueForKey:BKControlHandlersKey];
+	NSMutableDictionary *events = objc_getAssociatedObject(self, BKControlHandlersKey);
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-		[self bk_associateValue:events withKey:BKControlHandlersKey];
+		objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSNumber *key = @(controlEvents);
@@ -85,7 +84,7 @@ static const void *BKControlHandlersKey = &BKControlHandlersKey;
 	if (!handlers)
 		return;
 	
-	[handlers bk_each:^(id sender) {
+	[handlers enumerateObjectsUsingBlock:^(id sender, BOOL *stop) {
 		[self removeTarget:sender action:NULL forControlEvents:controlEvents];
 	}];
 	
@@ -94,10 +93,10 @@ static const void *BKControlHandlersKey = &BKControlHandlersKey;
 
 - (BOOL)bk_hasEventHandlersForControlEvents:(UIControlEvents)controlEvents
 {
-	NSMutableDictionary *events = [self bk_associatedValueForKey:BKControlHandlersKey];
+	NSMutableDictionary *events = objc_getAssociatedObject(self, BKControlHandlersKey);
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-		[self bk_associateValue:events withKey:BKControlHandlersKey];
+		objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSNumber *key = @(controlEvents);

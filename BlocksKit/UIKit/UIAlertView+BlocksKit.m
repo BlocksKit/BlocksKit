@@ -4,7 +4,6 @@
 //
 
 #import "A2DynamicDelegate.h"
-#import "NSArray+BlocksKit.h"
 #import "NSObject+A2BlockDelegate.h"
 #import "NSObject+A2DynamicDelegate.h"
 #import "UIAlertView+BlocksKit.h"
@@ -137,7 +136,7 @@
 	UIAlertView *alertView = [[[self class] alloc] initWithTitle:title message:message delegate:self.bk_dynamicDelegate cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
 	
 	// Set other buttons
-	[otherButtonTitles bk_each:^(NSString *button) {
+	[otherButtonTitles enumerateObjectsUsingBlock:^(NSString *button, NSUInteger idx, BOOL *stop) {
 		[alertView addButtonWithTitle:button];
 	}];
 	
