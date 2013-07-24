@@ -12,31 +12,31 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '5.0'
 
   s.subspec 'Core' do |ss|
-	ss.source_files = 'BlocksKit/Core/*.{h,m}'
+    ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Core/*.{h,m}'
   end
 
   s.subspec 'DynamicDelegate' do |ss|
-	ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Dynamic Delegate/*.{h,m}', 'BlocksKit/Dynamic Delegate/Foundation/*.{h,m}'
-	ss.ios.dependency 'libffi'
-	ss.osx.library = 'ffi'
+    ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Dynamic Delegate/*.{h,m}', 'BlocksKit/Dynamic Delegate/Foundation/*.{h,m}'
+    ss.ios.dependency 'libffi'
+    ss.osx.library = 'ffi'
   end
 
   s.default_subspec = 'BlocksKit'
   s.subspec 'BlocksKit' do |ss|
-	ss.dependency 'BlocksKit/Core'
-	ss.dependency 'BlocksKit/DynamicDelegate'
+  	ss.dependency 'BlocksKit/Core'
+  	ss.dependency 'BlocksKit/DynamicDelegate'
   end
 
   s.subspec 'MessageUI' do |ss|
-	ss.dependency 'BlocksKit/DynamicDelegate'
-	ss.platform = :ios
-	ss.source_files = 'BlocksKit/BlocksKit+MessageUI.h', 'BlocksKit/MessageUI/*.{h,m}'
-	ss.ios.frameworks = 'MessageUI'
+  	ss.dependency 'BlocksKit/DynamicDelegate'
+  	ss.platform = :ios
+  	ss.source_files = 'BlocksKit/BlocksKit+MessageUI.h', 'BlocksKit/MessageUI/*.{h,m}'
+  	ss.ios.frameworks = 'MessageUI'
   end
 
   s.subspec 'UIKit' do |ss|
-	ss.dependency 'BlocksKit/DynamicDelegate'
-	ss.platform = :ios
-	ss.source_files = 'BlocksKit/BlocksKit+UIKit.h', 'BlocksKit/UIKit/*.{h,m}'
+  	ss.dependency 'BlocksKit/DynamicDelegate'
+  	ss.platform = :ios
+  	ss.source_files = 'BlocksKit/BlocksKit+UIKit.h', 'BlocksKit/UIKit/*.{h,m}'
   end
 end
