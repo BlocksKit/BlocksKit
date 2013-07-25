@@ -20,6 +20,14 @@ Pod::Spec.new do |s|
     ]
   }
 
+  s.default_subspec = 'All'
+  s.subspec 'All' do |ss|
+    ss.dependency 'BlocksKit/Core'
+    ss.dependency 'BlocksKit/DynamicDelegate'
+    ss.ios.dependency 'BlocksKit/MessageUI'
+    ss.ios.dependency 'BlocksKit/UIKit'
+  end
+
   s.subspec 'Core' do |ss|
     ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Core/*.{h,m}'
   end
@@ -28,12 +36,6 @@ Pod::Spec.new do |s|
     ss.source_files = 'BlocksKit/Dynamic Delegate/*.{h,m}', 'BlocksKit/Dynamic Delegate/Foundation/*.{h,m}'
     ss.ios.dependency 'libffi'
     ss.osx.library = 'ffi'
-  end
-
-  s.default_subspec = 'BlocksKit'
-  s.subspec 'BlocksKit' do |ss|
-    ss.dependency 'BlocksKit/Core'
-    ss.dependency 'BlocksKit/DynamicDelegate'
   end
 
   s.subspec 'MessageUI' do |ss|
