@@ -66,7 +66,7 @@
 + (void)load
 {
 	@autoreleasepool {
-		[self bk_registerDynamicDelegate];
+		[self bk_registerDynamicDelegateNamed:@"delegate" forProtocol:@protocol(UIWebViewDelegate)];
 		[self bk_linkDelegateMethods:@{
 			@"bk_shouldStartLoadBlock": @"webView:shouldStartLoadWithRequest:navigationType:",
 			@"bk_didStartLoadBlock": @"webViewDidStartLoad:",
