@@ -45,6 +45,7 @@
 
 #import "NSInvocation+BlocksKit.h"
 #import "NSTimer+BlocksKit.h"
+#import "NSString+BlocksKit.h"
 
 #import "NSURLConnection+BlocksKit.h"
 #import "NSCache+BlocksKit.h"
