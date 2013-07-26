@@ -7,6 +7,8 @@
 //
 
 #import "UITextField+BlocksKit.h"
+#import "A2DynamicDelegate.h"
+#import "NSObject+A2BlockDelegate.h"
 
 #pragma mark Delegate
 
@@ -102,19 +104,19 @@
 
 @implementation UITextField (BlocksKit)
 
-@dynamic shouldBeginEditingBlock, didBeginEditingBlock, shouldEndEditingBlock, didEndEditingBlock, shouldChangeCharactersInRangeWithReplacementStringBlock, shouldClearBlock, shouldReturnBlock;
+@dynamic bk_shouldBeginEditingBlock, bk_didBeginEditingBlock, bk_shouldEndEditingBlock, bk_didEndEditingBlock, bk_shouldChangeCharactersInRangeWithReplacementStringBlock, bk_shouldClearBlock, bk_shouldReturnBlock;
 
 + (void)load {
 	@autoreleasepool {
-		[self registerDynamicDelegate];
-		[self linkDelegateMethods: @{
-		 @"shouldBeginEditingBlock": @"textFieldShouldBeginEditing:",
-		 @"didBeginEditingBlock": @"textFieldDidBeginEditing:",
-		 @"shouldEndEditingBlock": @"textFieldShouldEndEditing:",
-         @"didEndEditingBlock" : @"textFieldDidEndEditing:",
-         @"shouldChangeCharactersInRangeWithReplacementStringBlock" : @"textField:shouldChangeCharactersInRange:replacementString:",
-         @"shouldClearBlock" : @"textFieldShouldClear:",
-         @"shouldReturnBlock" : @"textFieldShouldReturn:",
+		[self bk_registerDynamicDelegate];
+		[self bk_linkDelegateMethods: @{
+		 @"bk_shouldBeginEditingBlock": @"textFieldShouldBeginEditing:",
+		 @"bk_didBeginEditingBlock": @"textFieldDidBeginEditing:",
+		 @"bk_shouldEndEditingBlock": @"textFieldShouldEndEditing:",
+         @"bk_didEndEditingBlock" : @"textFieldDidEndEditing:",
+         @"bk_shouldChangeCharactersInRangeWithReplacementStringBlock" : @"textField:shouldChangeCharactersInRange:replacementString:",
+         @"bk_shouldClearBlock" : @"textFieldShouldClear:",
+         @"bk_shouldReturnBlock" : @"textFieldShouldReturn:",
          }];
 	}
 }
