@@ -196,6 +196,7 @@
 		A97E4CA413FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */; };
 		A99DD88613D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A99DD88913D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */; };
+		C059DDC117A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C059DDC017A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.m */; };
 		C05D8F4717A0744400632A60 /* UITextField+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C05D8F4517A0744300632A60 /* UITextField+BlocksKit.h */; };
 		C05D8F4817A0744400632A60 /* UITextField+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C05D8F4617A0744300632A60 /* UITextField+BlocksKit.m */; };
 		DB155FD9176294A2008B9A43 /* ffi_arm.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FCF176294A2008B9A43 /* ffi_arm.h */; };
@@ -415,6 +416,8 @@
 		A97E4CA213FD638A001BB376 /* MFMessageComposeViewController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMessageComposeViewController+BlocksKit.m"; sourceTree = "<group>"; };
 		A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+BlocksKit.h"; sourceTree = "<group>"; };
 		A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+BlocksKit.m"; sourceTree = "<group>"; };
+		C059DDBF17A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextFieldBlocksKitTest.h; sourceTree = "<group>"; };
+		C059DDC017A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextFieldBlocksKitTest.m; sourceTree = "<group>"; };
 		C05D8F4517A0744300632A60 /* UITextField+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+BlocksKit.h"; sourceTree = "<group>"; };
 		C05D8F4617A0744300632A60 /* UITextField+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+BlocksKit.m"; sourceTree = "<group>"; };
 		DB155FCF176294A2008B9A43 /* ffi_arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_arm.h; sourceTree = "<group>"; };
@@ -772,6 +775,8 @@
 				6CF22D2F161F32A2002FD317 /* UIControlBlocksKitTest.m */,
 				6CF22D32161F32A4002FD317 /* UIWebViewBlocksKitTest.h */,
 				6CF22D33161F32A9002FD317 /* UIWebViewBlocksKitTest.m */,
+				C059DDBF17A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.h */,
+				C059DDC017A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.m */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -1332,6 +1337,7 @@
 			files = (
 				7BE371A017D4364000F20298 /* main.m in Sources */,
 				7BE371A717D4364000F20298 /* BKApp.m in Sources */,
+				C059DDC117A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
