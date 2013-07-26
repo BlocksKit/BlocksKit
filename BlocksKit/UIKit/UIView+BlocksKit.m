@@ -3,99 +3,53 @@
 //  BlocksKit
 //
 
-#import "UIView+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
 #import "UIGestureRecognizer+BlocksKit.h"
-#import "NSArray+BlocksKit.h"
-
-static char kViewTouchDownBlockKey;
-static char kViewTouchMoveBlockKey;
-static char kViewTouchUpBlockKey;
+#import "UIView+BlocksKit.h"
 
 @implementation UIView (BlocksKit)
 
-- (void)whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(BKBlock)block {
-	if (!block)
-		return;
+- (void)bk_whenTouches:(NSUInteger)numberOfTouches tapped:(NSUInteger)numberOfTaps handler:(void (^)(void))block
+{
+	if (!block) return;
 	
-	UITapGestureRecognizer *gesture = [UITapGestureRecognizer recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+	UITapGestureRecognizer *gesture = [UITapGestureRecognizer bk_recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
 		if (state == UIGestureRecognizerStateRecognized) block();
 	}];
 	
-	[gesture setNumberOfTouchesRequired:numberOfTouches];
-	[gesture setNumberOfTapsRequired:numberOfTaps];
+	gesture.numberOfTouchesRequired = numberOfTouches;
+	gesture.numberOfTapsRequired = numberOfTaps;
 	
-	[[self.gestureRecognizers select:^BOOL(id obj) {
-		if ([obj isKindOfClass:[UITapGestureRecognizer class]]) {
-			BOOL rightTouches = ([(UITapGestureRecognizer *)obj numberOfTouchesRequired] == numberOfTouches);
-			BOOL rightTaps = ([(UITapGestureRecognizer *)obj numberOfTapsRequired] == numberOfTaps);
-			return (rightTouches && rightTaps);
-		}
-		return NO;
-	}] each:^(id obj) {
-		[gesture requireGestureRecognizerToFail:(UITapGestureRecognizer *)obj];
-	}];
+    [self.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if (![obj isKindOfClass:[UITapGestureRecognizer class]]) return;
+        
+        UITapGestureRecognizer *tap = obj;
+        BOOL rightTouches = (tap.numberOfTouchesRequired == numberOfTouches);
+        BOOL rightTaps = (tap.numberOfTapsRequired == numberOfTaps);
+        if (rightTouches && rightTaps) {
+            [gesture requireGestureRecognizerToFail:tap];
+        }
+    }];
 	
 	[self addGestureRecognizer:gesture];
 }
 
-- (void)whenTapped:(BKBlock)block {
-	[self whenTouches:1 tapped:1 handler:block];
+- (void)bk_whenTapped:(void (^)(void))block
+{
+	[self bk_whenTouches:1 tapped:1 handler:block];
 }
 
-- (void)whenDoubleTapped:(BKBlock)block {
-	[self whenTouches:2 tapped:1 handler:block];
+- (void)bk_whenDoubleTapped:(void (^)(void))block
+{
+	[self bk_whenTouches:2 tapped:1 handler:block];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	[super touchesBegan:touches withEvent:event];
-	BKTouchBlock block = [self associatedValueForKey:&kViewTouchDownBlockKey];
-	if (block)
-		block(touches, event);
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	[super touchesMoved:touches withEvent:event];
-	BKTouchBlock block = [self associatedValueForKey:&kViewTouchMoveBlockKey];
-	if (block)
-		block(touches, event);
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[super touchesEnded:touches withEvent:event];
-	BKTouchBlock block = [self associatedValueForKey:&kViewTouchUpBlockKey];
-	if (block)
-		block(touches, event);
-}
-
-- (void)eachSubview:(void(^)(UIView *))block {
-	[self.subviews each:(BKSenderBlock)block];
-}
-
-#pragma mark Properties
-
-- (void)setOnTouchDownBlock:(BKTouchBlock)block {
-	[self associateCopyOfValue:block withKey:&kViewTouchDownBlockKey];
-}
-
-- (BKTouchBlock)onTouchDownBlock {
-	return [self associatedValueForKey:&kViewTouchDownBlockKey];
-}
-
-- (void)setOnTouchMoveBlock:(BKTouchBlock)block {
-	[self associateCopyOfValue:block withKey:&kViewTouchMoveBlockKey];
-}
-
-- (BKTouchBlock)onTouchMoveBlock {
-	return [self associatedValueForKey:&kViewTouchMoveBlockKey];
-}
-
-- (void)setOnTouchUpBlock:(BKTouchBlock)block {
-	[self associateCopyOfValue:block withKey:&kViewTouchUpBlockKey];
-}
-
-- (BKTouchBlock)onTouchUpBlock {
-	return [self associatedValueForKey:&kViewTouchUpBlockKey];
+- (void)bk_eachSubview:(void (^)(UIView *subview))block
+{
+    NSParameterAssert(block != nil);
+    
+    [self.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+        block(subview);
+    }];
 }
 
 @end

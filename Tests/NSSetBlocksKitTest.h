@@ -4,7 +4,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/NSSet+BlocksKit.h>
+#import <Foundation/Foundation.h>
 
 @interface NSSetBlocksKitTest : SenTestCase
 

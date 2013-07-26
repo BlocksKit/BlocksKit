@@ -3,6 +3,8 @@
 //  BlocksKit
 //
 
+#import "A2DynamicDelegate.h"
+#import "NSObject+A2BlockDelegate.h"
 #import "UIWebView+BlocksKit.h"
 
 #pragma mark Custom delegate
@@ -31,9 +33,8 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(webViewDidStartLoad:)])
 		[realDelegate webViewDidStartLoad:webView];
 
-	void(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
-	if (block)
-		block(webView);
+	void (^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
+	if (block) block(webView);
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -41,9 +42,8 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(webViewDidFinishLoad:)])
 		[realDelegate webViewDidFinishLoad:webView];
 
-	void(^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
-	if (block)
-		block(webView);
+	void (^block)(UIWebView *) = [self blockImplementationForMethod:_cmd];
+	if (block) block(webView);
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -51,9 +51,8 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(webView:didFailLoadWithError:)])
 		[realDelegate webView:webView didFailLoadWithError:error];
 
-	void(^block)(UIWebView *, NSError *) = [self blockImplementationForMethod:_cmd];
-	if (block)
-		block(webView, error);
+	void (^block)(UIWebView *, NSError *) = [self blockImplementationForMethod:_cmd];
+	if (block) block(webView, error);
 }
 
 @end
@@ -62,16 +61,17 @@
 
 @implementation UIWebView (BlocksKit)
 
-@dynamic shouldStartLoadBlock, didStartLoadBlock, didFinishLoadBlock, didFinishWithErrorBlock;
+@dynamic bk_shouldStartLoadBlock, bk_didStartLoadBlock, bk_didFinishLoadBlock, bk_didFinishWithErrorBlock;
 
-+ (void)load {
++ (void)load
+{
 	@autoreleasepool {
-		[self registerDynamicDelegate];
-		[self linkDelegateMethods: @{
-		 @"shouldStartLoadBlock": @"webView:shouldStartLoadWithRequest:navigationType:",
-		 @"didStartLoadBlock": @"webViewDidStartLoad:",
-		 @"didFinishLoadBlock": @"webViewDidFinishLoad:",
-		 @"didFinishWithErrorBlock": @"webView:didFailLoadWithError:"
+		[self bk_registerDynamicDelegate];
+		[self bk_linkDelegateMethods:@{
+			@"bk_shouldStartLoadBlock": @"webView:shouldStartLoadWithRequest:navigationType:",
+			@"bk_didStartLoadBlock": @"webViewDidStartLoad:",
+			@"bk_didFinishLoadBlock": @"webViewDidFinishLoad:",
+			@"bk_didFinishWithErrorBlock": @"webView:didFailLoadWithError:"
 		}];
 	}
 }

@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <UIKit/UIKit.h>
 
 /** Block functionality for UIGestureRecognizer.
 
@@ -49,7 +49,7 @@
  @param block The block which handles an executed gesture.
  @param delay A number of seconds after which the block will fire.
  */
-+ (id)recognizerWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay;
++ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay;
 
 /** Initializes an allocated gesture recognizer that will call the given block
  after a given delay.
@@ -60,7 +60,7 @@
  @param block The block which handles an executed gesture.
  @param delay A number of seconds after which the block will fire.
  */
-- (id)initWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay;
+- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay NS_REPLACES_RECEIVER;
 
 /** An autoreleased gesture recognizer that will call the given block.
  
@@ -71,7 +71,7 @@
  subclass, or `nil`.
  @param block The block which handles an executed gesture.
  */
-+ (id)recognizerWithHandler:(BKGestureRecognizerBlock)block;
++ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block;
 
 /** Initializes an allocated gesture recognizer that will call the given block.
  
@@ -80,26 +80,16 @@
  @return An initialized instance of a concrete UIGestureRecognizer subclass or `nil`.
  @param block The block which handles an executed gesture.
  */
-- (id)initWithHandler:(BKGestureRecognizerBlock)block;
+- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block NS_REPLACES_RECEIVER;
 
 /** Allows the block that will be fired by the gesture recognizer
  to be modified after the fact.
  */
-@property (nonatomic, copy) BKGestureRecognizerBlock handler;
+@property (nonatomic, copy, setter = bk_setHandler:) void (^bk_handler)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location);
 
 /** Allows the length of the delay after which the gesture
  recognizer will be fired to modify. */
-@property (nonatomic) NSTimeInterval handlerDelay;
-
-/** Allows the length of the delay after which the gesture
- recognizer will be fired to modify.
- 
- @warning Due to a collision with an internal method in
- UILongPressGestureRecognizer, this method was replaced
- with handlerDelay starting in BlocksKit 1.0.5.
- 
- */
-@property (nonatomic) NSTimeInterval delay DEPRECATED_ATTRIBUTE_M("Use handlerDelay");
+@property (nonatomic, setter = bk_setHandlerDelay:) NSTimeInterval bk_handlerDelay;
 
 /** If the recognizer happens to be fired, calling this method
  will stop it from firing, but only if a delay is set.
@@ -109,6 +99,6 @@
  handler *after the recognizer has already been fired*.  Be
  sure to make your delay times accomodate this likelihood.
  */
-- (void)cancel;
+- (void)bk_cancel;
 
 @end

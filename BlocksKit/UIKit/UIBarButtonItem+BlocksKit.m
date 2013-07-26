@@ -3,39 +3,63 @@
 //  BlocksKit
 //
 
+#import <objc/runtime.h>
 #import "UIBarButtonItem+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
 
-static char kBarButtonItemBlockKey;
+static const void *BKBarButtonItemBlockKey = &BKBarButtonItemBlockKey;
 
 @interface UIBarButtonItem (BlocksKitPrivate)
-- (void)_handleAction:(UIBarButtonItem *)sender;
+
+- (void)bk_handleAction:(UIBarButtonItem *)sender;
+
 @end
 
 @implementation UIBarButtonItem (BlocksKit)
 
-- (id)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(BKSenderBlock)action {
-	self = [self initWithBarButtonSystemItem:systemItem target:self action:@selector(_handleAction:)];
-	[self associateCopyOfValue:action withKey:&kBarButtonItemBlockKey];
+- (id)bk_initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(void (^)(id sender))action
+{
+	self = [self initWithBarButtonSystemItem:systemItem target:self action:@selector(bk_handleAction:)];
+	if (!self) return nil;
+	
+    objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	
 	return self;
 }
 
-- (id)initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action {
-	self = [self initWithImage:image style:style target:self action:@selector(_handleAction:)];
-	[self associateCopyOfValue:action withKey:&kBarButtonItemBlockKey];
+- (id)bk_initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action
+{
+	self = [self initWithImage:image style:style target:self action:@selector(bk_handleAction:)];
+	if (!self) return nil;
+	
+	objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	
 	return self;
 }
 
-- (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(BKSenderBlock)action {
-	self = [self initWithTitle:title style:style target:self action:@selector(_handleAction:)];
-	[self associateCopyOfValue:action withKey:&kBarButtonItemBlockKey];
+- (id)bk_initWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action
+{
+	self = [self initWithImage:image landscapeImagePhone:landscapeImagePhone style:style target:self action:@selector(bk_handleAction:)];
+	if (!self) return nil;
+	
+	objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	
 	return self;
 }
 
-- (void)_handleAction:(UIBarButtonItem *)sender {
-	BKSenderBlock block = [self associatedValueForKey:&kBarButtonItemBlockKey];
-	if (block)
-		block(self);
+- (id)bk_initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action
+{
+	self = [self initWithTitle:title style:style target:self action:@selector(bk_handleAction:)];
+	if (!self) return nil;
+	
+	objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	
+	return self;
+}
+
+- (void)bk_handleAction:(UIBarButtonItem *)sender
+{
+	void (^block)(id) = objc_getAssociatedObject(self, BKBarButtonItemBlockKey);
+	if (block) block(self);
 }
 
 @end

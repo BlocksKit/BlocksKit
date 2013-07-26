@@ -4,7 +4,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <Blockskit/NSCache+BlocksKit.h>
+#import <Foundation/Foundation.h>
 
 @interface NSCacheBlocksKitTest : SenTestCase <NSCacheDelegate>
 

@@ -1,12 +1,10 @@
 //
 //  NSMutableOrderedSetBlocksKitTest.m
-//  BlocksKit
-//
-//  Created by Zachary Waldowski on 10/6/12.
-//  Copyright (c) 2012 Pandamonia LLC. All rights reserved.
+//  BlocksKit Unit Tests
 //
 
 #import "NSMutableOrderedSetBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
 
 @implementation NSMutableOrderedSetBlocksKitTest {
 	id _subject;
@@ -18,7 +16,7 @@
 	Class BKOrderedSet = NSClassFromString(@"NSMutableOrderedSet");
 	if (BKOrderedSet) {
 		_hasClassAvailable = YES;
-		_subject = [NSMutableOrderedSet orderedSetWithArray: @[ @"1", @"22", @"333" ]];
+		_subject = [NSMutableOrderedSet orderedSetWithArray:@[ @"1", @"22", @"333" ]];
 	} else {
 		_hasClassAvailable = NO;
 	}
@@ -26,69 +24,69 @@
 }
 
 - (void)testSelect {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 300) ? YES : NO;
 		return match;
 	};
 	NSMutableOrderedSet *subject = _subject;
-	[subject performSelect:validationBlock];
+	[subject bk_performSelect:validationBlock];
 
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	NSMutableOrderedSet *target = [NSMutableOrderedSet orderedSetWithArray: @[ @"1", @"22" ]];
+	NSMutableOrderedSet *target = [NSMutableOrderedSet orderedSetWithArray:@[ @"1", @"22" ]];
 	STAssertEqualObjects(subject,target,@"selected items are %@",_subject);
 }
 
 - (void)testSelectedNone {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 400) ? YES : NO;
 		return match;
 	};
 	NSMutableOrderedSet *subject = _subject;
-	[subject performSelect:validationBlock];
+	[subject bk_performSelect:validationBlock];
 
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
 	STAssertEquals(subject.count,(NSUInteger)0,@"no item is selected");
 }
 
 - (void)testReject {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 300) ? YES : NO;
 		return match;
 	};
 	NSMutableOrderedSet *subject = _subject;
-	[subject performReject:validationBlock];
+	[subject bk_performReject:validationBlock];
 
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	NSMutableOrderedSet *target = [NSMutableOrderedSet orderedSetWithArray: @[ @"1", @"22" ]];
+	NSMutableOrderedSet *target = [NSMutableOrderedSet orderedSetWithArray:@[ @"1", @"22" ]];
 	STAssertEqualObjects(subject,target,@"not rejected items are %@",_subject);
 }
 
 - (void)testRejectedAll {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 400) ? YES : NO;
 		return match;
 	};
 	NSMutableOrderedSet *subject = _subject;
-	[subject performReject:validationBlock];
+	[subject bk_performReject:validationBlock];
 
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
 	STAssertEquals(subject.count,(NSUInteger)0,@"all items are rejected");
 }
 
 - (void)testMap {
-	BKTransformBlock transformBlock = ^(NSString *obj) {
+	id(^transformBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};
 	NSMutableOrderedSet *subject = _subject;
-	[subject performMap:transformBlock];
+	[subject bk_performMap:transformBlock];
 
 	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	NSMutableOrderedSet *target = [NSMutableOrderedSet orderedSetWithArray: @[ @"1", @"22", @"333" ]];
+	NSMutableOrderedSet *target = [NSMutableOrderedSet orderedSetWithArray:@[ @"1", @"22", @"333" ]];
 	STAssertEqualObjects(subject,target,@"transformed items are %@",_subject);
 }
 

@@ -3,88 +3,95 @@
 //  BlocksKit
 //
 
+#import <objc/runtime.h>
 #import "UIGestureRecognizer+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
-#import "NSObject+BlocksKit.h"
 
-static char kGestureRecognizerBlockKey;
-static char kGestureRecognizerDelayKey;
-static char kGestureRecognizerCancelKey;
+static const void *BKGestureRecognizerBlockKey = &BKGestureRecognizerBlockKey;
+static const void *BKGestureRecognizerDelayKey = &BKGestureRecognizerDelayKey;
 
 @interface UIGestureRecognizer (BlocksKitInternal)
-- (void)_handleAction:(UIGestureRecognizer *)recognizer;
+
+@property (nonatomic, setter = bk_setShouldHandleAction:) BOOL bk_shouldHandleAction;
+
+- (void)bk_handleAction:(UIGestureRecognizer *)recognizer;
+
 @end
 
 @implementation UIGestureRecognizer (BlocksKit)
 
-+ (id)recognizerWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay {
-	return [[[self class] alloc] initWithHandler:block delay:delay];
++ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay
+{
+	return [[[self class] alloc] bk_initWithHandler:block delay:delay];
 }
 
-- (id)initWithHandler:(BKGestureRecognizerBlock)block delay:(NSTimeInterval)delay {
-	if ((self = [self initWithTarget:self action:@selector(_handleAction:)])) {
-		self.handler = block;
-		self.handlerDelay = delay;
-	}
+- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay
+{
+	self = [self initWithTarget:self action:@selector(bk_handleAction:)];
+	if (!self) return nil;
+	
+	self.bk_handler = block;
+	self.bk_handlerDelay = delay;
+
 	return self;
 }
 
-+ (id)recognizerWithHandler:(BKGestureRecognizerBlock)block {
-	return [self recognizerWithHandler:block delay:0.0];
++ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block
+{
+	return [self bk_recognizerWithHandler:block delay:0.0];
 }
 
-- (id)initWithHandler:(BKGestureRecognizerBlock)block {
-	return [self initWithHandler:block delay:0.0];
+- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block
+{
+	return [self bk_initWithHandler:block delay:0.0];
 }
 
-- (void)_handleAction:(UIGestureRecognizer *)recognizer {
-	BKGestureRecognizerBlock handler = recognizer.handler;
-	if (!handler)
-		return;
+- (void)bk_handleAction:(UIGestureRecognizer *)recognizer
+{
+	void (^handler)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) = recognizer.bk_handler;
+	if (!handler) return;
 	
-	NSTimeInterval delay = self.handlerDelay;
+	NSTimeInterval delay = self.bk_handlerDelay;
 	CGPoint location = [self locationInView:self.view];
-	BKBlock block = ^{
+	void (^block)(void) = ^{
+        if (!self.bk_shouldHandleAction) return;
 		handler(self, self.state, location);
 	};
 	
+    self.bk_shouldHandleAction = YES;
+
 	if (!delay) {
 		block();
 		return;
 	}
-	
-	id cancel = [NSObject performBlock:block afterDelay:delay];
-	[self associateCopyOfValue:cancel withKey:&kGestureRecognizerCancelKey];
+	   
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), block);
 }
 
-- (void)setHandler:(BKGestureRecognizerBlock)handler {
-	[self associateCopyOfValue:handler withKey:&kGestureRecognizerBlockKey];
+- (void)bk_setHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))handler
+{
+    objc_setAssociatedObject(self, BKGestureRecognizerBlockKey, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (BKGestureRecognizerBlock)handler {
-	return [self associatedValueForKey:&kGestureRecognizerBlockKey];
+- (void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))bk_handler
+{
+    return objc_getAssociatedObject(self, BKGestureRecognizerBlockKey);
 }
 
-- (void)setHandlerDelay:(NSTimeInterval)delay {
+- (void)bk_setHandlerDelay:(NSTimeInterval)delay
+{
 	NSNumber *delayValue = delay ? @(delay) : nil;
-	[self associateValue:delayValue withKey:&kGestureRecognizerDelayKey];
+    objc_setAssociatedObject(self, BKGestureRecognizerDelayKey, delayValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSTimeInterval)handlerDelay {
-	NSNumber *delay = [self associatedValueForKey:&kGestureRecognizerDelayKey];
-	return delay ? [delay doubleValue] : 0.0;
+- (NSTimeInterval)bk_handlerDelay
+{
+    return [objc_getAssociatedObject(self, BKGestureRecognizerDelayKey) doubleValue];
 }
 
-- (void)setDelay:(NSTimeInterval)delay {
-	[self setHandlerDelay:delay];
-}
-
-- (NSTimeInterval)delay {
-	return [self handlerDelay];
-}
-
-- (void)cancel {
-	[NSObject cancelBlock:[self associatedValueForKey:&kGestureRecognizerCancelKey]];
+- (void)bk_cancel
+{
+    self.bk_shouldHandleAction = NO;
 }
 
 @end

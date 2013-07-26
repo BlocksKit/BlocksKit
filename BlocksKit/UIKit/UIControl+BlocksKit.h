@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import "BKGlobals.h"
+#import <UIKit/UIKit.h>
 
 /** Block control event handling for UIControl.
 
@@ -26,19 +26,19 @@
  @param controlEvents A bitmask specifying the control events for which the action message is sent.
  @see removeEventHandlersForControlEvents:
  */
-- (void)addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents;
+- (void)bk_addEventHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents;
 
 /** Removes all blocks for a particular event combination.
  @param controlEvents A bitmask specifying the control events for which the block will be removed.
  @see addEventHandler:forControlEvents:
  */
-- (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents;
+- (void)bk_removeEventHandlersForControlEvents:(UIControlEvents)controlEvents;
 
 /** Checks to see if the control has any blocks for a particular event combination.
  @param controlEvents A bitmask specifying the control events for which to check for blocks.
  @see addEventHandler:forControlEvents:
  @return Returns YES if there are blocks for these control events, NO otherwise.
  */
-- (BOOL)hasEventHandlersForControlEvents:(UIControlEvents)controlEvents;
+- (BOOL)bk_hasEventHandlersForControlEvents:(UIControlEvents)controlEvents;
 
 @end

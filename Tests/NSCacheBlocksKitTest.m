@@ -1,12 +1,12 @@
 //
 //  NSCacheBlocksKitTest.m
-//  BlocksKit
-//
-//  Created by Zachary Waldowski on 10/5/11.
-//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
+//  BlocksKit Unit Tests
 //
 
 #import "NSCacheBlocksKitTest.h"
+#import <BlocksKit/A2DynamicDelegate.h>
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/NSCache+BlocksKit.h>
 
 #define OBJECT_COUNT 300
 
@@ -31,10 +31,10 @@
 	_subject.delegate = self;
 	_total = 2;
 	__unsafe_unretained NSCacheBlocksKitTest *weakSelf = self;
-	_subject.willEvictBlock = ^(NSCache *cache, id obj){
+	_subject.bk_willEvictBlock = ^(NSCache *cache, id obj) {
 		weakSelf->_total--;
 	};
-	[_subject.dynamicDelegate cache:_subject willEvictObject:nil];
+	[_subject.bk_dynamicDelegate cache:_subject willEvictObject:nil];
 	STAssertEquals(_total, (NSInteger)0, @"The delegates should have been called!");
 }
 

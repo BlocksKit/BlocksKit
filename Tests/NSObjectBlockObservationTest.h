@@ -4,7 +4,6 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/NSObject+BlockObservation.h>
 
 @interface NSObjectBlockObservationTest : SenTestCase
 

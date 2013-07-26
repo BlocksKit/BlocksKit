@@ -4,7 +4,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/A2DynamicDelegate.h>
+#import <Foundation/Foundation.h>
 
 #pragma mark -
 

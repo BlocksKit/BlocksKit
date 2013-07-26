@@ -3,37 +3,42 @@
 //  BlocksKit
 //
 
+#import <objc/runtime.h>
 #import "UIControl+BlocksKit.h"
-#import "NSObject+AssociatedObjects.h"
-#import "NSSet+BlocksKit.h"
 
-static char kControlHandlersKey;
+static const void *BKControlHandlersKey = &BKControlHandlersKey;
 
 #pragma mark Private
 
 @interface BKControlWrapper : NSObject <NSCopying>
 
-- (id)initWithHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents;
-@property (nonatomic, copy) BKSenderBlock handler;
+- (id)initWithHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents;
+
 @property (nonatomic) UIControlEvents controlEvents;
+@property (nonatomic, copy) void (^handler)(id sender);
 
 @end
 
 @implementation BKControlWrapper
 
-- (id)initWithHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
-	if ((self = [super init])) {
-		self.handler = handler;
-		self.controlEvents = controlEvents;
-	}
+- (id)initWithHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents
+{
+	self = [super init];
+	if (!self) return nil;
+	
+	self.handler = handler;
+	self.controlEvents = controlEvents;
+	
 	return self;
 }
 
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(NSZone *)zone
+{
 	return [[BKControlWrapper alloc] initWithHandler:self.handler forControlEvents:self.controlEvents];
 }
 
-- (void)invoke:(id)sender {
+- (void)invoke:(id)sender
+{
 	self.handler(sender);
 }
 
@@ -43,13 +48,14 @@ static char kControlHandlersKey;
 
 @implementation UIControl (BlocksKit)
 
-- (void)addEventHandler:(BKSenderBlock)handler forControlEvents:(UIControlEvents)controlEvents {
+- (void)bk_addEventHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents
+{
 	NSParameterAssert(handler);
 	
-	NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
+	NSMutableDictionary *events = objc_getAssociatedObject(self, BKControlHandlersKey);
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-		[self associateValue:events withKey:&kControlHandlersKey];
+        objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSNumber *key = @(controlEvents);
@@ -64,11 +70,12 @@ static char kControlHandlersKey;
 	[self addTarget:target action:@selector(invoke:) forControlEvents:controlEvents];
 }
 
-- (void)removeEventHandlersForControlEvents:(UIControlEvents)controlEvents {
-	NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
+- (void)bk_removeEventHandlersForControlEvents:(UIControlEvents)controlEvents
+{
+	NSMutableDictionary *events = objc_getAssociatedObject(self, BKControlHandlersKey);
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-		[self associateValue:events withKey:&kControlHandlersKey];
+        objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSNumber *key = @(controlEvents);
@@ -77,18 +84,19 @@ static char kControlHandlersKey;
 	if (!handlers)
 		return;
 	
-	[handlers each:^(id sender) {
-		[self removeTarget:sender action:NULL forControlEvents:controlEvents];
-	}];
+    [handlers enumerateObjectsUsingBlock:^(id sender, BOOL *stop) {
+        [self removeTarget:sender action:NULL forControlEvents:controlEvents];
+    }];
 	
 	[events removeObjectForKey:key];
 }
 
-- (BOOL)hasEventHandlersForControlEvents:(UIControlEvents)controlEvents {
-	NSMutableDictionary *events = [self associatedValueForKey:&kControlHandlersKey];
+- (BOOL)bk_hasEventHandlersForControlEvents:(UIControlEvents)controlEvents
+{
+	NSMutableDictionary *events = objc_getAssociatedObject(self, BKControlHandlersKey);
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-		[self associateValue:events withKey:&kControlHandlersKey];
+        objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSNumber *key = @(controlEvents);

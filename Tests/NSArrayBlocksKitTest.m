@@ -2,11 +2,9 @@
 //  NSArrayBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
-//  Created by Kai Wu on 7/3/11.
-//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
-//
 
 #import "NSArrayBlocksKitTest.h"
+#import <BlocksKit/BlocksKit.h>
 
 @implementation NSArrayBlocksKitTest {
 	NSArray *_subject;
@@ -23,33 +21,33 @@
 }
 
 - (void)testEach {
-	BKSenderBlock senderBlock = ^(NSString *sender) {
+	void (^senderBlock)(NSString *) = ^(NSString *sender) {
 		_total += [sender length];
 	};
-	[_subject each:senderBlock];
+	[_subject bk_each:senderBlock];
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 }
 
 - (void)testMatch {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 22) ? YES : NO;
 		return match;
 	};
-	id found = [_subject match:validationBlock];
+	id found = [_subject bk_match:validationBlock];
 
-	//match: is functionally identical to select:, but will stop and return on the first match
+	// bk_match: is functionally identical to bk_select:, but will stop and return on the first match
 	STAssertEquals(_total, (NSInteger)3, @"total length of \"122\" is %d", _total);
 	STAssertEquals(found, @"22", @"matched object is %@", found);
 }
 
 - (void)testNotMatch {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 4444) ? YES : NO;
 		return match;
 	};
-	id found = [_subject match:validationBlock];
+	id found = [_subject bk_match:validationBlock];
 
 	// @return Returns the object if found, `nil` otherwise.
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
@@ -57,12 +55,12 @@
 }
 
 - (void)testSelect {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 300) ? YES : NO;
 		return match;
 	};
-	NSArray *found = [_subject select:validationBlock];
+	NSArray *found = [_subject bk_select:validationBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 	NSArray *target = @[ @"1", @"22" ];
@@ -70,24 +68,24 @@
 }
 
 - (void)testSelectedNone {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 400) ? YES : NO;
 		return match;
 	};
-	NSArray *found = [_subject select:validationBlock];
+	NSArray *found = [_subject bk_select:validationBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 	STAssertTrue(found.count == 0, @"no item is selected");
 }
 
 - (void)testReject {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] > 300) ? YES : NO;
 		return match;
 	};
-	NSArray *left = [_subject reject:validationBlock];
+	NSArray *left = [_subject bk_reject:validationBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 	NSArray *target = @[ @"1", @"22" ];
@@ -95,23 +93,23 @@
 }
 
 - (void)testRejectedAll {
-	BKValidationBlock validationBlock = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] < 400) ? YES : NO;
 		return match;
 	};
-	NSArray *left = [_subject reject:validationBlock];
+	NSArray *left = [_subject bk_reject:validationBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 	STAssertTrue(left.count == 0, @"all items are rejected");
 }
 
 - (void)testMap {
-	BKTransformBlock transformBlock = ^(NSString *obj) {
+	id(^transformBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};
-	NSArray *transformed = [_subject map:transformBlock];
+	NSArray *transformed = [_subject bk_map:transformBlock];
 
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 	NSArray *target = @[ @"1", @"2", @"3" ];
@@ -119,27 +117,27 @@
 }
 
 - (void)testReduceWithBlock {
-	BKAccumulationBlock accumlationBlock = ^id(id sum,id obj) {
+	id(^accumlationBlock)(id, id) = ^(id sum,id obj) {
 		return [sum stringByAppendingString:obj];
 	};
-	NSString *concatenated = [_subject reduce:@"" withBlock:accumlationBlock];
-	STAssertTrue([concatenated isEqualToString: @"122333"], @"concatenated string is %@", concatenated);
+	NSString *concatenated = [_subject bk_reduce:@"" withBlock:accumlationBlock];
+	STAssertTrue([concatenated isEqualToString:@"122333"], @"concatenated string is %@", concatenated);
 }
 
 - (void)testAny {
 	// Check if array has element with prefix 1
-	BKValidationBlock existsBlockTrue = ^BOOL(id obj) {
-		return [obj hasPrefix: @"1"];
+	BOOL(^existsBlockTrue)(id) = ^(id obj) {
+		return [obj hasPrefix:@"1"];
 	};
 	
-	BKValidationBlock existsBlockFalse = ^BOOL(id obj) {
-		return [obj hasPrefix: @"4"];
+	BOOL(^existsBlockFalse)(id) = ^(id obj) {
+		return [obj hasPrefix:@"4"];
 	};
 	
-	BOOL letterExists = [_subject any: existsBlockTrue];
+	BOOL letterExists = [_subject bk_any:existsBlockTrue];
 	STAssertTrue(letterExists, @"letter is not in array");
 	
-	BOOL letterDoesNotExist = [_subject any: existsBlockFalse];
+	BOOL letterDoesNotExist = [_subject bk_any:existsBlockFalse];
 	STAssertFalse(letterDoesNotExist, @"letter is in array");
 }
 
@@ -148,14 +146,14 @@
 	NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
 	
 	// Check if array has element with prefix 1
-	BKValidationBlock nameStartsWithJ = ^BOOL(id obj) {
-		return [obj hasPrefix: @"J"];
+	BOOL(^nameStartsWithJ)(id) = ^(id obj) {
+		return [obj hasPrefix:@"J"];
 	};
 
-	BOOL allNamesStartWithJ = [names all: nameStartsWithJ];
+	BOOL allNamesStartWithJ = [names bk_all:nameStartsWithJ];
 	STAssertTrue(allNamesStartWithJ, @"all names do not start with J in array");
 	
-	BOOL allNamesDoNotStartWithJ = [names2 all: nameStartsWithJ];
+	BOOL allNamesDoNotStartWithJ = [names2 bk_all:nameStartsWithJ];
 	STAssertFalse(allNamesDoNotStartWithJ, @"all names do start with J in array");  
 }
 
@@ -164,22 +162,22 @@
 	NSArray *names2 = @[ @"John", @"Joe", @"Jon", @"Mary" ];
 	
 	// Check if array has element with prefix 1
-	BKValidationBlock nameStartsWithM = ^BOOL(id obj) {
-		return [obj hasPrefix: @"M"];
+	BOOL(^nameStartsWithM)(id) = ^(id obj) {
+		return [obj hasPrefix:@"M"];
 	};
 	
-	BOOL noNamesStartWithM = [names none: nameStartsWithM];
+	BOOL noNamesStartWithM = [names bk_none:nameStartsWithM];
 	STAssertTrue(noNamesStartWithM, @"some names start with M in array");
 	
-	BOOL someNamesStartWithM = [names2 none: nameStartsWithM];
+	BOOL someNamesStartWithM = [names2 bk_none:nameStartsWithM];
 	STAssertFalse(someNamesStartWithM, @"no names start with M in array");
 }
 
 - (void)testCorresponds {
 	NSArray *numbers = @[ @(1), @(2), @(3) ];
 	NSArray *letters = @[ @"1", @"2", @"3" ];
-	BOOL doesCorrespond = [numbers corresponds: letters withBlock: ^(id number, id letter) {
-		return [[number stringValue] isEqualToString: letter];
+	BOOL doesCorrespond = [numbers bk_corresponds:letters withBlock:^(id number, id letter) {
+		return [[number stringValue] isEqualToString:letter];
 	}];
 	STAssertTrue(doesCorrespond, @"1,2,3 does not correspond to \"1\",\"2\",\"3\"");
 	

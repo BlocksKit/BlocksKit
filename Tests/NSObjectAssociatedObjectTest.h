@@ -4,13 +4,13 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <BlocksKit/NSObject+AssociatedObjects.h>
+#import <Foundation/Foundation.h>
 
 @interface NSObjectAssociatedObjectTest : SenTestCase
 
 - (void)testAssociatedRetainValue;
 - (void)testAssociatedCopyValue;
-- (void)testAssociatedAssignValue;
+- (void)testAssociatedWeakValue;
 - (void)testAssociatedNotFound;
 
 @end
