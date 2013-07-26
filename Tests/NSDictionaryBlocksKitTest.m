@@ -36,7 +36,7 @@
 }
 
 - (void)testMatch {
-    BOOL(^validationBlock)(id, id) = ^(id key,id value) {
+	BOOL(^validationBlock)(id, id) = ^(id key,id value) {
 		_total += [value intValue] + [key intValue];
 		BOOL select = [value intValue] < 3 ? YES : NO;
 		return select;

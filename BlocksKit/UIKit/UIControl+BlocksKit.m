@@ -55,7 +55,7 @@ static const void *BKControlHandlersKey = &BKControlHandlersKey;
 	NSMutableDictionary *events = objc_getAssociatedObject(self, BKControlHandlersKey);
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSNumber *key = @(controlEvents);
@@ -75,7 +75,7 @@ static const void *BKControlHandlersKey = &BKControlHandlersKey;
 	NSMutableDictionary *events = objc_getAssociatedObject(self, BKControlHandlersKey);
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSNumber *key = @(controlEvents);
@@ -84,9 +84,9 @@ static const void *BKControlHandlersKey = &BKControlHandlersKey;
 	if (!handlers)
 		return;
 	
-    [handlers enumerateObjectsUsingBlock:^(id sender, BOOL *stop) {
-        [self removeTarget:sender action:NULL forControlEvents:controlEvents];
-    }];
+	[handlers enumerateObjectsUsingBlock:^(id sender, BOOL *stop) {
+		[self removeTarget:sender action:NULL forControlEvents:controlEvents];
+	}];
 	
 	[events removeObjectForKey:key];
 }
@@ -96,7 +96,7 @@ static const void *BKControlHandlersKey = &BKControlHandlersKey;
 	NSMutableDictionary *events = objc_getAssociatedObject(self, BKControlHandlersKey);
 	if (!events) {
 		events = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, BKControlHandlersKey, events, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 	
 	NSNumber *key = @(controlEvents);

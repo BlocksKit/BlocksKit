@@ -25,17 +25,17 @@ static const void *BKResponseLengthKey = &BKResponseLengthKey;
 
 - (NSMutableData *)bk_responseData
 {
-    return objc_getAssociatedObject(self, BKResponseDataKey);
+	return objc_getAssociatedObject(self, BKResponseDataKey);
 }
 
 - (void)bk_setResponseData:(NSMutableData *)responseData
 {
-    objc_setAssociatedObject(self, BKResponseDataKey, responseData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	objc_setAssociatedObject(self, BKResponseDataKey, responseData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSURLResponse *)bk_response
 {
-    return objc_getAssociatedObject(self, BKResponseKey);
+	return objc_getAssociatedObject(self, BKResponseKey);
 }
 
 - (void)bk_setResponse:(NSURLResponse *)response
@@ -45,12 +45,12 @@ static const void *BKResponseLengthKey = &BKResponseLengthKey;
 
 - (NSUInteger)bk_responseLength
 {
-    return [objc_getAssociatedObject(self, BKResponseLengthKey) unsignedIntegerValue];
+	return [objc_getAssociatedObject(self, BKResponseLengthKey) unsignedIntegerValue];
 }
 
 - (void)bk_setResponseLength:(NSUInteger)responseLength
 {
-    objc_setAssociatedObject(self, BKResponseLengthKey, @(responseLength), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	objc_setAssociatedObject(self, BKResponseLengthKey, @(responseLength), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

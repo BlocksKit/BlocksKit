@@ -31,7 +31,7 @@
 	if (!_hasClassAvailable)
 		return;
 
-    void(^senderBlock)(id) = ^(NSString *sender) {
+	void(^senderBlock)(id) = ^(NSString *sender) {
 		_total += [sender length];
 	};
 	[(NSOrderedSet *)_subject bk_each:senderBlock];
@@ -163,11 +163,11 @@
 	if (!_hasClassAvailable)
 		return;
 
-    BOOL(^existsBlockTrue)(id) = ^BOOL(id obj) {
+	BOOL(^existsBlockTrue)(id) = ^BOOL(id obj) {
 		return [obj hasPrefix:@"1"];
 	};
 
-    BOOL(^existsBlockFalse)(id) = ^BOOL(id obj) {
+	BOOL(^existsBlockFalse)(id) = ^BOOL(id obj) {
 		return [obj hasPrefix:@"4"];
 	};
 
@@ -186,7 +186,7 @@
 	NSOrderedSet *names2 = [NSOrderedSet orderedSetWithArray:@[ @"John", @"Joe", @"Jon", @"Mary" ]];
 
 	// Check if array has element with prefix 1
-    BOOL(^nameStartsWithJ)(id) = ^BOOL(id obj) {
+	BOOL(^nameStartsWithJ)(id) = ^BOOL(id obj) {
 		return [obj hasPrefix:@"J"];
 	};
 
@@ -205,7 +205,7 @@
 	NSOrderedSet *names2 = [NSOrderedSet orderedSetWithArray:@[ @"John", @"Joe", @"Jon", @"Mary" ]];
 
 	// Check if array has element with prefix 1
-    BOOL(^nameStartsWithM)(id) = ^BOOL(id obj) {
+	BOOL(^nameStartsWithM)(id) = ^BOOL(id obj) {
 		return [obj hasPrefix:@"M"];
 	};
 

@@ -36,13 +36,13 @@ static char kNotFoundKey;
 }
 
 - (void)testAssociatedWeakValue {
-    CFStringRef string = CFStringCreateWithCString(NULL, "Hello BlocksKit", kCFStringEncodingUTF8);
+	CFStringRef string = CFStringCreateWithCString(NULL, "Hello BlocksKit", kCFStringEncodingUTF8);
 	[self bk_weaklyAssociateValue:(__bridge NSString *)string withKey:&kAssociationKey];
 	CFRelease(string); string = NULL;
 
 	id associated = [self bk_associatedValueForKey:&kAssociationKey];
-    NSLog(@"associated %@", associated);
-    STAssertNil(associated, @"weak associated values nil");
+	NSLog(@"associated %@", associated);
+	STAssertNil(associated, @"weak associated values nil");
 }
 
 - (void)testAssociatedNotFound {

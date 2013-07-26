@@ -67,7 +67,7 @@
 }
 
 - (void)testMap {
-    id(^transformBlock)(id, id) = ^id(id key,id value) {
+	id(^transformBlock)(id, id) = ^id(id key,id value) {
 		_total += [value intValue] + [key intValue];
 		return @(_total);
 	};

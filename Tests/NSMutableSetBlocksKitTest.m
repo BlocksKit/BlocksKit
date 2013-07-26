@@ -64,7 +64,7 @@
 }
 
 - (void)testMap {
-    id(^transformBlock)(id) = ^(NSString *obj) {
+	id(^transformBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};

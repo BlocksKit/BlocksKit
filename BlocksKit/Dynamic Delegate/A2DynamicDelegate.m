@@ -268,40 +268,40 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 
 static Protocol *a2_classProtocol(Class _cls, NSString *suffix, NSString *description)
 {
-    Class cls = _cls;
-    while (cls) {
-        NSString *className = NSStringFromClass(cls);
-        NSString *protocolName = [className stringByAppendingString:suffix];
-        Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
-        if (protocol) return protocol;
-        
-        cls = class_getSuperclass(cls);
-    }
-    
-    NSString *className = NSStringFromClass(_cls);
-    NSString *protocolName = [className stringByAppendingString:suffix];
-    NSCAssert3(NO, @"Specify protocol explicitly: could not determine %@ protocol for class %@ (tried <%@>)", description, className, protocolName);
-    return nil;
+	Class cls = _cls;
+	while (cls) {
+		NSString *className = NSStringFromClass(cls);
+		NSString *protocolName = [className stringByAppendingString:suffix];
+		Protocol *protocol = objc_getProtocol(protocolName.UTF8String);
+		if (protocol) return protocol;
+		
+		cls = class_getSuperclass(cls);
+	}
+	
+	NSString *className = NSStringFromClass(_cls);
+	NSString *protocolName = [className stringByAppendingString:suffix];
+	NSCAssert3(NO, @"Specify protocol explicitly: could not determine %@ protocol for class %@ (tried <%@>)", description, className, protocolName);
+	return nil;
 }
 
 Protocol *a2_dataSourceProtocol(Class cls)
 {
-    return a2_classProtocol(cls, @"DataSource", @"data source");
+	return a2_classProtocol(cls, @"DataSource", @"data source");
 }
 Protocol *a2_delegateProtocol(Class cls)
 {
-    return a2_classProtocol(cls, @"Delegate", @"delegate");
+	return a2_classProtocol(cls, @"Delegate", @"delegate");
 }
 Protocol *a2_protocolForDelegatingObject(id obj, Protocol *protocol)
 {
-    NSString *protocolName = NSStringFromProtocol(protocol);
-    if ([protocolName hasSuffix:@"Delegate"]) {
-        Protocol *p = a2_delegateProtocol([obj class]);
-        if (p) return p;
-    } else if ([protocolName hasSuffix:@"DataSource"]) {
-        Protocol *p = a2_dataSourceProtocol([obj class]);
-        if (p) return p;
-    }
-    
-    return protocol;
+	NSString *protocolName = NSStringFromProtocol(protocol);
+	if ([protocolName hasSuffix:@"Delegate"]) {
+		Protocol *p = a2_delegateProtocol([obj class]);
+		if (p) return p;
+	} else if ([protocolName hasSuffix:@"DataSource"]) {
+		Protocol *p = a2_dataSourceProtocol([obj class]);
+		if (p) return p;
+	}
+	
+	return protocol;
 }

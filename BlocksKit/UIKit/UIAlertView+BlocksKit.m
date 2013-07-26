@@ -137,7 +137,7 @@
 	
 	// Set other buttons
 	[otherButtonTitles enumerateObjectsUsingBlock:^(NSString *button, NSUInteger idx, BOOL *stop) {
-        [alertView addButtonWithTitle:button];
+		[alertView addButtonWithTitle:button];
 	}];
 	
 	// Set `didDismissBlock`

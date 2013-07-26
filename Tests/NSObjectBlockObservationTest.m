@@ -124,46 +124,46 @@
 
 
 - (void)testMultipleKeyValueObservation {
-    NSString *token = [self bk_addObserverForKeyPaths:@[ @"subject.kvc", @"subject.number" ] task:^(NSObjectBlockObservationTest *obj, NSDictionary *keyPath) {
-        [obj action];
-    }];
-    NSNumber *number = @1;
-    [self setValue:@NO forKeyPath:@"subject.kvc"];
-    [self setValue:number forKeyPath:@"subject.number"];
-    STAssertFalse(_subject.kvc, @"kvc is NO");
+	NSString *token = [self bk_addObserverForKeyPaths:@[ @"subject.kvc", @"subject.number" ] task:^(NSObjectBlockObservationTest *obj, NSDictionary *keyPath) {
+		[obj action];
+	}];
+	NSNumber *number = @1;
+	[self setValue:@NO forKeyPath:@"subject.kvc"];
+	[self setValue:number forKeyPath:@"subject.number"];
+	STAssertFalse(_subject.kvc, @"kvc is NO");
 	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
 	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
-    [self bk_removeObserversWithIdentifier:token];
+	[self bk_removeObserversWithIdentifier:token];
 }
 
 - (void)testMultipleOnlyOneKeyValueObservation {
-    NSString *token = [self bk_addObserverForKeyPaths:@[@"subject.kvc"] task:^(NSObjectBlockObservationTest *obj, NSDictionary *keyPath) {
-        [obj action];
-    }];
-    [self setValue:@NO forKeyPath:@"subject.kvc"];
-    STAssertFalse(_subject.kvc, @"kvc is NO");
+	NSString *token = [self bk_addObserverForKeyPaths:@[@"subject.kvc"] task:^(NSObjectBlockObservationTest *obj, NSDictionary *keyPath) {
+		[obj action];
+	}];
+	[self setValue:@NO forKeyPath:@"subject.kvc"];
+	STAssertFalse(_subject.kvc, @"kvc is NO");
 	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
-    [self bk_removeObserversWithIdentifier:token];
+	[self bk_removeObserversWithIdentifier:token];
 }
 
 - (void)testRegisterTwice {
-    void(^observeBlock)(id) = ^(id obj) {
-        NSLog(@"Got here!");
+	void(^observeBlock)(id) = ^(id obj) {
+		NSLog(@"Got here!");
 		[(NSObjectBlockObservationTest *)obj action];
 	};
-    NSString *token = [self bk_addObserverForKeyPath:@"subject.number" task:observeBlock];
-    NSNumber *number = @1;
+	NSString *token = [self bk_addObserverForKeyPath:@"subject.number" task:observeBlock];
+	NSNumber *number = @1;
 	[self setValue:number forKeyPath:@"subject.number"];
 	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
 	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
-    [self bk_removeObserversWithIdentifier:token];
+	[self bk_removeObserversWithIdentifier:token];
 	
-    NSString *token2 = [self bk_addObserverForKeyPath:@"subject.number" task:observeBlock];
-    number = @2;
+	NSString *token2 = [self bk_addObserverForKeyPath:@"subject.number" task:observeBlock];
+	number = @2;
 	[self setValue:number forKeyPath:@"subject.number"];
 	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
 	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
-    [self bk_removeObserversWithIdentifier:token2];
+	[self bk_removeObserversWithIdentifier:token2];
 }
 
 @end

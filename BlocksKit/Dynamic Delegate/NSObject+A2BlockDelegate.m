@@ -26,16 +26,16 @@ static BOOL bk_object_isKindOfClass(id obj, Class testClass)
 
 static Protocol *a2_protocolForDelegatingObject(id obj, Protocol *protocol)
 {
-    NSString *protocolName = NSStringFromProtocol(protocol);
-    if ([protocolName hasSuffix:@"Delegate"]) {
-        Protocol *p = a2_delegateProtocol([obj class]);
-        if (p) return p;
-    } else if ([protocolName hasSuffix:@"DataSource"]) {
-        Protocol *p = a2_dataSourceProtocol([obj class]);
-        if (p) return p;
-    }
-    
-    return protocol;
+	NSString *protocolName = NSStringFromProtocol(protocol);
+	if ([protocolName hasSuffix:@"Delegate"]) {
+		Protocol *p = a2_delegateProtocol([obj class]);
+		if (p) return p;
+	} else if ([protocolName hasSuffix:@"DataSource"]) {
+		Protocol *p = a2_dataSourceProtocol([obj class]);
+		if (p) return p;
+	}
+	
+	return protocol;
 }
 
 @interface A2DynamicDelegate ()
@@ -100,7 +100,7 @@ static inline SEL prefixedSelector(SEL selector) {
 	NSMutableDictionary *propertyMap = objc_getAssociatedObject(self, _cmd);
 	if (!propertyMap) {
 		propertyMap = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, _cmd, propertyMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+		objc_setAssociatedObject(self, _cmd, propertyMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
 
 	return propertyMap;
