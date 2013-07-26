@@ -56,7 +56,7 @@ static const void *BKGestureRecognizerDelayKey = &BKGestureRecognizerDelayKey;
 		if (!self.bk_shouldHandleAction) return;
 		handler(self, self.state, location);
 	};
-	
+
 	self.bk_shouldHandleAction = YES;
 
 	if (!delay) {

@@ -18,7 +18,7 @@
 	
 	gesture.numberOfTouchesRequired = numberOfTouches;
 	gesture.numberOfTapsRequired = numberOfTaps;
-	
+
 	[self.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if (![obj isKindOfClass:[UITapGestureRecognizer class]]) return;
 
@@ -29,7 +29,7 @@
 			[gesture requireGestureRecognizerToFail:tap];
 		}
 	}];
-	
+
 	[self addGestureRecognizer:gesture];
 }
 

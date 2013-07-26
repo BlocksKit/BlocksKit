@@ -134,12 +134,12 @@
 		cancelButtonTitle = NSLocalizedString(@"Dismiss", nil);
 	
 	UIAlertView *alertView = [[[self class] alloc] initWithTitle:title message:message delegate:self.bk_dynamicDelegate cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
-	
+
 	// Set other buttons
 	[otherButtonTitles enumerateObjectsUsingBlock:^(NSString *button, NSUInteger idx, BOOL *stop) {
 		[alertView addButtonWithTitle:button];
 	}];
-	
+
 	// Set `didDismissBlock`
 	if (block) alertView.bk_didDismissBlock = block;
 	
