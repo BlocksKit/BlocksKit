@@ -15,7 +15,7 @@
  Created by [Igor Evsukov](https://github.com/evsukov89) and contributed to
  BlocksKit.
 
- @warning UIWebView is only available on a platform with UIKit.
+ @warning MFMailComposeViewController is only available on a platform with MessageUI.
  */
 @interface MFMailComposeViewController (BlocksKit)
 
