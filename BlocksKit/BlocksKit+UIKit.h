@@ -3,7 +3,7 @@
 //
 //  The Objective-C block utilities you always wish you had.
 //
-//  Copyright (c) 2011-2012 Pandamonia LLC.
+//  Copyright (c) 2011-2013 Pandamonia LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
