@@ -9,7 +9,7 @@
 
 #pragma mark Custom delegate
 
-@interface A2DynamicUIWebViewDelegate : A2DynamicDelegate
+@interface A2DynamicUIWebViewDelegate : A2DynamicDelegate <UIWebViewDelegate>
 @end
 
 @implementation A2DynamicUIWebViewDelegate
@@ -66,7 +66,7 @@
 + (void)load
 {
 	@autoreleasepool {
-		[self bk_registerDynamicDelegateNamed:@"delegate" forProtocol:@protocol(UIWebViewDelegate)];
+		[self bk_registerDynamicDelegate];
 		[self bk_linkDelegateMethods:@{
 			@"bk_shouldStartLoadBlock": @"webView:shouldStartLoadWithRequest:navigationType:",
 			@"bk_didStartLoadBlock": @"webViewDidStartLoad:",

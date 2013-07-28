@@ -9,7 +9,8 @@
 
 #pragma mark Custom delegate
 
-@interface A2DynamicMFMessageComposeViewControllerDelegate : A2DynamicDelegate
+@interface A2DynamicMFMessageComposeViewControllerDelegate : A2DynamicDelegate <MFMessageComposeViewControllerDelegate>
+
 @end
 
 @implementation A2DynamicMFMessageComposeViewControllerDelegate
@@ -25,6 +26,13 @@
 	if (!shouldDismiss) {
 		if (block) block(controller, result);
 	} else {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
+		__weak typeof(controller) weakController = controller;
+		[controller dismissViewControllerAnimated:YES completion:^{
+			typeof(&*weakController) strongController = weakController;
+			if (block) block(strongController, result);
+		}];
+#else
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 		if ([controller respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
 			__weak typeof(controller) weakController = controller;
@@ -38,6 +46,7 @@
 			if (block) block(controller, result);
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 		}
+#endif
 #endif
 	}
 >>>>>>> b496d89... Convert spaces to tabs
@@ -54,7 +63,7 @@
 + (void)load
 {
 	@autoreleasepool {
-		[self bk_registerDynamicDelegateNamed:@"messageComposeDelegate" forProtocol:@protocol(MFMessageComposeViewControllerDelegate)];
+		[self bk_registerDynamicDelegateNamed:@"messageComposeDelegate"];
 		[self bk_linkDelegateMethods:@{ @"bk_completionBlock": @"messageComposeViewController:didFinishWithResult:" }];
 	}
 }
