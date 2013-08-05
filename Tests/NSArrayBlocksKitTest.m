@@ -30,6 +30,16 @@
 	STAssertEquals(_total, (NSInteger)6, @"total length of \"122333\" is %d", _total);
 }
 
+- (void)testReverseEach
+{
+    NSMutableString *total = [[NSMutableString alloc] init];
+	BKSenderBlock senderBlock = ^(NSString *sender) {
+		[total appendString:sender];
+	};
+	[_subject reverseEach:senderBlock];
+	STAssertEqualObjects(total, @"333221", @"the result string (%@) is equal: \"333221\"", total);
+}
+
 - (void)testMatch {
 	BKValidationBlock validationBlock = ^(NSString *obj) {
 		_total += [obj length];
