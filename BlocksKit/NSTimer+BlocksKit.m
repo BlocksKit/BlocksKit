@@ -22,9 +22,8 @@
 }
 
 + (void)bk_executeBlockFromTimer:(NSTimer *)aTimer {
-	NSTimeInterval time = [aTimer timeInterval];
 	BKTimerBlock block = [aTimer userInfo];
-	if (block) block(time);
+	if (block) block(aTimer);
 }
 
 @end
