@@ -4,10 +4,9 @@
 //
 
 #import "NSTimerBlocksKitTest.h"
-#import <BlocksKit/BlocksKit.h>
 
 @implementation NSTimerBlocksKitTest {
-	NSInteger _total;	
+	NSInteger _total;
 }
 
 - (void)setUp {
