@@ -4,7 +4,6 @@
 //
 
 #import "NSTimerBlocksKitTest.h"
-#import <BlocksKit/BlocksKit.h>
 
 @implementation NSTimerBlocksKitTest {
 	NSInteger _total;	
@@ -15,7 +14,7 @@
 }
 
 - (void)testScheduledTimer {
-	void(^timerBlock)(NSTimeInterval) = ^(NSTimeInterval time) {
+	void(^timerBlock)(NSTimer *) = ^(NSTimer *timer) {
 		_total++;
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
@@ -27,7 +26,7 @@
 }
 
 - (void)testRepeatedlyScheduledTimer {
-	void(^timerBlock)(NSTimeInterval) = ^(NSTimeInterval time) {
+	void(^timerBlock)(NSTimer) = ^(NSTimer *timer) {
 		_total++;
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
@@ -40,7 +39,7 @@
 }
 
 - (void)testUnscheduledTimer {
-	void(^timerBlock)(NSTimeInterval) = ^(NSTimeInterval time) {
+	void(^timerBlock)(NSTimer *) = ^(NSTimer *timer) {
 		_total++;
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
@@ -53,7 +52,7 @@
 }
 
 - (void)testRepeatableUnscheduledTimer {
-	void(^timerBlock)(NSTimeInterval) = ^(NSTimeInterval time) {
+	void(^timerBlock)(NSTimeInterval) = ^(NSTimer *timer) {
 		_total += 1;
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
