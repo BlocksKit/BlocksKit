@@ -183,6 +183,12 @@
 		6CF22D39161F32A9002FD317 /* UIWebViewBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D33161F32A9002FD317 /* UIWebViewBlocksKitTest.m */; };
 		6CF22D3F161F32C5002FD317 /* MFMailComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D3C161F32C4002FD317 /* MFMailComposeViewControllerBlocksKitTest.m */; };
 		6CF22D40161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF22D3E161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m */; };
+		7BE3719417D4364000F20298 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE3719317D4364000F20298 /* Cocoa.framework */; };
+		7BE371A017D4364000F20298 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE3719F17D4364000F20298 /* main.m */; };
+		7BE371A717D4364000F20298 /* BKApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE371A617D4364000F20298 /* BKApp.m */; };
+		7BE371AA17D4364000F20298 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BE371A817D4364000F20298 /* MainMenu.xib */; };
+		7BE38C4017D444E0009E0C76 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC40A751447BB1400E47595 /* BlocksKit.framework */; };
+		7BE38C4117D444F4009E0C76 /* BlocksKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6CC40A751447BB1400E47595 /* BlocksKit.framework */; };
 		A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A92C9A6413F41E0A006DA96A /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */; };
 		A97E4C9F13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A97E4C9D13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -229,7 +235,27 @@
 			remoteGlobalIDString = 6C3DBF8C1382F1BA00E6C9AA;
 			remoteInfo = "iOS Library";
 		};
+		7BE371AF17D437D500F20298 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6C3DBF841382F1BA00E6C9AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6CC40A741447BB1400E47595;
+			remoteInfo = BlocksKit;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7BE38C3F17D444D6009E0C76 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7BE38C4117D444F4009E0C76 /* BlocksKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0005D5DE161FDF23007DD837 /* iOS Tests App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Tests App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -375,6 +401,16 @@
 		6CF22D3C161F32C4002FD317 /* MFMailComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMailComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		6CF22D3D161F32C4002FD317 /* MFMessageComposeViewControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMessageComposeViewControllerBlocksKitTest.h; sourceTree = "<group>"; };
 		6CF22D3E161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMessageComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		7BE3719217D4364000F20298 /* BlocksKit Mac Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BlocksKit Mac Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BE3719317D4364000F20298 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		7BE3719617D4364000F20298 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		7BE3719717D4364000F20298 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		7BE3719817D4364000F20298 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7BE3719F17D4364000F20298 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7BE371A517D4364000F20298 /* BKApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKApp.h; sourceTree = "<group>"; };
+		7BE371A617D4364000F20298 /* BKApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKApp.m; sourceTree = "<group>"; };
+		7BE371A917D4364000F20298 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		7BE371AE17D4372D00F20298 /* BlocksKit Mac Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocksKit Mac Demo-Info.plist"; sourceTree = "<group>"; };
 		A92C9A6113F41E0A006DA96A /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
 		A92C9A6213F41E0A006DA96A /* NSCache+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BlocksKit.m"; sourceTree = "<group>"; };
 		A97E4C9D13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMailComposeViewController+BlocksKit.h"; sourceTree = "<group>"; };
@@ -450,6 +486,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7BE3718F17D4364000F20298 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BE3719417D4364000F20298 /* Cocoa.framework in Frameworks */,
+				7BE38C4017D444E0009E0C76 /* BlocksKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -502,6 +547,7 @@
 				6CF22C95161EAFB8002FD317 /* OS X Tests.octest */,
 				6CF22CB0161EB048002FD317 /* iOS Tests.octest */,
 				0005D5DE161FDF23007DD837 /* iOS Tests App.app */,
+				7BE3719217D4364000F20298 /* BlocksKit Mac Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -511,6 +557,8 @@
 			children = (
 				6CC40AAB1447BCD200E47595 /* Mac OS X */,
 				6CC08FD11385555D00DDEABB /* iOS */,
+				7BE3719317D4364000F20298 /* Cocoa.framework */,
+				7BE3719517D4364000F20298 /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -737,6 +785,7 @@
 		6CF22C9F161EAFB8002FD317 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7BE3719917D4364000F20298 /* BlocksKit Mac Demo */,
 				6CF22CB9161EB048002FD317 /* OS X Tests-Info.plist */,
 				6CF22CC0161EB048002FD317 /* iOS Tests-Prefix.pch */,
 				6CF22CA0161EAFB8002FD317 /* OS X Tests-Info.plist */,
@@ -774,6 +823,29 @@
 				6CF22D3E161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m */,
 			);
 			name = MessageUI;
+			sourceTree = "<group>";
+		};
+		7BE3719517D4364000F20298 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7BE3719617D4364000F20298 /* AppKit.framework */,
+				7BE3719717D4364000F20298 /* CoreData.framework */,
+				7BE3719817D4364000F20298 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		7BE3719917D4364000F20298 /* BlocksKit Mac Demo */ = {
+			isa = PBXGroup;
+			children = (
+				7BE371AE17D4372D00F20298 /* BlocksKit Mac Demo-Info.plist */,
+				7BE3719F17D4364000F20298 /* main.m */,
+				7BE371A517D4364000F20298 /* BKApp.h */,
+				7BE371A617D4364000F20298 /* BKApp.m */,
+				7BE371A817D4364000F20298 /* MainMenu.xib */,
+			);
+			name = "BlocksKit Mac Demo";
+			path = "Mac Demo";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -955,6 +1027,25 @@
 			productReference = 6CF22CB0161EB048002FD317 /* iOS Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		7BE3719117D4364000F20298 /* BlocksKit Mac Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BE371AD17D4364000F20298 /* Build configuration list for PBXNativeTarget "BlocksKit Mac Demo" */;
+			buildPhases = (
+				7BE3718E17D4364000F20298 /* Sources */,
+				7BE3718F17D4364000F20298 /* Frameworks */,
+				7BE3719017D4364000F20298 /* Resources */,
+				7BE38C3F17D444D6009E0C76 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7BE371B017D437D500F20298 /* PBXTargetDependency */,
+			);
+			name = "BlocksKit Mac Demo";
+			productName = "BlocksKit Mac Demo";
+			productReference = 7BE3719217D4364000F20298 /* BlocksKit Mac Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -981,6 +1072,7 @@
 				6CF22CAF161EB048002FD317 /* iOS Tests */,
 				6CF22C94161EAFB8002FD317 /* OS X Tests */,
 				0005D5DD161FDF23007DD837 /* iOS Tests App */,
+				7BE3719117D4364000F20298 /* BlocksKit Mac Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -1014,6 +1106,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BE3719017D4364000F20298 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BE371AA17D4364000F20298 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1196,6 +1296,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7BE3718E17D4364000F20298 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BE371A017D4364000F20298 /* main.m in Sources */,
+				7BE371A717D4364000F20298 /* BKApp.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1214,7 +1323,23 @@
 			target = 6C3DBF8C1382F1BA00E6C9AA /* libBlocksKit */;
 			targetProxy = 6CF22CD9161EB198002FD317 /* PBXContainerItemProxy */;
 		};
+		7BE371B017D437D500F20298 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6CC40A741447BB1400E47595 /* BlocksKit */;
+			targetProxy = 7BE371AF17D437D500F20298 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7BE371A817D4364000F20298 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7BE371A917D4364000F20298 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0005D5F9161FDF24007DD837 /* Debug */ = {
@@ -1475,6 +1600,40 @@
 			};
 			name = Release;
 		};
+		7BE371AB17D4364000F20298 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Mac Demo/BlocksKit Mac Demo-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7BE371AC17D4364000F20298 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Mac Demo/BlocksKit Mac Demo-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@rpath";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1528,6 +1687,15 @@
 			buildConfigurations = (
 				6CF22CC2161EB048002FD317 /* Debug */,
 				6CF22CC3161EB048002FD317 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7BE371AD17D4364000F20298 /* Build configuration list for PBXNativeTarget "BlocksKit Mac Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BE371AB17D4364000F20298 /* Debug */,
+				7BE371AC17D4364000F20298 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
