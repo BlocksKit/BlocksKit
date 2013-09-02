@@ -17,7 +17,7 @@
 }
 
 - (void)testScheduledTimer {
-	BKTimerBlock timerBlock = ^(NSTimeInterval time) {
+	BKTimerBlock timerBlock = ^(NSTimer *timer) {
 		_total++;
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
@@ -29,7 +29,7 @@
 }
 
 - (void)testRepeatedlyScheduledTimer {
-	BKTimerBlock timerBlock = ^(NSTimeInterval time) {
+	BKTimerBlock timerBlock = ^(NSTimer *timer) {
 		_total++;
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
@@ -42,7 +42,7 @@
 }
 
 - (void)testUnscheduledTimer {
-	BKTimerBlock timerBlock = ^(NSTimeInterval time) {
+	BKTimerBlock timerBlock = ^(NSTimer *timer) {
 		_total++;
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
@@ -55,7 +55,7 @@
 }
 
 - (void)testRepeatableUnscheduledTimer {
-	BKTimerBlock timerBlock = ^(NSTimeInterval time) {
+	BKTimerBlock timerBlock = ^(NSTimer *timer) {
 		_total += 1;
 		NSLog(@"total is %lu", (unsigned long)_total);
 	};
