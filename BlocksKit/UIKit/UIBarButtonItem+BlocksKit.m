@@ -21,7 +21,7 @@ static const void *BKBarButtonItemBlockKey = &BKBarButtonItemBlockKey;
 	self = [self initWithBarButtonSystemItem:systemItem target:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
 	
-    objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	objc_setAssociatedObject(self, BKBarButtonItemBlockKey, action, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	
 	return self;
 }

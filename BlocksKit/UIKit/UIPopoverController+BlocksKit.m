@@ -9,7 +9,7 @@
 
 #pragma mark - Delegate
 
-@interface A2DynamicUIPopoverControllerDelegate : A2DynamicDelegate
+@interface A2DynamicUIPopoverControllerDelegate : A2DynamicDelegate <UIPopoverControllerDelegate>
 
 @end
 

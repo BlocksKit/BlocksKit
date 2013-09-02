@@ -9,7 +9,7 @@
 
 #pragma mark Custom delegate
 
-@interface A2DynamicMFMailComposeViewControllerDelegate : A2DynamicDelegate
+@interface A2DynamicMFMailComposeViewControllerDelegate : A2DynamicDelegate <MFMailComposeViewControllerDelegate>
 
 @end
 
@@ -26,6 +26,13 @@
 	if (shouldDismiss) {
 		if (block) block(controller, result, error);
 	} else {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
+		__weak typeof(controller) weakController = controller;
+		[controller dismissViewControllerAnimated:YES completion:^{
+			typeof(&*weakController) strongController = weakController;
+			if (block) block(strongController, result, error);
+		}];
+#else
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 		if ([controller respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
 			__weak typeof(controller) weakController = controller;
@@ -39,6 +46,7 @@
 			if (block) block(controller, result, error);
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 		}
+#endif
 #endif
 	}
 }
@@ -54,7 +62,7 @@
 + (void)load
 {
 	@autoreleasepool {
-		[self bk_registerDynamicDelegateNamed:@"mailComposeDelegate" forProtocol:@protocol(MFMailComposeViewControllerDelegate)];
+		[self bk_registerDynamicDelegateNamed:@"mailComposeDelegate"];
 		[self bk_linkDelegateMethods:@{ @"bk_completionBlock": @"mailComposeController:didFinishWithResult:error:" }];
 	}
 }

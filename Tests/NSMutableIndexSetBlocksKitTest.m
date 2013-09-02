@@ -18,7 +18,7 @@
 
 - (void)testSelect {
 	NSMutableString *order = [NSMutableString string];
-    BOOL(^indexValidationBlock)(NSUInteger index) = ^(NSUInteger index) {
+	BOOL(^indexValidationBlock)(NSUInteger index) = ^(NSUInteger index) {
 		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = index < 3 ? YES : NO; //1,2
 		return match;

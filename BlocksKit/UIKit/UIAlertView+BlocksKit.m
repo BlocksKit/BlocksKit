@@ -10,7 +10,7 @@
 
 #pragma mark Delegate
 
-@interface A2DynamicUIAlertViewDelegate : A2DynamicDelegate
+@interface A2DynamicUIAlertViewDelegate : A2DynamicDelegate <UIAlertViewDelegate>
 
 @end
 
@@ -137,7 +137,7 @@
 	
 	// Set other buttons
 	[otherButtonTitles enumerateObjectsUsingBlock:^(NSString *button, NSUInteger idx, BOOL *stop) {
-        [alertView addButtonWithTitle:button];
+		[alertView addButtonWithTitle:button];
 	}];
 	
 	// Set `didDismissBlock`

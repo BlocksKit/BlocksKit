@@ -9,7 +9,7 @@
 
 #pragma mark Custom delegate
 
-@interface A2DynamicUIActionSheetDelegate : A2DynamicDelegate
+@interface A2DynamicUIActionSheetDelegate : A2DynamicDelegate <UIActionSheetDelegate>
 
 @end
 

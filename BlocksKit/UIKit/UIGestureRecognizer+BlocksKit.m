@@ -53,45 +53,45 @@ static const void *BKGestureRecognizerDelayKey = &BKGestureRecognizerDelayKey;
 	NSTimeInterval delay = self.bk_handlerDelay;
 	CGPoint location = [self locationInView:self.view];
 	void (^block)(void) = ^{
-        if (!self.bk_shouldHandleAction) return;
+		if (!self.bk_shouldHandleAction) return;
 		handler(self, self.state, location);
 	};
 	
-    self.bk_shouldHandleAction = YES;
+	self.bk_shouldHandleAction = YES;
 
 	if (!delay) {
 		block();
 		return;
 	}
 	   
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), block);
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
+	dispatch_after(popTime, dispatch_get_main_queue(), block);
 }
 
 - (void)bk_setHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))handler
 {
-    objc_setAssociatedObject(self, BKGestureRecognizerBlockKey, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
+	objc_setAssociatedObject(self, BKGestureRecognizerBlockKey, handler, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))bk_handler
 {
-    return objc_getAssociatedObject(self, BKGestureRecognizerBlockKey);
+	return objc_getAssociatedObject(self, BKGestureRecognizerBlockKey);
 }
 
 - (void)bk_setHandlerDelay:(NSTimeInterval)delay
 {
 	NSNumber *delayValue = delay ? @(delay) : nil;
-    objc_setAssociatedObject(self, BKGestureRecognizerDelayKey, delayValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	objc_setAssociatedObject(self, BKGestureRecognizerDelayKey, delayValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSTimeInterval)bk_handlerDelay
 {
-    return [objc_getAssociatedObject(self, BKGestureRecognizerDelayKey) doubleValue];
+	return [objc_getAssociatedObject(self, BKGestureRecognizerDelayKey) doubleValue];
 }
 
 - (void)bk_cancel
 {
-    self.bk_shouldHandleAction = NO;
+	self.bk_shouldHandleAction = NO;
 }
 
 @end

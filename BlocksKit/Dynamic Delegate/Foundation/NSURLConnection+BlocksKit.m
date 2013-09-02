@@ -16,26 +16,28 @@ static const void *BKResponseKey = &BKResponseKey;
 static const void *BKResponseLengthKey = &BKResponseLengthKey;
 
 @interface NSURLConnection (BlocksKitPrivate)
+
 @property (nonatomic, retain, setter = bk_setResponseData:) NSMutableData *bk_responseData;
 @property (nonatomic, retain, setter = bk_setResponse:) NSURLResponse *bk_response;
 @property (nonatomic, setter = bk_setResponseLength:) NSUInteger bk_responseLength;
+
 @end
 
 @implementation NSURLConnection (BlocksKitPrivate)
 
 - (NSMutableData *)bk_responseData
 {
-    return objc_getAssociatedObject(self, BKResponseDataKey);
+	return objc_getAssociatedObject(self, BKResponseDataKey);
 }
 
 - (void)bk_setResponseData:(NSMutableData *)responseData
 {
-    objc_setAssociatedObject(self, BKResponseDataKey, responseData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	objc_setAssociatedObject(self, BKResponseDataKey, responseData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSURLResponse *)bk_response
 {
-    return objc_getAssociatedObject(self, BKResponseKey);
+	return objc_getAssociatedObject(self, BKResponseKey);
 }
 
 - (void)bk_setResponse:(NSURLResponse *)response
@@ -45,12 +47,12 @@ static const void *BKResponseLengthKey = &BKResponseLengthKey;
 
 - (NSUInteger)bk_responseLength
 {
-    return [objc_getAssociatedObject(self, BKResponseLengthKey) unsignedIntegerValue];
+	return [objc_getAssociatedObject(self, BKResponseLengthKey) unsignedIntegerValue];
 }
 
 - (void)bk_setResponseLength:(NSUInteger)responseLength
 {
-    objc_setAssociatedObject(self, BKResponseLengthKey, @(responseLength), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	objc_setAssociatedObject(self, BKResponseLengthKey, @(responseLength), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
@@ -58,6 +60,7 @@ static const void *BKResponseLengthKey = &BKResponseLengthKey;
 #pragma mark - BKURLConnectionInformalDelegate - iOS 4.3 & Snow Leopard support
 
 @protocol BKURLConnectionInformalDelegate <NSObject>
+
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
@@ -65,9 +68,10 @@ static const void *BKResponseLengthKey = &BKResponseLengthKey;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
+
 @end
 
-@interface A2DynamicBKURLConnectionInformalDelegate : A2DynamicDelegate
+@interface A2DynamicBKURLConnectionInformalDelegate : A2DynamicDelegate <BKURLConnectionInformalDelegate>
 
 @end
 
@@ -167,7 +171,7 @@ static const void *BKResponseLengthKey = &BKResponseLengthKey;
 
 #pragma mark - NSURLConnectionDelegate - iOS 5.0 & Lion support
 
-@interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate
+@interface A2DynamicNSURLConnectionDelegate : A2DynamicDelegate <NSURLConnectionDelegate>
 
 @end
 

@@ -25,7 +25,7 @@
 }
 
 - (void)testMatch {
-    BOOL(^validationBlock)(id) = ^(NSString *obj) {
+	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		BOOL match = ([obj intValue] == 22) ? YES : NO;
 		return match;
@@ -94,7 +94,7 @@
 }
 
 - (void)testMap {
-    id(^transformBlock)(id) = ^(NSString *obj) {
+	id(^transformBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
 		return [obj substringToIndex:1];
 	};

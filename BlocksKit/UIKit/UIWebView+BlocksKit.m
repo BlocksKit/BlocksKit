@@ -9,7 +9,7 @@
 
 #pragma mark Custom delegate
 
-@interface A2DynamicUIWebViewDelegate : A2DynamicDelegate
+@interface A2DynamicUIWebViewDelegate : A2DynamicDelegate <UIWebViewDelegate>
 @end
 
 @implementation A2DynamicUIWebViewDelegate

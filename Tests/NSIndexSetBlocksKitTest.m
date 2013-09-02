@@ -29,7 +29,7 @@
 
 - (void)testMatch {
 	NSMutableString *order = [NSMutableString string];
-    BOOL(^indexValidationBlock)(NSUInteger) = ^(NSUInteger index) {
+	BOOL(^indexValidationBlock)(NSUInteger) = ^(NSUInteger index) {
 		[order appendFormat:@"%lu", (unsigned long)index];
 		BOOL match = NO;
 		if (index%2 == 0 ) {

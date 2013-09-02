@@ -9,6 +9,19 @@
 extern Protocol *a2_dataSourceProtocol(Class cls);
 extern Protocol *a2_delegateProtocol(Class cls);
 
+static Class a2_dynamicDelegateClass(Class cls, NSString *suffix)
+{
+	while (cls) {
+		NSString *className = [NSString stringWithFormat:@"A2Dynamic%@%@", NSStringFromClass(cls), suffix];
+		Class ddClass = NSClassFromString(className);
+		if (ddClass) return ddClass;
+		
+		cls = class_getSuperclass(cls);
+	}
+	
+	return [A2DynamicDelegate class];
+}
+
 static dispatch_queue_t a2_backgroundQueue(void)
 {
 	static dispatch_once_t onceToken;
@@ -24,14 +37,28 @@ static dispatch_queue_t a2_backgroundQueue(void)
 - (id)bk_dynamicDataSource
 {
 	Protocol *protocol = a2_dataSourceProtocol([self class]);
-	return [self bk_dynamicDelegateForProtocol:protocol];
+	Class class = a2_dynamicDelegateClass([self class], @"DataSource");
+	return [self bk_dynamicDelegateWithClass:class forProtocol:protocol];
 }
 - (id)bk_dynamicDelegate
 {
 	Protocol *protocol = a2_delegateProtocol([self class]);
-	return [self bk_dynamicDelegateForProtocol:protocol];
+	Class class = a2_dynamicDelegateClass([self class], @"Delegate");
+	return [self bk_dynamicDelegateWithClass:class forProtocol:protocol];
 }
 - (id)bk_dynamicDelegateForProtocol:(Protocol *)protocol
+{
+	Class class = [A2DynamicDelegate class];
+	NSString *protocolName = NSStringFromProtocol(protocol);
+	if ([protocolName hasSuffix:@"Delegate"]) {
+		class = a2_dynamicDelegateClass([self class], @"Delegate");
+	} else if ([protocolName hasSuffix:@"DataSource"]) {
+		class = a2_dynamicDelegateClass([self class], @"DataSource");
+	}
+
+	return [self bk_dynamicDelegateWithClass:class forProtocol:protocol];
+}
+- (id)bk_dynamicDelegateWithClass:(Class)cls forProtocol:(Protocol *)protocol
 {
 	/**
 	 * Storing the dynamic delegate as an associated object of the delegating
@@ -50,9 +77,8 @@ static dispatch_queue_t a2_backgroundQueue(void)
 
 		if (!dynamicDelegate)
 		{
-			Class cls = NSClassFromString([@"A2Dynamic" stringByAppendingString:NSStringFromProtocol(protocol)]) ?: [A2DynamicDelegate class];
 			dynamicDelegate = [[cls alloc] initWithProtocol:protocol];
-            objc_setAssociatedObject(self, (__bridge const void *)protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+			objc_setAssociatedObject(self, (__bridge const void *)protocol, dynamicDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 		}
 	});
 

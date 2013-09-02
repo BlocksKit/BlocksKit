@@ -9,7 +9,7 @@
 
 #pragma mark Custom delegate
 
-@interface A2DynamicNSCacheDelegate : A2DynamicDelegate
+@interface A2DynamicNSCacheDelegate : A2DynamicDelegate <NSCacheDelegate>
 
 @end
 
