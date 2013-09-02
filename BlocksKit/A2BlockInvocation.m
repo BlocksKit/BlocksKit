@@ -59,8 +59,10 @@ static NSMethodSignature *a2_blockGetSignature(id block) {
 	if (!desc)
 		return nil;
 
-	const char *signature = (*(const char **)desc);
-	return [NSMethodSignature signatureWithObjCTypes: signature];
+	NSMutableString *signature = [NSMutableString stringWithCString:(*(const char **)desc) encoding:NSUTF8StringEncoding];
+	[signature replaceOccurrencesOfString:@"\"[^\"]*\"" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, signature.length)];
+	
+	return [NSMethodSignature signatureWithObjCTypes:[signature UTF8String]];
 }
 
 static void (*a2_blockGetInvoke(void *block))(void) {
