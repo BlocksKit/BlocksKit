@@ -29,12 +29,14 @@
 	}())
 
 #define BK_EACH(collection, ...) __BK_EACH_WRAPPER_VOID([collection each:^(id obj) { __VA_ARGS__ }])
-#define BK_APPLY(collection, ...) __BK_EACH_WRAPPER_VOID([collection apply:^(id obj) { __VA_ARGS__ }])
 #define BK_MAP(collection, ...) __BK_EACH_WRAPPER([collection map: ^id (id obj) { return (__VA_ARGS__); }])
 #define BK_SELECT(collection, ...) __BK_EACH_WRAPPER([collection select: ^BOOL (id obj) { return (__VA_ARGS__) != 0; }])
 #define BK_REJECT(collection, ...) __BK_EACH_WRAPPER([collection select: ^BOOL (id obj) { return (__VA_ARGS__) == 0; }])
 #define BK_MATCH(collection, ...) __BK_EACH_WRAPPER([collection match: ^BOOL (id obj) { return (__VA_ARGS__) != 0; }])
 #define BK_REDUCE(collection, initial, ...) __BK_EACH_WRAPPER([collection reduce: (initial) withBlock: ^id (id a, id b) { return (__VA_ARGS__); }])
+
+// BK_APPLY is not wrapped, because we don't guarantee that the order matches the current collection during parallel execution.
+#define BK_APPLY(collection, ...) [collection apply:^(id obj) { __VA_ARGS__ }]
 
 static inline id BKNextHelper(NSArray *array, CFMutableDictionaryRef *eachTablePtr) {
 
