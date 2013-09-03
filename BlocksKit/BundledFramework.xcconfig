@@ -1,0 +1,41 @@
+
+//  BundledFramework.xcconfig - BlocksKit - Created by Alex Gray on 9/3/13.
+
+
+// You have TWO options for linking / including BlocksKit/any Mac framework..
+
+
+// Option A: 	Inside your YourApp.app. 	(A private framework) This is how the included "Mac Demo App" does it.
+// Option B: 	Inside YourKit.framework. (Yours is the "umbrella" framework, Blockskit becomes the "sub_umbrella")
+
+// Step 1:	 	For either option, you need to drag (or "Add Files..") the Bk.xcodeproj to YOUR blue .xcodeproj file in Navigator.
+//					Then, add a build phase to your App or parent framework's target (not the BK framework) like..
+
+//	+ Copy Files ->  + Add / select the "BlocksKit.framework" target under products -> Destination "Frameworks"
+
+
+//	Step 2: 		You HAVE to set YOUR app OR your framework to "search" for frameworks internally at runtime via the special variable "@rpath"..
+
+// LD_RUNPATH_SEARCH_PATHS = @rpath  // It wont work setting it here.. do it in YOUR App or Umbrella Framework target,
+
+
+// Step 3:  Choose Option A or B by		->	Clicking on BlocksKit.xcodeproj in Navigator
+//													-> Click the Blue Project icon above the other targets
+//													-> Expand configurations and select the right config file based on where you'll include BK.
+
+
+//	-------------------------------------------------- The below instructions are unique to this configuration.
+
+
+//	THIS xcconfig file is for OPTION A! the App bundle traget. This loads BK relative to your app's executable.
+
+// Framework Will end up in 	"YourApp.app/Contents/Frameworks/BlocksKit.framework"
+// Bundle executable is at 	"YourApp.app/Contents/MacOS/YourApp"
+
+INSTALL_PATH 	=	@executable_path/../Frameworks
+
+// By linking your app to BlocksKit like so... 							OTHER_LDFLAGS		= -framework BlocksKit
+// and importing the Blockskit Header in your project...   			#import <BlocksKit/BlocksKit.h>
+// BlocksKit will be avilable to your app / classes.
+
+
