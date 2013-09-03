@@ -8,6 +8,7 @@
 
 static const void *BKGestureRecognizerBlockKey = &BKGestureRecognizerBlockKey;
 static const void *BKGestureRecognizerDelayKey = &BKGestureRecognizerDelayKey;
+static const void *BKGestureRecognizerShouldHandleActionKey = &BKGestureRecognizerShouldHandleActionKey;
 
 @interface UIGestureRecognizer (BlocksKitInternal)
 
@@ -87,6 +88,16 @@ static const void *BKGestureRecognizerDelayKey = &BKGestureRecognizerDelayKey;
 - (NSTimeInterval)bk_handlerDelay
 {
 	return [objc_getAssociatedObject(self, BKGestureRecognizerDelayKey) doubleValue];
+}
+
+- (void)bk_setShouldHandleAction:(BOOL)flag
+{
+	objc_setAssociatedObject(self, BKGestureRecognizerShouldHandleActionKey, @(flag), OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (BOOL)bk_shouldHandleAction
+{
+	return [objc_getAssociatedObject(self, BKGestureRecognizerShouldHandleActionKey) boolValue];
 }
 
 - (void)bk_cancel
