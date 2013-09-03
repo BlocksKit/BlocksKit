@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		00D28ACC14AAC47800ECB62C /* UIPopoverController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 00D28AC614AAC43E00ECB62C /* UIPopoverController+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00D28ACE14AAC48600ECB62C /* UIPopoverController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */; };
+		1AA10D8C210B0C0164B8EF38 /* BKMacrosTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA1098D35D15E85B0D5ABEB /* BKMacrosTest.m */; };
+		1AA10ECBD8E9855A003E1579 /* BKMacrosTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA1098D35D15E85B0D5ABEB /* BKMacrosTest.m */; };
 		6C145417138497D50067A56E /* BKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C161C901620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C161C911620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -263,6 +265,8 @@
 		0005D5EE161FDF23007DD837 /* iOS Tests App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS Tests App-Prefix.pch"; sourceTree = "<group>"; };
 		00D28AC614AAC43E00ECB62C /* UIPopoverController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPopoverController+BlocksKit.h"; sourceTree = "<group>"; };
 		00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPopoverController+BlocksKit.m"; sourceTree = "<group>"; };
+		1AA1098D35D15E85B0D5ABEB /* BKMacrosTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKMacrosTest.m; sourceTree = "<group>"; };
+		1AA10CB3DBF8ED68835B126C /* BKMacrosTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKMacrosTest.h; sourceTree = "<group>"; };
 		6C145416138497D40067A56E /* BKGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKGlobals.h; sourceTree = "<group>"; };
 		6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+BlocksKit.h"; sourceTree = "<group>"; };
 		6C161C8F1620C6E000F04A9A /* NSOrderedSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+BlocksKit.m"; sourceTree = "<group>"; };
@@ -782,6 +786,8 @@
 				6CF22D41161F32CA002FD317 /* MessageUI */,
 				6CF22D3A161F32AF002FD317 /* UIKit */,
 				6CF22C9F161EAFB8002FD317 /* Supporting Files */,
+				1AA1098D35D15E85B0D5ABEB /* BKMacrosTest.m */,
+				1AA10CB3DBF8ED68835B126C /* BKMacrosTest.h */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1262,6 +1268,7 @@
 				6CF22D27161F2298002FD317 /* BKAsyncTestCase.m in Sources */,
 				6C161C9E1620C71A00F04A9A /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
 				6C161CA21620C74400F04A9A /* NSOrderedSetBlocksKitTest.m in Sources */,
+				1AA10D8C210B0C0164B8EF38 /* BKMacrosTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1297,6 +1304,7 @@
 				6CF22D40161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */,
 				6C161C9D1620C71A00F04A9A /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
 				6C161CA11620C74400F04A9A /* NSOrderedSetBlocksKitTest.m in Sources */,
+				1AA10ECBD8E9855A003E1579 /* BKMacrosTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
