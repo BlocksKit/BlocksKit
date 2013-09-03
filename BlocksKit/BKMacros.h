@@ -21,8 +21,8 @@
 		return MA_retval; \
 	}())
 
-#define BK_EACH(collection, ...) __BK_EACH_WRAPPER([collection each:^(id obj) { __VA_ARGS__ }];
-#define BK_APPLY(collection, ...) __BK_EACH_WRAPPER([collection apply:^(id obj) { __VA_ARGS__ }];
+#define BK_EACH(collection, ...) __BK_EACH_WRAPPER([collection each:^(id obj) { __VA_ARGS__ }])
+#define BK_APPLY(collection, ...) __BK_EACH_WRAPPER([collection apply:^(id obj) { __VA_ARGS__ }])
 #define BK_MAP(collection, ...) __BK_EACH_WRAPPER([collection map: ^id (id obj) { return (__VA_ARGS__); }])
 #define BK_SELECT(collection, ...) __BK_EACH_WRAPPER([collection select: ^BOOL (id obj) { return (__VA_ARGS__) != 0; }])
 #define BK_REJECT(collection, ...) __BK_EACH_WRAPPER([collection select: ^BOOL (id obj) { return (__VA_ARGS__) == 0; }])
