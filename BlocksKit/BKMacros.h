@@ -36,6 +36,30 @@
 #define BK_MATCH(collection, ...) __BK_EACH_WRAPPER([collection match: ^BOOL (id obj) { return (__VA_ARGS__) != 0; }])
 #define BK_REDUCE(collection, initial, ...) __BK_EACH_WRAPPER([collection reduce: (initial) withBlock: ^id (id a, id b) { return (__VA_ARGS__); }])
 
+static inline id BKNextHelper(NSArray *array, CFMutableDictionaryRef *eachTablePtr) {
+
+    if (!*eachTablePtr) {
+        CFDictionaryKeyCallBacks keycb = {
+            0,
+            kCFTypeDictionaryKeyCallBacks.retain,
+            kCFTypeDictionaryKeyCallBacks.release,
+            kCFTypeDictionaryKeyCallBacks.copyDescription,
+            NULL,
+            NULL
+        };
+        *eachTablePtr = CFDictionaryCreateMutable(NULL, 0, &keycb, &kCFTypeDictionaryValueCallBacks);
+    }
+
+    NSEnumerator *enumerator = (__bridge id)CFDictionaryGetValue(*eachTablePtr, (__bridge CFArrayRef)array);
+    if (!enumerator) {
+        enumerator = [array objectEnumerator];
+        CFDictionarySetValue(*eachTablePtr, (__bridge CFArrayRef)array, (__bridge void *)enumerator);
+    }
+    return [enumerator nextObject];
+}
+
+#define BK_NEXT(array) BKNextHelper(array, &BK_eachTable)
+
 #ifndef EACH
 #define EACH BK_EACH
 #endif
@@ -62,6 +86,10 @@
 
 #ifndef REDUCE
 #define REDUCE BK_REDUCE
+#endif
+
+#ifndef NEXT
+#define NEXT BK_NEXT
 #endif
 
 #endif
