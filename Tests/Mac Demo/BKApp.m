@@ -23,7 +23,7 @@
 #pragma mark - NSTimer+BlocksKit
 
 	// timer w/ block will bump our displayCount property and repeat itself, triggering KVO notification below
-	_tmr = [NSTimer scheduledTimerWithTimeInterval:.4 block:^(NSTimeInterval time) { self.displayCt++; } repeats:YES];
+	_tmr = [NSTimer scheduledTimerWithTimeInterval:.4 block:^(NSTimer *t) { self.displayCt++; } repeats:YES];
 
 #pragma mark - NSObject+BlockObservation
 

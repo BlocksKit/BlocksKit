@@ -1,0 +1,43 @@
+
+//  BundledFramework.xcconfig - BlocksKit - Created by Alex Gray on 9/3/13.
+
+
+// You have TWO options for linking / including BlocksKit/any Mac framework..
+
+
+// Option A: 	Inside your YourApp.app. 	(A private framework)
+// Option B: 	Inside YourKit.framework. (Yours is the "umbrella" framework, Blockskit becomes the "sub_umbrella")
+
+// Step 1:	 	For either option, you need to drag (or "Add Files..") the Bk.xcodeproj to YOUR blue .xcodeproj file in Navigator.
+//					Then, add a build phase to your App or parent framework's target (not the BK framework) like..
+
+//	+ Copy Files ->  + Add / select the "BlocksKit.framework" target under products -> Destination "Frameworks"
+
+
+//	Step 2: 		You HAVE to set YOUR app OR your framework to "search" for frameworks internally at runtime via the special variable "@rpath"..
+
+// LD_RUNPATH_SEARCH_PATHS = @rpath  // It wont work setting it here.. do it in YOUR App or Umbrella Framework target,
+
+
+// Step 3:  Choose Option A or B by		->	Clicking on BlocksKit.xcodeproj in Navigator
+//													-> Click the Blue Project icon above the other targets
+//													-> Expand configurations and select the right config file based on where you'll include BK.
+
+
+//	-------------------------------------------------- The below instructions are unique to this configuration.
+
+
+//	THIS xcconfig file is for OPTION B! the FRAMEWORK traget. This loads BK relative to an "umbrella framework".
+
+// Blocks Will end up in 				"SomeApp.app/Contents/Frameworks/YourKit.framework/Versions/A/Frameworks/BlocksKit.framework"
+// The framework LOADING BK is at 	"SomeApp.app/Contents/Frameworks/YourKit.framework/Versions/A/YourKit"
+
+// SO we set BlocksKit's installname, relative to the LOADER (aka your framework's) @rpath
+
+INSTALL_PATH	=	@loader_path/Frameworks
+
+// By linking your parent/umbrella framework to BlocksKit like so... 		OTHER_LDFLAGS	= -sub_umbrella BlocksKit
+// and importing the Blockskit Header in your project...   				 		#import <BlocksKit/BlocksKit.h>
+// BlocksKit will be avilable to your framework's classes and any app that links with your umbrella framework.
+
+

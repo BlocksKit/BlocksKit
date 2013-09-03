@@ -401,6 +401,8 @@
 		6CF22D3C161F32C4002FD317 /* MFMailComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMailComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		6CF22D3D161F32C4002FD317 /* MFMessageComposeViewControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMessageComposeViewControllerBlocksKitTest.h; sourceTree = "<group>"; };
 		6CF22D3E161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMessageComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		7B548FEC17D5B6B000496435 /* BundledFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BundledFramework.xcconfig; path = BlocksKit/BundledFramework.xcconfig; sourceTree = "<group>"; };
+		7B548FED17D5EEC000496435 /* SubUmbrellaFramework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SubUmbrellaFramework.xcconfig; path = BlocksKit/SubUmbrellaFramework.xcconfig; sourceTree = "<group>"; };
 		7BE3719217D4364000F20298 /* BlocksKit Mac Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BlocksKit Mac Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BE3719317D4364000F20298 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7BE3719617D4364000F20298 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -559,6 +561,8 @@
 				6CC08FD11385555D00DDEABB /* iOS */,
 				7BE3719317D4364000F20298 /* Cocoa.framework */,
 				7BE3719517D4364000F20298 /* Other Frameworks */,
+				7B548FEC17D5B6B000496435 /* BundledFramework.xcconfig */,
+				7B548FED17D5EEC000496435 /* SubUmbrellaFramework.xcconfig */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1491,13 +1495,13 @@
 		};
 		6CC40A821447BB1400E47595 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B548FEC17D5B6B000496435 /* BundledFramework.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_CURRENT_VERSION = 1.8.2;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1506,13 +1510,13 @@
 		};
 		6CC40A831447BB1400E47595 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B548FEC17D5B6B000496435 /* BundledFramework.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_CURRENT_VERSION = 1.8.2;
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1611,7 +1615,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Mac Demo/BlocksKit Mac Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1628,7 +1632,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Mac Demo/BlocksKit Mac Demo-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@rpath";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
