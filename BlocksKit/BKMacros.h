@@ -13,19 +13,19 @@
 #ifndef __BLOCKSKIT_MACROS__
 #define __BLOCKSKIT_MACROS__
 
-#define __BK_EACH_WRAPPER(...) (^{ __block CFMutableDictionaryRef MA_eachTable = nil; \
-		(void)MA_eachTable; \
-		__typeof__(__VA_ARGS__) MA_retval = __VA_ARGS__; \
-		if(MA_eachTable) \
-			CFRelease(MA_eachTable); \
-		return MA_retval; \
+#define __BK_EACH_WRAPPER(...) (^{ __block CFMutableDictionaryRef BK_eachTable = nil; \
+		(void)BK_eachTable; \
+		__typeof__(__VA_ARGS__) BK_retval = __VA_ARGS__; \
+		if(BK_eachTable) \
+			CFRelease(BK_eachTable); \
+		return BK_retval; \
 	}())
 
-#define __BK_EACH_WRAPPER_VOID(...) (^{ __block CFMutableDictionaryRef MA_eachTable = nil; \
-		(void)MA_eachTable; \
+#define __BK_EACH_WRAPPER_VOID(...) (^{ __block CFMutableDictionaryRef BK_eachTable = nil; \
+		(void)BK_eachTable; \
 		__VA_ARGS__; \
-		if(MA_eachTable) \
-			CFRelease(MA_eachTable); \
+		if(BK_eachTable) \
+			CFRelease(BK_eachTable); \
 	}())
 
 #define BK_EACH(collection, ...) __BK_EACH_WRAPPER_VOID([collection each:^(id obj) { __VA_ARGS__ }])
