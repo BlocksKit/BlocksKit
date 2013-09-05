@@ -15,13 +15,4 @@ Pod::Spec.new do |s|
   s.ios.frameworks        = 'MessageUI'
   s.ios.source_files      = 'BlocksKit/*.{h,m}', 'BlocksKit/UIKit/*.{h,m}', 'BlocksKit/MessageUI/*.{h,m}'
   s.ios.deployment_target = '5.0'
-  s.documentation         = {
-    :html => 'http://pandamonia.github.com/BlocksKit/Documentation/index.html',
-    :appledoc => [
-      '--project-company', 'Pandamonia LLC',
-      '--company-id', 'us.pandamonia',
-      '--no-repeat-first-par',
-      '--no-warn-invalid-crossref'
-    ]
-  }
 end
