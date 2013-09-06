@@ -15,7 +15,7 @@
 
 @interface UIImagePickerController (BlocksKit)
 
-@property (nonatomic, copy) void(^didFinishPickingMedia)(UIImagePickerController *, NSDictionary *);
-@property (nonatomic, copy) void(^didCancel)(UIImagePickerController *);
+@property (nonatomic, copy) void(^didFinishPickingMediaBlock)(UIImagePickerController *, NSDictionary *);
+@property (nonatomic, copy) void(^didCancelBlock)(UIImagePickerController *);
 
 @end

@@ -41,14 +41,14 @@
 
 @implementation UIImagePickerController (BlocksKit)
 
-@dynamic didFinishPickingMedia, didCancel;
+@dynamic didFinishPickingMediaBlock, didCancelBlock;
 
 + (void)load {
 	@autoreleasepool {
 		[self registerDynamicDelegate];
 		[self linkDelegateMethods: @{
-									 @"didFinishPickingMedia": @"imagePickerController:didFinishPickingMediaWithInfo:",
-									 @"didCancel": @"imagePickerControllerDidCancel:"
+									 @"didFinishPickingMediaBlock": @"imagePickerController:didFinishPickingMediaWithInfo:",
+									 @"didCancelBlock": @"imagePickerControllerDidCancel:"
 									 }];
 	}
 }

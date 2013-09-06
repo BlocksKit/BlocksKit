@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00D28ACC14AAC47800ECB62C /* UIPopoverController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 00D28AC614AAC43E00ECB62C /* UIPopoverController+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00D28ACE14AAC48600ECB62C /* UIPopoverController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */; };
+		09AE1DDE17D99D510012A788 /* UIImagePickerControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AE1DDB17D99D320012A788 /* UIImagePickerControllerBlocksKitTest.m */; };
 		09C3D28217D3AC18001A71D9 /* UIImagePickerController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 09C3D28017D3AC18001A71D9 /* UIImagePickerController+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09C3D28317D3AC18001A71D9 /* UIImagePickerController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C3D28117D3AC18001A71D9 /* UIImagePickerController+BlocksKit.m */; };
 		6C145417138497D50067A56E /* BKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C145416138497D40067A56E /* BKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -239,6 +240,8 @@
 		0005D5EE161FDF23007DD837 /* iOS Tests App-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS Tests App-Prefix.pch"; sourceTree = "<group>"; };
 		00D28AC614AAC43E00ECB62C /* UIPopoverController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPopoverController+BlocksKit.h"; sourceTree = "<group>"; };
 		00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPopoverController+BlocksKit.m"; sourceTree = "<group>"; };
+		09AE1DDA17D99D320012A788 /* UIImagePickerControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImagePickerControllerBlocksKitTest.h; sourceTree = "<group>"; };
+		09AE1DDB17D99D320012A788 /* UIImagePickerControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImagePickerControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		09C3D28017D3AC18001A71D9 /* UIImagePickerController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+BlocksKit.h"; sourceTree = "<group>"; };
 		09C3D28117D3AC18001A71D9 /* UIImagePickerController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+BlocksKit.m"; sourceTree = "<group>"; };
 		6C145416138497D40067A56E /* BKGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKGlobals.h; sourceTree = "<group>"; };
@@ -789,6 +792,8 @@
 				6CF22D31161F32A3002FD317 /* UIViewBlocksKitTest.m */,
 				6CF22D32161F32A4002FD317 /* UIWebViewBlocksKitTest.h */,
 				6CF22D33161F32A9002FD317 /* UIWebViewBlocksKitTest.m */,
+				09AE1DDA17D99D320012A788 /* UIImagePickerControllerBlocksKitTest.h */,
+				09AE1DDB17D99D320012A788 /* UIImagePickerControllerBlocksKitTest.m */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -1222,6 +1227,7 @@
 				6CF22D3F161F32C5002FD317 /* MFMailComposeViewControllerBlocksKitTest.m in Sources */,
 				6CF22D40161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */,
 				6C161C9D1620C71A00F04A9A /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
+				09AE1DDE17D99D510012A788 /* UIImagePickerControllerBlocksKitTest.m in Sources */,
 				6C161CA11620C74400F04A9A /* NSOrderedSetBlocksKitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
