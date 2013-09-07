@@ -52,10 +52,10 @@ static inline id BKNextHelper(NSArray *array, CFMutableDictionaryRef *eachTableP
         *eachTablePtr = CFDictionaryCreateMutable(NULL, 0, &keycb, &kCFTypeDictionaryValueCallBacks);
     }
 
-    NSEnumerator *enumerator = (__bridge id)CFDictionaryGetValue(*eachTablePtr, (__bridge CFArrayRef)array);
+    NSEnumerator *enumerator = (id)CFDictionaryGetValue(*eachTablePtr, (CFArrayRef)array);
     if (!enumerator) {
         enumerator = [array objectEnumerator];
-        CFDictionarySetValue(*eachTablePtr, (__bridge CFArrayRef)array, (__bridge void *)enumerator);
+        CFDictionarySetValue(*eachTablePtr, (CFArrayRef)array, (void *)enumerator);
     }
     return [enumerator nextObject];
 }
