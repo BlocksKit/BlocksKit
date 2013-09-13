@@ -31,6 +31,6 @@
  @param inRepeats If YES, the timer will repeatedly reschedule itself until invalidated. If NO, the timer will be invalidated after it fires.
  @return A new NSTimer object, configured according to the specified parameters.
  */
-+ (NSTimer *)bk_timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)(NSTImer *timer))inBlock repeats:(BOOL)inRepeats;
++ (NSTimer *)bk_timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)(NSTimer *timer))inBlock repeats:(BOOL)inRepeats;
 
 @end
