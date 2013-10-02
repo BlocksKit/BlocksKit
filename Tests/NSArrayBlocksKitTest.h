@@ -9,6 +9,7 @@
 @interface NSArrayBlocksKitTest : SenTestCase
 
 - (void)testEach;
+- (void)testReverseEach;
 - (void)testMatch;
 - (void)testNotMatch;
 - (void)testSelect;

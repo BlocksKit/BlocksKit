@@ -30,6 +30,14 @@
  */
 - (void)each:(BKSenderBlock)block;
 
+
+/** Loops through an array in the reversed order and executes the given block with each object.
+ 
+ @param block A single-argument, void-returning code block.
+ */
+- (void)reverseEach:(BKSenderBlock)block;
+
+
 /** Enumerates through an array concurrently and executes
  the given block once for each object.
  

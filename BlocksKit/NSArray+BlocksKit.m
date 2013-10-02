@@ -15,6 +15,14 @@
 	}];
 }
 
+- (void)reverseEach:(BKSenderBlock)block {
+    NSParameterAssert(block != nil);
+	
+    [self enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		block(obj);
+	}];
+}
+
 - (void)apply:(BKSenderBlock)block {
 	NSParameterAssert(block != nil);
 	
