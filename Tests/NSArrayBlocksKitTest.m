@@ -10,11 +10,17 @@
 
 @implementation NSArrayBlocksKitTest {
 	NSArray *_subject;
+  NSArray *_integers;
+  NSArray *_floats;
+  NSArray *_bools;
 	NSInteger _total;
 }
 
 - (void)setUp {
 	_subject = @[ @"1", @"22", @"333" ];
+  _integers = @[@(1), @(2), @(3)];
+  _floats = @[@(.1), @(.2), @(.3)];
+  _bools = @[@YES, @NO, @NO];
 	_total = 0;
 }
 
@@ -124,6 +130,30 @@
 	};
 	NSString *concatenated = [_subject reduce:@"" withBlock:accumlationBlock];
 	STAssertTrue([concatenated isEqualToString: @"122333"], @"concatenated string is %@", concatenated);
+}
+
+- (void)testReduceWithBlockInt {
+	BKAccumulationBlockInt accumlationBlockInt = ^NSInteger(NSInteger result, id obj, NSInteger index) {
+		return result + [obj intValue];
+	};
+  NSInteger result = [_integers reduceInt:0 WithBlock:accumlationBlockInt];
+	STAssertTrue(result == 6, @"reduce int result is %d", result);
+}
+
+- (void)testReduceWithBlockFloat {
+	BKAccumulationBlockFloat accumlationBlockFloat = ^CGFloat(CGFloat result, id obj, NSInteger index) {
+		return result + [obj floatValue];
+	};
+  CGFloat result = [_floats reduceFloat:.0  WithBlock:accumlationBlockFloat];
+	STAssertTrue(result == .6, @"reduce float result is %d", result);
+}
+
+- (void)testReduceWithBlockBool {
+	BKAccumulationBlockBool accumlationBlockBool = ^BOOL(BOOL result, id obj, NSInteger index) {
+		return result && [obj boolValue];
+	};
+  BOOL result = [_bools reduceFloat:.0  WithBlock:accumlationBlockBool];
+	STAssertFalse(result, @"reduce bool result is %@", result ? @"YES" : @"NO");
 }
 
 - (void)testAny {

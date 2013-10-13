@@ -110,6 +110,34 @@
  */
 - (id)reduce:(id)initial withBlock:(BKAccumulationBlock)block;
 
+/**
+ Sometimes we just want to loop objects list
+ and reduce one of the specificated property of each object which is basic types.
+  
+ For instance, if we want to caculate the total age of a list of people.
+ 
+ Code without using block will be something like:
+ 
+ NSArray *peoples = @[p1, p2, p3];
+ int totalAge = 0;
+ for (People *people in peoples) {
+    totalAge += [people age];
+ }
+
+ We can use block to make it better:
+ 
+ NSArray *peoples = @[p1, p2, p3];
+ int totalAge = [peoples reduceInt:0 WithBlock:^int(NSInteger result, id obj, NSInteger index) {
+    return result + [obj age];
+ }];
+ 
+ */
+- (NSInteger)reduceInt:(NSInteger)initial WithBlock:(BKAccumulationBlockInt)block;
+
+- (CGFloat)reduceFloat:(CGFloat)inital WithBlock:(BKAccumulationBlockFloat)block;
+
+- (BOOL)reduceBool:(BOOL)inital WithBlock:(BKAccumulationBlockBool)block;
+
 /** Loops through an array to find whether any object matches the block.
  
  This method is similar to the Scala list `exists`. It is functionally

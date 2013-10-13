@@ -61,6 +61,9 @@ typedef id (^BKReturnBlock)(void);
 typedef id (^BKTransformBlock)(id obj);
 typedef id (^BKKeyValueTransformBlock)(id key, id obj);
 typedef id (^BKAccumulationBlock)(id sum, id obj);
+typedef NSInteger (^BKAccumulationBlockInt)(NSInteger result, id obj, NSInteger index);
+typedef CGFloat (^BKAccumulationBlockFloat)(CGFloat result, id obj, NSInteger index);
+typedef BOOL (^BKAccumulationBlockBool)(BOOL result, id obj, NSInteger index);
 typedef id (^BKIndexMapBlock)(NSUInteger index);
 
 typedef NSUInteger (^BKIndexTransformBlock)(NSUInteger index);
