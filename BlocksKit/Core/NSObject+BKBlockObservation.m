@@ -37,8 +37,8 @@ typedef NS_ENUM(int, BKObserverContext) {
 
 @end
 
-static const void *BKObserverBlocksKey = &BKObserverBlocksKey;
-static const void *BKBlockObservationContext = &BKBlockObservationContext;
+static void *BKObserverBlocksKey = &BKObserverBlocksKey;
+static void *BKBlockObservationContext = &BKBlockObservationContext;
 
 @implementation _BKObserver
 
@@ -55,7 +55,7 @@ static const void *BKBlockObservationContext = &BKBlockObservationContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if (context != &BKBlockObservationContext) return;
+	if (context != BKBlockObservationContext) return;
 
 	@synchronized(self) {
 		switch (self.context) {
@@ -89,7 +89,7 @@ static const void *BKBlockObservationContext = &BKBlockObservationContext;
 		if (_isObserving) return;
 
 		[self.keyPaths bk_each:^(NSString *keyPath) {
-			[self.observee addObserver:self forKeyPath:keyPath options:options context:&BKBlockObservationContext];
+			[self.observee addObserver:self forKeyPath:keyPath options:options context:BKBlockObservationContext];
 		}];
 
 		_isObserving = YES;
@@ -116,8 +116,25 @@ static const void *BKBlockObservationContext = &BKBlockObservationContext;
 			_keyPaths = nil;
 		}
 
-		[observee removeObserver:self forKeyPath:keyPath context:&BKBlockObservationContext];
+		[observee removeObserver:self forKeyPath:keyPath context:BKBlockObservationContext];
 	}
+}
+
+- (void)_stopObservingLocked
+{
+	if (!_isObserving) return;
+
+	_task = nil;
+
+	NSObject *observee = self.observee;
+	NSArray *keyPaths = [self.keyPaths copy];
+
+	_observee = nil;
+	_keyPaths = nil;
+
+	[keyPaths bk_each:^(NSString *keyPath) {
+		[observee removeObserver:self forKeyPath:keyPath context:BKBlockObservationContext];
+	}];
 }
 
 - (void)stopObserving
@@ -125,25 +142,15 @@ static const void *BKBlockObservationContext = &BKBlockObservationContext;
 	if (_observee == nil) return;
 
 	@synchronized (self) {
-		if (!_isObserving) return;
-
-		_task = nil;
-
-		NSObject *observee = self.observee;
-		NSArray *keyPaths = [self.keyPaths copy];
-
-		_observee = nil;
-		_keyPaths = nil;
-
-		[keyPaths bk_each:^(NSString *keyPath) {
-			[observee removeObserver:self forKeyPath:keyPath context:&BKBlockObservationContext];
-		}];
+		[self _stopObservingLocked];
 	}
 }
 
 - (void)dealloc
 {
-	if (self.keyPaths) [self stopObserving];
+	if (self.keyPaths) {
+		[self _stopObservingLocked];
+	}
 }
 
 @end
