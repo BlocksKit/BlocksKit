@@ -109,13 +109,13 @@
 + (void)load {
     [self bk_registerDynamicDelegate];
     [self bk_linkDelegateMethods: @{
-        @"shouldBeginEditingBlock": @"textFieldShouldBeginEditing:",
-        @"didBeginEditingBlock": @"textFieldDidBeginEditing:",
-        @"shouldEndEditingBlock": @"textFieldShouldEndEditing:",
-        @"didEndEditingBlock" : @"textFieldDidEndEditing:",
-        @"shouldChangeCharactersInRangeWithReplacementStringBlock" : @"textField:shouldChangeCharactersInRange:replacementString:",
-        @"shouldClearBlock" : @"textFieldShouldClear:",
-        @"shouldReturnBlock" : @"textFieldShouldReturn:",
+        @"bk_shouldBeginEditingBlock": @"textFieldShouldBeginEditing:",
+        @"bk_didBeginEditingBlock": @"textFieldDidBeginEditing:",
+        @"bk_shouldEndEditingBlock": @"textFieldShouldEndEditing:",
+        @"bk_didEndEditingBlock" : @"textFieldDidEndEditing:",
+        @"bk_shouldChangeCharactersInRangeWithReplacementStringBlock" : @"textField:shouldChangeCharactersInRange:replacementString:",
+        @"bk_shouldClearBlock" : @"textFieldShouldClear:",
+        @"bk_shouldReturnBlock" : @"textFieldShouldReturn:",
     }];
 }
 
