@@ -306,8 +306,11 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 	}
 
 	ffi_cif cif;
-	ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argCount, returnType, methodArgs);
-	NSCAssert2(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], [self block]);
+#if !defined(NS_BLOCK_ASSERTIONS)
+	ffi_status status =
+#endif
+    ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argCount, returnType, methodArgs);
+	NSAssert(status == FFI_OK, @"%@ -  Unable to create function interface for block: %@", [self class], [self block]);
 
 	_block = (void *)Block_copy((__bridge void *) block);
 	self.methodSignature = methodSignature;

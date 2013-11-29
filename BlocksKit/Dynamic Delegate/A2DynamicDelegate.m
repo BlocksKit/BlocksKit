@@ -11,6 +11,7 @@ Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
 Protocol *a2_protocolForDelegatingObject(id obj, Protocol *protocol);
 
+#if !defined(NS_BLOCK_ASSERTIONS)
 static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NSMethodSignature *blockSignature)
 {
 	if (methodSignature.methodReturnType[0] != blockSignature.methodReturnType[0])
@@ -23,6 +24,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	}
 	return YES;
 }
+#endif
 
 @interface A2DynamicClassDelegate : A2DynamicDelegate
 
@@ -155,7 +157,7 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes:methodDescription.types];
 	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:protoSig];
 
-	NSCAssert3(a2_methodSignaturesCompatible(inv.methodSignature, inv.blockSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
+	NSAssert(a2_methodSignaturesCompatible(inv.methodSignature, inv.blockSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
 
 	self.blockInvocations[key] = inv;
 }
@@ -278,9 +280,7 @@ static Protocol *a2_classProtocol(Class _cls, NSString *suffix, NSString *descri
 		cls = class_getSuperclass(cls);
 	}
 
-	NSString *className = NSStringFromClass(_cls);
-	NSString *protocolName = [className stringByAppendingString:suffix];
-	NSCAssert3(NO, @"Specify protocol explicitly: could not determine %@ protocol for class %@ (tried <%@>)", description, className, protocolName);
+	NSCAssert(NO, @"Specify protocol explicitly: could not determine %@ protocol for class %@ (tried <%@>)", description, NSStringFromClass(_cls), [NSStringFromClass(_cls) stringByAppendingString:suffix]);
 	return nil;
 }
 
