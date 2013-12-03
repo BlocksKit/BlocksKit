@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'BlocksKit'
-  s.version               = '2.0.0'
+  s.version               = '2.1.0'
   s.license               = 'MIT'
   s.summary               = 'The Objective-C block utilities you always wish you had.'
   s.homepage              = 'https://github.com/pandamonia/BlocksKit'
@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
 							  'Alexsander Akers'  => 'a2@pandamonia.us' }
   s.source                = { :git => 'https://github.com/pandamonia/BlocksKit.git', :tag => "v#{s.version}" }
   s.requires_arc          = true
-  s.osx.deployment_target = '10.7'
-  s.ios.deployment_target = '5.0'
+  s.osx.deployment_target = '10.8'
+  s.ios.deployment_target = '6.0'
 
   s.default_subspec = 'All'
   s.subspec 'All' do |ss|
@@ -23,9 +23,14 @@ Pod::Spec.new do |s|
     ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Core/*.{h,m}'
   end
 
+  s.subspec 'MiniFFI' do |ss|
+    ss.source_files = 'ffi-mini/include/*.h', 'ffi-mini/src/*.c', 'ios/src/aarch64/*.{c,S}', 'ios/src/arm/*.{c,S}', 'ios/src/x86/*.{c,S}'
+    ss.xcconfig    = { 'OTHER_LDFLAGS' => "-Wl,-no_compact_unwind" }
+  end
+
   s.subspec 'DynamicDelegate' do |ss|
     ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Dynamic Delegate/*.{h,m}', 'BlocksKit/Dynamic Delegate/Foundation/*.{h,m}'
-    ss.ios.dependency 'libffi'
+    ss.ios.dependency 'BlocksKit/MiniFFI'
     ss.osx.library = 'ffi'
   end
 
