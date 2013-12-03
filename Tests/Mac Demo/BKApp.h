@@ -1,5 +1,9 @@
-
-//  BlocksKit MacDemo - Created by Alex Gray on 7/6/13.
+//
+//  BKApp.h
+//  BlocksKit Mac Demo
+//
+//  Contributed by Alex Gray.
+//
 
 #import <Cocoa/Cocoa.h>
 #import <BlocksKit/BlocksKit.h>

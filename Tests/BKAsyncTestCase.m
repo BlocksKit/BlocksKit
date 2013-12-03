@@ -100,18 +100,18 @@ typedef NS_ENUM(NSUInteger, SenTestCaseError) {
 - (void)waitForStatus:(NSInteger)status timeout:(NSTimeInterval)timeout {
 	SenTestCaseError error = [self _waitFor:status timeout:timeout];
 	if (error == SenTestCaseErrorTimedOut) {
-		STFail(@"Request timed out");
+		XCTFail(@"Request timed out");
 	} else if (error == SenTestCaseErrorInvalidStatus) {
-		STFail(@"Request finished with the wrong status: %d != %d", status, notifiedStatus_);
+		XCTFail(@"Request finished with the wrong status: %ld != %ld", (long)status, notifiedStatus_);
 	} else if (error == SenTestCaseErrorUnprepared) {
-		STFail(@"Call prepare before calling asynchronous method and waitForStatus:timeout:");
+		XCTFail(@"Call prepare before calling asynchronous method and waitForStatus:timeout:");
 	}
 }
 
 - (void)waitForTimeout:(NSTimeInterval)timeout {
 	SenTestCaseError error = [self _waitFor:-1 timeout:timeout];
 	if (error != SenTestCaseErrorTimedOut) {
-		STFail(@"Request should have timed out");
+		XCTFail(@"Request should have timed out");
 	}
 }
 

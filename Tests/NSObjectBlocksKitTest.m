@@ -2,10 +2,17 @@
 //  NSObjectBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Contributed by Kai Wu.
+//
 
-#import "NSObjectBlocksKitTest.h"
-#import <BlocksKit/BlocksKit.h>
-#import <BlocksKit/A2DynamicDelegate.h>
+#import <XCTest/XCTest.h>
+#import <BlocksKit/NSObject+BKBlockExecution.h>
+#import "BKAsyncTestCase.h"
+
+@interface NSObjectBlocksKitTest : BKAsyncTestCase
+
+@end
+
 
 @implementation NSObjectBlocksKitTest {
 	NSMutableString *_subject;	
@@ -26,9 +33,9 @@
 	};
 	[self prepare];
 	id block = [self bk_performBlock:senderBlock afterDelay:0.5];
-	STAssertNotNil(block,@"block is nil");
+	XCTAssertNotNil(block,@"block is nil");
 	[self waitForStatus:SenTestCaseWaitStatusSuccess timeout:1.0];
-	STAssertEqualObjects(_subject,@"Hello BlocksKit",@"subject string is %@",_subject);
+	XCTAssertEqualObjects(_subject,@"Hello BlocksKit",@"subject string is %@",_subject);
 }
 
 - (void)testClassPerformBlockAfterDelay {
@@ -39,9 +46,9 @@
 		[subject appendString:@"BlocksKit"];
 		[test notify:SenTestCaseWaitStatusSuccess forSelector:@selector(testClassPerformBlockAfterDelay)];
 	} afterDelay:0.5];
-	STAssertNotNil(blk,@"block is nil");
+	XCTAssertNotNil(blk,@"block is nil");
 	[self waitForStatus:SenTestCaseWaitStatusSuccess timeout:1.0];
-	STAssertEqualObjects(subject,@"Hello BlocksKit",@"subject string is %@",subject);
+	XCTAssertEqualObjects(subject,@"Hello BlocksKit",@"subject string is %@",subject);
 }
 
 - (void)testCancel {
@@ -50,10 +57,10 @@
 		[_subject appendString:@"BlocksKit"];
 		[sender notify:SenTestCaseWaitStatusSuccess];
 	} afterDelay:0.1];
-	STAssertNotNil(block,@"block is nil");
+	XCTAssertNotNil(block,@"block is nil");
 	[NSObject bk_cancelBlock:block];
 	[self waitForTimeout:0.5];
-	STAssertEqualObjects(_subject,@"Hello ",@"subject string is %@",_subject);
+	XCTAssertEqualObjects(_subject,@"Hello ",@"subject string is %@",_subject);
 }
 
 @end

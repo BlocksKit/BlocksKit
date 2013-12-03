@@ -1,11 +1,13 @@
 //
-//  A2BlockDelegateTests.h
-//  BlocksKit Unit Tests
+//  A2DynamicTestClasses+A2BlockDelegate.h
+//  BlocksKit
+//
+//  Created by Zach Waldowski on 12/3/13.
+//
 //
 
-#import <SenTestingKit/SenTestingKit.h>
 #import <Foundation/Foundation.h>
-#import "A2DynamicDelegateTests.h"
+#import "A2DynamicTestClasses.h"
 
 #pragma mark -
 
@@ -140,29 +142,5 @@
 @interface TestPassStruct (A2BlockDelegate)
 
 @property (nonatomic, copy) BOOL(^testWithStructBlock)(MyStruct);
-
-@end
-
-#pragma mark -
-
-@interface A2BlockDelegateTests : SenTestCase
-
-- (void)testReturnObject;
-- (void)testReturnStruct;
-- (void)testPassObject;
-- (void)testPassChar;
-- (void)testPassUChar;
-- (void)testPassShort;
-- (void)testPassUShort;
-- (void)testPassInt;
-- (void)testPassUInt;
-- (void)testPassLong;
-- (void)testPassULong;
-- (void)testPassLongLong;
-- (void)testPassULongLong;
-- (void)testPassFloat;
-- (void)testPassDouble;
-- (void)testPassArray;
-- (void)testPassStruct;
 
 @end

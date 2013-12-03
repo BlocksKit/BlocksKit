@@ -1,9 +1,8 @@
 //
-//  main.m
-//  MacDemo
+//  BKApp.h
+//  BlocksKit Mac Demo
 //
-//  Created by Alex Gray on 7/6/13.
-//  Copyright (c) 2013 Pandamonia LLC. All rights reserved.
+//  Contributed by Alex Gray.
 //
 
 #import <Cocoa/Cocoa.h>

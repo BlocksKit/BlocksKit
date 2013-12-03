@@ -2,9 +2,15 @@
 //  NSMutableIndexSetBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Contributed by Kai Wu.
+//
 
-#import "NSMutableIndexSetBlocksKitTest.h"
-#import <BlocksKit/BlocksKit.h>
+#import <XCTest/XCTest.h>
+#import <BlocksKit/NSMutableIndexSet+BlocksKit.h>
+
+@interface NSMutableIndexSetBlocksKitTest : XCTestCase
+
+@end
 
 @implementation NSMutableIndexSetBlocksKitTest {
 	NSMutableIndexSet *_subject;
@@ -24,9 +30,9 @@
 		return match;
 	};
 	[_subject bk_performSelect:indexValidationBlock];
-	STAssertEqualObjects(order,@"123",@"the index loop order is %@",order);
+	XCTAssertEqualObjects(order,@"123",@"the index loop order is %@",order);
 	NSMutableIndexSet *target = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(1,2)];
-	STAssertEqualObjects(_subject,target,@"the selected index set is %@",_subject);
+	XCTAssertEqualObjects(_subject,target,@"the selected index set is %@",_subject);
 }
 
 - (void)testSelectedNone {
@@ -37,8 +43,8 @@
 		return match;
 	};
 	[_subject bk_performSelect:indexValidationBlock];
-	STAssertEqualObjects(order,@"123",@"the index loop order is %@",order);
-	STAssertEquals(_subject.count,(NSUInteger)0,@"no index found");
+	XCTAssertEqualObjects(order,@"123",@"the index loop order is %@",order);
+	XCTAssertEqual(_subject.count,(NSUInteger)0,@"no index found");
 }
 
 - (void)testReject {
@@ -49,8 +55,8 @@
 		return match;
 	};
 	[_subject bk_performReject:indexValidationBlock];
-	STAssertEqualObjects(order,@"123",@"the index loop order is %@",order);
-	STAssertEquals(_subject.count,(NSUInteger)0,@"all indexes are rejected");
+	XCTAssertEqualObjects(order,@"123",@"the index loop order is %@",order);
+	XCTAssertEqual(_subject.count,(NSUInteger)0,@"all indexes are rejected");
 }
 
 - (void)testRejectedNone {
@@ -61,9 +67,9 @@
 		return match;
 	};
 	[_subject bk_performReject:indexValidationBlock];
-	STAssertEqualObjects(order,@"123",@"the index loop order is %@",order);
+	XCTAssertEqualObjects(order,@"123",@"the index loop order is %@",order);
 	NSMutableIndexSet *target = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(1,3)];
-	STAssertEqualObjects(_subject,target,@"the rejected index set is %@",_subject);
+	XCTAssertEqualObjects(_subject,target,@"the rejected index set is %@",_subject);
 }
 
 @end

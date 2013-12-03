@@ -1,9 +1,8 @@
 //
-//  A2DynamicDelegateTests.h
+//  A2DynamicTestClasses.h
 //  BlocksKit Unit Tests
 //
 
-#import <SenTestingKit/SenTestingKit.h>
 #import <Foundation/Foundation.h>
 
 #pragma mark -
@@ -296,30 +295,5 @@ typedef struct _MyStruct {
 - (BOOL)test;
 
 @property (nonatomic, assign) id <TestClassMethodProtocol> delegate;
-
-@end
-
-#pragma mark -
-
-@interface A2DynamicDelegateTests : SenTestCase
-
-- (void)testReturnObject;
-- (void)testReturnStruct;
-- (void)testPassObject;
-- (void)testPassChar;
-- (void)testPassUChar;
-- (void)testPassShort;
-- (void)testPassUShort;
-- (void)testPassInt;
-- (void)testPassUInt;
-- (void)testPassLong;
-- (void)testPassULong;
-- (void)testPassLongLong;
-- (void)testPassULongLong;
-- (void)testPassFloat;
-- (void)testPassDouble;
-- (void)testPassArray;
-- (void)testPassStruct;
-- (void)testClassMethod;
 
 @end

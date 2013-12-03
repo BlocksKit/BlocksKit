@@ -1,16 +1,15 @@
 //
 //  UITextFieldBlocksKitTest.m
-//  BlocksKit
+//  BlocksKit Unit Tests
 //
-//  Created by Samuel E. Giddins on 7/26/13.
-//  Copyright (c) 2013 Pandamonia LLC. All rights reserved.
+//  Contributed by Samuel E. Giddins.
 //
 
-#import "UITextFieldBlocksKitTest.h"
-#import "UITextField+BlocksKit.h"
-#import "A2DynamicDelegate.h"
+#import <XCTest/XCTest.h>
+#import <BlocksKit/UITextField+BlocksKit.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
-@interface UITextFieldBlocksKitTest ()
+@interface UITextFieldBlocksKitTest : XCTestCase
 
 @property (nonatomic, retain) UITextField *subject;
 
@@ -49,13 +48,13 @@
 	[self.subject.bk_dynamicDelegate textFieldShouldClear:self.subject];
 	[self.subject.bk_dynamicDelegate textFieldShouldReturn:self.subject];
 
-	STAssertTrue(shouldBegin, @"bk_shouldBeginEditingBlock didn't fire");
-	STAssertTrue(didBegin, @"bk_didBeginEditingBlock didn't fire");
-	STAssertTrue(shouldEnd, @"bk_shouldEndEditingBlock didn't fire");
-	STAssertTrue(didEnd, @"bk_didEndEditingBlock didn't fire");
-	STAssertTrue(shouldChange, @"bk_shouldChangeCharactersInRangeWithReplacementStringBlock didn't fire");
-	STAssertTrue(shouldClear, @"bk_shouldClearBlock didn't fire");
-	STAssertTrue(shouldReturn, @"bk_shouldReturnBlock didn't fire");
+	XCTAssertTrue(shouldBegin, @"bk_shouldBeginEditingBlock didn't fire");
+	XCTAssertTrue(didBegin, @"bk_didBeginEditingBlock didn't fire");
+	XCTAssertTrue(shouldEnd, @"bk_shouldEndEditingBlock didn't fire");
+	XCTAssertTrue(didEnd, @"bk_didEndEditingBlock didn't fire");
+	XCTAssertTrue(shouldChange, @"bk_shouldChangeCharactersInRangeWithReplacementStringBlock didn't fire");
+	XCTAssertTrue(shouldClear, @"bk_shouldClearBlock didn't fire");
+	XCTAssertTrue(shouldReturn, @"bk_shouldReturnBlock didn't fire");
 }
 
 @end

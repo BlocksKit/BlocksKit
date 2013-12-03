@@ -1,3 +1,9 @@
+//
+//  BKApp.m
+//  BlocksKit Mac Demo
+//
+//  Contributed by Alex Gray.
+//
 
 #import "BKApp.h"
 
