@@ -61,14 +61,14 @@ static NSMethodSignature *a2_blockGetSignature(id block) {
     
     const char *signature = (*(const char **)desc);
     
-#if (TARGET_OS_MAC && __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_8) || (TARGET_OS_IPHONE && __IPHONE_OS_VERSION_MIN_REQUIRED < 60000)
+#if (TARGET_OS_IPHONE && __IPHONE_OS_VERSION_MIN_REQUIRED < 60000) || (TARGET_OS_MAC && __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_8)
     static BOOL shouldStrip = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-#if TARGET_OS_MAC
-        shouldStrip = (floor(NSFoundationVersionNumber) < NSFoundationVersionNumber10_8);
-#elif TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
         shouldStrip = (floor(NSFoundationVersionNumber) < NSFoundationVersionNumber_iOS_6_0);
+#elif TARGET_OS_MAC
+        shouldStrip = (floor(NSFoundationVersionNumber) < NSFoundationVersionNumber10_8);
 #else
         shouldStrip = YES;
 #endif
