@@ -8,6 +8,14 @@
 #import <objc/runtime.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+#ifndef NSFoundationVersionNumber10_8
+#define NSFoundationVersionNumber10_8 945.00
+#endif
+
+#ifndef NSFoundationVersionNumber_iOS_6_0
+#define NSFoundationVersionNumber_iOS_6_0  993.00
+#endif
+
 #pragma mark Block Internals
 
 typedef NS_ENUM(int, BKBlockFlags) {
