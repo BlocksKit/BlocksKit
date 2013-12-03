@@ -288,7 +288,17 @@ is_hfa (ffim_type *ty)
   return 0;
 }
 
-ffim_type*/
+/* Test if an ffi_type is a candidate for passing in a register.
+ 
+ This test does not check that sufficient registers of the
+ appropriate class are actually available, merely that IFF
+ sufficient registers are available then the argument will be passed
+ in register(s).
+ 
+ Note that an ffi_type that is deemed to be a register candidate
+ will always be returned in registers.
+ 
+ Returns 1 if a register candidate else 0.  */
 
 static int
 is_register_candidate (ffim_type *ty)
@@ -342,7 +352,8 @@ is_register_candidate (ffim_type *ty)
   return 0;
 }
 
-ffim_type/
+/* Test if an ffi_type argument or result is a candidate for a vector
+ register.  */
 
 static int
 is_v_register_candidate (ffim_type *ty)
