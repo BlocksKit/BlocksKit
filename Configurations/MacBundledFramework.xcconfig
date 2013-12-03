@@ -1,0 +1,50 @@
+//
+//  BundledFramework.xcconfig
+//  BlocksKit
+//
+//  Contributed by Alex Gray
+//
+
+//  You have TWO options for linking any framework, including BlocksKit, in an
+//  OS X app.
+//
+//  a) Inside your YourApp.app, as a private framework.
+//     This is how the included "Mac Demo App" does it, and how the project
+//     is configured by default.
+//  b) Inside YourKit.framework, as a "sub-umbrella" framework.
+//
+//  Steps:
+//  1) For either option, drag (or "Add Files...") BlocksKit.xcodeproj to YOUR
+//     Xcode project using the Navigator.
+//  2) Add the target "BlocksKit Mac" to your target's "Target Dependencies".
+//  2) Add a "Copy Files" phase to your app or framework's target:
+//      - Set the Destination to "Frameworks"
+//      - Select and add "BlocksKit.framework" from Products in the Navigator.
+//  3) Link your application to the BlocksKit framework in the
+//     "Link Binary With Libraries" build phase.
+//  4) `#import <BlocksKit/BlocksKit.h>`
+//
+//  By using the following install path directive, applications that link the
+//  BlocksKit framework will search for BlocksKit at runtime in any Frameworks
+//  folder inside your app bundle.
+//
+
+INSTALL_PATH 	=	@loader_path/../Frameworks
+
+//
+//  So, for Option (A), your app will look like this:
+//   - App executable: MyApp.app/Contents/MacOS/MyApp
+//   - BlocksKit: MyApp.app/Contents/Frameworks/BlocksKit.framework
+//
+//  Or, for Option (B), an app linking your framework will look like this:
+//   - App executable: MyApp.app/Contents/MacOS/MyApp
+//   - Frameworks: MyApp.app/Contents/Frameworks/YourFramework.framework
+//   - Framework executable: YourFramework.framework/Contents/MacOS/YourFramework
+//   - BlocksKit: YourFramework.framework/Contents/Frameworks/BlocksKit.framework
+//
+//  Or an app could theoretically combine/share dependencies:
+//   - App executable: MyApp.app/Contents/MacOS/MyApp
+//   - Frameworks path: MyApp.app/Contents/Frameworks
+//   -- Framework: YourFramework.framework
+//   -- BlocksKit: BlocksKit.framework
+//
