@@ -94,7 +94,7 @@
 
  @see retainArguments
  */
-- (BOOL)argumentsRetained;
+@property (nonatomic, readonly) BOOL argumentsRetained;
 
 /** Gets the receiver's return value.
 
