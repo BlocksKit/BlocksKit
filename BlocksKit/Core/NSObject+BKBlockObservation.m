@@ -11,13 +11,6 @@
 #import "NSObject+BKBlockObservation.h"
 #import "NSSet+BlocksKit.h"
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000 || __MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
-#define HAS_MAP_TABLE 1
-#else
-#define HAS_MAP_TABLE 0
-@class NSMapTable;
-#endif
-
 typedef NS_ENUM(int, BKObserverContext) {
 	BKObserverContextKey,
 	BKObserverContextKeyWithChange,
@@ -253,23 +246,7 @@ static void *BKBlockObservationContext = &BKBlockObservationContext;
 	}];
 }
 
-#pragma mark - "Private"
-
-+ (NSMapTable *)bk_observersMapTable
-{
-	static dispatch_once_t onceToken;
-	static NSMapTable *observersMapTable = nil;
-	dispatch_once(&onceToken, ^{
-#if HAS_MAP_TABLE
-		Class mapTable = NSClassFromString(@"NSMapTable");
-		if ([mapTable respondsToSelector:@selector(strongToStrongObjectsMapTable)]) {
-			observersMapTable = [NSMapTable strongToStrongObjectsMapTable];
-		} else
-#endif
-			observersMapTable = nil;
-	});
-	return observersMapTable;
-}
+#pragma mark - "Private"s
 
 + (NSMutableSet *)bk_observedClassesHash
 {
@@ -349,24 +326,11 @@ static void *BKBlockObservationContext = &BKBlockObservationContext;
 
 - (void)bk_setObserverBlocks:(NSMutableDictionary *)dict
 {
-#if HAS_MAP_TABLE
-	NSMapTable *table = [[self class] bk_observersMapTable];
-	if (table) {
-		[table setObject:dict forKey:self];
-		return;
-	}
-#endif
 	[self bk_associateValue:dict withKey:BKObserverBlocksKey];
 }
 
 - (NSMutableDictionary *)bk_observerBlocks
 {
-#if HAS_MAP_TABLE
-	NSMapTable *table = [[self class] bk_observersMapTable];
-	if (table) {
-		return [table objectForKey:self];
-	}
-#endif
 	return [self bk_associatedValueForKey:BKObserverBlocksKey];
 }
 
