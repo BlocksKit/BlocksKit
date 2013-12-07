@@ -172,4 +172,18 @@
 	[self bk_removeObserversWithIdentifier:token2];
 }
 
+- (void)testRemoveOnDealloc {
+    __weak SubjectKVCAndKVO* weakSubject;
+    
+    @autoreleasepool {
+        SubjectKVCAndKVO* tempSubject = [SubjectKVCAndKVO new];
+        weakSubject = tempSubject;
+        [tempSubject bk_addObserverForKeyPath:@"number" task:^(id target) {
+            NSLog(@"number: %@", weakSubject.number);
+        }];
+    }
+    
+    XCTAssertNil(weakSubject);
+}
+
 @end
