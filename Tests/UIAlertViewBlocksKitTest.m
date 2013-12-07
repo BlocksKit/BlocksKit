@@ -45,15 +45,15 @@
 	[_subject.bk_dynamicDelegate alertView:_subject clickedButtonAtIndex:index1];
 	[_subject.bk_dynamicDelegate alertView:_subject clickedButtonAtIndex:index2];
 	
-	XCTAssertEqual(total, 3, @"Not all block handlers were called.");
+	XCTAssertEqual(total, (NSInteger)3, @"Not all block handlers were called.");
 }
 
 - (void)testSetCancelButtonWithHandler {
 	__block BOOL blockCalled = NO;
 	
 	NSInteger index = [_subject bk_setCancelButtonWithTitle:@"Cancel" handler:^{ blockCalled = YES; }];
-	XCTAssertEqual(_subject.numberOfButtons,1,@"the alert view has %ld buttons", (long)_subject.numberOfButtons);
-	XCTAssertEqual(_subject.cancelButtonIndex,index,@"the alert view cancel button index is %ld", (long)_subject.cancelButtonIndex);
+	XCTAssertEqual(_subject.numberOfButtons,(NSInteger)1,@"the alert view has %ld buttons", (long)_subject.numberOfButtons);
+	XCTAssertEqual(_subject.cancelButtonIndex,(NSInteger)index,@"the alert view cancel button index is %ld", (long)_subject.cancelButtonIndex);
 	
 	NSString *title = [_subject buttonTitleAtIndex:index];
 	XCTAssertEqualObjects(title,@"Cancel",@"the UIActionSheet adds a button with title %@",title);

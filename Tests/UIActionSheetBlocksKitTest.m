@@ -25,7 +25,7 @@
 	XCTAssertTrue([_subject isKindOfClass:[UIActionSheet class]],@"subject is UIActionSheet");
 	XCTAssertFalse([_subject.delegate isEqual:_subject.bk_dynamicDelegate], @"the delegate is not the dynamic delegate");
 	XCTAssertEqualObjects(_subject.title,@"Hello BlocksKit",@"the UIActionSheet title is %@",_subject.title);
-	XCTAssertEqual(_subject.numberOfButtons,0,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
+	XCTAssertEqual(_subject.numberOfButtons, (NSInteger)0, @"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
 	XCTAssertFalse(_subject.isVisible,@"the action sheet is not visible");
 }
 
@@ -35,7 +35,7 @@
 	NSInteger index1 = [_subject bk_addButtonWithTitle:@"Button 1" handler:^{ total++; }];
 	NSInteger index2 = [_subject bk_addButtonWithTitle:@"Button 2" handler:^{ total += 2; }];
 	
-	XCTAssertEqual(_subject.numberOfButtons,2,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
+	XCTAssertEqual(_subject.numberOfButtons, (NSInteger)2,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
 
 	NSString *title = @"Button";
 	title = [_subject buttonTitleAtIndex:index1];
@@ -47,14 +47,14 @@
 	[_subject.bk_dynamicDelegate actionSheet:_subject clickedButtonAtIndex:index1];
 	[_subject.bk_dynamicDelegate actionSheet:_subject clickedButtonAtIndex:index2];
 	
-	XCTAssertEqual(total, 3, @"Not all block handlers were called.");
+	XCTAssertEqual(total, (NSInteger)3, @"Not all block handlers were called.");
 }
  
 - (void)testSetDestructiveButtonWithHandler {
 	__block BOOL blockCalled = NO;
 	
 	NSInteger index = [_subject bk_setDestructiveButtonWithTitle:@"Delete" handler:^{ blockCalled = YES; }];
-	XCTAssertEqual(_subject.numberOfButtons,1,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
+	XCTAssertEqual(_subject.numberOfButtons,(NSInteger)1,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
 	XCTAssertEqual(_subject.destructiveButtonIndex,index,@"the action sheet destructive button index is %ld", (long)_subject.destructiveButtonIndex);
 
 	NSString *title = [_subject buttonTitleAtIndex:index];
@@ -69,8 +69,8 @@
 	__block BOOL blockCalled = NO;
 	
 	NSInteger index = [_subject bk_setCancelButtonWithTitle:@"Cancel" handler:^{ blockCalled = YES; }];
-	XCTAssertEqual(_subject.numberOfButtons,1,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
-	XCTAssertEqual(_subject.cancelButtonIndex,index,@"the action sheet cancel button index is %ld", (long)_subject.destructiveButtonIndex);
+	XCTAssertEqual(_subject.numberOfButtons,(NSInteger)1,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
+	XCTAssertEqual(_subject.cancelButtonIndex,(NSInteger)index,@"the action sheet cancel button index is %ld", (long)_subject.destructiveButtonIndex);
 
 	NSString *title = [_subject buttonTitleAtIndex:index];
 	XCTAssertEqualObjects(title,@"Cancel",@"the UIActionSheet adds a button with title %@",title);
