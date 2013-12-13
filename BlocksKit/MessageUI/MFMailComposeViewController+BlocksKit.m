@@ -23,7 +23,7 @@
 		[realDelegate mailComposeController:controller didFinishWithResult:result error:error];
 
 	void (^block)(MFMailComposeViewController *, MFMailComposeResult, NSError *) = [self blockImplementationForMethod:_cmd];
-	if (!shouldDismiss) {
+	if (shouldDismiss) {
 		if (block) block(controller, result, error);
 	} else {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
