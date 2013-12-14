@@ -49,6 +49,7 @@ struct call_context
     union _d d[2];
   } v [AARCH64_N_VREG];
 };
+
 static void *
 get_x_addr (struct call_context *context, size_t n)
 {
@@ -289,15 +290,15 @@ is_hfa (ffim_type *ty)
 }
 
 /* Test if an ffi_type is a candidate for passing in a register.
- 
+
  This test does not check that sufficient registers of the
  appropriate class are actually available, merely that IFF
  sufficient registers are available then the argument will be passed
  in register(s).
- 
+
  Note that an ffi_type that is deemed to be a register candidate
  will always be returned in registers.
- 
+
  Returns 1 if a register candidate else 0.  */
 
 static int
@@ -514,8 +515,8 @@ copy_hfa_to_reg_or_stack (void *memory,
     {
       int i;
       unsigned short type = get_homogeneous_type (ty);
-	  unsigned count = element_count (ty);
-	  for (i = 0; i < count; i++)
+      unsigned elems = element_count (ty);
+      for (i = 0; i < elems; i++)
 	{
 	  void *reg = allocate_to_v (context, state);
 	  copy_basic_type (reg, memory, type);
@@ -812,6 +813,5 @@ ffi_mini_call (ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
       break;
     }
 }
-
 
 #endif

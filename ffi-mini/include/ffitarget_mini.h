@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------*-C-*-
-   ffitarget.h - Copyright (c) 2012  Anthony Green
-                 Copyright (c) 2009, 2010, 2011, 2012  ARM Ltd.
-                 Copyright (c) 1996-2003, 2010  Red Hat, Inc.
-                 Copyright (c) 2010  CodeSourcery
-                 Copyright (C) 2008  Free Software Foundation, Inc.
+   ffitarget_mini.h - Copyright (c) 2012  Anthony Green
+                      Copyright (c) 2009, 2010, 2011, 2012 ARM Ltd.
+                      Copyright (c) 1996-2003, 2010  Red Hat, Inc.
+                      Copyright (c) 2010  CodeSourcery
+                      Copyright (C) 2008  Free Software Foundation, Inc.
 
    Target configuration macros for x86, x86-64, ARM, and AArch64 on Darwin.
 
@@ -41,7 +41,7 @@
 #define LIBFFI_TARGET_MINI_H
 
 #ifndef LIBFFI_MINI_H
-#error "Please do not include ffitarget.h directly into your source.  Use ffi.h instead."
+#error "Please do not include ffitarget.h directly into your source.  Use ffi_mini.h instead."
 #endif
 
 #ifndef LIBFFI_ASM
@@ -66,9 +66,9 @@ typedef enum ffim_abi {
 # endif
     FFIM_LAST_ABI,
 # if defined(__x86_64__)
-    FFI_DEFAULT_ABI = FFIM_UNIX64
+    FFIM_DEFAULT_ABI = FFIM_UNIX64
 # else
-    FFI_DEFAULT_ABI = FFIM_SYSV,
+    FFIM_DEFAULT_ABI = FFIM_SYSV,
 # endif
 } ffim_abi;
 
@@ -92,10 +92,10 @@ typedef enum ffim_abi {
 
 #elif defined(__arm__)
 
-#define FFI_EXTRA_CIF_FIELDS			\
-  int vfp_used;					\
-  short vfp_reg_free, vfp_nargs;		\
-  signed char vfp_args[16]			\
+#define FFIM_EXTRA_CIF_FIELDS      \
+  int vfp_used;         \
+  short vfp_reg_free, vfp_nargs;    \
+  signed char vfp_args[16]      \
 
 /* Internally used. */
 #define FFIM_TYPE_STRUCT_VFP_FLOAT  (FFIM_TYPE_LAST + 1)
@@ -107,7 +107,7 @@ typedef enum ffim_abi {
 
 /* ---- Internal ---- */
 
-#define FFI_EXTRA_CIF_FIELDS unsigned aarch64_flags
+#define FFIM_EXTRA_CIF_FIELDS unsigned aarch64_flags
 
 #define AARCH64_FFI_WITH_V_BIT 0
 

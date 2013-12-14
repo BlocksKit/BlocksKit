@@ -1,4 +1,4 @@
-/*	Manually created fficonfig.h for Darwin.
+/*	Manually created fficonfig_mini.h for Darwin.
 
 	This file is manually generated to do away with the need for autoconf and
 	therefore make it easier to cross-compile and build fat binaries.

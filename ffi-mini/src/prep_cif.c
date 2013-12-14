@@ -103,12 +103,8 @@ static ffim_status initialize_aggregate(ffim_type *arg)
    For variadic calls, isvariadic should be 1 and nfixedargs
    and ntotalargs set as appropriate. nfixedargs must always be >=1 */
 
-ffim_status FFI_HIDDEN ffi_mini_prep_cif_core(ffim_cif *cif, ffim_abi abi,
-                                              unsigned int isvariadic,
-                                              unsigned int nfixedargs,
-                                              unsigned int ntotalargs,
-                                              ffim_type *rtype, ffim_type **atypes);
-ffim_status FFI_HIDDEN ffi_mini_prep_cif_core(ffim_cif *cif, ffim_abi abi,
+
+static ffim_status FFI_HIDDEN ffi_mini_prep_cif_core(ffim_cif *cif, ffim_abi abi,
 			     unsigned int isvariadic,
                              unsigned int nfixedargs,
                              unsigned int ntotalargs,

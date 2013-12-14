@@ -46,8 +46,15 @@ extern "C" {
 #include <stddef.h>
 #include <limits.h>
 
+/* LONG_LONG_MAX is not always defined (not if STRICT_ANSI, for example).
+   But we can find it either under the correct ANSI name, or under GNU
+   C's internal name.  */
+
 #define FFI_64_BIT_MAX 9223372036854775807
 #define FFI_LONG_LONG_MAX LONG_LONG_MAX
+
+/* The closure code assumes that this works on pointers, i.e. a size_t	*/
+/* can hold a pointer.							*/
 
 typedef struct _ffim_type
 {
@@ -62,7 +69,7 @@ typedef struct _ffim_type
 # define ffim_type_uchar                ffim_type_uint8
 # define ffim_type_schar                ffim_type_sint8
 #else
-# error "char size not supported"
+ #error "char size not supported"
 #endif
 
 #if SHRT_MAX == 32767
@@ -72,7 +79,7 @@ typedef struct _ffim_type
 # define ffim_type_ushort       ffim_type_uint32
 # define ffim_type_sshort       ffim_type_sint32
 #else
-# error "short size not supported"
+ #error "short size not supported"
 #endif
 
 #if INT_MAX == 32767
@@ -85,7 +92,7 @@ typedef struct _ffim_type
 # define ffim_type_uint         ffim_type_uint64
 # define ffim_type_sint         ffim_type_sint64
 #else
-# error "int size not supported"
+ #error "int size not supported"
 #endif
 
 #if LONG_MAX == 2147483647
@@ -93,7 +100,7 @@ typedef struct _ffim_type
  #error "no 64-bit data type supported"
 # endif
 #elif LONG_MAX != FFI_64_BIT_MAX
-# error "long size not supported"
+ #error "long size not supported"
 #endif
 
 #if LONG_MAX == 2147483647
@@ -103,7 +110,7 @@ typedef struct _ffim_type
 # define ffim_type_ulong        ffim_type_uint64
 # define ffim_type_slong        ffim_type_sint64
 #else
-# error "long size not supported"
+ #error "long size not supported"
 #endif
 
 #define FFI_EXTERN extern
@@ -144,11 +151,11 @@ typedef struct {
   ffim_type *rtype;
   unsigned bytes;
   unsigned flags;
-#ifdef FFI_EXTRA_CIF_FIELDS
-  FFI_EXTRA_CIF_FIELDS;
+#ifdef FFIM_EXTRA_CIF_FIELDS
+  FFIM_EXTRA_CIF_FIELDS;
 #endif
 } ffim_cif;
-    
+
 /* ---- Definitions for the raw API -------------------------------------- */
 
 #ifndef FFIM_SIZEOF_ARG
@@ -186,7 +193,6 @@ void ffi_mini_call(ffim_cif *cif,
 
 #endif
 
-/* If these change, update src/mips/ffitarget.h. */
 #define FFIM_TYPE_VOID       0    
 #define FFIM_TYPE_INT        1
 #define FFIM_TYPE_FLOAT      2    

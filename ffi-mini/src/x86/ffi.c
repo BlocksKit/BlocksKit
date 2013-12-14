@@ -34,7 +34,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#if defined(__i386__) && !defined(__x86_64__)
+#ifdef __i386__
 
 /* ffi_mini_prep_args is called by the assembly routine once stack space
    has been allocated for the function's arguments */
@@ -329,7 +329,7 @@ void ffi_mini_call(ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
 
   ecif.cif = cif;
   ecif.avalue = avalue;
-
+  
   /* If the return value is a struct and we don't have a return */
   /* value address then we need to make one                     */
 
@@ -351,9 +351,9 @@ void ffi_mini_call(ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
 #endif
   else
     ecif.rvalue = rvalue;
-
-
-  switch (cif->abi)
+    
+  
+  switch (cif->abi) 
     {
     case FFIM_SYSV:
       ffi_mini_call_SYSV(ffi_mini_prep_args, &ecif, cif->bytes, cif->flags, ecif.rvalue,
@@ -365,4 +365,4 @@ void ffi_mini_call(ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
     }
 }
 
-#endif /* __i386__ && !__x86_64__ */
+#endif /* defined(__i386__) */

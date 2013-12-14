@@ -79,19 +79,19 @@ static size_t ffi_put_arg(ffim_type **arg_type, void **arg, char *stack)
       case FFIM_TYPE_SINT8:
         *(signed int *) argp = (signed int)*(SINT8 *)(* p_argv);
         break;
-
+        
       case FFIM_TYPE_UINT8:
         *(unsigned int *) argp = (unsigned int)*(UINT8 *)(* p_argv);
         break;
-
+        
       case FFIM_TYPE_SINT16:
         *(signed int *) argp = (signed int)*(SINT16 *)(* p_argv);
         break;
-
+        
       case FFIM_TYPE_UINT16:
         *(unsigned int *) argp = (unsigned int)*(UINT16 *)(* p_argv);
         break;
-
+        
       case FFIM_TYPE_STRUCT:
         memcpy(argp, *p_argv, (*p_arg)->size);
         break;
@@ -119,7 +119,7 @@ static size_t ffi_put_arg(ffim_type **arg_type, void **arg, char *stack)
 }
 /* ffi_mini_prep_args is called by the assembly routine once stack space
    has been allocated for the function's arguments
-
+   
    The vfp_space parameter is the load area for VFP regs, the return
    value is cif->vfp_used (word bitset of VFP regs used for passing
    arguments). These are only used for the VFP hard-float ABI.
@@ -132,7 +132,7 @@ int ffi_mini_prep_args_SYSV(char *stack, extended_cif *ecif, float *vfp_space)
   register char *argp;
   register ffim_type **p_arg;
   argp = stack;
-
+  
 
   if ( ecif->cif->flags == FFIM_TYPE_STRUCT ) {
     *(void **) argp = ecif->rvalue;
@@ -164,13 +164,13 @@ int ffi_mini_prep_args_VFP(char *stack, extended_cif *ecif, float *vfp_space)
   register ffim_type **p_arg;
   char stack_used = 0;
   char done_with_regs = 0;
-  int is_vfp_type;
+  char is_vfp_type;
 
   /* the first 4 words on the stack are used for values passed in core
    * registers. */
   regp = stack;
   eo_regp = argp = regp + 16;
-
+  
 
   /* if the function returns an FFIM_TYPE_STRUCT in memory, that address is
    * passed in r0 to the function */
@@ -198,7 +198,7 @@ int ffi_mini_prep_args_VFP(char *stack, extended_cif *ecif, float *vfp_space)
       else if (!done_with_regs && !is_vfp_type)
         {
           char *tregp = ffi_align(p_arg, regp);
-          size_t size = (*p_arg)->size;
+          size_t size = (*p_arg)->size; 
           size = (size < 4)? 4 : size; // pad
           /* Check if there is space left in the aligned register area to place
            * the argument */
@@ -210,10 +210,10 @@ int ffi_mini_prep_args_VFP(char *stack, extended_cif *ecif, float *vfp_space)
               FFI_ASSERT(regp <= argp);
               continue;
             }
-          /* In case there are no arguments in the stack area yet,
+          /* In case there are no arguments in the stack area yet, 
           the argument is passed in the remaining core registers and on the
           stack. */
-          else if (!stack_used)
+          else if (!stack_used) 
             {
               stack_used = 1;
               done_with_regs = 1;
@@ -235,7 +235,7 @@ int ffi_mini_prep_args_VFP(char *stack, extended_cif *ecif, float *vfp_space)
 ffim_status ffi_mini_prep_cif_machdep(ffim_cif *cif)
 {
   int type_code;
-  /* Round the stack up to a multiple of 8 bytes.  This isn't needed
+  /* Round the stack up to a multiple of 8 bytes.  This isn't needed 
      everywhere, but it is on some platforms, and it doesn't harm anything
      when it isn't needed.  */
   cif->bytes = (cif->bytes + 7) & ~7;
@@ -306,7 +306,7 @@ void ffi_mini_call(ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
 {
   extended_cif ecif;
 
-  int small_struct = (cif->flags == FFIM_TYPE_INT
+  int small_struct = (cif->flags == FFIM_TYPE_INT 
 		      && cif->rtype->type == FFIM_TYPE_STRUCT);
   int vfp_struct = (cif->flags == FFIM_TYPE_STRUCT_VFP_FLOAT
 		    || cif->flags == FFIM_TYPE_STRUCT_VFP_DOUBLE);
@@ -319,7 +319,7 @@ void ffi_mini_call(ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
   /* If the return value is a struct and we don't have a return	*/
   /* value address then we need to make one			*/
 
-  if ((rvalue == NULL) &&
+  if ((rvalue == NULL) && 
       (cif->flags == FFIM_TYPE_STRUCT))
     {
       ecif.rvalue = alloca(cif->rtype->size);
@@ -334,7 +334,7 @@ void ffi_mini_call(ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
   else
     ecif.rvalue = rvalue;
 
-  switch (cif->abi)
+  switch (cif->abi) 
     {
     case FFIM_SYSV:
       ffi_mini_call_SYSV (fn, &ecif, cif->bytes, cif->flags, ecif.rvalue);
@@ -412,7 +412,7 @@ static int vfp_type_p (ffim_type *t)
       if (t->type == FFIM_TYPE_STRUCT)
 	{
 	  if (elnum == 1)
-          t->type = (unsigned short) elt;
+	    t->type = elt;
 	  else
 	    t->type = (elt == FFIM_TYPE_FLOAT
 		       ? FFIM_TYPE_STRUCT_VFP_FLOAT
@@ -425,7 +425,7 @@ static int vfp_type_p (ffim_type *t)
 
 static int place_vfp_arg (ffim_cif *cif, ffim_type *t)
 {
-  int reg = cif->vfp_reg_free;
+  short reg = cif->vfp_reg_free;
   int nregs = t->size / sizeof (float);
   int align = ((t->type == FFIM_TYPE_STRUCT_VFP_FLOAT
 		|| t->type == FFIM_TYPE_FLOAT) ? 1 : 2);
@@ -446,7 +446,7 @@ static int place_vfp_arg (ffim_cif *cif, ffim_type *t)
 	}
       /* Found regs to allocate. */
       cif->vfp_used |= new_used;
-      cif->vfp_args[cif->vfp_nargs++] = (typeof(*(cif->vfp_args)))reg;
+      cif->vfp_args[cif->vfp_nargs++] = reg;
 
       /* Update vfp_reg_free. */
       if (cif->vfp_used & (1 << cif->vfp_reg_free))
@@ -454,7 +454,7 @@ static int place_vfp_arg (ffim_cif *cif, ffim_type *t)
 	  reg += nregs;
 	  while (cif->vfp_used & (1 << reg))
 	    reg += 1;
-	  cif->vfp_reg_free = (typeof(cif->vfp_reg_free))reg;
+	  cif->vfp_reg_free = reg;
 	}
       return 0;
     next_reg: ;
@@ -483,6 +483,5 @@ static void layout_vfp_args (ffim_cif *cif)
         }
     }
 }
-
 
 #endif

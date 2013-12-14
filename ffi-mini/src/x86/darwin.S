@@ -178,5 +178,4 @@ epilogue:
 .LFE1:
 .ffi_mini_call_SYSV_end:
 
-
 #endif /* ifdef __i386__ */

@@ -1,10 +1,8 @@
-#ifdef __arm__
-
 /* -----------------------------------------------------------------------
    sysv.S - Copyright (c) 1998, 2008, 2011 Red Hat, Inc.
 	    Copyright (c) 2011 Plausible Labs Cooperative, Inc.
-
-   ARM Foreign Function Interface
+   
+   ARM Foreign Function Interface 
 
    Permission is hereby granted, free of charge, to any person obtaining
    a copy of this software and associated documentation files (the
@@ -27,7 +25,9 @@
    DEALINGS IN THE SOFTWARE.
    ----------------------------------------------------------------------- */
 
-#define LIBFFI_ASM
+#ifdef __arm__
+
+#define LIBFFI_ASM	
 #include <fficonfig_mini.h>
 #include <ffi_mini.h>
 #ifdef HAVE_MACHINE_ASM_H
@@ -61,7 +61,7 @@
 #define __SOFTFP__
 #endif
 
-/* We need a better way of testing for this, but for now, this is all
+/* We need a better way of testing for this, but for now, this is all 
    we can do.  */
 @ This selects the minimum architecture level required.
 #define __ARM_ARCH__ 3
@@ -70,7 +70,7 @@
 # undef __ARM_ARCH__
 # define __ARM_ARCH__ 4
 #endif
-
+        
 #if defined(__ARM_ARCH_5__) || defined(__ARM_ARCH_5T__) \
 	|| defined(__ARM_ARCH_5E__) || defined(__ARM_ARCH_5TE__) \
 	|| defined(__ARM_ARCH_5TEJ__)
@@ -109,7 +109,7 @@
 #define UNWIND
 #else
 #define UNWIND @
-#endif
+#endif	
 
 .syntax unified
 
@@ -134,12 +134,20 @@ _L__##name:
 	UNWIND .fnstart
 #endif
 
-.macro	RETLDM
+.macro	RETLDM	regs=, cond=, dirn=ia
 #if defined (__INTERWORKING__)
-	ldr	lr, [sp], #4
-	bx	lr
+	.ifc "\regs",""
+	ldr\cond	lr, [sp], #4
+	.else
+	ldm\cond\dirn	sp!, {\regs, lr}
+	.endif
+	bx\cond	lr
 #else
-	ldr	pc, [sp], #4
+	.ifc "\regs",""
+	ldr\cond	pc, [sp], #4
+	.else
+	ldm\cond\dirn	sp!, {\regs, pc}
+	.endif
 #endif
 .endm
 
@@ -180,14 +188,14 @@ ARM_FUNC_START(ffi_mini_call_SYSV)
 
 	@ call (fn) (...)
 	call_reg(ip)
-
+	
 	@ Remove the space we pushed for the args
 	mov	sp, fp
 
 	@ Load r2 with the pointer to storage for the return value
 	ldr	r2, [sp, #24]
 
-	@ Load r3 with the return type code
+	@ Load r3 with the return type code 
 	ldr	r3, [sp, #12]
 
 	@ If the return value pointer is NULL, assume no return value.
@@ -237,7 +245,7 @@ LSYM(Lepilogue):
 #endif
 
 
-/* Below is the VFP hard-float ABI call implementation.
+/* Below are VFP hard-float ABI call and closure implementations.
    Add VFP FPU directive here. This is only compiled into the library
    under EABI.  */
 #ifdef __ARM_EABI__
@@ -301,7 +309,7 @@ LSYM(Lbase_args):
 	@ the return value
 	ldr	r2, [sp, #24]
 
-	@ Load r3 with the return type code
+	@ Load r3 with the return type code 
 	ldr	r3, [sp, #12]
 
 	@ If the return value pointer is NULL,
@@ -320,7 +328,7 @@ LSYM(Lbase_args):
 	cmp	r3, #FFIM_TYPE_FLOAT
 	fstseq	s0, [r2]
 	beq	LSYM(Lepilogue_vfp)
-
+	
 	cmp	r3, #FFIM_TYPE_DOUBLE
 	fstdeq	d0, [r2]
 	beq	LSYM(Lepilogue_vfp)
