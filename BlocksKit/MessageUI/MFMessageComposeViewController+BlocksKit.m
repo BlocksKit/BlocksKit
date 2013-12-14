@@ -23,7 +23,7 @@
 		[realDelegate messageComposeViewController:controller didFinishWithResult:result];
 
 	void (^block)(MFMessageComposeViewController *, MessageComposeResult) = [self blockImplementationForMethod:_cmd];
-	if (!shouldDismiss) {
+	if (shouldDismiss) {
 		if (block) block(controller, result);
 	} else {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
