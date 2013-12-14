@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'MiniFFI' do |ss|
     ss.source_files = 'ffi-mini/include/*.h', 'ffi-mini/src/*.c', 'ffi-mini/src/aarch64/*.{c,S}', 'ffi-mini/src/arm/*.{c,S}', 'ffi-mini/src/x86/*.{c,S}'
-    ss.xcconfig    = { 'OTHER_LDFLAGS' => "-Wl,-no_compact_unwind" }
+    ss.xcconfig    = { 'WARNING_LDFLAGS' => "-Wl,-no_compact_unwind" }
   end
 
   s.subspec 'DynamicDelegate' do |ss|
