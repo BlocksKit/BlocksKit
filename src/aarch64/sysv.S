@@ -1,5 +1,3 @@
-#ifdef __arm64__
-
 /* Copyright (c) 2009, 2010, 2011, 2012 ARM Ltd.
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -20,6 +18,8 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
+
+#ifdef __arm64__
 
 #define LIBFFI_ASM
 #include <fficonfig_mini.h>
@@ -43,6 +43,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #define cfi_rel_offset(reg, off)	.cfi_rel_offset reg, off
 #define cfi_restore(reg)		.cfi_restore reg
 #define cfi_def_cfa_register(reg)	.cfi_def_cfa_register reg
+
+        .text
+        .globl CNAME(ffi_mini_call_SYSV)
+#ifdef __ELF__
+        .type CNAME(ffi_mini_call_SYSV), #function
+#endif
 
 /* ffi_mini_call_SYSV()
 
@@ -93,11 +99,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 
 #define ffi_mini_call_SYSV_FS (8 * 4)
 
-	.text
-	.globl CNAME(ffi_mini_call_SYSV)
-#ifdef __ELF__
-	.type CNAME(ffi_mini_call_SYSV), #function
-#endif
         .cfi_startproc
 CNAME(ffi_mini_call_SYSV):
         stp     x29, x30, [sp, #-16]!
@@ -109,11 +110,11 @@ CNAME(ffi_mini_call_SYSV):
 	cfi_def_cfa_register (x29)
         sub     sp, sp, #ffi_mini_call_SYSV_FS
 
-		stp     x21, x22, [sp, #0]
+        stp     x21, x22, [sp, #0]
         cfi_rel_offset (x21, 0 - ffi_mini_call_SYSV_FS)
         cfi_rel_offset (x22, 8 - ffi_mini_call_SYSV_FS)
 
-		stp     x23, x24, [sp, #16]
+        stp     x23, x24, [sp, #16]
         cfi_rel_offset (x23, 16 - ffi_mini_call_SYSV_FS)
         cfi_rel_offset (x24, 24 - ffi_mini_call_SYSV_FS)
 
@@ -198,7 +199,7 @@ CNAME(ffi_mini_call_SYSV):
 
         .cfi_endproc
 #ifdef __ELF__
-		.size CNAME(ffi_mini_call_SYSV), .-CNAME(ffi_mini_call_SYSV)
+        .size CNAME(ffi_mini_call_SYSV), .-CNAME(ffi_mini_call_SYSV)
 #endif
 
 #endif /* defined(__arm64__) */

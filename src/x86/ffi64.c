@@ -1,4 +1,3 @@
-
 /* -----------------------------------------------------------------------
    ffi64.c - Copyright (c) 2013  The Written Word, Inc.
              Copyright (c) 2011  Anthony Green
@@ -153,7 +152,7 @@ merge_classes (enum x86_64_reg_class class1, enum x86_64_reg_class class2)
 
    See the x86-64 PS ABI for details.
 */
-static int
+static size_t
 classify_argument (ffim_type *type, enum x86_64_reg_class classes[],
 		   size_t byte_offset)
 {
@@ -210,8 +209,8 @@ classify_argument (ffim_type *type, enum x86_64_reg_class classes[],
       return 2;
     case FFIM_TYPE_STRUCT:
       {
-	const int UNITS_PER_WORD = 8;
-	int words = ((int)type->size + UNITS_PER_WORD - 1) / UNITS_PER_WORD;
+	const size_t UNITS_PER_WORD = 8;
+	size_t words = (type->size + UNITS_PER_WORD - 1) / UNITS_PER_WORD;
 	ffim_type **ptr;
 	int i;
 	enum x86_64_reg_class subclasses[MAX_CLASSES];
@@ -234,7 +233,7 @@ classify_argument (ffim_type *type, enum x86_64_reg_class classes[],
 	/* Merge the fields of structure.  */
 	for (ptr = type->elements; *ptr != NULL; ptr++)
 	  {
-	    int num;
+	    size_t num;
 
 	    byte_offset = ALIGN (byte_offset, (*ptr)->alignment);
 
@@ -307,11 +306,12 @@ classify_argument (ffim_type *type, enum x86_64_reg_class classes[],
    class.  Return zero iff parameter should be passed in memory, otherwise
    the number of registers.  */
 
-static int
+static size_t
 examine_argument (ffim_type *type, enum x86_64_reg_class classes[MAX_CLASSES],
 		  _Bool in_return, int *pngpr, int *pnsse)
 {
-  int i, n, ngpr, nsse;
+  size_t n;
+  int i, ngpr, nsse;
 
   n = classify_argument (type, classes, 0);
   if (n == 0)
@@ -352,9 +352,9 @@ examine_argument (ffim_type *type, enum x86_64_reg_class classes[MAX_CLASSES],
 ffim_status
 ffi_mini_prep_cif_machdep (ffim_cif *cif)
 {
-  int gprcount, ssecount, i, avn, n, ngpr, nsse, flags;
+  int gprcount, ssecount, i, avn, ngpr, nsse, flags;
   enum x86_64_reg_class classes[MAX_CLASSES];
-  size_t bytes;
+  size_t bytes, n;
 
   gprcount = ssecount = 0;
 
@@ -455,8 +455,7 @@ ffi_mini_call (ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
 
   for (i = 0; i < avn; ++i)
     {
-      size_t size = arg_types[i]->size;
-      int n;
+      size_t n, size = arg_types[i]->size;
 
       n = examine_argument (arg_types[i], classes, 0, &ngpr, &nsse);
       if (n == 0

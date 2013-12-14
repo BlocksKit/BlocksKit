@@ -197,83 +197,7 @@ Lload_sse:
 	movdqa	160(%r10), %xmm7
 	jmp	Lret_from_load_sse
 
-LUW7:
-
-	/* The first byte of the return value contains the FFIM_TYPE.  */
-	movzbl	%al, %r10d
-	leaq	Lload_table(%rip), %r11
-	movslq	(%r11, %r10, 4), %r10
-	addq	%r11, %r10
-	jmp	*%r10
-
-Lload_table:
-	.long	Lld_void-Lload_table		/* FFIM_TYPE_VOID */
-	.long	Lld_int32-Lload_table		/* FFIM_TYPE_INT */
-	.long	Lld_float-Lload_table		/* FFIM_TYPE_FLOAT */
-	.long	Lld_double-Lload_table		/* FFIM_TYPE_DOUBLE */
-	.long	Lld_ldouble-Lload_table		/* FFIM_TYPE_LONGDOUBLE */
-	.long	Lld_int8-Lload_table		/* FFIM_TYPE_UINT8 */
-	.long	Lld_int8-Lload_table		/* FFIM_TYPE_SINT8 */
-	.long	Lld_int16-Lload_table		/* FFIM_TYPE_UINT16 */
-	.long	Lld_int16-Lload_table		/* FFIM_TYPE_SINT16 */
-	.long	Lld_int32-Lload_table		/* FFIM_TYPE_UINT32 */
-	.long	Lld_int32-Lload_table		/* FFIM_TYPE_SINT32 */
-	.long	Lld_int64-Lload_table		/* FFIM_TYPE_UINT64 */
-	.long	Lld_int64-Lload_table		/* FFIM_TYPE_SINT64 */
-	.long	Lld_struct-Lload_table		/* FFIM_TYPE_STRUCT */
-	.long	Lld_int64-Lload_table		/* FFIM_TYPE_POINTER */
-
-	.text
-	.align	3
-Lld_void:
-	ret
-	.align	3
-Lld_int8:
-	movzbl	-24(%rsp), %eax
-	ret
-	.align	3
-Lld_int16:
-	movzwl	-24(%rsp), %eax
-	ret
-	.align	3
-Lld_int32:
-	movl	-24(%rsp), %eax
-	ret
-	.align	3
-Lld_int64:
-	movq	-24(%rsp), %rax
-	ret
-	.align	3
-Lld_float:
-	movss	-24(%rsp), %xmm0
-	ret
-	.align	3
-Lld_double:
-	movsd	-24(%rsp), %xmm0
-	ret
-	.align	3
-Lld_ldouble:
-	fldt	-24(%rsp)
-	ret
-	.align	3
-Lld_struct:
-	/* There are four possibilities here, %rax/%rdx, %xmm0/%rax,
-	   %rax/%xmm0, %xmm0/%xmm1.  We collapse two by always loading
-	   both rdx and xmm1 with the second word.  For the remaining,
-	   bit 8 set means xmm0 gets the second word, and bit 9 means
-	   that rax gets the second word.  */
-	movq	-24(%rsp), %rcx
-	movq	-16(%rsp), %rdx
-	movq	-16(%rsp), %xmm1
-	testl	$0x100, %eax
-	cmovnz	%rdx, %rcx
-	movd	%rcx, %xmm0
-	testl	$0x200, %eax
-	movq	-24(%rsp), %rax
-	cmovnz	%rdx, %rax
-	ret
-
-LUW9:
+LUW4:
 .section __TEXT,__eh_frame,coalesced,no_toc+strip_static_syms+live_support
 EH_frame1:
 	.set	L$set$0,LECIE1-LSCIE1		/* CIE Length */
@@ -297,7 +221,7 @@ LECIE1:
 	.globl _ffi_mini_call_unix64.eh
 _ffi_mini_call_unix64.eh:
 LSFDE1:
-	.set	L$set$1,0	/* FDE Length */
+	.set	L$set$1,LEFDE1-LASFDE1	/* FDE Length */
 	.long	L$set$1
 LASFDE1:
 	.long	LASFDE1-EH_frame1	/* FDE CIE offset */
@@ -337,5 +261,6 @@ LASFDE1:
 	.byte	0xb			/* DW_CFA_restore_state */
 
 	.align	3
+LEFDE1:
 
 #endif /* __x86_64__ */
