@@ -14,11 +14,15 @@
 
 @implementation NSArrayBlocksKitTest {
 	NSArray *_subject;
+	NSArray *_integers;
+	NSArray *_floats;
 	NSInteger _total;
 }
 
 - (void)setUp {
 	_subject = @[ @"1", @"22", @"333" ];
+	_integers = @[@(1), @(2), @(3)];
+	_floats = @[@(.1), @(.2), @(.3)];
 	_total = 0;
 }
 
@@ -128,6 +132,22 @@
 	};
 	NSString *concatenated = [_subject bk_reduce:@"" withBlock:accumlationBlock];
 	XCTAssertTrue([concatenated isEqualToString:@"122333"], @"concatenated string is %@", concatenated);
+}
+
+- (void)testReduceWithBlockInteger {
+	NSInteger(^accumlationBlockInteger)(NSInteger, id) = ^(NSInteger result, id obj) {
+		return result + [obj intValue];
+	};
+	NSInteger result = [_integers bk_reduceInteger:0 withBlock:accumlationBlockInteger];
+    XCTAssertEqual(result, (NSInteger)6, @"reduce int result is %ld", (long)result);
+}
+
+- (void)testReduceWithBlockFloat {
+	CGFloat(^accumlationBlockFloat)(CGFloat, id) = ^CGFloat(CGFloat result, id obj) {
+		return result + [obj floatValue];
+	};
+	CGFloat result = [_floats bk_reduceFloat:.0  withBlock:accumlationBlockFloat];
+    XCTAssertEqual(result, (CGFloat).6, @"reduce float result is %f", result);
 }
 
 - (void)testAny {
