@@ -77,6 +77,8 @@ typedef ffim_abi ffi_abi;
 #define FFI_TYPE_POINTER FFIM_TYPE_POINTER
 #define FFI_TYPE_LAST FFIM_TYPE_LAST
 
+#define FFI_DEFAULT_ABI FFIM_DEFAULT_ABI
+
 FFIM_ALWAYS_INLINE ffi_status ffi_prep_cif(ffi_cif *cif,
                                            ffi_abi abi,
                                            unsigned int nargs,
