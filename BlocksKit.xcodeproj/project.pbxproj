@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB5BF880185E909300FF2A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08B1184DC23000F37EEE /* Foundation.framework */; };
+		DB5BF881185E909300FF2A0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */; };
+		DB5BF882185E909300FF2A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08C2184DC23000F37EEE /* UIKit.framework */; };
+		DB981A04185E96A60047E817 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB981A03185E96A60047E817 /* Images.xcassets */; };
+		DB981A06185E96EA0047E817 /* iOS-Runner.m in Sources */ = {isa = PBXBuildFile; fileRef = DB981A05185E96EA0047E817 /* iOS-Runner.m */; };
 		DBE126D8184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D7184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m */; };
 		DBE126D9184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D7184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m */; };
 		DBE126DA184DDD8F0023AFAD /* A2DynamicTestClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D4184DDCFA0023AFAD /* A2DynamicTestClasses.m */; };
@@ -204,12 +209,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DBFB08C4184DC23000F37EEE /* PBXContainerItemProxy */ = {
+		DB981A01185E96240047E817 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DBFB08A4184DC21500F37EEE /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DBFB08AD184DC23000F37EEE;
-			remoteInfo = BlocksKit;
+			remoteGlobalIDString = DB5BF87E185E909300FF2A0B;
+			remoteInfo = "BlocksKit iOS Tests Runner";
 		};
 		DBFB0944184DC36400F37EEE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -286,6 +291,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DB5BF87F185E909300FF2A0B /* BK Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BK Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB981A00185E95C00047E817 /* BlocksKit-iOS-Tests-Runner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocksKit-iOS-Tests-Runner-Info.plist"; sourceTree = "<group>"; };
+		DB981A03185E96A60047E817 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DB981A05185E96EA0047E817 /* iOS-Runner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "iOS-Runner.m"; sourceTree = "<group>"; };
 		DBE126D3184DDCFA0023AFAD /* A2DynamicTestClasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicTestClasses.h; sourceTree = "<group>"; };
 		DBE126D4184DDCFA0023AFAD /* A2DynamicTestClasses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicTestClasses.m; sourceTree = "<group>"; };
 		DBE126D6184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "A2DynamicTestClasses+A2BlockDelegate.h"; sourceTree = "<group>"; };
@@ -429,6 +439,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DB5BF87C185E909300FF2A0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB5BF881185E909300FF2A0B /* CoreGraphics.framework in Frameworks */,
+				DB5BF882185E909300FF2A0B /* UIKit.framework in Frameworks */,
+				DB5BF880185E909300FF2A0B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DBFB08AB184DC23000F37EEE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -556,6 +576,7 @@
 				DBFB092C184DC36400F37EEE /* BlocksKit.framework */,
 				DBFB0941184DC36400F37EEE /* BlocksKit-Mac-Tests.xctest */,
 				DBFB0A87184DCBCC00F37EEE /* BlocksKit Mac Demo.app */,
+				DB5BF87F185E909300FF2A0B /* BK Tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -568,6 +589,7 @@
 				DBFB08BF184DC23000F37EEE /* XCTest.framework */,
 				DBFB08C2184DC23000F37EEE /* UIKit.framework */,
 				DBFB092D184DC36400F37EEE /* Cocoa.framework */,
+				DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */,
 				DBFB092F184DC36400F37EEE /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -604,6 +626,9 @@
 		DBFB0925184DC2E000F37EEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DB981A05185E96EA0047E817 /* iOS-Runner.m */,
+				DB981A03185E96A60047E817 /* Images.xcassets */,
+				DB981A00185E95C00047E817 /* BlocksKit-iOS-Tests-Runner-Info.plist */,
 				DBFB0926184DC2FB00F37EEE /* BlocksKit-iOS-Tests-Info.plist */,
 				DBFB0959184DC3EC00F37EEE /* BlocksKit-Mac-Tests-Info.plist */,
 			);
@@ -870,6 +895,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		DB5BF87E185E909300FF2A0B /* BlocksKit iOS Tests Runner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB5BF8A3185E909400FF2A0B /* Build configuration list for PBXNativeTarget "BlocksKit iOS Tests Runner" */;
+			buildPhases = (
+				DB5BF87B185E909300FF2A0B /* Sources */,
+				DB5BF87C185E909300FF2A0B /* Frameworks */,
+				DB5BF87D185E909300FF2A0B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BlocksKit iOS Tests Runner";
+			productName = "BlocksKit Test";
+			productReference = DB5BF87F185E909300FF2A0B /* BK Tests.app */;
+			productType = "com.apple.product-type.application";
+		};
 		DBFB08AD184DC23000F37EEE /* BlocksKit iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBFB08D3184DC23000F37EEE /* Build configuration list for PBXNativeTarget "BlocksKit iOS" */;
@@ -898,7 +940,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				DBFB08C5184DC23000F37EEE /* PBXTargetDependency */,
+				DB981A02185E96240047E817 /* PBXTargetDependency */,
 			);
 			name = "BlocksKit iOS Tests";
 			productName = BlocksKitTests;
@@ -994,11 +1036,20 @@
 				DBFB092B184DC36400F37EEE /* BlocksKit Mac */,
 				DBFB0940184DC36400F37EEE /* BlocksKit Mac Tests */,
 				DBFB0A86184DCBCC00F37EEE /* Mac Demo */,
+				DB5BF87E185E909300FF2A0B /* BlocksKit iOS Tests Runner */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DB5BF87D185E909300FF2A0B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB981A04185E96A60047E817 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DBFB08BC184DC23000F37EEE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1031,6 +1082,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DB5BF87B185E909300FF2A0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB981A06185E96EA0047E817 /* iOS-Runner.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DBFB08AA184DC23000F37EEE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1189,10 +1248,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DBFB08C5184DC23000F37EEE /* PBXTargetDependency */ = {
+		DB981A02185E96240047E817 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DBFB08AD184DC23000F37EEE /* BlocksKit iOS */;
-			targetProxy = DBFB08C4184DC23000F37EEE /* PBXContainerItemProxy */;
+			target = DB5BF87E185E909300FF2A0B /* BlocksKit iOS Tests Runner */;
+			targetProxy = DB981A01185E96240047E817 /* PBXContainerItemProxy */;
 		};
 		DBFB0945184DC36400F37EEE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1218,6 +1277,82 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DB5BF8A4185E909400FF2A0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Tests/BlocksKit-iOS-Tests-Runner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "BK Tests";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DB5BF8A5185E909400FF2A0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Tests/BlocksKit-iOS-Tests-Runner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "BK Tests";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		DBFB08A8184DC21500F37EEE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DBFB095D184DC4FB00F37EEE /* Versions.xcconfig */;
@@ -1359,6 +1494,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1400,6 +1536,7 @@
 				);
 				PRODUCT_NAME = "BlocksKit-iOS-Tests";
 				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1409,6 +1546,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1443,6 +1581,7 @@
 				);
 				PRODUCT_NAME = "BlocksKit-iOS-Tests";
 				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1679,6 +1818,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DB5BF8A3185E909400FF2A0B /* Build configuration list for PBXNativeTarget "BlocksKit iOS Tests Runner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB5BF8A4185E909400FF2A0B /* Debug */,
+				DB5BF8A5185E909400FF2A0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DBFB08A7184DC21500F37EEE /* Build configuration list for PBXProject "BlocksKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
