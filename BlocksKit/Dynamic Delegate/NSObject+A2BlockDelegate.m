@@ -157,9 +157,12 @@ static inline SEL prefixedSelector(SEL selector) {
 				SEL a2_getter = prefixedSelector(getterForProperty(delegatingObject.class, delegateProperty));
 
 				if ([delegatingObject respondsToSelector:a2_setter]) {
-					id originalDelegate = objc_msgSend(delegatingObject, a2_getter);
-					if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class]))
-						objc_msgSend(delegatingObject, a2_setter, dynamicDelegate);
+                    id (*getterDispatch)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
+					id originalDelegate = getterDispatch(delegatingObject, a2_getter);
+					if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class])) {
+                        void (*setterDispatch)(id, SEL, id) = (void (*)(id, SEL, id)) objc_msgSend;
+						setterDispatch(delegatingObject, a2_setter, dynamicDelegate);
+                    }
 				}
 			}
 
@@ -215,9 +218,12 @@ static inline SEL prefixedSelector(SEL selector) {
 		A2DynamicDelegate *dynamicDelegate = [delegatingObject bk_dynamicDelegateForProtocol:a2_protocolForDelegatingObject(delegatingObject, protocol)];
 
 		if ([delegatingObject respondsToSelector:a2_setter]) {
-			id originalDelegate = objc_msgSend(delegatingObject, a2_getter, delegate);
-			if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class]))
-				objc_msgSend(delegatingObject, a2_setter, dynamicDelegate);
+            id (*getterDispatch)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
+			id originalDelegate = getterDispatch(delegatingObject, a2_getter);
+			if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class])) {
+                void (*setterDispatch)(id, SEL, id) = (void (*)(id, SEL, id)) objc_msgSend;
+                setterDispatch(delegatingObject, a2_setter, dynamicDelegate);
+            }
 		}
 
 		if ([delegate isEqual:dynamicDelegate]) {
