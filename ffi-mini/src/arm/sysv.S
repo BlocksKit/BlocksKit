@@ -245,7 +245,7 @@ LSYM(Lepilogue):
 #endif
 
 
-/* Below are VFP hard-float ABI call and closure implementations.
+/* Below is the VFP hard-float ABI call implementation.
    Add VFP FPU directive here. This is only compiled into the library
    under EABI.  */
 #ifdef __ARM_EABI__
@@ -344,6 +344,6 @@ LSYM(Lepilogue_vfp):
 	UNWIND .fnend
         .size    CNAME(ffi_mini_call_VFP),.ffi_mini_call_VFP_end-CNAME(ffi_mini_call_VFP)
 
-#endif
+#endif /* defined (__ARM_EABI__) */
 
-#endif /* defined(__arm__) */
+#endif /* defined (__arm__) */

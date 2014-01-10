@@ -26,7 +26,7 @@
    -----------------------------------------------------------------------
    */
 
-#ifdef __i386__
+#if defined (__i386__) && !defined (__x86_64__)
 
 #define LIBFFI_ASM	
 #include <fficonfig_mini.h>
@@ -178,4 +178,4 @@ epilogue:
 .LFE1:
 .ffi_mini_call_SYSV_end:
 
-#endif /* ifdef __i386__ */
+#endif /* defined (__i386__) && !defined (__x86_64__) */

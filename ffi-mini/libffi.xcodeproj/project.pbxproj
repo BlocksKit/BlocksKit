@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DB13B16A1849DF1E0010F42D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB13B1691849DF1E0010F42D /* Foundation.framework */; };
-		DB13B1931849DF510010F42D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB13B1921849DF510010F42D /* Cocoa.framework */; };
+		DB7BB69F187F326700921E54 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DB7BB69E187F326700921E54 /* debug.c */; };
+		DB7BB6A0187F326700921E54 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DB7BB69E187F326700921E54 /* debug.c */; };
 		DBE6263B185CF0B1003EEA84 /* fficonfig_mini.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DBE62639185CF074003EEA84 /* fficonfig_mini.h */; };
 		DBE6263C185CF0B6003EEA84 /* ffi_common_mini.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE62638185CF074003EEA84 /* ffi_common_mini.h */; };
 		DBE6263D185CF0B6003EEA84 /* fficonfig_mini.h in Headers */ = {isa = PBXBuildFile; fileRef = DBE62639185CF074003EEA84 /* fficonfig_mini.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,9 +55,8 @@
 
 /* Begin PBXFileReference section */
 		DB13B1661849DF1E0010F42D /* libffi-mini.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libffi-mini.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB13B1691849DF1E0010F42D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DB13B1911849DF510010F42D /* ffi-mini.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "ffi-mini.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB13B1921849DF510010F42D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		DB7BB69E187F326700921E54 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
 		DBE62638185CF074003EEA84 /* ffi_common_mini.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ffi_common_mini.h; sourceTree = "<group>"; };
 		DBE62639185CF074003EEA84 /* fficonfig_mini.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fficonfig_mini.h; sourceTree = "<group>"; };
 		DBE62640185CF159003EEA84 /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
@@ -74,32 +73,12 @@
 		DBE6266B185CF257003EEA84 /* ffitarget_mini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_mini.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		DB13B1631849DF1E0010F42D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DB13B16A1849DF1E0010F42D /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DB13B18E1849DF510010F42D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DB13B1931849DF510010F42D /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
 		DB13B15B1849DEB70010F42D = {
 			isa = PBXGroup;
 			children = (
 				DBE62637185CF074003EEA84 /* include */,
 				DBE6263E185CF159003EEA84 /* src */,
-				DB13B1681849DF1E0010F42D /* Frameworks */,
 				DB13B1671849DF1E0010F42D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -111,15 +90,6 @@
 				DB13B1911849DF510010F42D /* ffi-mini.dylib */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		DB13B1681849DF1E0010F42D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DB13B1691849DF1E0010F42D /* Foundation.framework */,
-				DB13B1921849DF510010F42D /* Cocoa.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		DBE62637185CF074003EEA84 /* include */ = {
@@ -138,6 +108,7 @@
 			children = (
 				DBE6263F185CF159003EEA84 /* aarch64 */,
 				DBE62642185CF159003EEA84 /* arm */,
+				DB7BB69E187F326700921E54 /* debug.c */,
 				DBE62645185CF159003EEA84 /* prep_cif.c */,
 				DBE62646185CF159003EEA84 /* types.c */,
 				DBE62647185CF159003EEA84 /* x86 */,
@@ -196,7 +167,6 @@
 			buildConfigurationList = DB13B18B1849DF1E0010F42D /* Build configuration list for PBXNativeTarget "libffi-iOS" */;
 			buildPhases = (
 				DB13B1621849DF1E0010F42D /* Sources */,
-				DB13B1631849DF1E0010F42D /* Frameworks */,
 				DB13B1641849DF1E0010F42D /* CopyFiles */,
 			);
 			buildRules = (
@@ -213,7 +183,6 @@
 			buildConfigurationList = DB13B1B01849DF520010F42D /* Build configuration list for PBXNativeTarget "libffi-Mac" */;
 			buildPhases = (
 				DB13B18D1849DF510010F42D /* Sources */,
-				DB13B18E1849DF510010F42D /* Frameworks */,
 				DB13B18F1849DF510010F42D /* Headers */,
 			);
 			buildRules = (
@@ -262,6 +231,7 @@
 				DBE62654185CF159003EEA84 /* prep_cif.c in Sources */,
 				DBE6264E185CF159003EEA84 /* sysv.S in Sources */,
 				DBE6265C185CF159003EEA84 /* ffi.c in Sources */,
+				DB7BB69F187F326700921E54 /* debug.c in Sources */,
 				DBE62656185CF159003EEA84 /* types.c in Sources */,
 				DBE62650185CF159003EEA84 /* ffi.c in Sources */,
 				DBE62652185CF159003EEA84 /* sysv.S in Sources */,
@@ -279,6 +249,7 @@
 				DBE6264F185CF159003EEA84 /* sysv.S in Sources */,
 				DBE6265D185CF159003EEA84 /* ffi.c in Sources */,
 				DBE6264D185CF159003EEA84 /* ffi.c in Sources */,
+				DB7BB6A0187F326700921E54 /* debug.c in Sources */,
 				DBE6265F185CF159003EEA84 /* ffi64.c in Sources */,
 				DBE6265B185CF159003EEA84 /* darwin64.S in Sources */,
 				DBE62653185CF159003EEA84 /* sysv.S in Sources */,

@@ -18,9 +18,24 @@ extern "C" {
 #include <alloca.h>
 #include <string.h>
 
+#if defined (FFI_DEBUG)
+#include <stdio.h>
+#endif
+
+#if defined (FFI_DEBUG)
+extern void ffi_mini_assert(char *expr, char *file, int line);
+extern void ffi_mini_stop_here(void);
+extern void ffi_mini_type_test(ffim_type *a, char *file, int line);
+
+#define FFI_ASSERT(x) ((x) ? (void)0 : ffi_mini_assert(#x, __FILE__,__LINE__))
+#define FFI_ASSERT_AT(x, f, l) ((x) ? 0 : ffi_mini_assert(#x, (f), (l)))
+#define FFI_ASSERT_VALID_TYPE(x) ffi_mini_type_test (x, __FILE__, __LINE__)
+#else
 #define FFI_ASSERT(x)
 #define FFI_ASSERT_AT(x, f, l)
 #define FFI_ASSERT_VALID_TYPE(x)
+#endif
+
 #define ALIGN(v, a)  (((((size_t) (v))-1) | ((a)-1))+1)
 #define ALIGN_DOWN(v, a) (((size_t) (v)) & -a)
 

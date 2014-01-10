@@ -46,6 +46,8 @@
 
 #ifndef LIBFFI_ASM
 
+/* ---- Generic type definitions ----------------------------------------- */
+
 # if defined __x86_64__
 #  define FFIM_SIZEOF_ARG 8
 typedef unsigned long long     ffim_arg;
@@ -56,23 +58,25 @@ typedef signed long            ffim_sarg;
 # endif
 
 typedef enum ffim_abi {
-    FFIM_FIRST_ABI = 0,
-    
-    FFIM_SYSV,
-# if defined(__i386__) || defined(__x86_64__)
-    FFIM_UNIX64, // Unix variants all use the same ABI for x86-64
-# elif defined(__arm__)
-    FFIM_VFP,
+  FFIM_FIRST_ABI = 0,
+
+  FFIM_SYSV,
+# if defined (__i386__) || defined (__x86_64__)
+  FFIM_UNIX64, // Unix variants all use the same ABI for x86-64
+# elif defined (__arm__)
+  FFIM_VFP,
 # endif
-    FFIM_LAST_ABI,
-# if defined(__x86_64__)
-    FFIM_DEFAULT_ABI = FFIM_UNIX64
+  FFIM_LAST_ABI,
+# if defined (__x86_64__)
+  FFIM_DEFAULT_ABI = FFIM_UNIX64
 # else
-    FFIM_DEFAULT_ABI = FFIM_SYSV,
+  FFIM_DEFAULT_ABI = FFIM_SYSV
 # endif
 } ffim_abi;
 
 #endif /* !defined(LIBFFI_ASM) */
+
+/* ---- Internal definitions --------------------------------------------- */
 
 /* ---- Internal defines ---- */
 #if defined(__i386__) || defined(__x86_64__)
@@ -120,4 +124,4 @@ typedef enum ffim_abi {
 #error "Unsupported CPU type"
 
 #endif /* CPU_TYPE */
-#endif /* LIBFFI_TARGET_H */
+#endif /* LIBFFI_TARGET_MINI_H */

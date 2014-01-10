@@ -202,4 +202,4 @@ CNAME(ffi_mini_call_SYSV):
         .size CNAME(ffi_mini_call_SYSV), .-CNAME(ffi_mini_call_SYSV)
 #endif
 
-#endif /* defined(__arm64__) */
+#endif /* defined (__arm64__) */

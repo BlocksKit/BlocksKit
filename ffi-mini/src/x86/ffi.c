@@ -32,15 +32,13 @@
 #include <ffi_common_mini.h>
 
 #include <stdlib.h>
-#include <stdarg.h>
 
-#ifdef __i386__
+#if defined (__i386__) && !defined(__x86_64__)
 
 /* ffi_mini_prep_args is called by the assembly routine once stack space
    has been allocated for the function's arguments */
 
-void ffi_mini_prep_args(char *stack, extended_cif *ecif);
-void ffi_mini_prep_args(char *stack, extended_cif *ecif)
+void FFI_HIDDEN ffi_mini_prep_args(char *stack, extended_cif *ecif)
 {
   register unsigned int i;
   register void **p_argv;
@@ -321,7 +319,7 @@ ffim_status ffi_mini_prep_cif_machdep(ffim_cif *cif)
 }
 
 extern void ffi_mini_call_SYSV(void (*)(char *, extended_cif *), extended_cif *,
-                          unsigned, unsigned, unsigned *, void (*fn)(void));
+                               unsigned, unsigned, unsigned *, void (*fn)(void));
 
 void ffi_mini_call(ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
 {
@@ -333,22 +331,12 @@ void ffi_mini_call(ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
   /* If the return value is a struct and we don't have a return */
   /* value address then we need to make one                     */
 
-#ifdef X86_WIN64
-  if (rvalue == NULL
-      && cif->flags == FFIM_TYPE_STRUCT
-      && cif->rtype->size != 1 && cif->rtype->size != 2
-      && cif->rtype->size != 4 && cif->rtype->size != 8)
-    {
-      ecif.rvalue = alloca((cif->rtype->size + 0xF) & ~0xF);
-    }
-#else
   if (rvalue == NULL
       && (cif->flags == FFIM_TYPE_STRUCT
           || cif->flags == FFIM_TYPE_MS_STRUCT))
     {
       ecif.rvalue = alloca(cif->rtype->size);
     }
-#endif
   else
     ecif.rvalue = rvalue;
     
@@ -365,4 +353,4 @@ void ffi_mini_call(ffim_cif *cif, void (*fn)(void), void *rvalue, void **avalue)
     }
 }
 
-#endif /* defined(__i386__) */
+#endif /* defined (__i386__) && !defined(__x86_64__) */

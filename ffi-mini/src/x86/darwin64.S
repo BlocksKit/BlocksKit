@@ -26,6 +26,7 @@
    ----------------------------------------------------------------------- */
 
 #ifdef __x86_64__
+
 #define LIBFFI_ASM
 #include <fficonfig_mini.h>
 #include <ffi_mini.h>

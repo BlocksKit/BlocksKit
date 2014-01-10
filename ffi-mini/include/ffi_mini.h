@@ -134,7 +134,7 @@ FFI_EXTERN ffim_type ffim_type_longdouble;
 #else
 #define ffim_type_longdouble ffim_type_double
 #endif
-#endif /* LIBFFI_HIDE_BASIC_TYPES */
+#endif /* HAVE_LONG_DOUBLE */
 
 typedef enum {
   FFIM_OK = 0,
@@ -155,6 +155,11 @@ typedef struct {
   FFIM_EXTRA_CIF_FIELDS;
 #endif
 } ffim_cif;
+
+#if HAVE_LONG_DOUBLE_VARIANT
+/* Used to adjust size/alignment of ffi types.  */
+void ffi_mini_prep_types (ffim_abi abi);
+#endif /* HAVE_LONG_DOUBLE_VARIANT */
 
 /* ---- Definitions for the raw API -------------------------------------- */
 
@@ -220,4 +225,4 @@ void ffi_mini_call(ffim_cif *cif,
 }
 #endif
 
-#endif
+#endif /* !defined (LIBFFI_MINI_H) */

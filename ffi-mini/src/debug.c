@@ -1,7 +1,5 @@
 /* -----------------------------------------------------------------------
-   types.c - Copyright (c) 1996, 1998  Red Hat, Inc.
-   
-   Predefined ffim_types needed by libffi.
+   debug.c - Copyright (c) 1996 Red Hat, Inc.
 
    Permission is hereby granted, free of charge, to any person obtaining
    a copy of this software and associated documentation files (the
@@ -24,45 +22,42 @@
    DEALINGS IN THE SOFTWARE.
    ----------------------------------------------------------------------- */
 
-/* Hide the basic type definitions from the header file, so that we
-   can redefine them here as "const".  */
-#define LIBFFI_HIDE_BASIC_TYPES
-
 #include <ffi_mini.h>
 #include <ffi_common_mini.h>
+#include <stdlib.h>
 
-/* Type definitions */
+#if defined (FFI_DEBUG)
+#include <stdio.h>
 
-#define FFIM_TYPEDEF(name, type, id)		\
-struct struct_align_##name {			\
-  char c;					\
-  type x;					\
-};						\
-const ffim_type ffim_type_##name = {		\
-  sizeof(type),					\
-  offsetof(struct struct_align_##name, x),	\
-  id, NULL					\
+/* General debugging routines */
+
+void ffi_mini_stop_here(void)
+{
+  /* This function is only useful for debugging purposes.
+     Place a breakpoint on ffi_mini_stop_here to be notified of
+     significant events. */
 }
 
-/* Size and alignment are fake here. They must not be 0. */
-const ffim_type ffim_type_void = {
-  1, 1, FFIM_TYPE_VOID, NULL
-};
+/* This function should only be called via the FFI_ASSERT() macro */
 
-FFIM_TYPEDEF(uint8, UINT8, FFIM_TYPE_UINT8);
-FFIM_TYPEDEF(sint8, SINT8, FFIM_TYPE_SINT8);
-FFIM_TYPEDEF(uint16, UINT16, FFIM_TYPE_UINT16);
-FFIM_TYPEDEF(sint16, SINT16, FFIM_TYPE_SINT16);
-FFIM_TYPEDEF(uint32, UINT32, FFIM_TYPE_UINT32);
-FFIM_TYPEDEF(sint32, SINT32, FFIM_TYPE_SINT32);
-FFIM_TYPEDEF(uint64, UINT64, FFIM_TYPE_UINT64);
-FFIM_TYPEDEF(sint64, SINT64, FFIM_TYPE_SINT64);
+void ffi_mini_assert(char *expr, char *file, int line)
+{
+  fprintf(stderr, "ASSERTION FAILURE: %s at %s:%d\n", expr, file, line);
+  ffi_mini_stop_here();
+  abort();
+}
 
-FFIM_TYPEDEF(pointer, void*, FFIM_TYPE_POINTER);
+/* Perform a sanity check on an ffim_type structure */
 
-FFIM_TYPEDEF(float, float, FFIM_TYPE_FLOAT);
-FFIM_TYPEDEF(double, double, FFIM_TYPE_DOUBLE);
+void ffi_mini_type_test(ffim_type *a, char *file, int line)
+{
+  FFI_ASSERT_AT(a != NULL, file, line);
 
-#if FFIM_TYPE_LONGDOUBLE != FFIM_TYPE_DOUBLE
-FFIM_TYPEDEF(longdouble, long double, FFIM_TYPE_LONGDOUBLE);
-#endif
+  FFI_ASSERT_AT(a->type <= FFIM_TYPE_LAST, file, line);
+  FFI_ASSERT_AT(a->type == FFIM_TYPE_VOID || a->size > 0, file, line);
+  FFI_ASSERT_AT(a->type == FFIM_TYPE_VOID || a->alignment > 0, file, line);
+  FFI_ASSERT_AT(a->type != FFIM_TYPE_STRUCT || a->elements != NULL, file, line);
+
+}
+
+#endif /* defined (FFI_DEBUG) */

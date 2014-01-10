@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  */
 #ifdef __arm64__
 
 /* Stack alignment requirement in bytes */
-#ifdef __APPLE__
+#if defined (__APPLE__)
 #define AARCH64_STACK_ALIGN 1
 #else
 #define AARCH64_STACK_ALIGN 16
@@ -55,13 +55,13 @@ struct call_context
 };
 
 static void *
-get_x_addr (struct call_context *context, size_t n)
+get_x_addr (struct call_context *context, unsigned n)
 {
   return &context->x[n];
 }
 
 static void *
-get_s_addr (struct call_context *context, size_t n)
+get_s_addr (struct call_context *context, unsigned n)
 {
 #if defined __AARCH64EB__
   return &context->v[n].d[1].s[1];
@@ -71,7 +71,7 @@ get_s_addr (struct call_context *context, size_t n)
 }
 
 static void *
-get_d_addr (struct call_context *context, size_t n)
+get_d_addr (struct call_context *context, unsigned n)
 {
 #if defined __AARCH64EB__
   return &context->v[n].d[1];
@@ -81,7 +81,7 @@ get_d_addr (struct call_context *context, size_t n)
 }
 
 static void *
-get_v_addr (struct call_context *context, size_t n)
+get_v_addr (struct call_context *context, unsigned n)
 {
   return &context->v[n];
 }
@@ -136,19 +136,19 @@ get_basic_type_alignment (unsigned short type)
 #endif
     case FFIM_TYPE_UINT8:
     case FFIM_TYPE_SINT8:
-#ifdef __APPLE__
-      return sizeof (UINT8);
+#if defined (__APPLE__)
+	  return sizeof (UINT8);
 #endif
     case FFIM_TYPE_UINT16:
     case FFIM_TYPE_SINT16:
-#ifdef __APPLE__
-      return sizeof (UINT16);
+#if defined (__APPLE__)
+	  return sizeof (UINT16);
 #endif
     case FFIM_TYPE_UINT32:
     case FFIM_TYPE_INT:
     case FFIM_TYPE_SINT32:
-#ifdef __APPLE__
-      return sizeof (UINT32);
+#if defined (__APPLE__)
+	  return sizeof (UINT32);
 #endif
     case FFIM_TYPE_POINTER:
     case FFIM_TYPE_UINT64:
@@ -302,17 +302,17 @@ is_hfa (ffim_type *ty)
   return 0;
 }
 
-/* Test if an ffi_type is a candidate for passing in a register.
+/* Test if an ffim_type is a candidate for passing in a register.
 
- This test does not check that sufficient registers of the
- appropriate class are actually available, merely that IFF
- sufficient registers are available then the argument will be passed
- in register(s).
+   This test does not check that sufficient registers of the
+   appropriate class are actually available, merely that IFF
+   sufficient registers are available then the argument will be passed
+   in register(s).
 
- Note that an ffi_type that is deemed to be a register candidate
- will always be returned in registers.
+   Note that an ffim_type that is deemed to be a register candidate
+   will always be returned in registers.
 
- Returns 1 if a register candidate else 0.  */
+   Returns 1 if a register candidate else 0.  */
 
 static int
 is_register_candidate (ffim_type *ty)
@@ -366,8 +366,8 @@ is_register_candidate (ffim_type *ty)
   return 0;
 }
 
-/* Test if an ffi_type argument or result is a candidate for a vector
- register.  */
+/* Test if an ffim_type argument or result is a candidate for a vector
+   register.  */
 
 static int
 is_v_register_candidate (ffim_type *ty)
@@ -384,9 +384,9 @@ is_v_register_candidate (ffim_type *ty)
 
 struct arg_state
 {
-  size_t ngrn;                /* Next general-purpose register number. */
-  size_t nsrn;                /* Next vector register number. */
-  size_t nsaa;                /* Next stack offset. */
+  unsigned ngrn;                /* Next general-purpose register number. */
+  unsigned nsrn;                /* Next vector register number. */
+  size_t nsaa;                  /* Next stack offset. */
 };
 
 /* Initialize a procedure call argument marshalling state.  */
@@ -401,7 +401,7 @@ arg_init (struct arg_state *state, size_t call_frame_size)
 /* Return the number of available consecutive core argument
    registers.  */
 
-static size_t
+static unsigned
 available_x (struct arg_state *state)
 {
   return N_X_ARG_REG - state->ngrn;
@@ -410,7 +410,7 @@ available_x (struct arg_state *state)
 /* Return the number of available consecutive vector argument
    registers.  */
 
-static size_t
+static unsigned
 available_v (struct arg_state *state)
 {
   return N_V_ARG_REG - state->nsrn;
@@ -448,7 +448,7 @@ allocate_to_stack (struct arg_state *state, void *stack, size_t alignment,
      alignment of the argument's type.  */
   state->nsaa = ALIGN (state->nsaa, alignment);
   state->nsaa = ALIGN (state->nsaa, alignment);
-#if !defined(__APPLE__)
+#if !defined (__APPLE__)
   state->nsaa = ALIGN (state->nsaa, 8);
 #endif
 
