@@ -10,6 +10,8 @@
 		DB5BF880185E909300FF2A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08B1184DC23000F37EEE /* Foundation.framework */; };
 		DB5BF881185E909300FF2A0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */; };
 		DB5BF882185E909300FF2A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08C2184DC23000F37EEE /* UIKit.framework */; };
+		DB848AC918852A63004FEA86 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DB848AC818852A63004FEA86 /* debug.c */; };
+		DB848ACA18852A63004FEA86 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DB848AC818852A63004FEA86 /* debug.c */; };
 		DB981A04185E96A60047E817 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB981A03185E96A60047E817 /* Images.xcassets */; };
 		DB981A06185E96EA0047E817 /* iOS-Runner.m in Sources */ = {isa = PBXBuildFile; fileRef = DB981A05185E96EA0047E817 /* iOS-Runner.m */; };
 		DBE126D8184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D7184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m */; };
@@ -293,6 +295,7 @@
 /* Begin PBXFileReference section */
 		DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DB5BF87F185E909300FF2A0B /* BK Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BK Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB848AC818852A63004FEA86 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
 		DB981A00185E95C00047E817 /* BlocksKit-iOS-Tests-Runner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocksKit-iOS-Tests-Runner-Info.plist"; sourceTree = "<group>"; };
 		DB981A03185E96A60047E817 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DB981A05185E96EA0047E817 /* iOS-Runner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "iOS-Runner.m"; sourceTree = "<group>"; };
@@ -687,6 +690,7 @@
 			children = (
 				DBFB096D184DC55B00F37EEE /* aarch64 */,
 				DBFB0970184DC55B00F37EEE /* arm */,
+				DB848AC818852A63004FEA86 /* debug.c */,
 				DBFB0973184DC55B00F37EEE /* prep_cif.c */,
 				DBFB0974184DC55B00F37EEE /* types.c */,
 				DBFB0975184DC55B00F37EEE /* x86 */,
@@ -1094,6 +1098,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB848AC918852A63004FEA86 /* debug.c in Sources */,
 				DBFB0A06184DC7E400F37EEE /* NSURLConnection+BlocksKit.m in Sources */,
 				DBFB0A03184DC7E400F37EEE /* NSCache+BlocksKit.m in Sources */,
 				DBFB097D184DC55B00F37EEE /* sysv.S in Sources */,
@@ -1198,6 +1203,7 @@
 				DBFB09CA184DC7B000F37EEE /* NSObject+BKAssociatedObjects.m in Sources */,
 				DBFB09BE184DC7B000F37EEE /* NSMutableDictionary+BlocksKit.m in Sources */,
 				DBFB09BB184DC7B000F37EEE /* NSMutableArray+BlocksKit.m in Sources */,
+				DB848ACA18852A63004FEA86 /* debug.c in Sources */,
 				DBFB09C1184DC7B000F37EEE /* NSMutableIndexSet+BlocksKit.m in Sources */,
 				DBFB0A0D184DC7E400F37EEE /* NSObject+A2DynamicDelegate.m in Sources */,
 				DBFB09D9184DC7B000F37EEE /* NSTimer+BlocksKit.m in Sources */,
