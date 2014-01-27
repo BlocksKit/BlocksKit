@@ -144,10 +144,19 @@
 
 - (void)testReduceWithBlockFloat {
 	CGFloat(^accumlationBlockFloat)(CGFloat, id) = ^CGFloat(CGFloat result, id obj) {
+#if __LP64__
+		return result + [obj doubleValue];
+#else
 		return result + [obj floatValue];
+#endif
 	};
 	CGFloat result = [_floats bk_reduceFloat:.0  withBlock:accumlationBlockFloat];
-    XCTAssertEqual(result, (CGFloat).6, @"reduce float result is %f", result);
+#if __LP64__
+    CGFloat accuracy = DBL_EPSILON;
+#else
+    CGFloat accuracy = FLT_EPSILON;
+#endif
+    XCTAssertEqualWithAccuracy(result, (CGFloat)0.6, accuracy, @"reduce float result is %f", result);
 }
 
 - (void)testAny {
