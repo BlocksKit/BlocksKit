@@ -53,8 +53,10 @@ static SEL getterForProperty(Class cls, NSString *propertyName)
 	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
 	if (property) {
 		char *getterName = property_copyAttributeValue(property, "G");
-		if (getterName) getter = sel_getUid(getterName);
-		free(getterName);
+		if (getterName) {
+            getter = sel_getUid(getterName);
+            free(getterName);
+        }
 	}
 
 	if (!getter) {
@@ -85,8 +87,17 @@ static SEL setterForProperty(Class cls, NSString *propertyName)
 	return setter;
 }
 
-static inline SEL prefixedSelector(SEL selector) {
-	return NSSelectorFromString([@"a2_" stringByAppendingString:NSStringFromSelector(selector)]);
+static SEL prefixedSelector(SEL original) {
+    const char prefix[] = "a2_";
+    const char *initial = sel_getName(original);
+    NSUInteger prefixLength = strlen(prefix);
+    NSUInteger initialLength = strlen(initial);
+    
+    char selector[prefixLength + initialLength + 1];
+    memcpy(selector, prefix, prefixLength);
+	memcpy(selector + prefixLength, original, initialLength);
+    
+    return sel_registerName(selector);
 }
 
 #pragma mark -
