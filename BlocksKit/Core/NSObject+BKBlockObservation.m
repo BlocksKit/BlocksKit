@@ -272,9 +272,9 @@ static void *BKBlockObservationContext = &BKBlockObservationContext;
         if (![classes containsObject:className]) {
             SEL deallocSelector = sel_registerName("dealloc");
             
-            __block IMP originalDealloc = NULL;
+			__block void (*originalDealloc)(__unsafe_unretained id, SEL) = NULL;
             
-            id newDealloc = ^(__unsafe_unretained NSObject *objSelf) {
+			id newDealloc = ^(__unsafe_unretained id objSelf) {
                 [objSelf bk_removeAllBlockObservers];
                 
                 if (originalDealloc == NULL) {
