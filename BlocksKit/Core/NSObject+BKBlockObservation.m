@@ -298,10 +298,10 @@ static void *BKBlockObservationContext = &BKBlockObservationContext;
                 
                 // We need to store original implementation before setting new implementation
                 // in case method is called at the time of setting.
-                originalDealloc = method_getImplementation(deallocMethod);
+                originalDealloc = (void(*)(__unsafe_unretained id, SEL))method_getImplementation(deallocMethod);
                 
                 // We need to store original implementation again, in case it just changed.
-                originalDealloc = method_setImplementation(deallocMethod, newDeallocIMP);
+                originalDealloc = (void(*)(__unsafe_unretained id, SEL))method_setImplementation(deallocMethod, newDeallocIMP);
             }
             
             [classes addObject:className];
