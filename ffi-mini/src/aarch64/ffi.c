@@ -114,6 +114,8 @@ get_basic_type_addr (unsigned short type, struct call_context *context,
     case FFIM_TYPE_UINT64:
     case FFIM_TYPE_SINT64:
       return get_x_addr (context, n);
+    case FFIM_TYPE_VOID:
+      return NULL;
     default:
       FFI_ASSERT (0);
       return NULL;
@@ -503,6 +505,8 @@ copy_basic_type (void *dest, void *source, unsigned short type)
       *(ffim_sarg *) dest = *(SINT64 *) source;
       break;
 
+    case FFIM_TYPE_VOID:
+      break;
     default:
       FFI_ASSERT (0);
     }

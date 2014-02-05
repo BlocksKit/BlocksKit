@@ -39,6 +39,10 @@
 static int vfp_type_p (ffim_type *);
 static void layout_vfp_args (ffim_cif *);
 
+/* Used in assembly. */
+int ffi_mini_prep_args_SYSV(char *stack, extended_cif *ecif, float *vfp_space);
+int ffi_mini_prep_args_VFP(char *stack, extended_cif *ecif, float *vfp_space);
+
 static char* ffi_align(ffim_type **p_arg, char *argp)
 {
   /* Align if necessary */
@@ -124,7 +128,7 @@ static size_t ffi_put_arg(ffim_type **arg_type, void **arg, char *stack)
    value is cif->vfp_used (word bitset of VFP regs used for passing
    arguments). These are only used for the VFP hard-float ABI.
 */
-int FFI_HIDDEN ffi_mini_prep_args_SYSV(char *stack, extended_cif *ecif, float *vfp_space)
+int ffi_mini_prep_args_SYSV(char *stack, extended_cif *ecif, float *vfp_space)
 {
   register unsigned int i;
   register void **p_argv;
@@ -151,7 +155,7 @@ int FFI_HIDDEN ffi_mini_prep_args_SYSV(char *stack, extended_cif *ecif, float *v
   return 0;
 }
 
-int FFI_HIDDEN ffi_mini_prep_args_VFP(char *stack, extended_cif *ecif, float *vfp_space)
+int ffi_mini_prep_args_VFP(char *stack, extended_cif *ecif, float *vfp_space)
 {
   // make sure we are using FFIM_VFP
   FFI_ASSERT(ecif->cif->abi == FFIM_VFP);
