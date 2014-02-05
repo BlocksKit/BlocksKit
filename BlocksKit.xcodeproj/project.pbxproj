@@ -1380,6 +1380,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1405,6 +1406,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1448,7 +1450,10 @@
 					"$(SRCROOT)/ffi-mini/include",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = BlocksKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1487,7 +1492,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/ffi-mini/include",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = BlocksKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1540,6 +1548,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-Wl,-no_compact_unwind",
 				);
 				PRODUCT_NAME = "BlocksKit-iOS-Tests";
 				SDKROOT = iphoneos;
@@ -1585,6 +1594,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-Wl,-no_compact_unwind",
 				);
 				PRODUCT_NAME = "BlocksKit-iOS-Tests";
 				SDKROOT = iphoneos;
