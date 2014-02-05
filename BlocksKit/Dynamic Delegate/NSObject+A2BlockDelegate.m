@@ -96,6 +96,7 @@ static SEL prefixedSelector(SEL original) {
     char selector[prefixLength + initialLength + 1];
     memcpy(selector, prefix, prefixLength);
 	memcpy(selector + prefixLength, original, initialLength);
+    selector[prefixLength + initialLength] = '\0';
     
     return sel_registerName(selector);
 }
