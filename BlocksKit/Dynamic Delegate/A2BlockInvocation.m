@@ -471,7 +471,8 @@ static ffi_type *a2_typeForSignature(const char *argumentType, void *(^allocate)
 		if (!type) break;
 
 		size_t argSize = a2_sizeForType(type);
-		void *thisArgument = malloc(argSize);
+        void *thisArgument = NULL;
+        if (argSize) thisArgument = malloc(argSize);
 		if (!thisArgument) break;
 
 		[inv getArgument:thisArgument atIndex:i + 2];

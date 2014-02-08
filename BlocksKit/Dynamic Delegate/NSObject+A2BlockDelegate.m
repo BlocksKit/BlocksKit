@@ -182,12 +182,18 @@ static SEL prefixedSelector(SEL original) {
 		});
 
 		const char *getterTypes = "@@:";
-		BOOL success = class_addMethod(self, getter, getterImplementation, getterTypes);
-		NSCAssert1(success, @"Could not implement getter for \"%@\" property.", propertyName);
+#if !defined(NS_BLOCK_ASSERTIONS)
+		BOOL success =
+#endif
+        class_addMethod(self, getter, getterImplementation, getterTypes);
+		NSCAssert(success, @"Could not implement getter for \"%@\" property.", propertyName);
 
 		const char *setterTypes = "v@:@";
-		success = class_addMethod(self, setter, setterImplementation, setterTypes);
-		NSCAssert1(success, @"Could not implement setter for \"%@\" property.", propertyName);
+#if !defined(NS_BLOCK_ASSERTIONS)
+		success =
+#endif
+        class_addMethod(self, setter, setterImplementation, setterTypes);
+		NSCAssert(success, @"Could not implement setter for \"%@\" property.", propertyName);
 	}];
 }
 
