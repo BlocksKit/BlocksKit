@@ -14,6 +14,10 @@
 		00D28ACE14AAC48600ECB62C /* UIPopoverController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */; };
 		1AA10D8C210B0C0164B8EF38 /* BKMacrosTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA1098D35D15E85B0D5ABEB /* BKMacrosTest.m */; };
 		1AA10ECBD8E9855A003E1579 /* BKMacrosTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA1098D35D15E85B0D5ABEB /* BKMacrosTest.m */; };
+		2B227C3218B7438B00BDCB49 /* UIImagePickerControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B227C3118B7438B00BDCB49 /* UIImagePickerControllerBlocksKitTest.m */; };
+		2B227C3718B74AB100BDCB49 /* UIImagePickerController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BBB418618B6849100F958DF /* UIImagePickerController+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B227C3D18B756A800BDCB49 /* UITextFieldBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C059DDC017A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.m */; };
+		2BBB418A18B684B100F958DF /* UIImagePickerController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBB418718B6849100F958DF /* UIImagePickerController+BlocksKit.m */; };
 		6C161C901620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C161C911620C6E000F04A9A /* NSOrderedSet+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C161C921620C6E000F04A9A /* NSOrderedSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C161C8F1620C6E000F04A9A /* NSOrderedSet+BlocksKit.m */; };
@@ -197,7 +201,7 @@
 		A99DD88613D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A99DD88413D316FF00F2308F /* NSURLConnection+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A99DD88913D3170200F2308F /* NSURLConnection+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A99DD88513D3170100F2308F /* NSURLConnection+BlocksKit.m */; };
 		C059DDC117A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C059DDC017A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.m */; };
-		C05D8F4717A0744400632A60 /* UITextField+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C05D8F4517A0744300632A60 /* UITextField+BlocksKit.h */; };
+		C05D8F4717A0744400632A60 /* UITextField+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C05D8F4517A0744300632A60 /* UITextField+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C05D8F4817A0744400632A60 /* UITextField+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C05D8F4617A0744300632A60 /* UITextField+BlocksKit.m */; };
 		DB155FD9176294A2008B9A43 /* ffi_arm.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FCF176294A2008B9A43 /* ffi_arm.h */; };
 		DB155FDA176294A2008B9A43 /* ffi_common.h in Headers */ = {isa = PBXBuildFile; fileRef = DB155FD0176294A2008B9A43 /* ffi_common.h */; };
@@ -270,6 +274,10 @@
 		00D28AC714AAC43E00ECB62C /* UIPopoverController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPopoverController+BlocksKit.m"; sourceTree = "<group>"; };
 		1AA1098D35D15E85B0D5ABEB /* BKMacrosTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKMacrosTest.m; sourceTree = "<group>"; };
 		1AA10CB3DBF8ED68835B126C /* BKMacrosTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKMacrosTest.h; sourceTree = "<group>"; };
+		2B227C3118B7438B00BDCB49 /* UIImagePickerControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImagePickerControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		2B227C3318B743D200BDCB49 /* UIImagePickerControllerBlocksKitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImagePickerControllerBlocksKitTest.h; sourceTree = "<group>"; };
+		2BBB418618B6849100F958DF /* UIImagePickerController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+BlocksKit.h"; sourceTree = "<group>"; };
+		2BBB418718B6849100F958DF /* UIImagePickerController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+BlocksKit.m"; sourceTree = "<group>"; };
 		6C161C8E1620C6E000F04A9A /* NSOrderedSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+BlocksKit.h"; sourceTree = "<group>"; };
 		6C161C8F1620C6E000F04A9A /* NSOrderedSet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOrderedSet+BlocksKit.m"; sourceTree = "<group>"; };
 		6C161C951620C6EF00F04A9A /* NSMutableOrderedSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+BlocksKit.h"; sourceTree = "<group>"; };
@@ -607,6 +615,8 @@
 				6CC56DF81386A48900925FDC /* UIWebView+BlocksKit.m */,
 				C05D8F4517A0744300632A60 /* UITextField+BlocksKit.h */,
 				C05D8F4617A0744300632A60 /* UITextField+BlocksKit.m */,
+				2BBB418618B6849100F958DF /* UIImagePickerController+BlocksKit.h */,
+				2BBB418718B6849100F958DF /* UIImagePickerController+BlocksKit.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -777,6 +787,8 @@
 				6CF22D33161F32A9002FD317 /* UIWebViewBlocksKitTest.m */,
 				C059DDBF17A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.h */,
 				C059DDC017A2FA1E00F7CE06 /* UITextFieldBlocksKitTest.m */,
+				2B227C3318B743D200BDCB49 /* UIImagePickerControllerBlocksKitTest.h */,
+				2B227C3118B7438B00BDCB49 /* UIImagePickerControllerBlocksKitTest.m */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -906,6 +918,7 @@
 				6C2427FC13C565550016A271 /* NSMutableSet+BlocksKit.h in Headers */,
 				6C24280413C565660016A271 /* NSMutableDictionary+BlocksKit.h in Headers */,
 				6C8063B313C58DA00018AE1E /* NSMutableIndexSet+BlocksKit.h in Headers */,
+				2B227C3718B74AB100BDCB49 /* UIImagePickerController+BlocksKit.h in Headers */,
 				A99DD88613D3170200F2308F /* NSURLConnection+BlocksKit.h in Headers */,
 				A92C9A6313F41E0A006DA96A /* NSCache+BlocksKit.h in Headers */,
 				A97E4C9F13FD5B14001BB376 /* MFMailComposeViewController+BlocksKit.h in Headers */,
@@ -1199,6 +1212,7 @@
 				6C3DBFAC1382FD3B00E6C9AA /* NSSet+BlocksKit.m in Sources */,
 				6C3DBFB11383010100E6C9AA /* NSDictionary+BlocksKit.m in Sources */,
 				6C3DBFB91383085900E6C9AA /* NSObject+BKBlockExecution.m in Sources */,
+				2BBB418A18B684B100F958DF /* UIImagePickerController+BlocksKit.m in Sources */,
 				6C3DBFD5138318CB00E6C9AA /* NSObject+BKAssociatedObjects.m in Sources */,
 				6C3DBFDD1383202400E6C9AA /* NSObject+BKBlockObservation.m in Sources */,
 				6C3DBFE11383265B00E6C9AA /* NSTimer+BlocksKit.m in Sources */,
@@ -1302,6 +1316,7 @@
 			files = (
 				6CF22CE2161EB1C3002FD317 /* A2BlockDelegateTests.m in Sources */,
 				6CF22CE4161EB1C3002FD317 /* A2BlockInvocationTests.m in Sources */,
+				2B227C3D18B756A800BDCB49 /* UITextFieldBlocksKitTest.m in Sources */,
 				6CF22CE6161EB1C3002FD317 /* A2DynamicDelegateTests.m in Sources */,
 				6CF22CEA161EB225002FD317 /* NSArrayBlocksKitTest.m in Sources */,
 				6CF22CEE161F1EB3002FD317 /* NSCacheBlocksKitTest.m in Sources */,
@@ -1327,6 +1342,7 @@
 				6CF22D40161F32C5002FD317 /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */,
 				6C161C9D1620C71A00F04A9A /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
 				6C161CA11620C74400F04A9A /* NSOrderedSetBlocksKitTest.m in Sources */,
+				2B227C3218B7438B00BDCB49 /* UIImagePickerControllerBlocksKitTest.m in Sources */,
 				1AA10ECBD8E9855A003E1579 /* BKMacrosTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1603,6 +1619,8 @@
 					"-Wl,-no_compact_unwind",
 					"-all_load",
 					"-ObjC",
+					"-read_only_relocs",
+					suppress,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1628,6 +1646,8 @@
 					"-Wl,-no_compact_unwind",
 					"-all_load",
 					"-ObjC",
+					"-read_only_relocs",
+					suppress,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
