@@ -515,7 +515,7 @@
 			name = "Test Classes";
 			sourceTree = "<group>";
 		};
-		DBE126DD184DE0780023AFAD /* Dynamic Delegate */ = {
+		DBE126DD184DE0780023AFAD /* DynamicDelegate */ = {
 			isa = PBXGroup;
 			children = (
 				DBFB0AC5184DCD6200F37EEE /* A2BlockDelegateTests.m */,
@@ -524,7 +524,7 @@
 				DBE126DC184DDDDB0023AFAD /* Test Classes */,
 				DBE126DE184DE0820023AFAD /* Foundation */,
 			);
-			name = "Dynamic Delegate";
+			name = "DynamicDelegate";
 			sourceTree = "<group>";
 		};
 		DBE126DE184DE0820023AFAD /* Foundation */ = {
@@ -605,7 +605,7 @@
 				DBFB098A184DC7A200F37EEE /* BlocksKit+MessageUI.h */,
 				DBFB098B184DC7A200F37EEE /* BlocksKit+UIKit.h */,
 				DBFB098C184DC7AF00F37EEE /* Core */,
-				DBFB09EC184DC7E400F37EEE /* Dynamic Delegate */,
+				DBFB09EC184DC7E400F37EEE /* DynamicDelegate */,
 				DBFB0A14184DC82000F37EEE /* MessageUI */,
 				DBFB0A1D184DC83200F37EEE /* UIKit */,
 				DBFB095A184DC41D00F37EEE /* Supporting Files */,
@@ -617,10 +617,10 @@
 			isa = PBXGroup;
 			children = (
 				DBE126DF184DE08A0023AFAD /* Core */,
-				DBE126DD184DE0780023AFAD /* Dynamic Delegate */,
+				DBE126DD184DE0780023AFAD /* DynamicDelegate */,
 				DBFB0B1B184DCD7300F37EEE /* UIKit */,
 				DBFB0B1C184DCD7900F37EEE /* MessageUI */,
-				DBFB0AB6184DCC9400F37EEE /* Mac Demo */,
+				DBFB0AB6184DCC9400F37EEE /* MacDemo */,
 				DBFB0925184DC2E000F37EEE /* Supporting Files */,
 			);
 			path = Tests;
@@ -765,7 +765,7 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		DBFB09EC184DC7E400F37EEE /* Dynamic Delegate */ = {
+		DBFB09EC184DC7E400F37EEE /* DynamicDelegate */ = {
 			isa = PBXGroup;
 			children = (
 				DBFB09ED184DC7E400F37EEE /* A2BlockInvocation.h */,
@@ -779,7 +779,7 @@
 				DBFB09FA184DC7E400F37EEE /* NSObject+A2DynamicDelegate.m */,
 				DBFB09F2184DC7E400F37EEE /* Foundation */,
 			);
-			path = "Dynamic Delegate";
+			path = "DynamicDelegate";
 			sourceTree = "<group>";
 		};
 		DBFB09F2184DC7E400F37EEE /* Foundation */ = {
@@ -829,7 +829,7 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
-		DBFB0AB6184DCC9400F37EEE /* Mac Demo */ = {
+		DBFB0AB6184DCC9400F37EEE /* MacDemo */ = {
 			isa = PBXGroup;
 			children = (
 				DBFB0AB7184DCC9400F37EEE /* MainMenu.xib */,
@@ -838,7 +838,7 @@
 				DBFB0ABB184DCC9400F37EEE /* BlocksKit-Mac-Demo-Info.plist */,
 				DBFB0ABC184DCC9400F37EEE /* main.m */,
 			);
-			path = "Mac Demo";
+			path = "MacDemo";
 			sourceTree = "<group>";
 		};
 		DBFB0B1B184DCD7300F37EEE /* UIKit */ = {
@@ -1796,7 +1796,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				INFOPLIST_FILE = "Tests/Mac Demo/BlocksKit-Mac-Demo-Info.plist";
+				INFOPLIST_FILE = "Tests/MacDemo/BlocksKit-Mac-Demo-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "BlocksKit Mac Demo";
 				SDKROOT = macosx;
@@ -1823,7 +1823,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				INFOPLIST_FILE = "Tests/Mac Demo/BlocksKit-Mac-Demo-Info.plist";
+				INFOPLIST_FILE = "Tests/MacDemo/BlocksKit-Mac-Demo-Info.plist";
 				PRODUCT_NAME = "BlocksKit Mac Demo";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
