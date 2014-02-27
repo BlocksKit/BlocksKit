@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2BB8A49518BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */; };
+		2BB8A49C18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */; };
+		2BB8A4A218BEF584006AF0F6 /* UIImagePickerController+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */; };
 		DB5BF880185E909300FF2A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08B1184DC23000F37EEE /* Foundation.framework */; };
 		DB5BF881185E909300FF2A0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */; };
 		DB5BF882185E909300FF2A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08C2184DC23000F37EEE /* UIKit.framework */; };
@@ -241,6 +244,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				2BB8A4A218BEF584006AF0F6 /* UIImagePickerController+BlocksKit.h in CopyFiles */,
 				DBFB0A39184DC83C00F37EEE /* UIActionSheet+BlocksKit.h in CopyFiles */,
 				DBFB0A3A184DC83C00F37EEE /* UIAlertView+BlocksKit.h in CopyFiles */,
 				DBFB0A3B184DC83C00F37EEE /* UIBarButtonItem+BlocksKit.h in CopyFiles */,
@@ -293,6 +297,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImagePickerControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+BlocksKit.h"; sourceTree = "<group>"; };
+		2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+BlocksKit.m"; sourceTree = "<group>"; };
 		DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DB5BF87F185E909300FF2A0B /* BK Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BK Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB848AC818852A63004FEA86 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
@@ -825,6 +832,8 @@
 				DBFB0A2D184DC83200F37EEE /* UIView+BlocksKit.m */,
 				DBFB0A2E184DC83200F37EEE /* UIWebView+BlocksKit.h */,
 				DBFB0A2F184DC83200F37EEE /* UIWebView+BlocksKit.m */,
+				2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */,
+				2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -849,6 +858,7 @@
 				DBFB0AF9184DCD6200F37EEE /* UIControlBlocksKitTest.m */,
 				DBFB0AFB184DCD6200F37EEE /* UITextFieldBlocksKitTest.m */,
 				DBFB0AFD184DCD6200F37EEE /* UIWebViewBlocksKitTest.m */,
+				2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -1136,6 +1146,7 @@
 				DBFB09B7184DC7B000F37EEE /* NSInvocation+BlocksKit.m in Sources */,
 				DBFB0A32184DC83200F37EEE /* UIBarButtonItem+BlocksKit.m in Sources */,
 				DBFB097B184DC55B00F37EEE /* sysv.S in Sources */,
+				2BB8A49C18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m in Sources */,
 				DBFB09FC184DC7E400F37EEE /* A2BlockInvocation.m in Sources */,
 				DBFB09D2184DC7B000F37EEE /* NSOrderedSet+BlocksKit.m in Sources */,
 				DBFB097A184DC55B00F37EEE /* ffi.c in Sources */,
@@ -1158,6 +1169,7 @@
 				DBFB0B0C184DCD6200F37EEE /* NSMutableIndexSetBlocksKitTest.m in Sources */,
 				DBFB0B10184DCD6200F37EEE /* NSObjectBlockObservationTest.m in Sources */,
 				DBFB0B02184DCD6200F37EEE /* BKMacrosTest.m in Sources */,
+				2BB8A49518BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m in Sources */,
 				DBFB0AFF184DCD6200F37EEE /* A2BlockInvocationTests.m in Sources */,
 				DBFB0B19184DCD6200F37EEE /* UITextFieldBlocksKitTest.m in Sources */,
 				DBFB0B0A184DCD6200F37EEE /* NSMutableArrayBlocksKitTest.m in Sources */,
