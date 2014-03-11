@@ -28,7 +28,7 @@ See the included `Configurations/MacBundleFramework.xcconfig` for more informati
 Documentation
 =============
 
-An Xcode 4+ compatible documentation set is available [from CocoaDocs](http://cocoadocs.org/docsets/BlocksKit/2.0.0/).
+An Xcode-compatible documentation set is available [from CocoaDocs](http://cocoadocs.org/docsets/BlocksKit/).
 
 License
 =======
