@@ -8,16 +8,18 @@
 /** BlocksKit extensions for NSInvocation. */
 @interface NSInvocation (BlocksKit)
 
-/** Generates an `NSInvocation` instance for a given block.
+/** Generates a forwarding `NSInvocation` instance for a given method call
+ encapsulated by the given block.
 
 	NSInvocation *invocation = [NSInvocation invocationWithTarget:target block:^(id myObject) {
 		[myObject someMethodWithArg:42.0];
 	}];
 
->>>>>>> Move stuff around:BlocksKit/Core/NSInvocation+BlocksKit.h
  This returns an invocation with the appropriate target, selector, and arguments
  without creating the buffers yourself. It is only recommended to call a method
- on the argument to the block only once.
+ on the argument to the block only once. More complicated forwarding machinery
+ can be accomplished by the A2DynamicDelegate family of classes included in
+ BlocksKit.
 
  Created by [Jonathan Rentzch](https://github.com/rentzsch) as
  `NSInvocation-blocks`.

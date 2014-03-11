@@ -2,10 +2,15 @@
 //  NSMutableArrayBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Contributed by Kai Wu.
+//
 
-#import "NSMutableArrayBlocksKitTest.h"
-#import <BlocksKit/BlocksKit.h>
-#import <BlocksKit/A2DynamicDelegate.h>
+#import <XCTest/XCTest.h>
+#import <BlocksKit/NSMutableArray+BlocksKit.h>
+
+@interface NSMutableArrayBlocksKitTest : XCTestCase
+
+@end
 
 @implementation NSMutableArrayBlocksKitTest {
 	NSMutableArray *_subject;
@@ -25,9 +30,9 @@
 	};
 	[_subject bk_performSelect:validationBlock];
 
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	XCTAssertEqual(_total, (NSInteger)6, @"total length of \"122333\" is %ld", (long)_total);
 	NSMutableArray *target = [@[ @"1", @"22" ] mutableCopy];
-	STAssertEqualObjects(_subject,target,@"selected items are %@",_subject);
+	XCTAssertEqualObjects(_subject,target,@"selected items are %@",_subject);
 }
 
 - (void)testSelectedNone {
@@ -38,8 +43,8 @@
 	};
 	[_subject bk_performSelect:validationBlock];
 
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	STAssertEquals(_subject.count,(NSUInteger)0,@"no item is selected");
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
+	XCTAssertEqual(_subject.count,(NSUInteger)0,@"no item is selected");
 }
 
 - (void)testReject {
@@ -50,9 +55,9 @@
 	};
 	[_subject bk_performReject:validationBlock];
 
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
 	NSMutableArray *target = [@[ @"1", @"22" ] mutableCopy];
-	STAssertEqualObjects(_subject,target,@"not rejected items are %@",_subject);
+	XCTAssertEqualObjects(_subject,target,@"not rejected items are %@",_subject);
 }
 
 - (void)testRejectedAll {
@@ -63,8 +68,8 @@
 	};
 	[_subject bk_performReject:validationBlock];
 
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	STAssertEquals(_subject.count,(NSUInteger)0,@"all items are rejected");
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
+	XCTAssertEqual(_subject.count,(NSUInteger)0,@"all items are rejected");
 }
 
 - (void)testMap {
@@ -74,9 +79,9 @@
 	};
 	[_subject bk_performMap:transformBlock];
 
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
 	NSMutableArray *target = [@[ @"1", @"2", @"3" ] mutableCopy];
-	STAssertEqualObjects(_subject,target,@"transformed items are %@",_subject);
+	XCTAssertEqualObjects(_subject,target,@"transformed items are %@",_subject);
 }
 
 @end

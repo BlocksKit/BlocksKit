@@ -2,8 +2,15 @@
 //  NSIndexSetBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Contributed by Kai Wu.
+//
 
-#import "NSIndexSetBlocksKitTest.h"
+#import <XCTest/XCTest.h>
+#import <BlocksKit/NSIndexSet+BlocksKit.h>
+
+@interface NSIndexSetBlocksKitTest : XCTestCase
+
+@end
 
 @implementation NSIndexSetBlocksKitTest {
 	NSIndexSet *_subject;
@@ -22,9 +29,9 @@
 		_target[index] = [NSString stringWithFormat:@"%lu", (unsigned long)index];
 	};
 	[_subject bk_each:indexBlock];
-	STAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
+	XCTAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
 	NSArray *target = @[ @"0", @"1", @"2", @"3" ];
-	STAssertEqualObjects(_target, target, @"the target array becomes %@", _target);
+	XCTAssertEqualObjects(_target, target, @"the target array becomes %@", _target);
 }
 
 - (void)testMatch {
@@ -39,8 +46,8 @@
 		return match;
 	};
 	NSUInteger found = [_subject bk_match:indexValidationBlock];
-	STAssertTrue([order isEqualToString:@"12"], @"the index loop order is %@", order);
-	STAssertEqualObjects(_target[found], @"2", @"the target array becomes %@", _target);
+	XCTAssertTrue([order isEqualToString:@"12"], @"the index loop order is %@", order);
+	XCTAssertEqualObjects(_target[found], @"2", @"the target array becomes %@", _target);
 }
 
 - (void)testNotMatch {
@@ -51,8 +58,8 @@
 		return match;
 	};
 	NSUInteger found = [_subject bk_match:indexValidationBlock];
-	STAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
-	STAssertEquals((NSUInteger)found, (NSUInteger)NSNotFound, @"no items are found");
+	XCTAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
+	XCTAssertEqual((NSUInteger)found, (NSUInteger)NSNotFound, @"no items are found");
 }
 
 - (void)testSelect {
@@ -63,9 +70,9 @@
 		return match;
 	};
 	NSIndexSet *found = [_subject bk_select:indexValidationBlock];
-	STAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
+	XCTAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
 	NSIndexSet *target = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1,2)];
-	STAssertEqualObjects(found, target, @"the selected index set is %@", found);
+	XCTAssertEqualObjects(found, target, @"the selected index set is %@", found);
 }
 
 - (void)testSelectedNone {
@@ -76,8 +83,8 @@
 		return match;
 	};
 	NSIndexSet *found = [_subject bk_select:indexValidationBlock];
-	STAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
-	STAssertNil(found,@"no index found");
+	XCTAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
+	XCTAssertNil(found,@"no index found");
 }
 
 - (void)testReject {
@@ -88,8 +95,8 @@
 		return match;
 	};
 	NSIndexSet *found = [_subject bk_reject:indexValidationBlock];
-	STAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
-	STAssertNil(found,@"all indexes are rejected");
+	XCTAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
+	XCTAssertNil(found,@"all indexes are rejected");
 }
 
 - (void)testRejectedNone {
@@ -100,8 +107,8 @@
 		return match;
 	};
 	NSIndexSet *found = [_subject bk_reject:indexValidationBlock];
-	STAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
-	STAssertEqualObjects(found, _subject, @"all indexes that are not rejected %@", found);
+	XCTAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
+	XCTAssertEqualObjects(found, _subject, @"all indexes that are not rejected %@", found);
 }
 
 - (void)testAny {
@@ -116,8 +123,8 @@
 		return match;
 	};
 	BOOL didFind = [_subject bk_any:indexValidationBlock];
-	STAssertTrue([order isEqualToString:@"12"], @"the index loop order is %@", order);
-	STAssertTrue(didFind, @"result found in target array");
+	XCTAssertTrue([order isEqualToString:@"12"], @"the index loop order is %@", order);
+	XCTAssertTrue(didFind, @"result found in target array");
 }
 
 @end

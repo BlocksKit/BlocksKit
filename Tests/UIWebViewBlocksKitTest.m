@@ -3,9 +3,13 @@
 //  BlocksKit Unit Tests
 //
 
-#import "UIWebViewBlocksKitTest.h"
-#import <BlocksKit/BlocksKit.h>
+#import <XCTest/XCTest.h>
+#import <BlocksKit/UIWebView+BlocksKit.h>
 #import <BlocksKit/A2DynamicDelegate.h>
+
+@interface UIWebViewBlocksKitTest : XCTestCase <UIWebViewDelegate>
+
+@end
 
 @implementation UIWebViewBlocksKitTest {
 	UIWebView *_subject;
@@ -44,9 +48,9 @@
 	
 	BOOL shouldStartLoad = [_subject.bk_dynamicDelegate webView:_subject shouldStartLoadWithRequest:nil navigationType:UIWebViewNavigationTypeLinkClicked];
 	
-	STAssertTrue(shouldStartLoad, @"Web view is allowed to load");
-	STAssertTrue(shouldStartLoadBlock, @"Block handler was called");
-	STAssertTrue(shouldStartLoadDelegate, @"Delegate was called");
+	XCTAssertTrue(shouldStartLoad, @"Web view is allowed to load");
+	XCTAssertTrue(shouldStartLoadBlock, @"Block handler was called");
+	XCTAssertTrue(shouldStartLoadDelegate, @"Delegate was called");
 }
 
 - (void)testDidStartLoad {
@@ -59,8 +63,8 @@
 	
 	[_subject.bk_dynamicDelegate webViewDidStartLoad:_subject];
 	
-	STAssertTrue(didStartLoadBlock, @"Block handler was called");
-	STAssertTrue(didStartLoadDelegate, @"Delegate was called");
+	XCTAssertTrue(didStartLoadBlock, @"Block handler was called");
+	XCTAssertTrue(didStartLoadDelegate, @"Delegate was called");
 }
 
 - (void)testDidFinishLoad {
@@ -73,8 +77,8 @@
 	
 	[_subject.bk_dynamicDelegate webViewDidFinishLoad:_subject];
 	
-	STAssertTrue(didFinishLoadBlock, @"Block handler was called");
-	STAssertTrue(didFinishLoadDelegate, @"Delegate was called");
+	XCTAssertTrue(didFinishLoadBlock, @"Block handler was called");
+	XCTAssertTrue(didFinishLoadDelegate, @"Delegate was called");
 }
 
 - (void)testDidFinishWithError {
@@ -87,8 +91,8 @@
 	
 	[_subject.bk_dynamicDelegate webView:_subject didFailLoadWithError:nil];
 	
-	STAssertTrue(didFinishWithErrorBlock, @"Block handler was called");
-	STAssertTrue(didFinishWithErrorDelegate, @"Delegate was called");
+	XCTAssertTrue(didFinishWithErrorBlock, @"Block handler was called");
+	XCTAssertTrue(didFinishWithErrorDelegate, @"Delegate was called");
 }
 
 @end

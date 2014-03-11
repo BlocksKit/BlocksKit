@@ -2,9 +2,15 @@
 //  NSSetBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
+//  Contributed by Kai Wu.
+//
 
-#import "NSSetBlocksKitTest.h"
-#import <BlocksKit/BlocksKit.h>
+#import <XCTest/XCTest.h>
+#import <BlocksKit/NSSet+BlocksKit.h>
+
+@interface NSSetBlocksKitTest : XCTestCase
+
+@end
 
 @implementation NSSetBlocksKitTest {
 	NSSet *_subject;
@@ -21,7 +27,7 @@
 		_total += [sender length];
 	};
 	[_subject bk_each:senderBlock];
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
 }
 
 - (void)testMatch {
@@ -31,8 +37,8 @@
 		return match;
 	};
 	id found = [_subject bk_match:validationBlock];
-	STAssertEquals(_total,(NSInteger)3,@"total length of \"122\" is %d",_total);
-	STAssertEquals(found,@"22",@"matched object is %@",found);
+	XCTAssertEqual(_total,(NSInteger)3,@"total length of \"122\" is %ld", (long)_total);
+	XCTAssertEqual(found,@"22",@"matched object is %@",found);
 }
 
 - (void)testNotMatch {
@@ -42,8 +48,8 @@
 		return match;
 	};
 	id found = [_subject bk_match:validationBlock];
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	STAssertNil(found,@"no matched object");
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
+	XCTAssertNil(found,@"no matched object");
 }
 
 - (void)testSelect {
@@ -54,9 +60,9 @@
 	};
 	NSSet *found = [_subject bk_select:validationBlock];
 
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
 	NSSet *target = [NSSet setWithArray:@[ @"1", @"22" ]];
-	STAssertEqualObjects(found,target,@"selected items are %@",found);
+	XCTAssertEqualObjects(found,target,@"selected items are %@",found);
 }
 
 - (void)testSelectedNone {
@@ -66,8 +72,8 @@
 		return match;
 	};
 	NSSet *found = [_subject bk_select:validationBlock];
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	STAssertTrue(found.count == 0,@"no item is selected");
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
+	XCTAssertTrue(found.count == 0,@"no item is selected");
 }
 
 - (void)testReject {
@@ -77,9 +83,9 @@
 		return match;
 	};
 	NSSet *left = [_subject bk_reject:validationBlock];
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
 	NSSet *target = [NSSet setWithArray:@[ @"1", @"22" ]];
-	STAssertEqualObjects(left,target,@"not rejected items are %@",left);
+	XCTAssertEqualObjects(left,target,@"not rejected items are %@",left);
 }
 
 - (void)testRejectedAll {
@@ -89,8 +95,8 @@
 		return match;
 	};
 	NSSet *left = [_subject bk_reject:validationBlock];
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	STAssertTrue(left.count == 0,@"all items are rejected");
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
+	XCTAssertTrue(left.count == 0,@"all items are rejected");
 }
 
 - (void)testMap {
@@ -100,9 +106,9 @@
 	};
 	NSSet *transformed = [_subject bk_map:transformBlock];
 
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
 	NSSet *target = [NSSet setWithArray:@[ @"1", @"2", @"3" ]];
-	STAssertEqualObjects(transformed,target,@"transformed items are %@",transformed);
+	XCTAssertEqualObjects(transformed,target,@"transformed items are %@",transformed);
 }
 
 - (void)testReduceWithBlock {
@@ -110,7 +116,7 @@
 		return [sum stringByAppendingString:obj];
 	};
 	NSString *concatenated = [_subject bk_reduce:@"" withBlock:accumlationBlock];
-	STAssertTrue([concatenated isEqualToString:@"122333"], @"concatenated string is %@", concatenated);
+	XCTAssertTrue([concatenated isEqualToString:@"122333"], @"concatenated string is %@", concatenated);
 }
 
 - (void)testAny {
@@ -120,8 +126,8 @@
 		return match;
 	};
 	BOOL wasFound = [_subject bk_any:validationBlock];
-	STAssertEquals(_total,(NSInteger)3,@"total length of \"122\" is %d",_total);
-	STAssertTrue(wasFound,@"matched object was found");
+	XCTAssertEqual(_total,(NSInteger)3,@"total length of \"122\" is %ld", (long)_total);
+	XCTAssertTrue(wasFound,@"matched object was found");
 }
 
 - (void)testAll {
@@ -132,8 +138,8 @@
 	};
 	
 	BOOL allMatched = [_subject bk_all:validationBlock];
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	STAssertTrue(allMatched, @"Not all values matched");
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
+	XCTAssertTrue(allMatched, @"Not all values matched");
 }
 
 - (void)testNone {
@@ -144,8 +150,8 @@
 	};
 	
 	BOOL noneMatched = [_subject bk_none:validationBlock];
-	STAssertEquals(_total,(NSInteger)6,@"total length of \"122333\" is %d",_total);
-	STAssertTrue(noneMatched, @"Some values matched");
+	XCTAssertEqual(_total,(NSInteger)6,@"total length of \"122333\" is %ld", (long)_total);
+	XCTAssertTrue(noneMatched, @"Some values matched");
 }
 
 @end

@@ -2,9 +2,15 @@
 //  NSObjectBlockObservationTest.m
 //  BlocksKit Unit Tests
 //
+//  Contributed by Kai Wu.
+//
 
-#import "NSObjectBlockObservationTest.h"
-#import <BlocksKit/BlocksKit.h>
+#import <XCTest/XCTest.h>
+#import <BlocksKit/NSObject+BKBlockObservation.h>
+
+@interface NSObjectBlockObservationTest : XCTestCase
+
+@end
 
 @interface SubjectKVCAndKVO : NSObject
 
@@ -73,8 +79,8 @@
 	NSString *token = [self bk_addObserverForKeyPath:@"subject.kvc" task:observeBlock];
 
 	[self setValue:@NO forKeyPath:@"subject.kvc"];
-	STAssertFalse(_subject.kvc, @"kvc is NO");
-	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
+	XCTAssertFalse(_subject.kvc, @"kvc is NO");
+	XCTAssertEqual(_total, (NSInteger)1, @"total is %ld", (long)_total);
 	[self bk_removeObserverForKeyPath:@"subject.kvc" identifier:token];
 }
 
@@ -86,8 +92,8 @@
 
 	NSNumber *number = @1;
 	[self setValue:number forKeyPath:@"subject.number"];
-	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
-	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
+	XCTAssertEqual(_subject.number,number,@"number is %@",_subject.number);
+	XCTAssertEqual(_total, (NSInteger)1, @"total is %ld", (long)_total);
 	
 	[self bk_removeObserverForKeyPath:@"subject.number" identifier:token];
 }
@@ -102,8 +108,8 @@
 	names[0] = @"1";
 	names[1] = @"2";
 	NSArray *target = @[ @"1", @"2" ];
-	STAssertEqualObjects(_subject.names,target,@"names are %@",_subject.names);
-	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
+	XCTAssertEqualObjects(_subject.names,target,@"names are %@",_subject.names);
+	XCTAssertEqual(_total, (NSInteger)2, @"total is %ld", (long)_total);
 	[self bk_removeObserverForKeyPath:@"subject.names" identifier:token];
 }
 
@@ -117,8 +123,8 @@
 	[members removeObject:@"bar"];
 	[members addObject:@"one"];
 	NSSet *target = [NSSet setWithArray:@[ @"foo", @"one" ]];
-	STAssertEqualObjects(_subject.members,target,@"members are %@",_subject.members);
-	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
+	XCTAssertEqualObjects(_subject.members,target,@"members are %@",_subject.members);
+	XCTAssertEqual(_total, (NSInteger)2, @"total is %ld", (long)_total);
 	[self bk_removeObserverForKeyPath:@"subject.members" identifier:token];
 }
 
@@ -130,9 +136,9 @@
 	NSNumber *number = @1;
 	[self setValue:@NO forKeyPath:@"subject.kvc"];
 	[self setValue:number forKeyPath:@"subject.number"];
-	STAssertFalse(_subject.kvc, @"kvc is NO");
-	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
-	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
+	XCTAssertFalse(_subject.kvc, @"kvc is NO");
+	XCTAssertEqual(_subject.number,number,@"number is %@",_subject.number);
+	XCTAssertEqual(_total, (NSInteger)2, @"total is %ld", (long)_total);
 	[self bk_removeObserversWithIdentifier:token];
 }
 
@@ -141,8 +147,8 @@
 		[obj action];
 	}];
 	[self setValue:@NO forKeyPath:@"subject.kvc"];
-	STAssertFalse(_subject.kvc, @"kvc is NO");
-	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
+	XCTAssertFalse(_subject.kvc, @"kvc is NO");
+	XCTAssertEqual(_total, (NSInteger)1, @"total is %ld", (long)_total);
 	[self bk_removeObserversWithIdentifier:token];
 }
 
@@ -154,16 +160,30 @@
 	NSString *token = [self bk_addObserverForKeyPath:@"subject.number" task:observeBlock];
 	NSNumber *number = @1;
 	[self setValue:number forKeyPath:@"subject.number"];
-	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
-	STAssertEquals(_total, (NSInteger)1, @"total is %d", _total);
+	XCTAssertEqual(_subject.number,number,@"number is %@",_subject.number);
+	XCTAssertEqual(_total, (NSInteger)1, @"total is %ld", (long)_total);
 	[self bk_removeObserversWithIdentifier:token];
 
 	NSString *token2 = [self bk_addObserverForKeyPath:@"subject.number" task:observeBlock];
 	number = @2;
 	[self setValue:number forKeyPath:@"subject.number"];
-	STAssertEquals(_subject.number,number,@"number is %@",_subject.number);
-	STAssertEquals(_total, (NSInteger)2, @"total is %d", _total);
+	XCTAssertEqual(_subject.number,number,@"number is %@",_subject.number);
+	XCTAssertEqual(_total, (NSInteger)2, @"total is %ld", (long)_total);
 	[self bk_removeObserversWithIdentifier:token2];
+}
+
+- (void)testRemoveOnDealloc {
+    __weak SubjectKVCAndKVO* weakSubject;
+    
+    @autoreleasepool {
+        SubjectKVCAndKVO* tempSubject = [SubjectKVCAndKVO new];
+        weakSubject = tempSubject;
+        [tempSubject bk_addObserverForKeyPath:@"number" task:^(id target) {
+            NSLog(@"number: %@", weakSubject.number);
+        }];
+    }
+    
+    XCTAssertNil(weakSubject);
 }
 
 @end

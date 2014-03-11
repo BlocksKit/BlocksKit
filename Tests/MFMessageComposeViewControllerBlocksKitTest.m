@@ -3,10 +3,16 @@
 //  BlocksKit Unit Tests
 //
 
+#import <XCTest/XCTest.h>
+#import <MessageUI/MessageUI.h>
 #import <BlocksKit/A2DynamicDelegate.h>
-#import <BlocksKit/BlocksKit.h>
 #import <BlocksKit/BlocksKit+MessageUI.H>
-#import "MFMessageComposeViewControllerBlocksKitTest.h"
+
+@interface MFMessageComposeViewControllerBlocksKitTest : XCTestCase <MFMessageComposeViewControllerDelegate>
+
+- (void)testCompletionBlock;
+
+@end
 
 @implementation MFMessageComposeViewControllerBlocksKitTest {
 	MFMessageComposeViewController *_subject;
@@ -32,8 +38,8 @@
 		blockWorked = YES;
 	};
 	[[_subject bk_dynamicDelegateForProtocol:@protocol(MFMessageComposeViewControllerDelegate)] messageComposeViewController:_subject didFinishWithResult:MessageComposeResultSent];
-	STAssertTrue(delegateWorked, @"Delegate method not called.");
-	STAssertTrue(blockWorked, @"Block handler not called.");
+	XCTAssertTrue(delegateWorked, @"Delegate method not called.");
+	XCTAssertTrue(blockWorked, @"Block handler not called.");
 }
 
 @end

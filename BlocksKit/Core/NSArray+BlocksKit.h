@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CGBase.h>
 
 /** Block extensions for NSArray.
 
@@ -109,6 +110,55 @@
  @return An accumulated value.
  */
 - (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block;
+
+/**
+ Sometimes we just want to loop an objects list and reduce one property, where
+ each result is a primitive type.
+
+ For example, say we want to calculate the total age of a list of people.
+
+ Code without using block will be something like:
+
+	 NSArray *peoples = @[p1, p2, p3];
+	 NSInteger totalAge = 0;
+	 for (People *people in peoples) {
+	     totalAge += [people age];
+	 }
+
+ We can use a block to make it simpler:
+
+	 NSArray *peoples = @[p1, p2, p3];
+	 NSInteger totalAge = [peoples reduceInteger:0 withBlock:^(NSInteger result, id obj, NSInteger index) {
+	 	 return result + [obj age];
+	 }];
+
+ */
+- (NSInteger)bk_reduceInteger:(NSInteger)initial withBlock:(NSInteger(^)(NSInteger result, id obj))block;
+
+/**
+ Sometimes we just want to loop an objects list and reduce one property, where
+ each result is a primitive type.
+ 
+ For instance, say we want to caculate the total balance from a list of people.
+ 
+ Code without using a block will be something like:
+ 
+	 NSArray *peoples = @[p1, p2, p3];
+	 CGFloat totalBalance = 0;
+	 for (People *people in peoples) {
+	     totalBalance += [people balance];
+	 }
+ 
+ We can use a block to make it simpler:
+ 
+	 NSArray *peoples = @[p1, p2, p3];
+	 CGFloat totalBalance = [peoples reduceFloat:.0f WithBlock:^CGFloat(CGFloat result, id obj, NSInteger index) {
+	 	 return result + [obj balance];
+	 }];
+
+ */
+
+- (CGFloat)bk_reduceFloat:(CGFloat)inital withBlock:(CGFloat(^)(CGFloat result, id obj))block;
 
 /** Loops through an array to find whether any object matches the block.
 

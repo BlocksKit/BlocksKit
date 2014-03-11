@@ -3,7 +3,12 @@
 //  BlocksKit Unit Tests
 //
 
-#import "UIControlBlocksKitTest.h"
+#import <XCTest/XCTest.h>
+#import <BlocksKit/UIControl+BlocksKit.h>
+
+@interface UIControlBlocksKitTest : XCTestCase
+
+@end
 
 @implementation UIControlBlocksKitTest {
 	UIControl *_subject;
@@ -22,18 +27,18 @@
 
 - (void)testHasEventHandler {
 	BOOL hasHandler = [_subject bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside];
-	STAssertTrue(hasHandler, @"Control doesn't have the handler.");
+	XCTAssertTrue(hasHandler, @"Control doesn't have the handler.");
 }
 
 - (void)testInvokeEventHandler {
 	[_subject sendActionsForControlEvents:UIControlEventTouchUpInside];
-	STAssertEquals(_total, (NSInteger)1, @"Event handler did not get called.");
+	XCTAssertEqual(_total, (NSInteger)1, @"Event handler did not get called.");
 }
 
 - (void)testRemoveEventHandler {
 	[_subject bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
 	[_subject sendActionsForControlEvents:UIControlEventTouchUpInside];	
-	STAssertEquals(_total, (NSInteger)0, @"Event handler still called.");
+	XCTAssertEqual(_total, (NSInteger)0, @"Event handler still called.");
 }
 
 @end

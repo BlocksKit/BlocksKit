@@ -2,11 +2,14 @@
 //  NSURLConnectionBlocksKitTest.m
 //  BlocksKit Unit Tests
 //
-//  Created by Zachary Waldowski on 12/20/11.
-//  Copyright (c) 2011-2012 Pandamonia LLC. All rights reserved.
-//
 
-#import "NSURLConnectionBlocksKitTest.h"
+#import <XCTest/XCTest.h>
+#import <BlocksKit/NSURLConnection+BlocksKit.h>
+#import "BKAsyncTestCase.h"
+
+@interface NSURLConnectionBlocksKitTest : BKAsyncTestCase
+
+@end
 
 @implementation NSURLConnectionBlocksKitTest
 

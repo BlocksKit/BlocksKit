@@ -34,3 +34,4 @@
 #import <BlocksKit/UIView+BlocksKit.h>
 #import <BlocksKit/UIWebView+BlocksKit.h>
 #import <BlocksKit/UITextField+BlocksKit.h>
+#import <BlocksKit/UIImagePickerController+BlocksKit.h>

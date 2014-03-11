@@ -3,8 +3,12 @@
 //  BlocksKit Unit Tests
 //
 
-#import "A2BlockInvocationTests.h"
-#import "A2BlockInvocation.h"
+#import <XCTest/XCTest.h>
+#import <BlocksKit/A2BlockInvocation.h>
+
+@interface A2BlockInvocationTests : XCTestCase
+
+@end
 
 typedef struct _BigStruct {
 	double doubleValue;
@@ -28,7 +32,7 @@ typedef struct _BigStruct {
 	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:siggy];
 	[inv invoke];
 
-	STAssertTrue(ran, @"Void block didn't run");
+	XCTAssertTrue(ran, @"Void block didn't run");
 }
 
 - (void)testReturnObjectBlockInvocation
@@ -49,7 +53,7 @@ typedef struct _BigStruct {
 
 	NSString *output;
 	[inv getReturnValue:&output];
-	STAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
 }
 
 - (void)testReturnStructBlockInvocation {
@@ -74,11 +78,11 @@ typedef struct _BigStruct {
 
 	BigStruct output;
 	[inv getReturnValue:&output];
-	STAssertEquals(output.doubleValue, 92.4, @"Struct return block test didn't return right values");
-	STAssertEquals(output.integerValue, 42, @"Struct return block test didn't return right values");
-	STAssertTrue(strcmp(output.stringValue, "Test") == 0, @"Struct return block test didn't return right values");
-	STAssertEquals(output.first, YES, @"Struct return block test didn't return right values");
-	STAssertEquals(output.second, NO, @"Struct return block test didn't return right values");
+	XCTAssertEqual(output.doubleValue, 92.4, @"Struct return block test didn't return right values");
+	XCTAssertEqual(output.integerValue, 42, @"Struct return block test didn't return right values");
+	XCTAssertTrue(strcmp(output.stringValue, "Test") == 0, @"Struct return block test didn't return right values");
+	XCTAssertEqual(output.first, YES, @"Struct return block test didn't return right values");
+	XCTAssertEqual(output.second, NO, @"Struct return block test didn't return right values");
 }
 
 - (void)testPassObjectBlockInvocation {
@@ -98,7 +102,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass object block test didn't return right value");
+	XCTAssertTrue(output, @"Pass object block test didn't return right value");
 }
 
 - (void)testPassCharBlockInvocation {
@@ -116,7 +120,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass char block test didn't return right value");
+	XCTAssertTrue(output, @"Pass char block test didn't return right value");
 }
 
 - (void)testPassUCharBlockInvocation {
@@ -134,7 +138,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass unsigned char block test didn't return right value");
+	XCTAssertTrue(output, @"Pass unsigned char block test didn't return right value");
 }
 
 - (void)testPassShortBlockInvocation {
@@ -152,7 +156,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass short block test didn't return right value");
+	XCTAssertTrue(output, @"Pass short block test didn't return right value");
 }
 
 - (void)testPassUShortBlockInvocation {
@@ -170,7 +174,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass unsigned short block test didn't return right value");
+	XCTAssertTrue(output, @"Pass unsigned short block test didn't return right value");
 }
 
 - (void)testPassIntBlockInvocation {
@@ -188,7 +192,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass int block test didn't return right value");
+	XCTAssertTrue(output, @"Pass int block test didn't return right value");
 }
 
 - (void)testPassUIntBlockInvocation {
@@ -206,7 +210,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass unsigned int block test didn't return right value");
+	XCTAssertTrue(output, @"Pass unsigned int block test didn't return right value");
 }
 
 - (void)testPassLongBlockInvocation {
@@ -224,7 +228,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass long block test didn't return right value");
+	XCTAssertTrue(output, @"Pass long block test didn't return right value");
 }
 
 - (void)testPassULongBlockInvocation {
@@ -242,7 +246,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass unsigned long block test didn't return right value");
+	XCTAssertTrue(output, @"Pass unsigned long block test didn't return right value");
 }
 
 - (void)testPassLongLongBlockInvocation {
@@ -260,7 +264,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass long long block test didn't return right value");
+	XCTAssertTrue(output, @"Pass long long block test didn't return right value");
 }
 
 - (void)testPassULongLongBlockInvocation {
@@ -278,7 +282,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass unsigned long long block test didn't return right value");
+	XCTAssertTrue(output, @"Pass unsigned long long block test didn't return right value");
 }
 
 - (void)testPassFloatBlockInvocation {
@@ -296,7 +300,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass float block test didn't return right value");
+	XCTAssertTrue(output, @"Pass float block test didn't return right value");
 }
 
 - (void)testPassDoubleBlockInvocation {
@@ -314,7 +318,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass double block test didn't return right value");
+	XCTAssertTrue(output, @"Pass double block test didn't return right value");
 }
 
 - (void)testPassArrayBlockInvocation {
@@ -333,7 +337,7 @@ typedef struct _BigStruct {
 
 	BOOL output;
 	[inv getReturnValue:&output];
-	STAssertTrue(output, @"Pass integer array block test didn't return right value");
+	XCTAssertTrue(output, @"Pass integer array block test didn't return right value");
 
 }
 
@@ -360,7 +364,7 @@ typedef struct _BigStruct {
 
 	NSString *output;
 	[inv getReturnValue:&output];
-	STAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
 }
 - (void)testRetainArgumentsBeforeSetting
 {
@@ -392,7 +396,7 @@ typedef struct _BigStruct {
 	
 	NSString *output;
 	[inv getReturnValue:&output];
-	STAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
 }
 - (void)testRetainArgumentsAfterSetting
 {
@@ -425,7 +429,7 @@ typedef struct _BigStruct {
 	
 	NSString *output;
 	[inv getReturnValue:&output];
-	STAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
 }
 - (void)testClearArguments
 {
@@ -452,7 +456,7 @@ typedef struct _BigStruct {
 	char *cstr = "Hello, World";
 	[inv setArgument:&cstr atIndex:2];
 	
-	STAssertNoThrow([inv clearArguments], @"-clearArguments should not throw an exception");
+	XCTAssertNoThrow([inv clearArguments], @"-clearArguments should not throw an exception");
 }
 - (void)testClearRetainedArguments
 {
@@ -481,7 +485,90 @@ typedef struct _BigStruct {
 	
 	[inv retainArguments];
 	
-	STAssertNoThrow([inv clearArguments], @"-clearArguments should not throw an exception");
+	XCTAssertNoThrow([inv clearArguments], @"-clearArguments should not throw an exception");
+}
+
+- (void)test_arm64_argumentAlign
+{
+    NSString *(^block)(char w0, char w1, char w2, char w3, char w4, char w5, char w6, char w7, char s0, char s1) = ^NSString *(char w0, char w1, char w2, char w3, char w4, char w5, char w6, char w7, char s0, char s1) {
+        return (w0 == 'a' && w1 == 'b' && w2 == 'c' && w3 == 'd' && w4 == 'e' && w5 == 'f' && w6 == 'g' && w7 == 'h' && s0 == 'i' && s1 == 'j') ? @"YES" : @"NO";
+	};
+    
+	A2BlockInvocation *inv = nil;
+    NSMethodSignature *signature = [NSMethodSignature signatureWithObjCTypes:"@@:cccccccccc"];
+    XCTAssertNoThrow((inv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:signature]));
+    XCTAssertNotNil(inv);
+    
+    char a1 = 'a';
+    char a2 = 'b';
+    char a3 = 'c';
+    char a4 = 'd';
+    char a5 = 'e';
+    char a6 = 'f';
+    char a7 = 'g';
+    char a8 = 'h';
+    char a9 = 'i';
+    char a10 = 'j';
+    [inv setArgument:&a1 atIndex:0];
+    [inv setArgument:&a2 atIndex:1];
+    [inv setArgument:&a3 atIndex:2];
+    [inv setArgument:&a4 atIndex:3];
+    [inv setArgument:&a5 atIndex:4];
+    [inv setArgument:&a6 atIndex:5];
+    [inv setArgument:&a7 atIndex:6];
+    [inv setArgument:&a8 atIndex:7];
+    [inv setArgument:&a9 atIndex:8];
+    [inv setArgument:&a10 atIndex:9];
+    
+	XCTAssertNoThrow([inv invoke]);
+	
+	NSString *output;
+	[inv getReturnValue:&output];
+	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+}
+
+- (void)test_arm64_argumentAlignStructOnStack
+{
+    NSString *(^block)(char w0, char w1, char w2, char w3, char w4, char w5, char w6, char w7, BigStruct sret) = ^NSString *(char w0, char w1, char w2, char w3, char w4, char w5, char w6, char w7, BigStruct sret) {
+        return (w0 == 'a' && w1 == 'b' && w2 == 'c' && w3 == 'd' && w4 == 'e' && w5 == 'f' && w6 == 'g' && w7 == 'h' && sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second) ? @"YES" : @"NO";
+	};
+    
+	A2BlockInvocation *inv = nil;
+    NSMethodSignature *signature = [NSMethodSignature signatureWithObjCTypes:"@@:cccccccc{_BigStruct=di*cc}"];
+    XCTAssertNoThrow((inv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:signature]));
+    XCTAssertNotNil(inv);
+    
+    char a1 = 'a';
+    char a2 = 'b';
+    char a3 = 'c';
+    char a4 = 'd';
+    char a5 = 'e';
+    char a6 = 'f';
+    char a7 = 'g';
+    char a8 = 'h';
+    BigStruct a9;
+	int val = 42;
+	a9.doubleValue = val * 2.2;
+	a9.integerValue = val;
+	a9.stringValue = @"Test".UTF8String;
+	a9.first = YES;
+	a9.second = NO;
+    
+    [inv setArgument:&a1 atIndex:0];
+    [inv setArgument:&a2 atIndex:1];
+    [inv setArgument:&a3 atIndex:2];
+    [inv setArgument:&a4 atIndex:3];
+    [inv setArgument:&a5 atIndex:4];
+    [inv setArgument:&a6 atIndex:5];
+    [inv setArgument:&a7 atIndex:6];
+    [inv setArgument:&a8 atIndex:7];
+    [inv setArgument:&a9 atIndex:8];
+    
+	XCTAssertNoThrow([inv invoke]);
+	
+	NSString *output;
+	[inv getReturnValue:&output];
+	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
 }
 
 @end

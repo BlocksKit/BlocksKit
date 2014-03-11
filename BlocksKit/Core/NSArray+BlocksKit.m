@@ -82,6 +82,32 @@
 	return result;
 }
 
+- (NSInteger)bk_reduceInteger:(NSInteger)initial withBlock:(NSInteger (^)(NSInteger, id))block
+{
+	NSParameterAssert(block != nil);
+
+	__block NSInteger result = initial;
+    
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		result = block(result, obj);
+	}];
+    
+	return result;
+}
+
+- (CGFloat)bk_reduceFloat:(CGFloat)inital withBlock:(CGFloat (^)(CGFloat, id))block
+{
+	NSParameterAssert(block != nil);
+    
+	__block CGFloat result = inital;
+    
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		result = block(result, obj);
+    }];
+    
+	return result;
+}
+
 - (BOOL)bk_any:(BOOL (^)(id obj))block
 {
 	return [self bk_match:block] != nil;

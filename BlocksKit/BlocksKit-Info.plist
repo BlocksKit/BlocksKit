@@ -17,13 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8</string>
+	<string>2.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.8.2</string>
+	<string>2.1.0</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2011-2012 Pandamonia LLC. All rights reserved.</string>
+	<string>Copyright © 2011-2013 Pandamonia LLC. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 </dict>

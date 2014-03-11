@@ -4,18 +4,12 @@
 //
 
 #import <objc/runtime.h>
+#import <objc/message.h>
 #import "NSArray+BlocksKit.h"
 #import "NSDictionary+BlocksKit.h"
 #import "NSObject+BKAssociatedObjects.h"
 #import "NSObject+BKBlockObservation.h"
 #import "NSSet+BlocksKit.h"
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000 || __MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
-#define HAS_MAP_TABLE 1
-#else
-#define HAS_MAP_TABLE 0
-@class NSMapTable;
-#endif
 
 typedef NS_ENUM(int, BKObserverContext) {
 	BKObserverContextKey,
@@ -252,23 +246,7 @@ static void *BKBlockObservationContext = &BKBlockObservationContext;
 	}];
 }
 
-#pragma mark - "Private"
-
-+ (NSMapTable *)bk_observersMapTable
-{
-	static dispatch_once_t onceToken;
-	static NSMapTable *observersMapTable = nil;
-	dispatch_once(&onceToken, ^{
-#if HAS_MAP_TABLE
-		Class mapTable = NSClassFromString(@"NSMapTable");
-		if ([mapTable respondsToSelector:@selector(weakToStrongObjectsMapTable)]) {
-			observersMapTable = [NSMapTable weakToStrongObjectsMapTable];
-		} else
-#endif
-			observersMapTable = nil;
-	});
-	return observersMapTable;
-}
+#pragma mark - "Private"s
 
 + (NSMutableSet *)bk_observedClassesHash
 {
@@ -287,28 +265,48 @@ static void *BKBlockObservationContext = &BKBlockObservationContext;
 	NSParameterAssert(identifier.length);
 	NSParameterAssert(task);
 
-	if (![[self class] bk_observersMapTable]) {
-		NSMutableSet *classes = [[self class] bk_observedClassesHash];
-		@synchronized (classes) {
-			Class classToSwizzle = self.class;
-			NSString *className = NSStringFromClass(classToSwizzle);
-			if (![classes containsObject:className]) {
-				SEL deallocSelector = sel_registerName("dealloc");
-
-				Method deallocMethod = class_getInstanceMethod(classToSwizzle, deallocSelector);
-				void (*originalDealloc)(id, SEL) = (__typeof__(originalDealloc))method_getImplementation(deallocMethod);
-
-				id newDealloc = ^(__unsafe_unretained NSObject *objSelf) {
-					[objSelf bk_removeAllAssociatedObjects];
-					originalDealloc(objSelf, deallocSelector);
-				};
-
-				class_replaceMethod(classToSwizzle, deallocSelector, imp_implementationWithBlock(newDealloc), method_getTypeEncoding(deallocMethod));
-
-				[classes addObject:className];
-			}
-		}
-	}
+    Class classToSwizzle = self.class;
+    NSMutableSet *classes = self.class.bk_observedClassesHash;
+    @synchronized (classes) {
+        NSString *className = NSStringFromClass(classToSwizzle);
+        if (![classes containsObject:className]) {
+            SEL deallocSelector = sel_registerName("dealloc");
+            
+			__block void (*originalDealloc)(__unsafe_unretained id, SEL) = NULL;
+            
+			id newDealloc = ^(__unsafe_unretained id objSelf) {
+                [objSelf bk_removeAllBlockObservers];
+                
+                if (originalDealloc == NULL) {
+                    struct objc_super superInfo = {
+                        .receiver = objSelf,
+                        .super_class = class_getSuperclass(classToSwizzle)
+                    };
+                    
+                    void (*msgSend)(struct objc_super *, SEL) = (__typeof__(msgSend))objc_msgSendSuper;
+                    msgSend(&superInfo, deallocSelector);
+                } else {
+                    originalDealloc(objSelf, deallocSelector);
+                }
+            };
+            
+            IMP newDeallocIMP = imp_implementationWithBlock(newDealloc);
+            
+            if (!class_addMethod(classToSwizzle, deallocSelector, newDeallocIMP, "v@:")) {
+                // The class already contains a method implementation.
+                Method deallocMethod = class_getInstanceMethod(classToSwizzle, deallocSelector);
+                
+                // We need to store original implementation before setting new implementation
+                // in case method is called at the time of setting.
+                originalDealloc = (void(*)(__unsafe_unretained id, SEL))method_getImplementation(deallocMethod);
+                
+                // We need to store original implementation again, in case it just changed.
+                originalDealloc = (void(*)(__unsafe_unretained id, SEL))method_setImplementation(deallocMethod, newDeallocIMP);
+            }
+            
+            [classes addObject:className];
+        }
+    }
 
 	NSMutableDictionary *dict;
 	_BKObserver *observer = [[_BKObserver alloc] initWithObservee:self keyPaths:keyPaths context:context task:task];
@@ -328,24 +326,11 @@ static void *BKBlockObservationContext = &BKBlockObservationContext;
 
 - (void)bk_setObserverBlocks:(NSMutableDictionary *)dict
 {
-#if HAS_MAP_TABLE
-	NSMapTable *table = [[self class] bk_observersMapTable];
-	if (table) {
-		[table setObject:dict forKey:self];
-		return;
-	}
-#endif
 	[self bk_associateValue:dict withKey:BKObserverBlocksKey];
 }
 
 - (NSMutableDictionary *)bk_observerBlocks
 {
-#if HAS_MAP_TABLE
-	NSMapTable *table = [[self class] bk_observersMapTable];
-	if (table) {
-		return [table objectForKey:self];
-	}
-#endif
 	return [self bk_associatedValueForKey:BKObserverBlocksKey];
 }
 
