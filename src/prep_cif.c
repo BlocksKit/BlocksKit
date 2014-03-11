@@ -126,6 +126,9 @@ static ffim_status FFI_HIDDEN ffi_mini_prep_cif_core(ffim_cif *cif, ffim_abi abi
     return FFIM_BAD_ABI;
 #endif
 
+  if (cif == NULL)
+  return FFIM_BAD_TYPEDEF;
+
   cif->abi = abi;
   cif->arg_types = atypes;
   cif->nargs = ntotalargs;
