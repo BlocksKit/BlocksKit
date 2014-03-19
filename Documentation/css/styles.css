@@ -89,9 +89,9 @@ th {
 
 #contents, #overview_contents {
 	-webkit-overflow-scrolling: touch;
-	border-top: 1px solid #2B334F;
+	border-top: 1px solid #A9A9A9;
 	position: absolute;
-	top: 91px;
+	top: 90px;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -169,6 +169,10 @@ th {
 	position: absolute;
 }
 
+#libraryTitle {
+        left: 0;
+}
+
 #top_header #library #developerHome {
 	color: #92979E;
 	right: 15px;
@@ -182,26 +186,26 @@ th {
 
 #top_header #title {
 	background: url("../img/title_background.png") repeat-x 0 0 #8A98A9;
-	border-bottom: 1px solid #B6B6B6;
+	border-bottom: 1px solid #757575;
 	height: 25px;
 	overflow: hidden;
 }
 
 #top_header h1 {
-	font-size: 115%;
+	font-size: 105%;
 	font-weight: normal;
 	margin: 0;
 	padding: 3px 0 2px;
 	text-align: center;
-	text-shadow: 0 1px 0 #D5D5D5;
+	/*text-shadow: 0 1px 0 #D5D5D5;*/
 	white-space: nowrap;
 }
 
 #headerButtons {
 	background-color: #D8D8D8;
 	background-image: url("../img/button_bar_background.png");
-	border-bottom: 1px solid #EDEDED;
-	border-top: 1px solid #2B334F;
+	border-bottom: 0px solid #EDEDED;
+	border-top: 0px solid #a8a8a8;
 	font-size: 8pt;
 	height: 28px;
 	left: 0;
@@ -223,6 +227,7 @@ th {
 }
 
 #toc_button button {
+    background-color: #EBEEF1;
 	border-color: #ACACAC;
 	border-style: none solid none none;
 	border-width: 0 1px 0 0;
@@ -258,14 +263,14 @@ li#jumpto_button select {
 }
 
 #tocContainer {
-	background-color: #E4EBF7;
-	border-top: 1px solid #2B334F;
+	background-color: #EBEEF1;
+	border-top: 1px solid #ACACAC;
 	bottom: 0;
 	display: none;
 	left: 0;
 	overflow: hidden;
 	position: absolute;
-	top: 91px;
+	top: 90px;
 	width: 229px;
 }
 
@@ -540,6 +545,32 @@ span.tooltip:hover span.tooltip {
 
 .declaration {
 	color: #000;
+}
+
+.termdef {
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+}
+
+.termdef dt {
+    margin: 0;
+    padding: 0;
+}
+
+.termdef dd {
+    margin-bottom: 6px;
+    margin-left: 16px;
+    margin-right: 0px;
+    margin-top: 1px;
+}
+
+.termdef dd p  {
+    margin-bottom: 6px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: -1px;
 }
 
 .argument-def {

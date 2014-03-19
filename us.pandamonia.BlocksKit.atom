@@ -1,20 +1,20 @@
 <?xml version="1.0" standalone="no"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
-    <id>http://pandamonia.github.com/BlocksKit/us.pandamonia.BlocksKit.atom/20121109001618</id>
+    <id>https://pandamonia.github.io/BlocksKit/us.pandamonia.BlocksKit.atom/20140318152244</id>
     <title type="text">BlocksKit Documentation</title>
-    <rights>Copyright © 2012 Pandamonia LLC. All rights reserved.</rights>
-    <link rel="self" href="http://pandamonia.github.com/BlocksKit/us.pandamonia.BlocksKit.atom"></link>
+    <rights>Copyright © 2014 Pandamonia LLC. All rights reserved.</rights>
+    <link rel="self" href="https://pandamonia.github.io/BlocksKit/us.pandamonia.BlocksKit.atom"></link>
     <docset:publisherName>Pandamonia LLC</docset:publisherName>
     <docset:publisherID>us.pandamonia.documentation</docset:publisherID>
-    <updated>2012-11-09T00:16:18-05:00</updated>
+    <updated>2014-03-18T15:22:44-04:00</updated>
     <entry>
-        <id>tag:pandamonia.github.com,2012-11-09:us.pandamonia.BlocksKit/1.8.0</id>
+        <id>tag:pandamonia.github.io,2014-03-18:us.pandamonia.BlocksKit/2.2.0</id>
         <title type="text">BlocksKit Documentation</title>
-        <updated>2012-11-09T00:16:18-05:00</updated>
-        <content type="text">BlocksKit Documentation (v1.8.0)</content>
-        <link rel="enclosure" type="application/octet-stream" href="http://pandamonia.github.com/BlocksKit/us.pandamonia.BlocksKit-1.8.0.xar" length="253464"></link>
+        <updated>2014-03-18T15:22:44-04:00</updated>
+        <content type="text">BlocksKit Documentation (v2.2.0)</content>
+        <link rel="enclosure" type="application/octet-stream" href="https:/pandamonia.github.io/BlocksKit/us.pandamonia.BlocksKit-2.2.0.xar" length="742224"></link>
         <docset:identifier>us.pandamonia.BlocksKit</docset:identifier>
-        <docset:version>1.8.0</docset:version>
+        <docset:version>2.2.0</docset:version>
         <docset:minimumXcodeVersion>3.0.0</docset:minimumXcodeVersion>
     </entry>
 </feed>

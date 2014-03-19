@@ -4,10 +4,9 @@
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
 		<title>A2DynamicDelegate Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
-		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.1 (build 840)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -154,8 +153,8 @@
 </tr>
 						</tbody></table></div>
 					
-					
-					
+                    
+                    
 					
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
@@ -167,31 +166,30 @@ delegated <a href="#//api/name/protocol">protocol</a> by associating <a href="#/
 {
     // Create an alert view
     UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle: @"Hello World!"
-                              message: @"This alert's delegate is implemented using blocks. That's so cool!"
-                              delegate: nil
-                              cancelButtonTitle: @"Meh."
-                              otherButtonTitles: @"Woo!", nil];
+                              initWithTitle:@"Hello World!"
+                              message:@"This alert's delegate is implemented using blocks. That's so cool!"
+                              delegate:nil
+                              cancelButtonTitle:@"Meh."
+                              otherButtonTitles:@"Woo!", nil];
 
     // Get the dynamic delegate
-    A2DynamicDelegate *dd = alertView.dynamicDelegate;
+    A2DynamicDelegate *dd = alertView.bk_dynamicDelegate;
 
     // Implement -alertViewShouldEnableFirstOtherButton:
-    [dd implementMethod: @selector(alertViewShouldEnableFirstOtherButton:) withBlock: ^(UIAlertView *alertView) {
+    [dd implementMethod:@selector(alertViewShouldEnableFirstOtherButton:) withBlock:^(UIAlertView *alertView) {
         NSLog(@"Message: %@", alertView.message);
         return YES;
     }];
 
     // Implement -alertView:willDismissWithButtonIndex:
-    [dd implementMethod: @selector(alertView:willDismissWithButtonIndex:) withBlock: ^(UIAlertView *alertView, NSInteger buttonIndex) {
-        NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex: buttonIndex]);
+    [dd implementMethod:@selector(alertView:willDismissWithButtonIndex:) withBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        NSLog(@"You pushed button #%d (%@)", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
     }];
 
     // Set the delegate
     alertView.delegate = dd;
 
     [alertView show];
-    [alertView release];
 }
 </code></pre>
 
@@ -214,31 +212,24 @@ delegated <a href="#//api/name/protocol">protocol</a> by associating <a href="#/
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/initWithProtocol:">&ndash;&nbsp;initWithProtocol:</a></code>
-		<span class="tooltip"><p>The designated initializer for the A2DynamicDelegate proxy.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/protocol">&nbsp;&nbsp;protocol</a></code>
-		<span class="tooltip"><p>The protocol delegating the dynamic delegate.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/handlers">&nbsp;&nbsp;handlers</a></code>
-		<span class="tooltip"><p>A dictionary of custom handlers to be used by custom responders
-in a A2Dynamic(Protocol Name) subclass of A2DynamicDelegate, like
-<code>A2DynamicUIAlertViewDelegate</code>.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/realDelegate">&nbsp;&nbsp;realDelegate</a></code>
-		<span class="tooltip"><p>When replacing the delegate using the A2BlockDelegate extensions, the object
-responding to classical delegate method implementations.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -253,24 +244,18 @@ responding to classical delegate method implementations.</p></span>
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/blockImplementationForMethod:">&ndash;&nbsp;blockImplementationForMethod:</a></code>
-		<span class="tooltip"><p>The block that is to be fired when the specified
-selector is called on the reciever.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/implementMethod:withBlock:">&ndash;&nbsp;implementMethod:withBlock:</a></code>
-		<span class="tooltip"><p>Assigns the given block to be fired when the specified
-selector is called on the reciever.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/removeBlockImplementationForMethod:">&ndash;&nbsp;removeBlockImplementationForMethod:</a></code>
-		<span class="tooltip"><p>Disassociates any block so that nothing will be fired
-when the specified selector is called on the reciever.</p></span>
 	</span>
 	
 	
@@ -285,25 +270,18 @@ when the specified selector is called on the reciever.</p></span>
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/blockImplementationForClassMethod:">&ndash;&nbsp;blockImplementationForClassMethod:</a></code>
-		<span class="tooltip"><p>The block that is to be fired when the specified
-selector is called on the delegating object&rsquo;s class.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/implementClassMethod:withBlock:">&ndash;&nbsp;implementClassMethod:withBlock:</a></code>
-		<span class="tooltip"><p>Assigns the given block to be fired when the specified
-selector is called on the reciever.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/removeBlockImplementationForClassMethod:">&ndash;&nbsp;removeBlockImplementationForClassMethod:</a></code>
-		<span class="tooltip"><p>Disassociates any blocks so that nothing will be fired
-when the specified selector is called on the delegating
-object&rsquo;s class.</p></span>
 	</span>
 	
 	
@@ -680,7 +658,7 @@ selector is called on the reciever.</p>
 selector is called on the reciever.</p>
 
 <pre><code>[tableView.dynamicDataSource implementMethod:@selector(numberOfSectionsInTableView:)
-                                  withBlock:NSInteger^(UITableView *tableView){
+                                  withBlock:NSInteger^(UITableView *tableView) {
     return 2;
 }];
 </code></pre><div class="warning"><p><strong>Warning:</strong> Starting with A2DynamicDelegate 2.0, a block will
@@ -876,6 +854,8 @@ when the specified selector is called on the reciever.</p>
 					</div>
 					
 					
+                    
+                    
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -886,9 +866,9 @@ when the specified selector is called on the reciever.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 Pandamonia LLC. All rights reserved. (Last updated: 2012-11-09)</span><br />
+						<p><span class="copyright">&copy; 2014 Pandamonia LLC. All rights reserved. (Last updated: 2014-03-18)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>

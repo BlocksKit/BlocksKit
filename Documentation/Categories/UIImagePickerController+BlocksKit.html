@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>MFMessageComposeViewController(BlocksKit) Category Reference</title>
+		<title>UIImagePickerController(BlocksKit) Category Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
@@ -16,7 +16,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">MFMessageComposeViewController(BlocksKit) Category Reference</h1>
+				<h1 class="hideInXcode">UIImagePickerController(BlocksKit) Category Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -25,8 +25,6 @@
 				<li id="jumpto_button" role="navigation">
 					<select id="jumpTo">
 	<option value="top">Jump To&#133;</option>
-	
-	<option value="overview">Overview</option>
 	
 	
 	
@@ -39,7 +37,9 @@
 	
 	<option value="properties">Properties</option>
 	
-	<option value="//api/name/bk_completionBlock">&nbsp;&nbsp;&nbsp;&nbsp;bk_completionBlock</option>
+	<option value="//api/name/bk_didCancelBlock">&nbsp;&nbsp;&nbsp;&nbsp;bk_didCancelBlock</option>
+	
+	<option value="//api/name/bk_didFinishPickingMediaBlock">&nbsp;&nbsp;&nbsp;&nbsp;bk_didFinishPickingMediaBlock</option>
 	
 	
 	
@@ -54,8 +54,6 @@
 		<nav id="tocContainer" class="isShowingTOC">
 			<ul id="toc" role="tree">
 				
-<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
-
 
 
 
@@ -69,7 +67,9 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/bk_completionBlock">bk_completionBlock</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/bk_didCancelBlock">bk_didCancelBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/bk_didFinishPickingMediaBlock">bk_didFinishPickingMediaBlock</a></span></li>
 	
 </ul></li>
 
@@ -82,7 +82,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="MFMessageComposeViewController(BlocksKit) Category Reference" name="top"></a>
+				<a title="UIImagePickerController(BlocksKit) Category Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -91,7 +91,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">MFMessageComposeViewController(BlocksKit) Category Reference</h1>
+						<h1 class="title title-header">UIImagePickerController(BlocksKit) Category Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -99,28 +99,12 @@
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">MFMessageComposeViewController+BlocksKit.h</td>
+	<td class="specification-value">UIImagePickerController+BlocksKit.h</td>
 </tr>
 						</tbody></table></div>
 					
                     
                     
-					
-					<div class="section section-overview">
-						<a title="Overview" name="overview"></a>
-						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>MFMessageComposeViewController with block callback in addition to delegation.</p>
-
-<p>If you provide a completion handler to an instance of
-MFMessageComposeViewController but do not implement a delegate callback for
-messageComposeViewController:didFinishWithResult:error:, the message compose
-view controller will automatically be dismissed if it was launched modally.</p>
-
-<p>Created by <a href="https://github.com/evsukov89">Igor Evsukov</a> and contributed to
-BlocksKit.</p><div class="warning"><p><strong>Warning:</strong> MFMessageComposeViewController is only available on a platform with MessageUI.</p></div>
-					</div>
-					
-					
 					
 					
 					
@@ -135,7 +119,13 @@ BlocksKit.</p><div class="warning"><p><strong>Warning:</strong> MFMessageCompose
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/bk_completionBlock">&nbsp;&nbsp;bk_completionBlock</a></code>
+		<code><a href="#//api/name/bk_didFinishPickingMediaBlock">&nbsp;&nbsp;bk_didFinishPickingMediaBlock</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/bk_didCancelBlock">&nbsp;&nbsp;bk_didCancelBlock</a></code>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -153,18 +143,19 @@ BlocksKit.</p><div class="warning"><p><strong>Warning:</strong> MFMessageCompose
 						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/bk_completionBlock" title="bk_completionBlock"></a>
-	<h3 class="subsubtitle method-title">bk_completionBlock</h3>
+	<a name="//api/name/bk_didCancelBlock" title="bk_didCancelBlock"></a>
+	<h3 class="subsubtitle method-title">bk_didCancelBlock</h3>
 	
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The block fired on the dismissal of the SMS composition interface.</p>
+		<pre><code>The block that fires after the user cancels out of picker
+</code></pre>
 	</div>		
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, setter=bk_setCompletionBlock:) void ( ^ ) ( MFMessageComposeViewController *controller , MessageComposeResult result ) bk_completionBlock</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIImagePickerController *) bk_didCancelBlock</code></div>
 
     
 	
@@ -176,11 +167,8 @@ BlocksKit.</p><div class="warning"><p><strong>Warning:</strong> MFMessageCompose
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>The block fired on the dismissal of the SMS composition interface.</p>
-
-<p>This block callback is an analog for the
-messageComposeViewController:didFinishWithResult: method
-of MFMessageComposeViewControllerDelegate.</p>
+		<pre><code>The block that fires after the user cancels out of picker
+</code></pre>
 	</div>
 	
 	
@@ -191,7 +179,50 @@ of MFMessageComposeViewControllerDelegate.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">MFMessageComposeViewController+BlocksKit.h</code><br />
+		<code class="declared-in-ref">UIImagePickerController+BlocksKit.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/bk_didFinishPickingMediaBlock" title="bk_didFinishPickingMediaBlock"></a>
+	<h3 class="subsubtitle method-title">bk_didFinishPickingMediaBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<pre><code>The block that fires after the receiver finished picking up an image
+</code></pre>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( UIImagePickerController *, NSDictionary *) bk_didFinishPickingMediaBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<pre><code>The block that fires after the receiver finished picking up an image
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UIImagePickerController+BlocksKit.h</code><br />
 	</div>				
 	
 	
