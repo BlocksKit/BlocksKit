@@ -11,8 +11,7 @@ Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
 Protocol *a2_protocolForDelegatingObject(id obj, Protocol *protocol);
 
-#if !defined(NS_BLOCK_ASSERTIONS)
-static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NSMethodSignature *blockSignature)
+static BOOL __unused a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NSMethodSignature *blockSignature)
 {
 	if (methodSignature.methodReturnType[0] != blockSignature.methodReturnType[0])
 		return NO;
@@ -24,7 +23,6 @@ static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NS
 	}
 	return YES;
 }
-#endif
 
 static BOOL selectorsEqual(const void *item1, const void *item2, NSUInteger(*size)(const void *item))
 {
