@@ -119,54 +119,60 @@ static __unused BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSign
 	return self;
 }
 
-- (BOOL)invokeWithInvocation:(NSInvocation *)outerInv returnValue:(out NSData **)outReturnBuffer setOnInvocation:(BOOL)setOnInvocation
+- (BOOL)invokeWithInvocation:(NSInvocation *)outerInv returnValue:(out NSValue **)outReturnValue setOnInvocation:(BOOL)setOnInvocation
 {
-	if (![outerInv isMemberOfClass:NSInvocation.class])
-		return NO;
-    
+	NSParameterAssert(outerInv);
+
 	NSMethodSignature *sig = self.methodSignature;
-    
-	NSParameterAssert([outerInv.methodSignature isEqual:sig]);
-    
+
+	if (![outerInv.methodSignature isEqual:sig]) {
+		NSAssert(0, @"Attempted to invoke block invocation with incompatible frame");
+		return NO;
+	}
+
 	NSInvocation *innerInv = [NSInvocation invocationWithMethodSignature:self.blockSignature];
-    
-	NSMutableData *buffer = [NSMutableData data];
-	if (!buffer) return NO;
-    
+
+	void *argBuf = NULL;
+
 	for (NSUInteger i = 2; i < sig.numberOfArguments; i++) {
 		const char *type = [sig getArgumentTypeAtIndex:i];
 		NSUInteger argSize;
 		NSGetSizeAndAlignment(type, &argSize, NULL);
-		if (!argSize) return NO;
-        
-		buffer.length = argSize;
 
-		[outerInv getArgument:buffer.mutableBytes atIndex:i];
-		[innerInv setArgument:buffer.mutableBytes atIndex:i - 1];
+		if (!(argBuf = reallocf(argBuf, argSize))) {
+			return NO;
+		}
+
+		[outerInv getArgument:argBuf atIndex:i];
+		[innerInv setArgument:argBuf atIndex:i - 1];
 	}
-    
+
 	[innerInv invokeWithTarget:self.block];
-    
-	NSUInteger returnLength = sig.methodReturnLength;
-	if (returnLength) {
-		if (outReturnBuffer || setOnInvocation) {
-			buffer.length = returnLength;
-            
-			[innerInv getReturnValue:buffer.mutableBytes];
-            
-			if (setOnInvocation) {
-				[outerInv setReturnValue:buffer.mutableBytes];
+
+	NSUInteger retSize = sig.methodReturnLength;
+	if (retSize) {
+		if (outReturnValue || setOnInvocation) {
+			if (!(argBuf = reallocf(argBuf, retSize))) {
+				return NO;
 			}
-            
-			if (outReturnBuffer) {
-				*outReturnBuffer = [buffer copy];
-            }
+
+			[innerInv getReturnValue:argBuf];
+
+			if (setOnInvocation) {
+				[outerInv setReturnValue:argBuf];
+			}
+
+			if (outReturnValue) {
+				*outReturnValue = [NSValue valueWithBytes:argBuf objCType:sig.methodReturnType];
+			}
 		}
 	} else {
-		if (outReturnBuffer) {
-			*outReturnBuffer = nil;
+		if (outReturnValue) {
+			*outReturnValue = nil;
 		}
 	}
+
+	free(argBuf);
 
 	return YES;
 }
@@ -176,9 +182,9 @@ static __unused BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSign
 	[self invokeWithInvocation:inv returnValue:NULL setOnInvocation:YES];
 }
 
-- (BOOL)invokeWithInvocation:(NSInvocation *)inv returnValue:(out NSData **)outReturnBuffer
+- (BOOL)invokeWithInvocation:(NSInvocation *)inv returnValue:(out NSValue **)returnValue
 {
-	return [self invokeWithInvocation:inv returnValue:outReturnBuffer setOnInvocation:NO];
+	return [self invokeWithInvocation:inv returnValue:returnValue setOnInvocation:NO];
 }
 
 @end

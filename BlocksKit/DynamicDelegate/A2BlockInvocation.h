@@ -56,12 +56,12 @@
  providing a buffer containing the block's return value upon return.
 
  @param inv An instance of NSInvocation with values for its arguments set.
- @param outReturnBuffer On return, a buffer containing the return value, or
- `nil` for a void return type.
+ @param returnValue On return, the block's return value, or `nil` for a void
+ return type.
  @param NO if the buffer copies necessary for invocation failed, YES otherwise.
  @see invokeWithInvocation:returnValue:
  */
-- (BOOL)invokeWithInvocation:(NSInvocation *)inv returnValue:(out NSData **)outReturnBuffer;
+- (BOOL)invokeWithInvocation:(NSInvocation *)inv returnValue:(out NSValue **)returnValue;
 
 /** Calls the receiver's block with the arguments from the given invocation
  and sets the return value on the given invocation.
