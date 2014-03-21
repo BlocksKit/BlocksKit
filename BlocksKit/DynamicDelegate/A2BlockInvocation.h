@@ -5,6 +5,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const A2IncompatibleMethodSignatureKey;
+
 /** An `A2BlockInvocation` is an Objective-C block call rendered static, that
  is, it is an action turned into an object. `A2BlockInvocation` objects are used
  to store and forward closure invocations between objects, primarily by the
@@ -20,15 +22,34 @@
  */
 @interface A2BlockInvocation : NSObject
 
+/** Inspects the given block literal and returns a compatible method signature.
+
+ The returned method signature is suitable for use in the Foundation forwarding
+ system to link a method call to a block invocation.
+
+ @param block An Objective-C block literal
+ @return A method signature matching the declared prototype for the block
+ */
++ (NSMethodSignature *)methodSignatureForBlock:(id)block;
+
 /** @name Creating A2BlockInvocation Objects */
 
-/** Returns an `A2BlockInvocation` object able to construct calls to a given
- block using a given method signature.
+/** Returns a block invocation object able to construct calls to a given block.
 
- The method signature given must be compatible with the signature of the block.
- Generally, this means being all the same except for the selector argument, for
- a block is the first parameter of the block's function dispatch just like
- `self` is the first parameter of a method.
+ This method synthesizes a compatible method signature for the given block.
+
+ @param block A block literal
+ @return An initialized block invocation object
+ @see methodSignatureForBlock
+ */
+- (instancetype)initWithBlock:(id)block;
+
+/** Returns a block invocation object able to construct calls to a given block
+ using a given Objective-C method signature.
+
+ The method signature given must be compatible with the signature of the block;
+ that is, equal to the block signature but with a `SEL` (`:`) as the second
+ parameter. Passing in an incompatible method signature will raise an exception.
 
  An example method returning a string for an integer argument would have the
  following properties:

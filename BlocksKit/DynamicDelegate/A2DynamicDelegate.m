@@ -186,10 +186,14 @@ static NSString *selectorDescribe(const void *item1)
 
 	struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, !isClassMethod);
 	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
-	if (!methodDescription.name) return;
 
-	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes:methodDescription.types];
-	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:protoSig];
+	A2BlockInvocation *inv = nil;
+	if (methodDescription.name) {
+		NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes:methodDescription.types];
+		inv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:protoSig];
+	} else {
+		inv = [[A2BlockInvocation alloc] initWithBlock:block];
+	}
     
 	[self.invocationsBySelectors bk_setObject:inv forSelector:selector];
 }

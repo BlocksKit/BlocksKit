@@ -6,6 +6,8 @@
 #import <XCTest/XCTest.h>
 #import <BlocksKit/A2BlockInvocation.h>
 
+static const void *A2BlockInvocationTestPass = &A2BlockInvocationTestPass;
+
 @interface A2BlockInvocationTests : XCTestCase
 
 @end
@@ -20,44 +22,39 @@ typedef struct {
 
 @implementation A2BlockInvocationTests
 
-- (void)invocationsForBlock:(id)block withSignature:(const char *)str native:(out NSInvocation **)outInv block:(out A2BlockInvocation **)outBlockInv
+- (void)getInvocationsForBlock:(id)block native:(out NSInvocation **)outInv block:(out A2BlockInvocation **)outBlockInv
 {
-	NSMethodSignature *signature = [NSMethodSignature signatureWithObjCTypes:str];
-	XCTAssertNotNil(signature);
-
-	NSInvocation *inv = [NSInvocation invocationWithMethodSignature:signature];
-	XCTAssertNotNil(inv);
-
 	A2BlockInvocation *blockInv = nil;
-	XCTAssertNoThrow((blockInv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:signature]));
+	XCTAssertNoThrow((blockInv = [[A2BlockInvocation alloc] initWithBlock:block]));
+	XCTAssertNotNil(blockInv);
+
+	NSInvocation *inv = [NSInvocation invocationWithMethodSignature:blockInv.methodSignature];
 	XCTAssertNotNil(inv);
 
 	if (outInv) *outInv = inv;
 	if (outBlockInv) *outBlockInv = blockInv;
 }
 
-- (void)testVoidBlockInvocation
+- (void)testReturnVoid
 {
 	__block BOOL ran = NO;
 	NSInvocation *inv; A2BlockInvocation *blockInv;
 
-	[self invocationsForBlock:^{
+	[self getInvocationsForBlock:^{
 		ran = YES;
-	} withSignature:"v@:" native:&inv block:&blockInv];
+	} native:&inv block:&blockInv];
 
 	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
 
-	XCTAssertTrue(ran, @"Void block didn't run");
+	XCTAssertTrue(ran);
 }
 
-- (void)testReturnObjectBlockInvocation
-{
+- (void)testReturnObject {
 	NSInvocation *inv; A2BlockInvocation *blockInv;
 
-	[self invocationsForBlock:^(int val, NSString *str) {
+	[self getInvocationsForBlock:^(int val, NSString *str) {
 		return (val == 42 && [str isEqualToString:@"Test"]) ? @"YES" : @"NO";
-	} withSignature:"@@:i@" native:&inv block:&blockInv];
-
+	} native:&inv block:&blockInv];
 
 	int firstArgument = 42;
 	NSString *secondArgument = @"Test";
@@ -68,21 +65,15 @@ typedef struct {
 
 	NSString *output;
 	[inv getReturnValue:&output];
-	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+	XCTAssertEqualObjects(output, @"YES");
 }
 
-- (void)testReturnStructBlockInvocation {
+- (void)testReturnStruct {
 	NSInvocation *inv; A2BlockInvocation *blockInv;
 
-	[self invocationsForBlock:^(int val, NSString *str) {
-		BigStruct ret;
-		ret.doubleValue = val * 2.2;
-		ret.integerValue = val;
-		ret.stringValue = str.UTF8String;
-		ret.first = YES;
-		ret.second = NO;
-		return ret;
-	} withSignature:"{_BigStruct=di*cc}@:i@" native:&inv block:&blockInv];
+	[self getInvocationsForBlock:^(int val, NSString *str) {
+		return (BigStruct){ .doubleValue = 92.4, .integerValue = 42, .stringValue = "Test", .first = YES, .second = NO };
+	} native:&inv block:&blockInv];
 
 	int firstArgument = 42;
 	NSString *secondArgument = @"Test";
@@ -93,19 +84,25 @@ typedef struct {
 
 	BigStruct output;
 	[inv getReturnValue:&output];
-	XCTAssertEqual(output.doubleValue, 92.4, @"Struct return block test didn't return right values");
-	XCTAssertEqual(output.integerValue, 42, @"Struct return block test didn't return right values");
-	XCTAssertTrue(strcmp(output.stringValue, "Test") == 0, @"Struct return block test didn't return right values");
-	XCTAssertEqual(output.first, YES, @"Struct return block test didn't return right values");
-	XCTAssertEqual(output.second, NO, @"Struct return block test didn't return right values");
+	XCTAssertEqual(output.doubleValue, 92.4);
+	XCTAssertEqual(output.integerValue, 42);
+	XCTAssertTrue(strcmp(output.stringValue, "Test") == 0);
+	XCTAssertEqual(output.first, YES);
+	XCTAssertEqual(output.second, NO);
+}
+
+#define AssertReturnValueEquals(inv, rvalue, format...) { \
+	__typeof__(rvalue) output; \
+	[inv getReturnValue:&output]; \
+	XCTAssertEqual(output, rvalue, ## format); \
 }
 
 - (void)testPassObjectBlockInvocation {
 	NSInvocation *inv; A2BlockInvocation *blockInv;
 
-	[self invocationsForBlock:^BOOL(int val, NSString *str) {
-		return (val == 42 && [str isEqualToString:@"Test"]);
-	} withSignature:"c@:i@" native:&inv block:&blockInv];
+	[self getInvocationsForBlock:^(int val, NSString *str) {
+		return (val == 42 && [str isEqualToString:@"Test"]) ? A2BlockInvocationTestPass : NULL;
+	} native:&inv block:&blockInv];
 
 	int firstArgument = 42;
 	NSString *secondArgument = @"Test";
@@ -113,278 +110,102 @@ typedef struct {
 	[inv setArgument:&secondArgument atIndex:3];
 
 	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
+	AssertReturnValueEquals(inv, A2BlockInvocationTestPass);
+}
 
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass object block test didn't return right value");
+#define TEST_PASS_VALUE(__type, __testValue) { \
+	NSInvocation *inv; A2BlockInvocation *blockInv; \
+	[self getInvocationsForBlock:^(__type val) { \
+		return (memcmp(&val, &__testValue, sizeof(__type)) == 0) ? A2BlockInvocationTestPass : NULL; \
+	} native:&inv block:&blockInv]; \
+	\
+	[inv setArgument:(void *)&__testValue atIndex:2]; \
+	\
+	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]); \
+	AssertReturnValueEquals(inv, A2BlockInvocationTestPass); \
+}
+
+#define TEST_SIMPLE_PASSING(__type, ___testValue) { \
+	static const __type __testValue = ___testValue; \
+	TEST_PASS_VALUE(__type, __testValue); \
 }
 
 - (void)testPassCharBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(char val) {
-		return (val == 'Z');
-	} withSignature:"c@:c" native:&inv block:&blockInv];
-
-	char firstArgument = 'Z';
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass char block test didn't return right value");
+	TEST_SIMPLE_PASSING(char, 'Z');
 }
 
 - (void)testPassUCharBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(unsigned char val) {
-		return (val == 'Z');
-	} withSignature:"c@:C" native:&inv block:&blockInv];
-
-	unsigned char firstArgument = 'Z';
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass unsigned char block test didn't return right value");
+	TEST_SIMPLE_PASSING(unsigned char, 'Z');
 }
 
 - (void)testPassShortBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(short val) {
-		return (val == SHRT_MAX);
-	} withSignature:"c@:s" native:&inv block:&blockInv];
-
-	short firstArgument = SHRT_MAX;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass short block test didn't return right value");
+	TEST_SIMPLE_PASSING(short, SHRT_MAX);
 }
 
 - (void)testPassUShortBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(unsigned short val) {
-		return (val == USHRT_MAX);
-	} withSignature:"c@:S" native:&inv block:&blockInv];
-
-	unsigned short firstArgument = USHRT_MAX;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass unsigned short block test didn't return right value");
+	TEST_SIMPLE_PASSING(unsigned short, USHRT_MAX);
 }
 
 - (void)testPassIntBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(int val) {
-		return (val == INT_MAX);
-	} withSignature:"c@:i" native:&inv block:&blockInv];
-
-	int firstArgument = INT_MAX;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass int block test didn't return right value");
+	TEST_SIMPLE_PASSING(int, INT_MAX);
 }
 
 - (void)testPassUIntBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(unsigned int val) {
-		return (val == UINT_MAX);
-	} withSignature:"c@:I" native:&inv block:&blockInv];
-
-	unsigned int firstArgument = UINT_MAX;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass unsigned int block test didn't return right value");
+	TEST_SIMPLE_PASSING(unsigned int, UINT_MAX);
 }
 
-#ifndef __LP64__
-
 - (void)testPassLongBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(long val) {
-		return (val == LONG_MAX);
-	} withSignature:"c@:l" native:&inv block:&blockInv];
-
-	long firstArgument = LONG_MAX;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass long block test didn't return right value");
+	TEST_SIMPLE_PASSING(long, LONG_MAX);
 }
 
 - (void)testPassULongBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(unsigned long val) {
-		return (val == ULONG_MAX);
-	} withSignature:"c@:L" native:&inv block:&blockInv];
-
-	unsigned long firstArgument = ULONG_MAX;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass unsigned long block test didn't return right value");
+	TEST_SIMPLE_PASSING(unsigned long, ULONG_MAX);
 }
 
-#else
-
-- (void)testPassLongBlockInvocation { }
-- (void)testPassULongBlockInvocation { }
-
-#endif
-
 - (void)testPassLongLongBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(long long val) {
-		return (val == LLONG_MAX);
-	} withSignature:"c@:q" native:&inv block:&blockInv];
-
-	long long firstArgument = LLONG_MAX;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass long long block test didn't return right value");
+	TEST_SIMPLE_PASSING(long long, LLONG_MAX);
 }
 
 - (void)testPassULongLongBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(unsigned long long val) {
-		return (val == ULLONG_MAX);
-	} withSignature:"c@:Q" native:&inv block:&blockInv];
-
-	unsigned long long firstArgument = ULLONG_MAX;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass unsigned long long block test didn't return right value");
+	TEST_SIMPLE_PASSING(unsigned long long, ULLONG_MAX);
 }
 
 - (void)testPassFloatBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(float val) {
-		return (val == 1.01f);
-	} withSignature:"c@:f" native:&inv block:&blockInv];
-
-	float firstArgument = 1.01f;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass float block test didn't return right value");
+	TEST_SIMPLE_PASSING(float, 1.01f);
 }
 
 - (void)testPassDoubleBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(double val) {
-		return (val == 1.01);
-	} withSignature:"c@:d" native:&inv block:&blockInv];
-
-	double firstArgument = 1.01;
-	[inv setArgument:&firstArgument atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass double block test didn't return right value");
+	TEST_SIMPLE_PASSING(double, 1.01);
 }
 
 - (void)testPassArrayBlockInvocation {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^BOOL(int *ary) {
-		return ary[0] == 1 && ary[1] == 2 && ary[2] == 3 && ary[3] == 4 && ary[4] == 5;
-	} withSignature:"c@:^i" native:&inv block:&blockInv];
-
-	int firstArgument[5] = { 1, 2, 3, 4, 5 };
-	int *indirect = firstArgument;
-	[inv setArgument:&indirect atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	BOOL output;
-	[inv getReturnValue:&output];
-	XCTAssertTrue(output, @"Pass integer array block test didn't return right value");
+	static int const tarray[5] = (const int[5]){ 1, 2, 3, 4, 5 };
+	TEST_PASS_VALUE(int *, tarray);
 }
 
 - (void)testPassStructBlockInvocation
 {
-	NSInvocation *inv; A2BlockInvocation *blockInv;
-
-	[self invocationsForBlock:^NSString *(BigStruct sret) {
-		return (sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second) ? @"YES" : @"NO";
-	} withSignature:"@@:{_BigStruct=di*cc}" native:&inv block:&blockInv];
-
-	int val = 42;
-	NSString *str = @"Test";
-	BigStruct ret;
-	ret.doubleValue = val * 2.2;
-	ret.integerValue = val;
-	ret.stringValue = str.UTF8String;
-	ret.first = YES;
-	ret.second = NO;
-	[inv setArgument:&ret atIndex:2];
-
-	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-
-	NSString *output;
-	[inv getReturnValue:&output];
-	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+	TEST_SIMPLE_PASSING(BigStruct, ((BigStruct){
+		.doubleValue = 92.4,
+		.integerValue = 42,
+		.stringValue = "Test",
+		.first = YES,
+		.second = NO }));
 }
+
+#undef TEST_PASS_VALUE
+#undef TEST_SIMPLE_PASSING
 
 - (void)test_arm64_argumentAlign
 {
 	NSInvocation *inv; A2BlockInvocation *blockInv;
-    
-	[self invocationsForBlock:^NSString *(char w0, char w1, char w2, char w3, char w4, char w5, char w6, char w7, char s0, char s1) {
-		return (w0 == 'a' && w1 == 'b' && w2 == 'c' && w3 == 'd' && w4 == 'e' && w5 == 'f' && w6 == 'g' && w7 == 'h' && s0 == 'i' && s1 == 'j') ? @"YES" : @"NO";
-	} withSignature:"@@:cccccccccc" native:&inv block:&blockInv];
-    
-    char a1 = 'a';
-    char a2 = 'b';
+
+	[self getInvocationsForBlock:^(char w0, char w1, char w2, char w3, char w4, char w5, char w6, char w7, char s0, char s1) {
+		return (w0 == 'a' && w1 == 'b' && w2 == 'c' && w3 == 'd' && w4 == 'e' && w5 == 'f' && w6 == 'g' && w7 == 'h' && s0 == 'i' && s1 == 'j') ? A2BlockInvocationTestPass : NULL;
+	} native:&inv block:&blockInv];
+
+	char a1 = 'a';
+	char a2 = 'b';
     char a3 = 'c';
     char a4 = 'd';
     char a5 = 'e';
@@ -405,35 +226,26 @@ typedef struct {
 	[inv setArgument:&a10 atIndex:11];
 
 	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-	
-	NSString *output;
-	[inv getReturnValue:&output];
-	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+	AssertReturnValueEquals(inv, A2BlockInvocationTestPass);
 }
 
 - (void)test_arm64_argumentAlignStructOnStack
 {
 	NSInvocation *inv; A2BlockInvocation *blockInv;
-	[self invocationsForBlock:^NSString *(char w0, char w1, char w2, char w3, char w4, char w5, char w6, char w7, BigStruct sret) {
-        return (w0 == 'a' && w1 == 'b' && w2 == 'c' && w3 == 'd' && w4 == 'e' && w5 == 'f' && w6 == 'g' && w7 == 'h' && sret.doubleValue == 92.4 && sret.integerValue == 42 && !strcmp(sret.stringValue, "Test") && sret.first && !sret.second) ? @"YES" : @"NO";
-	} withSignature:"@@:cccccccc{_BigStruct=di*cc}" native:&inv block:&blockInv];
-    
-    char a1 = 'a';
-    char a2 = 'b';
+	[self getInvocationsForBlock:^(char w0, char w1, char w2, char w3, char w4, char w5, char w6, char w7, BigStruct arg) {
+		return (w0 == 'a' && w1 == 'b' && w2 == 'c' && w3 == 'd' && w4 == 'e' && w5 == 'f' && w6 == 'g' && w7 == 'h' && arg.doubleValue == 92.4 && arg.integerValue == 42 && !strcmp(arg.stringValue, "Test") && arg.first && !arg.second) ? A2BlockInvocationTestPass : NULL;
+	} native:&inv block:&blockInv];
+
+	char a1 = 'a';
+	char a2 = 'b';
     char a3 = 'c';
     char a4 = 'd';
     char a5 = 'e';
-    char a6 = 'f';
-    char a7 = 'g';
-    char a8 = 'h';
-    BigStruct a9;
-	int val = 42;
-	a9.doubleValue = val * 2.2;
-	a9.integerValue = val;
-	a9.stringValue = @"Test".UTF8String;
-	a9.first = YES;
-	a9.second = NO;
-    
+	char a6 = 'f';
+	char a7 = 'g';
+	char a8 = 'h';
+	BigStruct a9 = (BigStruct){ .doubleValue = 92.4, .integerValue = 42, .stringValue = "Test", .first = YES, .second = NO };
+
 	[inv setArgument:&a1 atIndex:2];
 	[inv setArgument:&a2 atIndex:3];
 	[inv setArgument:&a3 atIndex:4];
@@ -445,10 +257,9 @@ typedef struct {
 	[inv setArgument:&a9 atIndex:10];
 
 	XCTAssertNoThrow([blockInv invokeWithInvocation:inv]);
-	
-	NSString *output;
-	[inv getReturnValue:&output];
-	XCTAssertEqualObjects(output, @"YES", @"Object return block test didn't return right value");
+	AssertReturnValueEquals(inv, A2BlockInvocationTestPass);
 }
+
+#undef AssertReturnValueEquals
 
 @end
