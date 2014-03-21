@@ -16,3 +16,4 @@ profile
 *.moved-aside
 .DS_Store
 Notes.txt
+.idea
