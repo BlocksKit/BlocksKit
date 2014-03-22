@@ -544,6 +544,7 @@
 				DBFB08AF184DC23000F37EEE /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		DBFB08AF184DC23000F37EEE /* Products */ = {
 			isa = PBXGroup;

@@ -206,14 +206,14 @@ typedef struct {
 
 	char a1 = 'a';
 	char a2 = 'b';
-    char a3 = 'c';
-    char a4 = 'd';
-    char a5 = 'e';
-    char a6 = 'f';
-    char a7 = 'g';
-    char a8 = 'h';
-    char a9 = 'i';
-    char a10 = 'j';
+	char a3 = 'c';
+	char a4 = 'd';
+	char a5 = 'e';
+	char a6 = 'f';
+	char a7 = 'g';
+	char a8 = 'h';
+	char a9 = 'i';
+	char a10 = 'j';
 	[inv setArgument:&a1 atIndex:2];
 	[inv setArgument:&a2 atIndex:3];
 	[inv setArgument:&a3 atIndex:4];
@@ -238,9 +238,9 @@ typedef struct {
 
 	char a1 = 'a';
 	char a2 = 'b';
-    char a3 = 'c';
-    char a4 = 'd';
-    char a5 = 'e';
+	char a3 = 'c';
+	char a4 = 'd';
+	char a5 = 'e';
 	char a6 = 'f';
 	char a7 = 'g';
 	char a8 = 'h';

@@ -37,9 +37,9 @@ static NSString *selectorDescribe(const void *item1)
 	NSPointerFunctions *selectors = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 	selectors.isEqualFunction = selectorsEqual;
 	selectors.descriptionFunction = selectorDescribe;
-    
+
 	NSPointerFunctions *strongObjects = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality];
-    
+
 	return [[NSMapTable alloc] initWithKeyPointerFunctions:selectors valuePointerFunctions:strongObjects capacity:1];
 }
 
@@ -118,7 +118,7 @@ static NSString *selectorDescribe(const void *item1)
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
-    A2BlockInvocation *invocation = nil;
+	A2BlockInvocation *invocation = nil;
 	if ((invocation = [self.invocationsBySelectors bk_objectForSelector:aSelector]))
 		return invocation.methodSignature;
 	else if ([self.realDelegate methodSignatureForSelector:aSelector])
@@ -145,7 +145,7 @@ static NSString *selectorDescribe(const void *item1)
 		[innerInv invokeWithInvocation:outerInv];
 	} else if ([self.realDelegate respondsToSelector:selector]) {
 		[outerInv invokeWithTarget:self.realDelegate];
-    }
+	}
 }
 
 #pragma mark -
@@ -194,7 +194,7 @@ static NSString *selectorDescribe(const void *item1)
 	} else {
 		inv = [[A2BlockInvocation alloc] initWithBlock:block];
 	}
-    
+
 	[self.invocationsBySelectors bk_setObject:inv forSelector:selector];
 }
 - (void)removeBlockImplementationForMethod:(SEL)selector __unused
@@ -264,7 +264,7 @@ static NSString *selectorDescribe(const void *item1)
 
 - (void)forwardInvocation:(NSInvocation *)outerInv
 {
-    SEL selector = outerInv.selector;
+	SEL selector = outerInv.selector;
 	A2BlockInvocation *innerInv = nil;
 	if ((innerInv = [self.invocationsBySelectors bk_objectForSelector:selector])) {
 		[innerInv invokeWithInvocation:outerInv];
