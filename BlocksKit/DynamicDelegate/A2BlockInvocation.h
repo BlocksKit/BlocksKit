@@ -51,7 +51,7 @@ extern NSString *const A2IncompatibleMethodSignatureKey;
  using a given Objective-C method signature.
 
  The method signature given must be compatible with the signature of the block;
- that is, equal to the block signature but with a `SEL` (`:`) as the second
+ that is, equal to the block signature but with a `SEL` (`':'`) as the second
  parameter. Passing in an incompatible method signature will raise an exception.
 
  An example method returning a string for an integer argument would have the

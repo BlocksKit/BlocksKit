@@ -87,7 +87,7 @@ typedef struct _BKBlock {
 /** Inspects the given block literal and returns a compatible type signature.
 
  Unlike a typical method signature, a block type signature has no `self` (`'@'`)
- or `_cmd` (`:`) parameter, but instead just one parameter for the block itself
+ or `_cmd` (`':'`) parameter, but instead just one parameter for the block itself
  (`'@?'`).
 
  @param block An Objective-C block literal
