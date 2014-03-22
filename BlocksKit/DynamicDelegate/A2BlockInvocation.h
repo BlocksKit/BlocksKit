@@ -5,6 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
+/// If a block invocation is instiated with an invalid method signature,
+/// an `NSInvalidArgumentException` is thrown containing this key in the
+/// user info.
 extern NSString *const A2IncompatibleMethodSignatureKey;
 
 /** An `A2BlockInvocation` is an Objective-C block call rendered static, that
