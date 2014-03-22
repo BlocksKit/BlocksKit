@@ -27,7 +27,7 @@ static dispatch_queue_t a2_backgroundQueue(void)
 	static dispatch_once_t onceToken;
 	static dispatch_queue_t backgroundQueue = nil;
 	dispatch_once(&onceToken, ^{
-		backgroundQueue = dispatch_queue_create("us.pandamonia.A2DynamicDelegate.backgroundQueue", DISPATCH_QUEUE_SERIAL);
+		backgroundQueue = dispatch_queue_create("BlocksKit.DynamicDelegate.Queue", DISPATCH_QUEUE_SERIAL);
 	});
 	return backgroundQueue;
 }
