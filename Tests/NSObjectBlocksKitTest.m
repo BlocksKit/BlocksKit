@@ -7,60 +7,67 @@
 
 #import <XCTest/XCTest.h>
 #import <BlocksKit/NSObject+BKBlockExecution.h>
-#import "BKAsyncTestCase.h"
+#import "XCTestCase+BKAsyncTestCase.h"
 
-@interface NSObjectBlocksKitTest : BKAsyncTestCase
+static const NSTimeInterval BKObjectTestInterval = 0.025;
+static const NSTimeInterval BKObjectTestTimeout = 0.25;
+
+@interface NSObjectBlocksKitTest : XCTestCase
 
 @end
 
-
-@implementation NSObjectBlocksKitTest {
-	NSMutableString *_subject;	
-}
-
-- (void)setUp {
-	_subject = [@"Hello " mutableCopy];
-}
-
-- (void)tearDown {
-	_subject = nil;
-}  
+@implementation NSObjectBlocksKitTest
 
 - (void)testPerformBlockAfterDelay {
+	NSMutableString *subject = [@"Hello" mutableCopy];
 	void (^senderBlock)(id) = ^(NSObjectBlocksKitTest *sender) {
-		[_subject appendString:@"BlocksKit"];
-		[sender notify:SenTestCaseWaitStatusSuccess forSelector:@selector(testPerformBlockAfterDelay)];
+		[subject appendString:@" BlocksKit"];
+		[sender bk_finishRunningAsyncTest];
 	};
-	[self prepare];
-	id block = [self bk_performBlock:senderBlock afterDelay:0.5];
-	XCTAssertNotNil(block,@"block is nil");
-	[self waitForStatus:SenTestCaseWaitStatusSuccess timeout:1.0];
-	XCTAssertEqualObjects(_subject,@"Hello BlocksKit",@"subject string is %@",_subject);
+	
+	[self bk_performAsyncTestWithTimeout:BKObjectTestTimeout block:^{
+		id block = [self bk_performBlock:senderBlock afterDelay:BKObjectTestInterval];
+		XCTAssertNotNil(block,@"block is nil");
+	}];
+	
+	XCTAssertEqualObjects(subject, @"Hello BlocksKit", @"subject string is %@", subject);
 }
 
 - (void)testClassPerformBlockAfterDelay {
-	NSObjectBlocksKitTest *test = self;
-	NSMutableString *subject = [NSMutableString stringWithString:@"Hello "];
-	[self prepare];
-	id blk = [NSObject bk_performBlock:^{
-		[subject appendString:@"BlocksKit"];
-		[test notify:SenTestCaseWaitStatusSuccess forSelector:@selector(testClassPerformBlockAfterDelay)];
-	} afterDelay:0.5];
-	XCTAssertNotNil(blk,@"block is nil");
-	[self waitForStatus:SenTestCaseWaitStatusSuccess timeout:1.0];
-	XCTAssertEqualObjects(subject,@"Hello BlocksKit",@"subject string is %@",subject);
+	NSMutableString *subject = [NSMutableString stringWithString:@"Hello"];
+	void (^senderBlock)(void) = ^{
+		[subject appendString:@" BlocksKit"];
+		[self bk_finishRunningAsyncTest];
+	};
+	
+	[self bk_performAsyncTestWithTimeout:BKObjectTestTimeout block:^{
+		id block = [NSObject bk_performBlock:senderBlock afterDelay:BKObjectTestInterval];
+		XCTAssertNotNil(block,@"block is nil");
+	}];
+	
+	XCTAssertEqualObjects(subject, @"Hello BlocksKit", @"subject string is %@", subject);
 }
 
 - (void)testCancel {
-	[self prepare];
-	id block = [self bk_performBlock:^(NSObjectBlocksKitTest * sender) {
-		[_subject appendString:@"BlocksKit"];
-		[sender notify:SenTestCaseWaitStatusSuccess];
-	} afterDelay:0.1];
-	XCTAssertNotNil(block,@"block is nil");
-	[NSObject bk_cancelBlock:block];
-	[self waitForTimeout:0.5];
-	XCTAssertEqualObjects(_subject,@"Hello ",@"subject string is %@",_subject);
+	NSMutableString *subject = [@"Hello" mutableCopy];
+	void (^senderBlock)(id) = ^(NSObjectBlocksKitTest *sender){
+		[subject appendString:@" BlocksKit"];
+		[self bk_finishRunningAsyncTest];
+	};
+	
+	[self bk_performAsyncTestWithTimeout:BKObjectTestTimeout block:^{
+		id block = [self bk_performBlock:senderBlock afterDelay:BKObjectTestInterval];
+		if (!block) {
+			[self bk_finishRunningAsyncTest];
+			XCTFail(@"block is nil");
+		}
+		[NSObject bk_cancelBlock:block];
+		[NSObject bk_performBlock:^{
+			[self bk_finishRunningAsyncTest];
+		} afterDelay:BKObjectTestInterval];
+	}];
+	
+	XCTAssertEqualObjects(subject, @"Hello", @"subject string is %@", subject);
 }
 
 @end

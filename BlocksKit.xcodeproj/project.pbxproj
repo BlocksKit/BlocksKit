@@ -13,10 +13,10 @@
 		DB5BF880185E909300FF2A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08B1184DC23000F37EEE /* Foundation.framework */; };
 		DB5BF881185E909300FF2A0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */; };
 		DB5BF882185E909300FF2A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08C2184DC23000F37EEE /* UIKit.framework */; };
-		DB848AC918852A63004FEA86 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DB848AC818852A63004FEA86 /* debug.c */; };
-		DB848ACA18852A63004FEA86 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = DB848AC818852A63004FEA86 /* debug.c */; };
 		DB981A04185E96A60047E817 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB981A03185E96A60047E817 /* Images.xcassets */; };
 		DB981A06185E96EA0047E817 /* iOS-Runner.m in Sources */ = {isa = PBXBuildFile; fileRef = DB981A05185E96EA0047E817 /* iOS-Runner.m */; };
+		DBD7875418E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD7875318E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m */; };
+		DBD7875518E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD7875318E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m */; };
 		DBE126D8184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D7184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m */; };
 		DBE126D9184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D7184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m */; };
 		DBE126DA184DDD8F0023AFAD /* A2DynamicTestClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D4184DDCFA0023AFAD /* A2DynamicTestClasses.m */; };
@@ -31,18 +31,7 @@
 		DBFB0943184DC36400F37EEE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB092D184DC36400F37EEE /* Cocoa.framework */; };
 		DBFB0946184DC36400F37EEE /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB092C184DC36400F37EEE /* BlocksKit.framework */; };
 		DBFB0955184DC3AB00F37EEE /* BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DBFB08B6184DC23000F37EEE /* BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DBFB0957184DC3B100F37EEE /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB0956184DC3B100F37EEE /* libffi.dylib */; };
 		DBFB0958184DC3B400F37EEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB0930184DC36400F37EEE /* Foundation.framework */; };
-		DBFB097A184DC55B00F37EEE /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = DBFB096E184DC55B00F37EEE /* ffi.c */; };
-		DBFB097B184DC55B00F37EEE /* sysv.S in Sources */ = {isa = PBXBuildFile; fileRef = DBFB096F184DC55B00F37EEE /* sysv.S */; };
-		DBFB097C184DC55B00F37EEE /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0971184DC55B00F37EEE /* ffi.c */; };
-		DBFB097D184DC55B00F37EEE /* sysv.S in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0972184DC55B00F37EEE /* sysv.S */; };
-		DBFB097E184DC55B00F37EEE /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0973184DC55B00F37EEE /* prep_cif.c */; };
-		DBFB097F184DC55B00F37EEE /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0974184DC55B00F37EEE /* types.c */; };
-		DBFB0980184DC55B00F37EEE /* darwin.S in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0976184DC55B00F37EEE /* darwin.S */; };
-		DBFB0981184DC55B00F37EEE /* darwin64.S in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0977184DC55B00F37EEE /* darwin64.S */; };
-		DBFB0982184DC55B00F37EEE /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0978184DC55B00F37EEE /* ffi.c */; };
-		DBFB0983184DC55B00F37EEE /* ffi64.c in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0979184DC55B00F37EEE /* ffi64.c */; };
 		DBFB09AC184DC7B000F37EEE /* BKMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = DBFB098D184DC7AF00F37EEE /* BKMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DBFB09AD184DC7B000F37EEE /* NSArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DBFB098E184DC7AF00F37EEE /* NSArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DBFB09AE184DC7B000F37EEE /* NSArray+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB098F184DC7AF00F37EEE /* NSArray+BlocksKit.m */; };
@@ -113,7 +102,6 @@
 		DBFB09FE184DC7E400F37EEE /* A2DynamicDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = DBFB09EF184DC7E400F37EEE /* A2DynamicDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DBFB09FF184DC7E400F37EEE /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB09F0184DC7E400F37EEE /* A2DynamicDelegate.m */; };
 		DBFB0A00184DC7E400F37EEE /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB09F0184DC7E400F37EEE /* A2DynamicDelegate.m */; };
-		DBFB0A01184DC7E400F37EEE /* BKFFICompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = DBFB09F1184DC7E400F37EEE /* BKFFICompatibility.h */; };
 		DBFB0A02184DC7E400F37EEE /* NSCache+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DBFB09F3184DC7E400F37EEE /* NSCache+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DBFB0A03184DC7E400F37EEE /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB09F4184DC7E400F37EEE /* NSCache+BlocksKit.m */; };
 		DBFB0A04184DC7E400F37EEE /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB09F4184DC7E400F37EEE /* NSCache+BlocksKit.m */; };
@@ -163,7 +151,6 @@
 		DBFB0AFE184DCD6200F37EEE /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC5184DCD6200F37EEE /* A2BlockDelegateTests.m */; };
 		DBFB0AFF184DCD6200F37EEE /* A2BlockInvocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC7184DCD6200F37EEE /* A2BlockInvocationTests.m */; };
 		DBFB0B00184DCD6200F37EEE /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC9184DCD6200F37EEE /* A2DynamicDelegateTests.m */; };
-		DBFB0B01184DCD6200F37EEE /* BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACB184DCD6200F37EEE /* BKAsyncTestCase.m */; };
 		DBFB0B02184DCD6200F37EEE /* BKMacrosTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACD184DCD6200F37EEE /* BKMacrosTest.m */; };
 		DBFB0B03184DCD6200F37EEE /* MFMailComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACF184DCD6200F37EEE /* MFMailComposeViewControllerBlocksKitTest.m */; };
 		DBFB0B04184DCD6200F37EEE /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AD1184DCD6200F37EEE /* MFMessageComposeViewControllerBlocksKitTest.m */; };
@@ -192,7 +179,6 @@
 		DBFB0B1D184DCD9C00F37EEE /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC5184DCD6200F37EEE /* A2BlockDelegateTests.m */; };
 		DBFB0B1E184DCD9C00F37EEE /* A2BlockInvocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC7184DCD6200F37EEE /* A2BlockInvocationTests.m */; };
 		DBFB0B1F184DCD9C00F37EEE /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC9184DCD6200F37EEE /* A2DynamicDelegateTests.m */; };
-		DBFB0B20184DCD9C00F37EEE /* BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACB184DCD6200F37EEE /* BKAsyncTestCase.m */; };
 		DBFB0B21184DCD9C00F37EEE /* BKMacrosTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACD184DCD6200F37EEE /* BKMacrosTest.m */; };
 		DBFB0B22184DCD9C00F37EEE /* NSArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AD3184DCD6200F37EEE /* NSArrayBlocksKitTest.m */; };
 		DBFB0B23184DCD9C00F37EEE /* NSCacheBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AD5184DCD6200F37EEE /* NSCacheBlocksKitTest.m */; };
@@ -302,10 +288,11 @@
 		2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+BlocksKit.m"; sourceTree = "<group>"; };
 		DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DB5BF87F185E909300FF2A0B /* BK Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BK Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB848AC818852A63004FEA86 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
 		DB981A00185E95C00047E817 /* BlocksKit-iOS-Tests-Runner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocksKit-iOS-Tests-Runner-Info.plist"; sourceTree = "<group>"; };
 		DB981A03185E96A60047E817 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DB981A05185E96EA0047E817 /* iOS-Runner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "iOS-Runner.m"; sourceTree = "<group>"; };
+		DBD7875218E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+BKAsyncTestCase.h"; sourceTree = "<group>"; };
+		DBD7875318E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+BKAsyncTestCase.m"; sourceTree = "<group>"; };
 		DBE126D3184DDCFA0023AFAD /* A2DynamicTestClasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicTestClasses.h; sourceTree = "<group>"; };
 		DBE126D4184DDCFA0023AFAD /* A2DynamicTestClasses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicTestClasses.m; sourceTree = "<group>"; };
 		DBE126D6184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "A2DynamicTestClasses+A2BlockDelegate.h"; sourceTree = "<group>"; };
@@ -323,24 +310,9 @@
 		DBFB0931184DC36400F37EEE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DBFB0932184DC36400F37EEE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		DBFB0941184DC36400F37EEE /* BlocksKit-Mac-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BlocksKit-Mac-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBFB0956184DC3B100F37EEE /* libffi.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libffi.dylib; path = usr/lib/libffi.dylib; sourceTree = SDKROOT; };
 		DBFB0959184DC3EC00F37EEE /* BlocksKit-Mac-Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocksKit-Mac-Tests-Info.plist"; sourceTree = "<group>"; };
 		DBFB095B184DC42800F37EEE /* BlocksKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocksKit-Info.plist"; sourceTree = "<group>"; };
 		DBFB095D184DC4FB00F37EEE /* Versions.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Versions.xcconfig; sourceTree = "<group>"; };
-		DBFB0963184DC55B00F37EEE /* ffi_common_mini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_common_mini.h; sourceTree = "<group>"; };
-		DBFB0964184DC55B00F37EEE /* ffi_mini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_mini.h; sourceTree = "<group>"; };
-		DBFB0965184DC55B00F37EEE /* fficonfig_mini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fficonfig_mini.h; sourceTree = "<group>"; };
-		DBFB0966184DC55B00F37EEE /* ffitarget_mini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_mini.h; sourceTree = "<group>"; };
-		DBFB096E184DC55B00F37EEE /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
-		DBFB096F184DC55B00F37EEE /* sysv.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = sysv.S; sourceTree = "<group>"; };
-		DBFB0971184DC55B00F37EEE /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
-		DBFB0972184DC55B00F37EEE /* sysv.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = sysv.S; sourceTree = "<group>"; };
-		DBFB0973184DC55B00F37EEE /* prep_cif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prep_cif.c; sourceTree = "<group>"; };
-		DBFB0974184DC55B00F37EEE /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
-		DBFB0976184DC55B00F37EEE /* darwin.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin.S; sourceTree = "<group>"; };
-		DBFB0977184DC55B00F37EEE /* darwin64.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = darwin64.S; sourceTree = "<group>"; };
-		DBFB0978184DC55B00F37EEE /* ffi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi.c; sourceTree = "<group>"; };
-		DBFB0979184DC55B00F37EEE /* ffi64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffi64.c; sourceTree = "<group>"; };
 		DBFB098A184DC7A200F37EEE /* BlocksKit+MessageUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+MessageUI.h"; sourceTree = "<group>"; };
 		DBFB098B184DC7A200F37EEE /* BlocksKit+UIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+UIKit.h"; sourceTree = "<group>"; };
 		DBFB098D184DC7AF00F37EEE /* BKMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKMacros.h; sourceTree = "<group>"; };
@@ -378,7 +350,6 @@
 		DBFB09EE184DC7E400F37EEE /* A2BlockInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockInvocation.m; sourceTree = "<group>"; };
 		DBFB09EF184DC7E400F37EEE /* A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicDelegate.h; sourceTree = "<group>"; };
 		DBFB09F0184DC7E400F37EEE /* A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegate.m; sourceTree = "<group>"; };
-		DBFB09F1184DC7E400F37EEE /* BKFFICompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKFFICompatibility.h; sourceTree = "<group>"; };
 		DBFB09F3184DC7E400F37EEE /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
 		DBFB09F4184DC7E400F37EEE /* NSCache+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BlocksKit.m"; sourceTree = "<group>"; };
 		DBFB09F5184DC7E400F37EEE /* NSURLConnection+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+BlocksKit.h"; sourceTree = "<group>"; };
@@ -419,8 +390,6 @@
 		DBFB0AC5184DCD6200F37EEE /* A2BlockDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockDelegateTests.m; sourceTree = "<group>"; };
 		DBFB0AC7184DCD6200F37EEE /* A2BlockInvocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockInvocationTests.m; sourceTree = "<group>"; };
 		DBFB0AC9184DCD6200F37EEE /* A2DynamicDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegateTests.m; sourceTree = "<group>"; };
-		DBFB0ACA184DCD6200F37EEE /* BKAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKAsyncTestCase.h; sourceTree = "<group>"; };
-		DBFB0ACB184DCD6200F37EEE /* BKAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKAsyncTestCase.m; sourceTree = "<group>"; };
 		DBFB0ACD184DCD6200F37EEE /* BKMacrosTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKMacrosTest.m; sourceTree = "<group>"; };
 		DBFB0ACF184DCD6200F37EEE /* MFMailComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMailComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		DBFB0AD1184DCD6200F37EEE /* MFMessageComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMessageComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
@@ -483,7 +452,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBFB0958184DC3B400F37EEE /* Foundation.framework in Frameworks */,
-				DBFB0957184DC3B100F37EEE /* libffi.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,8 +480,8 @@
 		DBE126DC184DDDDB0023AFAD /* Test Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DBFB0ACA184DCD6200F37EEE /* BKAsyncTestCase.h */,
-				DBFB0ACB184DCD6200F37EEE /* BKAsyncTestCase.m */,
+				DBD7875218E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.h */,
+				DBD7875318E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m */,
 				DBE126D3184DDCFA0023AFAD /* A2DynamicTestClasses.h */,
 				DBE126D4184DDCFA0023AFAD /* A2DynamicTestClasses.m */,
 				DBE126D6184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.h */,
@@ -571,12 +539,12 @@
 			children = (
 				DBFB08B3184DC23000F37EEE /* BlocksKit */,
 				DBFB08D5184DC29500F37EEE /* Tests */,
-				DBFB0960184DC55B00F37EEE /* ffi-mini */,
 				DBFB095C184DC4FB00F37EEE /* Configurations */,
 				DBFB08B0184DC23000F37EEE /* Frameworks */,
 				DBFB08AF184DC23000F37EEE /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		DBFB08AF184DC23000F37EEE /* Products */ = {
 			isa = PBXGroup;
@@ -594,7 +562,6 @@
 		DBFB08B0184DC23000F37EEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DBFB0956184DC3B100F37EEE /* libffi.dylib */,
 				DBFB08B1184DC23000F37EEE /* Foundation.framework */,
 				DBFB08BF184DC23000F37EEE /* XCTest.framework */,
 				DBFB08C2184DC23000F37EEE /* UIKit.framework */,
@@ -672,68 +639,6 @@
 			path = Configurations;
 			sourceTree = "<group>";
 		};
-		DBFB0960184DC55B00F37EEE /* ffi-mini */ = {
-			isa = PBXGroup;
-			children = (
-				DBFB0962184DC55B00F37EEE /* include */,
-				DBFB096C184DC55B00F37EEE /* src */,
-			);
-			path = "ffi-mini";
-			sourceTree = "<group>";
-		};
-		DBFB0962184DC55B00F37EEE /* include */ = {
-			isa = PBXGroup;
-			children = (
-				DBFB0963184DC55B00F37EEE /* ffi_common_mini.h */,
-				DBFB0964184DC55B00F37EEE /* ffi_mini.h */,
-				DBFB0965184DC55B00F37EEE /* fficonfig_mini.h */,
-				DBFB0966184DC55B00F37EEE /* ffitarget_mini.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		DBFB096C184DC55B00F37EEE /* src */ = {
-			isa = PBXGroup;
-			children = (
-				DBFB096D184DC55B00F37EEE /* aarch64 */,
-				DBFB0970184DC55B00F37EEE /* arm */,
-				DB848AC818852A63004FEA86 /* debug.c */,
-				DBFB0973184DC55B00F37EEE /* prep_cif.c */,
-				DBFB0974184DC55B00F37EEE /* types.c */,
-				DBFB0975184DC55B00F37EEE /* x86 */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		DBFB096D184DC55B00F37EEE /* aarch64 */ = {
-			isa = PBXGroup;
-			children = (
-				DBFB096E184DC55B00F37EEE /* ffi.c */,
-				DBFB096F184DC55B00F37EEE /* sysv.S */,
-			);
-			path = aarch64;
-			sourceTree = "<group>";
-		};
-		DBFB0970184DC55B00F37EEE /* arm */ = {
-			isa = PBXGroup;
-			children = (
-				DBFB0971184DC55B00F37EEE /* ffi.c */,
-				DBFB0972184DC55B00F37EEE /* sysv.S */,
-			);
-			path = arm;
-			sourceTree = "<group>";
-		};
-		DBFB0975184DC55B00F37EEE /* x86 */ = {
-			isa = PBXGroup;
-			children = (
-				DBFB0976184DC55B00F37EEE /* darwin.S */,
-				DBFB0977184DC55B00F37EEE /* darwin64.S */,
-				DBFB0978184DC55B00F37EEE /* ffi.c */,
-				DBFB0979184DC55B00F37EEE /* ffi64.c */,
-			);
-			path = x86;
-			sourceTree = "<group>";
-		};
 		DBFB098C184DC7AF00F37EEE /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -779,7 +684,6 @@
 				DBFB09EE184DC7E400F37EEE /* A2BlockInvocation.m */,
 				DBFB09EF184DC7E400F37EEE /* A2DynamicDelegate.h */,
 				DBFB09F0184DC7E400F37EEE /* A2DynamicDelegate.m */,
-				DBFB09F1184DC7E400F37EEE /* BKFFICompatibility.h */,
 				DBFB09F7184DC7E400F37EEE /* NSObject+A2BlockDelegate.h */,
 				DBFB09F8184DC7E400F37EEE /* NSObject+A2BlockDelegate.m */,
 				DBFB09F9184DC7E400F37EEE /* NSObject+A2DynamicDelegate.h */,
@@ -901,7 +805,6 @@
 				DBFB09BF184DC7B000F37EEE /* NSMutableIndexSet+BlocksKit.h in Headers */,
 				DBFB09BC184DC7B000F37EEE /* NSMutableDictionary+BlocksKit.h in Headers */,
 				DBFB09AC184DC7B000F37EEE /* BKMacros.h in Headers */,
-				DBFB0A01184DC7E400F37EEE /* BKFFICompatibility.h in Headers */,
 				DBFB0955184DC3AB00F37EEE /* BlocksKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1108,30 +1011,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB848AC918852A63004FEA86 /* debug.c in Sources */,
 				DBFB0A06184DC7E400F37EEE /* NSURLConnection+BlocksKit.m in Sources */,
 				DBFB0A03184DC7E400F37EEE /* NSCache+BlocksKit.m in Sources */,
-				DBFB097D184DC55B00F37EEE /* sysv.S in Sources */,
 				DBFB0A31184DC83200F37EEE /* UIAlertView+BlocksKit.m in Sources */,
 				DBFB0A34184DC83200F37EEE /* UIGestureRecognizer+BlocksKit.m in Sources */,
-				DBFB097C184DC55B00F37EEE /* ffi.c in Sources */,
-				DBFB0981184DC55B00F37EEE /* darwin64.S in Sources */,
 				DBFB09B1184DC7B000F37EEE /* NSDictionary+BlocksKit.m in Sources */,
 				DBFB09BA184DC7B000F37EEE /* NSMutableArray+BlocksKit.m in Sources */,
 				DBFB09AE184DC7B000F37EEE /* NSArray+BlocksKit.m in Sources */,
 				DBFB0A36184DC83200F37EEE /* UITextField+BlocksKit.m in Sources */,
-				DBFB0982184DC55B00F37EEE /* ffi.c in Sources */,
 				DBFB09B4184DC7B000F37EEE /* NSIndexSet+BlocksKit.m in Sources */,
-				DBFB097E184DC55B00F37EEE /* prep_cif.c in Sources */,
-				DBFB0980184DC55B00F37EEE /* darwin.S in Sources */,
 				DBFB09D5184DC7B000F37EEE /* NSSet+BlocksKit.m in Sources */,
 				DBFB0A0C184DC7E400F37EEE /* NSObject+A2DynamicDelegate.m in Sources */,
-				DBFB097F184DC55B00F37EEE /* types.c in Sources */,
 				DBFB09CF184DC7B000F37EEE /* NSObject+BKBlockObservation.m in Sources */,
 				DBFB0A09184DC7E400F37EEE /* NSObject+A2BlockDelegate.m in Sources */,
 				DBFB09D8184DC7B000F37EEE /* NSTimer+BlocksKit.m in Sources */,
 				DBFB09CC184DC7B000F37EEE /* NSObject+BKBlockExecution.m in Sources */,
-				DBFB0983184DC55B00F37EEE /* ffi64.c in Sources */,
 				DBFB0A1A184DC82100F37EEE /* MFMessageComposeViewController+BlocksKit.m in Sources */,
 				DBFB0A35184DC83200F37EEE /* UIPopoverController+BlocksKit.m in Sources */,
 				DBFB0A37184DC83200F37EEE /* UIView+BlocksKit.m in Sources */,
@@ -1145,11 +1039,9 @@
 				DBFB0A33184DC83200F37EEE /* UIControl+BlocksKit.m in Sources */,
 				DBFB09B7184DC7B000F37EEE /* NSInvocation+BlocksKit.m in Sources */,
 				DBFB0A32184DC83200F37EEE /* UIBarButtonItem+BlocksKit.m in Sources */,
-				DBFB097B184DC55B00F37EEE /* sysv.S in Sources */,
 				2BB8A49C18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m in Sources */,
 				DBFB09FC184DC7E400F37EEE /* A2BlockInvocation.m in Sources */,
 				DBFB09D2184DC7B000F37EEE /* NSOrderedSet+BlocksKit.m in Sources */,
-				DBFB097A184DC55B00F37EEE /* ffi.c in Sources */,
 				DBFB0A19184DC82100F37EEE /* MFMailComposeViewController+BlocksKit.m in Sources */,
 				DBFB09C3184DC7B000F37EEE /* NSMutableOrderedSet+BlocksKit.m in Sources */,
 			);
@@ -1177,6 +1069,7 @@
 				DBFB0B15184DCD6200F37EEE /* NSURLConnectionBlocksKitTest.m in Sources */,
 				DBFB0AFE184DCD6200F37EEE /* A2BlockDelegateTests.m in Sources */,
 				DBFB0B00184DCD6200F37EEE /* A2DynamicDelegateTests.m in Sources */,
+				DBD7875418E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */,
 				DBFB0B0D184DCD6200F37EEE /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
 				DBFB0B13184DCD6200F37EEE /* NSSetBlocksKitTest.m in Sources */,
 				DBFB0B08184DCD6200F37EEE /* NSIndexSetBlocksKitTest.m in Sources */,
@@ -1184,7 +1077,6 @@
 				DBFB0B1A184DCD6200F37EEE /* UIWebViewBlocksKitTest.m in Sources */,
 				DBFB0B0E184DCD6200F37EEE /* NSMutableSetBlocksKitTest.m in Sources */,
 				DBFB0B16184DCD6200F37EEE /* UIActionSheetBlocksKitTest.m in Sources */,
-				DBFB0B01184DCD6200F37EEE /* BKAsyncTestCase.m in Sources */,
 				DBFB0B11184DCD6200F37EEE /* NSObjectBlocksKitTest.m in Sources */,
 				DBE126DA184DDD8F0023AFAD /* A2DynamicTestClasses.m in Sources */,
 				DBFB0B05184DCD6200F37EEE /* NSArrayBlocksKitTest.m in Sources */,
@@ -1215,7 +1107,6 @@
 				DBFB09CA184DC7B000F37EEE /* NSObject+BKAssociatedObjects.m in Sources */,
 				DBFB09BE184DC7B000F37EEE /* NSMutableDictionary+BlocksKit.m in Sources */,
 				DBFB09BB184DC7B000F37EEE /* NSMutableArray+BlocksKit.m in Sources */,
-				DB848ACA18852A63004FEA86 /* debug.c in Sources */,
 				DBFB09C1184DC7B000F37EEE /* NSMutableIndexSet+BlocksKit.m in Sources */,
 				DBFB0A0D184DC7E400F37EEE /* NSObject+A2DynamicDelegate.m in Sources */,
 				DBFB09D9184DC7B000F37EEE /* NSTimer+BlocksKit.m in Sources */,
@@ -1230,7 +1121,6 @@
 				DBFB0B1D184DCD9C00F37EEE /* A2BlockDelegateTests.m in Sources */,
 				DBFB0B1E184DCD9C00F37EEE /* A2BlockInvocationTests.m in Sources */,
 				DBFB0B1F184DCD9C00F37EEE /* A2DynamicDelegateTests.m in Sources */,
-				DBFB0B20184DCD9C00F37EEE /* BKAsyncTestCase.m in Sources */,
 				DBFB0B21184DCD9C00F37EEE /* BKMacrosTest.m in Sources */,
 				DBFB0B22184DCD9C00F37EEE /* NSArrayBlocksKitTest.m in Sources */,
 				DBFB0B23184DCD9C00F37EEE /* NSCacheBlocksKitTest.m in Sources */,
@@ -1251,6 +1141,7 @@
 				DBFB0B31184DCD9C00F37EEE /* NSTimerBlocksKitTest.m in Sources */,
 				DBFB0B32184DCD9C00F37EEE /* NSURLConnectionBlocksKitTest.m in Sources */,
 				DBE126D9184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */,
+				DBD7875518E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1558,7 +1449,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-Wl,-no_compact_unwind",
 				);
 				PRODUCT_NAME = "BlocksKit-iOS-Tests";
 				SDKROOT = iphoneos;
@@ -1604,7 +1494,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-Wl,-no_compact_unwind",
 				);
 				PRODUCT_NAME = "BlocksKit-iOS-Tests";
 				SDKROOT = iphoneos;

@@ -2,12 +2,19 @@
 //  UIImagePickerController+BlocksKit.h
 //  BlocksKit
 //
-//  Created by Yas Kuraishi on 2/20/14.
-//  Copyright (c) 2014 Pandamonia LLC. All rights reserved.
+//  Contributed by Yas Kuraishi.
 //
 
 #import <UIKit/UIKit.h>
 
+/** UIImagePickerController with block callback.
+
+ Created by [Yas Kuraishi](https://github.com/YasKuraishi) and contributed to
+ BlocksKit.
+
+ @warning UIImagePickerController is only available on a platform with
+ UIKit.
+*/
 @interface UIImagePickerController (BlocksKit)
 
 /**

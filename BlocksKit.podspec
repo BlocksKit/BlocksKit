@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'BlocksKit'
-  s.version               = '2.2.0'
+  s.version               = '2.2.2'
   s.license               = 'MIT'
   s.summary               = 'The Objective-C block utilities you always wish you had.'
   s.homepage              = 'https://zwaldowski.github.io/BlocksKit'
@@ -23,15 +23,8 @@ Pod::Spec.new do |s|
     ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Core/*.{h,m}'
   end
 
-  s.subspec 'MiniFFI' do |ss|
-    ss.source_files = 'ffi-mini/include/*.h', 'ffi-mini/src/*.c', 'ffi-mini/src/aarch64/*.{c,S}', 'ffi-mini/src/arm/*.{c,S}', 'ffi-mini/src/x86/*.{c,S}'
-    ss.xcconfig     = { 'OTHER_LDFLAGS' => "-Wl,-no_compact_unwind" }
-  end
-
   s.subspec 'DynamicDelegate' do |ss|
     ss.source_files = 'BlocksKit/DynamicDelegate/*.{h,m}', 'BlocksKit/DynamicDelegate/Foundation/*.{h,m}'
-    ss.ios.dependency 'BlocksKit/MiniFFI'
-    ss.osx.library = 'ffi'
   end
 
   s.subspec 'MessageUI' do |ss|

@@ -14,26 +14,30 @@
 
 @implementation MFMailComposeViewControllerBlocksKitTest {
 	MFMailComposeViewController *_subject;
-	BOOL delegateWorked;
+	BOOL _delegateWorked;
 }
 
 - (void)setUp {
 	_subject = [MFMailComposeViewController new];
+	_delegateWorked = NO;
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-	delegateWorked = YES;
+	_delegateWorked = YES;
 }
 
 - (void)testCompletionBlock {
-	delegateWorked = NO;
+	if (!_subject) return;
+	
+	_delegateWorked = NO;
 	__block BOOL blockWorked = NO;
+	
 	_subject.mailComposeDelegate = self;
 	_subject.bk_completionBlock = ^(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *err) {
 		blockWorked = YES;
 	};
 	[[_subject bk_dynamicDelegateForProtocol:@protocol(MFMailComposeViewControllerDelegate)] mailComposeController:_subject didFinishWithResult:MFMailComposeResultSent error:nil];
-	XCTAssertTrue(delegateWorked, @"Delegate method not called.");
+	XCTAssertTrue(_delegateWorked, @"Delegate method not called.");
 	XCTAssertTrue(blockWorked, @"Block handler not called.");
 }
 

@@ -2,9 +2,6 @@
 //  UIImagePickerController+BlocksKit.m
 //  BlocksKit
 //
-//  Created by Yas Kuraishi on 2/20/14.
-//  Copyright (c) 2014 Pandamonia LLC. All rights reserved.
-//
 
 #import "A2DynamicDelegate.h"
 #import "NSObject+A2BlockDelegate.h"

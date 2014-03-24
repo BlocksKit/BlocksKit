@@ -11,22 +11,7 @@ Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
 Protocol *a2_protocolForDelegatingObject(id obj, Protocol *protocol);
 
-#if !defined(NS_BLOCK_ASSERTIONS)
-static BOOL a2_methodSignaturesCompatible(NSMethodSignature *methodSignature, NSMethodSignature *blockSignature)
-{
-	if (methodSignature.methodReturnType[0] != blockSignature.methodReturnType[0])
-		return NO;
-
-	NSUInteger numberOfArguments = methodSignature.numberOfArguments;
-	for (NSUInteger i = 2; i < numberOfArguments; i++) {
-		if ([methodSignature getArgumentTypeAtIndex:i][0] != [blockSignature getArgumentTypeAtIndex:i - 1][0])
-			return NO;
-	}
-	return YES;
-}
-#endif
-
-static BOOL selectorsEqual(const void *item1, const void *item2, NSUInteger(*size)(const void *item))
+static BOOL selectorsEqual(const void *item1, const void *item2, NSUInteger(*__unused size)(const void __unused *item))
 {
 	return sel_isEqual((SEL)item1, (SEL)item2);
 }
@@ -52,9 +37,9 @@ static NSString *selectorDescribe(const void *item1)
 	NSPointerFunctions *selectors = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 	selectors.isEqualFunction = selectorsEqual;
 	selectors.descriptionFunction = selectorDescribe;
-    
+
 	NSPointerFunctions *strongObjects = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality];
-    
+
 	return [[NSMapTable alloc] initWithKeyPointerFunctions:selectors valuePointerFunctions:strongObjects capacity:1];
 }
 
@@ -90,7 +75,7 @@ static NSString *selectorDescribe(const void *item1)
 @interface A2DynamicDelegate ()
 
 @property (nonatomic) A2DynamicClassDelegate *classProxy;
-@property (nonatomic, readonly) NSMapTable *invocationsForSelectors;
+@property (nonatomic, readonly) NSMapTable *invocationsBySelectors;
 @property (nonatomic, weak, readwrite) id realDelegate;
 
 - (BOOL) isClassProxy;
@@ -127,14 +112,14 @@ static NSString *selectorDescribe(const void *item1)
 {
 	_protocol = protocol;
 	_handlers = [NSMutableDictionary dictionary];
-    _invocationsForSelectors = [NSMapTable bk_selectorsToStrongObjectsMapTable];
+	_invocationsBySelectors = [NSMapTable bk_selectorsToStrongObjectsMapTable];
 	return self;
 }
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
-    A2BlockInvocation *invocation = nil;
-    if ((invocation = [self.invocationsForSelectors bk_objectForSelector:aSelector]))
+	A2BlockInvocation *invocation = nil;
+	if ((invocation = [self.invocationsBySelectors bk_objectForSelector:aSelector]))
 		return invocation.methodSignature;
 	else if ([self.realDelegate methodSignatureForSelector:aSelector])
 		return [self.realDelegate methodSignatureForSelector:aSelector];
@@ -149,18 +134,18 @@ static NSString *selectorDescribe(const void *item1)
 }
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"<A2DynamicDelegate:%p; protocol = %@>", self, NSStringFromProtocol(self.protocol)];
+	return [NSString stringWithFormat:@"<A2DynamicDelegate:%p; protocol = %@>", (__bridge void *)self, NSStringFromProtocol(self.protocol)];
 }
 
 - (void)forwardInvocation:(NSInvocation *)outerInv
 {
-    SEL selector = outerInv.selector;
-    A2BlockInvocation *innerInv = nil;
-    if ((innerInv = [self.invocationsForSelectors bk_objectForSelector:selector])) {
-		[innerInv invokeUsingInvocation:outerInv];
+	SEL selector = outerInv.selector;
+	A2BlockInvocation *innerInv = nil;
+	if ((innerInv = [self.invocationsBySelectors bk_objectForSelector:selector])) {
+		[innerInv invokeWithInvocation:outerInv];
 	} else if ([self.realDelegate respondsToSelector:selector]) {
 		[outerInv invokeWithTarget:self.realDelegate];
-    }
+	}
 }
 
 #pragma mark -
@@ -171,22 +156,22 @@ static NSString *selectorDescribe(const void *item1)
 }
 - (BOOL)respondsToSelector:(SEL)selector
 {
-    return [self.invocationsForSelectors bk_objectForSelector:selector] || class_respondsToSelector(object_getClass(self), selector) || [self.realDelegate respondsToSelector:selector];
+	return [self.invocationsBySelectors bk_objectForSelector:selector] || class_respondsToSelector(object_getClass(self), selector) || [self.realDelegate respondsToSelector:selector];
 }
 
 - (void)doesNotRecognizeSelector:(SEL)aSelector
 {
-	[NSException raise:NSInvalidArgumentException format:@"-[%s %@]: unrecognized selector sent to instance %p", object_getClassName(self), NSStringFromSelector(aSelector), self];
+	[NSException raise:NSInvalidArgumentException format:@"-[%s %@]: unrecognized selector sent to instance %p", object_getClassName(self), NSStringFromSelector(aSelector), (__bridge void *)self];
 }
 
 #pragma mark - Block Instance Method Implementations
 
 - (id)blockImplementationForMethod:(SEL)selector
 {
-    A2BlockInvocation *invocation = nil;
-    if ((invocation = [self.invocationsForSelectors bk_objectForSelector:selector]))
+	A2BlockInvocation *invocation = nil;
+	if ((invocation = [self.invocationsBySelectors bk_objectForSelector:selector]))
 		return invocation.block;
-    return NULL;
+	return NULL;
 }
 
 - (void)implementMethod:(SEL)selector withBlock:(id)block
@@ -195,22 +180,24 @@ static NSString *selectorDescribe(const void *item1)
 	BOOL isClassMethod = self.isClassProxy;
 
 	if (!block) {
-		[self.invocationsForSelectors bk_removeObjectForSelector:selector];
+		[self.invocationsBySelectors bk_removeObjectForSelector:selector];
 		return;
 	}
 
 	struct objc_method_description methodDescription = protocol_getMethodDescription(self.protocol, selector, YES, !isClassMethod);
 	if (!methodDescription.name) methodDescription = protocol_getMethodDescription(self.protocol, selector, NO, !isClassMethod);
-	if (!methodDescription.name) return;
 
-	NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes:methodDescription.types];
-	A2BlockInvocation *inv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:protoSig];
+	A2BlockInvocation *inv = nil;
+	if (methodDescription.name) {
+		NSMethodSignature *protoSig = [NSMethodSignature signatureWithObjCTypes:methodDescription.types];
+		inv = [[A2BlockInvocation alloc] initWithBlock:block methodSignature:protoSig];
+	} else {
+		inv = [[A2BlockInvocation alloc] initWithBlock:block];
+	}
 
-	NSAssert(a2_methodSignaturesCompatible(inv.methodSignature, inv.blockSignature), @"Attempt to implement %s selector with incompatible block (selector: %c%s)", isClassMethod ? "class" : "instance", "-+"[!!isClassMethod], sel_getName(selector));
-    
-    [self.invocationsForSelectors bk_setObject:inv forSelector:selector];
+	[self.invocationsBySelectors bk_setObject:inv forSelector:selector];
 }
-- (void)removeBlockImplementationForMethod:(SEL)selector
+- (void)removeBlockImplementationForMethod:(SEL)selector __unused
 {
 	[self implementMethod:selector withBlock:nil];
 }
@@ -226,7 +213,7 @@ static NSString *selectorDescribe(const void *item1)
 {
 	[self.classProxy implementMethod:selector withBlock:block];
 }
-- (void)removeBlockImplementationForClassMethod:(SEL)selector
+- (void)removeBlockImplementationForClassMethod:(SEL)selector __unused
 {
 	[self.classProxy implementMethod:selector withBlock:nil];
 }
@@ -236,9 +223,6 @@ static NSString *selectorDescribe(const void *item1)
 #pragma mark -
 
 @implementation A2DynamicClassDelegate
-{
-	Class _proxiedClass;
-}
 
 - (BOOL)isClassProxy
 {
@@ -250,28 +234,18 @@ static NSString *selectorDescribe(const void *item1)
 }
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
-    return [self.invocationsForSelectors bk_objectForSelector:aSelector] || [_proxiedClass respondsToSelector:aSelector];
+	return [self.invocationsBySelectors bk_objectForSelector:aSelector] || [_proxiedClass respondsToSelector:aSelector];
 }
 
 - (Class)class
 {
-	return _proxiedClass;
-}
-
-- (id)initWithClass:(Class)proxy
-{
-	self = [super initWithProtocol:nil];
-	if (!self) return nil;
-
-	_proxiedClass = proxy;
-
-	return self;
+	return self.proxiedClass;
 }
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
-    A2BlockInvocation *invocation = nil;
-    if ((invocation = [self.invocationsForSelectors bk_objectForSelector:aSelector]))
+	A2BlockInvocation *invocation = nil;
+	if ((invocation = [self.invocationsBySelectors bk_objectForSelector:aSelector]))
 		return invocation.methodSignature;
 	else if ([_proxiedClass methodSignatureForSelector:aSelector])
 		return [_proxiedClass methodSignatureForSelector:aSelector];
@@ -290,13 +264,13 @@ static NSString *selectorDescribe(const void *item1)
 
 - (void)forwardInvocation:(NSInvocation *)outerInv
 {
-    SEL selector = outerInv.selector;
-    A2BlockInvocation *innerInv = nil;
-    if ((innerInv = [self.invocationsForSelectors bk_objectForSelector:selector])) {
-		[innerInv invokeUsingInvocation:outerInv];
+	SEL selector = outerInv.selector;
+	A2BlockInvocation *innerInv = nil;
+	if ((innerInv = [self.invocationsBySelectors bk_objectForSelector:selector])) {
+		[innerInv invokeWithInvocation:outerInv];
 	} else {
-        [outerInv invokeWithTarget:_proxiedClass];
-    }
+		[outerInv invokeWithTarget:_proxiedClass];
+	}
 }
 
 #pragma mark - Unavailable Methods

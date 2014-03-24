@@ -54,9 +54,9 @@ static SEL getterForProperty(Class cls, NSString *propertyName)
 	if (property) {
 		char *getterName = property_copyAttributeValue(property, "G");
 		if (getterName) {
-            getter = sel_getUid(getterName);
-            free(getterName);
-        }
+			getter = sel_getUid(getterName);
+			free(getterName);
+		}
 	}
 
 	if (!getter) {
@@ -88,17 +88,17 @@ static SEL setterForProperty(Class cls, NSString *propertyName)
 }
 
 static SEL prefixedSelector(SEL original) {
-    const char prefix[] = "a2_";
-    const char *initial = sel_getName(original);
-    NSUInteger prefixLength = strlen(prefix);
-    NSUInteger initialLength = strlen(initial);
-    
-    char selector[prefixLength + initialLength + 1];
-    memcpy(selector, prefix, prefixLength);
+	const char prefix[] = "a2_";
+	const char *initial = sel_getName(original);
+	NSUInteger prefixLength = strlen(prefix);
+	NSUInteger initialLength = strlen(initial);
+
+	char selector[prefixLength + initialLength + 1];
+	memcpy(selector, prefix, prefixLength);
 	memcpy(selector + prefixLength, original, initialLength);
-    selector[prefixLength + initialLength] = '\0';
-    
-    return sel_registerName(selector);
+	selector[prefixLength + initialLength] = '\0';
+
+	return sel_registerName(selector);
 }
 
 #pragma mark -
@@ -169,12 +169,12 @@ static SEL prefixedSelector(SEL original) {
 				SEL a2_getter = prefixedSelector(getterForProperty(delegatingObject.class, delegateProperty));
 
 				if ([delegatingObject respondsToSelector:a2_setter]) {
-                    id (*getterDispatch)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
+					id (*getterDispatch)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
 					id originalDelegate = getterDispatch(delegatingObject, a2_getter);
 					if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class])) {
-                        void (*setterDispatch)(id, SEL, id) = (void (*)(id, SEL, id)) objc_msgSend;
+						void (*setterDispatch)(id, SEL, id) = (void (*)(id, SEL, id)) objc_msgSend;
 						setterDispatch(delegatingObject, a2_setter, dynamicDelegate);
-                    }
+					}
 				}
 			}
 
@@ -185,14 +185,14 @@ static SEL prefixedSelector(SEL original) {
 #if !defined(NS_BLOCK_ASSERTIONS)
 		BOOL success =
 #endif
-        class_addMethod(self, getter, getterImplementation, getterTypes);
+		class_addMethod(self, getter, getterImplementation, getterTypes);
 		NSCAssert(success, @"Could not implement getter for \"%@\" property.", propertyName);
 
 		const char *setterTypes = "v@:@";
 #if !defined(NS_BLOCK_ASSERTIONS)
 		success =
 #endif
-        class_addMethod(self, setter, setterImplementation, setterTypes);
+		class_addMethod(self, setter, setterImplementation, setterTypes);
 		NSCAssert(success, @"Could not implement setter for \"%@\" property.", propertyName);
 	}];
 }
@@ -236,12 +236,12 @@ static SEL prefixedSelector(SEL original) {
 		A2DynamicDelegate *dynamicDelegate = [delegatingObject bk_dynamicDelegateForProtocol:a2_protocolForDelegatingObject(delegatingObject, protocol)];
 
 		if ([delegatingObject respondsToSelector:a2_setter]) {
-            id (*getterDispatch)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
+			id (*getterDispatch)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
 			id originalDelegate = getterDispatch(delegatingObject, a2_getter);
 			if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class])) {
-                void (*setterDispatch)(id, SEL, id) = (void (*)(id, SEL, id)) objc_msgSend;
-                setterDispatch(delegatingObject, a2_setter, dynamicDelegate);
-            }
+				void (*setterDispatch)(id, SEL, id) = (void (*)(id, SEL, id)) objc_msgSend;
+				setterDispatch(delegatingObject, a2_setter, dynamicDelegate);
+			}
 		}
 
 		if ([delegate isEqual:dynamicDelegate]) {

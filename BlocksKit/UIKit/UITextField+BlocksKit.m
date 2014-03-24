@@ -2,9 +2,6 @@
 //  UITextField+BlocksKit.m
 //  BlocksKit
 //
-//  Created by Samuel E. Giddins on 7/24/13.
-//  Copyright (c) 2013 Pandamonia LLC. All rights reserved.
-//
 
 #import "UITextField+BlocksKit.h"
 #import "A2DynamicDelegate.h"

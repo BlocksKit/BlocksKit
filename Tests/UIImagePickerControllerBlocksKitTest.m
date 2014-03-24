@@ -1,9 +1,6 @@
 //
 //  UIImagePickerControllerBlocksKitTest.m
-//  BlocksKit
-//
-//  Created by Yas Kuraishi on 2/21/14.
-//  Copyright (c) 2014 Pandamonia LLC. All rights reserved.
+//  BlocksKit Unit Tests
 //
 
 #import <XCTest/XCTest.h>
