@@ -15,6 +15,8 @@
 		DB5BF882185E909300FF2A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08C2184DC23000F37EEE /* UIKit.framework */; };
 		DB981A04185E96A60047E817 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB981A03185E96A60047E817 /* Images.xcassets */; };
 		DB981A06185E96EA0047E817 /* iOS-Runner.m in Sources */ = {isa = PBXBuildFile; fileRef = DB981A05185E96EA0047E817 /* iOS-Runner.m */; };
+		DBD7875418E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD7875318E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m */; };
+		DBD7875518E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD7875318E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m */; };
 		DBE126D8184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D7184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m */; };
 		DBE126D9184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D7184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m */; };
 		DBE126DA184DDD8F0023AFAD /* A2DynamicTestClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE126D4184DDCFA0023AFAD /* A2DynamicTestClasses.m */; };
@@ -149,7 +151,6 @@
 		DBFB0AFE184DCD6200F37EEE /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC5184DCD6200F37EEE /* A2BlockDelegateTests.m */; };
 		DBFB0AFF184DCD6200F37EEE /* A2BlockInvocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC7184DCD6200F37EEE /* A2BlockInvocationTests.m */; };
 		DBFB0B00184DCD6200F37EEE /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC9184DCD6200F37EEE /* A2DynamicDelegateTests.m */; };
-		DBFB0B01184DCD6200F37EEE /* BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACB184DCD6200F37EEE /* BKAsyncTestCase.m */; };
 		DBFB0B02184DCD6200F37EEE /* BKMacrosTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACD184DCD6200F37EEE /* BKMacrosTest.m */; };
 		DBFB0B03184DCD6200F37EEE /* MFMailComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACF184DCD6200F37EEE /* MFMailComposeViewControllerBlocksKitTest.m */; };
 		DBFB0B04184DCD6200F37EEE /* MFMessageComposeViewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AD1184DCD6200F37EEE /* MFMessageComposeViewControllerBlocksKitTest.m */; };
@@ -178,7 +179,6 @@
 		DBFB0B1D184DCD9C00F37EEE /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC5184DCD6200F37EEE /* A2BlockDelegateTests.m */; };
 		DBFB0B1E184DCD9C00F37EEE /* A2BlockInvocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC7184DCD6200F37EEE /* A2BlockInvocationTests.m */; };
 		DBFB0B1F184DCD9C00F37EEE /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC9184DCD6200F37EEE /* A2DynamicDelegateTests.m */; };
-		DBFB0B20184DCD9C00F37EEE /* BKAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACB184DCD6200F37EEE /* BKAsyncTestCase.m */; };
 		DBFB0B21184DCD9C00F37EEE /* BKMacrosTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ACD184DCD6200F37EEE /* BKMacrosTest.m */; };
 		DBFB0B22184DCD9C00F37EEE /* NSArrayBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AD3184DCD6200F37EEE /* NSArrayBlocksKitTest.m */; };
 		DBFB0B23184DCD9C00F37EEE /* NSCacheBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AD5184DCD6200F37EEE /* NSCacheBlocksKitTest.m */; };
@@ -291,6 +291,8 @@
 		DB981A00185E95C00047E817 /* BlocksKit-iOS-Tests-Runner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocksKit-iOS-Tests-Runner-Info.plist"; sourceTree = "<group>"; };
 		DB981A03185E96A60047E817 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DB981A05185E96EA0047E817 /* iOS-Runner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "iOS-Runner.m"; sourceTree = "<group>"; };
+		DBD7875218E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+BKAsyncTestCase.h"; sourceTree = "<group>"; };
+		DBD7875318E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+BKAsyncTestCase.m"; sourceTree = "<group>"; };
 		DBE126D3184DDCFA0023AFAD /* A2DynamicTestClasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicTestClasses.h; sourceTree = "<group>"; };
 		DBE126D4184DDCFA0023AFAD /* A2DynamicTestClasses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicTestClasses.m; sourceTree = "<group>"; };
 		DBE126D6184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "A2DynamicTestClasses+A2BlockDelegate.h"; sourceTree = "<group>"; };
@@ -388,8 +390,6 @@
 		DBFB0AC5184DCD6200F37EEE /* A2BlockDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockDelegateTests.m; sourceTree = "<group>"; };
 		DBFB0AC7184DCD6200F37EEE /* A2BlockInvocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2BlockInvocationTests.m; sourceTree = "<group>"; };
 		DBFB0AC9184DCD6200F37EEE /* A2DynamicDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegateTests.m; sourceTree = "<group>"; };
-		DBFB0ACA184DCD6200F37EEE /* BKAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKAsyncTestCase.h; sourceTree = "<group>"; };
-		DBFB0ACB184DCD6200F37EEE /* BKAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKAsyncTestCase.m; sourceTree = "<group>"; };
 		DBFB0ACD184DCD6200F37EEE /* BKMacrosTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKMacrosTest.m; sourceTree = "<group>"; };
 		DBFB0ACF184DCD6200F37EEE /* MFMailComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMailComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		DBFB0AD1184DCD6200F37EEE /* MFMessageComposeViewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMessageComposeViewControllerBlocksKitTest.m; sourceTree = "<group>"; };
@@ -480,8 +480,8 @@
 		DBE126DC184DDDDB0023AFAD /* Test Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DBFB0ACA184DCD6200F37EEE /* BKAsyncTestCase.h */,
-				DBFB0ACB184DCD6200F37EEE /* BKAsyncTestCase.m */,
+				DBD7875218E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.h */,
+				DBD7875318E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m */,
 				DBE126D3184DDCFA0023AFAD /* A2DynamicTestClasses.h */,
 				DBE126D4184DDCFA0023AFAD /* A2DynamicTestClasses.m */,
 				DBE126D6184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.h */,
@@ -1069,6 +1069,7 @@
 				DBFB0B15184DCD6200F37EEE /* NSURLConnectionBlocksKitTest.m in Sources */,
 				DBFB0AFE184DCD6200F37EEE /* A2BlockDelegateTests.m in Sources */,
 				DBFB0B00184DCD6200F37EEE /* A2DynamicDelegateTests.m in Sources */,
+				DBD7875418E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */,
 				DBFB0B0D184DCD6200F37EEE /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
 				DBFB0B13184DCD6200F37EEE /* NSSetBlocksKitTest.m in Sources */,
 				DBFB0B08184DCD6200F37EEE /* NSIndexSetBlocksKitTest.m in Sources */,
@@ -1076,7 +1077,6 @@
 				DBFB0B1A184DCD6200F37EEE /* UIWebViewBlocksKitTest.m in Sources */,
 				DBFB0B0E184DCD6200F37EEE /* NSMutableSetBlocksKitTest.m in Sources */,
 				DBFB0B16184DCD6200F37EEE /* UIActionSheetBlocksKitTest.m in Sources */,
-				DBFB0B01184DCD6200F37EEE /* BKAsyncTestCase.m in Sources */,
 				DBFB0B11184DCD6200F37EEE /* NSObjectBlocksKitTest.m in Sources */,
 				DBE126DA184DDD8F0023AFAD /* A2DynamicTestClasses.m in Sources */,
 				DBFB0B05184DCD6200F37EEE /* NSArrayBlocksKitTest.m in Sources */,
@@ -1121,7 +1121,6 @@
 				DBFB0B1D184DCD9C00F37EEE /* A2BlockDelegateTests.m in Sources */,
 				DBFB0B1E184DCD9C00F37EEE /* A2BlockInvocationTests.m in Sources */,
 				DBFB0B1F184DCD9C00F37EEE /* A2DynamicDelegateTests.m in Sources */,
-				DBFB0B20184DCD9C00F37EEE /* BKAsyncTestCase.m in Sources */,
 				DBFB0B21184DCD9C00F37EEE /* BKMacrosTest.m in Sources */,
 				DBFB0B22184DCD9C00F37EEE /* NSArrayBlocksKitTest.m in Sources */,
 				DBFB0B23184DCD9C00F37EEE /* NSCacheBlocksKitTest.m in Sources */,
@@ -1142,6 +1141,7 @@
 				DBFB0B31184DCD9C00F37EEE /* NSTimerBlocksKitTest.m in Sources */,
 				DBFB0B32184DCD9C00F37EEE /* NSURLConnectionBlocksKitTest.m in Sources */,
 				DBE126D9184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */,
+				DBD7875518E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
