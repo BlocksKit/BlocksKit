@@ -3,7 +3,7 @@
 //  BlocksKit Unit Tests
 //
 
-#import "BKAsyncTestCase.h"
+#import "XCTestCase+BKAsyncTestCase.h"
 #import <objc/runtime.h>
 
 static void *BKAsyncRestCaseWaitingKey = &BKAsyncRestCaseWaitingKey;
