@@ -57,6 +57,56 @@
  */
 + (id)bk_performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 
+/** Executes a block in the background after a given delay on the receiver.
+ 
+ This class method is functionally identical to `- (id)bk_performBlock:afterDelay:`,
+ except the block will be performed on a background thread instead of the main thread.
+ 
+ @see performBlock:afterDelay:
+ @param block A code block.
+ @param delay A measure in seconds.
+ @return Returns a pointer to the block that may or may not execute the given block.
+ */
+- (id)bk_performBlockInBackground:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay;
+
+/** Executes a block in the background after a given delay.
+ 
+ This class method is functionally identical to `+ (id)bk_performBlock:afterDelay:`, 
+ except the block will be performed on a background thread instead of the main thread.
+ 
+ @see performBlock:afterDelay:
+ @param block A code block.
+ @param delay A measure in seconds.
+ @return Returns a pointer to the block that may or may not execute the given block.
+ */
++ (id)bk_performBlockInBackground:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
+
+/** Executes a block in the background after a given delay.
+ 
+ This class method is functionally identical to `+ (id)bk_performBlock:afterDelay:`,
+ except the block will be performed on the specified thread instead of the main thread.
+ 
+ @see performBlock:afterDelay:
+ @param block A code block.
+ @param queue A background queue.
+ @param delay A measure in seconds.
+ @return Returns a pointer to the block that may or may not execute the given block.
+ */
++ (id)bk_performBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay;
+
+/** Executes a block in the background after a given delay.
+ 
+ This class method is functionally identical to `- (id)bk_performBlock:afterDelay:`,
+ except the block will be performed on the specified thread instead of the main thread.
+ 
+ @see performBlock:afterDelay:
+ @param block A code block.
+ @param queue A background queue.
+ @param delay A measure in seconds.
+ @return Returns a pointer to the block that may or may not execute the given block.
+ */
+- (id)bk_performBlock:(void (^)(id obj))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay;
+
 /** Cancels the potential execution of a block.
 
  @warning *Important:* It is not recommended to cancel a block executed
