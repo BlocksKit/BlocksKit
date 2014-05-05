@@ -101,4 +101,43 @@
  */
 - (void)bk_cancel;
 
+
+///** The block to be fired before the alert view will show. */
+//@property (nonatomic, copy, setter = bk_setWillShowBlock:) void (^bk_willShowBlock)(UIAlertView *alertView);
+//
+///** The block to be fired when the alert view shows. */
+//@property (nonatomic, copy, setter = bk_setDidShowBlock:) void (^bk_didShowBlock)(UIAlertView *alertView);
+//
+///** The block to be fired before the alert view will dismiss. */
+//@property (nonatomic, copy, setter = bk_setWillDismissBlock:) void (^bk_willDismissBlock)(UIAlertView *alertView, NSInteger buttonIndex);
+//
+///** The block to be fired after the alert view dismisses. */
+//@property (nonatomic, copy, setter = bk_setDidDismissBlock:) void (^bk_didDismissBlock)(UIAlertView *alertView, NSInteger buttonIndex);
+//
+///** The block to be fired to determine whether the first non-cancel should be enabled */
+//@property (nonatomic, copy, setter = bk_SetShouldEnableFirstOtherButtonBlock:) BOOL (^bk_shouldEnableFirstOtherButtonBlock)(UIAlertView *alertView) NS_AVAILABLE_IOS(5_0);
+
+
+/** The block to be fired when a gesture recognizer attempts to transition out of UIGestureRecognizerStatePossible. returning NO causes it to transition to UIGestureRecognizerStateFailed */
+@property (nonatomic, copy, setter = bk_SetShouldBeginBlock:) BOOL (^bk_shouldBeginBlock)(UIGestureRecognizer* gestureRecognizer);
+
+
+/** The block to be fired when the recognition of one of gestureRecognizer or otherGestureRecognizer would be blocked by the other
+ return YES to allow both to recognize simultaneously. the default implementation returns NO (by default no two gestures can be recognized simultaneously)
+
+ note: returning YES is guaranteed to allow simultaneous recognition. returning NO is not guaranteed to prevent simultaneous recognition, as the other gesture's delegate may return YES
+ */
+@property (nonatomic, copy, setter = bk_SetShouldRecognizeSimultaneouslyBlock:) BOOL (^bk_shouldRecognizeSimultaneouslyBlock)(UIGestureRecognizer* gestureRecognizer, UIGestureRecognizer* otherGestureRecognizer);
+
+/** The block to be fired once per attempt to recognize, so failure requirements can be determined lazily and may be set up between recognizers across view hierarchies
+ return YES to set up a dynamic failure requirement between gestureRecognizer and otherGestureRecognizer
+
+ note: returning YES is guaranteed to set up the failure requirement. returning NO does not guarantee that there will not be a failure requirement as the other gesture's counterpart delegate or subclass methods may return YES
+ */
+@property (nonatomic, copy, setter = bk_SetShouldRequireFailureOfGestureRecognizerBlock:) BOOL (^bk_shouldRequireFailureOfGestureRecognizerBlock)(UIGestureRecognizer* gestureRecognizer, UIGestureRecognizer* otherGestureRecognizer) NS_AVAILABLE_IOS(7_0);
+@property (nonatomic, copy, setter = bk_SetShouldBeRequiredToFailByGestureRecognizerBlock:) BOOL (^bk_shouldBeRequiredToFailByGestureRecognizerBlock)(UIGestureRecognizer* gestureRecognizer, UIGestureRecognizer* otherGestureRecognizer) NS_AVAILABLE_IOS(7_0);
+
+/** The block to be fired before touchesBegan:withEvent: is called on the gesture recognizer for a new touch. return NO to prevent the gesture recognizer from seeing this touch */
+@property (nonatomic, copy, setter = bk_SetShouldReceiveTouchBlock:) BOOL (^bk_shouldReceiveTouchBlock)(UIGestureRecognizer* gestureRecognizer, UITouch* touch);
+
 @end
