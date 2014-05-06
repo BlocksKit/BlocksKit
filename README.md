@@ -33,7 +33,7 @@ An Xcode-compatible documentation set is available [from CocoaDocs](http://cocoa
 License
 =======
 
-BlocksKit is created and maintained by [Zachary Waldowski](https://github.com/zwaldowski) and [Pandamonia LLC](https://github.com/pandamonia) under the MIT license.  **The project itself is free for use in any and all projects.**  You can use BlocksKit in any project, public or private, with or without attribution - though we prefer attribution! It helps us.
+BlocksKit is created by [Zachary Waldowski](https://github.com/zwaldowski) and [Alexsander Akers](https://github.com/a2) and maintained by Zachary Waldowski under the MIT license.  **The project itself is free for use in any and all projects.**  You can use BlocksKit in any project, public or private, with or without attribution - though we prefer attribution! It helps us.
 
 Unsure about your rights?  [Read more.](http://opensource.org/licenses/MIT)
 
