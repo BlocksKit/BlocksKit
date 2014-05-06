@@ -5,6 +5,8 @@ Blocks in C and Objective-C are downright magical.  They make coding easier and 
 
 BlocksKit is a framework for OS X Mountain Lion and newer and a static library for iOS 6 and newer.
 
+BlocksKit was created by [Zachary Waldowski](https://github.com/zwaldowski) and [Alexsander Akers](https://github.com/a2) and is maintained by Zachary Waldowski.
+
 Installation
 ============
 
@@ -33,7 +35,7 @@ An Xcode-compatible documentation set is available [from CocoaDocs](http://cocoa
 License
 =======
 
-BlocksKit is created by [Zachary Waldowski](https://github.com/zwaldowski) and [Alexsander Akers](https://github.com/a2) and maintained by Zachary Waldowski under the MIT license.  **The project itself is free for use in any and all projects.**  You can use BlocksKit in any project, public or private, with or without attribution - though we prefer attribution! It helps us.
+BlocksKit is maintained under the MIT license.  **The project itself is free for use in any and all projects.**  You can use BlocksKit in any project, public or private, with or without attribution - though we prefer attribution! It helps us.
 
 Unsure about your rights?  [Read more.](http://opensource.org/licenses/MIT)
 
