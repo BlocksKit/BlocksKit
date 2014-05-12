@@ -38,6 +38,51 @@ static Protocol *a2_protocolForDelegatingObject(id obj, Protocol *protocol)
 	return protocol;
 }
 
+static inline BOOL isValidIMP(IMP impl) {
+#if defined(__arm64__)
+    if (impl == NULL || impl == _objc_msgForward) return NO;
+#else
+    if (impl == NULL || impl == _objc_msgForward || impl == _objc_msgForward_stret) return NO;
+#endif
+    return YES;
+}
+
+static void swizzleWithIMP(Class cls, SEL oldSel, SEL newSel, IMP newIMP, const char *types, BOOL aggressive) {
+    Method origMethod = class_getInstanceMethod(cls, oldSel);
+
+    if (class_addMethod(cls, oldSel, newIMP, types)) {
+        // We just ended up implementing a method that doesn't exist
+        // (-[NSURLConnection setDelegate:]) or overrode a superclass
+        // version (-[UIImagePickerController setDelegate:]).
+        IMP parentIMP = NULL;
+        Class superclass = class_getSuperclass(cls);
+        while (superclass && !isValidIMP(parentIMP)) {
+            parentIMP = class_getMethodImplementation(superclass, oldSel);
+            if (isValidIMP(parentIMP)) {
+                break;
+            } else {
+                parentIMP = NULL;
+            }
+
+            superclass = class_getSuperclass(superclass);
+        }
+
+        if (parentIMP) {
+            if (aggressive) {
+                class_addMethod(cls, newSel, parentIMP, types);
+            } else {
+                class_replaceMethod(cls, newSel, newIMP, types);
+                class_replaceMethod(cls, oldSel, parentIMP, types);
+            }
+        }
+    } else {
+        // common case, actual swap
+        class_addMethod(cls, newSel, newIMP, types);
+        Method newMethod = class_getInstanceMethod(cls, newSel);
+        method_exchangeImplementations(origMethod, newMethod);
+    }
+}
+
 @interface A2DynamicDelegate ()
 
 @property (nonatomic, weak, readwrite) id realDelegate;
@@ -251,22 +296,8 @@ static SEL prefixedSelector(SEL original) {
 		dynamicDelegate.realDelegate = delegate;
 	});
 
-	const char *getterTypes = "@@:";
-	const char *setterTypes = "v@:@";
-
-	if (!class_addMethod(self, getter, getterImplementation, getterTypes)) {
-		class_addMethod(self, a2_getter, getterImplementation, getterTypes);
-		Method method = class_getInstanceMethod(self, getter);
-		Method a2_method = class_getInstanceMethod(self, a2_getter);
-		method_exchangeImplementations(method, a2_method);
-	}
-
-	if (!class_addMethod(self, setter, setterImplementation, setterTypes)) {
-		class_addMethod(self, a2_setter, setterImplementation, setterTypes);
-		Method method = class_getInstanceMethod(self, setter);
-		Method a2_method = class_getInstanceMethod(self, a2_setter);
-		method_exchangeImplementations(method, a2_method);
-	}
+    swizzleWithIMP(self, getter, a2_getter, getterImplementation, "@@:", NO);
+    swizzleWithIMP(self, setter, a2_setter, setterImplementation, "v@:@", YES);
 
 	propertyMap[protocolName] = delegateName;
 }
