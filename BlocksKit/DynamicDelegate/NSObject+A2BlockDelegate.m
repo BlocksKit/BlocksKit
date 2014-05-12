@@ -12,6 +12,8 @@
 extern Protocol *a2_dataSourceProtocol(Class cls);
 extern Protocol *a2_delegateProtocol(Class cls);
 
+#pragma mark - Functions
+
 static BOOL bk_object_isKindOfClass(id obj, Class testClass)
 {
 	BOOL isKindOfClass = NO;
@@ -83,68 +85,68 @@ static void swizzleWithIMP(Class cls, SEL oldSel, SEL newSel, IMP newIMP, const 
     }
 }
 
+static SEL selectorWithPattern(const char *prefix, const char *key, const char *suffix) {
+	size_t prefixLength = prefix ? strlen(prefix) : 0;
+	size_t suffixLength = suffix ? strlen(suffix) : 0;
+
+	char initial = key[0];
+	if (prefixLength) initial = (char)toupper(initial);
+	size_t initialLength = 1;
+
+	const char *rest = key + initialLength;
+	size_t restLength = strlen(rest);
+
+	char selector[prefixLength + initialLength + restLength + suffixLength + 1];
+	memcpy(selector, prefix, prefixLength);
+	selector[prefixLength] = initial;
+	memcpy(selector + prefixLength + initialLength, rest, restLength);
+	memcpy(selector + prefixLength + initialLength + restLength, suffix, suffixLength);
+	selector[prefixLength + initialLength + restLength + suffixLength] = '\0';
+
+	return sel_registerName(selector);
+}
+
+static SEL getterForProperty(Class cls, NSString *propertyName)
+{
+	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
+	if (property) {
+		char *getterName = property_copyAttributeValue(property, "G");
+		if (getterName) {
+			SEL getter = sel_getUid(getterName);
+			free(getterName);
+			if (getter) return getter;
+		}
+	}
+
+	return sel_registerName(propertyName.UTF8String);
+}
+
+static SEL setterForProperty(Class cls, NSString *propertyName)
+{
+	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
+	if (property) {
+		char *setterName = property_copyAttributeValue(property, "S");
+		if (setterName) {
+			SEL setter = sel_getUid(setterName);
+			free(setterName);
+			if (setter) return setter;
+		}
+	}
+
+	return selectorWithPattern("set", propertyName.UTF8String, ":");
+}
+
+static inline SEL prefixedSelector(SEL original) {
+	return selectorWithPattern("a2_", sel_getName(original), NULL);
+}
+
+#pragma mark -
+
 @interface A2DynamicDelegate ()
 
 @property (nonatomic, weak, readwrite) id realDelegate;
 
 @end
-
-#pragma mark - Functions
-
-static SEL getterForProperty(Class cls, NSString *propertyName)
-{
-	SEL getter = NULL;
-
-	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
-	if (property) {
-		char *getterName = property_copyAttributeValue(property, "G");
-		if (getterName) {
-			getter = sel_getUid(getterName);
-			free(getterName);
-		}
-	}
-
-	if (!getter) {
-		getter = NSSelectorFromString(propertyName);
-	}
-
-	return getter;
-}
-
-static SEL setterForProperty(Class cls, NSString *propertyName)
-{
-	SEL setter = NULL;
-
-	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
-	if (property) {
-		char *setterName = property_copyAttributeValue(property, "S");
-		if (setterName) setter = sel_getUid(setterName);
-		free(setterName);
-	}
-
-	if (!setter) {
-		unichar firstChar = [propertyName characterAtIndex:0];
-		NSString *coda = [propertyName substringFromIndex:1];
-
-		setter = NSSelectorFromString([NSString stringWithFormat:@"set%c%@:", toupper(firstChar), coda]);
-	}
-
-	return setter;
-}
-
-static SEL prefixedSelector(SEL original) {
-	const char prefix[] = "a2_";
-	const char *initial = sel_getName(original);
-	NSUInteger prefixLength = strlen(prefix);
-	NSUInteger initialLength = strlen(initial);
-
-	char selector[prefixLength + initialLength + 1];
-	memcpy(selector, prefix, prefixLength);
-	memcpy(selector + prefixLength, original, initialLength);
-	selector[prefixLength + initialLength] = '\0';
-
-	return sel_registerName(selector);
-}
 
 #pragma mark -
 
