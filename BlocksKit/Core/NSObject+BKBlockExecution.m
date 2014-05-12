@@ -11,10 +11,30 @@
 
 - (id)bk_performBlock:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay
 {
+	return [self bk_performBlock:block onQueue:dispatch_get_main_queue() afterDelay:delay];
+}
+
++ (id)bk_performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay
+{
+	return [NSObject bk_performBlock:block onQueue:dispatch_get_main_queue() afterDelay:delay];
+}
+
+- (id)bk_performBlockInBackground:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay
+{
+	return [self bk_performBlock:block onQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0) afterDelay:delay];
+}
+
++ (id)bk_performBlockInBackground:(void (^)(void))block afterDelay:(NSTimeInterval)delay
+{
+	return [NSObject bk_performBlock:block onQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0) afterDelay:delay];
+}
+
+- (id)bk_performBlock:(void (^)(id obj))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay
+{
 	NSParameterAssert(block != nil);
-
+	
 	__block BOOL cancelled = NO;
-
+	
 	void (^wrapper)(BOOL) = ^(BOOL cancel) {
 		if (cancel) {
 			cancelled = YES;
@@ -22,20 +42,20 @@
 		}
 		if (!cancelled) block(self);
 	};
-
-	dispatch_after(BKTimeDelay(delay), dispatch_get_main_queue(), ^{
+	
+	dispatch_after(BKTimeDelay(delay), queue, ^{
 		wrapper(NO);
 	});
-
+	
 	return [wrapper copy];
 }
 
-+ (id)bk_performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay
++ (id)bk_performBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay
 {
 	NSParameterAssert(block != nil);
-
+	
 	__block BOOL cancelled = NO;
-
+	
 	void (^wrapper)(BOOL) = ^(BOOL cancel) {
 		if (cancel) {
 			cancelled = YES;
@@ -43,9 +63,9 @@
 		}
 		if (!cancelled) block();
 	};
-
-	dispatch_after(BKTimeDelay(delay), dispatch_get_main_queue(), ^{ wrapper(NO); });
-
+	
+	dispatch_after(BKTimeDelay(delay), queue, ^{ wrapper(NO); });
+	
 	return [wrapper copy];
 }
 

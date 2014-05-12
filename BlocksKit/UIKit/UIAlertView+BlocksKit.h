@@ -45,8 +45,10 @@
  @param cancelButtonTitle The title of the cancel button. If both cancelButtonTitle and otherButtonTitles are empty or nil, defaults to a 
  @param otherButtonTitles Titles of additional buttons to add to the receiver.
  @param block A block of code to be fired on the dismissal of the alert view.
+ 
+ @return The UIAlertView.
  */
-+ (void)bk_showAlertViewWithTitle:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles handler:(void (^)(UIAlertView *alertView, NSInteger buttonIndex))block;
++ (UIAlertView*)bk_showAlertViewWithTitle:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles handler:(void (^)(UIAlertView *alertView, NSInteger buttonIndex))block;
 
 /** Creates and returns a new alert view with only a title and cancel button.
 
