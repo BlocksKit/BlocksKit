@@ -44,7 +44,7 @@ static inline BOOL isValidIMP(IMP impl) {
 #if defined(__arm64__)
     if (impl == NULL || impl == _objc_msgForward) return NO;
 #else
-    if (impl == NULL || impl == _objc_msgForward || impl == _objc_msgForward_stret) return NO;
+    if (impl == NULL || impl == _objc_msgForward || impl == (IMP)_objc_msgForward_stret) return NO;
 #endif
     return YES;
 }
