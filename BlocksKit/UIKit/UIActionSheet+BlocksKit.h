@@ -8,8 +8,8 @@
 /** UIActionSheet without delegates!
 
  This set of extensions and convenience classes allows
- for an instance of UIAlertView without the implementation
- of a delegate.  Any time you instantiate a UIAlertView
+ for an instance of UIActionSheet without the implementation
+ of a delegate.  Any time you instantiate a UIActionSheet
  using the methods here, you must add buttons using
  addButtonWithTitle:handler: to make sure nothing breaks.
 
