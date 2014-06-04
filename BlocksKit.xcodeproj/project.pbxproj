@@ -1363,6 +1363,7 @@
 				);
 				PRODUCT_NAME = BlocksKit;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
@@ -1400,6 +1401,7 @@
 				);
 				PRODUCT_NAME = BlocksKit;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				VALIDATE_PRODUCT = YES;
 			};
