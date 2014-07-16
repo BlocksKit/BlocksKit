@@ -158,7 +158,7 @@ static void *BKBlockObservationContext = &BKBlockObservationContext;
 	return token;
 }
 
-- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths task:(void (^)(id obj, NSDictionary *keyPath))task
+- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths task:(void (^)(id obj, NSString *keyPath))task
 {
 	NSString *token = [[NSProcessInfo processInfo] globallyUniqueString];
 	[self bk_addObserverForKeyPaths:keyPaths identifier:token options:0 context:BKObserverContextManyKeys task:task];

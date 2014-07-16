@@ -130,8 +130,9 @@
 
 
 - (void)testMultipleKeyValueObservation {
-	NSString *token = [self bk_addObserverForKeyPaths:@[ @"subject.kvc", @"subject.number" ] task:^(NSObjectBlockObservationTest *obj, NSDictionary *keyPath) {
+	NSString *token = [self bk_addObserverForKeyPaths:@[ @"subject.kvc", @"subject.number" ] task:^(NSObjectBlockObservationTest *obj, NSString *keyPath) {
 		[obj action];
+		XCTAssertTrue([keyPath isEqualToString:@"subject.kvc"] || [keyPath isEqualToString:@"subject.number"]);
 	}];
 	NSNumber *number = @1;
 	[self setValue:@NO forKeyPath:@"subject.kvc"];
@@ -143,8 +144,9 @@
 }
 
 - (void)testMultipleOnlyOneKeyValueObservation {
-	NSString *token = [self bk_addObserverForKeyPaths:@[@"subject.kvc"] task:^(NSObjectBlockObservationTest *obj, NSDictionary *keyPath) {
+	NSString *token = [self bk_addObserverForKeyPaths:@[@"subject.kvc"] task:^(NSObjectBlockObservationTest *obj, NSString *keyPath) {
 		[obj action];
+		XCTAssertEqual(keyPath, @"subject.kvc");
 	}];
 	[self setValue:@NO forKeyPath:@"subject.kvc"];
 	XCTAssertFalse(_subject.kvc, @"kvc is NO");

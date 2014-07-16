@@ -52,7 +52,7 @@
  observation with removeObserverWithBlockToken:.
  @see addObserverForKeyPath:identifier:options:task:
  */
-- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths task:(void (^)(id obj, NSDictionary *keyPath))task;
+- (NSString *)bk_addObserverForKeyPaths:(NSArray *)keyPaths task:(void (^)(id obj, NSString *keyPath))task;
 
 /** Adds an observer to an object conforming to NSKeyValueObserving.
 
