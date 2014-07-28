@@ -35,6 +35,14 @@ Pod::Spec.new do |s|
     ss.ios.frameworks = 'MessageUI'
   end
 
+  s.subspec 'QuickLook' do |ss|
+    ss.dependency 'BlocksKit/Core'
+    ss.dependency 'BlocksKit/DynamicDelegate'
+    ss.platform = :ios
+    ss.source_files = 'BlocksKit/BlocksKit+QuickLook.h', 'BlocksKit/QuickLook/*.{h,m}'
+    ss.ios.frameworks = 'QuickLook'
+  end
+
   s.subspec 'UIKit' do |ss|
     ss.dependency 'BlocksKit/Core'
     ss.dependency 'BlocksKit/DynamicDelegate'
