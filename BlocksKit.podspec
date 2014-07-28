@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
     ss.dependency 'BlocksKit/Core'
     ss.dependency 'BlocksKit/DynamicDelegate'
     ss.ios.dependency 'BlocksKit/MessageUI'
+    ss.ios.dependency 'BlocksKit/QuickLook'
     ss.ios.dependency 'BlocksKit/UIKit'
   end
 
