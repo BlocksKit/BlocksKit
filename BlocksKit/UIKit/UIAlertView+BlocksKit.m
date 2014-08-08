@@ -163,7 +163,7 @@
 
 - (id)bk_initWithTitle:(NSString *)title message:(NSString *)message
 {
-	return [self initWithTitle:title message:message delegate:self.bk_dynamicDelegate cancelButtonTitle:nil otherButtonTitles:nil];
+	return (self = [self initWithTitle:title message:message delegate:self.bk_dynamicDelegate cancelButtonTitle:nil otherButtonTitles:nil]);
 }
 
 #pragma Actions

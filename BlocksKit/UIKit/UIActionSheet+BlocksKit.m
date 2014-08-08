@@ -103,7 +103,7 @@
 }
 
 - (id)bk_initWithTitle:(NSString *)title {
-	return [self initWithTitle:title delegate:self.bk_dynamicDelegate cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+	return (self = [self initWithTitle:title delegate:self.bk_dynamicDelegate cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil]);
 }
 
 #pragma mark Actions

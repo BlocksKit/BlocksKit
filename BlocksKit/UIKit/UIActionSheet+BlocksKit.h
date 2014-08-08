@@ -48,7 +48,7 @@
  @param title The header of the action sheet.
  @return An instantiated actionSheet.
  */
-- (id)bk_initWithTitle:(NSString *)title;
+- (id)bk_initWithTitle:(NSString *)title NS_REPLACES_RECEIVER;
 
 ///-----------------------------------
 /// @name Adding buttons

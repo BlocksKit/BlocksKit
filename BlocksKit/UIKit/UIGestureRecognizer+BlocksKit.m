@@ -43,7 +43,7 @@ static const void *BKGestureRecognizerShouldHandleActionKey = &BKGestureRecogniz
 
 - (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block
 {
-	return [self bk_initWithHandler:block delay:0.0];
+	return (self = [self bk_initWithHandler:block delay:0.0]);
 }
 
 - (void)bk_handleAction:(UIGestureRecognizer *)recognizer

@@ -120,7 +120,7 @@
  @return Newly initialized NSURLConnection with the specified properties.
  @param request The URL request to load.
  */
-- (id)bk_initWithRequest:(NSURLRequest *)request;
+- (id)bk_initWithRequest:(NSURLRequest *)request NS_REPLACES_RECEIVER;
 
 /** Returns an initialized URL connection with the specified completion handler.
 
@@ -128,7 +128,7 @@
  @param request The URL request to load.
  @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  */
-- (id)bk_initWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))block;
+- (id)bk_initWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))block NS_REPLACES_RECEIVER;
 
 /** Causes the connection to begin loading data, if it has not already, with the specified block to be fired on successful completion.
 
