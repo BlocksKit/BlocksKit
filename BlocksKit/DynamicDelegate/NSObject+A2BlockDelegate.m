@@ -49,7 +49,7 @@ static inline BOOL isValidIMP(IMP impl) {
     return YES;
 }
 
-static void swizzleWithIMP(Class cls, SEL oldSel, SEL newSel, IMP newIMP, const char *types, BOOL aggressive) {
+static BOOL swizzleWithIMP(Class cls, SEL oldSel, SEL newSel, IMP newIMP, const char *types, BOOL aggressive) {
     Method origMethod = class_getInstanceMethod(cls, oldSel);
 
     if (class_addMethod(cls, oldSel, newIMP, types)) {
@@ -71,18 +71,20 @@ static void swizzleWithIMP(Class cls, SEL oldSel, SEL newSel, IMP newIMP, const 
 
         if (parentIMP) {
             if (aggressive) {
-                class_addMethod(cls, newSel, parentIMP, types);
-            } else {
-                class_replaceMethod(cls, newSel, newIMP, types);
-                class_replaceMethod(cls, oldSel, parentIMP, types);
-            }
+                return class_addMethod(cls, newSel, parentIMP, types);
+			}
+			
+			class_replaceMethod(cls, newSel, newIMP, types);
+			class_replaceMethod(cls, oldSel, parentIMP, types);
+			return YES;
         }
-    } else {
-        // common case, actual swap
-        class_addMethod(cls, newSel, newIMP, types);
-        Method newMethod = class_getInstanceMethod(cls, newSel);
-        method_exchangeImplementations(origMethod, newMethod);
     }
+
+	// common case, actual swap
+	BOOL ret = class_addMethod(cls, newSel, newIMP, types);
+	Method newMethod = class_getInstanceMethod(cls, newSel);
+	method_exchangeImplementations(origMethod, newMethod);
+	return ret;
 }
 
 static SEL selectorWithPattern(const char *prefix, const char *key, const char *suffix) {
@@ -106,9 +108,8 @@ static SEL selectorWithPattern(const char *prefix, const char *key, const char *
 	return sel_registerName(selector);
 }
 
-static SEL getterForProperty(Class cls, NSString *propertyName)
+static SEL getterForProperty(objc_property_t property)
 {
-	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
 	if (property) {
 		char *getterName = property_copyAttributeValue(property, "G");
 		if (getterName) {
@@ -118,12 +119,11 @@ static SEL getterForProperty(Class cls, NSString *propertyName)
 		}
 	}
 
-	return sel_registerName(propertyName.UTF8String);
+	return sel_registerName(property_getName(property));
 }
 
-static SEL setterForProperty(Class cls, NSString *propertyName)
+static SEL setterForProperty(objc_property_t property)
 {
-	objc_property_t property = class_getProperty(cls, propertyName.UTF8String);
 	if (property) {
 		char *setterName = property_copyAttributeValue(property, "S");
 		if (setterName) {
@@ -133,7 +133,7 @@ static SEL setterForProperty(Class cls, NSString *propertyName)
 		}
 	}
 
-	return selectorWithPattern("set", propertyName.UTF8String, ":");
+	return selectorWithPattern("set", property_getName(property), ":");
 }
 
 static inline SEL prefixedSelector(SEL original) {
@@ -141,6 +141,45 @@ static inline SEL prefixedSelector(SEL original) {
 }
 
 #pragma mark -
+
+typedef struct {
+	const char *const propertyName;
+	SEL setter;
+	SEL a2_setter;
+	SEL getter;
+} A2BlockDelegateInfo;
+
+static NSUInteger A2BlockDelegateInfoSize(const void *__unused item) {
+	return sizeof(A2BlockDelegateInfo);
+}
+
+static NSString *A2BlockDelegateInfoDescribe(const void *__unused item) {
+	if (!item) { return nil; }
+	const A2BlockDelegateInfo *info = item;
+	return [NSString stringWithFormat:@"(name: %s, setter: %s, getter: %s)", info->propertyName, sel_getName(info->setter), sel_getName(info->getter)];
+}
+
+static inline A2DynamicDelegate *getDynamicDelegate(NSObject *delegatingObject, Protocol *protocol, const A2BlockDelegateInfo *info, BOOL ensuring) {
+	A2DynamicDelegate *dynamicDelegate = [delegatingObject bk_dynamicDelegateForProtocol:a2_protocolForDelegatingObject(delegatingObject, protocol)];
+
+	if (!info || !info->setter || !info->propertyName) {
+		return dynamicDelegate;
+	}
+
+	if (!info->a2_setter && !info->setter) { return dynamicDelegate; }
+
+	id (*getterDispatch)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
+	id originalDelegate = getterDispatch(delegatingObject, info->getter);
+
+	if (bk_object_isKindOfClass(originalDelegate, A2DynamicDelegate.class)) { return dynamicDelegate; }
+
+	void (*setterDispatch)(id, SEL, id) = (void (*)(id, SEL, id)) objc_msgSend;
+	setterDispatch(delegatingObject, info->a2_setter ?: info->setter, dynamicDelegate);
+
+	return dynamicDelegate;
+}
+
+typedef A2DynamicDelegate *(^A2GetDynamicDelegateBlock)(NSObject *, BOOL);
 
 @interface A2DynamicDelegate ()
 
@@ -152,17 +191,35 @@ static inline SEL prefixedSelector(SEL original) {
 
 @implementation NSObject (A2BlockDelegate)
 
-#pragma mark Helper
+#pragma mark Helpers
 
-+ (NSMutableDictionary *)bk_delegateNameMap
++ (NSMapTable *)bk_delegateInfoByProtocol:(BOOL)createIfNeeded
 {
-	NSMutableDictionary *propertyMap = objc_getAssociatedObject(self, _cmd);
-	if (!propertyMap) {
-		propertyMap = [NSMutableDictionary dictionary];
-		objc_setAssociatedObject(self, _cmd, propertyMap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	}
+	NSMapTable *delegateInfo = objc_getAssociatedObject(self, _cmd);
+	if (delegateInfo || !createIfNeeded) { return delegateInfo; }
 
-	return propertyMap;
+	NSPointerFunctions *protocols = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsObjectPointerPersonality];
+	NSPointerFunctions *infoStruct = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsMallocMemory|NSPointerFunctionsStructPersonality|NSPointerFunctionsCopyIn];
+	infoStruct.sizeFunction = A2BlockDelegateInfoSize;
+	infoStruct.descriptionFunction = A2BlockDelegateInfoDescribe;
+
+	delegateInfo = [[NSMapTable alloc] initWithKeyPointerFunctions:protocols valuePointerFunctions:infoStruct capacity:0];
+	objc_setAssociatedObject(self, _cmd, delegateInfo, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+	return delegateInfo;
+}
+
++ (const A2BlockDelegateInfo *)bk_delegateInfoForProtocol:(Protocol *)protocol
+{
+	A2BlockDelegateInfo *infoAsPtr = NULL;
+	Class cls = self;
+	while ((infoAsPtr == NULL || infoAsPtr->propertyName == NULL) && cls != nil && cls != NSObject.class) {
+		NSMapTable *map = [cls bk_delegateInfoByProtocol:NO];
+		infoAsPtr = (__bridge void *)[map objectForKey:protocol];
+		cls = [cls superclass];
+	}
+	NSCAssert(infoAsPtr != NULL, @"Class %@ not assigned dynamic delegate for protocol %@", NSStringFromClass(self), NSStringFromProtocol(protocol));
+	return infoAsPtr;
 }
 
 #pragma mark Linking block properties
@@ -181,7 +238,7 @@ static inline SEL prefixedSelector(SEL original) {
 {
 	[dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *propertyName, NSString *selectorName, BOOL *stop) {
 		objc_property_t property = class_getProperty(self, propertyName.UTF8String);
-		NSCAssert2(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
+		NSCAssert(property, @"Property \"%@\" does not exist on class %s", propertyName, class_getName(self));
 
 		char *dynamic = property_copyAttributeValue(property, "D");
 		NSCAssert2(dynamic, @"Property \"%@\" on class %s must be backed with \"@dynamic\"", propertyName, class_getName(self));
@@ -192,55 +249,30 @@ static inline SEL prefixedSelector(SEL original) {
 		free(copy);
 
 		SEL selector = NSSelectorFromString(selectorName);
-		SEL getter = getterForProperty(self, propertyName);
-		SEL setter = setterForProperty(self, propertyName);
+		SEL getter = getterForProperty(property);
+		SEL setter = setterForProperty(property);
 
-		if (class_respondsToSelector(self, setter) || class_respondsToSelector(self, getter))
-			return;
+		if (class_respondsToSelector(self, setter) || class_respondsToSelector(self, getter)) { return; }
 
-		NSString *delegateProperty = nil;
-		Class cls = self;
-		while (!delegateProperty.length && cls != [NSObject class]) {
-			delegateProperty = [cls bk_delegateNameMap][NSStringFromProtocol(protocol)];
-			cls = [cls superclass];
-		}
+		const A2BlockDelegateInfo *info = [self bk_delegateInfoForProtocol:protocol];
 
 		IMP getterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject) {
-			return [[delegatingObject bk_dynamicDelegateForProtocol:a2_protocolForDelegatingObject(delegatingObject, protocol)] blockImplementationForMethod:selector];
+			A2DynamicDelegate *delegate = getDynamicDelegate(delegatingObject, protocol, info, NO);
+			return [delegate blockImplementationForMethod:selector];
 		});
+
+		if (!class_addMethod(self, getter, getterImplementation, "@@:")) {
+			NSCAssert(NO, @"Could not implement getter for \"%@\" property.", propertyName);
+		}
+
 		IMP setterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject, id block) {
-			A2DynamicDelegate *dynamicDelegate = [delegatingObject bk_dynamicDelegateForProtocol:a2_protocolForDelegatingObject(delegatingObject, protocol)];
-
-			if (delegateProperty.length) {
-				SEL a2_setter = prefixedSelector(setterForProperty(delegatingObject.class, delegateProperty));
-				SEL a2_getter = prefixedSelector(getterForProperty(delegatingObject.class, delegateProperty));
-
-				if ([delegatingObject respondsToSelector:a2_setter]) {
-					id (*getterDispatch)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
-					id originalDelegate = getterDispatch(delegatingObject, a2_getter);
-					if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class])) {
-						void (*setterDispatch)(id, SEL, id) = (void (*)(id, SEL, id)) objc_msgSend;
-						setterDispatch(delegatingObject, a2_setter, dynamicDelegate);
-					}
-				}
-			}
-
-			[dynamicDelegate implementMethod:selector withBlock:block];
+			A2DynamicDelegate *delegate = getDynamicDelegate(delegatingObject, protocol, info, YES);
+			[delegate implementMethod:selector withBlock:block];
 		});
 
-		const char *getterTypes = "@@:";
-#if !defined(NS_BLOCK_ASSERTIONS)
-		BOOL success =
-#endif
-		class_addMethod(self, getter, getterImplementation, getterTypes);
-		NSCAssert(success, @"Could not implement getter for \"%@\" property.", propertyName);
-
-		const char *setterTypes = "v@:@";
-#if !defined(NS_BLOCK_ASSERTIONS)
-		success =
-#endif
-		class_addMethod(self, setter, setterImplementation, setterTypes);
-		NSCAssert(success, @"Could not implement setter for \"%@\" property.", propertyName);
+		if (!class_addMethod(self, setter, setterImplementation, "v@:@")) {
+			NSCAssert(NO, @"Could not implement setter for \"%@\" property.", propertyName);
+		}
 	}];
 }
 
@@ -266,42 +298,47 @@ static inline SEL prefixedSelector(SEL original) {
 
 + (void)bk_registerDynamicDelegateNamed:(NSString *)delegateName forProtocol:(Protocol *)protocol
 {
-	NSString *protocolName = NSStringFromProtocol(protocol);
-	NSMutableDictionary *propertyMap = [self bk_delegateNameMap];
-	if (propertyMap[protocolName]) return;
+	NSMapTable *propertyMap = [self bk_delegateInfoByProtocol:YES];
+	A2BlockDelegateInfo *infoAsPtr = (__bridge void *)[propertyMap objectForKey:protocol];
+	if (infoAsPtr != NULL) { return; }
 
-	SEL getter = getterForProperty(self, delegateName);
-	SEL a2_getter = prefixedSelector(getter);
-	SEL setter = setterForProperty(self, delegateName);
+	objc_property_t property = class_getProperty(self, delegateName.UTF8String);
+	NSCAssert(property, @"Delegate \"%@\" does not exist on class %s", delegateName, class_getName(self));
+
+	SEL setter = setterForProperty(property);
 	SEL a2_setter = prefixedSelector(setter);
+	SEL getter = getterForProperty(property);
 
-	IMP getterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject) {
-		return [[delegatingObject bk_dynamicDelegateForProtocol:a2_protocolForDelegatingObject(delegatingObject, protocol)] realDelegate];
-	});
+	A2BlockDelegateInfo info = {
+		property_getName(property), setter, a2_setter, getter
+	};
+
+	[propertyMap setObject:(__bridge id)&info forKey:protocol];
+	infoAsPtr = (__bridge void *)[propertyMap objectForKey:protocol];
 
 	IMP setterImplementation = imp_implementationWithBlock(^(NSObject *delegatingObject, id delegate) {
-		A2DynamicDelegate *dynamicDelegate = [delegatingObject bk_dynamicDelegateForProtocol:a2_protocolForDelegatingObject(delegatingObject, protocol)];
-
-		if ([delegatingObject respondsToSelector:a2_setter]) {
-			id (*getterDispatch)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
-			id originalDelegate = getterDispatch(delegatingObject, a2_getter);
-			if (!bk_object_isKindOfClass(originalDelegate, [A2DynamicDelegate class])) {
-				void (*setterDispatch)(id, SEL, id) = (void (*)(id, SEL, id)) objc_msgSend;
-				setterDispatch(delegatingObject, a2_setter, dynamicDelegate);
-			}
-		}
-
+		A2DynamicDelegate *dynamicDelegate = getDynamicDelegate(delegatingObject, protocol, infoAsPtr, YES);
 		if ([delegate isEqual:dynamicDelegate]) {
 			delegate = nil;
 		}
-
 		dynamicDelegate.realDelegate = delegate;
 	});
 
-    swizzleWithIMP(self, getter, a2_getter, getterImplementation, "@@:", NO);
-    swizzleWithIMP(self, setter, a2_setter, setterImplementation, "v@:@", YES);
+	if (!swizzleWithIMP(self, setter, a2_setter, setterImplementation, "v@:@", YES)) {
+		bzero(infoAsPtr, sizeof(A2BlockDelegateInfo));
+	}
+}
 
-	propertyMap[protocolName] = delegateName;
+- (id)bk_ensuredDynamicDelegate
+{
+	Protocol *protocol = a2_delegateProtocol(self.class);
+	return [self bk_ensuredDynamicDelegateForProtocol:protocol];
+}
+
+- (id)bk_ensuredDynamicDelegateForProtocol:(Protocol *)protocol
+{
+	const A2BlockDelegateInfo *info = [self.class bk_delegateInfoForProtocol:protocol];
+	return getDynamicDelegate(self, protocol, info, YES);
 }
 
 @end

@@ -103,7 +103,10 @@
 }
 
 - (id)bk_initWithTitle:(NSString *)title {
-	return (self = [self initWithTitle:title delegate:self.bk_dynamicDelegate cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil]);
+	self = [self initWithTitle:title delegate:self.bk_dynamicDelegate cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+	if (!self) { return nil; }
+	self.delegate = self.bk_dynamicDelegate;
+	return self;
 }
 
 #pragma mark Actions
@@ -138,12 +141,13 @@
 #pragma mark Properties
 
 - (void)bk_setHandler:(void (^)(void))block forButtonAtIndex:(NSInteger)index {
-	id key = @(index);
-	
-	if (block)
-		[self.bk_dynamicDelegate handlers][key] = [block copy];
-	else
-		[[self.bk_dynamicDelegate handlers] removeObjectForKey:key];
+	A2DynamicUIActionSheetDelegate *delegate = self.bk_ensuredDynamicDelegate;
+
+	if (block) {
+		delegate.handlers[@(index)] = [block copy];
+	} else {
+		[delegate.handlers removeObjectForKey:@(index)];
+	}
 }
 
 - (void (^)(void))bk_handlerForButtonAtIndex:(NSInteger)index

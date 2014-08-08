@@ -100,4 +100,17 @@
  */
 + (void)bk_registerDynamicDelegateNamed:(NSString *)delegateName forProtocol:(Protocol *)protocol;
 
+/** Creates or gets a dynamic delegate, assuring that it is the delegate.
+ @see bk_dynamicDelegate:
+ @return A dynamic delegate.
+ */
+- (id)bk_ensuredDynamicDelegate;
+
+/** Creates or gets a dynamic protocol implementation, assuring that it is
+ assigned to the delegate property correspending to that protocol
+ @see bk_dynamicDelegateForProtocol:
+ @return A dynamic delegate.
+ */
+- (id)bk_ensuredDynamicDelegateForProtocol:(Protocol *)protocol;
+
 @end
