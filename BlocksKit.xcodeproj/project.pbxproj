@@ -147,7 +147,7 @@
 		DBFB0ABE184DCC9400F37EEE /* BKApp.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ABA184DCC9400F37EEE /* BKApp.m */; };
 		DBFB0AC0184DCC9400F37EEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0ABC184DCC9400F37EEE /* main.m */; };
 		DBFB0AC1184DCCA500F37EEE /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB092C184DC36400F37EEE /* BlocksKit.framework */; };
-		DBFB0AC3184DCCC500F37EEE /* BlocksKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DBFB092C184DC36400F37EEE /* BlocksKit.framework */; };
+		DBFB0AC3184DCCC500F37EEE /* BlocksKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DBFB092C184DC36400F37EEE /* BlocksKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DBFB0AFE184DCD6200F37EEE /* A2BlockDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC5184DCD6200F37EEE /* A2BlockDelegateTests.m */; };
 		DBFB0AFF184DCD6200F37EEE /* A2BlockInvocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC7184DCD6200F37EEE /* A2BlockInvocationTests.m */; };
 		DBFB0B00184DCD6200F37EEE /* A2DynamicDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AC9184DCD6200F37EEE /* A2DynamicDelegateTests.m */; };
@@ -925,7 +925,7 @@
 		DBFB08A4184DC21500F37EEE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					DBFB08BD184DC23000F37EEE = {
 						TestTargetID = DBFB092B184DC36400F37EEE;
@@ -1189,7 +1189,6 @@
 		DB5BF8A4185E909400FF2A0B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1230,7 +1229,6 @@
 		DB5BF8A5185E909400FF2A0B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1327,7 +1325,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1372,7 +1369,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1411,7 +1407,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1463,7 +1458,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
