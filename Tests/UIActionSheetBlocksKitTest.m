@@ -23,7 +23,7 @@
 
 - (void)testInit {
 	XCTAssertTrue([_subject isKindOfClass:[UIActionSheet class]],@"subject is UIActionSheet");
-	XCTAssertFalse([_subject.delegate isEqual:_subject.bk_dynamicDelegate], @"the delegate is not the dynamic delegate");
+	XCTAssertTrue([_subject.delegate isEqual:_subject.bk_dynamicDelegate], @"the delegate is not the dynamic delegate");
 	XCTAssertEqualObjects(_subject.title,@"Hello BlocksKit",@"the UIActionSheet title is %@",_subject.title);
 	XCTAssertEqual(_subject.numberOfButtons, (NSInteger)0, @"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
 	XCTAssertFalse(_subject.isVisible,@"the action sheet is not visible");

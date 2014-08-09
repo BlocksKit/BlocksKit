@@ -21,7 +21,7 @@
 
 - (void)testInit {
 	XCTAssertTrue([_subject isKindOfClass:[UIAlertView class]],@"subject is UIAlertView");
-	XCTAssertFalse([_subject.delegate isEqual:_subject.bk_dynamicDelegate], @"the delegate is not dynamic");
+	XCTAssertTrue([_subject.delegate isEqual:_subject.bk_dynamicDelegate], @"the delegate is not dynamic");
 	XCTAssertEqualObjects(_subject.title,@"Hello BlocksKit",@"the UIAlertView title is %@",_subject.title);
 	XCTAssertEqual(_subject.numberOfButtons, (NSInteger)0,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
 	XCTAssertFalse(_subject.isVisible,@"the action sheet is not visible");
