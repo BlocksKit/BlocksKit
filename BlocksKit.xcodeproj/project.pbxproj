@@ -10,6 +10,10 @@
 		2BB8A49518BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */; };
 		2BB8A49C18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */; };
 		2BB8A4A218BEF584006AF0F6 /* UIImagePickerController+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */; };
+		43CE09E1198660EE00F91137 /* QLPreviewController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE09E0198660EE00F91137 /* QLPreviewController+BlocksKit.m */; };
+		43CE09E419866C2300F91137 /* QLPreviewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */; };
+		43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */; };
+		43CE09E919866D8400F91137 /* QLPreviewController+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09DF198660EE00F91137 /* QLPreviewController+BlocksKit.h */; };
 		DB5BF880185E909300FF2A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08B1184DC23000F37EEE /* Foundation.framework */; };
 		DB5BF881185E909300FF2A0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */; };
 		DB5BF882185E909300FF2A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08C2184DC23000F37EEE /* UIKit.framework */; };
@@ -230,6 +234,8 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				43CE09E919866D8400F91137 /* QLPreviewController+BlocksKit.h in CopyFiles */,
+				43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */,
 				2BB8A4A218BEF584006AF0F6 /* UIImagePickerController+BlocksKit.h in CopyFiles */,
 				DBFB0A39184DC83C00F37EEE /* UIActionSheet+BlocksKit.h in CopyFiles */,
 				DBFB0A3A184DC83C00F37EEE /* UIAlertView+BlocksKit.h in CopyFiles */,
@@ -286,6 +292,11 @@
 		2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImagePickerControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+BlocksKit.h"; sourceTree = "<group>"; };
 		2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+BlocksKit.m"; sourceTree = "<group>"; };
+		43CE09DF198660EE00F91137 /* QLPreviewController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QLPreviewController+BlocksKit.h"; sourceTree = "<group>"; };
+		43CE09E0198660EE00F91137 /* QLPreviewController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QLPreviewController+BlocksKit.m"; sourceTree = "<group>"; };
+		43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+QuickLook.h"; sourceTree = "<group>"; };
+		43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLPreviewControllerBlocksKitTest.m; sourceTree = "<group>"; };
+		43CE09E619866D0600F91137 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuickLook.framework; sourceTree = DEVELOPER_DIR; };
 		DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DB5BF87F185E909300FF2A0B /* BK Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BK Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB981A00185E95C00047E817 /* BlocksKit-iOS-Tests-Runner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocksKit-iOS-Tests-Runner-Info.plist"; sourceTree = "<group>"; };
@@ -477,6 +488,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43CE09DE198660EE00F91137 /* QuickLook */ = {
+			isa = PBXGroup;
+			children = (
+				43CE09DF198660EE00F91137 /* QLPreviewController+BlocksKit.h */,
+				43CE09E0198660EE00F91137 /* QLPreviewController+BlocksKit.m */,
+			);
+			path = QuickLook;
+			sourceTree = "<group>";
+		};
 		DBE126DC184DDDDB0023AFAD /* Test Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,6 +582,7 @@
 		DBFB08B0184DC23000F37EEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43CE09E619866D0600F91137 /* QuickLook.framework */,
 				DBFB08B1184DC23000F37EEE /* Foundation.framework */,
 				DBFB08BF184DC23000F37EEE /* XCTest.framework */,
 				DBFB08C2184DC23000F37EEE /* UIKit.framework */,
@@ -578,9 +599,11 @@
 				DBFB08B6184DC23000F37EEE /* BlocksKit.h */,
 				DBFB098A184DC7A200F37EEE /* BlocksKit+MessageUI.h */,
 				DBFB098B184DC7A200F37EEE /* BlocksKit+UIKit.h */,
+				43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */,
 				DBFB098C184DC7AF00F37EEE /* Core */,
 				DBFB09EC184DC7E400F37EEE /* DynamicDelegate */,
 				DBFB0A14184DC82000F37EEE /* MessageUI */,
+				43CE09DE198660EE00F91137 /* QuickLook */,
 				DBFB0A1D184DC83200F37EEE /* UIKit */,
 				DBFB095A184DC41D00F37EEE /* Supporting Files */,
 			);
@@ -763,6 +786,7 @@
 				DBFB0AFB184DCD6200F37EEE /* UITextFieldBlocksKitTest.m */,
 				DBFB0AFD184DCD6200F37EEE /* UIWebViewBlocksKitTest.m */,
 				2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */,
+				43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */,
 			);
 			name = UIKit;
 			sourceTree = "<group>";
@@ -1028,6 +1052,7 @@
 				DBFB09CC184DC7B000F37EEE /* NSObject+BKBlockExecution.m in Sources */,
 				DBFB0A1A184DC82100F37EEE /* MFMessageComposeViewController+BlocksKit.m in Sources */,
 				DBFB0A35184DC83200F37EEE /* UIPopoverController+BlocksKit.m in Sources */,
+				43CE09E1198660EE00F91137 /* QLPreviewController+BlocksKit.m in Sources */,
 				DBFB0A37184DC83200F37EEE /* UIView+BlocksKit.m in Sources */,
 				DBFB09FF184DC7E400F37EEE /* A2DynamicDelegate.m in Sources */,
 				DBFB09C6184DC7B000F37EEE /* NSMutableSet+BlocksKit.m in Sources */,
@@ -1072,6 +1097,7 @@
 				DBD7875418E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */,
 				DBFB0B0D184DCD6200F37EEE /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
 				DBFB0B13184DCD6200F37EEE /* NSSetBlocksKitTest.m in Sources */,
+				43CE09E419866C2300F91137 /* QLPreviewControllerBlocksKitTest.m in Sources */,
 				DBFB0B08184DCD6200F37EEE /* NSIndexSetBlocksKitTest.m in Sources */,
 				DBFB0B14184DCD6200F37EEE /* NSTimerBlocksKitTest.m in Sources */,
 				DBFB0B1A184DCD6200F37EEE /* UIWebViewBlocksKitTest.m in Sources */,
