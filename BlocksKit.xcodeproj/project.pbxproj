@@ -201,6 +201,7 @@
 		DBFB0B30184DCD9C00F37EEE /* NSSetBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AEF184DCD6200F37EEE /* NSSetBlocksKitTest.m */; };
 		DBFB0B31184DCD9C00F37EEE /* NSTimerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AF1184DCD6200F37EEE /* NSTimerBlocksKitTest.m */; };
 		DBFB0B32184DCD9C00F37EEE /* NSURLConnectionBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0AF3184DCD6200F37EEE /* NSURLConnectionBlocksKitTest.m */; };
+		E76F365B19AB37A6007FAEE9 /* UIImage+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = E76F365A19AB37A6007FAEE9 /* UIImage+BlocksKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -426,6 +427,8 @@
 		DBFB0AF9184DCD6200F37EEE /* UIControlBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIControlBlocksKitTest.m; sourceTree = "<group>"; };
 		DBFB0AFB184DCD6200F37EEE /* UITextFieldBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextFieldBlocksKitTest.m; sourceTree = "<group>"; };
 		DBFB0AFD184DCD6200F37EEE /* UIWebViewBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebViewBlocksKitTest.m; sourceTree = "<group>"; };
+		E76F365919AB37A6007FAEE9 /* UIImage+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BlocksKit.h"; sourceTree = "<group>"; };
+		E76F365A19AB37A6007FAEE9 /* UIImage+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BlocksKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -759,6 +762,8 @@
 				DBFB0A2D184DC83200F37EEE /* UIView+BlocksKit.m */,
 				DBFB0A2E184DC83200F37EEE /* UIWebView+BlocksKit.h */,
 				DBFB0A2F184DC83200F37EEE /* UIWebView+BlocksKit.m */,
+				E76F365919AB37A6007FAEE9 /* UIImage+BlocksKit.h */,
+				E76F365A19AB37A6007FAEE9 /* UIImage+BlocksKit.m */,
 				2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */,
 				2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */,
 			);
@@ -1063,6 +1068,7 @@
 				DBFB0A38184DC83200F37EEE /* UIWebView+BlocksKit.m in Sources */,
 				DBFB0A33184DC83200F37EEE /* UIControl+BlocksKit.m in Sources */,
 				DBFB09B7184DC7B000F37EEE /* NSInvocation+BlocksKit.m in Sources */,
+				E76F365B19AB37A6007FAEE9 /* UIImage+BlocksKit.m in Sources */,
 				DBFB0A32184DC83200F37EEE /* UIBarButtonItem+BlocksKit.m in Sources */,
 				2BB8A49C18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m in Sources */,
 				DBFB09FC184DC7E400F37EEE /* A2BlockInvocation.m in Sources */,
