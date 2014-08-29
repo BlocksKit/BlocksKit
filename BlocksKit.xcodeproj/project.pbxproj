@@ -16,6 +16,8 @@
 		401D75B119B11EC3002A9D7C /* BKAnimationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 401D75AF19B11EC3002A9D7C /* BKAnimationDelegate.m */; };
 		401D75B219B11EC3002A9D7C /* BKAnimationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 401D75AF19B11EC3002A9D7C /* BKAnimationDelegate.m */; };
 		401D75B319B12040002A9D7C /* BKAnimationDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 401D75AE19B11EC3002A9D7C /* BKAnimationDelegate.h */; };
+		401D75B519B12589002A9D7C /* BlocksKit+CoreAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 401D75B419B12558002A9D7C /* BlocksKit+CoreAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		401D75B619B12591002A9D7C /* BlocksKit+CoreAnimation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 401D75B419B12558002A9D7C /* BlocksKit+CoreAnimation.h */; };
 		43CE09E1198660EE00F91137 /* QLPreviewController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE09E0198660EE00F91137 /* QLPreviewController+BlocksKit.m */; };
 		43CE09E419866C2300F91137 /* QLPreviewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */; };
 		43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */; };
@@ -240,6 +242,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				401D75B619B12591002A9D7C /* BlocksKit+CoreAnimation.h in CopyFiles */,
 				401D75B319B12040002A9D7C /* BKAnimationDelegate.h in CopyFiles */,
 				43CE09E919866D8400F91137 /* QLPreviewController+BlocksKit.h in CopyFiles */,
 				43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */,
@@ -302,6 +305,7 @@
 		401D75AA19B11DB5002A9D7C /* BKAnimationDelegateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKAnimationDelegateTest.m; sourceTree = "<group>"; };
 		401D75AE19B11EC3002A9D7C /* BKAnimationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BKAnimationDelegate.h; path = CoreAnimation/BKAnimationDelegate.h; sourceTree = "<group>"; };
 		401D75AF19B11EC3002A9D7C /* BKAnimationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BKAnimationDelegate.m; path = CoreAnimation/BKAnimationDelegate.m; sourceTree = "<group>"; };
+		401D75B419B12558002A9D7C /* BlocksKit+CoreAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+CoreAnimation.h"; sourceTree = "<group>"; };
 		43CE09DF198660EE00F91137 /* QLPreviewController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QLPreviewController+BlocksKit.h"; sourceTree = "<group>"; };
 		43CE09E0198660EE00F91137 /* QLPreviewController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QLPreviewController+BlocksKit.m"; sourceTree = "<group>"; };
 		43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+QuickLook.h"; sourceTree = "<group>"; };
@@ -627,6 +631,7 @@
 				DBFB098A184DC7A200F37EEE /* BlocksKit+MessageUI.h */,
 				DBFB098B184DC7A200F37EEE /* BlocksKit+UIKit.h */,
 				43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */,
+				401D75B419B12558002A9D7C /* BlocksKit+CoreAnimation.h */,
 				DBFB098C184DC7AF00F37EEE /* Core */,
 				401D75AD19B11EA9002A9D7C /* CoreAnimation */,
 				DBFB09EC184DC7E400F37EEE /* DynamicDelegate */,
@@ -855,6 +860,7 @@
 				DBFB09FE184DC7E400F37EEE /* A2DynamicDelegate.h in Headers */,
 				DBFB09FB184DC7E400F37EEE /* A2BlockInvocation.h in Headers */,
 				DBFB0A08184DC7E400F37EEE /* NSObject+A2BlockDelegate.h in Headers */,
+				401D75B519B12589002A9D7C /* BlocksKit+CoreAnimation.h in Headers */,
 				DBFB09C5184DC7B000F37EEE /* NSMutableSet+BlocksKit.h in Headers */,
 				DBFB09BF184DC7B000F37EEE /* NSMutableIndexSet+BlocksKit.h in Headers */,
 				DBFB09BC184DC7B000F37EEE /* NSMutableDictionary+BlocksKit.h in Headers */,
