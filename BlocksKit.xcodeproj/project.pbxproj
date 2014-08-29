@@ -10,6 +10,12 @@
 		2BB8A49518BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */; };
 		2BB8A49C18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */; };
 		2BB8A4A218BEF584006AF0F6 /* UIImagePickerController+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */; };
+		401D75AB19B11DB5002A9D7C /* BKAnimationDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 401D75AA19B11DB5002A9D7C /* BKAnimationDelegateTest.m */; };
+		401D75AC19B11DBD002A9D7C /* BKAnimationDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 401D75AA19B11DB5002A9D7C /* BKAnimationDelegateTest.m */; };
+		401D75B019B11EC3002A9D7C /* BKAnimationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 401D75AE19B11EC3002A9D7C /* BKAnimationDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		401D75B119B11EC3002A9D7C /* BKAnimationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 401D75AF19B11EC3002A9D7C /* BKAnimationDelegate.m */; };
+		401D75B219B11EC3002A9D7C /* BKAnimationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 401D75AF19B11EC3002A9D7C /* BKAnimationDelegate.m */; };
+		401D75B319B12040002A9D7C /* BKAnimationDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 401D75AE19B11EC3002A9D7C /* BKAnimationDelegate.h */; };
 		43CE09E1198660EE00F91137 /* QLPreviewController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE09E0198660EE00F91137 /* QLPreviewController+BlocksKit.m */; };
 		43CE09E419866C2300F91137 /* QLPreviewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */; };
 		43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */; };
@@ -234,6 +240,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				401D75B319B12040002A9D7C /* BKAnimationDelegate.h in CopyFiles */,
 				43CE09E919866D8400F91137 /* QLPreviewController+BlocksKit.h in CopyFiles */,
 				43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */,
 				2BB8A4A218BEF584006AF0F6 /* UIImagePickerController+BlocksKit.h in CopyFiles */,
@@ -292,6 +299,9 @@
 		2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImagePickerControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+BlocksKit.h"; sourceTree = "<group>"; };
 		2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+BlocksKit.m"; sourceTree = "<group>"; };
+		401D75AA19B11DB5002A9D7C /* BKAnimationDelegateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKAnimationDelegateTest.m; sourceTree = "<group>"; };
+		401D75AE19B11EC3002A9D7C /* BKAnimationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BKAnimationDelegate.h; path = CoreAnimation/BKAnimationDelegate.h; sourceTree = "<group>"; };
+		401D75AF19B11EC3002A9D7C /* BKAnimationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BKAnimationDelegate.m; path = CoreAnimation/BKAnimationDelegate.m; sourceTree = "<group>"; };
 		43CE09DF198660EE00F91137 /* QLPreviewController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QLPreviewController+BlocksKit.h"; sourceTree = "<group>"; };
 		43CE09E0198660EE00F91137 /* QLPreviewController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QLPreviewController+BlocksKit.m"; sourceTree = "<group>"; };
 		43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+QuickLook.h"; sourceTree = "<group>"; };
@@ -488,6 +498,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		401D75A919B11D78002A9D7C /* CoreAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				401D75AA19B11DB5002A9D7C /* BKAnimationDelegateTest.m */,
+			);
+			name = CoreAnimation;
+			sourceTree = "<group>";
+		};
+		401D75AD19B11EA9002A9D7C /* CoreAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				401D75AE19B11EC3002A9D7C /* BKAnimationDelegate.h */,
+				401D75AF19B11EC3002A9D7C /* BKAnimationDelegate.m */,
+			);
+			name = CoreAnimation;
+			sourceTree = "<group>";
+		};
 		43CE09DE198660EE00F91137 /* QuickLook */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,6 +628,7 @@
 				DBFB098B184DC7A200F37EEE /* BlocksKit+UIKit.h */,
 				43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */,
 				DBFB098C184DC7AF00F37EEE /* Core */,
+				401D75AD19B11EA9002A9D7C /* CoreAnimation */,
 				DBFB09EC184DC7E400F37EEE /* DynamicDelegate */,
 				DBFB0A14184DC82000F37EEE /* MessageUI */,
 				43CE09DE198660EE00F91137 /* QuickLook */,
@@ -614,6 +642,7 @@
 			isa = PBXGroup;
 			children = (
 				DBE126DF184DE08A0023AFAD /* Core */,
+				401D75A919B11D78002A9D7C /* CoreAnimation */,
 				DBE126DD184DE0780023AFAD /* DynamicDelegate */,
 				DBFB0B1B184DCD7300F37EEE /* UIKit */,
 				DBFB0B1C184DCD7900F37EEE /* MessageUI */,
@@ -810,6 +839,7 @@
 				DBFB09CE184DC7B000F37EEE /* NSObject+BKBlockObservation.h in Headers */,
 				DBFB09B9184DC7B000F37EEE /* NSMutableArray+BlocksKit.h in Headers */,
 				DBFB09B6184DC7B000F37EEE /* NSInvocation+BlocksKit.h in Headers */,
+				401D75B019B11EC3002A9D7C /* BKAnimationDelegate.h in Headers */,
 				DBFB09D7184DC7B000F37EEE /* NSTimer+BlocksKit.h in Headers */,
 				DBFB09C8184DC7B000F37EEE /* NSObject+BKAssociatedObjects.h in Headers */,
 				DBFB09AD184DC7B000F37EEE /* NSArray+BlocksKit.h in Headers */,
@@ -1061,6 +1091,7 @@
 				DBFB09C0184DC7B000F37EEE /* NSMutableIndexSet+BlocksKit.m in Sources */,
 				DBFB09C9184DC7B000F37EEE /* NSObject+BKAssociatedObjects.m in Sources */,
 				DBFB0A38184DC83200F37EEE /* UIWebView+BlocksKit.m in Sources */,
+				401D75B119B11EC3002A9D7C /* BKAnimationDelegate.m in Sources */,
 				DBFB0A33184DC83200F37EEE /* UIControl+BlocksKit.m in Sources */,
 				DBFB09B7184DC7B000F37EEE /* NSInvocation+BlocksKit.m in Sources */,
 				DBFB0A32184DC83200F37EEE /* UIBarButtonItem+BlocksKit.m in Sources */,
@@ -1098,6 +1129,7 @@
 				DBFB0B0D184DCD6200F37EEE /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
 				DBFB0B13184DCD6200F37EEE /* NSSetBlocksKitTest.m in Sources */,
 				43CE09E419866C2300F91137 /* QLPreviewControllerBlocksKitTest.m in Sources */,
+				401D75AB19B11DB5002A9D7C /* BKAnimationDelegateTest.m in Sources */,
 				DBFB0B08184DCD6200F37EEE /* NSIndexSetBlocksKitTest.m in Sources */,
 				DBFB0B14184DCD6200F37EEE /* NSTimerBlocksKitTest.m in Sources */,
 				DBFB0B1A184DCD6200F37EEE /* UIWebViewBlocksKitTest.m in Sources */,
@@ -1134,6 +1166,7 @@
 				DBFB09BE184DC7B000F37EEE /* NSMutableDictionary+BlocksKit.m in Sources */,
 				DBFB09BB184DC7B000F37EEE /* NSMutableArray+BlocksKit.m in Sources */,
 				DBFB09C1184DC7B000F37EEE /* NSMutableIndexSet+BlocksKit.m in Sources */,
+				401D75B219B11EC3002A9D7C /* BKAnimationDelegate.m in Sources */,
 				DBFB0A0D184DC7E400F37EEE /* NSObject+A2DynamicDelegate.m in Sources */,
 				DBFB09D9184DC7B000F37EEE /* NSTimer+BlocksKit.m in Sources */,
 				DBFB09C4184DC7B000F37EEE /* NSMutableOrderedSet+BlocksKit.m in Sources */,
@@ -1146,6 +1179,7 @@
 			files = (
 				DBFB0B1D184DCD9C00F37EEE /* A2BlockDelegateTests.m in Sources */,
 				DBFB0B1E184DCD9C00F37EEE /* A2BlockInvocationTests.m in Sources */,
+				401D75AC19B11DBD002A9D7C /* BKAnimationDelegateTest.m in Sources */,
 				DBFB0B1F184DCD9C00F37EEE /* A2DynamicDelegateTests.m in Sources */,
 				DBFB0B21184DCD9C00F37EEE /* BKMacrosTest.m in Sources */,
 				DBFB0B22184DCD9C00F37EEE /* NSArrayBlocksKitTest.m in Sources */,
