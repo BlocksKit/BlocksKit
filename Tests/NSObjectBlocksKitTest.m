@@ -10,7 +10,7 @@
 #import "XCTestCase+BKAsyncTestCase.h"
 
 static const NSTimeInterval BKObjectTestInterval = 0.025;
-static const NSTimeInterval BKObjectTestTimeout = 0.25;
+static const NSTimeInterval BKObjectTestTimeout = 1.0;
 
 @interface NSObjectBlocksKitTest : XCTestCase
 
