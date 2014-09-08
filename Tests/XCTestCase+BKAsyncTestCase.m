@@ -38,8 +38,8 @@ static void *BKAsyncRestCaseWaitingKey = &BKAsyncRestCaseWaitingKey;
 	
 	NSTimeInterval timeoutTime = [[NSDate dateWithTimeIntervalSinceNow:timeout] timeIntervalSinceReferenceDate];
 	while (self.bk_waitingForAsyncTest)  {
-		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
-		if ([NSDate timeIntervalSinceReferenceDate] > timeoutTime) {
+		[[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05f]];
+		if ([NSDate timeIntervalSinceReferenceDate] > timeoutTime && self.bk_waitingForAsyncTest) {
 			XCTFail(@"Test timed out! Did you forget to call -mn_finishRunningAsynchronousTest");
 			self.bk_waitingForAsyncTest = NO;
 		}
