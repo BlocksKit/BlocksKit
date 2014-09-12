@@ -53,7 +53,7 @@
 	}];
 }
 
-- (void)bk_whenDidPan:(void (^)(UIPanGestureRecognizer *))block; {
+- (void)bk_whenPanned:(void (^)(UIPanGestureRecognizer *))block; {
     if(block){
         UIPanGestureRecognizer *r = [UIPanGestureRecognizer bk_recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
             block(sender);
@@ -66,7 +66,7 @@
     }
 }
 
-- (void)bk_whenDidSwipe:(void (^)(UISwipeGestureRecognizer *))block; {
+- (void)bk_whenSwiped:(void (^)(UISwipeGestureRecognizer *))block; {
 
     if(block){
         __weak UIView * blockSelf = self;
