@@ -60,6 +60,18 @@
  */
 - (void)bk_whenDoubleTapped:(void (^)(void))block;
 
+/** Adds a recognizer for Pan
+ 
+ @param block A code block that interacts with a UIView sender.
+ */
+- (void)bk_whenDidPan:(void (^)(UIPanGestureRecognizer *))block;
+
+/** Adds 4-Direction Swipe recognizers.
+ 
+ @param block A code block that interacts with a UIView sender.
+ */
+- (void)bk_whenDidSwipe:(void (^)(UISwipeGestureRecognizer *))block;
+
 /** A convenience wrapper that non-recursively loops through the subviews of a view.
  
  @param block A code block that interacts with a UIView sender.
