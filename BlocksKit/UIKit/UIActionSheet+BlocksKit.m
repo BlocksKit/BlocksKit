@@ -21,8 +21,7 @@
 	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)])
 		[realDelegate actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
 	
-	void (^block)(void) = self.handlers[@(buttonIndex)];
-	if (block) block();
+
 }
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet
@@ -63,6 +62,9 @@
 
 	void (^block)(UIActionSheet *, NSInteger) = [self blockImplementationForMethod:_cmd];
 	if (block) block(actionSheet, buttonIndex);
+	
+	void (^handlerblock)(void) = self.handlers[@(buttonIndex)];
+	if (handlerblock) handlerblock();
 }
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
