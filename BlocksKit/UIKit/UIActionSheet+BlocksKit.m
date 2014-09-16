@@ -11,6 +11,8 @@
 
 @interface A2DynamicUIActionSheetDelegate : A2DynamicDelegate <UIActionSheetDelegate>
 
+@property (nonatomic, assign) BOOL didHandleButtonClick;
+
 @end
 
 @implementation A2DynamicUIActionSheetDelegate
@@ -22,7 +24,18 @@
 		[realDelegate actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
 	
 	void (^block)(void) = self.handlers[@(buttonIndex)];
-	if (block) block();
+
+  // Note: On iPad with iOS 8 GM seed, `actionSheet:clickedButtonAtIndex:` always gets called twice if you tap any button other than Cancel;
+  // In other words, assume you have two buttons: OK and Cancel; if you tap OK, this method will be called once for the OK button and once
+  // for the Cancel button. This could result in some really obscure bugs, so adding `didHandleButtonClick` property maintains iOS 7 compatibility.
+  if (block && self.didHandleButtonClick == NO) {
+    self.didHandleButtonClick = YES;
+
+    // Presenting view controllers from within action sheet delegate does not work on iPad running iOS 8 GM seed, without delay
+    dispatch_async(dispatch_get_main_queue(), ^{
+      block();
+    });
+  }
 }
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet
