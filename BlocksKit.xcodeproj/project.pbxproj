@@ -14,7 +14,7 @@
 		43CE09E419866C2300F91137 /* QLPreviewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */; };
 		43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */; };
 		43CE09E919866D8400F91137 /* QLPreviewController+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09DF198660EE00F91137 /* QLPreviewController+BlocksKit.h */; };
-		A3E3ED9B19F797A3008E0ECB /* NSMapTable+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */; };
+		A3E3ED9B19F797A3008E0ECB /* NSMapTable+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A3E3ED9C19F797A3008E0ECB /* NSMapTable+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */; };
 		A3E3ED9D19F797A3008E0ECB /* NSMapTable+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */; };
 		A3E3ED9E19F797C9008E0ECB /* NSMapTable+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */; };
