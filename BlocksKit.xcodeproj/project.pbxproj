@@ -14,6 +14,12 @@
 		43CE09E419866C2300F91137 /* QLPreviewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */; };
 		43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */; };
 		43CE09E919866D8400F91137 /* QLPreviewController+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09DF198660EE00F91137 /* QLPreviewController+BlocksKit.h */; };
+		A3E3ED9B19F797A3008E0ECB /* NSMapTable+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */; };
+		A3E3ED9C19F797A3008E0ECB /* NSMapTable+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */; };
+		A3E3ED9D19F797A3008E0ECB /* NSMapTable+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */; };
+		A3E3ED9E19F797C9008E0ECB /* NSMapTable+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */; };
+		A3E3EDA119F798C6008E0ECB /* NSMapTableBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E3EDA019F798C6008E0ECB /* NSMapTableBlocksKitTest.m */; };
+		A3E3EDA219F798C6008E0ECB /* NSMapTableBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E3EDA019F798C6008E0ECB /* NSMapTableBlocksKitTest.m */; };
 		DB5BF880185E909300FF2A0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08B1184DC23000F37EEE /* Foundation.framework */; };
 		DB5BF881185E909300FF2A0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */; };
 		DB5BF882185E909300FF2A0B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB08C2184DC23000F37EEE /* UIKit.framework */; };
@@ -258,6 +264,7 @@
 				DBFB09DE184DC7C600F37EEE /* NSDictionary+BlocksKit.h in CopyFiles */,
 				DBFB09DF184DC7C600F37EEE /* NSIndexSet+BlocksKit.h in CopyFiles */,
 				DBFB09E0184DC7C600F37EEE /* NSInvocation+BlocksKit.h in CopyFiles */,
+				A3E3ED9E19F797C9008E0ECB /* NSMapTable+BlocksKit.h in CopyFiles */,
 				DBFB09E1184DC7C600F37EEE /* NSMutableArray+BlocksKit.h in CopyFiles */,
 				DBFB09E2184DC7C600F37EEE /* NSMutableDictionary+BlocksKit.h in CopyFiles */,
 				DBFB09E3184DC7C600F37EEE /* NSMutableIndexSet+BlocksKit.h in CopyFiles */,
@@ -297,6 +304,9 @@
 		43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+QuickLook.h"; sourceTree = "<group>"; };
 		43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLPreviewControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		43CE09E619866D0600F91137 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuickLook.framework; sourceTree = DEVELOPER_DIR; };
+		A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMapTable+BlocksKit.h"; sourceTree = "<group>"; };
+		A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMapTable+BlocksKit.m"; sourceTree = "<group>"; };
+		A3E3EDA019F798C6008E0ECB /* NSMapTableBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMapTableBlocksKitTest.m; sourceTree = "<group>"; };
 		DB5BF802185E8E6300FF2A0B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DB5BF87F185E909300FF2A0B /* BK Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BK Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB981A00185E95C00047E817 /* BlocksKit-iOS-Tests-Runner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BlocksKit-iOS-Tests-Runner-Info.plist"; sourceTree = "<group>"; };
@@ -539,6 +549,7 @@
 				DBFB0AD7184DCD6200F37EEE /* NSDictionaryBlocksKitTest.m */,
 				DBFB0AD9184DCD6200F37EEE /* NSIndexSetBlocksKitTest.m */,
 				DBFB0ADB184DCD6200F37EEE /* NSInvocationBlocksKitTest.m */,
+				A3E3EDA019F798C6008E0ECB /* NSMapTableBlocksKitTest.m */,
 				DBFB0ADD184DCD6200F37EEE /* NSMutableArrayBlocksKitTest.m */,
 				DBFB0ADF184DCD6200F37EEE /* NSMutableDictionaryBlocksKitTest.m */,
 				DBFB0AE1184DCD6200F37EEE /* NSMutableIndexSetBlocksKitTest.m */,
@@ -674,6 +685,8 @@
 				DBFB0993184DC7AF00F37EEE /* NSIndexSet+BlocksKit.m */,
 				DBFB0994184DC7AF00F37EEE /* NSInvocation+BlocksKit.h */,
 				DBFB0995184DC7AF00F37EEE /* NSInvocation+BlocksKit.m */,
+				A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */,
+				A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */,
 				DBFB0996184DC7AF00F37EEE /* NSMutableArray+BlocksKit.h */,
 				DBFB0997184DC7B000F37EEE /* NSMutableArray+BlocksKit.m */,
 				DBFB0998184DC7B000F37EEE /* NSMutableDictionary+BlocksKit.h */,
@@ -827,6 +840,7 @@
 				DBFB0A08184DC7E400F37EEE /* NSObject+A2BlockDelegate.h in Headers */,
 				DBFB09C5184DC7B000F37EEE /* NSMutableSet+BlocksKit.h in Headers */,
 				DBFB09BF184DC7B000F37EEE /* NSMutableIndexSet+BlocksKit.h in Headers */,
+				A3E3ED9B19F797A3008E0ECB /* NSMapTable+BlocksKit.h in Headers */,
 				DBFB09BC184DC7B000F37EEE /* NSMutableDictionary+BlocksKit.h in Headers */,
 				DBFB09AC184DC7B000F37EEE /* BKMacros.h in Headers */,
 				DBFB0955184DC3AB00F37EEE /* BlocksKit.h in Headers */,
@@ -1054,6 +1068,7 @@
 				DBFB0A35184DC83200F37EEE /* UIPopoverController+BlocksKit.m in Sources */,
 				43CE09E1198660EE00F91137 /* QLPreviewController+BlocksKit.m in Sources */,
 				DBFB0A37184DC83200F37EEE /* UIView+BlocksKit.m in Sources */,
+				A3E3ED9C19F797A3008E0ECB /* NSMapTable+BlocksKit.m in Sources */,
 				DBFB09FF184DC7E400F37EEE /* A2DynamicDelegate.m in Sources */,
 				DBFB09C6184DC7B000F37EEE /* NSMutableSet+BlocksKit.m in Sources */,
 				DBFB09BD184DC7B000F37EEE /* NSMutableDictionary+BlocksKit.m in Sources */,
@@ -1103,6 +1118,7 @@
 				DBFB0B1A184DCD6200F37EEE /* UIWebViewBlocksKitTest.m in Sources */,
 				DBFB0B0E184DCD6200F37EEE /* NSMutableSetBlocksKitTest.m in Sources */,
 				DBFB0B16184DCD6200F37EEE /* UIActionSheetBlocksKitTest.m in Sources */,
+				A3E3EDA119F798C6008E0ECB /* NSMapTableBlocksKitTest.m in Sources */,
 				DBFB0B11184DCD6200F37EEE /* NSObjectBlocksKitTest.m in Sources */,
 				DBE126DA184DDD8F0023AFAD /* A2DynamicTestClasses.m in Sources */,
 				DBFB0B05184DCD6200F37EEE /* NSArrayBlocksKitTest.m in Sources */,
@@ -1127,6 +1143,7 @@
 				DBFB09D0184DC7B000F37EEE /* NSObject+BKBlockObservation.m in Sources */,
 				DBFB09CD184DC7B000F37EEE /* NSObject+BKBlockExecution.m in Sources */,
 				DBFB09FD184DC7E400F37EEE /* A2BlockInvocation.m in Sources */,
+				A3E3ED9D19F797A3008E0ECB /* NSMapTable+BlocksKit.m in Sources */,
 				DBFB09B2184DC7B000F37EEE /* NSDictionary+BlocksKit.m in Sources */,
 				DBFB09B8184DC7B000F37EEE /* NSInvocation+BlocksKit.m in Sources */,
 				DBFB09D6184DC7B000F37EEE /* NSSet+BlocksKit.m in Sources */,
@@ -1165,6 +1182,7 @@
 				DBFB0B2F184DCD9C00F37EEE /* NSOrderedSetBlocksKitTest.m in Sources */,
 				DBFB0B30184DCD9C00F37EEE /* NSSetBlocksKitTest.m in Sources */,
 				DBFB0B31184DCD9C00F37EEE /* NSTimerBlocksKitTest.m in Sources */,
+				A3E3EDA219F798C6008E0ECB /* NSMapTableBlocksKitTest.m in Sources */,
 				DBFB0B32184DCD9C00F37EEE /* NSURLConnectionBlocksKitTest.m in Sources */,
 				DBE126D9184DDD8B0023AFAD /* A2DynamicTestClasses+A2BlockDelegate.m in Sources */,
 				DBD7875518E0CE3A008DC59D /* XCTestCase+BKAsyncTestCase.m in Sources */,
