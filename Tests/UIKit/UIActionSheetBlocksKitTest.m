@@ -29,12 +29,16 @@
 }
 
 - (void)testAddButtonWithHandler {
-	__block NSInteger total = 0;
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Button 2 callback"];
 
-	NSInteger index1 = [_subject bk_addButtonWithTitle:@"Button 1" handler:^{ total++; }];
-	NSInteger index2 = [_subject bk_addButtonWithTitle:@"Button 2" handler:^{ total += 2; }];
+    NSInteger index1 = [_subject bk_addButtonWithTitle:@"Button 1" handler:^{
+        XCTFail();
+    }];
+	NSInteger index2 = [_subject bk_addButtonWithTitle:@"Button 2" handler:^{
+        [expectation fulfill];
+    }];
 	
-	XCTAssertEqual(_subject.numberOfButtons, (NSInteger)2,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
+	XCTAssertEqual(_subject.numberOfButtons, (NSInteger)2, @"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
 
 	NSString *title = @"Button";
 	title = [_subject buttonTitleAtIndex:index1];
@@ -43,25 +47,26 @@
 	title = [_subject buttonTitleAtIndex:index2];
 	XCTAssertEqualObjects(title,@"Button 2",@"the UIActionSheet adds a button with title %@",title);
 	
-	[_subject.bk_dynamicDelegate actionSheet:_subject clickedButtonAtIndex:index1];
 	[_subject.bk_dynamicDelegate actionSheet:_subject clickedButtonAtIndex:index2];
-	
-	XCTAssertEqual(total, (NSInteger)3, @"Not all block handlers were called.");
+    
+    [self waitForExpectationsWithTimeout:1 handler:NULL];
 }
  
 - (void)testSetDestructiveButtonWithHandler {
-	__block BOOL blockCalled = NO;
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Destructive button callback"];
 	
-	NSInteger index = [_subject bk_setDestructiveButtonWithTitle:@"Delete" handler:^{ blockCalled = YES; }];
-	XCTAssertEqual(_subject.numberOfButtons,(NSInteger)1,@"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
-	XCTAssertEqual(_subject.destructiveButtonIndex,index,@"the action sheet destructive button index is %ld", (long)_subject.destructiveButtonIndex);
+    NSInteger index = [_subject bk_setDestructiveButtonWithTitle:@"Delete" handler:^{
+        [expectation fulfill];
+    }];
+	XCTAssertEqual(_subject.numberOfButtons, (NSInteger)1, @"the action sheet has %ld buttons", (long)_subject.numberOfButtons);
+	XCTAssertEqual(_subject.destructiveButtonIndex, index, @"the action sheet destructive button index is %ld", (long)_subject.destructiveButtonIndex);
 
 	NSString *title = [_subject buttonTitleAtIndex:index];
 	XCTAssertEqualObjects(title,@"Delete",@"the UIActionSheet adds a button with title %@",title);
 	
-	[_subject.bk_dynamicDelegate actionSheet:_subject clickedButtonAtIndex:index];
-
-	XCTAssertTrue(blockCalled, @"Block handler was not called.");
+    [_subject.bk_dynamicDelegate actionSheet:_subject clickedButtonAtIndex:index];
+    
+    [self waitForExpectationsWithTimeout:1 handler:NULL];
 }
 
 - (void)testSetCancelButtonWithHandler {
