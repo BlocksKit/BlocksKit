@@ -30,15 +30,11 @@
 	XCTAssertTrue(hasHandler, @"Control doesn't have the handler.");
 }
 
-- (void)testInvokeEventHandler {
-	[_subject sendActionsForControlEvents:UIControlEventTouchUpInside];
-	XCTAssertEqual(_total, (NSInteger)1, @"Event handler did not get called.");
-}
-
 - (void)testRemoveEventHandler {
 	[_subject bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
-	[_subject sendActionsForControlEvents:UIControlEventTouchUpInside];	
-	XCTAssertEqual(_total, (NSInteger)0, @"Event handler still called.");
+    
+    BOOL hasHandler = [_subject bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside];
+    XCTAssertFalse(hasHandler, @"Control still has the handler.");
 }
 
 @end
