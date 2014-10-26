@@ -306,24 +306,6 @@ static const void *BKResponseLengthKey = &BKResponseLengthKey;
 		block(connection, connection.bk_response, connection.bk_responseData);
 }
 
-#pragma mark - Deprecated iOS 4.x authentication methods
-
-- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-{
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:didReceiveAuthenticationChallenge:)])
-		[realDelegate connection:connection didReceiveAuthenticationChallenge:challenge];
-}
-
-- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
-{
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(connection:canAuthenticateAgainstProtectionSpace:)])
-		return [realDelegate connection:connection canAuthenticateAgainstProtectionSpace:protectionSpace];
-
-	return NO;
-}
-
 @end
 
 #pragma mark - Category
