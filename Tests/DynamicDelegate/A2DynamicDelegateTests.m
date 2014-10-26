@@ -3,8 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/A2DynamicDelegate.h>
+@import XCTest;
+@import BlocksKit.Dynamic;
 #import "A2DynamicTestClasses.h"
 
 @interface A2DynamicDelegateTests : XCTestCase

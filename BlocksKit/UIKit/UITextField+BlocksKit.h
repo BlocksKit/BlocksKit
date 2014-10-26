@@ -5,8 +5,7 @@
 //  Contributed by Samuel E. Giddins.
 //
 
-#import <UIKit/UITextField.h>
-#import "BlocksKit.h"
+@import UIKit;
 
 /** Block callbacks for UITextField.
 

@@ -2,8 +2,8 @@
 // Created by Agens AS for BlocksKit on 21.10.14.
 //
 
-#import <XCTest/XCTest.h>
-#import <Blockskit/NSMapTable+BlocksKit.h>
+@import XCTest;
+@import BlocksKit;
 
 @interface NSMapTableBlocksKitTest : XCTestCase
 

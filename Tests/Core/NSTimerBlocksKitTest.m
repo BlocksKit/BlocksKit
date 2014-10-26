@@ -5,8 +5,8 @@
 //  Contributed by Kai Wu.
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/NSTimer+BlocksKit.h>
+@import XCTest;
+@import BlocksKit;
 
 static const NSTimeInterval BKTimerTestLeniency = 10;
 static const NSTimeInterval BKTimerTestInterval = 0.025;

@@ -3,9 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/NSCache+BlocksKit.h>
-#import <BlocksKit/NSObject+A2DynamicDelegate.h>
+@import XCTest;
+@import BlocksKit.Dynamic.Foundation;
 
 @interface NSCacheBlocksKitTest : XCTestCase <NSCacheDelegate>
 

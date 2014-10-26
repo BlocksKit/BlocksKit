@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /** Block extensions for NSMutableSet.
 

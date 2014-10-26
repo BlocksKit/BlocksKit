@@ -6,7 +6,7 @@
 //
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 #import "A2DynamicTestClasses.h"
 
 #pragma mark -

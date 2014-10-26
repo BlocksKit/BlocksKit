@@ -3,8 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/UIControl+BlocksKit.h>
+@import XCTest;
+@import BlocksKit.Dynamic.UIKit;
 
 @interface UIControlBlocksKitTest : XCTestCase
 

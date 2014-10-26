@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /** BlocksKit extensions for NSInvocation. */
 @interface NSInvocation (BlocksKit)

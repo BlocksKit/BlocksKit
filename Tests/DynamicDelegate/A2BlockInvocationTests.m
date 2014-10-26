@@ -3,8 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/A2DynamicDelegate.h>
+@import XCTest;
+@import BlocksKit.Dynamic;
 
 static const void *A2BlockInvocationTestPass = &A2BlockInvocationTestPass;
 

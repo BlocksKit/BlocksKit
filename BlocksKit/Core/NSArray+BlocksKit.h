@@ -3,8 +3,8 @@
 //  BlocksKit
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreGraphics/CGBase.h>
+@import Foundation;
+@import CoreGraphics.CGBase;
 
 /** Block extensions for NSArray.
 

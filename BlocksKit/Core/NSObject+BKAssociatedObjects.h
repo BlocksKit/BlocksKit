@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /** Objective-C wrapper for 10.6+ associated object API.
 

@@ -3,8 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/NSMutableOrderedSet+BlocksKit.h>
+@import XCTest;
+@import BlocksKit;
 
 @interface NSMutableOrderedSetBlocksKitTest : XCTestCase
 

@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 /** Block callbacks for UIWebView.
 

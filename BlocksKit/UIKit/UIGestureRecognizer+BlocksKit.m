@@ -3,8 +3,8 @@
 //  BlocksKit
 //
 
-#import <objc/runtime.h>
 #import "UIGestureRecognizer+BlocksKit.h"
+@import ObjectiveC.runtime;
 
 static const void *BKGestureRecognizerBlockKey = &BKGestureRecognizerBlockKey;
 static const void *BKGestureRecognizerDelayKey = &BKGestureRecognizerDelayKey;

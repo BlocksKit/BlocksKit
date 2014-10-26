@@ -3,10 +3,10 @@
 //  BlocksKit
 //
 
+#import "UIAlertView+BlocksKit.h"
 #import "A2DynamicDelegate.h"
 #import "NSObject+A2BlockDelegate.h"
 #import "NSObject+A2DynamicDelegate.h"
-#import "UIAlertView+BlocksKit.h"
 
 #pragma mark Delegate
 

@@ -5,8 +5,8 @@
 //  Contributed by Kai Wu.
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/NSObject+BKAssociatedObjects.h>
+@import XCTest;
+@import BlocksKit;
 
 @interface NSObjectAssociatedObjectTest : XCTestCase
 

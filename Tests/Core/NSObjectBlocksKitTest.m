@@ -5,8 +5,8 @@
 //  Contributed by Kai Wu.
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/NSObject+BKBlockExecution.h>
+@import XCTest;
+@import BlocksKit;
 
 static const NSTimeInterval BKObjectTestInterval = 0.025;
 static const NSTimeInterval BKObjectTestTimeout = 1.0;

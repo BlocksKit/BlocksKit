@@ -3,8 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/NSURLConnection+BlocksKit.h>
+@import XCTest;
+@import BlocksKit.Dynamic.Foundation;
 
 @interface NSURLConnectionBlocksKitTest : XCTestCase
 

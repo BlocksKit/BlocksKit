@@ -6,6 +6,8 @@
 //
 
 #import "BKApp.h"
+@import BlocksKit;
+@import BlocksKit.Dynamic;
 
 @implementation BKApp	- (void) awakeFromNib {
 

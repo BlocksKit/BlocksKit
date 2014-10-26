@@ -5,7 +5,6 @@
 //  Includes code by Michael Ash. <https://github.com/mikeash>.
 //
 
-#import <Foundation/Foundation.h>
 #import "NSArray+BlocksKit.h"
 #import "NSSet+BlocksKit.h"
 #import "NSDictionary+BlocksKit.h"

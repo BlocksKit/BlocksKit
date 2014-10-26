@@ -5,8 +5,8 @@
 //  Contributed by Kai Wu.
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/NSMutableSet+BlocksKit.h>
+@import XCTest;
+@import BlocksKit;
 
 @interface NSMutableSetBlocksKitTest : XCTestCase
 

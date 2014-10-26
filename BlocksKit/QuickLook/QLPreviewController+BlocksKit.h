@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import <QuickLook/QuickLook.h>
+@import QuickLook;
 
 @interface QLPreviewController (BlocksKit)
 

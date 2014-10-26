@@ -5,8 +5,8 @@
 //  Contributed by Kai Wu.
 //
 
-#import <XCTest/XCTest.h>
-#import <Blockskit/NSDictionary+BlocksKit.h>
+@import XCTest;
+@import BlocksKit;
 
 @interface NSDictionaryBlocksKitTest : XCTestCase
 

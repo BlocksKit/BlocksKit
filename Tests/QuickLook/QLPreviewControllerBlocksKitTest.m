@@ -3,9 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/QLPreviewController+BlocksKit.h>
-#import <BlocksKit/A2DynamicDelegate.h>
+@import XCTest;
+@import BlocksKit.Dynamic.QuickLook;
 
 @interface QLPreviewControllerBlocksKitTest : XCTestCase
 

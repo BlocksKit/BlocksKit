@@ -3,11 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <XCTest/XCTest.h>
-#import <UIKit/UIKit.h>
-#import <BlocksKit/A2DynamicDelegate.h>
-#import <BlocksKit/BlocksKit.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+@import XCTest;
+@import BlocksKit.Dynamic.UIKit;
 
 @interface UIImagePickerControllerBlocksKitTest : XCTestCase <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 

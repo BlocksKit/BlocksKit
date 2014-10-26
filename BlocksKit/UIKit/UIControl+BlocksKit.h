@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 /** Block control event handling for UIControl.
 

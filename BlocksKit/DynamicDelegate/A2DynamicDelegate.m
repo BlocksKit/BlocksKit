@@ -3,9 +3,9 @@
 //  BlocksKit
 //
 
-#import <objc/message.h>
-#import "A2BlockInvocation.h"
 #import "A2DynamicDelegate.h"
+@import ObjectiveC.message;
+#import "A2BlockInvocation.h"
 
 Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);

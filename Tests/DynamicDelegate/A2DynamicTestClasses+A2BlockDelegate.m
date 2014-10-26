@@ -7,7 +7,7 @@
 //
 
 #import "A2DynamicTestClasses+A2BlockDelegate.h"
-#import "NSObject+A2BlockDelegate.h"
+@import BlocksKit.Dynamic;
 
 @implementation TestReturnObject (A2BlockDelegate)
 

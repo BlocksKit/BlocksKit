@@ -5,8 +5,8 @@
 //  Contributed by Nikolaj Schumacher
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/BKMacros.h>
+@import XCTest;
+@import BlocksKit;
 
 @interface BKMacrosTest : XCTestCase
 @end

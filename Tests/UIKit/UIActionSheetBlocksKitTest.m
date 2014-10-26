@@ -5,9 +5,8 @@
 //  Contributed by Kai Wu.
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/UIActionSheet+BlocksKit.h>
-#import <BlocksKit/A2DynamicDelegate.h>
+@import XCTest;
+@import BlocksKit.Dynamic.UIKit;
 
 @interface UIActionSheetBlocksKitTest : XCTestCase
 

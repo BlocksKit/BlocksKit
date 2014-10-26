@@ -3,8 +3,8 @@
 //  BlocksKit
 //
 
-#import <objc/runtime.h>
 #import "A2DynamicDelegate.h"
+@import ObjectiveC.runtime;
 #import "NSObject+A2BlockDelegate.h"
 #import "NSObject+A2DynamicDelegate.h"
 #import "NSURLConnection+BlocksKit.h"

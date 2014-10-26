@@ -5,9 +5,8 @@
 //  Contributed by Samuel E. Giddins.
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/UITextField+BlocksKit.h>
-#import <BlocksKit/A2DynamicDelegate.h>
+@import XCTest;
+@import BlocksKit.Dynamic.UIKit;
 
 @interface UITextFieldBlocksKitTest : XCTestCase
 

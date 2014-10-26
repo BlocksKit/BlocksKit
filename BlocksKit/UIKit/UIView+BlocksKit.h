@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 /** Convenience on-touch methods for UIView.
 

@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /** The A2BlockDelegate category extends features provided by A2DynamicDelegate
  to create custom block properties in a category on a delegating object and

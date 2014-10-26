@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /// If a block invocation is instiated with an invalid method signature,
 /// an `NSInvalidArgumentException` is thrown containing this key in the

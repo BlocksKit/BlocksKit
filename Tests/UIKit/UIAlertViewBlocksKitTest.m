@@ -3,9 +3,8 @@
 //  BlocksKit Unit Tests
 //
 
-#import <XCTest/XCTest.h>
-#import <BlocksKit/UIAlertView+BlocksKit.h>
-#import <BlocksKit/A2DynamicDelegate.h>
+@import XCTest;
+@import BlocksKit.Dynamic.UIKit;
 
 @interface UIAlertViewBlocksKitTest : XCTestCase
 

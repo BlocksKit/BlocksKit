@@ -3,9 +3,9 @@
 //  BlocksKit
 //
 
+#import "QLPreviewController+BlocksKit.h"
 #import "NSObject+A2BlockDelegate.h"
 #import "NSObject+A2DynamicDelegate.h"
-#import "QLPreviewController+BlocksKit.h"
 
 #pragma mark Custom delegate
 
