@@ -4,6 +4,9 @@
 //
 
 @import XCTest;
+
+#if 0
+
 @import BlocksKit.Dynamic.MessageUI;
 
 @interface MFMailComposeViewControllerBlocksKitTest : XCTestCase <MFMailComposeViewControllerDelegate>
@@ -40,3 +43,5 @@
 }
 
 @end
+
+#endif
