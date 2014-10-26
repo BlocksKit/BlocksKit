@@ -34,9 +34,9 @@
 
  @param block A single-argument code block, where `obj` is the reciever.
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-- (id)bk_performBlock:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay;
+- (id <NSObject, NSCopying>)bk_performBlock:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block after a given delay.
 
@@ -53,9 +53,9 @@
  @see performBlock:afterDelay:
  @param block A code block.
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-+ (id)bk_performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
++ (id <NSObject, NSCopying>)bk_performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block in the background after a given delay on the receiver.
  
@@ -65,9 +65,9 @@
  @see performBlock:afterDelay:
  @param block A code block.
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-- (id)bk_performBlockInBackground:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay;
+- (id <NSObject, NSCopying>)bk_performBlockInBackground:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block in the background after a given delay.
  
@@ -77,9 +77,9 @@
  @see performBlock:afterDelay:
  @param block A code block.
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-+ (id)bk_performBlockInBackground:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
++ (id <NSObject, NSCopying>)bk_performBlockInBackground:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block in the background after a given delay.
  
@@ -90,9 +90,9 @@
  @param block A code block.
  @param queue A background queue.
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-+ (id)bk_performBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay;
++ (id <NSObject, NSCopying>)bk_performBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay;
 
 /** Executes a block in the background after a given delay.
  
@@ -103,19 +103,18 @@
  @param block A code block.
  @param queue A background queue.
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-- (id)bk_performBlock:(void (^)(id obj))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay;
+- (id <NSObject, NSCopying>)bk_performBlock:(void (^)(id obj))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay;
 
 /** Cancels the potential execution of a block.
 
  @warning *Important:* It is not recommended to cancel a block executed
- with no delay (a delay of 0.0).  While it it still possible to catch the block
- before GCD has executed it, it has likely already been executed and disposed of.
+ with a delay of @c 0.
 
- @param block A pointer to a containing block, as returned from one of the
- `performBlock` selectors.
+ @param block A cancellation token, as returned from one of the `performBlock`
+ selectors.
  */
-+ (void)bk_cancelBlock:(id)block;
++ (void)bk_cancelBlock:(id <NSObject, NSCopying>)block;
 
 @end
