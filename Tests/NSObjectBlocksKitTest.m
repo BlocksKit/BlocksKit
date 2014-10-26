@@ -7,67 +7,132 @@
 
 #import <XCTest/XCTest.h>
 #import <BlocksKit/NSObject+BKBlockExecution.h>
-#import "XCTestCase+BKAsyncTestCase.h"
 
 static const NSTimeInterval BKObjectTestInterval = 0.025;
 static const NSTimeInterval BKObjectTestTimeout = 1.0;
 
-@interface NSObjectBlocksKitTest : XCTestCase
+static const void *BKObjectTestIsOnQueueKey = &BKObjectTestIsOnQueueKey;
+NS_INLINE BOOL BKObjectTestIsOnQueue(void) {
+    return dispatch_get_specific(BKObjectTestIsOnQueueKey) != NULL;
+}
+
+NS_INLINE BOOL BKObjectTestIsOnMainQueue(void) {
+    return NSThread.isMainThread;
+}
+
+NS_INLINE BOOL BKObjectTestIsOnGlobalQueue(void) {
+    return !BKObjectTestIsOnQueue() && !BKObjectTestIsOnMainQueue();
+}
+
+@interface NSObjectBlocksKitTest : XCTestCase {
+    dispatch_queue_t _queue;
+}
 
 @end
 
 @implementation NSObjectBlocksKitTest
 
+- (void)setUp
+{
+    _queue = dispatch_queue_create(NSStringFromClass(self.class).UTF8String, 0);
+    dispatch_queue_set_specific(_queue, BKObjectTestIsOnQueueKey, (__bridge void *)self, NULL);
+}
+
+- (void)tearDown
+{
+    _queue = nil;
+}
+
+- (void)testInstancePerformBlockAfterDelay {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Perform sender block after delay"];
+    id<NSObject,NSCopying> token = [self bk_performBlock:^(id sender) {
+        [expectation fulfill];
+
+        XCTAssertNotNil(sender);
+        XCTAssertTrue(BKObjectTestIsOnMainQueue());
+    } afterDelay:BKObjectTestInterval];
+
+    XCTAssertNotNil(token);
+
+    [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
+}
+
 - (void)testPerformBlockAfterDelay {
-	NSMutableString *subject = [@"Hello" mutableCopy];
-	void (^senderBlock)(id) = ^(NSObjectBlocksKitTest *sender) {
-		[subject appendString:@" BlocksKit"];
-		[sender bk_finishRunningAsyncTest];
-	};
-	
-	[self bk_performAsyncTestWithTimeout:BKObjectTestTimeout block:^{
-		id block = [self bk_performBlock:senderBlock afterDelay:BKObjectTestInterval];
-		XCTAssertNotNil(block,@"block is nil");
-	}];
-	
-	XCTAssertEqualObjects(subject, @"Hello BlocksKit", @"subject string is %@", subject);
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
+    id<NSObject,NSCopying> token = [NSObject bk_performBlock:^{
+        [expectation fulfill];
+        XCTAssertTrue(BKObjectTestIsOnMainQueue());
+    } afterDelay:BKObjectTestInterval];
+
+    XCTAssertNotNil(token);
+
+    [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
 }
 
-- (void)testClassPerformBlockAfterDelay {
-	NSMutableString *subject = [NSMutableString stringWithString:@"Hello"];
-	void (^senderBlock)(void) = ^{
-		[subject appendString:@" BlocksKit"];
-		[self bk_finishRunningAsyncTest];
-	};
-	
-	[self bk_performAsyncTestWithTimeout:BKObjectTestTimeout block:^{
-		id block = [NSObject bk_performBlock:senderBlock afterDelay:BKObjectTestInterval];
-		XCTAssertNotNil(block,@"block is nil");
-	}];
-	
-	XCTAssertEqualObjects(subject, @"Hello BlocksKit", @"subject string is %@", subject);
+- (void)testInstancePerformBlockOnQueueAfterDelay {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
+    id<NSObject,NSCopying> token = [self bk_performBlock:^(id sender){
+        [expectation fulfill];
+
+        XCTAssertNotNil(sender);
+        XCTAssertTrue(BKObjectTestIsOnQueue());
+    } onQueue:_queue afterDelay:BKObjectTestInterval];
+
+    XCTAssertNotNil(token);
+
+    [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
 }
 
-- (void)testCancel {
-	NSMutableString *subject = [@"Hello" mutableCopy];
-	void (^senderBlock)(id) = ^(NSObjectBlocksKitTest *sender){
-		[subject appendString:@" BlocksKit"];
-		[self bk_finishRunningAsyncTest];
-	};
-	
-	[self bk_performAsyncTestWithTimeout:BKObjectTestTimeout block:^{
-		id block = [self bk_performBlock:senderBlock afterDelay:BKObjectTestInterval];
-		if (!block) {
-			[self bk_finishRunningAsyncTest];
-			XCTFail(@"block is nil");
-		}
-		[NSObject bk_cancelBlock:block];
-		[NSObject bk_performBlock:^{
-			[self bk_finishRunningAsyncTest];
-		} afterDelay:BKObjectTestInterval];
-	}];
-	
-	XCTAssertEqualObjects(subject, @"Hello", @"subject string is %@", subject);
+- (void)testPerformBlockOnQueueAfterDelay {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
+    id<NSObject,NSCopying> token = [NSObject bk_performBlock:^{
+        [expectation fulfill];
+        XCTAssertTrue(BKObjectTestIsOnQueue());
+    } onQueue:_queue afterDelay:BKObjectTestInterval];
+
+    XCTAssertNotNil(token);
+
+    [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
+}
+
+- (void)testPerformBlockInBackgroundAfterDelay {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
+    id<NSObject,NSCopying> token = [NSObject bk_performBlockInBackground:^{
+        [expectation fulfill];
+        XCTAssertTrue(BKObjectTestIsOnGlobalQueue());
+    } afterDelay:BKObjectTestInterval];
+
+    XCTAssertNotNil(token);
+
+    [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
+}
+
+- (void)testInstancePerformBlockInBackgroundAfterDelay {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
+    id<NSObject,NSCopying> token = [self bk_performBlockInBackground:^(id sender){
+        [expectation fulfill];
+        XCTAssertTrue(BKObjectTestIsOnGlobalQueue());
+    } afterDelay:BKObjectTestInterval];
+
+    XCTAssertNotNil(token);
+
+    [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
+}
+
+- (void)testCancelPerformBlock {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Cancel performed block"];
+    id<NSObject,NSCopying> token = [NSObject bk_performBlock:^{
+        XCTFail();
+    } onQueue:_queue afterDelay:BKObjectTestInterval];
+
+    XCTAssertNotNil(token);
+    [NSObject bk_cancelBlock:token];
+
+    [NSObject bk_performBlock:^{
+        [expectation fulfill];
+    } afterDelay:BKObjectTestInterval];
+
+    [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
 }
 
 @end
