@@ -1,0 +1,13 @@
+//
+// This file defines additional configuration options that are appropriate only
+// for a unit testing bundle on iOS. This should be set at the target level for
+// each project configuration.
+//
+
+// Import common settings specific to iOS
+#include "iOS-Base.xcconfig"
+
+// Where to find embedded frameworks
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks @loader_path/../Frameworks
+
+FRAMEWORK_SEARCH_PATHS = $(inherited) $(SDKROOT)/Developer/Library/Frameworks

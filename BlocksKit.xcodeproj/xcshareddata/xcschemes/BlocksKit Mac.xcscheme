@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0610"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DBFB092B184DC36400F37EEE"
+               BlueprintIdentifier = "DB4B7D3E19FD867F00C459A6"
                BuildableName = "BlocksKit.framework"
-               BlueprintName = "BlocksKit Mac"
+               BlueprintName = "BlocksKit"
+               ReferencedContainer = "container:BlocksKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DB4B7D4919FD867F00C459A6"
+               BuildableName = "BlocksKitTests.xctest"
+               BlueprintName = "BlocksKitTests"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,13 +46,22 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DBFB0940184DC36400F37EEE"
-               BuildableName = "BlocksKit-Mac-Tests.xctest"
-               BlueprintName = "BlocksKit Mac Tests"
+               BlueprintIdentifier = "DB4B7D4919FD867F00C459A6"
+               BuildableName = "BlocksKitTests.xctest"
+               BlueprintName = "BlocksKitTests"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DB4B7D3E19FD867F00C459A6"
+            BuildableName = "BlocksKit.framework"
+            BlueprintName = "BlocksKit"
+            ReferencedContainer = "container:BlocksKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -49,6 +72,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DB4B7D3E19FD867F00C459A6"
+            BuildableName = "BlocksKit.framework"
+            BlueprintName = "BlocksKit"
+            ReferencedContainer = "container:BlocksKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -58,6 +90,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DB4B7D3E19FD867F00C459A6"
+            BuildableName = "BlocksKit.framework"
+            BlueprintName = "BlocksKit"
+            ReferencedContainer = "container:BlocksKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

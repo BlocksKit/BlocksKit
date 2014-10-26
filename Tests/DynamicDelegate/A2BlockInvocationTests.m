@@ -4,7 +4,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <BlocksKit/A2BlockInvocation.h>
+#import <BlocksKit/A2DynamicDelegate.h>
 
 static const void *A2BlockInvocationTestPass = &A2BlockInvocationTestPass;
 

@@ -42,7 +42,7 @@
 	};
 	[_subject bk_performSelect:validationBlock];
 	
-	XCTAssertEqual(_subject.count, 0, @"no item is selected");
+	XCTAssertEqual(_subject.count, (NSUInteger)0, @"no item is selected");
 }
 
 - (void)testReject {
@@ -63,7 +63,7 @@
 	};
 	[_subject bk_performReject:validationBlock];
 	
-	XCTAssertEqual(_subject.count, 0, @"all items are rejected");
+	XCTAssertEqual(_subject.count, (NSUInteger)0, @"all items are rejected");
 }
 
 - (void)testMap {
