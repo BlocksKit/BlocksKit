@@ -301,9 +301,10 @@
 		DB4B7FD519FDA0E100C459A6 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB4B7D3F19FD867F00C459A6 /* BlocksKit.framework */; };
 		DB4B7FD619FDA0E100C459A6 /* BlocksKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB4B7D3F19FD867F00C459A6 /* BlocksKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB4B7FDC19FDA57D00C459A6 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB4B7D6019FD869800C459A6 /* BlocksKit.framework */; };
-		DB4B80DD19FDC92E00C459A6 /* UIImage+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DB4B80DB19FDC92E00C459A6 /* UIImage+BlocksKit.h */; };
+		DB4B80DD19FDC92E00C459A6 /* UIImage+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DB4B80DB19FDC92E00C459A6 /* UIImage+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB4B80DE19FDC92E00C459A6 /* UIImage+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DB4B80DC19FDC92E00C459A6 /* UIImage+BlocksKit.m */; };
 		DB4B80DF19FDC92E00C459A6 /* UIImage+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DB4B80DC19FDC92E00C459A6 /* UIImage+BlocksKit.m */; };
+		DB4B80E019FDCCCE00C459A6 /* UIImage+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DB4B80DB19FDC92E00C459A6 /* UIImage+BlocksKit.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -384,6 +385,7 @@
 				DB4B7F7F19FD9C3C00C459A6 /* UITextField+BlocksKit.h in CopyFiles */,
 				DB4B7F8019FD9C3C00C459A6 /* UIView+BlocksKit.h in CopyFiles */,
 				DB4B7F8119FD9C3C00C459A6 /* UIWebView+BlocksKit.h in CopyFiles */,
+				DB4B80E019FDCCCE00C459A6 /* UIImage+BlocksKit.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,6 +836,8 @@
 				DB4B7F0619FD9BE700C459A6 /* UIControl+BlocksKit.m */,
 				DB4B7F0719FD9BE700C459A6 /* UIGestureRecognizer+BlocksKit.h */,
 				DB4B7F0819FD9BE700C459A6 /* UIGestureRecognizer+BlocksKit.m */,
+				DB4B80DB19FDC92E00C459A6 /* UIImage+BlocksKit.h */,
+				DB4B80DC19FDC92E00C459A6 /* UIImage+BlocksKit.m */,
 				DB4B7F0919FD9BE700C459A6 /* UIImagePickerController+BlocksKit.h */,
 				DB4B7F0A19FD9BE700C459A6 /* UIImagePickerController+BlocksKit.m */,
 				DB4B7F0B19FD9BE700C459A6 /* UIPopoverController+BlocksKit.h */,
@@ -844,8 +848,6 @@
 				DB4B7F1019FD9BE700C459A6 /* UIView+BlocksKit.m */,
 				DB4B7F1119FD9BE700C459A6 /* UIWebView+BlocksKit.h */,
 				DB4B7F1219FD9BE700C459A6 /* UIWebView+BlocksKit.m */,
-				DB4B80DB19FDC92E00C459A6 /* UIImage+BlocksKit.h */,
-				DB4B80DC19FDC92E00C459A6 /* UIImage+BlocksKit.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
