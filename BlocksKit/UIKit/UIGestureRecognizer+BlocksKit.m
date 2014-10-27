@@ -20,12 +20,12 @@ static const void *BKGestureRecognizerShouldHandleActionKey = &BKGestureRecogniz
 
 @implementation UIGestureRecognizer (BlocksKit)
 
-+ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay
++ (instancetype)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay
 {
 	return [[[self class] alloc] bk_initWithHandler:block delay:delay];
 }
 
-- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay
+- (instancetype)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay
 {
 	self = [self initWithTarget:self action:@selector(bk_handleAction:)];
 	if (!self) return nil;
@@ -36,12 +36,12 @@ static const void *BKGestureRecognizerShouldHandleActionKey = &BKGestureRecogniz
 	return self;
 }
 
-+ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block
++ (instancetype)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block
 {
 	return [self bk_recognizerWithHandler:block delay:0.0];
 }
 
-- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block
+- (instancetype)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block
 {
 	return (self = [self bk_initWithHandler:block delay:0.0]);
 }

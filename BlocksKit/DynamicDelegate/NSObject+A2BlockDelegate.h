@@ -104,7 +104,7 @@
  @see bk_dynamicDelegate:
  @return A dynamic delegate.
  */
-- (id)bk_ensuredDynamicDelegate;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id bk_ensuredDynamicDelegate;
 
 /** Creates or gets a dynamic protocol implementation, assuring that it is
  assigned to the delegate property correspending to that protocol

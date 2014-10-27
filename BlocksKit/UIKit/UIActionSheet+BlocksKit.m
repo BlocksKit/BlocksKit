@@ -111,11 +111,11 @@
 
 #pragma mark Initializers
 
-+ (id)bk_actionSheetWithTitle:(NSString *)title {
++ (instancetype)bk_actionSheetWithTitle:(NSString *)title {
 	return [[[self class] alloc] bk_initWithTitle:title];
 }
 
-- (id)bk_initWithTitle:(NSString *)title {
+- (instancetype)bk_initWithTitle:(NSString *)title {
 	self = [self initWithTitle:title delegate:self.bk_dynamicDelegate cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 	if (!self) { return nil; }
 	self.delegate = self.bk_dynamicDelegate;

@@ -108,7 +108,7 @@ static NSString *selectorDescribe(const void *item1)
 	return [super class];
 }
 
-- (id)initWithProtocol:(Protocol *)protocol
+- (instancetype)initWithProtocol:(Protocol *)protocol
 {
 	_protocol = protocol;
 	_handlers = [NSMutableDictionary dictionary];

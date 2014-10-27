@@ -48,14 +48,14 @@
  
  @return The UIAlertView.
  */
-+ (UIAlertView*)bk_showAlertViewWithTitle:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles handler:(void (^)(UIAlertView *alertView, NSInteger buttonIndex))block;
++ (instancetype)bk_showAlertViewWithTitle:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles handler:(void (^)(UIAlertView *alertView, NSInteger buttonIndex))block;
 
 /** Creates and returns a new alert view with only a title and cancel button.
 
  @param title The title of the alert view.
  @return A newly created alert view.
  */
-+ (id)bk_alertViewWithTitle:(NSString *)title;
++ (instancetype)bk_alertViewWithTitle:(NSString *)title;
 
 /** Creates and returns a new alert view with only a title, message, and cancel button.
 
@@ -63,7 +63,7 @@
  @param message The message content of the alert.
  @return A newly created alert view.
  */
-+ (id)bk_alertViewWithTitle:(NSString *)title message:(NSString *)message;
++ (instancetype)bk_alertViewWithTitle:(NSString *)title message:(NSString *)message;
 
 /** Returns a configured alert view with only a title, message, and cancel button.
  
@@ -71,7 +71,7 @@
  @param message The message content of the alert.
  @return An instantiated alert view.
  */
-- (id)bk_initWithTitle:(NSString *)title message:(NSString *)message NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithTitle:(NSString *)title message:(NSString *)message NS_REPLACES_RECEIVER;
 
 ///-----------------------------------
 /// @name Adding buttons

@@ -41,14 +41,14 @@
  @param title The header of the action sheet.
  @return A newly created action sheet.
  */
-+ (id)bk_actionSheetWithTitle:(NSString *)title;
++ (instancetype)bk_actionSheetWithTitle:(NSString *)title;
 
 /** Returns a configured action sheet with only a title and cancel button.
 
  @param title The header of the action sheet.
  @return An instantiated actionSheet.
  */
-- (id)bk_initWithTitle:(NSString *)title NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithTitle:(NSString *)title NS_REPLACES_RECEIVER;
 
 ///-----------------------------------
 /// @name Adding buttons

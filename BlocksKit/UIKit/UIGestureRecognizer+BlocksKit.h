@@ -49,7 +49,7 @@
  @param block The block which handles an executed gesture.
  @param delay A number of seconds after which the block will fire.
  */
-+ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay;
++ (instancetype)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay;
 
 /** Initializes an allocated gesture recognizer that will call the given block
  after a given delay.
@@ -60,7 +60,7 @@
  @param block The block which handles an executed gesture.
  @param delay A number of seconds after which the block will fire.
  */
-- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay NS_REPLACES_RECEIVER;
 
 /** An autoreleased gesture recognizer that will call the given block.
  
@@ -71,7 +71,7 @@
  subclass, or `nil`.
  @param block The block which handles an executed gesture.
  */
-+ (id)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block;
++ (instancetype)bk_recognizerWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block;
 
 /** Initializes an allocated gesture recognizer that will call the given block.
  
@@ -80,7 +80,7 @@
  @return An initialized instance of a concrete UIGestureRecognizer subclass or `nil`.
  @param block The block which handles an executed gesture.
  */
-- (id)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block NS_REPLACES_RECEIVER;
 
 /** Allows the block that will be fired by the gesture recognizer
  to be modified after the fact.

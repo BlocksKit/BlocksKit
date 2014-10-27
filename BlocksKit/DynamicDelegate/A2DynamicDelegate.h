@@ -54,7 +54,7 @@
  * @param protocol A protocol to which the dynamic delegate should conform.
  * @return An initialized delegate proxy.
  */
-- (id)initWithProtocol:(Protocol *)protocol;
+- (instancetype)initWithProtocol:(Protocol *)protocol;
 
 /** The protocol delegating the dynamic delegate. */
 @property (nonatomic, readonly) Protocol *protocol;

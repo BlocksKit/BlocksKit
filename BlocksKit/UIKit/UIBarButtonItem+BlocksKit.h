@@ -26,7 +26,7 @@
  @param systemItem The system item to use as the item representation. One of the constants defined in UIBarButtonSystemItem.
  @param action The block that gets fired on the button press.
  */
-- (id)bk_initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(void (^)(id sender))action NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem handler:(void (^)(id sender))action NS_REPLACES_RECEIVER;
 
 /** Creates and returns a configured item using the specified image and style.
  
@@ -37,7 +37,7 @@
  @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
  @param action The block that gets fired on the button press.
  */
-- (id)bk_initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action NS_REPLACES_RECEIVER;
 
 /** Creates and returns a configured item using the specified image and style.
 
@@ -47,7 +47,7 @@
  @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
  @param action The block that gets fired on the button press.
  */
-- (id)bk_initWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action NS_REPLACES_RECEIVER NS_AVAILABLE_IOS(5_0);
+- (instancetype)bk_initWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action NS_REPLACES_RECEIVER;
 
 /** Creates and returns a configured item using the specified text and style.
  
@@ -56,6 +56,6 @@
  @param style The style of the item. One of the constants defined in UIBarButtonItemStyle.
  @param action The block that gets fired on the button press.
  */
-- (id)bk_initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action NS_REPLACES_RECEIVER;
 
 @end

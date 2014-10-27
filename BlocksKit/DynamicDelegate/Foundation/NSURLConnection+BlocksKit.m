@@ -348,12 +348,12 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 	return [ret initWithRequest:request delegate:dd startImmediately:YES];
 }
 
-- (id)bk_initWithRequest:(NSURLRequest *)request
+- (instancetype)bk_initWithRequest:(NSURLRequest *)request
 {
 	return (self = [self bk_initWithRequest:request completionHandler:nil]);
 }
 
-- (id)bk_initWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLConnection *, NSURLResponse *, NSData *))block
+- (instancetype)bk_initWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLConnection *, NSURLResponse *, NSData *))block
 {
 	Protocol *delegateProtocol = objc_getProtocol("NSURLConnectionDelegate");
 	if (!delegateProtocol)
