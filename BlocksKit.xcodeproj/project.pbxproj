@@ -301,6 +301,9 @@
 		DB4B7FD519FDA0E100C459A6 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB4B7D3F19FD867F00C459A6 /* BlocksKit.framework */; };
 		DB4B7FD619FDA0E100C459A6 /* BlocksKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB4B7D3F19FD867F00C459A6 /* BlocksKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB4B7FDC19FDA57D00C459A6 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB4B7D6019FD869800C459A6 /* BlocksKit.framework */; };
+		DB4B80DD19FDC92E00C459A6 /* UIImage+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DB4B80DB19FDC92E00C459A6 /* UIImage+BlocksKit.h */; };
+		DB4B80DE19FDC92E00C459A6 /* UIImage+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DB4B80DC19FDC92E00C459A6 /* UIImage+BlocksKit.m */; };
+		DB4B80DF19FDC92E00C459A6 /* UIImage+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DB4B80DC19FDC92E00C459A6 /* UIImage+BlocksKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -537,6 +540,8 @@
 		DB4B7FCA19FDA07200C459A6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DB4B7FDA19FDA54400C459A6 /* Module-iOS.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = "Module-iOS.modulemap"; sourceTree = "<group>"; };
 		DB4B7FDB19FDA54400C459A6 /* Module-Mac.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = "Module-Mac.modulemap"; sourceTree = "<group>"; };
+		DB4B80DB19FDC92E00C459A6 /* UIImage+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BlocksKit.h"; sourceTree = "<group>"; };
+		DB4B80DC19FDC92E00C459A6 /* UIImage+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BlocksKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -839,6 +844,8 @@
 				DB4B7F1019FD9BE700C459A6 /* UIView+BlocksKit.m */,
 				DB4B7F1119FD9BE700C459A6 /* UIWebView+BlocksKit.h */,
 				DB4B7F1219FD9BE700C459A6 /* UIWebView+BlocksKit.m */,
+				DB4B80DB19FDC92E00C459A6 /* UIImage+BlocksKit.h */,
+				DB4B80DC19FDC92E00C459A6 /* UIImage+BlocksKit.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -933,6 +940,7 @@
 			files = (
 				DB4B7EE419FD967000C459A6 /* NSURLConnection+BlocksKit.h in Headers */,
 				DB4B7E3219FD949000C459A6 /* NSObject+BKBlockObservation.h in Headers */,
+				DB4B80DD19FDC92E00C459A6 /* UIImage+BlocksKit.h in Headers */,
 				DB4B7E3719FD949000C459A6 /* NSOrderedSet+BlocksKit.h in Headers */,
 				DB4B7F2919FD9BE700C459A6 /* UIActionSheet+BlocksKit.h in Headers */,
 				DB4B7E0519FD949000C459A6 /* NSInvocation+BlocksKit.h in Headers */,
@@ -1294,6 +1302,7 @@
 				DB4B7E3E19FD949000C459A6 /* NSSet+BlocksKit.m in Sources */,
 				DB4B7EEB19FD967A00C459A6 /* NSCache+BlocksKit.m in Sources */,
 				DB4B7F5319FD9BE700C459A6 /* UIView+BlocksKit.m in Sources */,
+				DB4B80DE19FDC92E00C459A6 /* UIImage+BlocksKit.m in Sources */,
 				DB4B7E1119FD949000C459A6 /* NSMutableArray+BlocksKit.m in Sources */,
 				DB4B7F3A19FD9BE700C459A6 /* UIControl+BlocksKit.m in Sources */,
 				DB4B7F4919FD9BE700C459A6 /* UIPopoverController+BlocksKit.m in Sources */,
@@ -1376,6 +1385,7 @@
 				DB4B7E3F19FD949000C459A6 /* NSSet+BlocksKit.m in Sources */,
 				DB4B7EEF19FD967A00C459A6 /* NSCache+BlocksKit.m in Sources */,
 				DB4B7F5419FD9BE700C459A6 /* UIView+BlocksKit.m in Sources */,
+				DB4B80DF19FDC92E00C459A6 /* UIImage+BlocksKit.m in Sources */,
 				DB4B7E1219FD949000C459A6 /* NSMutableArray+BlocksKit.m in Sources */,
 				DB4B7F3B19FD9BE700C459A6 /* UIControl+BlocksKit.m in Sources */,
 				DB4B7F4A19FD9BE700C459A6 /* UIPopoverController+BlocksKit.m in Sources */,
