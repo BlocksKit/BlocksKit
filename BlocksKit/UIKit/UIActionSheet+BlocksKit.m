@@ -4,8 +4,9 @@
 //
 
 #import "UIActionSheet+BlocksKit.h"
-#import "NSObject+A2BlockDelegate.h"
+#import "A2DynamicDelegate.h"
 #import "NSObject+A2DynamicDelegate.h"
+#import "NSObject+A2BlockDelegate.h"
 
 #pragma mark Custom delegate
 

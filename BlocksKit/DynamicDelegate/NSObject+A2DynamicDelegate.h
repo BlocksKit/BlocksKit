@@ -4,7 +4,6 @@
 //
 
 @import Foundation;
-#import <BlocksKit/A2DynamicDelegate.h>
 
 /** The A2DynamicDelegate category to NSObject provides the primary interface
  by which dynamic delegates are generated for a given object. */

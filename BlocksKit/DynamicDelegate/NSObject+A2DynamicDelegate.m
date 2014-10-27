@@ -5,6 +5,7 @@
 
 #import "NSObject+A2DynamicDelegate.h"
 @import ObjectiveC.runtime;
+#import "A2DynamicDelegate.h"
 
 extern Protocol *a2_dataSourceProtocol(Class cls);
 extern Protocol *a2_delegateProtocol(Class cls);
