@@ -18,9 +18,9 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
 	BOOL ret = YES;
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldShouldBeginEditing:)])
-		ret = [realDelegate textFieldShouldBeginEditing:textField];
+	// id realDelegate = self.realDelegate;
+	// if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldShouldBeginEditing:)])
+	// 	ret = [realDelegate textFieldShouldBeginEditing:textField];
 	BOOL (^block)(UITextField *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		ret &= block(textField);
@@ -29,9 +29,9 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldDidBeginEditing:)])
-		[realDelegate textFieldDidBeginEditing:textField];
+	// id realDelegate = self.realDelegate;
+	// if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldDidBeginEditing:)])
+	// 	[realDelegate textFieldDidBeginEditing:textField];
 	void (^block)(UITextField *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		block(textField);
@@ -40,9 +40,9 @@
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
 	BOOL ret = YES;
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldShouldEndEditing:)])
-		ret = [realDelegate textFieldShouldEndEditing:textField];
+	// id realDelegate = self.realDelegate;
+	// if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldShouldEndEditing:)])
+	// 	ret = [realDelegate textFieldShouldEndEditing:textField];
 	BOOL (^block)(UITextField *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		ret &= block(textField);
@@ -51,9 +51,9 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldDidEndEditing:)])
-		[realDelegate textFieldDidEndEditing:textField];
+	// id realDelegate = self.realDelegate;
+	// if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldDidEndEditing:)])
+	// 	[realDelegate textFieldDidEndEditing:textField];
 	void (^block)(UITextField *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		block(textField);
@@ -62,9 +62,9 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
 	BOOL ret = YES;
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)])
-		ret = [realDelegate textField:textField shouldChangeCharactersInRange:range replacementString:string];
+	// id realDelegate = self.realDelegate;
+	// if (realDelegate && [realDelegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)])
+	// 	ret = [realDelegate textField:textField shouldChangeCharactersInRange:range replacementString:string];
 	BOOL (^block)(UITextField *, NSRange, NSString *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		ret &= block(textField, range, string);
@@ -74,9 +74,9 @@
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
 	BOOL ret = YES;
-	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldShouldClear:)])
-		ret = [realDelegate textFieldShouldClear:textField];
+	// id realDelegate = self.realDelegate;
+	// if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldShouldClear:)])
+	// 	ret = [realDelegate textFieldShouldClear:textField];
 	BOOL (^block)(UITextField *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		ret &= block(textField);
@@ -87,8 +87,8 @@
 {
 	BOOL ret = YES;
 	id realDelegate = self.realDelegate;
-	if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldShouldReturn:)])
-		ret = [realDelegate textFieldShouldReturn:textField];
+	// if (realDelegate && [realDelegate respondsToSelector:@selector(textFieldShouldReturn:)])
+	// 	ret = [realDelegate textFieldShouldReturn:textField];
 	BOOL (^block)(UITextField *) = [self blockImplementationForMethod:_cmd];
 	if (block)
 		ret &= block(textField);
