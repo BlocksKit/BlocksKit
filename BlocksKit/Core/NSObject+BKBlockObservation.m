@@ -209,10 +209,6 @@ static const NSUInteger BKKeyValueObservingOptionWantsChangeDictionary = 0x1000;
 		if (!dict) return;
 	}
 
-	[self bk_addObserverForKeyPaths: @"keypath" options:(NSKeyValueObservingOptions)0 task:^(id obj, NSString *keyPath, NSDictionary *change) {
-		// We will crash here when `keypath` changes causing a notification
-	}];
-	
 	_BKObserver *observer = dict[token];
 	[observer stopObservingKeyPath:keyPath];
 
