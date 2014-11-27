@@ -1509,7 +1509,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = BlocksKit/Info.plist;
 				MODULEMAP_FILE = "BlocksKit/Module-Mac.modulemap";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BlocksKit;
 			};
 			name = Debug;
 		};
@@ -1520,7 +1520,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = BlocksKit/Info.plist;
 				MODULEMAP_FILE = "BlocksKit/Module-Mac.modulemap";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BlocksKit;
 			};
 			name = Release;
 		};
