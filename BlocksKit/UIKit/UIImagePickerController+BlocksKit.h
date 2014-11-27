@@ -5,7 +5,7 @@
 //  Contributed by Yas Kuraishi.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 /** UIImagePickerController with block callback.
 

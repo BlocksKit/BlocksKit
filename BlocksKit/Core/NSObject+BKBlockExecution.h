@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 /** Block execution on *any* object.
 

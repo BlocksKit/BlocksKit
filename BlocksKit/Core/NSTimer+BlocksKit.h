@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 /** Simple category on NSTimer to give it blocks capability.
 

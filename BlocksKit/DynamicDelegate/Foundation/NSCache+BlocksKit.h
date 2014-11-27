@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 /** NSCache with block adding of objects
 

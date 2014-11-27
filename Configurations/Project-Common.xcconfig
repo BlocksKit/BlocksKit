@@ -200,4 +200,4 @@ VERSION_INFO_PREFIX =
 VERSIONING_SYSTEM = apple-generic
 
 // Don't treat unknown warnings as errors, and disable GCC compatibility warnings and unused static const variable warnings
-WARNING_CFLAGS = -Wno-error=unknown-warning-option -Wno-gcc-compat -Wno-unused-const-variable -Wauto-import
+WARNING_CFLAGS = -Wno-error=unknown-warning-option -Wno-gcc-compat -Wno-unused-const-variable

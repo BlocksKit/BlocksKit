@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-@import MessageUI;
+#import <MessageUI/MessageUI.h>
 
 /** MFMailComposeViewController with block callbacks.
 

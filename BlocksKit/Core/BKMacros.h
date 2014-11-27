@@ -5,10 +5,10 @@
 //  Includes code by Michael Ash. <https://github.com/mikeash>.
 //
 
-#import "NSArray+BlocksKit.h"
-#import "NSSet+BlocksKit.h"
-#import "NSDictionary+BlocksKit.h"
-#import "NSIndexSet+BlocksKit.h"
+#import <BlocksKit/NSArray+BlocksKit.h>
+#import <BlocksKit/NSSet+BlocksKit.h>
+#import <BlocksKit/NSDictionary+BlocksKit.h>
+#import <BlocksKit/NSIndexSet+BlocksKit.h>
 
 #ifndef __BLOCKSKIT_MACROS__
 #define __BLOCKSKIT_MACROS__

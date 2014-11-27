@@ -3,7 +3,7 @@
 //  BlocksKit
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 /** Block event initialization for UIBarButtonItem.
 
