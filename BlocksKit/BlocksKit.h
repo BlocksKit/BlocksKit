@@ -29,6 +29,7 @@
 #import <BlocksKit/NSDictionary+BlocksKit.h>
 #import <BlocksKit/NSIndexSet+BlocksKit.h>
 #import <BlocksKit/NSInvocation+BlocksKit.h>
+#import <BlocksKit/NSNumber+BlocksKit.h>
 #import <BlocksKit/NSMutableArray+BlocksKit.h>
 #import <BlocksKit/NSMutableDictionary+BlocksKit.h>
 #import <BlocksKit/NSMutableIndexSet+BlocksKit.h>

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D928A081A2CD55500E703A6 /* NSNumber+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D928A071A2CD55500E703A6 /* NSNumber+BlocksKit.m */; };
+		1D928A0B1A2CD62300E703A6 /* NSNumberBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D928A091A2CD56A00E703A6 /* NSNumberBlocksKitTest.m */; };
+		1D928A0C1A2CD62400E703A6 /* NSNumberBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D928A091A2CD56A00E703A6 /* NSNumberBlocksKitTest.m */; };
+		1D928A0E1A2CD63500E703A6 /* NSNumber+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D928A071A2CD55500E703A6 /* NSNumber+BlocksKit.m */; };
+		1D928A121A2CD68400E703A6 /* NSNumber+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D928A111A2CD68400E703A6 /* NSNumber+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D928A131A2CD6F300E703A6 /* NSNumber+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D928A111A2CD68400E703A6 /* NSNumber+BlocksKit.h */; };
 		2BB8A49518BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */; };
 		2BB8A49C18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */; };
 		2BB8A4A218BEF584006AF0F6 /* UIImagePickerController+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */; };
@@ -240,6 +246,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				1D928A131A2CD6F300E703A6 /* NSNumber+BlocksKit.h in CopyFiles */,
 				43CE09E919866D8400F91137 /* QLPreviewController+BlocksKit.h in CopyFiles */,
 				43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */,
 				2BB8A4A218BEF584006AF0F6 /* UIImagePickerController+BlocksKit.h in CopyFiles */,
@@ -296,6 +303,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D928A071A2CD55500E703A6 /* NSNumber+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+BlocksKit.m"; sourceTree = "<group>"; };
+		1D928A091A2CD56A00E703A6 /* NSNumberBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNumberBlocksKitTest.m; sourceTree = "<group>"; };
+		1D928A111A2CD68400E703A6 /* NSNumber+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+BlocksKit.h"; sourceTree = "<group>"; };
 		2BB8A49418BE7740006AF0F6 /* UIImagePickerControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImagePickerControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		2BB8A49A18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+BlocksKit.h"; sourceTree = "<group>"; };
 		2BB8A49B18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+BlocksKit.m"; sourceTree = "<group>"; };
@@ -549,6 +559,7 @@
 				DBFB0AD7184DCD6200F37EEE /* NSDictionaryBlocksKitTest.m */,
 				DBFB0AD9184DCD6200F37EEE /* NSIndexSetBlocksKitTest.m */,
 				DBFB0ADB184DCD6200F37EEE /* NSInvocationBlocksKitTest.m */,
+				1D928A091A2CD56A00E703A6 /* NSNumberBlocksKitTest.m */,
 				A3E3EDA019F798C6008E0ECB /* NSMapTableBlocksKitTest.m */,
 				DBFB0ADD184DCD6200F37EEE /* NSMutableArrayBlocksKitTest.m */,
 				DBFB0ADF184DCD6200F37EEE /* NSMutableDictionaryBlocksKitTest.m */,
@@ -685,6 +696,8 @@
 				DBFB0993184DC7AF00F37EEE /* NSIndexSet+BlocksKit.m */,
 				DBFB0994184DC7AF00F37EEE /* NSInvocation+BlocksKit.h */,
 				DBFB0995184DC7AF00F37EEE /* NSInvocation+BlocksKit.m */,
+				1D928A111A2CD68400E703A6 /* NSNumber+BlocksKit.h */,
+				1D928A071A2CD55500E703A6 /* NSNumber+BlocksKit.m */,
 				A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */,
 				A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */,
 				DBFB0996184DC7AF00F37EEE /* NSMutableArray+BlocksKit.h */,
@@ -840,6 +853,7 @@
 				DBFB0A08184DC7E400F37EEE /* NSObject+A2BlockDelegate.h in Headers */,
 				DBFB09C5184DC7B000F37EEE /* NSMutableSet+BlocksKit.h in Headers */,
 				DBFB09BF184DC7B000F37EEE /* NSMutableIndexSet+BlocksKit.h in Headers */,
+				1D928A121A2CD68400E703A6 /* NSNumber+BlocksKit.h in Headers */,
 				A3E3ED9B19F797A3008E0ECB /* NSMapTable+BlocksKit.h in Headers */,
 				DBFB09BC184DC7B000F37EEE /* NSMutableDictionary+BlocksKit.h in Headers */,
 				DBFB09AC184DC7B000F37EEE /* BKMacros.h in Headers */,
@@ -1059,6 +1073,7 @@
 				DBFB0A36184DC83200F37EEE /* UITextField+BlocksKit.m in Sources */,
 				DBFB09B4184DC7B000F37EEE /* NSIndexSet+BlocksKit.m in Sources */,
 				DBFB09D5184DC7B000F37EEE /* NSSet+BlocksKit.m in Sources */,
+				1D928A081A2CD55500E703A6 /* NSNumber+BlocksKit.m in Sources */,
 				DBFB0A0C184DC7E400F37EEE /* NSObject+A2DynamicDelegate.m in Sources */,
 				DBFB09CF184DC7B000F37EEE /* NSObject+BKBlockObservation.m in Sources */,
 				DBFB0A09184DC7E400F37EEE /* NSObject+A2BlockDelegate.m in Sources */,
@@ -1116,6 +1131,7 @@
 				DBFB0B08184DCD6200F37EEE /* NSIndexSetBlocksKitTest.m in Sources */,
 				DBFB0B14184DCD6200F37EEE /* NSTimerBlocksKitTest.m in Sources */,
 				DBFB0B1A184DCD6200F37EEE /* UIWebViewBlocksKitTest.m in Sources */,
+				1D928A0B1A2CD62300E703A6 /* NSNumberBlocksKitTest.m in Sources */,
 				DBFB0B0E184DCD6200F37EEE /* NSMutableSetBlocksKitTest.m in Sources */,
 				DBFB0B16184DCD6200F37EEE /* UIActionSheetBlocksKitTest.m in Sources */,
 				A3E3EDA119F798C6008E0ECB /* NSMapTableBlocksKitTest.m in Sources */,
@@ -1133,6 +1149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBFB0A07184DC7E400F37EEE /* NSURLConnection+BlocksKit.m in Sources */,
+				1D928A0E1A2CD63500E703A6 /* NSNumber+BlocksKit.m in Sources */,
 				DBFB0A04184DC7E400F37EEE /* NSCache+BlocksKit.m in Sources */,
 				DBFB09D3184DC7B000F37EEE /* NSOrderedSet+BlocksKit.m in Sources */,
 				DBFB09B5184DC7B000F37EEE /* NSIndexSet+BlocksKit.m in Sources */,
@@ -1173,6 +1190,7 @@
 				DBFB0B26184DCD9C00F37EEE /* NSInvocationBlocksKitTest.m in Sources */,
 				DBFB0B27184DCD9C00F37EEE /* NSMutableArrayBlocksKitTest.m in Sources */,
 				DBFB0B28184DCD9C00F37EEE /* NSMutableDictionaryBlocksKitTest.m in Sources */,
+				1D928A0C1A2CD62400E703A6 /* NSNumberBlocksKitTest.m in Sources */,
 				DBFB0B29184DCD9C00F37EEE /* NSMutableIndexSetBlocksKitTest.m in Sources */,
 				DBFB0B2A184DCD9C00F37EEE /* NSMutableOrderedSetBlocksKitTest.m in Sources */,
 				DBFB0B2B184DCD9C00F37EEE /* NSMutableSetBlocksKitTest.m in Sources */,
