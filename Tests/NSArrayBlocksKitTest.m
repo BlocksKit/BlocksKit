@@ -126,6 +126,25 @@
 	XCTAssertEqualObjects(transformed, target, @"transformed items are %@", transformed);
 }
 
+- (void)testCompact {
+	__block NSUInteger iterations = 0;
+	NSArray *mixed = @[@"foo", @2, @"bar", @YES];
+	
+	NSArray *transformed = [mixed bk_compact:^id(id obj) {
+		iterations++;
+		if([obj isKindOfClass:[NSString class]])
+		{
+			NSString *string = obj;
+			return [string stringByAppendingString:@".png"];
+		}
+		return nil;
+	}];
+	
+	XCTAssertEqual(iterations, (NSUInteger)4, @"iterated %i times", (int) iterations);
+	NSArray *target = @[ @"foo.png", @"bar.png" ];
+	XCTAssertEqualObjects(transformed, target, @"transformed items are %@", transformed);
+}
+
 - (void)testReduceWithBlock {
 	id(^accumlationBlock)(id, id) = ^(id sum,id obj) {
 		return [sum stringByAppendingString:obj];
