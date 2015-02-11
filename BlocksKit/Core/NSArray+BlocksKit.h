@@ -90,6 +90,13 @@
  */
 - (NSArray *)bk_map:(id (^)(id obj))block;
 
+/** Behaves like map, but doesn't add NSNull objects if you return nil in the block.
+
+ @param block A single-argument, object-returning code block.
+ @return Returns an array of the objects returned by the block.
+ */
+- (NSArray *)bk_compact:(id (^)(id obj))block;
+
 /** Arbitrarily accumulate objects using a block.
 
  The concept of this selector is difficult to illustrate in words. The sum can
