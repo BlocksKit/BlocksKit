@@ -4,6 +4,7 @@
 //
 
 #import "UIGestureRecognizer+BlocksKit.h"
+#import "NSObject+BKBlockExecution.h"
 @import ObjectiveC.runtime;
 
 static const void *BKGestureRecognizerBlockKey = &BKGestureRecognizerBlockKey;
@@ -64,9 +65,8 @@ static const void *BKGestureRecognizerShouldHandleActionKey = &BKGestureRecogniz
 		block();
 		return;
 	}
-
-	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
-	dispatch_after(popTime, dispatch_get_main_queue(), block);
+    
+    [NSObject bk_performBlock:block afterDelay:delay];
 }
 
 - (void)bk_setHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))handler
