@@ -5,6 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** NSCache with block adding of objects
 
  This category allows you to conditionally add objects to
@@ -51,3 +58,7 @@
 @property (nonatomic, copy, setter = bk_setWillEvictBlock:) void (^bk_willEvictBlock)(NSCache *cache, id obj);
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

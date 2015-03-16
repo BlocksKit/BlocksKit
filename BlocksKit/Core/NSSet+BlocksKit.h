@@ -5,6 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** Block extensions for NSSet.
 
  Both inspired by and resembling Smalltalk syntax, these utilities allows for
@@ -131,3 +138,7 @@
 - (BOOL)bk_all:(BOOL (^)(id obj))block;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

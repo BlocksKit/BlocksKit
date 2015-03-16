@@ -5,6 +5,13 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** Convenience on-touch methods for UIView.
 
  Includes code by the following:
@@ -67,3 +74,7 @@
 - (void)bk_eachSubview:(void (^)(UIView *subview))block;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

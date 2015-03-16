@@ -5,6 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** Block extensions for NSMutableSet.
 
  These utilities expound upon the BlocksKit additions to the immutable
@@ -48,3 +55,7 @@
 - (void)bk_performMap:(id (^)(id obj))block;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

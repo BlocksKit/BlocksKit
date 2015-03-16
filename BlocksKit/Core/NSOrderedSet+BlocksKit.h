@@ -5,6 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** Block extensions for NSOrderedSet.
 
  Both inspired by and resembling Smalltalk syntax, these utilities allow for
@@ -165,4 +172,9 @@
  corresponding element in another ordered set.
  */
 - (BOOL)bk_corresponds:(NSOrderedSet *)list withBlock:(BOOL (^)(id obj1, id obj2))block;
+
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

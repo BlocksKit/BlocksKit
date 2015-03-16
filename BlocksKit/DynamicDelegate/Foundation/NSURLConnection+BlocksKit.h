@@ -5,6 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** NSURLConnection with both delegate and block callback support.
 
  It also adds useful block handlers for tracking upload and download progress.
@@ -56,19 +63,19 @@
  in an instance of NSURLConnection.  It only works on block-backed
  NSURLConnection instances.
  */
-@property (nonatomic, weak, setter = setDelegate:) id delegate;
+@property (nonatomic, weak, setter = setDelegate:, nullable) id delegate;
 
 /** The block fired once the connection recieves a response from the server.
 
  This block corresponds to the connection:didReceiveResponse: method
  of NSURLConnectionDataDelegate. */
-@property (nonatomic, copy, setter = bk_setResponseBlock:) void (^bk_responseBlock)(NSURLConnection *connection, NSURLResponse *response);
+@property (nonatomic, copy, setter = bk_setResponseBlock:, nullable) void (^bk_responseBlock)(NSURLConnection *connection, NSURLResponse *response);
 
 /** The block fired upon the failure of the connection.
 
  This block corresponds to the connection:didFailWithError:
  method of NSURLConnectionDelegate. */
-@property (nonatomic, copy, setter = bk_setFailureBlock:) void (^bk_failureBlock)(NSURLConnection *connection, NSError *error);
+@property (nonatomic, copy, setter = bk_setFailureBlock:, nullable) void (^bk_failureBlock)(NSURLConnection *connection, NSError *error);
 
 /** The block that  upon the successful completion of the connection.
 
@@ -80,7 +87,7 @@
  the recieved data to an instance NSMutableData is left up to the user due
  to the behavior of frameworks that use NSURLConnection.
  */
-@property (nonatomic, copy, setter = bk_setSuccessBlock:) void (^bk_successBlock)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData);
+@property (nonatomic, copy, setter = bk_setSuccessBlock:, nullable) void (^bk_successBlock)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData);
 
 /** The block fired every time new data is sent to the server,
  representing the current percentage of completion.
@@ -89,7 +96,7 @@
  connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:
  method of NSURLConnectionDelegate.
  */
-@property (nonatomic, copy, setter = bk_setUploadBlock:) void (^bk_uploadBlock)(double percent);
+@property (nonatomic, copy, setter = bk_setUploadBlock:, nullable) void (^bk_uploadBlock)(double percent);
 
 /** The block fired every time new data is recieved from the server,
  representing the current percentage of completion.
@@ -97,7 +104,7 @@
  This block corresponds to the connection:didRecieveData:
  method of NSURLConnectionDelegate.
  */
-@property (nonatomic, copy, setter = bk_setDownloadBlock:) void (^bk_downloadBlock)(double percent);
+@property (nonatomic, copy, setter = bk_setDownloadBlock:, nullable) void (^bk_downloadBlock)(double percent);
 
 /** Creates and returns an initialized block-backed URL connection that does not begin to load the data for the URL request.
 
@@ -113,7 +120,7 @@
  @param success A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  @param failure A code block that acts on instances of NSURLResponse and NSError in the event of a failed connection.
  */
-+ (NSURLConnection *)bk_startConnectionWithRequest:(NSURLRequest *)request successHandler:(void (^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))success failureHandler:(void (^)(NSURLConnection *connection, NSError *error))failure;
++ (NSURLConnection *)bk_startConnectionWithRequest:(NSURLRequest *)request successHandler:(nullable void (^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))success failureHandler:(nullable void (^)(NSURLConnection *connection, NSError *error))failure;
 
 /** Returns an initialized block-backed URL connection.
 
@@ -128,12 +135,16 @@
  @param request The URL request to load.
  @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  */
-- (instancetype)bk_initWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))block NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithRequest:(NSURLRequest *)request completionHandler:(nullable void (^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))block NS_REPLACES_RECEIVER;
 
 /** Causes the connection to begin loading data, if it has not already, with the specified block to be fired on successful completion.
 
  @param block A code block that acts on instances of NSURLResponse and NSData in the event of a successful connection.
  */
-- (void)bk_startWithCompletionBlock:(void (^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))block;
+- (void)bk_startWithCompletionBlock:(nullable void (^)(NSURLConnection *connection, NSURLResponse *response, NSData *responseData))block;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

@@ -5,6 +5,13 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** Block control event handling for UIControl.
 
  Includes code by the following:
@@ -47,3 +54,7 @@
 - (BOOL)bk_hasEventHandlersForControlEvents:(UIControlEvents)controlEvents;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif
