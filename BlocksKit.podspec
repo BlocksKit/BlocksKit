@@ -20,6 +20,14 @@ Pod::Spec.new do |s|
     ss.ios.dependency 'BlocksKit/UIKit'
   end
 
+  s.subspec 'All_AppExtension' do |ss|
+    ss.dependency 'BlocksKit/Core'
+    ss.dependency 'BlocksKit/DynamicDelegate'
+    ss.ios.dependency 'BlocksKit/MessageUI'
+    ss.ios.dependency 'BlocksKit/QuickLook'
+    ss.ios.dependency 'BlocksKit/UIKit_AppExtension'
+  end
+
   s.subspec 'Core' do |ss|
     ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Core/*.{h,m}'
   end
@@ -50,4 +58,13 @@ Pod::Spec.new do |s|
     ss.platform = :ios
     ss.source_files = 'BlocksKit/BlocksKit+UIKit.h', 'BlocksKit/UIKit/*.{h,m}'
   end
+
+  s.subspec 'UIKit_AppExtension' do |ss|
+    ss.dependency 'BlocksKit/Core'
+    ss.dependency 'BlocksKit/DynamicDelegate'
+    ss.platform = :ios
+    ss.source_files = 'BlocksKit/BlocksKit+UIKit_AppExtension.h', 'BlocksKit/UIKit/*.{h,m}'
+    ss.exclude_files = 'BlocksKit/UIKit/UIActionSheet+BlocksKit.{h,m}', 'BlocksKit/UIKit/UIAlertView+BlocksKit.{h,m}'
+  end
+
 end
