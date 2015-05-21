@@ -1119,7 +1119,7 @@
 		DB4B7D3619FD867F00C459A6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Zachary Waldowski and Pandamonia LLC";
 				TargetAttributes = {
 					DB4B7D3E19FD867F00C459A6 = {
@@ -1492,6 +1492,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB4B7DA019FD8F9B00C459A6 /* Project-Debug.xcconfig */;
 			buildSettings = {
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
@@ -1499,6 +1502,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB4B7DA119FD8F9B00C459A6 /* Project-Release.xcconfig */;
 			buildSettings = {
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 			};
 			name = Release;
 		};

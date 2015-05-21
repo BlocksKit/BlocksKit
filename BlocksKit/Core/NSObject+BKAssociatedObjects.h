@@ -5,6 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** Objective-C wrapper for 10.6+ associated object API.
 
  In Mac OS X Snow Leopard and iOS 3.0, Apple introduced an addition to the
@@ -156,3 +163,7 @@
 + (void)bk_removeAllAssociatedObjects;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

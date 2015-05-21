@@ -5,6 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** Block extension for NSDictionary.
 
  Both inspired by and resembling Smalltalk syntax, this utility
@@ -108,3 +115,7 @@
 - (BOOL)bk_all:(BOOL (^)(id key, id obj))block;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

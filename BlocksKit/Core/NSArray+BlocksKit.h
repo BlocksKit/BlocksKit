@@ -6,6 +6,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGBase.h> // for CGFloat
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** Block extensions for NSArray.
 
  Both inspired by and resembling Smalltalk syntax, these utilities
@@ -218,3 +225,7 @@
 - (BOOL)bk_corresponds:(NSArray *)list withBlock:(BOOL (^)(id obj1, id obj2))block;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

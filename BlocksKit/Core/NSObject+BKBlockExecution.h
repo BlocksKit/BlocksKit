@@ -5,6 +5,13 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /** Block execution on *any* object.
 
  This category overhauls the `performSelector:` utilities on
@@ -118,3 +125,7 @@
 + (void)bk_cancelBlock:(id <NSObject, NSCopying>)block;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif
