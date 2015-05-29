@@ -76,6 +76,7 @@
 
 	void (^block)(UIActionSheet *, NSInteger) = [self blockImplementationForMethod:_cmd];
 	if (block) block(actionSheet, buttonIndex);
+	self.didHandleButtonClick = NO;
 }
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
