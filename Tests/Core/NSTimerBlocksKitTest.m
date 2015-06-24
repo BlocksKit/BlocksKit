@@ -28,17 +28,12 @@ static inline NSTimeInterval Timeout(NSInteger count) {
     const NSTimeInterval timeout = Timeout(count);
     __block NSInteger total = 0;
 
-    NSTimer *timer = [NSTimer bk_timerWithTimeInterval:BKTimerTestInterval block:^(NSTimer *timer) {
+    NSTimer *timer = [NSTimer bk_scheduleTimerWithTimeInterval:BKTimerTestInterval repeats:repeats usingBlock:^(NSTimer *timer) {
         if (++total >= count) {
             [expectation fulfill];
         }
-    } repeats:repeats];
+    }];
 
-    XCTAssertNotNil(timer);
-
-    timer.tolerance = 0;
-
-    [NSRunLoop.currentRunLoop addTimer:timer forMode:NSDefaultRunLoopMode];
     [self waitForExpectationsWithTimeout:timeout handler:^(NSError *__unused err) {
         [timer invalidate];
         XCTAssertEqual(total, count);

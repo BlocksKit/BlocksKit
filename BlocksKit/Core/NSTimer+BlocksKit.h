@@ -19,12 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param seconds For a repeating timer, the seconds between firings of the
  * timer. If seconds is less than or equal to @c 0.0, @c 0.1 is used instead.
- * @param block The code unit to execute when the timer fires.
  * @param repeats If @c YES, the timer will repeatedly reschedule itself until
  * invalidated. If @c NO, the timer will be invalidated after it fires.
+ * @param block The code unit to execute when the timer fires.
  * @return A new @c NSTimer object, configured according to the specified parameters.
  */
-+ (instancetype)bk_scheduledTimerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats;
++ (instancetype)bk_scheduleTimerWithTimeInterval:(NSTimeInterval)seconds repeats:(BOOL)repeats usingBlock:(void (^)(NSTimer *timer))block;
 
 /** Creates and returns a new @c NSTimer object using the specified handler.
  *
@@ -34,12 +34,19 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param seconds For a repeating timer, the seconds between firings of the
  * timer. If seconds is less than or equal to @c 0.0, @c 0.1 is used instead.
- * @param block The code unit to execute when the timer fires.
  * @param repeats If @c YES, the timer will repeatedly reschedule itself until
  * invalidated. If @c NO, the timer will be invalidated after it fires.
+ * @param block The code unit to execute when the timer fires.
  * @return A new @c NSTimer object, configured according to the specified parameters.
  */
-+ (instancetype)bk_timerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats;
++ (instancetype)bk_timerWithTimeInterval:(NSTimeInterval)seconds repeats:(BOOL)repeats usingBlock:(void (^)(NSTimer *timer))block;
+
+@end
+
+@interface NSTimer (BlocksKit_Deprecated)
+
++ (instancetype)bk_scheduledTimerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_performAfterDelay:usingBlock:");
++ (instancetype)bk_timerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_performAfterDelay:usingBlock:");
 
 @end
 
