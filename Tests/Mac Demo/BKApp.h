@@ -5,16 +5,16 @@
 //  Contributed by Alex Gray.
 //
 
-#import <Cocoa/Cocoa.h>
-#import <BlocksKit/BlocksKit.h>
-#import <BlocksKit/A2DynamicDelegate.h>
-#import <objc/runtime.h>
+@import Cocoa;
 
-@interface 					 BKApp : NSObject
+@class A2DynamicDelegate;
 
-@property 	 			  NSTimer * tmr;
-@property 	 A2DynamicDelegate * ddSrc;
-@property IBOutlet NSTableView * tv;
-@property 			  NSUInteger   displayCt;			@end
+@interface BKApp : NSObject
 
-@interface  	 BKColorfulCell : NSCell				@end
+@property NSWindow *window;
+@property NSTimer *tmr;
+@property A2DynamicDelegate * ddSrc;
+@property IBOutlet NSTableView *tv;
+@property NSUInteger displayCt;
+
+@end

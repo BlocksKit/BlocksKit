@@ -9,7 +9,12 @@
 @import BlocksKit;
 @import BlocksKit.Dynamic;
 
-@implementation BKApp	- (void) awakeFromNib {
+@interface BKColorfulCell : NSCell
+@end
+
+@implementation BKApp
+
+- (void) awakeFromNib {
 
 	// Get a colorlist we'll use as content for our tableView
 	NSColorList *clrLst 	= [NSColorList colorListNamed:@"Crayons"];
@@ -60,6 +65,7 @@
 		// Here we access the array of dictionaries we saved to "self", returning the appropriate "objectValueForTableColumn:row:"
 		return [self bk_associatedValueForKey:@"assocCryns"][row][[tv.tableColumns indexOfObject:tc] ? @"color" : @"name"];
 	};
+    
 	// Tell A2DynamicDelegate to implement the datasource method with the block we just defined. (these populate the table!).
 	[_ddSrc implementMethod:numberOfRowsMethod 			withBlock:			numberOfRowsBlock];
 	[_ddSrc implementMethod:objectValueForColRowMethod withBlock:objectValueForColRowBlock];
@@ -68,9 +74,18 @@
 	_tv.dataSource	= (id<NSTableViewDataSource>)_ddSrc;
 }
 
-- (IBAction)reset:(id)sender { self.displayCt = 0; } /* Reset Button to reset the action */							@end
+- (IBAction)reset:(id)sender {
+    self.displayCt = 0;
+} /* Reset Button to reset the action */
 
-@implementation BKColorfulCell  // A simple cell class to display the color object in the table.
+@end
 
-- (void)drawWithFrame:(NSRect)cF inView:(NSView*)cV {	[(NSColor*)[self objectValue]set];	NSRectFill(cF);}		@end
+// A simple cell class to display the color object in the table.
+@implementation BKColorfulCell
 
+- (void)drawWithFrame:(NSRect)cF inView:(NSView*)cV {
+    [(NSColor *)[self objectValue]set];
+    NSRectFill(cF);
+}
+
+@end
