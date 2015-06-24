@@ -85,7 +85,7 @@
 	NSIndexSet *found = [_subject bk_select:indexValidationBlock];
 	XCTAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
     XCTAssertNotNil(found, @"result should not be nil");
-    XCTAssertEqual(found.count, 0, @"no index found");
+    XCTAssertEqual(found.count, (NSUInteger)0, @"no index found");
 }
 
 - (void)testReject {
@@ -97,7 +97,7 @@
 	};
 	NSIndexSet *found = [_subject bk_reject:indexValidationBlock];
 	XCTAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
-    XCTAssertEqual(found.count, 0, @"all indexes are rejected");
+    XCTAssertEqual(found.count, (NSUInteger)0, @"all indexes are rejected");
 }
 
 - (void)testRejectedNone {
@@ -118,7 +118,7 @@
     };
     NSIndexSet *found = [_subject bk_reject:indexValidationBlock];
     XCTAssertNotNil(found);
-    XCTAssertEqual(found.count, 0, @"all indexes have been rejected");
+    XCTAssertEqual(found.count, (NSUInteger)0, @"all indexes have been rejected");
 }
 
 - (void)testMap {
@@ -140,7 +140,7 @@
     };
     NSIndexSet *result = [subject bk_map:indexValidationBlock];
     XCTAssertNotNil(result, @"result should not be nil");
-    XCTAssertEqual(result.count, 0, @"no index found");
+    XCTAssertEqual(result.count, (NSUInteger)0, @"no index found");
 }
 
 - (void)testAny {
