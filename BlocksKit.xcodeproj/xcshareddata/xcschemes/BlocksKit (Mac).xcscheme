@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB4B7D7C19FD86A100C459A6"
-               BuildableName = "libMobileBlocksKit.a"
-               BlueprintName = "MobileBlocksKitLegacy"
-               ReferencedContainer = "container:BlocksKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB4B7D8619FD86A100C459A6"
-               BuildableName = "BlocksKit.xctest"
-               BlueprintName = "MobileBlocksKitLegacyTests"
+               BlueprintIdentifier = "DB9B96361B3A52E500940D20"
+               BuildableName = "BlocksKit.framework"
+               BlueprintName = "BlocksKit"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,15 +26,16 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES"
       buildConfiguration = "Debug">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB4B7D8619FD86A100C459A6"
-               BuildableName = "BlocksKit.xctest"
-               BlueprintName = "MobileBlocksKitLegacyTests"
+               BlueprintIdentifier = "DB9B963F1B3A52E500940D20"
+               BuildableName = "BlocksKitTests.xctest"
+               BlueprintName = "BlocksKitTests"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,9 +43,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DB4B7D7C19FD86A100C459A6"
-            BuildableName = "libMobileBlocksKit.a"
-            BlueprintName = "MobileBlocksKitLegacy"
+            BlueprintIdentifier = "DB9B96361B3A52E500940D20"
+            BuildableName = "BlocksKit.framework"
+            BlueprintName = "BlocksKit"
             ReferencedContainer = "container:BlocksKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -78,9 +65,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DB4B7D7C19FD86A100C459A6"
-            BuildableName = "libMobileBlocksKit.a"
-            BlueprintName = "MobileBlocksKitLegacy"
+            BlueprintIdentifier = "DB9B96361B3A52E500940D20"
+            BuildableName = "BlocksKit.framework"
+            BlueprintName = "BlocksKit"
             ReferencedContainer = "container:BlocksKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -96,9 +83,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DB4B7D7C19FD86A100C459A6"
-            BuildableName = "libMobileBlocksKit.a"
-            BlueprintName = "MobileBlocksKitLegacy"
+            BlueprintIdentifier = "DB9B96361B3A52E500940D20"
+            BuildableName = "BlocksKit.framework"
+            BlueprintName = "BlocksKit"
             ReferencedContainer = "container:BlocksKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

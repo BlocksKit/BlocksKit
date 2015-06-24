@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB4B7D3E19FD867F00C459A6"
+               BlueprintIdentifier = "DB9B96171B3A52A700940D20"
                BuildableName = "BlocksKit.framework"
-               BlueprintName = "BlocksKit"
-               ReferencedContainer = "container:BlocksKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB4B7D4919FD867F00C459A6"
-               BuildableName = "BlocksKitTests.xctest"
-               BlueprintName = "BlocksKitTests"
+               BlueprintName = "MobileBlocksKit"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,15 +26,16 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES"
       buildConfiguration = "Debug">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB4B7D4919FD867F00C459A6"
+               BlueprintIdentifier = "DB9B96211B3A52A700940D20"
                BuildableName = "BlocksKitTests.xctest"
-               BlueprintName = "BlocksKitTests"
+               BlueprintName = "MobileBlocksKitTests"
                ReferencedContainer = "container:BlocksKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,9 +43,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DB4B7D3E19FD867F00C459A6"
+            BlueprintIdentifier = "DB9B96171B3A52A700940D20"
             BuildableName = "BlocksKit.framework"
-            BlueprintName = "BlocksKit"
+            BlueprintName = "MobileBlocksKit"
             ReferencedContainer = "container:BlocksKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -78,9 +65,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DB4B7D3E19FD867F00C459A6"
+            BlueprintIdentifier = "DB9B96171B3A52A700940D20"
             BuildableName = "BlocksKit.framework"
-            BlueprintName = "BlocksKit"
+            BlueprintName = "MobileBlocksKit"
             ReferencedContainer = "container:BlocksKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -96,9 +83,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DB4B7D3E19FD867F00C459A6"
+            BlueprintIdentifier = "DB9B96171B3A52A700940D20"
             BuildableName = "BlocksKit.framework"
-            BlueprintName = "BlocksKit"
+            BlueprintName = "MobileBlocksKit"
             ReferencedContainer = "container:BlocksKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
