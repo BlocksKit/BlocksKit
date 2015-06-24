@@ -59,7 +59,7 @@ static const void *BKBarButtonItemBlockKey = &BKBarButtonItemBlockKey;
 - (void)bk_handleAction:(UIBarButtonItem *)sender
 {
 	void (^block)(id) = objc_getAssociatedObject(self, BKBarButtonItemBlockKey);
-	if (block) block(self);
+	if (block) block(sender);
 }
 
 @end
