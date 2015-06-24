@@ -12,6 +12,3 @@
 
 // Code will load on this and later versions of iOS.
 IPHONEOS_DEPLOYMENT_TARGET = 8.0
-
-// Supported device families (1 is iPhone, 2 is iPad)
-TARGETED_DEVICE_FAMILY = 1,2

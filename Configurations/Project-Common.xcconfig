@@ -1,4 +1,4 @@
-// 
+//
 // This file defines common settings that should be enabled for every new
 // project. Typically, you want to use Debug, Release, or a similar variant
 // instead.
@@ -9,9 +9,6 @@
 // Disable legacy-compatible header searching
 ALWAYS_SEARCH_USER_PATHS = NO
 
-// Architectures to build
-ARCHS = $(ARCHS_STANDARD)
-
 // Whether to warn when a floating-point value is used as a loop counter
 CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES
 
@@ -21,24 +18,38 @@ CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES
 // Whether to warn about strcpy() and strcat()
 CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES
 
-// Which C++ variant to use
-CLANG_CXX_LANGUAGE_STANDARD = gnu++0x
+// C++ Language Dialect
+//
+// GNU++11: Accept the ISO C++ 2011 standard with amendments and GNU extensions.
+CLANG_CXX_LANGUAGE_STANDARD = gnu++11
 
-// Which version of the C++ standard library to generate calls for
+// C++ Standard Library
+//
+// libc++: highly optimized C++ standard library that works only with the LLVM Compiler,
+// and is designed to support new C++11 features.
 CLANG_CXX_LIBRARY = libc++
 
-// Whether to enable module imports
+// Enable Modules (C and Objective-C)
 CLANG_ENABLE_MODULES = YES
 
-// Enable ARC
+// Objective-C Automatic Reference Counting
 CLANG_ENABLE_OBJC_ARC = YES
 
-// Warn about implicit conversions to boolean values that are suspicious.
-// For example, writing 'if (foo)' with 'foo' being the name a function will trigger a warning.
+// Warn about declaring the same method more than once within the same @interface.
+CLANG_WARN__DUPLICATE_METHOD_MATCH = YES
+
+// Implicit Boolean Conversions
+//
+// Warn about implicit conversions to boolean values that are suspicious.  For example,
+// writing 'if (foo)' with 'foo' being the name a function will trigger a warning.
+// [-Wbool-conversion]
 CLANG_WARN_BOOL_CONVERSION = YES
 
-// Warn about implicit conversions of constant values that cause the constant value to change,
-// either through a loss of precision, or entirely in its meaning.
+// Implicit Constant Conversions
+//
+// Warn about implicit conversions of constant values that cause the constant value to
+// change, either through a loss of precision, or entirely in its meaning.
+// [-Wconstant-conversion]
 CLANG_WARN_CONSTANT_CONVERSION = YES
 
 // Whether to warn when overriding deprecated methods
@@ -46,9 +57,6 @@ CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES
 
 // Warn about direct accesses to the Objective-C 'isa' pointer instead of using a runtime API.
 CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR
-
-// Warn about declaring the same method more than once within the same @interface.
-CLANG_WARN__DUPLICATE_METHOD_MATCH = YES
 
 // Warn about loop bodies that are suspiciously empty.
 CLANG_WARN_EMPTY_BODY = YES
@@ -76,45 +84,43 @@ CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 // Warn about potentially unreachable code
 CLANG_WARN_UNREACHABLE_CODE = YES
 
-// The format of debugging symbols
-DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+// Code Signing Identity
+//
+// The name ("common name") of a valid code-signing certificate in a keychain within your
+// keychain path.   A missing or invalid certificate will cause a build error.
+CODE_SIGN_IDENTITY[sdk=iphoneos*] = iPhone Developer
 
-// Whether to compile assertions in
-ENABLE_NS_ASSERTIONS = YES
+// Strip Debug Symbols During Copy
+//
+// Activating this setting causes binary files which are copied during the build (e.g.,
+// in a Copy Bundle Resources or Copy Files build phase) to be stripped of debugging
+// symbols.  It does not cause the linked product of a target to be stripped (use Strip
+// Linked Product for that).
+COPY_PHASE_STRIP = NO
+
+// Enable new-world bytecode compilation
+ENABLE_BITCODE = NO
+
+// Enable Strict Checking of objc_msgSend Calls
+//
+// Controls whether objc_msgSend calls must be cast to the appropriate function pointer
+// type before being called.
+ENABLE_STRICT_OBJC_MSGSEND = YES
 
 // Whether to require objc_msgSend to be cast before invocation
 ENABLE_STRICT_OBJC_MSGSEND = YES
 
 // Which C variant to use
-GCC_C_LANGUAGE_STANDARD = gnu99
-
-// Whether function calls should be position-dependent (should always be
-// disabled for library code)
-GCC_DYNAMIC_NO_PIC = NO
-
-// Whether to enable exceptions for Objective-C
-GCC_ENABLE_OBJC_EXCEPTIONS = YES
-
-// Whether to generate debugging symbols
-GCC_GENERATE_DEBUGGING_SYMBOLS = YES
-
-// Whether to precompile the prefix header (if one is specified)
-GCC_PRECOMPILE_PREFIX_HEADER = YES
+GCC_C_LANGUAGE_STANDARD = gnu11
 
 // Whether to enable strict aliasing, meaning that two pointers of different
 // types (other than void * or any id type) cannot point to the same memory
 // location
 GCC_STRICT_ALIASING = YES
 
-// Whether symbols not explicitly exported are hidden by default (this primarily
-// only affects C++ code)
-GCC_SYMBOLS_PRIVATE_EXTERN = NO
-
-// Whether static variables are thread-safe by default
-GCC_THREADSAFE_STATICS = NO
-
-// Which compiler to use
-GCC_VERSION = com.apple.compilers.llvm.clang.1_0
+// In C, allocate even uninitialized global variables in the data section of the
+// object file, rather than generating them as common blocks.
+GCC_NO_COMMON_BLOCKS = YES
 
 // Whether to warn about 64-bit values being implicitly shortened to 32 bits
 GCC_WARN_64_TO_32_BIT_CONVERSION = YES
@@ -176,28 +182,21 @@ GCC_WARN_UNUSED_LABEL = YES
 // Whether to warn about variables that are never used
 GCC_WARN_UNUSED_VARIABLE = YES
 
-// Code will load on this and later versions of iOS.
-IPHONEOS_DEPLOYMENT_TARGET = 6.0
-
-// Whether to enable link-time optimizations (such as inlining across translation
-// units)
-LLVM_LTO = NO
-
-// Code will load on this and later versions of OS X.
+// OS X Deployment Target
 MACOSX_DEPLOYMENT_TARGET = 10.8
-
-// Whether to run the static analyzer with every build
-RUN_CLANG_STATIC_ANALYZER = YES
 
 // The base SDK to use (if no version is specified, the latest version is
 // assumed)
 SDKROOT = macosx
 
-// Prefix for the name of the version info symbol in generated source files.
-VERSION_INFO_PREFIX = 
+// Versioning Name Prefix
+VERSION_INFO_PREFIX =
 
-// The process used for stamping generated source files.
+// Versioning System
+//
+// Apple Generic - Use the current project version setting.
 VERSIONING_SYSTEM = apple-generic
 
-// Don't treat unknown warnings as errors, and disable GCC compatibility warnings and unused static const variable warnings
+// Don't treat unknown warnings as errors, disable GCC compatibility
+// warnings, and disable unused static const variable warnings
 WARNING_CFLAGS = -Wno-error=unknown-warning-option -Wno-gcc-compat -Wno-unused-const-variable

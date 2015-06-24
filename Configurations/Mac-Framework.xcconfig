@@ -9,3 +9,10 @@
 
 // Import common settings specific to Mac OS X
 #include "Mac-Base.xcconfig"
+
+// Framework Version
+//
+// Framework bundles are versioned by having contents in subfolders of a version folder
+// that has links to the current version and its contents.
+
+FRAMEWORK_VERSION = A
