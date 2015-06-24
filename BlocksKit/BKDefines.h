@@ -40,3 +40,7 @@
 # define __nullable
 # define __null_unspecified
 #endif
+
+#if !defined(BK_ALERT_CONTROLLER_DEPRECATED)
+# define BK_ALERT_CONTROLLER_DEPRECATED NS_DEPRECATED_IOS(2_0, 8_0, "The BlocksKit extensions for UIAlertView and UIActionSheet are deprecated. Use UIAlertController instead.");
+#endif
