@@ -3,6 +3,7 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
 /** BlocksKit extensions for NSInvocation. */

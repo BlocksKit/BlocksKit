@@ -270,6 +270,8 @@
 		DB9B96231B3A52A700940D20 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB9B96181B3A52A700940D20 /* BlocksKit.framework */; };
 		DB9B96411B3A52E500940D20 /* BlocksKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB9B96371B3A52E500940D20 /* BlocksKit.framework */; };
 		DB9B96681B3A533900940D20 /* BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DB9B961B1B3A52A700940D20 /* BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DBA576A31B3A7B9700E41A6B /* BKDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = DBA576A21B3A7B9700E41A6B /* BKDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DBA576A41B3A7B9700E41A6B /* BKDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = DBA576A21B3A7B9700E41A6B /* BKDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -493,6 +495,7 @@
 		DB9B96371B3A52E500940D20 /* BlocksKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlocksKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9B96401B3A52E500940D20 /* BlocksKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocksKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9B96521B3A531F00940D20 /* libMobileBlocksKitLegacy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMobileBlocksKitLegacy.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBA576A21B3A7B9700E41A6B /* BKDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKDefines.h; sourceTree = "<group>"; };
 		DBBDD1E51B3A553E008909B0 /* BlocksKit Mac Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BlocksKit Mac Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBBDD23E1B3A5782008909B0 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		DBBDD23F1B3A5782008909B0 /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
@@ -799,6 +802,7 @@
 			isa = PBXGroup;
 			children = (
 				DB9B961B1B3A52A700940D20 /* BlocksKit.h */,
+				DBA576A21B3A7B9700E41A6B /* BKDefines.h */,
 				DB4CA5091B3A6720004B70F8 /* BlocksKit+MessageUI.h */,
 				DB4CA50A1B3A6720004B70F8 /* BlocksKit+QuickLook.h */,
 				DB4CA50B1B3A6720004B70F8 /* BlocksKit+UIKit.h */,
@@ -875,6 +879,7 @@
 				DB4CA50F1B3A6720004B70F8 /* BlocksKit+QuickLook.h in Headers */,
 				DB4CA4FB1B3A6657004B70F8 /* UITextField+BlocksKit.h in Headers */,
 				DB4CA4331B3A662A004B70F8 /* NSIndexSet+BlocksKit.h in Headers */,
+				DBA576A41B3A7B9700E41A6B /* BKDefines.h in Headers */,
 				DB4CA4B01B3A6657004B70F8 /* NSCache+BlocksKit.h in Headers */,
 				DB4CA4741B3A662A004B70F8 /* NSTimer+BlocksKit.h in Headers */,
 				DB4CA4EC1B3A6657004B70F8 /* UIImage+BlocksKit.h in Headers */,
@@ -921,6 +926,7 @@
 				DB4CA45F1B3A662A004B70F8 /* NSObject+BKBlockExecution.h in Headers */,
 				DB4CA4321B3A662A004B70F8 /* NSIndexSet+BlocksKit.h in Headers */,
 				DB4CA43C1B3A662A004B70F8 /* NSMapTable+BlocksKit.h in Headers */,
+				DBA576A31B3A7B9700E41A6B /* BKDefines.h in Headers */,
 				DB4CA44B1B3A662A004B70F8 /* NSMutableIndexSet+BlocksKit.h in Headers */,
 				DB4CA42D1B3A662A004B70F8 /* NSDictionary+BlocksKit.h in Headers */,
 				DB9B96681B3A533900940D20 /* BlocksKit.h in Headers */,

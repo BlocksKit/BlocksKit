@@ -3,6 +3,7 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <QuickLook/QuickLook.h>
 
 @interface QLPreviewController (BlocksKit)

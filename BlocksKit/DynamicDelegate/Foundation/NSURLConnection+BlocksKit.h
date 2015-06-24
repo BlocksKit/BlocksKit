@@ -3,6 +3,7 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
 /** NSURLConnection with both delegate and block callback support.

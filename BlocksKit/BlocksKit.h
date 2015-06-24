@@ -33,6 +33,7 @@ FOUNDATION_EXPORT double BlocksKitVersionNumber;
 //! Project version string for BlocksKit.
 FOUNDATION_EXPORT const unsigned char BlocksKitVersionString[];
 
+#import <BlocksKit/BKDefines.h>
 #import <BlocksKit/BKMacros.h>
 #import <BlocksKit/NSArray+BlocksKit.h>
 #import <BlocksKit/NSDictionary+BlocksKit.h>

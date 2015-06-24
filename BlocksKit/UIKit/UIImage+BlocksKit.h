@@ -3,6 +3,7 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <UIKit/UIKit.h>
 
 /** Camera Roll export without selectors.

@@ -3,6 +3,7 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
 /// If a block invocation is instiated with an invalid method signature,

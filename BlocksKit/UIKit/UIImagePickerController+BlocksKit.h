@@ -5,6 +5,7 @@
 //  Contributed by Yas Kuraishi.
 //
 
+#import "BKDefines.h"
 #import <UIKit/UIKit.h>
 
 /** UIImagePickerController with block callback.

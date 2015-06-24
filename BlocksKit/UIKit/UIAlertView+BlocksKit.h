@@ -3,6 +3,7 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <UIKit/UIKit.h>
 
 /** UIAlertView without delegates!

@@ -5,6 +5,7 @@
 //  Contributed by Samuel E. Giddins.
 //
 
+#import "BKDefines.h"
 #import <UIKit/UIKit.h>
 
 /** Block callbacks for UITextField.
