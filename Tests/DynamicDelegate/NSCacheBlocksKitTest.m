@@ -38,7 +38,7 @@
 	_subject.bk_willEvictBlock = ^(NSCache *cache, id obj) {
 		weakSelf->_total--;
 	};
-	[_subject.bk_dynamicDelegate cache:_subject willEvictObject:nil];
+	[_subject.bk_dynamicDelegate cache:_subject willEvictObject:NSObject.new];
 	XCTAssertEqual(_total, (NSInteger)0, @"The delegates should have been called!");
 }
 
