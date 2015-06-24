@@ -9,6 +9,9 @@
 #import "NSObject+A2DynamicDelegate.h"
 #import "NSObject+A2BlockDelegate.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 #pragma mark Private
 
 static const void *BKResponseDataKey = &BKResponseDataKey;
@@ -406,3 +409,5 @@ static NSString *const kDownloadBlockKey = @"NSURLConnectionDidRecieveData";
 }
 
 @end
+
+#pragma clang diagnostic pop
