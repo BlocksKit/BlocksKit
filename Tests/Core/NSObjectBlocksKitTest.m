@@ -45,12 +45,12 @@ NS_INLINE BOOL BKObjectTestIsOnGlobalQueue(void) {
 
 - (void)testInstancePerformBlockAfterDelay {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Perform sender block after delay"];
-    id<NSObject,NSCopying> token = [self bk_performBlock:^(id sender) {
+    id<NSObject,NSCopying> token = [self bk_performAfterDelay:BKObjectTestInterval usingBlock:^(id sender) {
         [expectation fulfill];
 
         XCTAssertNotNil(sender);
         XCTAssertTrue(BKObjectTestIsOnMainQueue());
-    } afterDelay:BKObjectTestInterval];
+    }];
 
     XCTAssertNotNil(token);
 
@@ -59,10 +59,10 @@ NS_INLINE BOOL BKObjectTestIsOnGlobalQueue(void) {
 
 - (void)testPerformBlockAfterDelay {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
-    id<NSObject,NSCopying> token = [NSObject bk_performBlock:^{
+    id<NSObject,NSCopying> token = [NSObject bk_performAfterDelay:BKObjectTestInterval usingBlock:^{
         [expectation fulfill];
         XCTAssertTrue(BKObjectTestIsOnMainQueue());
-    } afterDelay:BKObjectTestInterval];
+    }];
 
     XCTAssertNotNil(token);
 
@@ -71,12 +71,12 @@ NS_INLINE BOOL BKObjectTestIsOnGlobalQueue(void) {
 
 - (void)testInstancePerformBlockOnQueueAfterDelay {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
-    id<NSObject,NSCopying> token = [self bk_performBlock:^(id sender){
+    id<NSObject,NSCopying> token = [self bk_performOnQueue:_queue afterDelay:BKObjectTestInterval usingBlock:^(id sender){
         [expectation fulfill];
 
         XCTAssertNotNil(sender);
         XCTAssertTrue(BKObjectTestIsOnQueue());
-    } onQueue:_queue afterDelay:BKObjectTestInterval];
+    }];
 
     XCTAssertNotNil(token);
 
@@ -85,22 +85,10 @@ NS_INLINE BOOL BKObjectTestIsOnGlobalQueue(void) {
 
 - (void)testPerformBlockOnQueueAfterDelay {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
-    id<NSObject,NSCopying> token = [NSObject bk_performBlock:^{
+    id<NSObject,NSCopying> token = [NSObject bk_performOnQueue:_queue afterDelay:BKObjectTestInterval usingBlock:^{
         [expectation fulfill];
         XCTAssertTrue(BKObjectTestIsOnQueue());
-    } onQueue:_queue afterDelay:BKObjectTestInterval];
-
-    XCTAssertNotNil(token);
-
-    [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
-}
-
-- (void)testPerformBlockInBackgroundAfterDelay {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
-    id<NSObject,NSCopying> token = [NSObject bk_performBlockInBackground:^{
-        [expectation fulfill];
-        XCTAssertTrue(BKObjectTestIsOnGlobalQueue());
-    } afterDelay:BKObjectTestInterval];
+    }];
 
     XCTAssertNotNil(token);
 
@@ -109,10 +97,22 @@ NS_INLINE BOOL BKObjectTestIsOnGlobalQueue(void) {
 
 - (void)testInstancePerformBlockInBackgroundAfterDelay {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
-    id<NSObject,NSCopying> token = [self bk_performBlockInBackground:^(id sender){
+    id<NSObject,NSCopying> token = [self bk_performInBackgroundAfterDelay:BKObjectTestInterval usingBlock:^(id sender){
         [expectation fulfill];
         XCTAssertTrue(BKObjectTestIsOnGlobalQueue());
-    } afterDelay:BKObjectTestInterval];
+    }];
+    
+    XCTAssertNotNil(token);
+    
+    [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
+}
+
+- (void)testPerformBlockInBackgroundAfterDelay {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Perform block after delay"];
+    id<NSObject,NSCopying> token = [NSObject bk_performInBackgroundAfterDelay:BKObjectTestInterval usingBlock:^{
+        [expectation fulfill];
+        XCTAssertTrue(BKObjectTestIsOnGlobalQueue());
+    }];
 
     XCTAssertNotNil(token);
 
@@ -121,16 +121,16 @@ NS_INLINE BOOL BKObjectTestIsOnGlobalQueue(void) {
 
 - (void)testCancelPerformBlock {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Cancel performed block"];
-    id<NSObject,NSCopying> token = [NSObject bk_performBlock:^{
+    id<NSObject, NSCopying> token = [NSObject bk_performOnQueue:_queue afterDelay:BKObjectTestInterval usingBlock:^{
         XCTFail();
-    } onQueue:_queue afterDelay:BKObjectTestInterval];
+    }];
 
     XCTAssertNotNil(token);
     [NSObject bk_cancelBlock:token];
 
-    [NSObject bk_performBlock:^{
+    [NSObject bk_performAfterDelay:BKObjectTestInterval usingBlock:^{
         [expectation fulfill];
-    } afterDelay:BKObjectTestInterval];
+    }];
 
     [self waitForExpectationsWithTimeout:BKObjectTestTimeout handler:NULL];
 }
