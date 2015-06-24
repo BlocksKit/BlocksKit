@@ -41,6 +41,14 @@
 # define __null_unspecified
 #endif
 
+#if !defined(BK_INITIALIZER)
+# if __has_attribute(objc_method_family)
+#  define BK_INITIALIZER __attribute__((objc_method_family(init)))
+# else
+#  define BK_INITIALIZER
+# endif
+#endif
+
 #if !defined(BK_ALERT_CONTROLLER_DEPRECATED)
 # define BK_ALERT_CONTROLLER_DEPRECATED NS_DEPRECATED_IOS(2_0, 8_0, "The BlocksKit extensions for UIAlertView and UIActionSheet are deprecated. Use UIAlertController instead.");
 #endif

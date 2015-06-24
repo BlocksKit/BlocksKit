@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param block The block which handles an executed gesture.
  @param delay A number of seconds after which the block will fire.
  */
-- (instancetype)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block delay:(NSTimeInterval)delay BK_INITIALIZER;
 
 /** An autoreleased gesture recognizer that will call the given block.
  
@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An initialized instance of a concrete UIGestureRecognizer subclass or `nil`.
  @param block The block which handles an executed gesture.
  */
-- (instancetype)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block NS_REPLACES_RECEIVER;
+- (instancetype)bk_initWithHandler:(void (^)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location))block BK_INITIALIZER;
 
 /** Allows the block that will be fired by the gesture recognizer
  to be modified after the fact.

@@ -71,7 +71,7 @@
  @param message The message content of the alert.
  @return An instantiated alert view.
  */
-- (instancetype)bk_initWithTitle:(NSString *)title message:(NSString *)message NS_REPLACES_RECEIVER BK_ALERT_CONTROLLER_DEPRECATED;
+- (instancetype)bk_initWithTitle:(NSString *)title message:(NSString *)message BK_INITIALIZER BK_ALERT_CONTROLLER_DEPRECATED;
 
 ///-----------------------------------
 /// @name Adding buttons
