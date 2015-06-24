@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** NSCache with block adding of objects
 
  This category allows you to conditionally add objects to
@@ -49,6 +51,8 @@
  This block callback is an analog for the cache:willEviceObject:
  method of NSCacheDelegate.
  */
-@property (nonatomic, copy, setter = bk_setWillEvictBlock:) void (^bk_willEvictBlock)(NSCache *cache, id obj);
+@property (nonatomic, copy, setter = bk_setWillEvictBlock:, nullable) void (^bk_willEvictBlock)(NSCache *cache, id obj);
 
 @end
+
+NS_ASSUME_NONNULL_END

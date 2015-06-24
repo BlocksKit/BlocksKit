@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Blocks wrapper for key-value observation.
 
  In Mac OS X Panther, Apple introduced an API called "key-value
@@ -136,3 +138,5 @@
 - (void)bk_removeAllBlockObservers;
 
 @end
+
+NS_ASSUME_NONNULL_END

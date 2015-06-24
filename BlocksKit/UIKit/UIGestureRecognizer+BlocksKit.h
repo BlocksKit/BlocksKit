@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Block functionality for UIGestureRecognizer.
 
  Use of the delay property is pretty straightforward, although
@@ -86,7 +88,7 @@
 /** Allows the block that will be fired by the gesture recognizer
  to be modified after the fact.
  */
-@property (nonatomic, copy, setter = bk_setHandler:) void (^bk_handler)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location);
+@property (nonatomic, copy, setter = bk_setHandler:, nullable) void (^bk_handler)(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location);
 
 /** Allows the length of the delay after which the gesture
  recognizer will be fired to modify. */
@@ -103,3 +105,5 @@
 - (void)bk_cancel;
 
 @end
+
+NS_ASSUME_NONNULL_END

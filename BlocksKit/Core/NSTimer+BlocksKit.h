@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Simple category on NSTimer to give it blocks capability.
 
  Created by [Jiva DeVoe](https://github.com/jivadevoe) as `NSTimer-Blocks`.
@@ -40,3 +42,5 @@
 + (instancetype)bk_timerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats;
 
 @end
+
+NS_ASSUME_NONNULL_END

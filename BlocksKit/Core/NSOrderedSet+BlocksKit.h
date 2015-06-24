@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Block extensions for NSOrderedSet.
 
  Both inspired by and resembling Smalltalk syntax, these utilities allow for
@@ -52,7 +54,7 @@
  @return Returns the object, if found, or `nil`.
  @see bk_select:
  */
-- (id)bk_match:(BOOL (^)(id obj))block;
+- (nullable id)bk_match:(BOOL (^)(id obj))block;
 
 /** Loops through an ordered set to find the objects matching the block.
 
@@ -109,7 +111,7 @@
  @param block A block that takes the current sum and the next object to return the new sum.
  @return An accumulated value.
  */
-- (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block;
+- (nullable id)bk_reduce:(nullable id)initial withBlock:(__nullable id (^)(__nullable id sum, id obj))block;
 
 /** Loops through an ordered set to find whether any object matches the block.
 
@@ -167,3 +169,5 @@
  */
 - (BOOL)bk_corresponds:(NSOrderedSet *)list withBlock:(BOOL (^)(id obj1, id obj2))block;
 @end
+
+NS_ASSUME_NONNULL_END

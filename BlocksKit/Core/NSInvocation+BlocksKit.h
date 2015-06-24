@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** BlocksKit extensions for NSInvocation. */
 @interface NSInvocation (BlocksKit)
 
@@ -32,3 +34,5 @@
 + (NSInvocation *)bk_invocationWithTarget:(id)target block:(void (^)(id target))block;
 
 @end
+
+NS_ASSUME_NONNULL_END

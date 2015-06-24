@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** A2DynamicDelegate implements a class's delegate, data source, or other
  delegated protocol by associating protocol methods with a block implementation.
 
@@ -67,7 +69,7 @@
 
 /** When replacing the delegate using the A2BlockDelegate extensions, the object
  responding to classical delegate method implementations. */
-@property (nonatomic, weak, readonly) id realDelegate;
+@property (nonatomic, weak, readonly, nullable) id realDelegate;
 
 /** @name Block Instance Method Implementations */
 
@@ -77,7 +79,7 @@
  @param selector An encoded selector. Must not be NULL.
  @return A code block, or nil if no block is assigned.
  */
-- (id)blockImplementationForMethod:(SEL)selector;
+- (nullable id)blockImplementationForMethod:(SEL)selector;
 
 /** Assigns the given block to be fired when the specified
  selector is called on the reciever.
@@ -95,7 +97,7 @@
  @param selector An encoded selector. Must not be NULL.
  @param block A code block with the same signature as selector.
  */
-- (void)implementMethod:(SEL)selector withBlock:(id)block;
+- (void)implementMethod:(SEL)selector withBlock:(nullable id)block;
 
 /** Disassociates any block so that nothing will be fired
  when the specified selector is called on the reciever.
@@ -125,7 +127,7 @@
  @param selector An encoded selector. Must not be NULL.
  @param block A code block with the same signature as selector.
  */
-- (void)implementClassMethod:(SEL)selector withBlock:(id)block;
+- (void)implementClassMethod:(SEL)selector withBlock:(nullable id)block;
 
 /** Disassociates any blocks so that nothing will be fired
  when the specified selector is called on the delegating
@@ -136,3 +138,5 @@
 - (void)removeBlockImplementationForClassMethod:(SEL)selector;
 
 @end
+
+NS_ASSUME_NONNULL_END

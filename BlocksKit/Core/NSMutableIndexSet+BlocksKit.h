@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Block extensions for NSMutableIndexSet.
 
  These utilities expound upon the BlocksKit additions to the immutable
@@ -41,3 +43,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END

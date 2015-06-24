@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Block extensions for NSIndexSet.
 
  Both inspired by and resembling Smalltalk syntax, these utilities
@@ -118,3 +120,5 @@
 - (BOOL)bk_none:(BOOL (^)(NSUInteger index))block;
 
 @end
+
+NS_ASSUME_NONNULL_END

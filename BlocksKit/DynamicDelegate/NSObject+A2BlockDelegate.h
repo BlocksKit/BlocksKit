@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** The A2BlockDelegate category extends features provided by A2DynamicDelegate
  to create custom block properties in a category on a delegating object and
  dynamically map them to delegate (`UIAlertViewDelegate`), data source
@@ -115,3 +117,5 @@
 - (id)bk_ensuredDynamicDelegateForProtocol:(Protocol *)protocol;
 
 @end
+
+NS_ASSUME_NONNULL_END

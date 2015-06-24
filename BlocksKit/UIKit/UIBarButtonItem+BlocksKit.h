@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Block event initialization for UIBarButtonItem.
 
  This set of extensions has near-drop-in replacements
@@ -60,3 +62,5 @@
 - (instancetype)bk_initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style handler:(void (^)(id sender))action NS_REPLACES_RECEIVER;
 
 @end
+
+NS_ASSUME_NONNULL_END

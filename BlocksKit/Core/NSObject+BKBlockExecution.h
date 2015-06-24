@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Block execution on *any* object.
 
  This category overhauls the `performSelector:` utilities on
@@ -119,3 +121,5 @@
 + (void)bk_cancelBlock:(id <NSObject, NSCopying>)block;
 
 @end
+
+NS_ASSUME_NONNULL_END

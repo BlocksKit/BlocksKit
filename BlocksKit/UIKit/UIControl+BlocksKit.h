@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Block control event handling for UIControl.
 
  Includes code by the following:
@@ -48,3 +50,5 @@
 - (BOOL)bk_hasEventHandlersForControlEvents:(UIControlEvents)controlEvents;
 
 @end
+
+NS_ASSUME_NONNULL_END

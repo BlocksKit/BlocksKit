@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Camera Roll export without selectors.
 
  Includes code by the following:
@@ -20,3 +22,5 @@ UIKIT_EXTERN void BKImageWriteToSavedPhotosAlbum(UIImage *image, void(^completio
 
 // Adds a video to the saved photos album.
 UIKIT_EXTERN void BKSaveVideoAtURLToSavedPhotosAlbum(NSURL *videoURL, void(^completionBlock)(NSError *));
+
+NS_ASSUME_NONNULL_END

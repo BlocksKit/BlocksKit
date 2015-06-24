@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** The A2DynamicDelegate category to NSObject provides the primary interface
  by which dynamic delegates are generated for a given object. */
 @interface NSObject (A2DynamicDelegate)
@@ -65,3 +67,5 @@
 - (id)bk_dynamicDelegateForProtocol:(Protocol *)protocol;
 
 @end
+
+NS_ASSUME_NONNULL_END

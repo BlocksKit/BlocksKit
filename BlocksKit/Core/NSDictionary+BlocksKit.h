@@ -6,6 +6,8 @@
 #import "BKDefines.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Block extension for NSDictionary.
 
  Both inspired by and resembling Smalltalk syntax, this utility
@@ -49,7 +51,7 @@
  @param block A BOOL-returning code block for a key/value pair.
  @return The value of the first pair found;
  */
-- (id)bk_match:(BOOL (^)(id key, id obj))block;
+- (nullable id)bk_match:(BOOL (^)(id key, id obj))block;
 
 /** Loops through a dictionary to find the key/value pairs matching the block.
 
@@ -109,3 +111,5 @@
 - (BOOL)bk_all:(BOOL (^)(id key, id obj))block;
 
 @end
+
+NS_ASSUME_NONNULL_END
