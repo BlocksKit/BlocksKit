@@ -1119,7 +1119,7 @@
 		DB4B7D3619FD867F00C459A6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Zachary Waldowski and Pandamonia LLC";
 				TargetAttributes = {
 					DB4B7D3E19FD867F00C459A6 = {
@@ -1492,6 +1492,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB4B7DA019FD8F9B00C459A6 /* Project-Debug.xcconfig */;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
@@ -1499,6 +1503,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB4B7DA119FD8F9B00C459A6 /* Project-Release.xcconfig */;
 			buildSettings = {
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 			};
 			name = Release;
 		};
@@ -1509,6 +1515,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = BlocksKit/Info.plist;
 				MODULEMAP_FILE = "BlocksKit/Module-Mac.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit;
 				PRODUCT_NAME = BlocksKit;
 			};
 			name = Debug;
@@ -1520,6 +1527,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = BlocksKit/Info.plist;
 				MODULEMAP_FILE = "BlocksKit/Module-Mac.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit;
 				PRODUCT_NAME = BlocksKit;
 			};
 			name = Release;
@@ -1534,6 +1542,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit.Tests;
 				PRODUCT_NAME = BlocksKitTests;
 			};
 			name = Debug;
@@ -1544,6 +1553,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit.Tests;
 				PRODUCT_NAME = BlocksKitTests;
 			};
 			name = Release;
@@ -1555,6 +1565,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BlocksKit/Info.plist;
 				MODULEMAP_FILE = "BlocksKit/Module-iOS.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit;
 				PRODUCT_NAME = BlocksKit;
 			};
 			name = Debug;
@@ -1566,6 +1577,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BlocksKit/Info.plist;
 				MODULEMAP_FILE = "BlocksKit/Module-iOS.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit;
 				PRODUCT_NAME = BlocksKit;
 			};
 			name = Release;
@@ -1576,6 +1588,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit.Tests;
 				PRODUCT_NAME = MobileBlocksKitTests;
 			};
 			name = Debug;
@@ -1586,6 +1599,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit.Tests;
 				PRODUCT_NAME = MobileBlocksKitTests;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1614,6 +1628,7 @@
 			baseConfigurationReference = DB4B7DA919FD92A100C459A6 /* iOS-Test.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Tests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit.Tests;
 				PRODUCT_NAME = BlocksKit;
 			};
 			name = Debug;
@@ -1623,6 +1638,7 @@
 			baseConfigurationReference = DB4B7DA919FD92A100C459A6 /* iOS-Test.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Tests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = us.pandamonia.BlocksKit.Tests;
 				PRODUCT_NAME = BlocksKit;
 			};
 			name = Release;
@@ -1668,6 +1684,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1708,6 +1725,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
