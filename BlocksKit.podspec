@@ -57,6 +57,7 @@ Pod::Spec.new do |s|
     ss.dependency 'BlocksKit/DynamicDelegate'
     ss.platform = :ios
     ss.source_files = 'BlocksKit/BlocksKit+UIKit.h', 'BlocksKit/UIKit/*.{h,m}'
+    ss.exclude_files = 'BlocksKit/UIKit/UIWebView+BlocksKit.{h,m}'
   end
 
   s.subspec 'UIKit_AppExtension' do |ss|
@@ -64,7 +65,7 @@ Pod::Spec.new do |s|
     ss.dependency 'BlocksKit/DynamicDelegate'
     ss.platform = :ios
     ss.source_files = 'BlocksKit/BlocksKit+UIKit_AppExtension.h', 'BlocksKit/UIKit/*.{h,m}'
-    ss.exclude_files = 'BlocksKit/UIKit/UIActionSheet+BlocksKit.{h,m}', 'BlocksKit/UIKit/UIAlertView+BlocksKit.{h,m}'
+    ss.exclude_files = 'BlocksKit/UIKit/UIActionSheet+BlocksKit.{h,m}', 'BlocksKit/UIKit/UIAlertView+BlocksKit.{h,m}','BlocksKit/UIKit/UIWebView+BlocksKit.{h,m}'
   end
 
 end
