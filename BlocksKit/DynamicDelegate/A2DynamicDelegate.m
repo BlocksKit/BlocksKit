@@ -3,9 +3,9 @@
 //  BlocksKit
 //
 
-#import <objc/message.h>
-#import "A2BlockInvocation.h"
 #import "A2DynamicDelegate.h"
+@import ObjectiveC.message;
+#import "A2BlockInvocation.h"
 
 Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
@@ -108,7 +108,7 @@ static NSString *selectorDescribe(const void *item1)
 	return [super class];
 }
 
-- (id)initWithProtocol:(Protocol *)protocol
+- (instancetype)initWithProtocol:(Protocol *)protocol
 {
 	_protocol = protocol;
 	_handlers = [NSMutableDictionary dictionary];

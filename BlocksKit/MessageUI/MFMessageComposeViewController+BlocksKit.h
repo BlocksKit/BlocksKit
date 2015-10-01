@@ -3,7 +3,10 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <MessageUI/MessageUI.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** MFMessageComposeViewController with block callback in addition to delegation.
  
@@ -25,6 +28,8 @@
  messageComposeViewController:didFinishWithResult: method
  of MFMessageComposeViewControllerDelegate.
  */
-@property (nonatomic, copy, setter = bk_setCompletionBlock:) void (^bk_completionBlock)(MFMessageComposeViewController *controller, MessageComposeResult result);
+@property (nonatomic, copy, setter = bk_setCompletionBlock:, nullable) void (^bk_completionBlock)(MFMessageComposeViewController *controller, MessageComposeResult result);
 
 @end
+
+NS_ASSUME_NONNULL_END

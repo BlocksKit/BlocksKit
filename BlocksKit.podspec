@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Core' do |ss|
-    ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Core/*.{h,m}'
+    ss.source_files = 'BlocksKit/BlocksKit.h', "BlocksKit/BKDefines.h", 'BlocksKit/Core/*.{h,m}'
   end
 
   s.subspec 'DynamicDelegate' do |ss|

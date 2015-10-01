@@ -3,7 +3,10 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /// If a block invocation is instiated with an invalid method signature,
 /// an `NSInvalidArgumentException` is thrown containing this key in the
@@ -33,7 +36,7 @@ extern NSString *const A2IncompatibleMethodSignatureKey;
  @param block An Objective-C block literal
  @return A method signature matching the declared prototype for the block
  */
-+ (NSMethodSignature *)methodSignatureForBlock:(id)block;
++ (nullable NSMethodSignature *)methodSignatureForBlock:(id)block;
 
 /** @name Creating A2BlockInvocation Objects */
 
@@ -85,7 +88,7 @@ extern NSString *const A2IncompatibleMethodSignatureKey;
  @param NO if the buffer copies necessary for invocation failed, YES otherwise.
  @see invokeWithInvocation:returnValue:
  */
-- (BOOL)invokeWithInvocation:(NSInvocation *)inv returnValue:(out NSValue **)returnValue;
+- (BOOL)invokeWithInvocation:(NSInvocation *)inv returnValue:(out NSValue *__nullable *__nonnull)returnValue;
 
 /** Calls the receiver's block with the arguments from the given invocation
  and sets the return value on the given invocation.
@@ -96,3 +99,5 @@ extern NSString *const A2IncompatibleMethodSignatureKey;
 - (void)invokeWithInvocation:(NSInvocation *)inv;
 
 @end
+
+NS_ASSUME_NONNULL_END

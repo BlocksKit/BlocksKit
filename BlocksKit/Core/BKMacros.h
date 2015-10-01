@@ -5,6 +5,7 @@
 //  Includes code by Michael Ash. <https://github.com/mikeash>.
 //
 
+#import "BKDefines.h"
 #import "NSArray+BlocksKit.h"
 #import "NSSet+BlocksKit.h"
 #import "NSDictionary+BlocksKit.h"
@@ -41,14 +42,9 @@
 static inline id BKNextHelper(NSArray *array, CFMutableDictionaryRef *eachTablePtr) {
 
     if (!*eachTablePtr) {
-        CFDictionaryKeyCallBacks keycb = {
-            0,
-            kCFTypeDictionaryKeyCallBacks.retain,
-            kCFTypeDictionaryKeyCallBacks.release,
-            kCFTypeDictionaryKeyCallBacks.copyDescription,
-            NULL,
-            NULL
-        };
+        CFDictionaryKeyCallBacks keycb = kCFTypeDictionaryKeyCallBacks;
+        keycb.equal = NULL;
+        keycb.hash = NULL;
         *eachTablePtr = CFDictionaryCreateMutable(NULL, 0, &keycb, &kCFTypeDictionaryValueCallBacks);
     }
 

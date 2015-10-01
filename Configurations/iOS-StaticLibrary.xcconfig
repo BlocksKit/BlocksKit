@@ -1,0 +1,38 @@
+//
+// This file defines additional configuration options that are appropriate only
+// for a static library on iOS. This should be set at the target level for each
+// project configuration.
+//
+
+// Apply common settings specific to iOS
+#include "iOS-Base.xcconfig"
+
+// Whether to strip debugging symbols when copying resources (like included
+// binaries).
+//
+// Overrides Release.xcconfig when used at the target level.
+COPY_PHASE_STRIP = NO
+
+// Whether to strip out code that isn't called from anywhere
+DEAD_CODE_STRIPPING = NO
+
+// Xcode needs this to find archived headers if SKIP_INSTALL is set
+HEADER_SEARCH_PATHS = $(OBJROOT)/UninstalledProducts/include
+
+// Other Linker Flags
+//
+// Options defined in this setting are passed to invocations of the linker.
+OTHER_LDFLAGS = -ObjC
+
+// Copy headers to "include/LibraryName" in the build folder by default. This
+// lets consumers use #import <LibraryName/LibraryName.h> syntax even for static
+// libraries
+PUBLIC_HEADERS_FOLDER_PATH = include/$PRODUCT_NAME
+
+// When compiling this library, look for imports (written with quotes) in the
+// library's own folder first. This avoids conflicts from other headers in the
+// build folder.
+USER_HEADER_SEARCH_PATHS = ./**
+
+// Don't include in an xcarchive
+SKIP_INSTALL = YES

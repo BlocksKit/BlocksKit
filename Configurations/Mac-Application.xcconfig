@@ -1,0 +1,14 @@
+//
+// This file defines additional configuration options that are appropriate only
+// for an application on Mac OS X. This should be set at the target level for
+// each project configuration.
+//
+
+// Apply common settings specific to Mac OS X
+#include "Mac-Base.xcconfig"
+
+// Null code signing identity
+CODE_SIGN_IDENTITY = -
+
+// Whether to strip out code that isn't called from anywhere
+DEAD_CODE_STRIPPING = NO
