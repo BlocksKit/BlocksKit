@@ -4,6 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BKDefines.h"
 
 /** UIAlertView without delegates!
 
