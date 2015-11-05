@@ -6,6 +6,22 @@
 #import <Foundation/Foundation.h>
 #import <BlocksKit/NSObject+A2BlockDelegate.h>
 #import <BlocksKit/NSObject+A2DynamicDelegate.h>
+#import <objc/runtime.h>
+
+
+static inline BOOL protocol_declaredSelector(Protocol *protocol, SEL selector)
+{
+    for (int i = 0; i < 4; i++) {
+        BOOL required = 1 & (i);
+        BOOL instance = 1 & (i >> 1);
+        
+        struct objc_method_description description = protocol_getMethodDescription(protocol, selector, required, instance);
+        if (description.name) {
+            return YES;
+        }
+    }
+    return NO;
+}
 
 /** A2DynamicDelegate implements a class's delegate, data source, or other
  delegated protocol by associating protocol methods with a block implementation.
