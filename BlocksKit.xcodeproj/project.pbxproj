@@ -14,6 +14,7 @@
 		43CE09E419866C2300F91137 /* QLPreviewControllerBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */; };
 		43CE09E519866CC200F91137 /* BlocksKit+QuickLook.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */; };
 		43CE09E919866D8400F91137 /* QLPreviewController+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43CE09DF198660EE00F91137 /* QLPreviewController+BlocksKit.h */; };
+		9824A70F1BEB0A4D009FE9A1 /* UITextView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9824A70E1BEB0A4D009FE9A1 /* UITextView+BlocksKit.m */; };
 		A3E3ED9B19F797A3008E0ECB /* NSMapTable+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A3E3ED9C19F797A3008E0ECB /* NSMapTable+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */; };
 		A3E3ED9D19F797A3008E0ECB /* NSMapTable+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */; };
@@ -304,6 +305,8 @@
 		43CE09E21986618700F91137 /* BlocksKit+QuickLook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+QuickLook.h"; sourceTree = "<group>"; };
 		43CE09E319866C2300F91137 /* QLPreviewControllerBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLPreviewControllerBlocksKitTest.m; sourceTree = "<group>"; };
 		43CE09E619866D0600F91137 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuickLook.framework; sourceTree = DEVELOPER_DIR; };
+		9824A70D1BEB0A4D009FE9A1 /* UITextView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+BlocksKit.h"; sourceTree = "<group>"; };
+		9824A70E1BEB0A4D009FE9A1 /* UITextView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+BlocksKit.m"; sourceTree = "<group>"; };
 		A3E3ED9919F797A3008E0ECB /* NSMapTable+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMapTable+BlocksKit.h"; sourceTree = "<group>"; };
 		A3E3ED9A19F797A3008E0ECB /* NSMapTable+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMapTable+BlocksKit.m"; sourceTree = "<group>"; };
 		A3E3EDA019F798C6008E0ECB /* NSMapTableBlocksKitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMapTableBlocksKitTest.m; sourceTree = "<group>"; };
@@ -768,6 +771,8 @@
 				DBFB0A29184DC83200F37EEE /* UIPopoverController+BlocksKit.m */,
 				DBFB0A2A184DC83200F37EEE /* UITextField+BlocksKit.h */,
 				DBFB0A2B184DC83200F37EEE /* UITextField+BlocksKit.m */,
+				9824A70D1BEB0A4D009FE9A1 /* UITextView+BlocksKit.h */,
+				9824A70E1BEB0A4D009FE9A1 /* UITextView+BlocksKit.m */,
 				DBFB0A2C184DC83200F37EEE /* UIView+BlocksKit.h */,
 				DBFB0A2D184DC83200F37EEE /* UIView+BlocksKit.m */,
 				DBFB0A2E184DC83200F37EEE /* UIWebView+BlocksKit.h */,
@@ -1081,6 +1086,7 @@
 				DBFB0A32184DC83200F37EEE /* UIBarButtonItem+BlocksKit.m in Sources */,
 				2BB8A49C18BE7927006AF0F6 /* UIImagePickerController+BlocksKit.m in Sources */,
 				DBFB09FC184DC7E400F37EEE /* A2BlockInvocation.m in Sources */,
+				9824A70F1BEB0A4D009FE9A1 /* UITextView+BlocksKit.m in Sources */,
 				DBFB09D2184DC7B000F37EEE /* NSOrderedSet+BlocksKit.m in Sources */,
 				DBFB0A19184DC82100F37EEE /* MFMailComposeViewController+BlocksKit.m in Sources */,
 				DBFB09C3184DC7B000F37EEE /* NSMutableOrderedSet+BlocksKit.m in Sources */,
