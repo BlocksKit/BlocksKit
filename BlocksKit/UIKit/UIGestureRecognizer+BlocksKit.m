@@ -60,7 +60,7 @@ static const void *BKGestureRecognizerShouldHandleActionKey = &BKGestureRecogniz
 
 	self.bk_shouldHandleAction = YES;
 
-	if (!delay) {
+	if (!((BOOL)delay)) {
 		block();
 		return;
 	}

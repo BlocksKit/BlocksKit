@@ -6,6 +6,7 @@
 #import "A2DynamicDelegate.h"
 #import "NSObject+A2BlockDelegate.h"
 #import "UIImagePickerController+BlocksKit.h"
+#import <UIKit/UIImagePickerController.h>
 
 #pragma mark Custom delegate
 
@@ -18,7 +19,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(imagePickerController:didFinishPickingMediaWithInfo:)])
-		[realDelegate imagePickerController:picker didFinishPickingMediaWithInfo:info];
+		[(id<UIImagePickerControllerDelegate>)realDelegate imagePickerController:picker didFinishPickingMediaWithInfo:info];
 
 	void (^block)(UIImagePickerController *, NSDictionary *) = [self blockImplementationForMethod:_cmd];
 	if (block) block(picker, info);
