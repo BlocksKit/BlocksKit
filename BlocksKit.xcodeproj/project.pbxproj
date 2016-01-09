@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D8637361C418D1A005B6ADF /* UITextView+BlocksKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9824A70D1BEB0A4D009FE9A1 /* UITextView+BlocksKit.h */; };
 		1D928A081A2CD55500E703A6 /* NSNumber+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D928A071A2CD55500E703A6 /* NSNumber+BlocksKit.m */; };
 		1D928A0B1A2CD62300E703A6 /* NSNumberBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D928A091A2CD56A00E703A6 /* NSNumberBlocksKitTest.m */; };
 		1D928A0C1A2CD62400E703A6 /* NSNumberBlocksKitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D928A091A2CD56A00E703A6 /* NSNumberBlocksKitTest.m */; };
@@ -257,6 +258,7 @@
 				DBFB0A3C184DC83C00F37EEE /* UIControl+BlocksKit.h in CopyFiles */,
 				DBFB0A3D184DC83C00F37EEE /* UIGestureRecognizer+BlocksKit.h in CopyFiles */,
 				DBFB0A3E184DC83C00F37EEE /* UIPopoverController+BlocksKit.h in CopyFiles */,
+				0D8637361C418D1A005B6ADF /* UITextView+BlocksKit.h in CopyFiles */,
 				DBFB0A3F184DC83C00F37EEE /* UITextField+BlocksKit.h in CopyFiles */,
 				DBFB0A40184DC83C00F37EEE /* UIView+BlocksKit.h in CopyFiles */,
 				DBFB0A41184DC83C00F37EEE /* UIWebView+BlocksKit.h in CopyFiles */,
