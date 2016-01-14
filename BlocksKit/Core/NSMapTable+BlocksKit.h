@@ -8,13 +8,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSMapTable (BlocksKit)
+@interface __GENERICS(NSMapTable, KeyType, ObjectType) (BlocksKit)
 
 /** Loops through the maptable and executes the given block using each item.
 
  @param block A block that performs an action using a key/value pair.
  */
-- (void)bk_each:(void (^)(id key, id obj))block;
+- (void)bk_each:(void (^)(KeyType key, ObjectType obj))block;
 
 /** Loops through a maptable to find the first key/value pair matching the block.
 
@@ -24,14 +24,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A BOOL-returning code block for a key/value pair.
  @return The value of the first pair found;
  */
-- (nullable id)bk_match:(BOOL (^)(id key, id obj))block;
+- (nullable id)bk_match:(BOOL (^)(KeyType key, ObjectType obj))block;
 
 /** Loops through a maptable to find the key/value pairs matching the block.
 
  @param block A BOOL-returning code block for a key/value pair.
  @return Returns a maptable of the objects found.
  */
-- (NSMapTable *)bk_select:(BOOL (^)(id key, id obj))block;
+- (NSMapTable *)bk_select:(BOOL (^)(KeyType key, ObjectType obj))block;
 
 /** Loops through a maptable to find the key/value pairs not matching the block.
 
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A BOOL-returning code block for a key/value pair.
  @return Returns a maptable of all objects not found.
  */
-- (NSMapTable *)bk_reject:(BOOL (^)(id key, id obj))block;
+- (NSMapTable *)bk_reject:(BOOL (^)(KeyType key, ObjectType obj))block;
 
 /** Call the block once for each object and create a maptable with the same keys
  and a new set of values.
@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A block that returns a new value for a key/value pair.
  @return Returns a maptable of the objects returned by the block.
  */
-- (NSMapTable *)bk_map:(id (^)(id key, id obj))block;
+- (NSMapTable *)bk_map:(id (^)(KeyType key, ObjectType obj))block;
 
 /** Loops through a maptable to find whether any key/value pair matches the block.
 
@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A two-argument, BOOL-returning code block.
  @return YES for the first time the block returns YES for a key/value pair, NO otherwise.
  */
-- (BOOL)bk_any:(BOOL (^)(id key, id obj))block;
+- (BOOL)bk_any:(BOOL (^)(KeyType key, ObjectType obj))block;
 
 /** Loops through a maptable to find whether no key/value pairs match the block.
 
@@ -74,21 +74,21 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A two-argument, BOOL-returning code block.
  @return YES if the block returns NO for all key/value pairs in the maptable, NO otherwise.
  */
-- (BOOL)bk_none:(BOOL (^)(id key, id obj))block;
+- (BOOL)bk_none:(BOOL (^)(KeyType key, ObjectType obj))block;
 
 /** Loops through a maptable to find whether all key/value pairs match the block.
 
  @param block A two-argument, BOOL-returning code block.
  @return YES if the block returns YES for all key/value pairs in the maptable, NO otherwise.
  */
-- (BOOL)bk_all:(BOOL (^)(id key, id obj))block;
+- (BOOL)bk_all:(BOOL (^)(KeyType key, ObjectType obj))block;
 
 /** Filters a mutable dictionary to the key/value pairs matching the block.
 
  @param block A BOOL-returning code block for a key/value pair.
  @see <NSMapTable(BlocksKit)>bk_reject:
  */
-- (void)bk_performSelect:(BOOL (^)(id key, id obj))block;
+- (void)bk_performSelect:(BOOL (^)(KeyType key, ObjectType obj))block;
 
 /** Filters a mutable dictionary to the key/value pairs not matching the block,
  the logical inverse to bk_select:.
@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A BOOL-returning code block for a key/value pair.
  @see <NSMapTable(BlocksKit)>bk_select:
  */
-- (void)bk_performReject:(BOOL (^)(id key, id obj))block;
+- (void)bk_performReject:(BOOL (^)(KeyType key, ObjectType obj))block;
 
 /** Transform each value of the dictionary to a new value, as returned by the
  block.
@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A block that returns a new value for a given key/value pair.
  @see <NSMapTable(BlocksKit)>bk_map:
  */
-- (void)bk_performMap:(id (^)(id key, id obj))block;
+- (void)bk_performMap:(id (^)(KeyType key, ObjectType obj))block;
 
 @end
 

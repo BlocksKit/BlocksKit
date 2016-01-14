@@ -21,14 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 
  @see NSArray(BlocksKit)
  */
-@interface NSMutableArray (BlocksKit)
+@interface __GENERICS(NSMutableArray, ObjectType) (BlocksKit)
 
 /** Filters a mutable array to the objects matching the block.
 
  @param block A single-argument, BOOL-returning code block.
  @see <NSArray(BlocksKit)>bk_reject:
  */
-- (void)bk_performSelect:(BOOL (^)(id obj))block;
+- (void)bk_performSelect:(BOOL (^)(id ObjectType))block;
 
 /** Filters a mutable array to all objects but the ones matching the block,
  the logical inverse to bk_select:.
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A single-argument, BOOL-returning code block.
  @see <NSArray(BlocksKit)>bk_select:
  */
-- (void)bk_performReject:(BOOL (^)(id obj))block;
+- (void)bk_performReject:(BOOL (^)(id ObjectType))block;
 
 /** Transform the objects in the array to the results of the block.
 
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A single-argument, object-returning code block.
  @see <NSArray(BlocksKit)>bk_map:
  */
-- (void)bk_performMap:(id (^)(id obj))block;
+- (void)bk_performMap:(id (^)(id ObjectType))block;
 
 @end
 
