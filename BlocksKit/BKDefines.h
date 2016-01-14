@@ -41,6 +41,14 @@
 # define __null_unspecified
 #endif
 
+#if __has_feature(objc_generics)
+#   define __GENERICS(class, ...)      class<__VA_ARGS__>
+#   define __GENERICS_TYPE(type)       type
+#else
+#   define __GENERICS(class, ...)      class
+#   define __GENERICS_TYPE(type)       id
+#endif
+
 #if !defined(BK_INITIALIZER)
 # if __has_attribute(objc_method_family)
 #  define BK_INITIALIZER __attribute__((objc_method_family(init)))
