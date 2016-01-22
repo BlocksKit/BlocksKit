@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QLPreviewController (BlocksKit)
 
-@property (nonatomic, copy, setter = bk_setFrameForPreviewItemInSourceView:, nullable) CGRect (^bk_frameForPreviewItem)(QLPreviewController *controller, id<QLPreviewItem>item, UIView **sourceView);
+@property (nonatomic, copy, setter = bk_setFrameForPreviewItemInSourceView:, nullable) CGRect (^bk_frameForPreviewItem)(QLPreviewController *controller, id<QLPreviewItem>item, UIView *_Nullable *_Nonnull);
 
 @property (nonatomic, copy, setter = bk_setTransitionImageForPreviewItem:, nullable) UIImage *(^bk_transitionImageForPreviewItem)(QLPreviewController *controller, id<QLPreviewItem> item, CGRect *contentRect);
 
