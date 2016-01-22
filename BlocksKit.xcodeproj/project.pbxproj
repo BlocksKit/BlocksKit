@@ -984,7 +984,7 @@
 		DBFB08A4184DC21500F37EEE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0720;
 				TargetAttributes = {
 					DBFB08BD184DC23000F37EEE = {
 						TestTargetID = DBFB092B184DC36400F37EEE;
@@ -1289,6 +1289,7 @@
 				INFOPLIST_FILE = "Tests/BlocksKit-iOS-Tests-Runner-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pandamonia.BlocksKit.iOS-Tests-Runner";
 				PRODUCT_NAME = "BK Tests";
 				SDKROOT = iphoneos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
@@ -1322,6 +1323,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Tests/BlocksKit-iOS-Tests-Runner-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pandamonia.BlocksKit.iOS-Tests-Runner";
 				PRODUCT_NAME = "BK Tests";
 				SDKROOT = iphoneos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
@@ -1339,6 +1341,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1517,6 +1520,7 @@
 					"$(inherited)",
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pandamonia.BlocksKit.iOS-Tests";
 				PRODUCT_NAME = "BlocksKit-iOS-Tests";
 				SDKROOT = iphoneos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
@@ -1561,6 +1565,7 @@
 					"$(inherited)",
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pandamonia.BlocksKit.iOS-Tests";
 				PRODUCT_NAME = "BlocksKit-iOS-Tests";
 				SDKROOT = iphoneos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BK Tests.app/BK Tests";
@@ -1607,6 +1612,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pandamonia.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = BlocksKit;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1645,6 +1651,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "BlocksKit/BlocksKit-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pandamonia.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = BlocksKit;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1691,6 +1698,7 @@
 				INFOPLIST_FILE = "Tests/BlocksKit-Mac-Tests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pandamonia.BlocksKit.Mac-Tests";
 				PRODUCT_NAME = "BlocksKit-Mac-Tests";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1732,6 +1740,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Tests/BlocksKit-Mac-Tests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pandamonia.BlocksKit.Mac-Tests";
 				PRODUCT_NAME = "BlocksKit-Mac-Tests";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1765,6 +1774,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "Tests/MacDemo/BlocksKit-Mac-Demo-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "BlocksKit Mac Demo";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -1791,6 +1801,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				INFOPLIST_FILE = "Tests/MacDemo/BlocksKit-Mac-Demo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "BlocksKit Mac Demo";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
