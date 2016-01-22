@@ -11,7 +11,7 @@
 {
   NSParameterAssert(block != nil);
 
-  for ( NSUInteger idx = 0 ; idx < self.integerValue ; ++idx ) {
+  for (NSInteger idx = 0 ; idx < self.integerValue ; ++idx ) {
     block();
   }
 }
