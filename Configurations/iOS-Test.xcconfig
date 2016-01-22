@@ -1,0 +1,11 @@
+//
+// This file defines additional configuration options that are appropriate only
+// for a unit testing bundle on iOS. This should be set at the target level for
+// each project configuration.
+//
+
+// Apply common settings specific to iOS
+#include "iOS-Base.xcconfig"
+
+// iOS Deployment Target
+IPHONEOS_DEPLOYMENT_TARGET = 8.0

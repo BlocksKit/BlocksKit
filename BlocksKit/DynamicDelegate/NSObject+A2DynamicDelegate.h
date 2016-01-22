@@ -3,8 +3,10 @@
 //  BlocksKit
 //
 
-#import <BlocksKit/A2DynamicDelegate.h>
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** The A2DynamicDelegate category to NSObject provides the primary interface
  by which dynamic delegates are generated for a given object. */
@@ -26,7 +28,7 @@
  @see <A2DynamicDelegate>blockImplementationForMethod:
  @return A dynamic data source.
  */
-- (id)bk_dynamicDataSource;
+@property (readonly, strong) id bk_dynamicDataSource;
 
 /** Creates or gets a dynamic delegate for the reciever.
 
@@ -44,7 +46,7 @@
  @see <A2DynamicDelegate>blockImplementationForMethod:
  @return A dynamic delegate.
  */
-- (id)bk_dynamicDelegate;
+@property (readonly, strong) id bk_dynamicDelegate;
 
 /** Creates or gets a dynamic protocol implementation for
  the reciever. The designated initializer.
@@ -65,3 +67,5 @@
 - (id)bk_dynamicDelegateForProtocol:(Protocol *)protocol;
 
 @end
+
+NS_ASSUME_NONNULL_END

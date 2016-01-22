@@ -3,7 +3,10 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** The A2BlockDelegate category extends features provided by A2DynamicDelegate
  to create custom block properties in a category on a delegating object and
@@ -104,7 +107,7 @@
  @see bk_dynamicDelegate:
  @return A dynamic delegate.
  */
-- (id)bk_ensuredDynamicDelegate;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id bk_ensuredDynamicDelegate;
 
 /** Creates or gets a dynamic protocol implementation, assuring that it is
  assigned to the delegate property correspending to that protocol
@@ -114,3 +117,5 @@
 - (id)bk_ensuredDynamicDelegateForProtocol:(Protocol *)protocol;
 
 @end
+
+NS_ASSUME_NONNULL_END

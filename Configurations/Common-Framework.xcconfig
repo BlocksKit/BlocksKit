@@ -1,0 +1,33 @@
+//
+// This file defines additional configuration options that are appropriate only
+// for a framework. Typically, you want to use a platform-specific variant
+// instead.
+//
+
+// Whether to strip out code that isn't called from anywhere
+DEAD_CODE_STRIPPING = NO
+
+// Whether this framework should define an LLVM module
+DEFINES_MODULE = YES
+
+// Dynamic Library Install Name Base
+//
+// Sets the base value for the internal "install path" (LC_ID_DYLIB) in a dynamic
+// library. This will be combined with the EXECUTABLE_PATH to form the full install path.
+// Setting LD_DYLIB_INSTALL_NAME directly will override this setting. This setting
+// defaults to the target's INSTALL_PATH. It is ignored when building any product other
+// than a dynamic library. [-install_name]
+
+DYLIB_INSTALL_NAME_BASE = @rpath
+
+// Installation Directory
+//
+// The directory to install the build products in. This path is prepended by the
+// 'Installation Build Products Location' (i.e., $(DSTROOT)).
+INSTALL_PATH = $(LOCAL_LIBRARY_DIR)/Frameworks
+
+// Skip Install
+//
+// Activating this setting when deployment locations are used causes the product to be
+// built into an alternative location instead of the install location.
+SKIP_INSTALL = YES

@@ -5,29 +5,46 @@
 
 #import "NSTimer+BlocksKit.h"
 
-@interface NSTimer (BlocksKitPrivate)
-
-+ (void)bk_executeBlockFromTimer:(NSTimer *)aTimer;
-
-@end
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 
 @implementation NSTimer (BlocksKit)
 
-+ (id)bk_scheduledTimerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)(NSTimer *timer))block repeats:(BOOL)inRepeats
++ (instancetype)bk_scheduleTimerWithTimeInterval:(NSTimeInterval)seconds repeats:(BOOL)repeats usingBlock:(void (^)(NSTimer *timer))block
 {
-	NSParameterAssert(block != nil);
-	return [self scheduledTimerWithTimeInterval:inTimeInterval target:self selector:@selector(bk_executeBlockFromTimer:) userInfo:[block copy] repeats:inRepeats];
+    NSTimer *timer = [self bk_timerWithTimeInterval:seconds repeats:repeats usingBlock:block];
+    [NSRunLoop.currentRunLoop addTimer:timer forMode:NSDefaultRunLoopMode];
+    return timer;
 }
 
-+ (id)bk_timerWithTimeInterval:(NSTimeInterval)inTimeInterval block:(void (^)(NSTimer *timer))block repeats:(BOOL)inRepeats
++ (instancetype)bk_timerWithTimeInterval:(NSTimeInterval)inSeconds repeats:(BOOL)repeats usingBlock:(void (^)(NSTimer *timer))block
 {
-	NSParameterAssert(block != nil);
-	return [self timerWithTimeInterval:inTimeInterval target:self selector:@selector(bk_executeBlockFromTimer:) userInfo:[block copy] repeats:inRepeats];
-}
-
-+ (void)bk_executeBlockFromTimer:(NSTimer *)aTimer {
-	void (^block)(NSTimer *) = [aTimer userInfo];
-	if (block) block(aTimer);
+    NSParameterAssert(block != nil);
+    CFAbsoluteTime seconds = fmax(inSeconds, 0.0001);
+    CFAbsoluteTime interval = repeats ? seconds : 0;
+    CFAbsoluteTime fireDate = CFAbsoluteTimeGetCurrent() + seconds;
+    return (__bridge_transfer NSTimer *)CFRunLoopTimerCreateWithHandler(NULL, fireDate, interval, 0, 0, (void(^)(CFRunLoopTimerRef))block);
 }
 
 @end
+
+#pragma clang diagnostic pop
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
+@implementation NSTimer (BlocksKit_Deprecated)
+
++ (instancetype)bk_scheduledTimerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats
+{
+    return [self bk_scheduleTimerWithTimeInterval:seconds repeats:repeats usingBlock:block];
+}
+
++ (instancetype)bk_timerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats
+{
+    return [self bk_timerWithTimeInterval:seconds repeats:repeats usingBlock:block];
+}
+
+@end
+
+#pragma clang diagnostic pop

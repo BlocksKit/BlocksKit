@@ -3,25 +3,12 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
 #import <BlocksKit/NSObject+A2BlockDelegate.h>
 #import <BlocksKit/NSObject+A2DynamicDelegate.h>
-#import <objc/runtime.h>
 
-
-static inline BOOL protocol_declaredSelector(Protocol *protocol, SEL selector)
-{
-    for (int i = 0; i < 4; i++) {
-        BOOL required = 1 & (i);
-        BOOL instance = 1 & (i >> 1);
-        
-        struct objc_method_description description = protocol_getMethodDescription(protocol, selector, required, instance);
-        if (description.name) {
-            return YES;
-        }
-    }
-    return NO;
-}
+NS_ASSUME_NONNULL_BEGIN
 
 /** A2DynamicDelegate implements a class's delegate, data source, or other
  delegated protocol by associating protocol methods with a block implementation.
@@ -72,7 +59,7 @@ static inline BOOL protocol_declaredSelector(Protocol *protocol, SEL selector)
  * @param protocol A protocol to which the dynamic delegate should conform.
  * @return An initialized delegate proxy.
  */
-- (id)initWithProtocol:(Protocol *)protocol;
+- (instancetype)initWithProtocol:(Protocol *)protocol;
 
 /** The protocol delegating the dynamic delegate. */
 @property (nonatomic, readonly) Protocol *protocol;
@@ -84,7 +71,7 @@ static inline BOOL protocol_declaredSelector(Protocol *protocol, SEL selector)
 
 /** When replacing the delegate using the A2BlockDelegate extensions, the object
  responding to classical delegate method implementations. */
-@property (nonatomic, weak, readonly) id realDelegate;
+@property (nonatomic, weak, readonly, nullable) id realDelegate;
 
 /** @name Block Instance Method Implementations */
 
@@ -94,7 +81,7 @@ static inline BOOL protocol_declaredSelector(Protocol *protocol, SEL selector)
  @param selector An encoded selector. Must not be NULL.
  @return A code block, or nil if no block is assigned.
  */
-- (id)blockImplementationForMethod:(SEL)selector;
+- (nullable id)blockImplementationForMethod:(SEL)selector;
 
 /** Assigns the given block to be fired when the specified
  selector is called on the reciever.
@@ -112,7 +99,7 @@ static inline BOOL protocol_declaredSelector(Protocol *protocol, SEL selector)
  @param selector An encoded selector. Must not be NULL.
  @param block A code block with the same signature as selector.
  */
-- (void)implementMethod:(SEL)selector withBlock:(id)block;
+- (void)implementMethod:(SEL)selector withBlock:(nullable id)block;
 
 /** Disassociates any block so that nothing will be fired
  when the specified selector is called on the reciever.
@@ -142,7 +129,7 @@ static inline BOOL protocol_declaredSelector(Protocol *protocol, SEL selector)
  @param selector An encoded selector. Must not be NULL.
  @param block A code block with the same signature as selector.
  */
-- (void)implementClassMethod:(SEL)selector withBlock:(id)block;
+- (void)implementClassMethod:(SEL)selector withBlock:(nullable id)block;
 
 /** Disassociates any blocks so that nothing will be fired
  when the specified selector is called on the delegating
@@ -153,3 +140,5 @@ static inline BOOL protocol_declaredSelector(Protocol *protocol, SEL selector)
 - (void)removeBlockImplementationForClassMethod:(SEL)selector;
 
 @end
+
+NS_ASSUME_NONNULL_END

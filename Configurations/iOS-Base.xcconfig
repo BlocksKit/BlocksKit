@@ -1,0 +1,18 @@
+//
+// This file defines additional configuration options that are appropriate only
+// for iOS. This file is not standalone -- it is meant to be included into
+// a configuration file for a specific type of target.
+//
+
+// Where to find embedded frameworks
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
+
+// The base SDK to use (if no version is specified, the latest version is
+// assumed)
+SDKROOT = iphoneos
+
+// iOS Deployment Target
+IPHONEOS_DEPLOYMENT_TARGET = 6.0
+
+// The build system uses the selected device for a target's Info.plist.
+TARGETED_DEVICE_FAMILY = 1,2

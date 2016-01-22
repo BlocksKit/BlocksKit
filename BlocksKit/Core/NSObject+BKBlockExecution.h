@@ -3,7 +3,12 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef __nonnull id <NSObject, NSCopying> BKCancellationToken;
 
 /** Block execution on *any* object.
 
@@ -23,99 +28,102 @@
 
 /** Executes a block after a given delay on the reciever.
 
-	[array performBlock:^(id obj) {
-	  [obj addObject:self];
-	  [self release];
-	} afterDelay:0.5f];
+ @warning *Important:* Use of the **self** reference in a block is discouraged.
+ The block argument @c obj should be used instead.
 
- @warning *Important:* Use of the **self** reference in a block will
- reference the current implementation context.  The block argument,
- `obj`, should be used instead.
-
- @param block A single-argument code block, where `obj` is the reciever.
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @param block A single-argument code block, where @c obj is the reciever.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-- (id)bk_performBlock:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay;
+- (BKCancellationToken)bk_performAfterDelay:(NSTimeInterval)delay usingBlock:(void (^)(id obj))block;
 
 /** Executes a block after a given delay.
-
- This class method is functionally identical to its instance method version.  It still executes
- asynchronously via GCD.  However, the current context is not passed so that the block is performed
- in a general context.
-
- Block execution is very useful, particularly for small events that you would like delayed.
-
-	[object performBlock:^{
-	  [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-	} afterDelay:0.5f];
-
- @see performBlock:afterDelay:
- @param block A code block.
+ 
+ @see bk_performAfterDelay:usingBlock:
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @param block A code block.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-+ (id)bk_performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
++ (BKCancellationToken)bk_performAfterDelay:(NSTimeInterval)delay usingBlock:(void (^)(void))block;
+
 
 /** Executes a block in the background after a given delay on the receiver.
  
- This class method is functionally identical to `- (id)bk_performBlock:afterDelay:`,
- except the block will be performed on a background thread instead of the main thread.
+ This method is functionally identical to @c -bk_performAfterDelay:usingBlock:
+ except the block will be performed on a background queue.
  
- @see performBlock:afterDelay:
- @param block A code block.
+ @warning *Important:* Use of the **self** reference in a block is discouraged.
+ The block argument @c obj should be used instead.
+ 
+ @see bk_performAfterDelay:usingBlock:
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @param block A single-argument code block, where @c obj is the reciever.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-- (id)bk_performBlockInBackground:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay;
+- (BKCancellationToken)bk_performInBackgroundAfterDelay:(NSTimeInterval)delay usingBlock:(void (^)(id obj))block;
 
 /** Executes a block in the background after a given delay.
  
- This class method is functionally identical to `+ (id)bk_performBlock:afterDelay:`, 
- except the block will be performed on a background thread instead of the main thread.
+ This method is functionally identical to @c +bk_performAfterDelay:usingBlock:
+ except the block will be performed on a background queue.
  
- @see performBlock:afterDelay:
- @param block A code block.
+ @see bk_performAfterDelay:usingBlock:
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @param block A code block.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-+ (id)bk_performBlockInBackground:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
++ (BKCancellationToken)bk_performInBackgroundAfterDelay:(NSTimeInterval)delay usingBlock:(void (^)(void))block;
 
 /** Executes a block in the background after a given delay.
  
- This class method is functionally identical to `+ (id)bk_performBlock:afterDelay:`,
- except the block will be performed on the specified thread instead of the main thread.
+ This method is functionally identical to @c -bk_performAfterDelay:usingBlock:
+ except the block will be performed on a background queue.
  
- @see performBlock:afterDelay:
- @param block A code block.
+ @warning *Important:* Use of the **self** reference in a block is discouraged.
+ The block argument @c obj should be used instead.
+ 
+ @see bk_performAfterDelay:usingBlock:
  @param queue A background queue.
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @param block A single-argument code block, where @c obj is the reciever.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-+ (id)bk_performBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay;
+- (BKCancellationToken)bk_performOnQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay usingBlock:(void (^)(id obj))block;
 
 /** Executes a block in the background after a given delay.
  
- This class method is functionally identical to `- (id)bk_performBlock:afterDelay:`,
- except the block will be performed on the specified thread instead of the main thread.
+ This method is functionally identical to @c +bk_performAfterDelay:usingBlock:
+ except the block will be performed on a background queue.
  
- @see performBlock:afterDelay:
- @param block A code block.
+ @see bk_performAfterDelay:usingBlock:
  @param queue A background queue.
  @param delay A measure in seconds.
- @return Returns a pointer to the block that may or may not execute the given block.
+ @param block A code block.
+ @return An opaque, temporary token that may be used to cancel execution.
  */
-- (id)bk_performBlock:(void (^)(id obj))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay;
++ (BKCancellationToken)bk_performOnQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay usingBlock:(void (^)(void))block;
 
 /** Cancels the potential execution of a block.
-
+ 
  @warning *Important:* It is not recommended to cancel a block executed
- with no delay (a delay of 0.0).  While it it still possible to catch the block
- before GCD has executed it, it has likely already been executed and disposed of.
-
- @param block A pointer to a containing block, as returned from one of the
- `performBlock` selectors.
+ with a delay of @c 0.
+ 
+ @param token A cancellation token, as returned from one of the `bk_perform`
+ methods.
  */
-+ (void)bk_cancelBlock:(id)block;
++ (void)bk_cancelBlock:(BKCancellationToken)token;
 
 @end
+
+@interface NSObject (BKBlockExecution_Deprecated)
+
+- (BKCancellationToken)bk_performBlock:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_performAfterDelay:usingBlock:");
++ (BKCancellationToken)bk_performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay DEPRECATED_MSG_ATTRIBUTE("Replaced with +bk_performAfterDelay:usingBlock:");
+- (BKCancellationToken)bk_performBlockInBackground:(void (^)(id obj))block afterDelay:(NSTimeInterval)delay DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_performInBackgroundAfterDelay:usingBlock:");
++ (BKCancellationToken)bk_performBlockInBackground:(void (^)(void))block afterDelay:(NSTimeInterval)delay DEPRECATED_MSG_ATTRIBUTE("Replaced with +bk_performInBackgroundAfterDelay:usingBlock:");
++ (BKCancellationToken)bk_performBlock:(void (^)(void))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_performOnQueue:afterDelay:usingBlock:");
+- (BKCancellationToken)bk_performBlock:(void (^)(id obj))block onQueue:(dispatch_queue_t)queue afterDelay:(NSTimeInterval)delay DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_performOnQueue:afterDelay:usingBlock:");
+
+@end
+
+NS_ASSUME_NONNULL_END
