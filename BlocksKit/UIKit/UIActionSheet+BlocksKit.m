@@ -8,6 +8,9 @@
 #import "NSObject+A2DynamicDelegate.h"
 #import "NSObject+A2BlockDelegate.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 #pragma mark Custom delegate
 
 @interface A2DynamicUIActionSheetDelegate : A2DynamicDelegate <UIActionSheetDelegate>
@@ -179,3 +182,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop
