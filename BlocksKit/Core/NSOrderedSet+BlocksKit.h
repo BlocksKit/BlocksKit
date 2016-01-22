@@ -21,13 +21,13 @@
  @see NSArray(BlocksKit)
  @see NSSet(BlocksKit)
  */
-@interface NSOrderedSet (BlocksKit)
+@interface NSOrderedSet<__covariant ObjectType> (BlocksKit)
 
 /** Loops through an ordered set and executes the given block with each object.
 
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_each:(void (^)(id obj))block;
+- (void)bk_each:(void (^)(ObjectType obj))block;
 
 /** Enumerates through an ordered set concurrently and executes the given block
  once for each object.
@@ -40,7 +40,7 @@
 
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_apply:(void (^)(id obj))block;
+- (void)bk_apply:(void (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to find the object matching the block.
 
@@ -51,7 +51,7 @@
  @return Returns the object, if found, or `nil`.
  @see bk_select:
  */
-- (id)bk_match:(BOOL (^)(id obj))block;
+- (ObjectType)bk_match:(BOOL (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to find the objects matching the block.
 
@@ -59,7 +59,7 @@
  @return Returns an ordered set of the objects found.
  @see bk_match:
  */
-- (NSOrderedSet *)bk_select:(BOOL (^)(id obj))block;
+- (NSOrderedSet *)bk_select:(BOOL (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to to find the objects not matching the block.
 
@@ -67,27 +67,27 @@
  reverse.
 
  This is useful, as one may expect, for removing objects from an ordered set to.
-	 NSOrderedSet *new = [computers bk_reject:^BOOL(id obj) {
+	 NSOrderedSet *new = [computers bk_reject:^BOOL(ObjectType obj) {
 		 return ([obj isUgly]);
 	 }];
 
  @param block A single-argument, BOOL-returning code block.
  @return Returns an ordered set of all objects not found.
  */
-- (NSOrderedSet *)bk_reject:(BOOL (^)(id obj))block;
+- (NSOrderedSet *)bk_reject:(BOOL (^)(ObjectType obj))block;
 
 /** Call the block once for each object and create an ordered set of the return
  values.
 
  This is sometimes referred to as a transform, mutating one of each object:
-	 NSOrderedSet *new = [stringArray bk_map:^id(id obj) {
+	 NSOrderedSet *new = [stringArray bk_map:^id(ObjectType obj) {
 		 return [obj stringByAppendingString:@".png"]);
 	 }];
 
  @param block A single-argument, object-returning code block.
  @return Returns an ordered set of the objects returned by the block.
  */
-- (NSOrderedSet *)bk_map:(id (^)(id obj))block;
+- (NSOrderedSet *)bk_map:(id (^)(ObjectType obj))block;
 
 /** Arbitrarily accumulate objects using a block.
 
@@ -95,12 +95,12 @@
  be any NSObject, including (but not limited to) a string, number, or value.
 
  For example, you can concentate the strings in an ordered set:
-	 NSString *concentrated = [stringArray bk_reduce:@"" withBlock:^id(id sum, id obj) {
+	 NSString *concentrated = [stringArray bk_reduce:@"" withBlock:^id(id sum, ObjectType obj) {
 		 return [sum stringByAppendingString:obj];
 	 }];
 
  You can also do something like summing the lengths of strings in an ordered set:
-	 NSUInteger value = [[[stringArray bk_reduce:nil withBlock:^id(id sum, id obj) {
+	 NSUInteger value = [[[stringArray bk_reduce:nil withBlock:^id(id sum, ObjectType obj) {
 		 return @([sum integerValue] + obj.length);
 	 }]] unsignedIntegerValue];
 
@@ -108,7 +108,7 @@
  @param block A block that takes the current sum and the next object to return the new sum.
  @return An accumulated value.
  */
-- (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block;
+- (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, ObjectType obj))block;
 
 /** Loops through an ordered set to find whether any object matches the block.
 
@@ -121,14 +121,14 @@
  letter:
 
 	 NSString *letter = @"A";
-	 BOOL containsLetter = [stringArray bk_any:^(id obj) {
+	 BOOL containsLetter = [stringArray bk_any:^(ObjectType obj) {
 		 return [obj hasPrefix:@"A"];
 	 }];
 
  @param block A single-argument, BOOL-returning code block.
  @return YES for the first time the block returns YES for an object, NO otherwise.
  */
-- (BOOL)bk_any:(BOOL (^)(id obj))block;
+- (BOOL)bk_any:(BOOL (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to find whether no objects match the block.
 
@@ -138,7 +138,7 @@
  @return YES if the block returns NO for all objects in the ordered set, NO
  otherwise.
  */
-- (BOOL)bk_none:(BOOL (^)(id obj))block;
+- (BOOL)bk_none:(BOOL (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to find whether all objects match the block.
 
@@ -146,7 +146,7 @@
  @return YES if the block returns YES for all objects in the ordered set, NO
  otherwise.
  */
-- (BOOL)bk_all:(BOOL (^)(id obj))block;
+- (BOOL)bk_all:(BOOL (^)(ObjectType obj))block;
 
 /** Tests whether every element of this ordered set relates to the corresponding
  element of another array according to match by block.
@@ -155,7 +155,7 @@
 
 	 NSArray *numbers = @[ @(1), @(2), @(3) ];
 	 NSArray *letters = @[ @"1", @"2", @"3" ];
-	 BOOL doesCorrespond = [numbers bk_corresponds:letters withBlock:^(id number, id letter) {
+	 BOOL doesCorrespond = [numbers bk_corresponds:letters withBlock:^(ObjectType number, id letter) {
 		 return [[number stringValue] isEqualToString:letter];
 	 }];
 
@@ -164,5 +164,5 @@
  @return Returns a BOOL, true if every element of the ordered set relates to
  corresponding element in another ordered set.
  */
-- (BOOL)bk_corresponds:(NSOrderedSet *)list withBlock:(BOOL (^)(id obj1, id obj2))block;
+- (BOOL)bk_corresponds:(NSOrderedSet *)list withBlock:(BOOL (^)(ObjectType obj1, id obj2))block;
 @end

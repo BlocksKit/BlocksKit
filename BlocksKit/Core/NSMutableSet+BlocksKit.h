@@ -18,14 +18,14 @@
 
  @see NSSet(BlocksKit)
  */
-@interface NSMutableSet (BlocksKit)
+@interface NSMutableSet<ObjectType> (BlocksKit)
 
 /** Filters a mutable set to the objects matching the block.
 
  @param block A single-argument, BOOL-returning code block.
  @see <NSSet(BlocksKit)>bk_reject:
  */
-- (void)bk_performSelect:(BOOL (^)(id obj))block;
+- (void)bk_performSelect:(BOOL (^)(ObjectType obj))block;
 
 /** Filters a mutable set to all objects but the ones matching the block,
  the logical inverse to bk_select:.
@@ -33,18 +33,18 @@
  @param block A single-argument, BOOL-returning code block.
  @see <NSSet(BlocksKit)>bk_select:
  */
-- (void)bk_performReject:(BOOL (^)(id obj))block;
+- (void)bk_performReject:(BOOL (^)(ObjectType obj))block;
 
 /** Transform the objects in the set to the results of the block.
 
  This is sometimes referred to as a transform, mutating one of each object:
-	[controllers bk_map:^id(id obj) {
+	[controllers bk_map:^id(ObjectType obj) {
 	  return [obj view];
 	}];
 
  @param block A single-argument, object-returning code block.
  @see <NSSet(BlocksKit)>bk_map:
  */
-- (void)bk_performMap:(id (^)(id obj))block;
+- (void)bk_performMap:(id (^)(ObjectType obj))block;
 
 @end
