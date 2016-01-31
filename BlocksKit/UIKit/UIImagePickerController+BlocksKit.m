@@ -32,6 +32,10 @@
 
 	void (^block)(UIImagePickerController *) = [self blockImplementationForMethod:_cmd];
 	if (block) block(picker);
+
+	if (!block && ![realDelegate respondsToSelector:@selector(imagePickerControllerDidCancel:)]) {
+		[picker dismissViewControllerAnimated:YES completion:nil];
+	}
 }
 
 @end
