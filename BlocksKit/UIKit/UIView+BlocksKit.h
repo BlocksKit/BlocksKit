@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Adds a recognizer for long press
  *
  *  @param duration The minimum period finger must press on the view for the gesture to be recognized
- *  @param block    The handler for the UITapGestureRecognizer
+ *  @param block    The handler for the UILongPressGestureRecognizer
  */
 - (void)bk_longPressEndedAfter:(CGFloat)duration
                     completion:(void (^)(void))block;
