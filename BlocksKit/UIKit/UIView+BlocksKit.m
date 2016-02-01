@@ -30,6 +30,7 @@
 		}
 	}];
 
+    self.userInteractionEnabled = YES;
 	[self addGestureRecognizer:gesture];
 }
 
@@ -50,6 +51,20 @@
 	[self.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
 		block(subview);
 	}];
+}
+
+- (void)bk_longPressEndedAfter:(CGFloat)duration
+                    completion:(void (^)(void))block
+{
+    if (!block) return;
+    
+    UILongPressGestureRecognizer *gesture = [UILongPressGestureRecognizer bk_recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+        if (state == UIGestureRecognizerStateRecognized) block();
+    }];
+    
+    gesture.minimumPressDuration = duration;
+    [self addGestureRecognizer:gesture];
+    self.userInteractionEnabled = YES;
 }
 
 @end

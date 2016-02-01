@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
  - Kevin O'Neill. <https://github.com/kevinoneill>. 2011. BSD.
  - Jake Marsh. <https://github.com/jakemarsh>. 2011. 
  - Zach Waldowski. <https://github.com/zwaldowski>. 2011.
+ - Mango Fang. <https://github.com/100mango>. 2016
 
  @warning UIView is only available on a platform with UIKit.
  */
@@ -68,6 +69,15 @@ NS_ASSUME_NONNULL_BEGIN
  @param block A code block that interacts with a UIView sender.
  */
 - (void)bk_eachSubview:(void (^)(UIView *subview))block;
+
+/**
+ *  Adds a recognizer for long press
+ *
+ *  @param duration The minimum period finger must press on the view for the gesture to be recognized
+ *  @param block    The handler for the UILongPressGestureRecognizer
+ */
+- (void)bk_longPressEndedAfter:(CGFloat)duration
+                    completion:(void (^)(void))block;
 
 @end
 
