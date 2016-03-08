@@ -34,6 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)bk_each:(void (^)(ObjectType obj))block;
 
+/** Loops through an array and executes the given block with each object.
+
+ @param block A double-argument, void-returning code block with index.
+ */
+- (void)bk_eachWithIndex:(void (^)(ObjectType obj, NSUInteger index))block;
+
 /** Enumerates through an array concurrently and executes
  the given block once for each object.
 
@@ -88,10 +94,22 @@ NS_ASSUME_NONNULL_BEGIN
 	   return [obj stringByAppendingString:@".png"]);
 	 }];
 
- @param block A single-argument, object-returning code block.
+ @param block A double-argument, object-returning code block with index.
  @return Returns an array of the objects returned by the block.
  */
 - (NSArray *)bk_map:(id (^)(ObjectType obj))block;
+
+/** Call the block once for each object and create an array of the return values.
+
+  This is sometimes referred to as a transform, mutating one of each object:
+      NSArray *new = [stringArray bk_map:^id(id obj, NSUInteger index) {
+        return [obj stringByAppendingString:@".png"]);
+      }];
+
+  @param block A single-argument, object-returning code block.
+  @return Returns an array of the objects returned by the block.
+ */
+- (NSArray *)bk_mapWithIndex:(id (^)(ObjectType obj, NSUInteger index))block;
 
 /** Behaves like map, but doesn't add NSNull objects if you return nil in the block.
 
