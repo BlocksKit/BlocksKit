@@ -16,6 +16,15 @@
 	}];
 }
 
+- (void)bk_eachWithIndex:(void (^)(id obj, NSUInteger index))block
+{
+    NSParameterAssert(block != nil);
+
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        block(obj, idx);
+    }];
+}
+
 - (void)bk_apply:(void (^)(id obj))block
 {
 	NSParameterAssert(block != nil);
@@ -67,6 +76,20 @@
 	}];
 
 	return result;
+}
+
+- (NSArray *)bk_mapWithIndex:(id (^)(id obj, NSUInteger index))block
+{
+    NSParameterAssert(block != nil);
+
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
+
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        id value = block(obj, idx) ?: [NSNull null];
+        [result addObject:value];
+    }];
+    
+    return result;
 }
 
 - (NSArray *)bk_compact:(id (^)(id obj))block
