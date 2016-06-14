@@ -23,8 +23,14 @@
 		if (![obj isKindOfClass:[UITapGestureRecognizer class]]) return;
 
 		UITapGestureRecognizer *tap = obj;
-		BOOL rightTouches = (tap.numberOfTouchesRequired == numberOfTouches);
-		BOOL rightTaps = (tap.numberOfTapsRequired == numberOfTaps);
+//**********This is a logic error, this can't set response chain by requireGestureRecognizerToFail
+//		BOOL rightTouches = (tap.numberOfTouchesRequired == numberOfTouches);
+//		BOOL rightTaps = (tap.numberOfTapsRequired == numberOfTaps);
+        
+//***********update
+        BOOL rightTouches = (tap.numberOfTouchesRequired > numberOfTouches);
+        BOOL rightTaps = (tap.numberOfTapsRequired > numberOfTaps);
+        
 		if (rightTouches && rightTaps) {
 			[gesture requireGestureRecognizerToFail:tap];
 		}
