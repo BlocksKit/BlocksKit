@@ -3,7 +3,10 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** Block control event handling for UIControl.
 
@@ -28,9 +31,14 @@
  */
 - (void)bk_addEventHandler:(void (^)(id sender))handler forControlEvents:(UIControlEvents)controlEvents;
 
-/** Removes all blocks for a particular event combination.
- @param controlEvents A bitmask specifying the control events for which the block will be removed.
- @see addEventHandler:forControlEvents:
+/** Removes all control event blocks associated with the given mask of control
+ * events.
+ *
+ * Do note that, like @c UIControl, this method will not decompose control
+ * events; thus, only a handler matching an exact given bitmask will be removed.
+ *
+ * @param controlEvents A bitmask specifying the control events for which the block will be removed.
+ * @see addEventHandler:forControlEvents:
  */
 - (void)bk_removeEventHandlersForControlEvents:(UIControlEvents)controlEvents;
 
@@ -42,3 +50,5 @@
 - (BOOL)bk_hasEventHandlersForControlEvents:(UIControlEvents)controlEvents;
 
 @end
+
+NS_ASSUME_NONNULL_END

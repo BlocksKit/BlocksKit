@@ -3,8 +3,8 @@
 //  BlocksKit
 //
 
-#import "UIGestureRecognizer+BlocksKit.h"
 #import "UIView+BlocksKit.h"
+#import "UIGestureRecognizer+BlocksKit.h"
 
 @implementation UIView (BlocksKit)
 
@@ -40,7 +40,7 @@
 
 - (void)bk_whenDoubleTapped:(void (^)(void))block
 {
-	[self bk_whenTouches:2 tapped:1 handler:block];
+	[self bk_whenTouches:1 tapped:2 handler:block];
 }
 
 - (void)bk_eachSubview:(void (^)(UIView *subview))block

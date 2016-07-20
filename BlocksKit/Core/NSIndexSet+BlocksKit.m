@@ -38,7 +38,6 @@
 		return block(idx);
 	}];
 
-	if (!list.count) return nil;
 	return list;
 }
 
@@ -58,7 +57,6 @@
 		[list addIndex:block(idx)];
 	}];
 
-	if (!list.count) return nil;
 	return list;
 }
 

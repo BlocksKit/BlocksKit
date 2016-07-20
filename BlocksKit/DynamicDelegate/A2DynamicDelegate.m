@@ -3,9 +3,10 @@
 //  BlocksKit
 //
 
-#import <objc/message.h>
-#import "A2BlockInvocation.h"
 #import "A2DynamicDelegate.h"
+@import ObjectiveC.message;
+@import ObjectiveC.runtime;
+#import "A2BlockInvocation.h"
 
 Protocol *a2_dataSourceProtocol(Class cls);
 Protocol *a2_delegateProtocol(Class cls);
@@ -19,6 +20,20 @@ static BOOL selectorsEqual(const void *item1, const void *item2, NSUInteger(*__u
 static NSString *selectorDescribe(const void *item1)
 {
 	return NSStringFromSelector((SEL)item1);
+}
+
+static inline BOOL protocol_declaredSelector(Protocol *protocol, SEL selector)
+{
+    for (int i = 0; i < 4; i++) {
+        BOOL required = 1 & (i);
+        BOOL instance = 1 & (i >> 1);
+
+        struct objc_method_description description = protocol_getMethodDescription(protocol, selector, required, instance);
+        if (description.name) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @interface NSMapTable (BKAdditions)
@@ -108,7 +123,7 @@ static NSString *selectorDescribe(const void *item1)
 	return [super class];
 }
 
-- (id)initWithProtocol:(Protocol *)protocol
+- (instancetype)initWithProtocol:(Protocol *)protocol
 {
 	_protocol = protocol;
 	_handlers = [NSMutableDictionary dictionary];
@@ -156,7 +171,9 @@ static NSString *selectorDescribe(const void *item1)
 }
 - (BOOL)respondsToSelector:(SEL)selector
 {
-	return [self.invocationsBySelectors bk_objectForSelector:selector] || class_respondsToSelector(object_getClass(self), selector) || [self.realDelegate respondsToSelector:selector];
+	return [self.invocationsBySelectors bk_objectForSelector:selector] ||
+		   class_respondsToSelector(object_getClass(self), selector)   ||
+	       (protocol_declaredSelector(self.protocol, selector) && [self.realDelegate respondsToSelector:selector]);
 }
 
 - (void)doesNotRecognizeSelector:(SEL)aSelector

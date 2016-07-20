@@ -1,0 +1,18 @@
+//
+// This file defines additional configuration options that are appropriate only
+// for a framework on OS X. This should be set at the target level for each
+// project configuration.
+//
+
+// Import base framework settings
+#include "Common-Framework.xcconfig"
+
+// Import common settings specific to Mac OS X
+#include "Mac-Base.xcconfig"
+
+// Framework Version
+//
+// Framework bundles are versioned by having contents in subfolders of a version folder
+// that has links to the current version and its contents.
+
+FRAMEWORK_VERSION = A

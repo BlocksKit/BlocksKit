@@ -3,7 +3,10 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <MessageUI/MessageUI.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** MFMailComposeViewController with block callbacks.
 
@@ -25,6 +28,8 @@
  mailComposeController:didFinishWithResult:error:method
  of MFMailComposeViewControllerDelegate.
 */
-@property (nonatomic, copy, setter = bk_setCompletionBlock:) void (^bk_completionBlock)(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error);
+@property (nonatomic, copy, setter = bk_setCompletionBlock:, nullable) void (^bk_completionBlock)(MFMailComposeViewController *controller, MFMailComposeResult result, NSError *error);
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -3,9 +3,13 @@
 //  BlocksKit
 //
 
-#import "NSObject+A2BlockDelegate.h"
-#import "NSObject+A2DynamicDelegate.h"
 #import "UIActionSheet+BlocksKit.h"
+#import "A2DynamicDelegate.h"
+#import "NSObject+A2DynamicDelegate.h"
+#import "NSObject+A2BlockDelegate.h"
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 #pragma mark Custom delegate
 
@@ -22,20 +26,18 @@
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)])
 		[realDelegate actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
-	
-	void (^block)(void) = self.handlers[@(buttonIndex)];
 
-  // Note: On iPad with iOS 8 GM seed, `actionSheet:clickedButtonAtIndex:` always gets called twice if you tap any button other than Cancel;
-  // In other words, assume you have two buttons: OK and Cancel; if you tap OK, this method will be called once for the OK button and once
-  // for the Cancel button. This could result in some really obscure bugs, so adding `didHandleButtonClick` property maintains iOS 7 compatibility.
-  if (block && self.didHandleButtonClick == NO) {
-    self.didHandleButtonClick = YES;
+	void (^handler)(void) = self.handlers[@(buttonIndex)];
 
-    // Presenting view controllers from within action sheet delegate does not work on iPad running iOS 8 GM seed, without delay
-    dispatch_async(dispatch_get_main_queue(), ^{
-      block();
-    });
-  }
+	// Note: On iPad with iOS 8 GM seed, `actionSheet:clickedButtonAtIndex:` always gets called twice if you tap any button other than Cancel;
+	// In other words, assume you have two buttons: OK and Cancel; if you tap OK, this method will be called once for the OK button and once
+	// for the Cancel button. This could result in some really obscure bugs, so adding `didHandleButtonClick` property maintains iOS 7 compatibility.
+	if (handler && self.didHandleButtonClick == NO) {
+		self.didHandleButtonClick = YES;
+
+		// Presenting view controllers from within action sheet delegate does not work on iPad running iOS 8 GM seed, without delay
+		dispatch_async(dispatch_get_main_queue(), handler);
+	}
 }
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet
@@ -53,7 +55,7 @@
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(didPresentActionSheet:)])
 		[realDelegate didPresentActionSheet:actionSheet];
-	
+
 	void (^block)(UIActionSheet *) = [self blockImplementationForMethod:_cmd];
 	if (block) block(actionSheet);
 }
@@ -63,7 +65,7 @@
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheet:willDismissWithButtonIndex:)])
 		[realDelegate actionSheet:actionSheet willDismissWithButtonIndex:buttonIndex];
-	
+
 	void (^block)(UIActionSheet *, NSInteger) = [self blockImplementationForMethod:_cmd];
 	if (block) block(actionSheet, buttonIndex);
 }
@@ -76,6 +78,7 @@
 
 	void (^block)(UIActionSheet *, NSInteger) = [self blockImplementationForMethod:_cmd];
 	if (block) block(actionSheet, buttonIndex);
+	self.didHandleButtonClick = NO;
 }
 
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet
@@ -83,7 +86,7 @@
 	id realDelegate = self.realDelegate;
 	if (realDelegate && [realDelegate respondsToSelector:@selector(actionSheetCancel:)])
 		[realDelegate actionSheetCancel:actionSheet];
-	
+
 	void (^block)(void) = actionSheet.bk_cancelBlock;
 	if (block) block();
 }
@@ -111,11 +114,11 @@
 
 #pragma mark Initializers
 
-+ (id)bk_actionSheetWithTitle:(NSString *)title {
++ (instancetype)bk_actionSheetWithTitle:(NSString *)title {
 	return [[[self class] alloc] bk_initWithTitle:title];
 }
 
-- (id)bk_initWithTitle:(NSString *)title {
+- (instancetype)bk_initWithTitle:(NSString *)title {
 	self = [self initWithTitle:title delegate:self.bk_dynamicDelegate cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 	if (!self) { return nil; }
 	self.delegate = self.bk_dynamicDelegate;
@@ -136,7 +139,7 @@
 	self.destructiveButtonIndex = index;
 	return index;
 }
-											
+
 - (NSInteger)bk_setCancelButtonWithTitle:(NSString *)title handler:(void (^)(void))block {
 	NSInteger cancelButtonIndex = self.cancelButtonIndex;
 
@@ -179,3 +182,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop

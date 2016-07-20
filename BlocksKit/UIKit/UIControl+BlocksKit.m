@@ -3,8 +3,8 @@
 //  BlocksKit
 //
 
-#import <objc/runtime.h>
 #import "UIControl+BlocksKit.h"
+@import ObjectiveC.runtime;
 
 static const void *BKControlHandlersKey = &BKControlHandlersKey;
 

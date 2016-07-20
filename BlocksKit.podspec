@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'BlocksKit'
-  s.version               = '2.2.5'
+  s.version               = '2.2.6'
   s.license               = 'MIT'
   s.summary               = 'The Objective-C block utilities you always wish you had.'
   s.homepage              = 'https://zwaldowski.github.io/BlocksKit'
@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
   s.requires_arc          = true
   s.osx.deployment_target = '10.8'
   s.ios.deployment_target = '6.0'
+  s.watchos.deployment_target = '2.0'
 
   s.default_subspec = 'All'
   s.subspec 'All' do |ss|
@@ -29,7 +30,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Core' do |ss|
-    ss.source_files = 'BlocksKit/BlocksKit.h', 'BlocksKit/Core/*.{h,m}'
+    ss.source_files = 'BlocksKit/BlocksKit.h', "BlocksKit/BKDefines.h", 'BlocksKit/Core/*.{h,m}'
   end
 
   s.subspec 'DynamicDelegate' do |ss|

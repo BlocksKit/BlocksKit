@@ -1,0 +1,47 @@
+framework module BlocksKit {
+  umbrella header "BlocksKit.h"
+  requires objc
+
+  module Dynamic {
+    header "A2BlockInvocation.h"
+    header "A2DynamicDelegate.h"
+    header "NSObject+A2BlockDelegate.h"
+    header "NSObject+A2DynamicDelegate.h"
+    link framework "Foundation"
+
+    module Foundation {
+      // if we get any more than two this should become an umbrella
+      header "NSCache+BlocksKit.h"
+      header "NSURLConnection+BlocksKit.h"
+      link framework "Foundation"
+      export Dynamic
+      export *
+    }
+
+    module MessageUI {
+      header "BlocksKit+MessageUI.h"
+      link framework "MessageUI"
+      export Dynamic
+      export *
+    }
+
+    module QuickLook {
+      header "BlocksKit+QuickLook.h"
+      link framework "QuickLook"
+      export Dynamic
+      export *
+    }
+
+    module UIKit {
+      header "BlocksKit+UIKit.h"
+      link framework "UIKit"
+      export Dynamic
+      export *
+    }
+
+    export Foundation
+  }
+
+  export *
+  module * { export * }
+}

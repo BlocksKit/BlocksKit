@@ -69,6 +69,23 @@
 	return result;
 }
 
+- (NSArray *)bk_compact:(id (^)(id obj))block
+{
+	NSParameterAssert(block != nil);
+	
+	NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
+	
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		id value = block(obj);
+		if(value)
+		{
+			[result addObject:value];
+		}
+	}];
+	
+	return result;
+}
+
 - (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block
 {
 	NSParameterAssert(block != nil);

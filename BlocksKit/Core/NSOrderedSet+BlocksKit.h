@@ -3,7 +3,10 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** Block extensions for NSOrderedSet.
 
@@ -21,13 +24,13 @@
  @see NSArray(BlocksKit)
  @see NSSet(BlocksKit)
  */
-@interface NSOrderedSet (BlocksKit)
+@interface __GENERICS(NSOrderedSet, ObjectType) (BlocksKit)
 
 /** Loops through an ordered set and executes the given block with each object.
 
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_each:(void (^)(id obj))block;
+- (void)bk_each:(void (^)(ObjectType obj))block;
 
 /** Enumerates through an ordered set concurrently and executes the given block
  once for each object.
@@ -40,7 +43,7 @@
 
  @param block A single-argument, void-returning code block.
  */
-- (void)bk_apply:(void (^)(id obj))block;
+- (void)bk_apply:(void (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to find the object matching the block.
 
@@ -51,7 +54,7 @@
  @return Returns the object, if found, or `nil`.
  @see bk_select:
  */
-- (id)bk_match:(BOOL (^)(id obj))block;
+- (nullable id)bk_match:(BOOL (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to find the objects matching the block.
 
@@ -59,7 +62,7 @@
  @return Returns an ordered set of the objects found.
  @see bk_match:
  */
-- (NSOrderedSet *)bk_select:(BOOL (^)(id obj))block;
+- (NSOrderedSet *)bk_select:(BOOL (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to to find the objects not matching the block.
 
@@ -74,7 +77,7 @@
  @param block A single-argument, BOOL-returning code block.
  @return Returns an ordered set of all objects not found.
  */
-- (NSOrderedSet *)bk_reject:(BOOL (^)(id obj))block;
+- (NSOrderedSet *)bk_reject:(BOOL (^)(ObjectType obj))block;
 
 /** Call the block once for each object and create an ordered set of the return
  values.
@@ -87,7 +90,7 @@
  @param block A single-argument, object-returning code block.
  @return Returns an ordered set of the objects returned by the block.
  */
-- (NSOrderedSet *)bk_map:(id (^)(id obj))block;
+- (NSOrderedSet *)bk_map:(id (^)(ObjectType obj))block;
 
 /** Arbitrarily accumulate objects using a block.
 
@@ -108,7 +111,7 @@
  @param block A block that takes the current sum and the next object to return the new sum.
  @return An accumulated value.
  */
-- (id)bk_reduce:(id)initial withBlock:(id (^)(id sum, id obj))block;
+- (nullable id)bk_reduce:(nullable id)initial withBlock:(__nullable id (^)(__nullable id sum, ObjectType obj))block;
 
 /** Loops through an ordered set to find whether any object matches the block.
 
@@ -128,7 +131,7 @@
  @param block A single-argument, BOOL-returning code block.
  @return YES for the first time the block returns YES for an object, NO otherwise.
  */
-- (BOOL)bk_any:(BOOL (^)(id obj))block;
+- (BOOL)bk_any:(BOOL (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to find whether no objects match the block.
 
@@ -138,7 +141,7 @@
  @return YES if the block returns NO for all objects in the ordered set, NO
  otherwise.
  */
-- (BOOL)bk_none:(BOOL (^)(id obj))block;
+- (BOOL)bk_none:(BOOL (^)(ObjectType obj))block;
 
 /** Loops through an ordered set to find whether all objects match the block.
 
@@ -146,7 +149,7 @@
  @return YES if the block returns YES for all objects in the ordered set, NO
  otherwise.
  */
-- (BOOL)bk_all:(BOOL (^)(id obj))block;
+- (BOOL)bk_all:(BOOL (^)(ObjectType obj))block;
 
 /** Tests whether every element of this ordered set relates to the corresponding
  element of another array according to match by block.
@@ -164,5 +167,7 @@
  @return Returns a BOOL, true if every element of the ordered set relates to
  corresponding element in another ordered set.
  */
-- (BOOL)bk_corresponds:(NSOrderedSet *)list withBlock:(BOOL (^)(id obj1, id obj2))block;
+- (BOOL)bk_corresponds:(NSOrderedSet *)list withBlock:(BOOL (^)(ObjectType obj1, id obj2))block;
 @end
+
+NS_ASSUME_NONNULL_END

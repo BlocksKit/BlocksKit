@@ -3,7 +3,10 @@
 //  BlocksKit
 //
 
+#import "BKDefines.h"
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** Objective-C wrapper for 10.6+ associated object API.
 
@@ -36,7 +39,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-- (void)bk_associateValue:(id)value withKey:(const void *)key;
+- (void)bk_associateValue:(nullable id)value withKey:(const void *)key;
 
 /** Strongly associates an object with the receiving class.
 
@@ -44,7 +47,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-+ (void)bk_associateValue:(id)value withKey:(const void *)key;
++ (void)bk_associateValue:(nullable id)value withKey:(const void *)key;
 
 /** Strongly, thread-safely associates an object with the reciever.
 
@@ -60,7 +63,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-- (void)bk_atomicallyAssociateValue:(id)value withKey:(const void *)key;
+- (void)bk_atomicallyAssociateValue:(nullable id)value withKey:(const void *)key;
 
 /** Strongly, thread-safely associates an object with the receiving class.
 
@@ -68,7 +71,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-+ (void)bk_atomicallyAssociateValue:(id)value withKey:(const void *)key;
++ (void)bk_atomicallyAssociateValue:(nullable id)value withKey:(const void *)key;
 
 /** Associates a copy of an object with the reciever.
 
@@ -81,7 +84,7 @@
  @param value Any object, pointer, or value.
  @param key A unique key pointer.
  */
-- (void)bk_associateCopyOfValue:(id)value withKey:(const void *)key;
+- (void)bk_associateCopyOfValue:(nullable id)value withKey:(const void *)key;
 
 /** Associates a copy of an object with the receiving class.
 
@@ -89,7 +92,7 @@
  @param value Any object, pointer, or value.
  @param key A unique key pointer.
  */
-+ (void)bk_associateCopyOfValue:(id)value withKey:(const void *)key;
++ (void)bk_associateCopyOfValue:(nullable id)value withKey:(const void *)key;
 
 /** Thread-safely associates a copy of an object with the reciever.
 
@@ -103,7 +106,7 @@
  @param value Any object, pointer, or value.
  @param key A unique key pointer.
  */
-- (void)bk_atomicallyAssociateCopyOfValue:(id)value withKey:(const void *)key;
+- (void)bk_atomicallyAssociateCopyOfValue:(nullable id)value withKey:(const void *)key;
 
 /** Thread-safely associates a copy of an object with the receiving class.
 
@@ -111,7 +114,7 @@
  @param value Any object, pointer, or value.
  @param key A unique key pointer.
  */
-+ (void)bk_atomicallyAssociateCopyOfValue:(id)value withKey:(const void *)key;
++ (void)bk_atomicallyAssociateCopyOfValue:(nullable id)value withKey:(const void *)key;
 
 /** Weakly associates an object with the reciever.
 
@@ -122,7 +125,7 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-- (void)bk_weaklyAssociateValue:(__autoreleasing id)value withKey:(const void *)key;
+- (void)bk_weaklyAssociateValue:(nullable __autoreleasing id)value withKey:(const void *)key;
 
 /** Weakly associates an object with the receiving class.
 
@@ -130,14 +133,14 @@
  @param value Any object.
  @param key A unique key pointer.
  */
-+ (void)bk_weaklyAssociateValue:(__autoreleasing id)value withKey:(const void *)key;
++ (void)bk_weaklyAssociateValue:(nullable __autoreleasing id)value withKey:(const void *)key;
 
 /** Returns the associated value for a key on the reciever.
 
  @param key A unique key pointer.
  @return The object associated with the key, or `nil` if not found.
  */
-- (id)bk_associatedValueForKey:(const void *)key;
+- (nullable id)bk_associatedValueForKey:(const void *)key;
 
 /** Returns the associated value for a key on the receiving class.
 
@@ -145,7 +148,7 @@
  @param key A unique key pointer.
  @return The object associated with the key, or `nil` if not found.
  */
-+ (id)bk_associatedValueForKey:(const void *)key;
++ (nullable id)bk_associatedValueForKey:(const void *)key;
 
 /** Returns the reciever to a clean state by removing all
  associated objects, releasing them if necessary. */
@@ -156,3 +159,5 @@
 + (void)bk_removeAllAssociatedObjects;
 
 @end
+
+NS_ASSUME_NONNULL_END
