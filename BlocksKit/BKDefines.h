@@ -64,3 +64,9 @@
 #if !defined(BK_URL_CONNECTION_DEPRECATED)
 # define BK_URL_CONNECTION_DEPRECATED NS_DEPRECATED(10_5, 10_11, 2_0, 9_0, "The BlocksKit extensions for NSURLConnection are deprecated. Use NSURLSession instead.");
 #endif
+
+#if !defined(BK_DISABLE_FOR_APP_EXTENSION)
+# define BK_DISABLE_FOR_APP_EXTENSION NS_EXTENSION_UNAVAILABLE_IOS("Not available in app extensions.")
+#endif
+
+
