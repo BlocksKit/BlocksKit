@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF9963E11E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = AF9963DF1E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.h */; };
+		AF9963E21E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9963E01E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.m */; };
 		DB4CA4261B3A662A004B70F8 /* BKMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = DB4CA4051B3A662A004B70F8 /* BKMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB4CA4271B3A662A004B70F8 /* BKMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = DB4CA4051B3A662A004B70F8 /* BKMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB4CA4281B3A662A004B70F8 /* NSArray+BlocksKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DB4CA4061B3A662A004B70F8 /* NSArray+BlocksKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -378,6 +380,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AF9963DF1E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPopoverPresentationController+BlocksKit.h"; sourceTree = "<group>"; };
+		AF9963E01E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPopoverPresentationController+BlocksKit.m"; sourceTree = "<group>"; };
 		DB4CA3F91B3A624B004B70F8 /* Common-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Common-Framework.xcconfig"; sourceTree = "<group>"; };
 		DB4CA3FA1B3A624B004B70F8 /* iOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Base.xcconfig"; sourceTree = "<group>"; };
 		DB4CA3FB1B3A624B004B70F8 /* iOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Framework.xcconfig"; sourceTree = "<group>"; };
@@ -688,6 +692,8 @@
 				DB4CA49C1B3A6657004B70F8 /* UIImagePickerController+BlocksKit.m */,
 				DB4CA49D1B3A6657004B70F8 /* UIPopoverController+BlocksKit.h */,
 				DB4CA49E1B3A6657004B70F8 /* UIPopoverController+BlocksKit.m */,
+				AF9963DF1E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.h */,
+				AF9963E01E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.m */,
 				DB4CA49F1B3A6657004B70F8 /* UITextField+BlocksKit.h */,
 				DB4CA4A01B3A6657004B70F8 /* UITextField+BlocksKit.m */,
 				DB5C6C4E1C52009700778E5F /* UITextView+BlocksKit.h */,
@@ -886,6 +892,7 @@
 				DB4CA4561B3A662A004B70F8 /* NSMutableSet+BlocksKit.h in Headers */,
 				DB4CA4271B3A662A004B70F8 /* BKMacros.h in Headers */,
 				DB4CA4511B3A662A004B70F8 /* NSMutableOrderedSet+BlocksKit.h in Headers */,
+				AF9963E11E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.h in Headers */,
 				DB4CA4AB1B3A6657004B70F8 /* A2DynamicDelegate.h in Headers */,
 				DB4CA4381B3A662A004B70F8 /* NSInvocation+BlocksKit.h in Headers */,
 				DB4CA4F11B3A6657004B70F8 /* UIImagePickerController+BlocksKit.h in Headers */,
@@ -1192,6 +1199,7 @@
 				DB4CA5071B3A6657004B70F8 /* UIWebView+BlocksKit.m in Sources */,
 				DB4CA4621B3A662A004B70F8 /* NSObject+BKBlockExecution.m in Sources */,
 				DB4CA4FD1B3A6657004B70F8 /* UITextField+BlocksKit.m in Sources */,
+				AF9963E21E39092800F407D1 /* UIPopoverPresentationController+BlocksKit.m in Sources */,
 				DB4CA43A1B3A662A004B70F8 /* NSInvocation+BlocksKit.m in Sources */,
 				DB4CA4DF1B3A6657004B70F8 /* UIBarButtonItem+BlocksKit.m in Sources */,
 				DB4CA4711B3A662A004B70F8 /* NSSet+BlocksKit.m in Sources */,
