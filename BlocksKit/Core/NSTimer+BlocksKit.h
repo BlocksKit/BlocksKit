@@ -45,8 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSTimer (BlocksKit_Deprecated)
 
-+ (instancetype)bk_scheduledTimerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_performAfterDelay:usingBlock:");
-+ (instancetype)bk_timerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_performAfterDelay:usingBlock:");
++ (instancetype)bk_scheduledTimerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_scheduleTimerWithTimeInterval:repeats:usingBlock:");
++ (instancetype)bk_timerWithTimeInterval:(NSTimeInterval)seconds block:(void (^)(NSTimer *timer))block repeats:(BOOL)repeats DEPRECATED_MSG_ATTRIBUTE("Replaced with -bk_timerWithTimeInterval:repeats:usingBlock:");
 
 @end
 
