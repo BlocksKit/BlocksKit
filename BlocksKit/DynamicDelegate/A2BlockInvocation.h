@@ -85,7 +85,6 @@ extern NSString *const A2IncompatibleMethodSignatureKey;
  @param inv An instance of NSInvocation with values for its arguments set.
  @param returnValue On return, the block's return value, or `nil` for a void
  return type.
- @param NO if the buffer copies necessary for invocation failed, YES otherwise.
  @see invokeWithInvocation:returnValue:
  */
 - (BOOL)invokeWithInvocation:(NSInvocation *)inv returnValue:(out NSValue *__nullable *__nonnull)returnValue;
