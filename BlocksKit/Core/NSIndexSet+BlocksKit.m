@@ -31,6 +31,20 @@
 	}];
 }
 
+- (NSUInteger)bk_count:(BOOL (^)(NSUInteger index))block {
+    NSParameterAssert(block != nil);
+    
+    __block NSUInteger count = 0;
+    
+    [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        if (block(idx)) {
+            count++;
+        }
+    }];
+    
+    return count;
+}
+
 - (NSIndexSet *)bk_select:(BOOL (^)(NSUInteger index))block {
 	NSParameterAssert(block != nil);
 

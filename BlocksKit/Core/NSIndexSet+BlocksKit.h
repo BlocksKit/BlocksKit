@@ -53,6 +53,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSUInteger)bk_match:(BOOL (^)(NSUInteger index))block;
 
+/** Counts number of elements passed condition from the block.
+ 
+ @param block A block with condition.
+ @return number of elements that passed the test.
+ */
+- (NSUInteger)bk_count:(BOOL (^)(NSUInteger index))block;
+
 /** Loops through an index set and returns an all indexes matching the block.
 
  @param block A single-argument, BOOL-returning code block.
