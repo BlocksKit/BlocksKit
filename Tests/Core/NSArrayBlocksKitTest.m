@@ -51,6 +51,16 @@
 	XCTAssertEqual(found, @"22", @"matched object is %@", found);
 }
 
+- (void)testCount {
+    BOOL(^validationBlock)(id) = ^BOOL(NSString *obj) {
+        return obj.integerValue > 20;
+    };
+    
+    NSUInteger count = [_subject bk_count:validationBlock];
+    
+    XCTAssertEqual(count, (NSUInteger)2);
+}
+
 - (void)testNotMatch {
 	BOOL(^validationBlock)(id) = ^(NSString *obj) {
 		_total += [obj length];
