@@ -26,6 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable id)bk_match:(BOOL (^)(KeyType key, ObjectType obj))block;
 
+/** Counts number of elements passed condition from the block.
+ 
+ @param block A block with condition.
+ @return number of elements that passed the test.
+ */
+- (NSUInteger)bk_count:(BOOL (^)(KeyType key, ObjectType obj))block;
+
 /** Loops through a maptable to find the key/value pairs matching the block.
 
  @param block A BOOL-returning code block for a key/value pair.

@@ -62,6 +62,17 @@
 	XCTAssertEqual((NSUInteger)found, (NSUInteger)NSNotFound, @"no items are found");
 }
 
+- (void)testCount {
+    NSMutableString *order = [NSMutableString string];
+    BOOL(^indexValidationBlock)(NSUInteger) = ^BOOL(NSUInteger index) {
+        [order appendFormat:@"%lu", (unsigned long)index];
+        return index >= 2;
+    };
+    NSUInteger count = [_subject bk_count:indexValidationBlock];
+    XCTAssertTrue([order isEqualToString:@"123"], @"the index loop order is %@", order);
+    XCTAssertEqual(count, (NSUInteger)2, @"2 items with indexes greater or equal than 2");
+}
+
 - (void)testSelect {
 	NSMutableString *order = [NSMutableString string];
 	BOOL(^indexValidationBlock)(NSUInteger) = ^(NSUInteger index) {

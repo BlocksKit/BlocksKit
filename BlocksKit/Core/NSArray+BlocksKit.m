@@ -25,6 +25,21 @@
 	}];
 }
 
+- (NSUInteger)bk_count:(BOOL (^)(id obj))block
+{
+    NSParameterAssert(block != nil);
+    
+    __block NSUInteger count = 0;
+    
+    [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (block(obj)) {
+            count++;
+        }
+    }];
+    
+    return count;
+}
+
 - (id)bk_match:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);

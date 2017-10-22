@@ -50,6 +50,17 @@
 	XCTAssertEqualObjects(selected, @(1), @"selected value is %@", selected);
 }
 
+- (void)testCount {
+    BOOL(^validationBlock)(id, id) = ^BOOL(id key,id value) {
+        _total += [value intValue] + [key intValue];
+        return [key isEqualToString:@"1"] || [value isEqualToNumber:@(2)];
+    };
+    
+    NSUInteger count = [_subject bk_count:validationBlock];
+    XCTAssertEqual(count, (NSUInteger)2);
+    XCTAssertEqual(_total, (NSInteger)12, @"2*(1+2+3) = %ld", (long)_total);
+}
+
 - (void)testSelect {
 	BOOL(^validationBlock)(id, id) = ^(id key,id value) {
 		_total += [value intValue] + [key intValue];

@@ -41,6 +41,19 @@
     return match;
 }
 
+- (NSUInteger)bk_count:(BOOL (^)(id key, id obj))block {
+    NSParameterAssert(block != nil);
+    
+    __block NSUInteger count = 0;
+    [self bk_enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if (block(key, obj)) {
+            count++;
+        }
+    }];
+    
+    return count;
+}
+
 - (NSMapTable *)bk_select:(BOOL (^)(id key, id obj))block
 {
     NSParameterAssert(block != nil);

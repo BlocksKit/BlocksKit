@@ -37,6 +37,19 @@
 	return self[index];
 }
 
+- (NSUInteger)bk_count:(BOOL (^)(id obj))block {
+    NSParameterAssert(block != nil);
+    
+    __block NSUInteger count = 0;
+    [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (block(obj)) {
+            count++;
+        }
+    }];
+    
+    return count;
+}
+
 - (NSOrderedSet *)bk_select:(BOOL (^)(id obj))block
 {
 	NSParameterAssert(block != nil);

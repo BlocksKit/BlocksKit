@@ -70,6 +70,20 @@
 	XCTAssertNil(found, @"no matched object");
 }
 
+- (void)testCount {
+    if (!_hasClassAvailable)
+        return;
+    
+    BOOL(^validationBlock)(id) = ^BOOL(NSString *obj) {
+        _total += [obj length];
+        return obj.length > 1;
+    };
+    
+    NSUInteger count = [(NSOrderedSet *)_subject bk_count:validationBlock];
+    XCTAssertEqual(_total, (NSInteger)6, @"total length of \"122333\" is %ld", (long)_total);
+    XCTAssertEqual(count, (NSUInteger)2, @"found %ld objects", count);
+}
+
 - (void)testSelect {
 	if (!_hasClassAvailable)
 		return;
